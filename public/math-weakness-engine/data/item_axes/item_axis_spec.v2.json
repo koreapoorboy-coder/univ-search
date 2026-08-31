@@ -1,0 +1,390 @@
+{
+  "axis_spec_version": "item-axis-spec.v2",
+  "status": "active_shadow_only",
+  "analysis_version": "axis-def.circle-reference.v2.1",
+  "unit_id": "M3_CIRCLE_PROPERTIES",
+  "unit_name": "원의 성질",
+  "base_spec": "public/math-weakness-engine/data/item_axes/item_axis_spec.v1.json",
+  "base_axis_count": 13,
+  "extension_storage_key_count": 3,
+  "storage_key_count_after_merge": 16,
+  "new_math_axis_count": 1,
+  "structured_extension_key_count": 2,
+  "math_axis_count_after_merge": 14,
+  "activation": {
+    "active": true,
+    "allowed_path": "static_shadow_only",
+    "forbidden_paths": [
+      "legacy_output",
+      "D1",
+      "student_profile",
+      "remediation"
+    ]
+  },
+  "state_contract": {
+    "unjudged": "axis key absent within M3_CIRCLE_PROPERTIES",
+    "assessed": "state=assessed with value, certainty, and evidence",
+    "assessed_empty": "state=assessed with value=[] and non-empty axis evidence or non-empty reason",
+    "unjudgeable": "state=unjudgeable with non-empty reason and without value",
+    "not_applicable": "forbidden for the three M3_CIRCLE_PROPERTIES reference keys; outside the unit the key is absent"
+  },
+  "extension_axis_state_policy": {
+    "allowed_states": [
+      "assessed",
+      "unjudgeable"
+    ],
+    "forbidden_states": [
+      "not_applicable"
+    ]
+  },
+  "progress_denominator": {
+    "unit_id": "M3_CIRCLE_PROPERTIES",
+    "rule": "Only items in this unit are included when calculating unjudged rates for these extension keys."
+  },
+  "value_registration_policy": {
+    "mode": "registered_open",
+    "data_rule": "Values must be registered in the current spec version before item data may use them.",
+    "extension_rule": "Add a new value to a new spec version before producing records that use it.",
+    "validator_rule": "Read registered values from this spec; do not hardcode them in validator code.",
+    "database_enum": false
+  },
+  "reference_contract": {
+    "local_to": "one item-analysis record",
+    "must_not_contain": [
+      "D1 user_item_id",
+      "worksheet batch id",
+      "original question number"
+    ],
+    "same_string_same_subject": true,
+    "different_string_different_subject": "judgment_rule_not_structural_validation",
+    "scope_ref": {
+      "required": false,
+      "omitted_means": "item-wide",
+      "current_scoped_format": "option:<number>",
+      "local_ref_format_when_scoped": "<ref-kind>:<scope_ref>:<local-id>",
+      "example": {
+        "scope_ref": "option:1",
+        "circle_ref": "circle:option:1:1",
+        "point_ref": "point:option:1:P"
+      }
+    },
+    "scope_mixing": {
+      "allowed": true,
+      "legacy_projection_if_any_scoped_record": "forbidden",
+      "judgment_rule": "Do not register the same mathematical circle twice under item-wide and scoped references."
+    }
+  },
+  "record_multi_contract": {
+    "arity": "record_multi",
+    "value_type": "object",
+    "assessed_value_type": "array",
+    "empty_array_allowed": true,
+    "record_evidence_min_items": 1,
+    "axis_evidence_role": "Common evidence for the axis state and certainty; may be empty when every non-empty value record has its own evidence.",
+    "empty_value_support": "A non-empty axis evidence array or a non-empty reason is required when value is empty."
+  },
+  "axes": {
+    "unit.M3_CIRCLE_PROPERTIES.AXC04_circle_provenance": {
+      "axis_id": "AXC04_circle_provenance",
+      "scope": "unit",
+      "unit_id": "M3_CIRCLE_PROPERTIES",
+      "axis_role": "new_math_axis",
+      "semantic_parent": null,
+      "question": "풀이에 쓰는 각 원은 문제에 명시됐는가, 조건에서 발견됐는가, 변환으로 생겼는가?",
+      "arity": "record_multi",
+      "value_type": "object",
+      "value_policy": "registered_open",
+      "registered_value_field": "provenance",
+      "local_reference_fields": [
+        "circle_ref",
+        "source_circle_ref"
+      ],
+      "reference_kind_by_field": {
+        "circle_ref": "circle",
+        "source_circle_ref": "circle"
+      },
+      "confirmed_on": [
+        "circle-new-axis-blind-39.corrected.v2"
+      ],
+      "design_evidence": {
+        "sample_id": "circle-new-axis-blind-39.corrected.v2",
+        "case_ids": [
+          "C007",
+          "C017",
+          "C020",
+          "C021",
+          "C022",
+          "C023",
+          "C024",
+          "C027",
+          "C032",
+          "C033",
+          "C038"
+        ]
+      },
+      "record_schema": {
+        "required": [
+          "circle_ref",
+          "provenance",
+          "evidence"
+        ],
+        "optional": [
+          "scope_ref",
+          "source_circle_ref"
+        ],
+        "fields": {
+          "scope_ref": {
+            "type": "string",
+            "min_length": 1
+          },
+          "circle_ref": {
+            "type": "string",
+            "min_length": 1
+          },
+          "provenance": {
+            "type": "string",
+            "current_values": [
+              "given",
+              "derived_from_conditions",
+              "transformed"
+            ]
+          },
+          "source_circle_ref": {
+            "type": "string",
+            "min_length": 1
+          },
+          "evidence": {
+            "type": "array",
+            "min_items": 1
+          }
+        }
+      },
+      "conditional_rules": [
+        "provenance=transformed requires source_circle_ref",
+        "provenance=given forbids source_circle_ref",
+        "provenance=derived_from_conditions forbids source_circle_ref"
+      ],
+      "value_status": {
+        "given": "confirmed_vocabulary",
+        "derived_from_conditions": "confirmed_vocabulary",
+        "transformed": "provisional_vocabulary_observed_in_C038_only"
+      },
+      "rejudgment_basis": [
+        "normalized_item_content.v1"
+      ],
+      "rejudgment_coverage": "partial",
+      "uncovered_change": "diagram_only",
+      "planned_basis": "normalized_item_content.v2"
+    },
+    "unit.M3_CIRCLE_PROPERTIES.AXC01_vertex_refs": {
+      "axis_id": "AXC01_vertex_refs",
+      "scope": "unit",
+      "unit_id": "M3_CIRCLE_PROPERTIES",
+      "axis_role": "structured_extension",
+      "semantic_parent": "unit.M3_CIRCLE_PROPERTIES.AXC01_vertex",
+      "question": "풀이에 실제 쓰이는 각 점은 어느 기준 원에 대해 중심·내부·원 위·외부 중 어디에 있는가?",
+      "arity": "record_multi",
+      "value_type": "object",
+      "value_policy": "registered_open",
+      "registered_value_field": "position",
+      "local_reference_fields": [
+        "point_ref",
+        "circle_ref"
+      ],
+      "reference_kind_by_field": {
+        "point_ref": "point",
+        "circle_ref": "circle"
+      },
+      "confirmed_on": [
+        "circle-new-axis-blind-39.corrected.v2"
+      ],
+      "design_evidence": {
+        "sample_id": "circle-new-axis-blind-39.corrected.v2",
+        "case_coverage": "C001,C003-C035,C037-C039 excluding cases where this structure is not needed"
+      },
+      "record_schema": {
+        "required": [
+          "point_ref",
+          "circle_ref",
+          "position",
+          "evidence"
+        ],
+        "optional": [
+          "scope_ref"
+        ],
+        "fields": {
+          "scope_ref": {
+            "type": "string",
+            "min_length": 1
+          },
+          "point_ref": {
+            "type": "string",
+            "min_length": 1
+          },
+          "circle_ref": {
+            "type": "string",
+            "min_length": 1
+          },
+          "position": {
+            "type": "string",
+            "current_values": [
+              "center",
+              "inside",
+              "on_circle",
+              "outside"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "min_items": 1
+          }
+        }
+      },
+      "legacy_projection": {
+        "target_axis": "unit.M3_CIRCLE_PROPERTIES.AXC01_vertex",
+        "empty_value": "none",
+        "single_item_wide_value_map": {
+          "inside": "inside",
+          "outside": "outside"
+        },
+        "not_representable_values": [
+          "center",
+          "on_circle"
+        ],
+        "not_representable_when": [
+          "two_or_more_records",
+          "any_record_has_scope_ref"
+        ]
+      },
+      "rejudgment_basis": [
+        "normalized_item_content.v1"
+      ],
+      "rejudgment_coverage": "partial",
+      "uncovered_change": "diagram_only",
+      "planned_basis": "normalized_item_content.v2"
+    },
+    "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+      "axis_id": "AXC02_circle_relation_refs",
+      "scope": "unit",
+      "unit_id": "M3_CIRCLE_PROPERTIES",
+      "axis_role": "structured_extension",
+      "semantic_parent": "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation",
+      "question": "각 판정 범위에서 지정한 두 원은 어떤 관계인가?",
+      "arity": "record_multi",
+      "value_type": "object",
+      "value_policy": "registered_open",
+      "registered_value_field": "relation",
+      "local_reference_fields": [
+        "circle_a_ref",
+        "circle_b_ref"
+      ],
+      "reference_kind_by_field": {
+        "circle_a_ref": "circle",
+        "circle_b_ref": "circle"
+      },
+      "confirmed_on": [
+        "circle-new-axis-blind-39.corrected.v2"
+      ],
+      "design_evidence": {
+        "sample_id": "circle-new-axis-blind-39.corrected.v2",
+        "case_ids": [
+          "C002",
+          "C006",
+          "C036"
+        ],
+        "unjudgeable_case_ids": [
+          "C036"
+        ]
+      },
+      "record_schema": {
+        "required": [
+          "circle_a_ref",
+          "circle_b_ref",
+          "relation",
+          "evidence"
+        ],
+        "optional": [
+          "scope_ref"
+        ],
+        "fields": {
+          "scope_ref": {
+            "type": "string",
+            "min_length": 1
+          },
+          "circle_a_ref": {
+            "type": "string",
+            "min_length": 1
+          },
+          "circle_b_ref": {
+            "type": "string",
+            "min_length": 1
+          },
+          "relation": {
+            "type": "string",
+            "current_values": [
+              "외접",
+              "내접",
+              "동심",
+              "교차",
+              "분리"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "min_items": 1
+          }
+        }
+      },
+      "conditional_rules": [
+        "circle_a_ref must not equal circle_b_ref",
+        "duplicate circle-pair and relation records are forbidden within the same scope"
+      ],
+      "legacy_projection": {
+        "target_axis": "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation",
+        "empty_value": [
+          "해당없음"
+        ],
+        "item_wide_projection": "deduplicate relation values and emit an array",
+        "not_representable_when": [
+          "any_record_has_scope_ref",
+          "any_relation_is_not_registered_in_the_target_legacy_vocabulary"
+        ]
+      },
+      "rejudgment_basis": [
+        "normalized_item_content.v1"
+      ],
+      "rejudgment_coverage": "partial",
+      "uncovered_change": "diagram_only",
+      "planned_basis": "normalized_item_content.v2"
+    }
+  },
+  "projection_audit_contract": {
+    "stored_outside_math_axes": true,
+    "statuses": [
+      "representable",
+      "not_representable"
+    ],
+    "not_representable_requires_reason": true,
+    "required_report_counts": [
+      "unit_item_count",
+      "assessed_item_count",
+      "legacy_projection_representable_count",
+      "legacy_projection_not_representable_count",
+      "legacy_projection_not_representable_rate"
+    ]
+  },
+  "implementation_gates": [
+    "Approve this proposed spec.",
+    "Design and approve a v2 structure validator that reads this spec.",
+    "Create only 39 static records with profile_eligible=false.",
+    "Validate the 39 records and confirm that v1 data is unchanged.",
+    "Report legacy projection coverage before expanding to 2168 items.",
+    "Do not touch D1 or the runtime engine without a separate approval."
+  ],
+  "activated_on": "2026-08-31",
+  "activation_basis": [
+    "39-case reference-axis fixture validation",
+    "2168-record static Shadow registry",
+    "33-case missing-axis independent recheck by GPT and Claude with Codex adjudication"
+  ]
+}

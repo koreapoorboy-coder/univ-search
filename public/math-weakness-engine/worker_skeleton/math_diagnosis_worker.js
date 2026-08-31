@@ -226,7 +226,7 @@ async function axisRecord(request, env) {
   const _axes = Array.isArray(r.observed_axes) ? r.observed_axes : [];
   const _allUnknown = _atts.length > 0 && _atts.every(a => a && a.response_status === 'UNKNOWN');
   const _emptyNoValue = _atts.length === 0 && _axes.length === 0;
-  const _shadowRecordable = _atts.some(a => a && a.shadow_analysis && a.shadow_analysis.recordable === true && a.shadow_analysis.student_output === false && a.shadow_analysis.profile_eligible === false);
+  const _shadowRecordable = _atts.some(a => a && a.shadow_analysis && a.shadow_analysis.recordable === true && a.shadow_analysis.student_output === false && a.shadow_analysis.profile_eligible === false && a.shadow_analysis.diagnostic_authority === false && a.shadow_analysis.remediation_eligible === false);
   if ((_allUnknown || _emptyNoValue) && !_shadowRecordable) {
     const why = _allUnknown ? 'all_unknown' : 'empty';
     console.log(`[axis-guard] skip no_work record id=${r.id} student=${r.student_code} (${why})`);
@@ -1383,17 +1383,32 @@ async function matchAttemptsToItems({ env, attempts }) {
 // 유형 없는 Shadow 문항 연결. AI 출력에는 ID를 요구하지 않고, 서버가 D1 pending 문항을
 // qnorm.v1 완전동일·단일후보로만 연결한 뒤 normalized_item_content.v1 해시를 붙인다.
 // legacy의 approved/fuzzy 매칭과 별도이며 problem_type_id를 덮어쓰지 않는다.
+const SHADOW_UNIT_IDS = new Set(['M3_CIRCLE_PROPERTIES']);
+const SHADOW_ITEM_PAGE_SIZE = 1000;
+
+async function fetchPendingShadowItems({ env, unitId }) {
+  const rows = [];
+  let offset = 0;
+  while (true) {
+    const page = ((await env.AXIS_DB.prepare(
+      "SELECT id, unit_id, concept_ids, question_text, answer, explanation FROM user_items WHERE status='pending' AND unit_id=?1 ORDER BY id LIMIT ?2 OFFSET ?3"
+    ).bind(unitId, SHADOW_ITEM_PAGE_SIZE, offset).all()).results) || [];
+    rows.push(...page);
+    if (page.length < SHADOW_ITEM_PAGE_SIZE) break;
+    offset += page.length;
+    if (offset > 100000) throw new Error(`shadow pending item pagination overflow: ${unitId}`);
+  }
+  return rows;
+}
+
 async function linkAttemptsToShadowItems({ env, attempts }) {
   const base = { eligible_count: 0, verified_count: 0, ambiguous_count: 0, unlinked_count: 0, invalid_count: 0 };
   if (!env.AXIS_DB) return { ...base, skipped: 'no_db' };
   const sc = qnormSelfCheckCached();
   if (!sc.pass) return { ...base, skipped: 'qnorm_selfcheck_fail' };
-  const shadowUnits = new Set(['M3_CIRCLE_PROPERTIES']);
   const byUnit = {};
-  for (const unitId of Array.from(new Set(attempts.map(a => a && a.unit_id).filter(uid => shadowUnits.has(uid))))) {
-    const rows = ((await env.AXIS_DB.prepare(
-      "SELECT id, unit_id, concept_ids, question_text, answer, explanation FROM user_items WHERE status='pending' AND unit_id=?1 LIMIT 3000"
-    ).bind(unitId).all()).results) || [];
+  for (const unitId of Array.from(new Set(attempts.map(a => a && a.unit_id).filter(uid => SHADOW_UNIT_IDS.has(uid))))) {
+    const rows = await fetchPendingShadowItems({ env, unitId });
     const map = {};
     for (const row of rows) {
       const qn = qnormV1(row.question_text); if (!qn) continue;
@@ -1403,7 +1418,7 @@ async function linkAttemptsToShadowItems({ env, attempts }) {
   }
   const stats = { ...base };
   for (const attempt of attempts) {
-    if (!attempt || !shadowUnits.has(attempt.unit_id)) continue;
+    if (!attempt || !SHADOW_UNIT_IDS.has(attempt.unit_id)) continue;
     stats.eligible_count++;
     const qn = qnormV1(attempt.question_text);
     if (!qn) {
@@ -1474,7 +1489,7 @@ ${RESPONSE_STATE_RULE}`
   const results = await Promise.all(Object.keys(byUnit).map(async unitId => {
     const rows = byUnit[unitId];
     try {
-      if (unitId === 'M3_CIRCLE_PROPERTIES') {
+      if (SHADOW_UNIT_IDS.has(unitId)) {
         const shadowRows = await extractShadowAttemptsForUnit({ env, files, unitId, rows, usageSink });
         stageMetas.push({ unit_id: unitId, category_stage: 'shadow_type_free', question_count: rows.length, problem_type_required: false });
         return shadowRows;
@@ -1506,7 +1521,7 @@ ${RESPONSE_STATE_RULE}`
   // ── 매칭(옵션2): 등록 문항 대조 → 유형 교정 + 답/해설 첨부. attempts 제자리 변형. 이후 통계는 매칭 반영값. ──
   // Shadow 단원은 legacy 유형 매칭에서 제외한다. 추후 approved 유형이 생겨도 학생 출력 경로로
   // 우연히 승격되지 않으며, 별도 item_axes 조회 경계가 유지된다.
-  const legacyAttempts = attempts.filter(a => a && a.unit_id !== 'M3_CIRCLE_PROPERTIES');
+  const legacyAttempts = attempts.filter(a => a && !SHADOW_UNIT_IDS.has(a.unit_id));
   const match = await matchAttemptsToItems({ env, attempts: legacyAttempts });
   const shadowItemLink = await linkAttemptsToShadowItems({ env, attempts });
   // ★type_name 채움(검수 2026-08-14): stage-2·매칭은 problem_type_id만 반환 → attempts에 type_name 없음(주의할 연결 항목 소실 원인).

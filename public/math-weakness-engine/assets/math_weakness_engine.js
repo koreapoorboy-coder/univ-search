@@ -54,7 +54,7 @@
       this.loaded=false;
       this.globalLogicLoaded=false;
       this.globalLogicError=null;
-      this.shadowRuntime={enabled:false,student_output:false,profile_eligible:false,remediation_enabled:false,registries:{}};
+      this.shadowRuntime={enabled:false,student_output:false,profile_eligible:false,diagnostic_authority:false,remediation_enabled:false,registries:{}};
       this.shadowRegistryByUnit={};
       this.shadowRegistryRecordById={};
       this.shadowRegistryErrors={};
@@ -289,7 +289,7 @@
     }
     async ensureShadowRegistries(unitIds){
       const cfg=this.shadowRuntime||{};
-      if(!cfg.enabled||cfg.student_output!==false||cfg.profile_eligible!==false) return this;
+      if(!cfg.enabled||cfg.student_output!==false||cfg.profile_eligible!==false||cfg.diagnostic_authority!==false||cfg.remediation_enabled!==false) return this;
       for(const unitId of uniq(unitIds||[])){
         if(this.shadowRegistryByUnit[unitId]||this.shadowRegistryErrors[unitId]) continue;
         const path=cfg.registries&&cfg.registries[unitId];
@@ -297,7 +297,7 @@
         try{
           const pack=await this._json(path);
           const contract=pack&&pack.runtime_contract||{};
-          if(contract.mode!=='shadow'||contract.student_output!==false||contract.profile_eligible!==false||contract.remediation_enabled!==false) throw new Error('unsafe shadow runtime contract');
+          if(contract.mode!=='shadow'||contract.student_output!==false||contract.profile_eligible!==false||contract.diagnostic_authority!==false||contract.remediation_enabled!==false) throw new Error('unsafe shadow runtime contract');
           if(pack.unit_id!==unitId) throw new Error(`shadow registry unit mismatch: ${pack.unit_id}`);
           const rows=pack.records||{};
           this.shadowRegistryByUnit[unitId]=pack;
@@ -399,7 +399,7 @@
         }));
       });
       return {
-        mode:'shadow',student_output:false,profile_eligible:false,remediation_enabled:false,
+        mode:'shadow',student_output:false,profile_eligible:false,diagnostic_authority:false,remediation_enabled:false,
         summary:{attempt_count:observations.length,linked_count:observations.filter(x=>x.item_link.status==='verified').length,recordable_count:observations.filter(x=>x.recordable).length,observed_count:observations.filter(x=>x.analysis_state==='observed').length,unresolved_count:observations.filter(x=>x.analysis_state==='unresolved').length},
         concept_observations:Object.values(conceptStats),observations
       };

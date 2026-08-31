@@ -5,6 +5,8 @@ import vm from "node:vm";
 const project = "C:\\Users\\user\\projects\\scshstudy";
 const publicRoot = path.join(project, "public", "math-weakness-engine");
 const registryPath = path.join(publicRoot, "data", "item_axes", "m3_circle_properties.item_analysis_registry.shadow.v1.json");
+const specPath = path.join(publicRoot, "data", "item_axes", "item_axis_spec.v2.json");
+const manifestPath = path.join(publicRoot, "manifest.json");
 const enginePath = path.join(publicRoot, "assets", "math_weakness_engine.js");
 const storePath = path.join(publicRoot, "assets", "math_axis_accumulation.js");
 const workerPath = path.join(publicRoot, "worker_skeleton", "math_diagnosis_worker.js");
@@ -14,11 +16,20 @@ const outputPath = path.join(project, "tools", "axis_prediction", "outputs", "ci
 const errors = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };
 const registry = JSON.parse(fs.readFileSync(registryPath, "utf8"));
+const spec = JSON.parse(fs.readFileSync(specPath, "utf8"));
+const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
 const registryRows = Object.values(registry.records ?? {});
 const assessed = registryRows.find((row) => Object.keys(row.axes ?? {}).length > 0);
-const unjudgedRows = registryRows.filter((row) => Object.keys(row.axes ?? {}).length === 0);
+const requiredAxisKeys = Object.keys(spec.axes ?? {});
+const missingAxisRows = registryRows.filter((row) => requiredAxisKeys.some((key) => !Object.hasOwn(row.axes ?? {}, key)));
 assert(Boolean(assessed), "assessed registry fixture missing");
-assert(unjudgedRows.length === 0, `unjudged registry rows=${unjudgedRows.length}`);
+assert(spec.axis_spec_version === "item-axis-spec.v2" && spec.status === "active_shadow_only", "active v2 axis spec missing");
+assert(requiredAxisKeys.length === 3, `required reference axis keys=${requiredAxisKeys.length}`);
+assert(missingAxisRows.length === 0, `registry rows with missing required axes=${missingAxisRows.length}`);
+assert(registry.coverage?.missing_axis_instances === 0, `registry missing_axis_instances=${registry.coverage?.missing_axis_instances}`);
+assert(registry.coverage?.expected_axis_instances === 6504, `registry expected_axis_instances=${registry.coverage?.expected_axis_instances}`);
+assert(manifest.shadow_runtime?.diagnostic_authority === false, "manifest diagnostic_authority gate missing");
+assert(manifest.shadow_runtime?.axis_spec === "data/item_axes/item_axis_spec.v2.json", "manifest active axis spec path missing");
 
 const fetchStub = async (url) => {
   const relative = String(url).replace(/^\.\/+/, "");
@@ -36,9 +47,24 @@ engine.shadowRuntime = {
   mode: "shadow",
   student_output: false,
   profile_eligible: false,
+  diagnostic_authority: false,
   remediation_enabled: false,
   registries: { M3_CIRCLE_PROPERTIES: "data/item_axes/m3_circle_properties.item_analysis_registry.shadow.v1.json" },
 };
+
+const unsafeEngine = new Engine(".");
+unsafeEngine.loaded = true;
+unsafeEngine.shadowRuntime = {
+  enabled: true,
+  mode: "shadow",
+  student_output: false,
+  profile_eligible: false,
+  diagnostic_authority: true,
+  remediation_enabled: false,
+  registries: { M3_CIRCLE_PROPERTIES: "data/item_axes/m3_circle_properties.item_analysis_registry.shadow.v1.json" },
+};
+await unsafeEngine.ensureShadowRegistries(["M3_CIRCLE_PROPERTIES"]);
+assert(Object.keys(unsafeEngine.shadowRegistryRecordById).length === 0, "unsafe diagnostic authority config loaded Shadow registry");
 
 const observedInput = {
   attempts: [{
@@ -66,7 +92,7 @@ assert(observed.summary.recordable_count === 1, `recordable_count=${observed.sum
 assert(observedRow.analysis_state === "observed", `observed analysis_state=${observedRow.analysis_state}`);
 assert(observedRow.item_link.status === "verified", `observed item_link=${observedRow.item_link.status}`);
 assert(observedRow.failed_steps.length === 1, `failed_steps=${observedRow.failed_steps.length}`);
-assert(observedRow.student_output === false && observedRow.profile_eligible === false, "shadow output/profile gate failed");
+assert(observedRow.student_output === false && observedRow.profile_eligible === false && observedRow.diagnostic_authority === false, "shadow output/profile/authority gate failed");
 assert(observedRow.remediation_eligible === false && observed.remediation_enabled === false, "remediation gate failed");
 assert(!Object.hasOwn(observed, "student_view") && !Object.hasOwn(observedRow, "student_view"), "student_view leaked into shadow result");
 
@@ -119,9 +145,10 @@ const d1Item = d1Input.items.find((item) => item.user_item_id === assessed.user_
 assert(Boolean(d1Item), "D1 hash fixture missing");
 const workerHash = d1Item ? await workerModule.normalizedItemContentV1Hash(d1Item) : null;
 assert(workerHash === assessed.content_hash.value, `worker normalized hash mismatch: ${workerHash}`);
-assert(workerSource.includes("WHERE status='pending' AND unit_id=?1"), "worker shadow query does not target pending items");
+assert(workerSource.includes("WHERE status='pending' AND unit_id=?1 ORDER BY id LIMIT ?2 OFFSET ?3"), "worker shadow query is not paginated");
+assert(workerSource.includes("SHADOW_ITEM_PAGE_SIZE = 1000"), "worker shadow pagination size missing");
 assert(workerSource.includes("linkAttemptsToShadowItems"), "worker shadow linker missing");
-assert(workerSource.includes("unit_id !== 'M3_CIRCLE_PROPERTIES'"), "circle shadow attempts still enter legacy item matcher");
+assert(workerSource.includes("!SHADOW_UNIT_IDS.has(a.unit_id)"), "shadow attempts still enter legacy item matcher");
 
 const indexSource = fs.readFileSync(path.join(publicRoot, "index.html"), "utf8");
 assert(indexSource.includes("extractionWithoutShadowInternals"), "student downstream sanitization missing");
@@ -142,12 +169,17 @@ const result = {
   observed_fixture: { item_id: assessed?.user_item_id, analysis_state: observedRow?.analysis_state, failed_steps: observedRow?.failed_steps?.length },
   invalid_hash_state: invalidHash.observations[0].item_link.status,
   omitted_work_reason: omittedWork.observations[0].student_work_observation.reason,
-  unjudged_registry_records: unjudgedRows.length,
+  required_axis_keys: requiredAxisKeys,
+  missing_axis_registry_records: missingAxisRows.length,
+  expected_axis_instances: registry.coverage?.expected_axis_instances,
+  assessed_axis_instances: registry.coverage?.assessed_axis_instances,
+  unjudgeable_axis_instances: registry.coverage?.unjudgeable_axis_instances,
   stored_schema_version: storedRecord.schema_version,
   profile_hidden: store.listByStudent("SC-STUDY-999").length === 0,
   worker_hash_match: workerHash === assessed.content_hash.value,
   inline_scripts_syntax_checked: inlineScriptCount,
   student_output: false,
+  diagnostic_authority_fail_closed: Object.keys(unsafeEngine.shadowRegistryRecordById).length === 0,
   D1_written: false,
   errors,
 };

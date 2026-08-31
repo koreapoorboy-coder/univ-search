@@ -1,7 +1,8 @@
 {
   "schema_version": "item-analysis-registry.shadow.v1",
-  "generated_at": "2026-08-29T12:18:37.694Z",
+  "generated_at": "2026-08-31T05:31:05.547Z",
   "unit_id": "M3_CIRCLE_PROPERTIES",
+  "axis_spec_version": "item-axis-spec.v2",
   "source_schema_version": "item-axis-reference-candidates.v4",
   "source_analysis_version": "axis-def.circle-reference.v2.1.integrated2133.v1",
   "runtime_contract": {
@@ -14,6 +15,16 @@
   },
   "coverage": {
     "denominator": 2168,
+    "required_axis_key_count": 3,
+    "required_axis_keys": [
+      "unit.M3_CIRCLE_PROPERTIES.AXC04_circle_provenance",
+      "unit.M3_CIRCLE_PROPERTIES.AXC01_vertex_refs",
+      "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs"
+    ],
+    "expected_axis_instances": 6504,
+    "assessed_axis_instances": 6457,
+    "unjudgeable_axis_instances": 47,
+    "missing_axis_instances": 0,
     "validated_sample_linked": 35,
     "validated_workpack_linked": 1129,
     "validated_image_workpack_linked": 1004,
@@ -21,6 +32,11 @@
     "assessed_total": 2168,
     "assessed_rate": 1,
     "unjudged_rate": 0
+  },
+  "adjudication": {
+    "overlay_schema_version": "circle-shadow-missing33-adjudication.v1",
+    "record_count": 33,
+    "axis_patch_count": 38
   },
   "record_count": 2168,
   "review_state_counts": {
@@ -43362,7 +43378,7 @@
         "value": "f94de152f210ac6edfc90b875cdba5206b7865d4a85d9ff0a6231272e437f1d7",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -43411,6 +43427,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -51099,7 +51126,7 @@
         "value": "03fe417c0311bb712f1802a1ece7f96807417ea7347ad63220bb3064823f70d8",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -51365,6 +51392,61 @@
                 {
                   "source": "diagram",
                   "locator": "⑤ 접선의 접점 B"
+                }
+              ]
+            }
+          ],
+          "certainty": "확실",
+          "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [
+            {
+              "scope_ref": "option:1",
+              "circle_a_ref": "circle:option:1:left",
+              "circle_b_ref": "circle:option:1:right",
+              "relation": "외접",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "선택지 ①의 두 원이 T에서 바깥쪽으로 접함"
+                }
+              ]
+            },
+            {
+              "scope_ref": "option:2",
+              "circle_a_ref": "circle:option:2:left",
+              "circle_b_ref": "circle:option:2:right",
+              "relation": "교차",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "선택지 ②의 두 원이 P와 Q에서 만남"
+                }
+              ]
+            },
+            {
+              "scope_ref": "option:3",
+              "circle_a_ref": "circle:option:3:left",
+              "circle_b_ref": "circle:option:3:right",
+              "relation": "교차",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "선택지 ③의 두 원이 P와 Q에서 만남"
+                }
+              ]
+            },
+            {
+              "scope_ref": "option:4",
+              "circle_a_ref": "circle:option:4:outer",
+              "circle_b_ref": "circle:option:4:inner",
+              "relation": "내접",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "선택지 ④의 안쪽 원이 바깥 원 내부에서 T에서 접함"
                 }
               ]
             }
@@ -61405,7 +61487,7 @@
         "value": "ddd8b60e8265644a0ec14dc73fb43eb25acaf142c6b7afda83eec7c77cc7c9f4",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -61454,6 +61536,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -118089,7 +118182,7 @@
         "value": "1b9b36b22e36eb57c51055ee376340c562a6e8364476bf1f99e876eb4bd8a2bc",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -118138,6 +118231,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -132937,7 +133041,7 @@
         "value": "e12de592424b02a8bb5ef2a3ab4f4dd041f2db7e92816a3e348c31640d209040",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -132986,6 +133090,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -143050,7 +143165,7 @@
         "value": "615ac878e890bca1fa1ec7bc19a32eb4d97d02065f8973ba8ce38d080e4fe7ba",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -143110,6 +143225,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -163031,7 +163157,7 @@
         "value": "523960c7991dd9be13f377ccb5b78848c52d5bf08a3a250f2f7b61ffb45e3c20",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -163043,8 +163169,18 @@
               "provenance": "given",
               "evidence": [
                 {
-                  "source": "diagram",
-                  "locator": "원 O"
+                  "source": "question",
+                  "locator": "문제와 그림에 원 O가 직접 제시됨"
+                }
+              ]
+            },
+            {
+              "circle_ref": "circle:derived:circum_CDG",
+              "provenance": "derived_from_conditions",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "해설에서 △CDG의 외접원의 중심 O′을 도입함"
                 }
               ]
             }
@@ -163056,13 +163192,68 @@
           "state": "assessed",
           "value": [
             {
-              "point_ref": "point:item:D",
+              "point_ref": "point:item:O",
               "circle_ref": "circle:item:O",
-              "position": "outside",
+              "position": "center",
               "evidence": [
                 {
                   "source": "diagram",
-                  "locator": "원 O 외부의 D"
+                  "locator": "O가 주어진 원의 중심으로 표시됨"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:A",
+              "circle_ref": "circle:item:O",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "A가 원 O 위에 표시됨"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:B",
+              "circle_ref": "circle:item:O",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "B가 원 O 위에 표시됨"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:C",
+              "circle_ref": "circle:item:O",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "C가 원 O 위에 표시됨"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:E",
+              "circle_ref": "circle:item:O",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "E가 원 O 위에 표시됨"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:F",
+              "circle_ref": "circle:item:O",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "F가 원 O 위에 표시됨"
                 }
               ]
             },
@@ -163073,7 +163264,80 @@
               "evidence": [
                 {
                   "source": "diagram",
-                  "locator": "원 O 내부의 G"
+                  "locator": "G가 원 O의 내부에 표시됨"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:D",
+              "circle_ref": "circle:item:O",
+              "position": "outside",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "D가 원 O 밖에 표시됨"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:Oprime",
+              "circle_ref": "circle:derived:circum_CDG",
+              "position": "center",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "해설에서 O′을 △CDG의 외접원의 중심으로 둠"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:C",
+              "circle_ref": "circle:derived:circum_CDG",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "C는 △CDG의 외접원 위의 점임"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:D",
+              "circle_ref": "circle:derived:circum_CDG",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "D는 △CDG의 외접원 위의 점임"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:G",
+              "circle_ref": "circle:derived:circum_CDG",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "G는 △CDG의 외접원 위의 점임"
+                }
+              ]
+            }
+          ],
+          "certainty": "확실",
+          "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [
+            {
+              "circle_a_ref": "circle:item:O",
+              "circle_b_ref": "circle:derived:circum_CDG",
+              "relation": "교차",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "주어진 길이와 해설의 외접원 중심을 적용하면 원 O와 △CDG의 외접원이 C 외의 한 점에서도 만남"
                 }
               ]
             }
@@ -165748,7 +166012,7 @@
         "value": "9f862c376b40621d8889d8301eb45ef7f8876c77f847f1f9194552edff6db4aa",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -165797,6 +166061,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -165808,7 +166083,7 @@
         "value": "a824c9f533c8c9bef93572382581dba99708af452b7ee42cbce0c7f8f286640b",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -165857,6 +166132,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -165868,7 +166154,7 @@
         "value": "cc32400e0c049b6c4a22af9074cb78eb8f64cf0a806d900d2e8000907e52b28b",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -165917,6 +166203,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -165928,7 +166225,7 @@
         "value": "8c5fbbd00a6e63c36267185730e9b58a208263864cc7ae09c411bfe43ae7a7b3",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -165977,6 +166274,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -182069,7 +182377,7 @@
         "value": "955da678a20a0d148d61292f9f39c597152d073c72f1e1ecce3c6a8c22d1de39",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -182118,6 +182426,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -182939,7 +183258,7 @@
         "value": "4e2c766f917c711b3344c5194a172feb3e75668ef4a1f6e1159f4c66c713a8ee",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -182988,6 +183307,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -190013,7 +190343,7 @@
         "value": "41935553135de9f325e0a277a81f9dce3f192c8ebdda2e628c5662ac548366f9",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -190087,6 +190417,24 @@
                 {
                   "source": "diagram",
                   "locator": "∠CAB=16° 문항 작은 반원 내부의 H"
+                }
+              ]
+            }
+          ],
+          "certainty": "확실",
+          "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [
+            {
+              "circle_a_ref": "circle:item:large",
+              "circle_b_ref": "circle:item:small",
+              "relation": "내접",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "작은 반원이 큰 반원 안에서 B에서 접함"
                 }
               ]
             }
@@ -190438,7 +190786,7 @@
         "value": "fde04a06a5cd5490570487a706eca794cac3624ee1374c9cf8b1e87513be4bd8",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -190491,6 +190839,24 @@
                 {
                   "source": "diagram",
                   "locator": "작은 원 O′ 위의 D"
+                }
+              ]
+            }
+          ],
+          "certainty": "확실",
+          "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [
+            {
+              "circle_a_ref": "circle:item:large",
+              "circle_b_ref": "circle:item:small",
+              "relation": "내접",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "원 O′이 반원 O의 내부에서 C에서 접함"
                 }
               ]
             }
@@ -195202,7 +195568,7 @@
         "value": "66dadc401d23437d363c80b8a3cd25d2544a2e0082c7bb6af7ef6cff22e1fde1",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -195251,6 +195617,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -200140,7 +200517,7 @@
         "value": "410257e6fab4b1a79869297c1cd79344b8ada5a152c2494a6f5fde0b62b54200",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -200152,8 +200529,8 @@
               "provenance": "given",
               "evidence": [
                 {
-                  "source": "diagram",
-                  "locator": "원 O"
+                  "source": "question",
+                  "locator": "문제와 그림에 원 O가 직접 제시됨"
                 }
               ]
             },
@@ -200162,8 +200539,8 @@
               "provenance": "derived_from_conditions",
               "evidence": [
                 {
-                  "source": "diagram",
-                  "locator": "∠MPN=∠MCN으로 도출한 원 MNPC"
+                  "source": "solution",
+                  "locator": "해설에서 ∠MPN=∠MCN으로 M,N,P,C의 공원성을 도출함"
                 }
               ]
             }
@@ -200175,13 +200552,79 @@
           "state": "assessed",
           "value": [
             {
-              "point_ref": "point:item:M",
+              "point_ref": "point:item:O",
               "circle_ref": "circle:item:O",
-              "position": "outside",
+              "position": "center",
               "evidence": [
                 {
                   "source": "diagram",
-                  "locator": "원 O 외부의 M"
+                  "locator": "O가 원의 중심으로 표시됨"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:A",
+              "circle_ref": "circle:item:O",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "A가 원 O 위에 표시됨"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:B",
+              "circle_ref": "circle:item:O",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "B가 원 O 위에 표시됨"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:C",
+              "circle_ref": "circle:item:O",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "C가 원 O 위에 표시됨"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:D",
+              "circle_ref": "circle:item:O",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "D가 원 O 위에 표시됨"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:P",
+              "circle_ref": "circle:item:O",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "P가 원 O 위에 표시됨"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:M",
+              "circle_ref": "circle:item:O",
+              "position": "inside",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "M가 원 O 내부의 선분 교점으로 표시됨"
                 }
               ]
             },
@@ -200192,7 +200635,7 @@
               "evidence": [
                 {
                   "source": "diagram",
-                  "locator": "원 O 내부의 N"
+                  "locator": "N가 원 O 내부의 선분 교점으로 표시됨"
                 }
               ]
             },
@@ -200203,7 +200646,69 @@
               "evidence": [
                 {
                   "source": "diagram",
-                  "locator": "원 O 내부의 Q"
+                  "locator": "Q가 원 O 내부의 선분 교점으로 표시됨"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:M",
+              "circle_ref": "circle:derived:MNPC",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "M가 해설에서 도출한 공통 원 위의 점임"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:N",
+              "circle_ref": "circle:derived:MNPC",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "N가 해설에서 도출한 공통 원 위의 점임"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:P",
+              "circle_ref": "circle:derived:MNPC",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "P가 해설에서 도출한 공통 원 위의 점임"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:C",
+              "circle_ref": "circle:derived:MNPC",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "C가 해설에서 도출한 공통 원 위의 점임"
+                }
+              ]
+            }
+          ],
+          "certainty": "확실",
+          "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [
+            {
+              "circle_a_ref": "circle:item:O",
+              "circle_b_ref": "circle:derived:MNPC",
+              "relation": "교차",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "P와 C가 주어진 원 O와 해설에서 도출한 원 MNPC의 두 공통점임"
                 }
               ]
             }
@@ -200802,7 +201307,7 @@
         "value": "3cde531cb0a72bf6a38e0e0128930d923b86bafbbc7b85a3b201d0936147ebcf",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -200840,6 +201345,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -200851,7 +201367,7 @@
         "value": "dd7291867def8c4df963d4d672e78aa8460706051aafe286110b5380915b742c",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -200889,6 +201405,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -203470,7 +203997,7 @@
         "value": "d5b61cb8086c080394aee53f3d67c1ffabd0b1a641192229db800859146174bb",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -203519,6 +204046,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -204154,7 +204692,7 @@
         "value": "ae4173ace8f03de5d5aeb9d72168df6d2b18f789e87da2102c835d61267eb661",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -204203,6 +204741,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -206103,7 +206652,7 @@
         "value": "d9c7cbc30390f3c14af0bc9059e081e93d36efbe666f05053aedbd43bce97cf8",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -206177,6 +206726,24 @@
                 {
                   "source": "diagram",
                   "locator": "∠CAB=20° 문항 작은 반원 내부의 H"
+                }
+              ]
+            }
+          ],
+          "certainty": "확실",
+          "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [
+            {
+              "circle_a_ref": "circle:item:large",
+              "circle_b_ref": "circle:item:small",
+              "relation": "내접",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "작은 반원이 큰 반원 안에서 B에서 접함"
                 }
               ]
             }
@@ -207524,7 +208091,7 @@
         "value": "4f7eebcaf4d9524629277ccabfa3be81a734a18cd89148af0258e88d0089a5ae",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -207595,6 +208162,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -207710,7 +208288,7 @@
         "value": "cb360c72be4e33ddae49ddd5be2aa9a75800b889eefa462b82b82b809cdbb0e3",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -207781,6 +208359,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -211052,7 +211641,7 @@
         "value": "cb834f41f97c8a5e6d6a3091e9e3aadd5af835c9cfd1e6ec23fcf36bab4f1161",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -211101,6 +211690,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -211528,7 +212128,7 @@
         "value": "e048d70d32f0853e71e6a83f764e0bc3095b0c8efe7c58d8c7b797b902eb072d",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -211577,6 +212177,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -216447,7 +217058,7 @@
         "value": "bd25be3d8ca8644b6cd2ea8b7ca72ba636266eee6ad7ee9089196ef9f8aba19a",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -216485,6 +217096,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -235373,7 +235995,7 @@
         "value": "3539a58bccbf4b07a4ec9735a02d258fa6582e6636560f281cbffd3c2af8da1d",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -235426,6 +236048,24 @@
                 {
                   "source": "diagram",
                   "locator": "작은 원 O′ 위의 O"
+                }
+              ]
+            }
+          ],
+          "certainty": "확실",
+          "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [
+            {
+              "circle_a_ref": "circle:item:large",
+              "circle_b_ref": "circle:item:small",
+              "relation": "교차",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "두 원이 C와 반대쪽의 한 점에서 서로 만나는 배치"
                 }
               ]
             }
@@ -235958,7 +236598,7 @@
         "value": "f17360abe09e77ed60a1ce48750f09edfb26c56924ac8c19fa3fcf57433f4052",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -236007,6 +236647,17 @@
           ],
           "certainty": "확실",
           "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [],
+          "certainty": "확실",
+          "evidence": [
+            {
+              "source": "question",
+              "locator": "같은 범위에 관계 대상 원쌍 없음"
+            }
+          ]
         }
       }
     },
@@ -238589,13 +239240,135 @@
         "value": "c7c5caaaa2f2e0d047d2d33698de5e98aba6377ca68b67c48007569c9316e699",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
         "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
           "state": "unjudgeable",
           "reason": "동전이 기울어지는 임계 순간은 같은 평면에 놓인 두 원의 정적 관계가 아니다."
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC04_circle_provenance": {
+          "state": "assessed",
+          "value": [
+            {
+              "circle_ref": "circle:item:hole",
+              "provenance": "given",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "해설에서 원 O를 원형 구멍으로 둠"
+                }
+              ]
+            },
+            {
+              "circle_ref": "circle:item:coin",
+              "provenance": "given",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "해설에서 원 O′을 동전으로 둠"
+                }
+              ]
+            }
+          ],
+          "certainty": "확실",
+          "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC01_vertex_refs": {
+          "state": "assessed",
+          "value": [
+            {
+              "point_ref": "point:item:O",
+              "circle_ref": "circle:item:hole",
+              "position": "center",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "O가 원형 구멍의 중심임"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:A",
+              "circle_ref": "circle:item:hole",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "A가 원 O의 현 AB의 끝점임"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:B",
+              "circle_ref": "circle:item:hole",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "B가 원 O의 현 AB의 끝점임"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:Oprime",
+              "circle_ref": "circle:item:hole",
+              "position": "inside",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "O′이 원 O의 현 AB의 중점으로 내부에 놓임"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:Oprime",
+              "circle_ref": "circle:item:coin",
+              "position": "center",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "O′이 동전 원의 중심임"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:A",
+              "circle_ref": "circle:item:coin",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "A가 동전 원 O′ 위에 놓임"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:B",
+              "circle_ref": "circle:item:coin",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "B가 동전 원 O′ 위에 놓임"
+                }
+              ]
+            },
+            {
+              "point_ref": "point:item:O",
+              "circle_ref": "circle:item:coin",
+              "position": "on_circle",
+              "evidence": [
+                {
+                  "source": "solution",
+                  "locator": "O가 동전 원 O′ 위에 놓임"
+                }
+              ]
+            }
+          ],
+          "certainty": "확실",
+          "evidence": []
         }
       }
     },
@@ -244321,7 +245094,7 @@
         "value": "efa9a9eaa51e88ad168f00f535388a6bc7cea5be78441f9abfe70719c3a18ae9",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -244374,6 +245147,24 @@
                 {
                   "source": "diagram",
                   "locator": "작은 원 O′ 위의 C"
+                }
+              ]
+            }
+          ],
+          "certainty": "확실",
+          "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [
+            {
+              "circle_a_ref": "circle:item:large",
+              "circle_b_ref": "circle:item:small",
+              "relation": "교차",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "두 원이 반원 호의 P와 D에서 만남"
                 }
               ]
             }
@@ -245015,7 +245806,7 @@
         "value": "45aaaf64223388e69265a4bd74413decbe474241b201a238a63165d61dc99bec",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -245069,6 +245860,24 @@
                 {
                   "source": "diagram",
                   "locator": "접힌 원 밖에서 두 접선을 잇는 A"
+                }
+              ]
+            }
+          ],
+          "certainty": "확실",
+          "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [
+            {
+              "circle_a_ref": "circle:item:original",
+              "circle_b_ref": "circle:item:folded",
+              "relation": "교차",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "접기 전후 두 원이 B와 C를 공통점으로 가짐"
                 }
               ]
             }
@@ -245595,7 +246404,7 @@
         "value": "f28a73c45c56a66f5eb0b881f7f362fac5546942fd6cccbaf34a9120fe481766",
         "basis": "normalized_item_content.v1"
       },
-      "analysis_version": "axis-def.circle-reference.v2.1.confirmed39",
+      "analysis_version": "axis-def.circle-reference.v2.1.missing33-adjudicated.v1",
       "review_state": "validated_sample_linked",
       "profile_eligible": false,
       "axes": {
@@ -245648,6 +246457,24 @@
                 {
                   "source": "diagram",
                   "locator": "작은 원 위의 O"
+                }
+              ]
+            }
+          ],
+          "certainty": "확실",
+          "evidence": []
+        },
+        "unit.M3_CIRCLE_PROPERTIES.AXC02_circle_relation_refs": {
+          "state": "assessed",
+          "value": [
+            {
+              "circle_a_ref": "circle:item:large",
+              "circle_b_ref": "circle:item:small",
+              "relation": "교차",
+              "evidence": [
+                {
+                  "source": "diagram",
+                  "locator": "두 원이 C와 반대쪽의 한 점에서 서로 만나는 배치"
                 }
               ]
             }

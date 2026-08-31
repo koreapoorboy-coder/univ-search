@@ -79,7 +79,7 @@ class MathVerificationFlow {
     } catch (error) {
       console.warn('[MathVerificationFlow] shadow observation skipped:', error);
       return {
-        mode: 'shadow', student_output: false, profile_eligible: false, remediation_enabled: false,
+        mode: 'shadow', student_output: false, profile_eligible: false, diagnostic_authority: false, remediation_enabled: false,
         summary: { attempt_count: 0, linked_count: 0, recordable_count: 0, observed_count: 0, unresolved_count: 0 },
         observations: [], error: error && error.message || String(error)
       };
