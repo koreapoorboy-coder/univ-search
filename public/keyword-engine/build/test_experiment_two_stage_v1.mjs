@@ -113,4 +113,12 @@ check(removeUnsupportedNumbers("뜨거운 물에서는 일반 세제가 0.5점 �
 const feel2 = finalizeStageOutput(STAGE.FINAL, { reportTitle: "t", figures: [], sections: [{ title: "느낀 점", body: "효소 세제가 무조건 좋을 줄 알았는데 뜨거운 물에서는 일반 세제가 더 나아서 놀랐다. 교과서 내용을 직접 확인할 수 있어 흥미로웠다." }] }, { studentData: twoByTwo, taskDescription: "", subject: "통합과학1" });
 check(!feel2.parsed.sections[0].body.includes("흥미") && feel2.parsed.sections[0].body.includes("놀랐다"), "'흥미로웠다' the student never wrote is removed", feel2.parsed.sections[0].body);
 
+// Depth (level policy 2026-09-11): at least 3 repeats, spread between repeats is computed and usable,
+// and the second stage has a 계열 연계 탐구 section.
+const shallow = finalizeStageOutput(STAGE.DRAFT, { reportTitle: "t", sections: [], dataTemplate: { measurementName: "m", unit: "점", scaleGuide: "", conditions: ["A", "B"], trials: 2 } }, { studentData: data });
+check(shallow.extra.dataTemplate.trials === 3, "the data template asks for at least 3 repeats", String(shallow.extra.dataTemplate.trials));
+check(twoStats.rows.map(r => r.spread).join(",") === "0,1,1,0" && removeUnsupportedNumbers("효소 세제·뜨거운 물은 반복 측정 사이에 1점 차이가 났다.", allowedNumberSet(twoByTwo, twoStats)).removed === 0,
+  "the spread between repeats is computed and may be written", twoStats.rows.map(r => r.spread).join(","));
+check(stageSections(STAGE.FINAL, { taskDescription: "" }).includes("계열 연계 탐구") && stageSections(STAGE.LITERATURE, { taskDescription: "" }).includes("계열 연계 탐구"), "the second stage has a 계열 연계 탐구 section");
+
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);

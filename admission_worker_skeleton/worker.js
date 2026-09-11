@@ -272,17 +272,20 @@ function resolveInput(payload) {
   };
 }
 
-const FOUNDATION_SUBJECT_PATTERN = /^(통합과학|통합사회|공통)/;
+// Each grade writes one level above itself (user decision, 2026-09-11): admissions reward work beyond the
+// current grade, so 고1 aims at 고2~고3, 고2 at 고3~대학 1학년 and 고3 at university level.
+const TARGET_LEVELS = {
+  1: { label: '고2~고3 심화 수준', guide: '고2·고3 선택과목(생명과학·화학·물리 등)에서 다루는 개념과 분석까지 끌어와 깊게 쓴다. 대학 과정의 식이나 모델은 뜻을 먼저 설명할 수 있을 때만 쓴다.' },
+  2: { label: '고3~대학 1학년 수준', guide: '고3 심화 과목과 대학 1학년 교양 수준의 개념, 정량 분석(평균, 편차, 그래프 해석)까지 쓴다.' },
+  3: { label: '대학 교양~전공 기초 수준', guide: '대학 전공 기초의 개념과 분석 방법(모델, 식, 통계적 해석)을 뜻을 밝혀 쓴다.' },
+};
 
-// 고1 and common subjects get no example-report content (the examples are university-level topics);
-// 고2·고3 electives get the full pattern, analysis method included.
-function isFoundationLevel(input) {
-  return /^(고\s*)?1(학년)?$/.test(String(input.grade || '').trim())
-    || FOUNDATION_SUBJECT_PATTERN.test(String(input.subject || '').trim());
+function targetLevel(input) {
+  const grade = Number(String(input.grade || '').match(/[123]/)?.[0] || 1);
+  return TARGET_LEVELS[grade] || TARGET_LEVELS[1];
 }
 
 function pickReportPatterns(input, reportSeedIndex) {
-  if (isFoundationLevel(input)) return [];
   const seeds = Array.isArray(reportSeedIndex?.seeds) ? reportSeedIndex.seeds : [];
   // Topic terms decide relevance; subject and major only rank seeds that already match the topic.
   const topicTerms = [...new Set([input.keyword, input.selectedKeyword, input.selectedConcept, input.selectedFollowupAxis]
@@ -301,7 +304,7 @@ function pickReportPatterns(input, reportSeedIndex) {
     .sort((a, b) => b.score - a.score || String(a.seed.seedId).localeCompare(String(b.seed.seedId)))
     .slice(0, 3)
     .map(({ seed }) => ({
-      patternLevel: '심화 과목: 분석 방법까지 참고',
+      patternLevel: `${targetLevel(input).label}: 분석 방법까지 참고`,
       patternName: seed.seedName,
       studentFacingLabel: seed.studentFacingLabel,
       corePattern: seed.corePattern,
@@ -311,11 +314,8 @@ function pickReportPatterns(input, reportSeedIndex) {
     }));
 }
 
-const ADVANCED_CONTENT_PATTERN = /Michaelis|미카엘리스|미하엘리스|\bKm\b|Vmax|\[S\]|방정식|반응 속도식|MATLAB|Python/i;
-
 // Only objective task evidence reaches the model: no client-generated titles, focus questions,
-// scoring internals or worked calculation examples. At foundation level, anything tied to
-// university-level equations is dropped.
+// scoring internals or worked calculation examples.
 function buildAssessmentContext(input) {
   const assessment = input.performanceAssessment || {};
   const connection = assessment.assessmentKeywordConnection || {};
@@ -324,8 +324,7 @@ function buildAssessmentContext(input) {
   const constraints = cross.constraints || {};
   const seed = cross.seedMatch?.seed || {};
   const levels = seed.topic?.levels || {};
-  const foundation = isFoundationLevel(input);
-  const keep = (value) => typeof value === 'string' && value.trim() !== '' && !(foundation && ADVANCED_CONTENT_PATTERN.test(value));
+  const keep = (value) => typeof value === 'string' && value.trim() !== '';
   const strings = (value, limit) => toArray(value).filter(keep).map((value) => value.trim()).slice(0, limit);
   return {
     similarRealTask: record.title ? { title: String(record.title), description: String(record.description || '').slice(0, 300) } : null,
@@ -334,7 +333,7 @@ function buildAssessmentContext(input) {
     requiredOutputs: strings(constraints.requiredOutputs, 6),
     numericConstraints: strings(constraints.numericConstraints, 6),
     cautions: strings(constraints.avoidModes || seed.report?.avoid, 15),
-    contentFocus: strings(foundation ? [levels.basic || seed.topic?.basic] : [levels.basic, levels.intermediate, levels.advanced], 3),
+    contentFocus: strings([levels.basic || seed.topic?.basic, levels.intermediate, levels.advanced], 3),
   };
 }
 
@@ -496,6 +495,7 @@ function buildPrompt(input, seedMatch, env) {
   const { matchedCluster, gradeModifier, patternRule, seedPack } = seedMatch;
   const reportPatterns = pickReportPatterns(input, seedPack.reportSeedIndex);
   const stage = input.reportStage || STAGE.COMPLETE;
+  const level = targetLevel(input);
   const hasStudentVoice = [input.studentData?.reason, input.studentData?.observations, input.studentData?.reflection].some(Boolean);
   const requestedSections = stageSections(stage, input) || (input.targetStructure.length
     ? input.targetStructure
@@ -504,12 +504,9 @@ function buildPrompt(input, seedMatch, env) {
     ? [
         '효소의 기질 특이성과 반응 활성을 막연한 정확성이라는 말로 바꾸지 않는다.',
         '온도 상승은 활성화 에너지 자체를 바꾸지 않고, 활성화 에너지 이상의 에너지를 가진 입자의 비율과 충돌 빈도를 높인다. 최적 온도를 넘으면 효소 단백질이 변성되어 활성이 떨어진다.',
-        ...(isFoundationLevel(input)
-          ? ['효소 반응 속도를 식이나 상수 기호로 나타내는 대학 과정 내용은 쓰지 않는다. 온도·pH·기질의 양에 따라 효소의 작용이 어떻게 달라지는지 교과서 수준의 말로 설명한다.']
-          : [
-              'Km이 언제나 최적 pH에서 최소가 된다고 단정하지 않는다.',
-              '입력에 실제 실험값이 없으면 특정 효소의 Km, Vmax 수치를 제시하지 않는다.',
-            ]),
+        'Km이 언제나 최적 pH에서 최소가 된다고 단정하지 않는다.',
+        '입력에 실제 실험값이 없으면 특정 효소의 Km, Vmax 수치를 제시하지 않는다.',
+        '세탁·얼룩 사례라면 뜨거운 물의 영향을 효소 변성만으로 설명하지 말고, 얼룩 속 단백질이 열로 응고해 섬유에 달라붙을 가능성도 함께 검토한다.',
         '입력에 실제 실험값이 없으면 특정 효소의 최적 온도·pH 같은 수치를 사실처럼 제시하지 않는다.',
         '실생활 사례는 세제, 식품, 소화 효소 등에서 하나를 골라 탐구 전체를 그 사례에 일관되게 연결한다.',
       ]
@@ -517,10 +514,11 @@ function buildPrompt(input, seedMatch, env) {
   const prompt = [
     '너는 고등학생이 학교에 제출할 수 있는 완성형 수행평가 탐구보고서를 작성하는 전문 편집자다.',
     '반드시 자연스러운 한국어로 쓰고, 학생이 직접 탐구하고 이해한 문체를 사용한다.',
+    `이 보고서의 목표 수준은 ${level.label}이다. ${input.grade || '고등학교'} 학생이 한 단계 위 수준까지 파고든 보고서로 쓴다. ${level.guide}`,
     `출력은 JSON만 반환하며 ${stageOutputKeys(stage)} 키만 사용한다. sections에는 요청한 절을 순서대로 {title, body} 하나씩 담는다.`,
     '각 절의 body는 요약, 작성 안내, 개요가 아니라 그 절의 완성된 본문이어야 하며, 절끼리 이어 읽으면 하나의 완성 보고서가 된다.',
     '각 절은 제목만 채우지 말고 구체적인 교과 원리, 탐구 절차, 비교 기준, 해석과 한계를 충분히 설명한다.',
-    '교과서에서 배운 내용을 학생이 자신의 질문으로 좁혀 탐구한 것처럼, 짧고 분명한 문장으로 쓴다.',
+    '교과서 개념에서 출발해 목표 수준의 개념과 분석으로 깊게 들어가되, 문장은 분명하게 쓴다.',
     '전문 용어와 영어 표현을 과시하듯 나열하지 말고 꼭 필요한 용어만 먼저 쉬운 말로 설명한다.',
     '실생활 사례는 여러 개를 얕게 나열하지 말고 연구 질문에 맞는 대표 사례 하나를 선택하여 처음부터 결론까지 유지한다.',
     '개인 경험, 관찰, 실험 수행을 입력에서 확인할 수 없으면 학생이 실제로 했다고 꾸며 쓰지 않는다.',
@@ -545,6 +543,7 @@ function buildPrompt(input, seedMatch, env) {
       selectedConcept: input.selectedConcept,
       selectedKeyword: input.selectedKeyword || input.keyword,
       selectedFollowupAxis: input.selectedFollowupAxis,
+      targetLevel: level.label,
       careerTrack: input.track,
       majorInterest: input.major,
       connectedBook: input.useBookInReport ? input.selectedBookTitle : '사용하지 않음',
@@ -573,13 +572,15 @@ function buildPrompt(input, seedMatch, env) {
     '- 이론적 배경은 핵심 용어 정의에 그치지 말고 원리와 인과 관계를 설명한다.',
     '- 탐구 방법은 준비물·변인 통제·절차·기록 방법·안전 주의를 재현 가능하게 쓴다.',
     '- 결과 및 분석은 입력에 실제 데이터가 있는 경우에만 그 값을 분석한다. 데이터가 없으면 문헌에서 확실히 설명되는 경향, 예상 결과, 실제 측정 후 적용할 분석법을 서로 구분해 쓴다.',
-    '- 통합과학 과제에는 대학 전공 교재 수준의 방정식이나 매개변수를 핵심 근거로 사용하지 않는다. 꼭 필요한 경우 뜻을 쉬운 말로 설명한다.',
-    ...(isFoundationLevel(input)
-      ? ['- 이번 과제는 기본 과목 수준이므로 교과서 개념과 실생활 사례 하나로 탐구 흐름을 스스로 구성하고, 대학 전공 수준의 분석 기법이나 수식은 쓰지 않는다.']
-      : [
-          '- reportPatterns는 다른 주제의 우수 보고서에서 뽑은 사고 흐름 예시다. 그 보고서의 주제, 사례, 수치, 고유명사는 가져오지 않는다.',
-          '- reportPatterns의 분석 방법은 교과 개념으로 설명할 수 있는 범위에서만 활용하고, 쓸 때는 뜻을 먼저 쉬운 말로 설명한다.',
-        ]),
+    '- reportPatterns는 다른 주제의 우수 보고서에서 뽑은 사고 흐름 예시다. 그 보고서의 주제, 사례, 수치, 고유명사는 가져오지 않는다.',
+    '- reportPatterns의 분석 방법은 목표 수준에 맞게 뜻을 먼저 설명한 뒤 활용한다.',
+    '',
+    '[깊이 기준]',
+    '- 원리는 구체적인 물질과 반응 수준까지 설명한다. 예: 어떤 효소가 어떤 결합을 끊는지, 대상(얼룩, 음식 등)이 어떤 성분으로 되어 있는지, 조건이 효소와 대상 각각에 어떤 영향을 주는지.',
+    '- 결과는 한 가지 원인으로 끝내지 않는다. 다른 가능한 설명을 최소 1개 검토하고, 데이터가 어느 쪽을 더 지지하는지 따진다.',
+    '- 반복 측정 사이의 차이와 측정 방법의 한계가 결론의 신뢰도에 주는 영향을 쓴다.',
+    '- 선택한 계열(careerTrack)의 관점으로 탐구를 한 단계 확장한다. 학과명을 나열하지 말고, 그 분야에서 이 결과가 어떤 문제나 기술과 연결되는지 쓴다.',
+    '- 교과서나 일반 과학 지식으로 확립된 사실(예: 단백질은 가열하면 응고한다)은 자신 있게 쓴다. 특정 수치, 논문 결과, 기업·제품명, 출처는 지어내지 않는다.',
     '- 결론은 연구 질문에 직접 답하고 근거, 한계, 개선점을 함께 제시한다.',
     '- 확인하지 않은 내용을 확인하였다, 관찰하였다, 증명하였다라고 쓰지 않는다.',
     '- 입력에 근거 자료가 없으면 온도·pH·시간·비율 같은 구체적 수치를 문헌 사실처럼 쓰지 않고 "적당한 온도", "너무 높은 온도"처럼 쓴다. 실험 계획에서 학생이 스스로 정하는 조건값(예: 두 가지 물 온도)은 계획으로 밝히고 쓸 수 있다.',
@@ -614,7 +615,7 @@ async function callOpenAI(prompt, env, input = {}) {
       model,
       input: prompt,
       temperature: 0.4,
-      max_output_tokens: 6000,
+      max_output_tokens: 8000,
       text: {
         format: {
           type: 'json_schema',

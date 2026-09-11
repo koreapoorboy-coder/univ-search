@@ -76,6 +76,7 @@ export function computeStats(data) {
     mean: round(row.values.reduce((sum, value) => sum + value, 0) / row.values.length),
     min: Math.min(...row.values),
     max: Math.max(...row.values),
+    spread: round(Math.max(...row.values) - Math.min(...row.values)),
   }));
   const base = rows[0]?.mean ?? 0;
   rows.forEach((row) => {
@@ -189,7 +190,7 @@ export function allowedNumberSet(data, stats) {
     });
   };
   for (let count = 0; count <= 10; count += 1) allowed.add(String(count));
-  (stats?.rows || []).forEach((row) => [...row.values, row.mean, row.min, row.max, row.diff_from_first, row.percent_from_first].forEach(addValue));
+  (stats?.rows || []).forEach((row) => [...row.values, row.mean, row.min, row.max, row.spread, row.diff_from_first, row.percent_from_first].forEach(addValue));
   (stats?.comparisons || []).forEach((comparison) => addValue(comparison.gap));
   const texts = [data.measurementName, data.unit, data.scaleGuide, data.reason, data.observations, data.reflection, data.draftReport, ...data.sources, ...data.conditions.flatMap((row) => [row.label, row.note])];
   texts.join(' ').match(/\d+(?:\.\d+)?/g)?.forEach((number) => allowed.add(canonicalNumber(number)));
@@ -226,7 +227,7 @@ export function buildReferencesBody(body, sources) {
 
 function sanitizeDataTemplate(raw) {
   const conditions = [...new Set((Array.isArray(raw?.conditions) ? raw.conditions : []).map((label) => clip(label, 60)).filter(Boolean))].slice(0, MAX_CONDITIONS);
-  const trials = Math.min(MAX_TRIALS, Math.max(1, Math.round(Number(raw?.trials) || 3)));
+  const trials = Math.min(MAX_TRIALS, Math.max(3, Math.round(Number(raw?.trials) || 3)));
   return {
     measurementName: clip(raw?.measurementName, 40) || '측정값',
     unit: clip(raw?.unit, 20),
@@ -252,8 +253,8 @@ function sanitizeComparisonTable(raw) {
 export function stageSections(stage, input) {
   const wantsUse = /활용|적용|방안|제안/.test(String(input?.taskDescription || ''));
   if (stage === STAGE.DRAFT) return ['연구 질문', '이론적 배경', '가설', '탐구 방법', '결과 기록 계획'];
-  if (stage === STAGE.FINAL) return ['연구 질문', '이론적 배경', '탐구 방법', '탐구 결과', '결과 분석', '결론', ...(wantsUse ? ['활용 방안'] : []), '느낀 점'];
-  if (stage === STAGE.LITERATURE) return ['연구 질문', '이론적 배경', '자료 조사 방법', '자료 비교 정리', '결론', ...(wantsUse ? ['활용 방안'] : [])];
+  if (stage === STAGE.FINAL) return ['연구 질문', '이론적 배경', '탐구 방법', '탐구 결과', '결과 분석', '결론', ...(wantsUse ? ['활용 방안'] : []), '계열 연계 탐구', '느낀 점'];
+  if (stage === STAGE.LITERATURE) return ['연구 질문', '이론적 배경', '자료 조사 방법', '자료 비교 정리', '결론', ...(wantsUse ? ['활용 방안'] : []), '계열 연계 탐구'];
   return null;
 }
 
@@ -262,16 +263,17 @@ export function stageSectionGuide(title, stage) {
   const text = String(title || '');
   const second = stage === STAGE.FINAL || stage === STAGE.LITERATURE;
   if (second && /연구 질문/.test(text)) return '1차 설계서의 연구 질문(물음표로 끝나는 질문)을 이어받는다. 주제를 고른 이유는 학생이 쓴 reason이 있으면 그 뜻과 표현을 살리고, 없으면 수업에서 생긴 궁금증으로 쓴다. 250~400자';
-  if (second && /이론적 배경/.test(text)) return '1차 설계서의 이론을 이어받아 원리와 인과 관계를 설명한다. 600~900자';
+  if (second && /이론적 배경/.test(text)) return '1차 설계서의 이론을 이어받되 목표 수준에 맞게 구체적인 물질과 반응 수준으로 깊게 설명한다. 대상의 성분과 그에 맞는 효소·반응의 대응, 조건이 효소와 대상 각각에 주는 영향을 인과 관계로 쓴다. 700~1000자';
   if (stage === STAGE.FINAL && /탐구 방법/.test(text)) return '1차 설계서의 준비물, 변인, 절차, 안전을 실제로 한 과정으로 과거형으로 쓴다. 학생 관찰 메모에 설계와 다르게 한 점이 있으면 반영한다. 500~800자';
-  if (stage === STAGE.DRAFT && /탐구 방법/.test(text)) return '학생이 직접 하는 실험으로 설계한다. 준비물, 조작·통제·종속 변인, 번호를 붙인 절차, 조건마다 몇 번 측정해 어떻게 기록할지, 안전 주의. 문헌 조사로 대신하지 않는다. 600~900자';
+  if (stage === STAGE.DRAFT && /탐구 방법/.test(text)) return '학생이 직접 하는 실험으로 설계한다. 준비물, 조작·통제·종속 변인, 대조군, 번호를 붙인 절차, 조건마다 3회 이상 측정해 어떻게 기록할지, 측정 오차를 줄이는 방법, 안전 주의. 문헌 조사로 대신하지 않는다. 700~1000자';
   if (/가설/.test(text)) return '"~하면 ~할 것이다" 형태의 가설 1~2개와 그렇게 생각한 교과 근거. 150~300자';
   if (/결과 기록 계획/.test(text)) return '무엇을 어떤 단위나 점수 기준으로 조건마다 몇 번 측정해 표에 기록할지. 점수는 클수록 측정 항목이 크다는 뜻이 되게 정한다. dataTemplate과 같은 내용이어야 한다. 결과나 예상 수치는 쓰지 않는다. 200~350자';
   if (/탐구 결과/.test(text)) return '표 1과 그림 1을 먼저 가리키고 조건별 평균을 dataSummary의 숫자 그대로 비교한다. 평균이 같은 조건(sameMean)은 같다고 쓴다. 학생의 관찰 메모(note, observations)를 함께 쓴다. 해석은 다음 절로 미룬다. 400~600자';
-  if (/결과 분석/.test(text)) return '가설이 맞았는지 조건마다 판단한다. comparisons가 있으면 가로축 값마다 어느 쪽이 몇 점(gap) 높았는지 그대로 쓰고, 가설대로 나온 조건과 반대로 나온 조건을 나누어 밝힌다. 두 값이 다르면 "비슷하다"고 쓰지 않는다. 이유는 이론적 배경의 원리로 설명하고, 가능한 원인은 추정이라고 밝힌다. 400~600자';
+  if (/결과 분석/.test(text)) return '가설이 맞았는지 조건마다 판단한다. comparisons가 있으면 가로축 값마다 어느 쪽이 몇 점(gap) 높았는지 그대로 쓰고, 가설대로 나온 조건과 반대로 나온 조건을 나누어 밝힌다. 두 값이 다르면 "비슷하다"고 쓰지 않는다. 가장 그럴듯한 설명 외에 다른 가능한 설명을 최소 1개 검토하고 데이터가 어느 쪽을 더 지지하는지 따진다. 반복 측정의 흔들림(spread)이 큰 조건은 신뢰도가 낮다고 밝히고 원인을 추정한다. 700~1000자';
   if (/결론/.test(text)) return stage === STAGE.FINAL
     ? '연구 질문에 학생 데이터로 직접 답한다. 모든 조건에서 그렇지 않았다면 어느 조건에서 그랬는지까지 쓴다. 한계와 개선점을 쓰고, 이론 설명을 다시 반복하지 않는다. 300~500자'
     : '연구 질문에 자료 조사 결과로 답하고, 실험으로 확인하지 못한 한계를 쓴다. 이론 설명을 다시 반복하지 않는다. 300~500자';
+  if (/계열 연계 탐구/.test(text)) return '선택한 계열(careerTrack)의 관점에서 이 결과가 연결되는 실제 문제나 기술을 설명하고, 그 분야에서 이어서 할 수 있는 심화 탐구 1~2개를 목표 수준에 맞게 구체적으로 제안한다(무엇을 바꾸어 무엇을 측정할지). 확립된 개념만 쓰고 기업명·제품명·수치는 지어내지 않는다. 400~600자';
   if (/활용 방안/.test(text)) return '탐구 결과를 근거로 실생활에서 쓸 수 있는 구체적인 방안 2~3개. 방안마다 어떤 결과에 근거했는지 밝힌다. 실험한 대상과 조건(재료, 얼룩 종류, 온도 등) 안에서만 말하고, 실험하지 않은 대상으로 넓히려면 추가 실험이 필요하다고 쓴다. 300~500자';
   if (/느낀 점/.test(text)) return '학생이 쓴 reflection 문장을 먼저 거의 그대로 쓰고(맞춤법만 다듬음), 결과에서 알게 된 점을 1~2문장 덧붙인다. 힘들었다, 재미있었다처럼 학생이 쓰지 않은 감정이나 경험은 새로 만들지 않는다. 150~350자';
   if (/참고 자료/.test(text)) return '학생이 적은 sources만 한 줄에 하나씩 쓴다. 다른 줄, 괄호 설명, ※ 문장을 덧붙이지 않는다. sources가 없으면 "통합과학1 교과서 효소 관련 단원"처럼 자료 종류만 적고, 단원명·기관명·사이트명을 지어내지 않는다.';
@@ -293,6 +295,9 @@ export function stagePromptLines(stage, input) {
       '- 결과, 예상 수치, 결론을 쓰지 않는다. 가설은 쓴다.',
       '- 측정은 고등학생이 학교나 집에서 안전하게 할 수 있고 숫자로 기록할 수 있어야 한다. 기구로 재기 어려우면 0~3점 같은 점수 기준을 정한다.',
       '- 점수 기준은 값이 클수록 measurementName이 크다는 뜻이 되게 정한다. 예: 얼룩 제거 정도는 0점 그대로, 3점 완전히 제거. 작을수록 좋은 점수는 쓰지 않는다.',
+      '- 목표 수준에 맞게 설계를 깊게 한다. 비교의 기준이 되는 대조군(예: 세제 없이 물만)을 conditions에 넣고, 조건마다 3회 이상 반복한다.',
+      '- 측정은 눈대중보다 숫자로 잴 수 있는 방법을 우선한다(예: 같은 조명에서 찍은 사진으로 남은 얼룩 면적 비율 비교, 질량·시간 측정). 점수를 쓰면 점수마다 기준을 구체적으로 정하고, 같은 사람이 같은 조건에서 평가하는 등 오차를 줄이는 방법을 쓴다.',
+      '- 가설에는 그렇게 예상하는 과학적 근거를 구체적인 물질·반응 수준으로 쓰고, 다른 결과가 나온다면 무엇을 뜻하는지도 한 문장 쓴다.',
       '- dataTemplate은 학생이 채울 결과 표다. conditions는 표의 행이 될 조건 이름 2~8개(두 변인을 함께 바꾸면 "효소 세제 · 미지근한 물"처럼 "앞 변인 · 뒤 변인" 순서로 모든 조합), trials는 조건마다 반복 횟수(1~5), measurementName과 unit은 측정 항목과 단위(점수면 "점"), scaleGuide는 점수 기준이나 측정 방법 한 문장이다.',
     ];
   }
@@ -313,6 +318,7 @@ export function stagePromptLines(stage, input) {
       '- 느낀 점 절은 reflection 문장을 먼저 거의 그대로 쓰고, 결과에서 알게 된 점만 1~2문장 덧붙인다. 학생이 쓰지 않은 감정(힘들었다, 재미있었다 등)은 자동으로 삭제된다.',
       '- 참고 자료 절은 쓰지 않는다. 학생이 적은 sources로 자동으로 붙는다.',
       '- 결과가 가설과 다르면 억지로 맞추지 말고 다르게 나온 그대로 쓴다.',
+      '- dataSummary.rows의 spread는 반복 측정값의 최대와 최소의 차이다. 흔들림이 큰 조건은 결과의 신뢰도가 낮다고 밝히고 원인을 추정한다.',
       '',
       '[학생 실험 데이터]',
       JSON.stringify({ studentData: { measurementName: data.measurementName, unit: data.unit, scaleGuide: data.scaleGuide, conditions: data.conditions, ...studentVoice(data) }, dataSummary: stats }, null, 2),
@@ -342,8 +348,8 @@ export function stagePromptLines(stage, input) {
 
 export function stageLengthRule(stage) {
   if (stage === STAGE.DRAFT) return '분량은 공백 포함 1800~2800자다. 절마다 서로 다른 역할을 수행한다.';
-  if (stage === STAGE.FINAL) return '분량은 공백 포함 3000~4500자다. 절마다 서로 다른 역할을 수행하고, 이론 설명을 여러 절에서 반복하지 않는다.';
-  return '분량은 공백 포함 2800~4000자다. 절마다 서로 다른 역할을 수행하고, 이론 설명을 여러 절에서 반복하지 않는다.';
+  if (stage === STAGE.FINAL) return '분량은 공백 포함 4000~5500자다. 절마다 서로 다른 역할을 수행하고, 이론 설명을 여러 절에서 반복하지 않는다.';
+  return '분량은 공백 포함 3200~4500자다. 절마다 서로 다른 역할을 수행하고, 이론 설명을 여러 절에서 반복하지 않는다.';
 }
 
 export function stageOutputKeys(stage) {
@@ -360,7 +366,7 @@ const STAGE_SCHEMA = {
       type: 'object',
       additionalProperties: false,
       required: ['measurementName', 'unit', 'scaleGuide', 'conditions', 'trials'],
-      properties: { measurementName: STRING, unit: STRING, scaleGuide: STRING, conditions: { type: 'array', minItems: 2, maxItems: MAX_CONDITIONS, items: STRING }, trials: { type: 'integer', minimum: 1, maximum: MAX_TRIALS } },
+      properties: { measurementName: STRING, unit: STRING, scaleGuide: STRING, conditions: { type: 'array', minItems: 2, maxItems: MAX_CONDITIONS, items: STRING }, trials: { type: 'integer', minimum: 3, maximum: MAX_TRIALS } },
     },
   },
   [STAGE.FINAL]: {

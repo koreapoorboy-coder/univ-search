@@ -148,9 +148,11 @@ const check = (ok, label) => { assert.equal(ok, true, label); console.log(`PASS 
   check(res.status === 200 && body.ok === true && body.source === "openai" && body.result?.report === REPORT, "I1 gateway → Worker → AI returns the completed report");
   check(body.gateway?.counted === true && uses(kv) === 1, "I1 completed report counts exactly one use");
   const prompt = openaiCalls[0]?.input || "";
-  const leaked = ["메탄", "유전자 편집", "CO2eq", "GMO", "탄소 플럭스", "미카엘리스"].filter(word => prompt.includes(word));
-  check(prompt.includes("교과서 개념과 실생활 사례 하나로") && prompt.includes('"reportPatterns": []') && leaked.length === 0,
-    `I1 고1 prompt carries no example-report content${leaked.length ? ` (leaked: ${leaked.join(", ")})` : ""}`);
+  // Level policy (2026-09-11): 고1 writes at 고2~고3 depth and gets the topic-matched example pattern (RPT-030) as a
+  // thinking-flow example, with the rule not to import its topic, cases, numbers or names.
+  check(prompt.includes("목표 수준은 고2~고3 심화 수준") && prompt.includes("[깊이 기준]") && prompt.includes("미카엘리스-멘텐 반응속도 적용")
+    && prompt.includes("그 보고서의 주제, 사례, 수치, 고유명사는 가져오지 않는다"),
+    "I1 고1 prompt targets 고2~고3 depth with the topic-matched example pattern and the do-not-import rule");
   check(prompt.includes('"connectedBook": "사용하지 않음"') && prompt.includes(TASK), "I1 prompt carries the trusted task and the book opt-out");
   const sections = site.normalizeDocumentSections(site.dedupeSections(site.splitSections(site.cleanReportText(body.result.report), { requestedTitles: SECTIONS })));
   check(sections.map(section => section.title).join("|") === SECTIONS.join("|"), "I1 the site splits the report into the six requested sections");
@@ -195,8 +197,8 @@ const check = (ok, label) => { assert.equal(ok, true, label); console.log(`PASS 
   });
   const res = await viaGateway({ ...basePayload, grade: "고2", subject: "화학", liveInputCandidate: chemCandidate }, kv);
   const prompt = openaiCalls[0]?.input || "";
-  check(res.status === 200 && prompt.includes("미카엘리스-멘텐 반응속도 적용") && prompt.includes("교과 개념으로 설명할 수 있는 범위에서만"),
-    "I6 고2 elective prompt keeps the advanced pattern and its analysis method");
+  check(res.status === 200 && prompt.includes("미카엘리스-멘텐 반응속도 적용") && prompt.includes("목표 수준에 맞게 뜻을 먼저 설명한 뒤") && prompt.includes("고3~대학 1학년 수준"),
+    "I6 고2 elective prompt keeps the advanced pattern and targets 고3~대학 1학년 depth");
 }
 
 // I7 — 고1 with the real client assessment payload: only objective task evidence reaches the prompt.
@@ -208,14 +210,14 @@ const realAssessment = JSON.parse(readFileSync(new URL("./fixtures/enzyme_perfor
   const prompt = openaiCalls[0]?.input || "";
   const forbidden = [
     "효소 구조·성능·안정성", "구조, 조건, 성능, 안정성", "핵심 원리와 적용 조건", '"concept": "정확성"', "과학의 측정과 우리 사회",
-    "Vmax=100", "Km=10", "MATLAB", "Python", "Michaelis", "미카엘리스", "score_diagnostics", "topCandidates",
+    "Vmax=100", "Km=10", "score_diagnostics", "topCandidates",
   ].filter(word => prompt.includes(word));
-  check(res.status === 200 && forbidden.length === 0 && !/\bKm\b|Vmax/.test(prompt),
-    `I7 고1 prompt drops client guesses, worked calculations and university equations${forbidden.length ? ` (leaked: ${forbidden.join(", ")})` : ""}`);
+  check(res.status === 200 && forbidden.length === 0,
+    `I7 고1 prompt drops client guesses and worked calculations${forbidden.length ? ` (leaked: ${forbidden.join(", ")})` : ""}`);
   check(prompt.includes("효소 작용 탐구") && prompt.includes("활성화 에너지를 낮추고") && prompt.includes("개념정확성") && prompt.includes("채점 요소다"),
     "I7 prompt keeps the real similar task, the basic content focus and the rubric labelled as grading criteria");
-  check(prompt.includes("식이나 상수 기호로 나타내는 대학 과정") && prompt.includes("물음표(?)로 끝나는") && prompt.includes("400자 이상"),
-    "I7 prompt carries the foundation enzyme rule, question-form and per-section length rules");
+  check(prompt.includes("다른 가능한 설명을 최소 1개") && prompt.includes("열로 응고") && prompt.includes("물음표(?)로 끝나는") && prompt.includes("400자 이상"),
+    "I7 prompt carries the depth rules (alternative explanation, enzyme/stain guardrail), question-form and length rules");
 }
 // I8 — 고2 elective with the same payload keeps the advanced material (analysis cautions, intermediate focus).
 {
