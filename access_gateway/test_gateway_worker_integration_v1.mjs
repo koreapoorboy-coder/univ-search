@@ -92,6 +92,8 @@ globalThis.fetch = async (input, init) => {
   if (request.url === "https://api.openai.com/v1/responses") {
     openaiCalls.push(await request.json());
     if (openaiMode === "error") return new Response(JSON.stringify({ error: { message: "rate limited" } }), { status: 429 });
+    // "flaky": the first call fails once, the retry gets the normal report.
+    if (openaiMode === "flaky") { openaiMode = "report"; return new Response(JSON.stringify({ error: { message: "temporary" } }), { status: 500 }); }
     const text = STAGE_OUTPUTS[openaiMode] ? JSON.stringify(STAGE_OUTPUTS[openaiMode])
       : openaiMode === "sections"
       ? JSON.stringify({ reportTitle: "락타아제 우유로 본 효소의 기질 특이성", sections: REPORT_SECTIONS })
@@ -295,6 +297,15 @@ const STUDENT_DATA = {
     "I12 an empty table turns the second stage into a literature report");
   const sections = site.normalizeDocumentSections(site.dedupeSections(site.splitSections(site.cleanReportText(body.result?.report || ""), { requestedTitles: body.result?.sectionTitles || [] })));
   check(sections.map(section => section.title).join("|") === (body.result?.sectionTitles || []).join("|"), "I12 the site splits a staged report by the section titles the Worker returns");
+  openaiMode = "report";
+}
+
+// I13 — a single model failure is retried once inside the Worker; the student gets the report and one use is counted.
+{
+  const kv = makeKv();
+  openaiMode = "flaky"; openaiCalls.length = 0;
+  const res = await viaGateway(basePayload, kv); const body = await res.json();
+  check(res.status === 200 && body.source === "openai" && openaiCalls.length === 2 && uses(kv) === 1, "I13 a transient model failure is retried once and counted once");
   openaiMode = "report";
 }
 

@@ -205,12 +205,12 @@ export default {
 
         if (env.OPENAI_API_KEY && String(env.ALLOW_STUB).toLowerCase() === 'false') {
           try {
-            ({ result, usage } = await callOpenAI(prompt, env, input));
+            ({ result, usage } = await callOpenAIWithRetry(prompt, env, input));
             source = 'openai';
           } catch (error) {
-            result = buildSeedFallbackResult(input, seedMatch);
+            result = { ...buildSeedFallbackResult(input, seedMatch), diagnostic: String(error?.message || error).slice(0, 200) };
             source = 'seed-fallback-after-openai-error';
-            console.error('OpenAI call failed:', error?.message || error);
+            console.error('OpenAI call failed after retry:', error?.message || error);
           }
         } else {
           result = buildSeedFallbackResult(input, seedMatch);
@@ -588,6 +588,16 @@ function buildPrompt(input, seedMatch, env) {
   ];
 
   return prompt.join('\n');
+}
+
+// One retry: a single transient model or parsing error should not cost the student a failed report.
+async function callOpenAIWithRetry(prompt, env, input) {
+  try {
+    return await callOpenAI(prompt, env, input);
+  } catch (error) {
+    console.error('OpenAI call failed, retrying once:', error?.message || error);
+    return callOpenAI(prompt, env, input);
+  }
 }
 
 async function callOpenAI(prompt, env, input = {}) {

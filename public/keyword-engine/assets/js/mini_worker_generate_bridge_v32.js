@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v252-experiment-two-stage";
+  const VERSION = "mini-worker-generate-bridge-v253-grouped-chart-rules";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2526,14 +2526,19 @@
     return parts.slice(0, 3);
   }
 
+  // One series for a plain chart; one series per first variable (legend colours) for a grouped chart.
   function renderFigureChart(figure){
     const labels = Array.isArray(figure.labels) ? figure.labels : [];
-    const values = (Array.isArray(figure.values) ? figure.values : []).map(Number);
-    if(labels.length < 2 || labels.length !== values.length || values.some(value => !Number.isFinite(value))) return "";
-    const width = 640, height = 320, left = 58, right = 18, top = 24, bottom = 74;
+    const series = (Array.isArray(figure.series) && figure.series.length ? figure.series : [{ name: "", values: figure.values }])
+      .map(item => ({ name: String(item?.name || ""), values: (Array.isArray(item?.values) ? item.values : []).map(Number) }));
+    if(labels.length < 2 || series.some(item => item.values.length !== labels.length || item.values.some(value => !Number.isFinite(value)))) return "";
+    const colors = ["#5b7cfa", "#f59e0b", "#10b981", "#ef4444"];
+    const legend = series.length > 1;
+    const width = 640, height = 320, left = 58, right = 18, top = legend ? 46 : 24, bottom = 74;
     const plotW = width - left - right, plotH = height - top - bottom;
+    const all = series.flatMap(item => item.values);
     // Round axis steps (1, 2, 2.5, 5 × 10ⁿ) so the ticks read 0, 1, 2, 3 instead of 0, 0.67, 1.34.
-    const rawMax = Math.max(0, ...values), rawMin = Math.min(0, ...values);
+    const rawMax = Math.max(0, ...all), rawMin = Math.min(0, ...all);
     const roughStep = ((rawMax - rawMin) || 1) / 4;
     const magnitude = 10 ** Math.floor(Math.log10(roughStep));
     const tickStep = [1, 2, 2.5, 5, 10].map(n => n * magnitude).find(n => n >= roughStep);
@@ -2545,13 +2550,24 @@
     const ticks = Array.from({ length: Math.round(span / tickStep) + 1 }, (_, i) => minV + tickStep * i);
     const grid = ticks.map(tick => `<line x1="${left}" x2="${width - right}" y1="${y(tick).toFixed(1)}" y2="${y(tick).toFixed(1)}" stroke="#e2e8f0"/><text x="${left - 8}" y="${(y(tick) + 4).toFixed(1)}" text-anchor="end" font-size="11" fill="#64748b">${escapeHtml(formatFigureNumber(tick))}</text>`).join("");
     const axis = `<line x1="${left}" x2="${width - right}" y1="${y(0).toFixed(1)}" y2="${y(0).toFixed(1)}" stroke="#94a3b8"/>`;
-    const valueLabels = values.map((value, i) => `<text x="${centerX(i).toFixed(1)}" y="${(Math.min(y(value), y(0)) - 7).toFixed(1)}" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a8a">${escapeHtml(formatFigureNumber(value))}</text>`).join("");
-    const marks = figure.kind === "line"
-      ? `<polyline fill="none" stroke="#2f5bff" stroke-width="2.5" points="${values.map((value, i) => `${centerX(i).toFixed(1)},${y(value).toFixed(1)}`).join(" ")}"/>${values.map((value, i) => `<circle cx="${centerX(i).toFixed(1)}" cy="${y(value).toFixed(1)}" r="4.5" fill="#2f5bff"/>`).join("")}`
-      : values.map((value, i) => `<rect x="${(centerX(i) - step * 0.3).toFixed(1)}" y="${Math.min(y(value), y(0)).toFixed(1)}" width="${(step * 0.6).toFixed(1)}" height="${Math.max(1, Math.abs(y(value) - y(0))).toFixed(1)}" rx="3" fill="#5b7cfa"/>`).join("");
+    const isLine = /line$/.test(String(figure.kind || ""));
+    const groupW = step * 0.7, barW = groupW / series.length;
+    const valueLabel = (x, value) => `<text x="${x.toFixed(1)}" y="${(Math.min(y(value), y(0)) - 7).toFixed(1)}" text-anchor="middle" font-size="${legend ? 11 : 12}" font-weight="700" fill="#1e3a8a">${escapeHtml(formatFigureNumber(value))}</text>`;
+    const marks = series.map((item, s) => {
+      const color = colors[s % colors.length];
+      if(isLine){
+        return `<polyline fill="none" stroke="${color}" stroke-width="2.5" points="${item.values.map((value, i) => `${centerX(i).toFixed(1)},${y(value).toFixed(1)}`).join(" ")}"/>`
+          + item.values.map((value, i) => `<circle cx="${centerX(i).toFixed(1)}" cy="${y(value).toFixed(1)}" r="4.5" fill="${color}"/>${valueLabel(centerX(i), value)}`).join("");
+      }
+      return item.values.map((value, i) => {
+        const x = centerX(i) - groupW / 2 + barW * s;
+        return `<rect x="${(x + barW * 0.08).toFixed(1)}" y="${Math.min(y(value), y(0)).toFixed(1)}" width="${(barW * 0.84).toFixed(1)}" height="${Math.max(1, Math.abs(y(value) - y(0))).toFixed(1)}" rx="3" fill="${color}"/>${valueLabel(x + barW / 2, value)}`;
+      }).join("");
+    }).join("");
     const xLabels = labels.map((label, i) => `<text x="${centerX(i).toFixed(1)}" y="${height - bottom + 20}" text-anchor="middle" font-size="12" fill="#334155">${wrapChartLabel(label).map((line, n) => `<tspan x="${centerX(i).toFixed(1)}" dy="${n ? 15 : 0}">${escapeHtml(line)}</tspan>`).join("")}</text>`).join("");
+    const legendMarks = legend ? series.map((item, s) => `<rect x="${left + s * 130}" y="12" width="12" height="12" rx="2" fill="${colors[s % colors.length]}"/><text x="${left + s * 130 + 18}" y="22" font-size="12" fill="#334155">${escapeHtml(item.name)}</text>`).join("") : "";
     const unitLabel = figure.unit ? `<text x="12" y="${top - 8}" font-size="11" fill="#64748b">(${escapeHtml(figure.unit)})</text>` : "";
-    return `<svg class="mini-figure-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(figure.title || "")}" xmlns="http://www.w3.org/2000/svg" font-family="Malgun Gothic, sans-serif">${grid}${axis}${marks}${valueLabels}${xLabels}${unitLabel}</svg>`;
+    return `<svg class="mini-figure-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(figure.title || "")}" xmlns="http://www.w3.org/2000/svg" font-family="Malgun Gothic, sans-serif">${grid}${axis}${marks}${xLabels}${legendMarks}${unitLabel}</svg>`;
   }
 
   function renderFigure(figure){
@@ -2568,7 +2584,11 @@
     if(Array.isArray(figure?.columns)){
       return [`[${figure.label}] ${figure.title}`, figure.columns.join(" | "), ...(figure.rows || []).map(row => row.map((cell, i) => i ? formatFigureNumber(cell) : cell).join(" | "))].join("\n");
     }
-    return [`[${figure.label}] ${figure.title}${figure.unit ? ` (단위: ${figure.unit})` : ""}`, ...(figure.labels || []).map((label, i) => `${label}: ${formatFigureNumber(figure.values?.[i])}`)].join("\n");
+    const unit = figure.unit ? ` (단위: ${figure.unit})` : "";
+    if(Array.isArray(figure?.series) && figure.series.length){
+      return [`[${figure.label}] ${figure.title}${unit}`, ...figure.series.map(item => `${item.name}: ${(figure.labels || []).map((label, i) => `${label} ${formatFigureNumber(item.values?.[i])}`).join(", ")}`)].join("\n");
+    }
+    return [`[${figure.label}] ${figure.title}${unit}`, ...(figure.labels || []).map((label, i) => `${label}: ${formatFigureNumber(figure.values?.[i])}`)].join("\n");
   }
 
   // Figures go right after the section the Worker names (탐구 결과 / 자료 비교 정리).

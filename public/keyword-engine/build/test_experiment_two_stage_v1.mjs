@@ -62,4 +62,29 @@ check(litOut.extra.comparisonTable === null, "a literature table with a number i
 check(stageSections(STAGE.FINAL, { taskDescription: "활용 방안을 통한 탐구보고서" }).includes("활용 방안") && !stageSections(STAGE.FINAL, { taskDescription: "탐구보고서" }).includes("활용 방안"), "활용 방안 section appears only when the task asks for it");
 check(Object.keys(stageSchemaProperties(STAGE.DRAFT)).join() === "dataTemplate" && Object.keys(stageSchemaProperties(STAGE.FINAL)).join() === "figures", "each stage asks the model for its own extra output");
 
+// Real test 2026-09-11: 세제 2 × 온도 3 conditions. Charts over the whole grid are grouped (세제 = colours,
+// 온도 = x-axis), ties are reported, 참고 자료 is the student's own list, and invented feelings are removed.
+const gridData = normalizeStudentData({
+  measurementName: "얼룩 제거 정도", unit: "점", scaleGuide: "0점 그대로, 3점 완전히 제거",
+  conditions: [
+    { label: "효소 세제 · 찬물", values: [1, 1, 2] }, { label: "효소 세제 · 미지근한 물", values: [2, 3, 2] }, { label: "효소 세제 · 뜨거운 물", values: [1, 2, 1] },
+    { label: "일반 세제 · 찬물", values: [0, 0, 1] }, { label: "일반 세제 · 미지근한 물", values: [1, 1, 1] }, { label: "일반 세제 · 뜨거운 물", values: [1, 2, 1] },
+  ],
+  reflection: "뜨거운 물이 제일 잘 지울 줄 알았는데 아니어서 신기했다.",
+  sources: ["통합과학1 교과서 효소 단원"],
+});
+const gridStats = computeStats(gridData);
+const grouped = buildFigures([{ kind: "bar", metric: "mean", conditionOrder: [], title: "평균", caption: "" }], gridStats).find(f => f.kind !== "table");
+check(grouped.kind === "grouped_bar" && grouped.labels.join(",") === "찬물,미지근한 물,뜨거운 물" && grouped.series.map(s => `${s.name}:${s.values.join("/")}`).join(" ") === "효소 세제:1.33/2.33/1.33 일반 세제:0.33/1/1.33",
+  "a chart over a 세제 × 온도 grid is grouped: 세제 as colours, 온도 on the x-axis", JSON.stringify(grouped));
+check(gridStats.sameMean.some(group => group.join("|") === "효소 세제 · 찬물|효소 세제 · 뜨거운 물|일반 세제 · 뜨거운 물") && gridStats.ranking[0].label === "효소 세제 · 미지근한 물",
+  "ties (same mean) and the ranking are computed for the model", JSON.stringify(gridStats.sameMean));
+const gridOut = finalizeStageOutput(STAGE.FINAL, { reportTitle: "t", figures: [], sections: [
+  { title: "느낀 점", body: "뜨거운 물이 제일 잘 지울 줄 알았는데 아니어서 신기했다. 반복해서 실험하는 과정이 힘들었지만 보람 있었다. 온도에 따라 효소 작용이 달라진다는 것을 알게 되었다." },
+  { title: "참고 자료", body: "통합과학1 교과서 효소 단원\n학생 실험 기록지 및 관찰 메모\n(추가적인 외부 자료는 사용하지 않았음.)\n\n※ 직접 측정한 데이터만 사용하였다." },
+] }, { studentData: gridData, taskDescription: "" });
+const [feel, refs] = gridOut.parsed.sections;
+check(!feel.body.includes("힘들었지만") && feel.body.includes("신기했다") && feel.body.includes("알게 되었다") && gridOut.extra.removedFeelingSentences === 1, "느낀 점 keeps the student's words and drops a feeling they never wrote", feel.body);
+check(refs.body === "통합과학1 교과서 효소 단원", "참고 자료 is exactly the student's source list", refs.body);
+
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);

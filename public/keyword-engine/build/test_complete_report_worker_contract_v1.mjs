@@ -22,6 +22,7 @@ const checks = [
   [worker.includes('"~에서 확인하였다", "~를 활용했다"처럼 실제로 한 것처럼 쓰지 않는다'), "references section still allows claimed source use"],
   [worker.includes('"나는 평소에 ~해 본 경험이 있다"처럼 학생 개인의 경험·습관을 쓰지 않는다'), "global invented-experience rule is missing"],
   [worker.includes("removeInventedExperience(section?.body)"), "invented-experience sentences are not removed from model sections"],
+  [worker.includes("await callOpenAIWithRetry(prompt, env, input)"), "a failed model call is not retried once"],
   [worker.includes("connectedBook: input.useBookInReport ? input.selectedBookTitle : '사용하지 않음'"), "book opt-out is not bound to the prompt"],
   [bridge.includes("rawData?.result?.reportTitle"), "worker report title is not rendered"],
   [bridge.includes("value.result?.report"), "worker report body is not extracted"],
