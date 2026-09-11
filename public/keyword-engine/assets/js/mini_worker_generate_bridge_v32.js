@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v253-grouped-chart-rules";
+  const VERSION = "mini-worker-generate-bridge-v254-gpt5-wait-notice";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -60,10 +60,13 @@
     const loading = $("loadingMessage");
     if(btn){
       btn.disabled = isLoading;
-      btn.textContent = isLoading ? "보고서 생성 중..." : "보고서 만들기";
+      btn.textContent = isLoading ? "보고서 생성 중... (최대 2~3분)" : "보고서 만들기";
     }
     if(resetBtn) resetBtn.disabled = isLoading;
-    if(loading) loading.style.display = isLoading ? "block" : "none";
+    if(loading){
+      loading.style.display = isLoading ? "block" : "none";
+      if(isLoading) loading.textContent = "AI가 보고서를 깊이 있게 쓰고 있어요. 최대 2~3분 걸리니 창을 닫지 말고 기다려 주세요.";
+    }
   }
   function clearError(){
     const el = $("errorMessage");
@@ -2629,7 +2632,7 @@
           <label>느낀 점 <span>(선택)</span><textarea id="miniExpReflection" rows="2"></textarea></label>
           <label>실제로 참고한 자료 <span>(선택, 한 줄에 하나)</span><textarea id="miniExpSources" rows="2"></textarea></label>
         </div>
-        <p class="mini-exp-note">적은 문장은 최종 보고서에 거의 그대로 들어가요. 표를 비워 두고 만들면 실험 없이 쓰는 <b>문헌 탐구 보고서</b>로 만들어요. 최종 보고서를 만들 때 사용 횟수가 1회 차감돼요.</p>
+        <p class="mini-exp-note">적은 문장은 최종 보고서에 거의 그대로 들어가요. 표를 비워 두고 만들면 실험 없이 쓰는 <b>문헌 탐구 보고서</b>로 만들어요. 최종 보고서를 만들 때 사용 횟수가 1회 차감되고, 만드는 데 2~3분 걸려요.</p>
         <p class="mini-exp-error" id="miniExpError" hidden></p>
         <div class="mini-v229-actions"><button type="button" id="miniExpFinalBtn">최종 보고서 만들기</button></div>
       </section>`;
@@ -2676,11 +2679,17 @@
     studentData.draftTitle = draft.title;
     studentData.draftReport = draft.plainText;
     const button = $("miniExpFinalBtn");
-    if(button) button.disabled = true;
+    if(button){
+      button.disabled = true;
+      button.textContent = "최종 보고서 만드는 중... (최대 2~3분)";
+    }
     try{
       return await runGenerate({ reportStage: measured >= 2 ? "experiment_final" : "literature", studentData });
     }finally{
-      if(button?.isConnected) button.disabled = false;
+      if(button?.isConnected){
+        button.disabled = false;
+        button.textContent = "최종 보고서 만들기";
+      }
     }
   }
 
