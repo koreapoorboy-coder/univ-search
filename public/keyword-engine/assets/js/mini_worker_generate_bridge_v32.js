@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v251-chunk1-report-finish";
+  const VERSION = "mini-worker-generate-bridge-v252-experiment-two-stage";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2135,6 +2135,8 @@
   const DEFAULT_WORKER_REPORT_SECTIONS = ["연구 질문", "이론적 배경 및 자료 검토", "탐구 방법", "탐구 결과 및 분석", "결론", "참고문헌 및 후속 탐구"];
 
   function getRequestedReportSections(req){
+    // A staged report (설계서 / 최종 / 문헌형) uses the section titles the Worker actually wrote.
+    if(Array.isArray(req?.stageSectionTitles) && req.stageSectionTitles.length) return req.stageSectionTitles;
     const requested = Array.isArray(req?.targetStructure) ? req.targetStructure.map(title => String(title || "").trim()).filter(Boolean) : [];
     return requested.length ? requested : DEFAULT_WORKER_REPORT_SECTIONS;
   }
@@ -2494,14 +2496,177 @@
     return `
       <section class="mini-report-section">
         <h3><span>${index + 1}</span>${escapeHtml(sec.title)}</h3>
-        <div class="mini-report-section-body">${renderDocumentBody(sec.body)}</div>
+        <div class="mini-report-section-body">${renderDocumentBody(sec.body)}${renderSectionFigures(sec)}</div>
       </section>
     `;
   }
 
+  // Staged report (experiment first). Tables and charts are drawn here from the numbers the Worker computed
+  // out of the student's own data; no figure value comes from the model's text.
+  function formatFigureNumber(value){
+    if(value === "" || value === null || value === undefined) return "";
+    const number = Number(value);
+    return typeof value === "number" || (String(value).trim() && Number.isFinite(number)) ? String(Math.round(number * 100) / 100) : String(value);
+  }
+
+  function renderFigureTable(figure){
+    const columns = Array.isArray(figure.columns) ? figure.columns : [];
+    const rows = Array.isArray(figure.rows) ? figure.rows : [];
+    return `
+      <div class="mini-v43-table-wrap">
+        <table class="mini-v43-table mini-figure-table">
+          <thead><tr>${columns.map(cell => `<th>${escapeHtml(cell)}</th>`).join("")}</tr></thead>
+          <tbody>${rows.map(row => `<tr>${columns.map((_, i) => `<td>${escapeHtml(i === 0 ? row[i] : formatFigureNumber(row[i]))}</td>`).join("")}</tr>`).join("")}</tbody>
+        </table>
+      </div>`;
+  }
+
+  function wrapChartLabel(label){
+    const parts = String(label || "").split(/\s*·\s*/).flatMap(part => part.length > 9 ? [part.slice(0, 9), part.slice(9, 18)] : [part]);
+    return parts.slice(0, 3);
+  }
+
+  function renderFigureChart(figure){
+    const labels = Array.isArray(figure.labels) ? figure.labels : [];
+    const values = (Array.isArray(figure.values) ? figure.values : []).map(Number);
+    if(labels.length < 2 || labels.length !== values.length || values.some(value => !Number.isFinite(value))) return "";
+    const width = 640, height = 320, left = 58, right = 18, top = 24, bottom = 74;
+    const plotW = width - left - right, plotH = height - top - bottom;
+    // Round axis steps (1, 2, 2.5, 5 × 10ⁿ) so the ticks read 0, 1, 2, 3 instead of 0, 0.67, 1.34.
+    const rawMax = Math.max(0, ...values), rawMin = Math.min(0, ...values);
+    const roughStep = ((rawMax - rawMin) || 1) / 4;
+    const magnitude = 10 ** Math.floor(Math.log10(roughStep));
+    const tickStep = [1, 2, 2.5, 5, 10].map(n => n * magnitude).find(n => n >= roughStep);
+    const maxV = Math.ceil(rawMax / tickStep) * tickStep, minV = Math.floor(rawMin / tickStep) * tickStep;
+    const span = (maxV - minV) || 1;
+    const y = value => top + ((maxV - value) / span) * plotH;
+    const step = plotW / labels.length;
+    const centerX = index => left + step * index + step / 2;
+    const ticks = Array.from({ length: Math.round(span / tickStep) + 1 }, (_, i) => minV + tickStep * i);
+    const grid = ticks.map(tick => `<line x1="${left}" x2="${width - right}" y1="${y(tick).toFixed(1)}" y2="${y(tick).toFixed(1)}" stroke="#e2e8f0"/><text x="${left - 8}" y="${(y(tick) + 4).toFixed(1)}" text-anchor="end" font-size="11" fill="#64748b">${escapeHtml(formatFigureNumber(tick))}</text>`).join("");
+    const axis = `<line x1="${left}" x2="${width - right}" y1="${y(0).toFixed(1)}" y2="${y(0).toFixed(1)}" stroke="#94a3b8"/>`;
+    const valueLabels = values.map((value, i) => `<text x="${centerX(i).toFixed(1)}" y="${(Math.min(y(value), y(0)) - 7).toFixed(1)}" text-anchor="middle" font-size="12" font-weight="700" fill="#1e3a8a">${escapeHtml(formatFigureNumber(value))}</text>`).join("");
+    const marks = figure.kind === "line"
+      ? `<polyline fill="none" stroke="#2f5bff" stroke-width="2.5" points="${values.map((value, i) => `${centerX(i).toFixed(1)},${y(value).toFixed(1)}`).join(" ")}"/>${values.map((value, i) => `<circle cx="${centerX(i).toFixed(1)}" cy="${y(value).toFixed(1)}" r="4.5" fill="#2f5bff"/>`).join("")}`
+      : values.map((value, i) => `<rect x="${(centerX(i) - step * 0.3).toFixed(1)}" y="${Math.min(y(value), y(0)).toFixed(1)}" width="${(step * 0.6).toFixed(1)}" height="${Math.max(1, Math.abs(y(value) - y(0))).toFixed(1)}" rx="3" fill="#5b7cfa"/>`).join("");
+    const xLabels = labels.map((label, i) => `<text x="${centerX(i).toFixed(1)}" y="${height - bottom + 20}" text-anchor="middle" font-size="12" fill="#334155">${wrapChartLabel(label).map((line, n) => `<tspan x="${centerX(i).toFixed(1)}" dy="${n ? 15 : 0}">${escapeHtml(line)}</tspan>`).join("")}</text>`).join("");
+    const unitLabel = figure.unit ? `<text x="12" y="${top - 8}" font-size="11" fill="#64748b">(${escapeHtml(figure.unit)})</text>` : "";
+    return `<svg class="mini-figure-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(figure.title || "")}" xmlns="http://www.w3.org/2000/svg" font-family="Malgun Gothic, sans-serif">${grid}${axis}${marks}${valueLabels}${xLabels}${unitLabel}</svg>`;
+  }
+
+  function renderFigure(figure){
+    const body = Array.isArray(figure?.columns) ? renderFigureTable(figure) : renderFigureChart(figure || {});
+    if(!body) return "";
+    return `<figure class="mini-figure"><figcaption class="mini-figure-title"><b>${escapeHtml(figure.label || "")}</b> ${escapeHtml(figure.title || "")}</figcaption>${body}${figure.caption ? `<p class="mini-figure-caption">${escapeHtml(figure.caption)}</p>` : ""}</figure>`;
+  }
+
+  function renderSectionFigures(sec){
+    return (sec?.figures || []).map(renderFigure).join("");
+  }
+
+  function figurePlainText(figure){
+    if(Array.isArray(figure?.columns)){
+      return [`[${figure.label}] ${figure.title}`, figure.columns.join(" | "), ...(figure.rows || []).map(row => row.map((cell, i) => i ? formatFigureNumber(cell) : cell).join(" | "))].join("\n");
+    }
+    return [`[${figure.label}] ${figure.title}${figure.unit ? ` (단위: ${figure.unit})` : ""}`, ...(figure.labels || []).map((label, i) => `${label}: ${formatFigureNumber(figure.values?.[i])}`)].join("\n");
+  }
+
+  // Figures go right after the section the Worker names (탐구 결과 / 자료 비교 정리).
+  function attachStageFigures(displaySections, result){
+    const groups = [];
+    if(Array.isArray(result?.figures) && result.figures.length) groups.push([result.figuresAfterSection || "탐구 결과", result.figures]);
+    if(result?.comparisonTable) groups.push([result.comparisonTableAfterSection || "자료 비교 정리", [result.comparisonTable]]);
+    groups.forEach(([anchor, figures]) => {
+      const target = displaySections.find(sec => sec.title === anchor)
+        || displaySections.find(sec => /결과|비교/.test(sec.title))
+        || displaySections[displaySections.length - 1];
+      if(target) target.figures = (target.figures || []).concat(figures);
+    });
+    return displaySections;
+  }
+
+  const STAGE_HEADINGS = {
+    experiment_draft: ["1차 탐구 설계서", "실험 전에 쓰는 설계서예요. 이대로 실험한 뒤 아래 표에 결과를 넣으면, 그 값으로 최종 보고서와 표·그래프를 만들어요."],
+    experiment_final: ["최종 탐구 보고서", "직접 넣은 실험 결과로 만든 보고서예요. 표와 그래프의 숫자는 모두 입력한 값에서 나왔어요. 제출 전에 내 말투로 한 번 읽고 고쳐 주세요."],
+    literature: ["문헌 탐구 보고서", "실험 결과 없이 교과서와 자료 조사로 쓴 보고서예요. 제출 전에 실제로 읽은 자료가 맞는지 확인해 주세요."]
+  };
+
+  function renderExperimentInputPanel(template){
+    const trials = Math.max(1, Math.min(5, Number(template?.trials) || 3));
+    const conditions = Array.isArray(template?.conditions) ? template.conditions : [];
+    const unit = template?.unit ? ` (${template.unit})` : "";
+    const head = `<tr><th>조건</th>${Array.from({ length: trials }, (_, i) => `<th>${i + 1}회${escapeHtml(unit)}</th>`).join("")}<th>관찰 메모</th></tr>`;
+    const rows = conditions.map((label, r) => `<tr><th scope="row">${escapeHtml(label)}</th>${Array.from({ length: trials }, (_, i) => `<td><input type="text" inputmode="decimal" data-row="${r}" data-trial="${i}" aria-label="${escapeHtml(label)} ${i + 1}회"></td>`).join("")}<td><input type="text" data-row="${r}" data-note="1" aria-label="${escapeHtml(label)} 관찰 메모"></td></tr>`).join("");
+    return `
+      <section class="mini-exp-panel" id="miniExpPanel">
+        <div class="mini-v43-kicker">2단계 · 실험 후 직접 채우기</div>
+        <h3>실험 결과를 넣으면 이 값으로 최종 보고서와 표·그래프를 만들어요</h3>
+        <p class="mini-exp-help">위 설계서대로 실험한 뒤 측정한 값을 숫자로 적어 주세요. <b>측정 항목: ${escapeHtml(template?.measurementName || "측정값")}${escapeHtml(unit)}</b>${template?.scaleGuide ? `<br>기준: ${escapeHtml(template.scaleGuide)}` : ""}</p>
+        <div class="mini-v43-table-wrap"><table class="mini-v43-table mini-exp-table"><thead>${head}</thead><tbody>${rows}</tbody></table></div>
+        <div class="mini-exp-fields">
+          <label>이 주제를 고른 내 이유 <span>(선택)</span><textarea id="miniExpReason" rows="2"></textarea></label>
+          <label>실험하면서 관찰한 점 <span>(선택)</span><textarea id="miniExpObservations" rows="2"></textarea></label>
+          <label>느낀 점 <span>(선택)</span><textarea id="miniExpReflection" rows="2"></textarea></label>
+          <label>실제로 참고한 자료 <span>(선택, 한 줄에 하나)</span><textarea id="miniExpSources" rows="2"></textarea></label>
+        </div>
+        <p class="mini-exp-note">적은 문장은 최종 보고서에 거의 그대로 들어가요. 표를 비워 두고 만들면 실험 없이 쓰는 <b>문헌 탐구 보고서</b>로 만들어요. 최종 보고서를 만들 때 사용 횟수가 1회 차감돼요.</p>
+        <p class="mini-exp-error" id="miniExpError" hidden></p>
+        <div class="mini-v229-actions"><button type="button" id="miniExpFinalBtn">최종 보고서 만들기</button></div>
+      </section>`;
+  }
+
+  const NUMBER_TEXT = /^-?\d+(\.\d+)?$/;
+
+  function collectExperimentInput(template){
+    const panel = $("miniExpPanel");
+    const conditions = (template?.conditions || []).map((label, r) => ({
+      label,
+      values: Array.from(panel.querySelectorAll(`input[data-row="${r}"][data-trial]`)).map(input => input.value.trim().replace(/,/g, "")).filter(Boolean),
+      note: panel.querySelector(`input[data-row="${r}"][data-note]`)?.value.trim() || ""
+    }));
+    const text = id => $(id)?.value.trim() || "";
+    return {
+      measurementName: template?.measurementName || "",
+      unit: template?.unit || "",
+      scaleGuide: template?.scaleGuide || "",
+      conditions,
+      reason: text("miniExpReason"),
+      observations: text("miniExpObservations"),
+      reflection: text("miniExpReflection"),
+      sources: text("miniExpSources").split(/\n/).map(v => v.trim()).filter(Boolean)
+    };
+  }
+
+  async function handleExperimentFinal(){
+    const draft = global.__MINI_EXPERIMENT_DRAFT__;
+    const panel = $("miniExpPanel");
+    if(!draft || !panel) return false;
+    const errorBox = $("miniExpError");
+    const invalid = Array.from(panel.querySelectorAll("input[data-trial]")).filter(input => input.value.trim() && !NUMBER_TEXT.test(input.value.trim().replace(/,/g, "")));
+    panel.querySelectorAll("input[data-trial]").forEach(input => input.classList.toggle("is-invalid", invalid.includes(input)));
+    if(invalid.length){
+      errorBox.hidden = false;
+      errorBox.textContent = "결과 칸에는 숫자만 넣어 주세요. 설명은 관찰 메모 칸에 적어 주세요.";
+      return false;
+    }
+    errorBox.hidden = true;
+    const studentData = collectExperimentInput(draft.template);
+    const measured = studentData.conditions.filter(row => row.values.length).length;
+    if(measured < 2 && !global.confirm("결과 표에 값이 있는 조건이 두 개보다 적어요. 실험 없이 쓰는 문헌 탐구 보고서로 만들까요?")) return false;
+    studentData.draftTitle = draft.title;
+    studentData.draftReport = draft.plainText;
+    const button = $("miniExpFinalBtn");
+    if(button) button.disabled = true;
+    try{
+      return await runGenerate({ reportStage: measured >= 2 ? "experiment_final" : "literature", studentData });
+    }finally{
+      if(button?.isConnected) button.disabled = false;
+    }
+  }
+
   function makeReportPlainText(reportTitle, metadata, sections){
     const header = [reportTitle, "", ...metadata.filter(Boolean), ""];
-    const body = sections.flatMap((sec, index) => [`${index + 1}. ${sec.title}`, sec.body, ""]);
+    const body = sections.flatMap((sec, index) => [`${index + 1}. ${sec.title}`, sec.body, ...(sec.figures || []).map(figurePlainText), ""]);
     return header.concat(body).join("\n").trim();
   }
 
@@ -2515,9 +2680,10 @@
 
   function downloadReportHtml(reportTitle, metadata, sections){
     const sectionHtml = sections.map((sec, index) => `
-      <section><h2>${index + 1}. ${escapeHtml(sec.title)}</h2>${renderDocumentBody(sec.body)}</section>
+      <section><h2>${index + 1}. ${escapeHtml(sec.title)}</h2>${renderDocumentBody(sec.body)}${renderSectionFigures(sec)}</section>
     `).join("");
-    const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(reportTitle)}</title><style>body{font-family:"Malgun Gothic",sans-serif;max-width:820px;margin:48px auto;padding:0 28px;color:#111827;line-height:1.85}h1{text-align:center;font-size:30px;margin:0 0 20px}header{border-bottom:2px solid #111827;padding-bottom:18px;margin-bottom:30px}.meta{color:#475569;text-align:center;font-size:14px}section{margin:0 0 30px;break-inside:avoid}h2{font-size:20px;border-bottom:1px solid #cbd5e1;padding-bottom:8px}p{white-space:pre-wrap;margin:0 0 12px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}@media print{body{margin:0;max-width:none}}</style></head><body><header><h1>${escapeHtml(reportTitle)}</h1><div class="meta">${metadata.filter(Boolean).map(escapeHtml).join(" · ")}</div></header>${sectionHtml}</body></html>`;
+    const figureCss = "figure{margin:18px 0 22px}figcaption{font-weight:700;margin:0 0 8px}.mini-figure-caption{color:#475569;font-size:14px}svg{width:100%;height:auto;max-width:640px;display:block;margin:0 auto}";
+    const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(reportTitle)}</title><style>body{font-family:"Malgun Gothic",sans-serif;max-width:820px;margin:48px auto;padding:0 28px;color:#111827;line-height:1.85}h1{text-align:center;font-size:30px;margin:0 0 20px}header{border-bottom:2px solid #111827;padding-bottom:18px;margin-bottom:30px}.meta{color:#475569;text-align:center;font-size:14px}section{margin:0 0 30px;break-inside:avoid}h2{font-size:20px;border-bottom:1px solid #cbd5e1;padding-bottom:8px}p{white-space:pre-wrap;margin:0 0 12px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}${figureCss}@media print{body{margin:0;max-width:none}}</style></head><body><header><h1>${escapeHtml(reportTitle)}</h1><div class="meta">${metadata.filter(Boolean).map(escapeHtml).join(" · ")}</div></header>${sectionHtml}</body></html>`;
     const blob = new Blob(["\ufeff", html], { type: "text/html;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
@@ -3636,12 +3802,15 @@ ${result}`;
     const diag = extraction?.diagnostics || {};
     const focusQuestion = diag.focusQuestion || "";
 
-    const displaySections = normalizeDocumentSections(sections
+    const stageResult = rawData?.result && typeof rawData.result === "object" ? rawData.result : {};
+    const stage = String(stageResult.reportStage || "");
+    const [stageKicker, stageSub] = STAGE_HEADINGS[stage] || ["학생용 완성 보고서", "수행평가의 주제·방법·과정 증거가 실제 보고서의 제목, 탐구 방법, 결과, 고찰에 연결되도록 구성했습니다."];
+    const displaySections = attachStageFigures(normalizeDocumentSections(sections
       .filter(sec => !/^(보고서|설계서)\s*제목$/.test(normalizeSectionTitle(sec.title)))
       .map(sec => {
         const title = normalizeSectionTitle(sec.title);
         return { title, body: sec.body };
-      }));
+      })), stageResult);
 
     const metadata = [
       s.subject || req.subject ? `과목: ${s.subject || req.subject}` : "",
@@ -3737,6 +3906,23 @@ ${result}`;
         .mini-v229-actions button#miniV229CopyDraftBtn{background:#fff;color:#2f5bff}
         .mini-v229-draft-output{border:1px solid #dbe5ff;background:#f8fbff;border-radius:14px;padding:12px;color:#243244;font-size:13px;line-height:1.65;max-height:460px;overflow:auto}
         .mini-v229-draft-output pre{white-space:pre-wrap;margin:0;font-family:inherit;line-height:1.7}
+        .mini-figure{margin:18px 0 24px}
+        .mini-figure-title{font-size:14px;color:#0f172a;margin:0 0 8px}
+        .mini-figure-title b{color:#2454d8;margin-right:4px}
+        .mini-figure-caption{font-size:13px;color:#475569;margin:8px 0 0}
+        .mini-figure-chart{width:100%;max-width:640px;height:auto;display:block;margin:0 auto}
+        .mini-exp-panel{max-width:900px;margin:22px auto 0;border:2px dashed #8aa8ff;background:#f8fbff;border-radius:16px;padding:24px 28px}
+        .mini-exp-panel h3{font-size:19px;margin:0 0 8px;color:#0f172a}
+        .mini-exp-help,.mini-exp-note{font-size:14px;line-height:1.65;color:#475569;margin:0 0 12px}
+        .mini-exp-table input{width:100%;min-width:64px;box-sizing:border-box;border:1px solid #cbd5e1;border-radius:8px;padding:7px 8px;font-size:14px}
+        .mini-exp-table input.is-invalid{border-color:#dc2626;background:#fef2f2}
+        .mini-exp-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0}
+        .mini-exp-fields label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:900;color:#173ea9}
+        .mini-exp-fields label span{font-weight:600;color:#64748b}
+        .mini-exp-fields textarea{border:1px solid #cbd5e1;border-radius:10px;padding:9px;font-size:14px;line-height:1.5;resize:vertical;font-family:inherit}
+        .mini-exp-error{color:#b91c1c;font-weight:700;font-size:14px;margin:0 0 10px}
+        @media (max-width: 820px){.mini-exp-fields{grid-template-columns:1fr}.mini-exp-panel{padding:18px}}
+        @media print{.mini-exp-panel{display:none!important}}
         @media (max-width: 1100px){.mini-v43-expansion-options,.mini-v232-choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
         @media (max-width: 820px){
           .mini-v43-head{grid-template-columns:1fr}
@@ -3751,9 +3937,9 @@ ${result}`;
       <section class="mini-v43-result">
         <div class="mini-v43-head">
           <div>
-            <div class="mini-v43-kicker">학생용 완성 보고서</div>
+            <div class="mini-v43-kicker">${escapeHtml(stageKicker)}</div>
             <h2 class="mini-v43-title">${escapeHtml(reportTitle)}</h2>
-            <p class="mini-v43-sub">수행평가의 주제·방법·과정 증거가 실제 보고서의 제목, 탐구 방법, 결과, 고찰에 연결되도록 구성했습니다.</p>
+            <p class="mini-v43-sub">${escapeHtml(stageSub)}</p>
           </div>
           <div class="mini-v43-actions">
             <button type="button" id="miniV32CopyReportBtn">결과 복사</button>
@@ -3762,20 +3948,24 @@ ${result}`;
         </div>
 
         <div class="mini-v43-tags">
-          <span>${escapeHtml(s.subject || req.subject)}</span>
-          <span>${escapeHtml(s.selectedConcept || req.selectedConcept)}</span>
-          <span>${escapeHtml(s.selectedKeyword || req.keyword)}</span>
+          ${[...new Set([s.subject || req.subject, s.selectedConcept || req.selectedConcept, s.selectedKeyword || req.keyword].map(v => String(v || "").trim()).filter(Boolean))].map(tag => `<span>${escapeHtml(tag)}</span>`).join("")}
           ${book.title ? `<span>도서: ${escapeHtml(book.title)}</span>` : ""}
         </div>
 
         <div class="mini-v43-grid">
           ${sectionHtml}
         </div>
+        ${stage === "experiment_draft" && stageResult.dataTemplate ? renderExperimentInputPanel(stageResult.dataTemplate) : ""}
       </section>
     `;
 
     $("miniV32CopyReportBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(reportPlainText));
     $("miniV32DownloadReportBtn")?.addEventListener("click", () => downloadReportHtml(reportTitle, metadata, displaySections));
+    if(stage === "experiment_draft" && stageResult.dataTemplate){
+      global.__MINI_EXPERIMENT_DRAFT__ = { template: stageResult.dataTemplate, title: reportTitle, plainText: reportPlainText };
+      $("miniExpFinalBtn")?.addEventListener("click", handleExperimentFinal);
+    }
+    if(stage === "experiment_final" || stage === "literature") root.scrollIntoView?.({ behavior: "smooth", block: "start" });
 
     const builtInStudentReport = $("studentReport");
     if(builtInStudentReport) builtInStudentReport.innerHTML = "";
@@ -3793,13 +3983,21 @@ ${result}`;
     if(actionSteps) actionSteps.innerHTML = "";
   }
 
+  // Science tasks go through the two-stage experiment flow first (설계서 → 학생 결과 입력 → 최종 보고서).
+  function decideReportStage(req){
+    return String(req?.subjectGroup || "").trim() === "과학" ? "experiment_draft" : "";
+  }
+
   async function handleGenerateV32(event){
     if(event){
       event.preventDefault();
       event.stopPropagation();
       event.stopImmediatePropagation();
     }
+    return runGenerate();
+  }
 
+  async function runGenerate(options = {}){
     clearError();
     setLoading(true);
 
@@ -3810,6 +4008,9 @@ ${result}`;
         showError("아직 선택되지 않은 항목이 있습니다.", missing.join(" / "));
         return false;
       }
+      const reportStage = options.reportStage || decideReportStage(req);
+      if(reportStage) req.reportStage = reportStage;
+      if(options.studentData) req.studentData = options.studentData;
 
       const liveIntake = await acquireTrustedLiveIntake(req);
 
@@ -3826,6 +4027,7 @@ ${result}`;
       const data = await postGenerateJson(req);
       rememberGatewayGenerationToken(data);
       global.__LAST_MINI_WORKER_RESPONSE_V32__ = data;
+      if(Array.isArray(data?.result?.sectionTitles) && data.result.sectionTitles.length) req.stageSectionTitles = data.result.sectionTitles;
       const extraction = extractGeneratedText(data, req);
       global.__LAST_MINI_WORKER_EXTRACTION_V34__ = extraction;
       renderGeneratedReport(extraction.text, req, data, extraction);

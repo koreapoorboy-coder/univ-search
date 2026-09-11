@@ -11,7 +11,8 @@ const importSource = async source => (await import(`data:text/javascript;base64,
 
 // worker.js is ESM inside a CommonJS package, so load its source and point its one relative import at an absolute URL.
 const workerSource = readFileSync(new URL("admission_worker_skeleton/worker.js", repo), "utf8")
-  .replace("'./simple_live_intake_v1.mjs'", `'${new URL("admission_worker_skeleton/simple_live_intake_v1.mjs", repo).href}'`);
+  .replace("'./simple_live_intake_v1.mjs'", `'${new URL("admission_worker_skeleton/simple_live_intake_v1.mjs", repo).href}'`)
+  .replace("'./report_stages_v1.mjs'", `'${new URL("admission_worker_skeleton/report_stages_v1.mjs", repo).href}'`);
 const worker = await importSource(workerSource);
 const gateway = await importSource(readFileSync(new URL("worker.js", import.meta.url), "utf8"));
 const browserIntake = createRequire(import.meta.url)(new URL("public/keyword-engine/assets/js/simple_live_intake_v1.js", repo).pathname.replace(/^\/([A-Za-z]:)/, "$1"));
@@ -45,6 +46,41 @@ const REPORT_SECTIONS = REPORT.split(/\n\n(?=\d+\. )/).map(block => {
   return { title: head.replace(/^\d+\.\s*/, ""), body: rest.join("\n") };
 });
 
+// Staged answers (two-stage experiment report). The final answer deliberately carries an invented-number
+// sentence and its own chart values; the Worker must drop that sentence and compute every figure value itself.
+const longBody = text => `${text} `.repeat(6).trim();
+const STAGE_OUTPUTS = {
+  draft: {
+    reportTitle: "효소 세제와 물 온도에 따른 얼룩 제거 실험 설계",
+    sections: [
+      { title: "연구 질문", body: longBody("효소 세제는 일반 세제보다 얼룩을 더 잘 지울까? 물의 온도는 효소 세제의 효과에 어떤 영향을 줄까?") },
+      { title: "이론적 배경", body: longBody("효소는 활성화 에너지를 낮추는 단백질이며 온도가 너무 높으면 변성된다.") },
+      { title: "가설", body: longBody("효소 세제를 미지근한 물에서 쓰면 얼룩이 가장 잘 지워질 것이다.") },
+      { title: "탐구 방법", body: longBody("같은 천에 달걀 흰자 얼룩을 묻히고 세제와 물 온도를 바꾸어 20분 동안 세탁한다.") },
+      { title: "결과 기록 계획", body: longBody("조건마다 세 번 세탁하고 얼룩 제거 정도를 점수로 기록한다.") },
+    ],
+    dataTemplate: { measurementName: "얼룩 제거 정도", unit: "점", scaleGuide: "0점 그대로, 3점 완전히 제거", conditions: ["일반 세제 · 미지근한 물", "효소 세제 · 미지근한 물", "효소 세제 · 뜨거운 물"], trials: 3 },
+  },
+  final: {
+    reportTitle: "효소 세제와 물 온도에 따른 얼룩 제거 실험",
+    sections: [
+      { title: "연구 질문", body: longBody("효소 세제는 일반 세제보다 얼룩을 더 잘 지울까? 나는 집에서 세탁해 본 경험이 있어 궁금했다.") },
+      { title: "탐구 결과", body: `${longBody("표 1을 보면 효소 세제 · 미지근한 물의 평균은 2.67점으로 가장 높았다.")} 문헌에서는 효소가 55도에서 가장 활발하다고 한다.` },
+      { title: "결과 분석", body: longBody("미지근한 물에서 효소가 잘 작용해 일반 세제와 1.34점 차이가 났다.") },
+    ],
+    figures: [{ kind: "bar", metric: "mean", conditionOrder: [], title: "조건별 평균 얼룩 제거 정도", caption: "막대가 높을수록 잘 지워졌다", values: [9, 9, 9] }],
+  },
+  literature: {
+    reportTitle: "효소 세제와 물 온도에 관한 문헌 탐구",
+    sections: [
+      { title: "연구 질문", body: longBody("효소 세제는 일반 세제보다 얼룩을 더 잘 지울까?") },
+      { title: "자료 비교 정리", body: longBody("교과서에 따르면 효소는 적당한 온도에서 잘 작용하고 너무 뜨거우면 변성된다.") },
+      { title: "결론", body: longBody("효소 세제는 미지근한 물에서 쓰는 것이 알맞다고 판단한다.") },
+    ],
+    comparisonTable: { title: "물 온도별 효소 세제의 작용", columns: ["조건", "효소의 상태", "예상되는 세탁 효과"], rows: [["미지근한 물", "잘 작용함", "얼룩이 잘 지워짐"], ["뜨거운 물", "변성될 수 있음", "효과가 줄어듦"]] },
+  },
+};
+
 let openaiMode = "report";
 const openaiCalls = [];
 globalThis.fetch = async (input, init) => {
@@ -56,7 +92,8 @@ globalThis.fetch = async (input, init) => {
   if (request.url === "https://api.openai.com/v1/responses") {
     openaiCalls.push(await request.json());
     if (openaiMode === "error") return new Response(JSON.stringify({ error: { message: "rate limited" } }), { status: 429 });
-    const text = openaiMode === "sections"
+    const text = STAGE_OUTPUTS[openaiMode] ? JSON.stringify(STAGE_OUTPUTS[openaiMode])
+      : openaiMode === "sections"
       ? JSON.stringify({ reportTitle: "락타아제 우유로 본 효소의 기질 특이성", sections: REPORT_SECTIONS })
       : JSON.stringify({ reportTitle: "락타아제 우유로 본 효소의 기질 특이성", report: REPORT });
     return new Response(JSON.stringify({ output: [{ content: [{ type: "output_text", text }] }] }), { status: 200 });
@@ -205,6 +242,59 @@ const realAssessment = JSON.parse(readFileSync(new URL("./fixtures/enzyme_perfor
   const prompt = openaiCalls[0]?.input || "";
   check(prompt.includes("탐구 방법: 탐구 방식(문헌 조사인지 실험 계획인지)") && prompt.includes("연구 질문: 물음표(?)로 끝나는 질문 1~2개") && prompt.includes("600~800자"),
     "I9 prompt carries a per-section writing plan with content and length for each requested section");
+  openaiMode = "report";
+}
+
+// I10 — science draft (1차 탐구 설계서): design sections plus the data template, counted as one use.
+{
+  const kv = makeKv();
+  openaiMode = "draft"; openaiCalls.length = 0;
+  const res = await viaGateway({ ...basePayload, reportStage: "experiment_draft" }, kv); const body = await res.json();
+  const call = openaiCalls[0] || {};
+  check(res.status === 200 && body.result?.reportStage === "experiment_draft" && body.result?.dataTemplate?.conditions?.length === 3
+    && body.result?.sectionTitles?.join("|") === "연구 질문|이론적 배경|가설|탐구 방법|결과 기록 계획" && uses(kv) === 1,
+    "I10 draft stage returns the design report and the data template, and counts one use");
+  check(call.text?.format?.schema?.required?.includes("dataTemplate") && String(call.input).includes("1차 탐구 설계서") && String(call.input).includes("결과, 예상 수치, 결론을 쓰지 않는다"),
+    "I10 draft prompt and schema ask for a design report and a data template");
+}
+// I11 — final stage with the student's numbers: figures computed from the data, invented number removed, one more use.
+const STUDENT_DATA = {
+  measurementName: "얼룩 제거 정도", unit: "점",
+  conditions: [
+    { label: "일반 세제 · 미지근한 물", values: ["1", "2", "1"] },
+    { label: "효소 세제 · 미지근한 물", values: ["3", "3", "2"], note: "거의 사라짐" },
+    { label: "효소 세제 · 뜨거운 물", values: ["2", "1", "2"] },
+  ],
+  reason: "나는 집에서 세탁해 본 경험이 있어 궁금했다.", reflection: "뜨거운 물이 더 잘 지울 줄 알았다.", sources: [],
+  draftReport: "3. 탐구 방법\n20분 동안 세탁한다.",
+};
+{
+  const kv = makeKv();
+  openaiMode = "final"; openaiCalls.length = 0;
+  const res = await viaGateway({ ...basePayload, reportStage: "experiment_final", studentData: STUDENT_DATA }, kv); const body = await res.json();
+  const report = String(body.result?.report || "");
+  const chart = (body.result?.figures || []).find(figure => figure.kind === "bar");
+  const table = (body.result?.figures || []).find(figure => figure.kind === "table");
+  check(res.status === 200 && body.result?.reportStage === "experiment_final" && chart?.values?.join(",") === "1.33,2.67,1.67"
+    && table?.rows?.[1]?.join("|") === "효소 세제 · 미지근한 물|3|3|2|2.67" && uses(kv) === 1,
+    "I11 final stage draws the table and chart from the student's numbers (model values ignored), one more use");
+  check(!report.includes("55도") && report.includes("2.67점") && report.includes("1.34점") && body.result?.removedNumberSentences === 1 && report.includes("세탁해 본 경험이 있어"),
+    "I11 the invented-number sentence is removed; the student's own experience is kept");
+  const prompt = String(openaiCalls[0]?.input || "");
+  check(prompt.includes('"mean": 2.67') && prompt.includes("20분 동안 세탁한다") && openaiCalls[0]?.text?.format?.schema?.required?.includes("figures") && !prompt.includes("입력에는 학생의 개인 경험이 없으므로"),
+    "I11 prompt carries the data summary and the draft; the no-experience rule is lifted when the student wrote one");
+}
+// I12 — an empty table turns the second stage into a literature report with a text comparison table.
+{
+  const kv = makeKv();
+  openaiMode = "literature"; openaiCalls.length = 0;
+  const empty = { ...STUDENT_DATA, conditions: STUDENT_DATA.conditions.map(row => ({ ...row, values: [] })) };
+  const res = await viaGateway({ ...basePayload, reportStage: "experiment_final", studentData: empty }, kv); const body = await res.json();
+  check(res.status === 200 && body.result?.reportStage === "literature" && body.result?.comparisonTable?.rows?.length === 2
+    && String(openaiCalls[0]?.input).includes("문헌 탐구 보고서로 쓴다") && uses(kv) === 1,
+    "I12 an empty table turns the second stage into a literature report");
+  const sections = site.normalizeDocumentSections(site.dedupeSections(site.splitSections(site.cleanReportText(body.result?.report || ""), { requestedTitles: body.result?.sectionTitles || [] })));
+  check(sections.map(section => section.title).join("|") === (body.result?.sectionTitles || []).join("|"), "I12 the site splits a staged report by the section titles the Worker returns");
   openaiMode = "report";
 }
 

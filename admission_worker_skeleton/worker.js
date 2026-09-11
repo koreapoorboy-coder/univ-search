@@ -1,4 +1,5 @@
 import { acceptLiveInputCandidate, handleSimpleLiveIntakeRequest, parseStrictIJson } from './simple_live_intake_v1.mjs';
+import { STAGE, finalizeStageOutput, normalizeStudentData, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
 
 const SERVICE_NAME = 'admission-keyword-worker';
 
@@ -204,7 +205,7 @@ export default {
 
         if (env.OPENAI_API_KEY && String(env.ALLOW_STUB).toLowerCase() === 'false') {
           try {
-            ({ result, usage } = await callOpenAI(prompt, env));
+            ({ result, usage } = await callOpenAI(prompt, env, input));
             source = 'openai';
           } catch (error) {
             result = buildSeedFallbackResult(input, seedMatch);
@@ -266,6 +267,8 @@ function resolveInput(payload) {
     performanceAssessment: payload?.performance_assessment && typeof payload.performance_assessment === 'object'
       ? payload.performance_assessment
       : (reportContext.performanceAssessment || {}),
+    reportStage: resolveReportStage(payload),
+    studentData: normalizeStudentData(payload?.studentData),
   };
 }
 
@@ -359,14 +362,29 @@ function removeInventedExperience(body) {
   return String(body || '').replace(INVENTED_EXPERIENCE_SENTENCE, '').trim();
 }
 
-function assembleReport(result) {
+function assembleReport(result, { keepExperience = false } = {}) {
   if (Array.isArray(result?.sections) && result.sections.length) {
     const report = result.sections
-      .map((section, index) => `${index + 1}. ${String(section?.title || '').trim()}\n${removeInventedExperience(section?.body)}`)
+      .map((section, index) => `${index + 1}. ${String(section?.title || '').trim()}\n${keepExperience ? String(section?.body || '').trim() : removeInventedExperience(section?.body)}`)
       .join('\n\n');
     return { reportTitle: String(result.reportTitle || ''), report };
   }
   return result;
+}
+
+// Staged reports also carry what the site needs next: the data template (설계서), the student's tables and charts
+// (최종), or the comparison table (문헌형). A student who wrote about a real experience keeps it.
+function buildStageResult(stage, parsed, input) {
+  const { parsed: finalized, extra } = finalizeStageOutput(stage, parsed, input);
+  const studentText = [input.studentData?.reason, input.studentData?.observations, input.studentData?.reflection].join(' ');
+  const assembled = assembleReport(finalized, { keepExperience: stage !== STAGE.DRAFT && /경험|본 적/.test(studentText) });
+  if (stage === STAGE.COMPLETE) return assembled;
+  return {
+    ...assembled,
+    reportStage: stage,
+    sectionTitles: (finalized.sections || []).map((section) => String(section?.title || '').trim()),
+    ...extra,
+  };
 }
 
 function validateInput(input) {
@@ -477,9 +495,11 @@ function findPatternRule(input, matchedCluster, patternData) {
 function buildPrompt(input, seedMatch, env) {
   const { matchedCluster, gradeModifier, patternRule, seedPack } = seedMatch;
   const reportPatterns = pickReportPatterns(input, seedPack.reportSeedIndex);
-  const requestedSections = input.targetStructure.length
+  const stage = input.reportStage || STAGE.COMPLETE;
+  const hasStudentVoice = [input.studentData?.reason, input.studentData?.observations, input.studentData?.reflection].some(Boolean);
+  const requestedSections = stageSections(stage, input) || (input.targetStructure.length
     ? input.targetStructure
-    : ['연구 질문', '이론적 배경 및 자료 검토', '탐구 방법', '탐구 결과 및 분석', '결론', '참고문헌 및 후속 탐구'];
+    : ['연구 질문', '이론적 배경 및 자료 검토', '탐구 방법', '탐구 결과 및 분석', '결론', '참고문헌 및 후속 탐구']);
   const domainGuardrails = /효소/.test(`${input.taskDescription} ${input.selectedConcept} ${input.selectedKeyword}`)
     ? [
         '효소의 기질 특이성과 반응 활성을 막연한 정확성이라는 말로 바꾸지 않는다.',
@@ -497,21 +517,23 @@ function buildPrompt(input, seedMatch, env) {
   const prompt = [
     '너는 고등학생이 학교에 제출할 수 있는 완성형 수행평가 탐구보고서를 작성하는 전문 편집자다.',
     '반드시 자연스러운 한국어로 쓰고, 학생이 직접 탐구하고 이해한 문체를 사용한다.',
-    '출력은 JSON만 반환하며 reportTitle과 sections 두 키만 사용한다. sections에는 요청한 절을 순서대로 {title, body} 하나씩 담는다.',
+    `출력은 JSON만 반환하며 ${stageOutputKeys(stage)} 키만 사용한다. sections에는 요청한 절을 순서대로 {title, body} 하나씩 담는다.`,
     '각 절의 body는 요약, 작성 안내, 개요가 아니라 그 절의 완성된 본문이어야 하며, 절끼리 이어 읽으면 하나의 완성 보고서가 된다.',
     '각 절은 제목만 채우지 말고 구체적인 교과 원리, 탐구 절차, 비교 기준, 해석과 한계를 충분히 설명한다.',
     '교과서에서 배운 내용을 학생이 자신의 질문으로 좁혀 탐구한 것처럼, 짧고 분명한 문장으로 쓴다.',
     '전문 용어와 영어 표현을 과시하듯 나열하지 말고 꼭 필요한 용어만 먼저 쉬운 말로 설명한다.',
     '실생활 사례는 여러 개를 얕게 나열하지 말고 연구 질문에 맞는 대표 사례 하나를 선택하여 처음부터 결론까지 유지한다.',
     '개인 경험, 관찰, 실험 수행을 입력에서 확인할 수 없으면 학생이 실제로 했다고 꾸며 쓰지 않는다.',
-    '입력에는 학생의 개인 경험이 없으므로, "나는 평소에 ~해 본 경험이 있다"처럼 학생 개인의 경험·습관을 쓰지 않는다. 주제를 고른 이유는 "수업에서 ~를 배우며 궁금해졌다", "일상에서 흔히 쓰이는 ~"처럼 일반적인 궁금증으로만 쓴다.',
+    ...(hasStudentVoice ? [] : ['입력에는 학생의 개인 경험이 없으므로, "나는 평소에 ~해 본 경험이 있다"처럼 학생 개인의 경험·습관을 쓰지 않는다. 주제를 고른 이유는 "수업에서 ~를 배우며 궁금해졌다", "일상에서 흔히 쓰이는 ~"처럼 일반적인 궁금증으로만 쓴다.']),
     '같은 문장이나 수행평가 문구를 여러 절에 반복하지 않는다.',
     '입력에 실험 측정값이 없으면 측정값이나 관찰 결과를 지어내지 않는다. 대신 문헌 근거와 재현 가능한 실험 설계, 예상되는 해석 기준을 명확히 구분한다.',
     '참고문헌은 입력에 제공되었거나 생성 데이터에서 정확히 확인된 자료만 서지사항으로 적는다.',
     '확인되지 않은 저자, 책 제목, 연도, 기관 데이터베이스명, URL을 절대 만들지 않는다. 확인된 서지가 없으면 통합과학1 교과서의 관련 단원처럼 자료 종류만 정직하게 적는다.',
     '연결 도서를 사용하지 않기로 한 경우 도서명과 독서 내용을 절대 넣지 않는다.',
     '학과명은 탐구 동기나 확장 가능성에서만 절제해 사용하고 본론을 장식하는 단어로 반복하지 않는다.',
-    '분량은 공백 포함 2800~4200자다. 2800자보다 짧게 끝내지 않으며, 연구 질문과 참고문헌을 뺀 각 절은 두 문단 이상, 400자 이상으로 쓴다. 절마다 서로 다른 역할을 수행한다.',
+    stage === STAGE.COMPLETE
+      ? '분량은 공백 포함 2800~4200자다. 2800자보다 짧게 끝내지 않으며, 연구 질문과 참고문헌을 뺀 각 절은 두 문단 이상, 400자 이상으로 쓴다. 절마다 서로 다른 역할을 수행한다.'
+      : stageLengthRule(stage),
     '',
     '[학생 입력 및 수행평가 계약]',
     JSON.stringify({
@@ -546,7 +568,7 @@ function buildPrompt(input, seedMatch, env) {
     '- assessmentContext.rubricFocus는 채점 요소다. 이 단어들을 보고서의 주제나 핵심 개념으로 쓰지 않는다.',
     '- assessmentContext.cautions는 틀리기 쉬운 부분이다. 문장을 그대로 옮기지 말고 내용으로 지킨다.',
     '- sections: 아래 절을 이 순서대로 하나씩 쓴다. title에는 절 제목만, body에는 본문만 쓰고 #, ## 같은 Markdown 기호나 절 번호는 넣지 않는다. 각 절의 내용과 분량은 다음 계획을 따른다.',
-    ...requestedSections.map((title, index) => `  ${index + 1}. ${title}: ${sectionWritingGuide(title)}`),
+    ...requestedSections.map((title, index) => `  ${index + 1}. ${title}: ${stageSectionGuide(title, stage) || sectionWritingGuide(title)}`),
     '- 연구 질문 절은 물음표(?)로 끝나는 짧은 질문 1~2개로 쓰고, 비교 조건과 관찰 대상을 분명히 한다. "~을 탐구한다"처럼 서술문으로 쓰지 않는다.',
     '- 이론적 배경은 핵심 용어 정의에 그치지 말고 원리와 인과 관계를 설명한다.',
     '- 탐구 방법은 준비물·변인 통제·절차·기록 방법·안전 주의를 재현 가능하게 쓴다.',
@@ -562,13 +584,16 @@ function buildPrompt(input, seedMatch, env) {
     '- 확인하지 않은 내용을 확인하였다, 관찰하였다, 증명하였다라고 쓰지 않는다.',
     '- 입력에 근거 자료가 없으면 온도·pH·시간·비율 같은 구체적 수치를 문헌 사실처럼 쓰지 않고 "적당한 온도", "너무 높은 온도"처럼 쓴다. 실험 계획에서 학생이 스스로 정하는 조건값(예: 두 가지 물 온도)은 계획으로 밝히고 쓸 수 있다.',
     '- 메타 표현(보고서를 작성한다, 형태가 드러나도록 한다), 빈칸, 학생 입력 필요, 임의의 복수 산출물 나열을 쓰지 않는다.',
+    ...(stage === STAGE.COMPLETE ? [] : ['', ...stagePromptLines(stage, input)]),
   ];
 
   return prompt.join('\n');
 }
 
-async function callOpenAI(prompt, env) {
+async function callOpenAI(prompt, env, input = {}) {
   const model = env.OPENAI_MODEL || 'gpt-4.1-mini';
+  const stage = input.reportStage || STAGE.COMPLETE;
+  const stageProperties = stageSchemaProperties(stage);
   const res = await fetch('https://api.openai.com/v1/responses', {
     method: 'POST',
     headers: {
@@ -587,7 +612,7 @@ async function callOpenAI(prompt, env) {
           schema: {
             type: 'object',
             additionalProperties: false,
-            required: ['reportTitle', 'sections'],
+            required: ['reportTitle', 'sections'].concat(Object.keys(stageProperties)),
             properties: {
               reportTitle: { type: 'string', minLength: 8 },
               sections: {
@@ -603,6 +628,7 @@ async function callOpenAI(prompt, env) {
                   },
                 },
               },
+              ...stageProperties,
             },
           },
         },
@@ -620,7 +646,7 @@ async function callOpenAI(prompt, env) {
     throw new Error('OpenAI response did not include output text');
   }
   return {
-    result: assembleReport(JSON.parse(content)),
+    result: buildStageResult(stage, JSON.parse(content), input),
     usage: {
       model: String(body?.model || model),
       input_tokens: Number(body?.usage?.input_tokens || 0),

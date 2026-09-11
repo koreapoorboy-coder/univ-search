@@ -1,0 +1,342 @@
+// Two-stage experiment report.
+// Stage 1 (experiment_draft): a design report plus a data template the student fills in after doing the experiment.
+// Stage 2 (experiment_final): the final report from the student's own numbers. The model chooses how to show the data
+// (table or chart, raw / mean / difference / percent change); this module does every calculation, so no number
+// in a table or chart can be invented, and body sentences with numbers not found in the student data are removed.
+// If the student leaves the table empty, stage 2 becomes a literature report.
+
+export const STAGE = Object.freeze({
+  COMPLETE: 'complete',
+  DRAFT: 'experiment_draft',
+  FINAL: 'experiment_final',
+  LITERATURE: 'literature',
+});
+
+const FIGURE_KINDS = ['table', 'bar', 'line'];
+const METRICS = ['raw', 'mean', 'diff_from_first', 'percent_from_first'];
+const METRIC_LABEL = { raw: '측정값', mean: '평균', diff_from_first: '첫 조건과의 차이', percent_from_first: '첫 조건 대비 변화율' };
+const MAX_CONDITIONS = 8;
+const MAX_TRIALS = 5;
+
+const clip = (value, max) => String(value ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
+const round = (value, digits = 2) => Math.round(value * 10 ** digits) / 10 ** digits;
+
+function toNumber(value) {
+  if (typeof value === 'number') return Number.isFinite(value) ? value : NaN;
+  const text = String(value ?? '').trim().replace(/,/g, '');
+  return /^-?\d+(\.\d+)?$/.test(text) ? Number(text) : NaN;
+}
+
+export function normalizeStudentData(raw) {
+  const src = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {};
+  const conditions = (Array.isArray(src.conditions) ? src.conditions : []).slice(0, MAX_CONDITIONS)
+    .map((row) => ({
+      label: clip(row?.label, 60),
+      values: (Array.isArray(row?.values) ? row.values : []).slice(0, MAX_TRIALS).map(toNumber).filter(Number.isFinite),
+      note: clip(row?.note, 300),
+    }))
+    .filter((row) => row.label);
+  return {
+    measurementName: clip(src.measurementName, 40),
+    unit: clip(src.unit, 20),
+    scaleGuide: clip(src.scaleGuide, 200),
+    conditions,
+    reason: clip(src.reason, 600),
+    observations: clip(src.observations, 1200),
+    reflection: clip(src.reflection, 800),
+    sources: (Array.isArray(src.sources) ? src.sources : []).map((source) => clip(source, 200)).filter(Boolean).slice(0, 6),
+    draftTitle: clip(src.draftTitle, 80),
+    draftReport: String(src.draftReport ?? '').trim().slice(0, 6000),
+  };
+}
+
+// Comparing needs at least two conditions with a measured value.
+export function hasStudentMeasurements(data) {
+  return data.conditions.filter((row) => row.values.length).length >= 2;
+}
+
+export function resolveReportStage(payload) {
+  const requested = String(payload?.reportStage || '').trim();
+  if (requested === STAGE.DRAFT) return STAGE.DRAFT;
+  if (requested === STAGE.FINAL || requested === STAGE.LITERATURE) {
+    return requested === STAGE.FINAL && hasStudentMeasurements(normalizeStudentData(payload?.studentData))
+      ? STAGE.FINAL
+      : STAGE.LITERATURE;
+  }
+  return STAGE.COMPLETE;
+}
+
+export function computeStats(data) {
+  const rows = data.conditions.filter((row) => row.values.length).map((row) => ({
+    label: row.label,
+    values: row.values,
+    note: row.note,
+    mean: round(row.values.reduce((sum, value) => sum + value, 0) / row.values.length),
+    min: Math.min(...row.values),
+    max: Math.max(...row.values),
+  }));
+  const base = rows[0]?.mean ?? 0;
+  rows.forEach((row) => {
+    row.diff_from_first = round(row.mean - base);
+    row.percent_from_first = base ? round(((row.mean - base) / Math.abs(base)) * 100, 1) : null;
+  });
+  return {
+    measurementName: data.measurementName,
+    unit: data.unit,
+    trials: Math.max(0, ...rows.map((row) => row.values.length)),
+    rows,
+  };
+}
+
+function orderRows(order, rows) {
+  const key = (text) => String(text || '').replace(/\s+/g, '');
+  const picked = (Array.isArray(order) ? order : [])
+    .map((label) => rows.find((row) => key(row.label) === key(label)))
+    .filter((row, index, list) => row && list.indexOf(row) === index);
+  return picked.length >= 2 ? picked : rows;
+}
+
+// The model picks kind, metric, order and wording; every number comes from computeStats.
+export function buildFigures(specs, stats) {
+  const valid = (Array.isArray(specs) ? specs : [])
+    .filter((spec) => FIGURE_KINDS.includes(spec?.kind) && METRICS.includes(spec?.metric))
+    .slice(0, 3);
+  const name = stats.measurementName || '측정값';
+  if (!valid.some((spec) => spec.kind === 'table')) valid.push({ kind: 'table', metric: 'raw', title: `조건별 ${name} 결과` });
+  if (!valid.some((spec) => spec.kind !== 'table')) valid.push({ kind: 'bar', metric: 'mean', title: `조건별 평균 ${name}` });
+  const counters = { table: 0, chart: 0 };
+  // The raw-data table comes first, then the charts drawn from it.
+  const ordered = valid.slice(0, 4).sort((a, b) => (a.kind === 'table' ? 0 : 1) - (b.kind === 'table' ? 0 : 1));
+  return ordered.map((spec) => {
+    const rows = orderRows(spec.conditionOrder, stats.rows);
+    const hasPercentBase = rows.every((row) => row.percent_from_first !== null);
+    const metric = spec.metric === 'percent_from_first' && !hasPercentBase ? 'diff_from_first' : spec.metric;
+    const unit = metric === 'percent_from_first' ? '%' : stats.unit;
+    const label = spec.kind === 'table' ? `표 ${++counters.table}` : `그림 ${++counters.chart}`;
+    const figure = { label, kind: spec.kind, metric, metricLabel: METRIC_LABEL[metric], title: clip(spec.title, 60) || `조건별 ${name}`, caption: clip(spec.caption, 160), unit };
+    if (spec.kind === 'table') {
+      if (metric === 'raw') {
+        const trials = Array.from({ length: stats.trials }, (_, index) => `${index + 1}회`);
+        return { ...figure, columns: ['조건', ...trials, '평균'], rows: rows.map((row) => [row.label, ...trials.map((_, index) => row.values[index] ?? ''), row.mean]) };
+      }
+      return { ...figure, columns: ['조건', `${METRIC_LABEL[metric]}${unit ? ` (${unit})` : ''}`], rows: rows.map((row) => [row.label, row[metric]]) };
+    }
+    const chartMetric = metric === 'raw' ? 'mean' : metric;
+    return { ...figure, metric: chartMetric, metricLabel: METRIC_LABEL[chartMetric], labels: rows.map((row) => row.label), values: rows.map((row) => row[chartMetric]) };
+  });
+}
+
+const canonicalNumber = (text) => String(Number(text));
+
+// Numbers the report may use: student values and their computed summaries (0–2 decimals, signed or not),
+// numbers the student or the approved draft wrote, and small counts such as step numbers.
+export function allowedNumberSet(data, stats) {
+  const allowed = new Set();
+  const addValue = (value) => {
+    if (!Number.isFinite(value)) return;
+    [0, 1, 2].forEach((digits) => {
+      allowed.add(canonicalNumber(round(value, digits)));
+      allowed.add(canonicalNumber(Math.abs(round(value, digits))));
+    });
+  };
+  for (let count = 0; count <= 10; count += 1) allowed.add(String(count));
+  (stats?.rows || []).forEach((row) => [...row.values, row.mean, row.min, row.max, row.diff_from_first, row.percent_from_first].forEach(addValue));
+  const texts = [data.measurementName, data.unit, data.scaleGuide, data.reason, data.observations, data.reflection, data.draftReport, ...data.sources, ...data.conditions.flatMap((row) => [row.label, row.note])];
+  texts.join(' ').match(/\d+(?:\.\d+)?/g)?.forEach((number) => allowed.add(canonicalNumber(number)));
+  return allowed;
+}
+
+// A decimal point is not a sentence end.
+const SENTENCE = /(?:[^.?!\n]|(?<=\d)\.(?=\d))+[.?!]*\s*/g;
+
+export function removeUnsupportedNumbers(body, allowed) {
+  let removed = 0;
+  const kept = String(body || '').split('\n').map((line) => (line.match(SENTENCE) || []).filter((sentence) => {
+    const numbers = sentence.match(/\d+(?:\.\d+)?/g) || [];
+    const ok = numbers.every((number) => allowed.has(canonicalNumber(number)));
+    if (!ok) removed += 1;
+    return ok;
+  }).join('').trimEnd()).join('\n').replace(/\n{3,}/g, '\n\n').trim();
+  return { body: kept, removed };
+}
+
+function sanitizeDataTemplate(raw) {
+  const conditions = [...new Set((Array.isArray(raw?.conditions) ? raw.conditions : []).map((label) => clip(label, 60)).filter(Boolean))].slice(0, MAX_CONDITIONS);
+  const trials = Math.min(MAX_TRIALS, Math.max(1, Math.round(Number(raw?.trials) || 3)));
+  return {
+    measurementName: clip(raw?.measurementName, 40) || '측정값',
+    unit: clip(raw?.unit, 20),
+    scaleGuide: clip(raw?.scaleGuide, 200),
+    conditions: conditions.length >= 2 ? conditions : ['조건 1', '조건 2'],
+    trials,
+  };
+}
+
+function sanitizeComparisonTable(raw) {
+  const columns = (Array.isArray(raw?.columns) ? raw.columns : []).map((cell) => clip(cell, 30)).filter(Boolean).slice(0, 5);
+  if (columns.length < 2) return null;
+  const rows = (Array.isArray(raw?.rows) ? raw.rows : []).slice(0, 6)
+    .map((row) => columns.map((_, index) => clip(Array.isArray(row) ? row[index] : '', 80)))
+    .filter((row) => row[0]);
+  // The literature table has no data behind it, so any number in it would be invented.
+  if (rows.length < 2 || rows.flat().some((cell) => /\d/.test(cell))) return null;
+  return { label: '표 1', title: clip(raw?.title, 60) || '자료 비교 정리', columns, rows };
+}
+
+export function stageSections(stage, input) {
+  const wantsUse = /활용|적용|방안|제안/.test(String(input?.taskDescription || ''));
+  if (stage === STAGE.DRAFT) return ['연구 질문', '이론적 배경', '가설', '탐구 방법', '결과 기록 계획'];
+  if (stage === STAGE.FINAL) return ['연구 질문', '이론적 배경', '탐구 방법', '탐구 결과', '결과 분석', '결론', ...(wantsUse ? ['활용 방안'] : []), '느낀 점', '참고 자료'];
+  if (stage === STAGE.LITERATURE) return ['연구 질문', '이론적 배경', '자료 조사 방법', '자료 비교 정리', '결론', ...(wantsUse ? ['활용 방안'] : []), '참고 자료'];
+  return null;
+}
+
+export function stageSectionGuide(title, stage) {
+  if (stage === STAGE.COMPLETE) return '';
+  const text = String(title || '');
+  const second = stage === STAGE.FINAL || stage === STAGE.LITERATURE;
+  if (second && /연구 질문/.test(text)) return '1차 설계서의 연구 질문(물음표로 끝나는 질문)을 이어받는다. 주제를 고른 이유는 학생이 쓴 reason이 있으면 그 뜻과 표현을 살리고, 없으면 수업에서 생긴 궁금증으로 쓴다. 250~400자';
+  if (second && /이론적 배경/.test(text)) return '1차 설계서의 이론을 이어받아 원리와 인과 관계를 설명한다. 600~900자';
+  if (stage === STAGE.FINAL && /탐구 방법/.test(text)) return '1차 설계서의 준비물, 변인, 절차, 안전을 실제로 한 과정으로 과거형으로 쓴다. 학생 관찰 메모에 설계와 다르게 한 점이 있으면 반영한다. 500~800자';
+  if (stage === STAGE.DRAFT && /탐구 방법/.test(text)) return '학생이 직접 하는 실험으로 설계한다. 준비물, 조작·통제·종속 변인, 번호를 붙인 절차, 조건마다 몇 번 측정해 어떻게 기록할지, 안전 주의. 문헌 조사로 대신하지 않는다. 600~900자';
+  if (/가설/.test(text)) return '"~하면 ~할 것이다" 형태의 가설 1~2개와 그렇게 생각한 교과 근거. 150~300자';
+  if (/결과 기록 계획/.test(text)) return '무엇을 어떤 단위나 점수 기준으로 조건마다 몇 번 측정해 표에 기록할지. dataTemplate과 같은 내용이어야 한다. 결과나 예상 수치는 쓰지 않는다. 200~350자';
+  if (/탐구 결과/.test(text)) return '표 1과 그림 1을 먼저 가리키고 조건별 평균과 차이를 dataSummary의 숫자 그대로 비교한다. 학생의 관찰 메모(note, observations)를 함께 쓴다. 해석은 다음 절로 미룬다. 400~600자';
+  if (/결과 분석/.test(text)) return '결과가 가설과 맞는지 판단하고 이유를 이론적 배경의 원리로 설명한다. 예상과 다른 값이나 반복 측정 사이의 차이는 그대로 밝히고, 가능한 원인은 추정이라고 밝혀 쓴다. 400~600자';
+  if (/결론/.test(text)) return stage === STAGE.FINAL
+    ? '연구 질문에 학생 데이터로 직접 답하고, 한계와 개선점을 쓴다. 이론 설명을 다시 반복하지 않는다. 300~500자'
+    : '연구 질문에 자료 조사 결과로 답하고, 실험으로 확인하지 못한 한계를 쓴다. 이론 설명을 다시 반복하지 않는다. 300~500자';
+  if (/활용 방안/.test(text)) return '탐구 결과를 근거로 실생활에서 쓸 수 있는 구체적인 방안 2~3개. 방안마다 어떤 결과에 근거했는지 밝힌다. 300~500자';
+  if (/느낀 점/.test(text)) return '학생이 쓴 reflection의 뜻과 표현을 최대한 살려 다듬고, 탐구하며 어려웠던 점과 다음에 바꿀 점을 쓴다. 입력에 없는 경험은 더하지 않는다. 200~400자';
+  if (/참고 자료/.test(text)) return '학생이 적은 sources만 목록으로 적는다. 없으면 "통합과학1 교과서 효소 관련 단원"처럼 자료 종류만 적고, 단원명·기관명·사이트명을 지어내지 않는다. 100~250자';
+  if (/자료 조사 방법/.test(text)) return '어떤 종류의 자료(교과서, 과학 기사 등)를 어떤 기준으로 골라 비교했는지. 실험을 한 것처럼 쓰지 않는다. 300~450자';
+  if (/자료 비교 정리/.test(text)) return '조건별로 자료에서 설명하는 경향을 비교 기준에 따라 정리하고 표 1(comparisonTable)과 연결한다. 숫자를 지어내지 않는다. 500~700자';
+  return '';
+}
+
+function studentVoice(data) {
+  return { reason: data.reason, observations: data.observations, reflection: data.reflection, sources: data.sources };
+}
+
+export function stagePromptLines(stage, input) {
+  const data = input.studentData || normalizeStudentData(null);
+  if (stage === STAGE.DRAFT) {
+    return [
+      '[이번 단계: 1차 탐구 설계서]',
+      '- 이 보고서는 실험 전에 쓰는 설계서다. 학생이 이 설계대로 실험한 뒤 결과 표를 채우면 2차로 최종 보고서를 만든다.',
+      '- 결과, 예상 수치, 결론을 쓰지 않는다. 가설은 쓴다.',
+      '- 측정은 고등학생이 학교나 집에서 안전하게 할 수 있고 숫자로 기록할 수 있어야 한다. 기구로 재기 어려우면 0~3점 같은 점수 기준을 정한다.',
+      '- dataTemplate은 학생이 채울 결과 표다. conditions는 표의 행이 될 조건 이름 2~8개(두 변인을 함께 바꾸면 "효소 세제 · 미지근한 물"처럼 조합), trials는 조건마다 반복 횟수(1~5), measurementName과 unit은 측정 항목과 단위(점수면 "점"), scaleGuide는 점수 기준이나 측정 방법 한 문장이다.',
+    ];
+  }
+  if (stage === STAGE.FINAL) {
+    const stats = computeStats(data);
+    return [
+      '[이번 단계: 2차 최종 보고서, 학생 실험 데이터 반영]',
+      '- 학생이 1차 설계서대로 실험하고 결과를 입력했다. studentData와 dataSummary가 학생의 실제 결과다.',
+      '- 보고서의 모든 숫자는 studentData, dataSummary, 1차 설계서에 있는 숫자여야 한다. 새 숫자, 다른 실험이나 문헌의 수치를 만들지 않는다. 이를 어긴 문장은 자동으로 삭제된다.',
+      '- dataSummary의 mean은 평균, diff_from_first는 첫 조건과의 차이, percent_from_first는 첫 조건 대비 변화율(%)이다. 새로 계산하지 말고 이 값을 그대로 쓴다.',
+      '- figures에는 이 데이터를 보여줄 표나 그래프를 1~3개 고른다. 숫자는 넣지 말고 kind(table, bar, line), metric(raw, mean, diff_from_first, percent_from_first), conditionOrder(보여줄 조건 이름과 순서), title, caption만 쓴다. 조건이 순서 있는 값(온도, 시간 등)이면 line, 종류를 비교하면 bar가 알맞다. 숫자는 학생 데이터로 코드가 채운다.',
+      '- 본문에서 표와 그래프는 종류별로 나온 순서대로 "표 1", "그림 1"처럼 가리킨다.',
+      '- reason, observations, reflection은 학생의 목소리다. 뜻과 표현을 최대한 살려 해당 절에 녹이고 맞춤법만 다듬는다.',
+      '- 결과가 가설과 다르면 억지로 맞추지 말고 다르게 나온 그대로 쓴다.',
+      '',
+      '[학생 실험 데이터]',
+      JSON.stringify({ studentData: { measurementName: data.measurementName, unit: data.unit, scaleGuide: data.scaleGuide, conditions: data.conditions, ...studentVoice(data) }, dataSummary: stats }, null, 2),
+      '',
+      '[1차 탐구 설계서]',
+      data.draftReport || '(없음)',
+    ];
+  }
+  if (stage === STAGE.LITERATURE) {
+    return [
+      '[이번 단계: 문헌 탐구 보고서]',
+      '- 학생이 실험 결과를 입력하지 않았다. 실험을 했다고 쓰지 않고, 교과서와 자료 조사로 연구 질문에 답하는 문헌 탐구 보고서로 쓴다.',
+      '- 1차 설계서가 있으면 연구 질문과 이론은 이어받고, 실험 설계는 자료 조사 방법으로 바꾼다.',
+      '- comparisonTable에는 자료 비교 정리 절의 내용을 조건별로 정리한 표를 넣는다. columns는 3~4개, rows는 2~6개, 칸에는 짧은 말만 쓰고 숫자는 쓰지 않는다.',
+      '- 입력에 근거 없는 숫자는 쓰지 않는다. 이를 어긴 문장은 자동으로 삭제된다.',
+      '',
+      '[학생이 적은 내용]',
+      JSON.stringify(studentVoice(data), null, 2),
+      '',
+      '[1차 탐구 설계서]',
+      data.draftReport || '(없음)',
+    ];
+  }
+  return [];
+}
+
+export function stageLengthRule(stage) {
+  if (stage === STAGE.DRAFT) return '분량은 공백 포함 1800~2800자다. 절마다 서로 다른 역할을 수행한다.';
+  if (stage === STAGE.FINAL) return '분량은 공백 포함 3000~4500자다. 절마다 서로 다른 역할을 수행하고, 이론 설명을 여러 절에서 반복하지 않는다.';
+  return '분량은 공백 포함 2800~4000자다. 절마다 서로 다른 역할을 수행하고, 이론 설명을 여러 절에서 반복하지 않는다.';
+}
+
+export function stageOutputKeys(stage) {
+  if (stage === STAGE.DRAFT) return 'reportTitle, sections, dataTemplate';
+  if (stage === STAGE.FINAL) return 'reportTitle, sections, figures';
+  if (stage === STAGE.LITERATURE) return 'reportTitle, sections, comparisonTable';
+  return 'reportTitle, sections';
+}
+
+const STRING = { type: 'string' };
+const STAGE_SCHEMA = {
+  [STAGE.DRAFT]: {
+    dataTemplate: {
+      type: 'object',
+      additionalProperties: false,
+      required: ['measurementName', 'unit', 'scaleGuide', 'conditions', 'trials'],
+      properties: { measurementName: STRING, unit: STRING, scaleGuide: STRING, conditions: { type: 'array', minItems: 2, maxItems: MAX_CONDITIONS, items: STRING }, trials: { type: 'integer', minimum: 1, maximum: MAX_TRIALS } },
+    },
+  },
+  [STAGE.FINAL]: {
+    figures: {
+      type: 'array',
+      minItems: 1,
+      maxItems: 3,
+      items: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['kind', 'metric', 'conditionOrder', 'title', 'caption'],
+        properties: { kind: { type: 'string', enum: FIGURE_KINDS }, metric: { type: 'string', enum: METRICS }, conditionOrder: { type: 'array', items: STRING }, title: STRING, caption: STRING },
+      },
+    },
+  },
+  [STAGE.LITERATURE]: {
+    comparisonTable: {
+      type: 'object',
+      additionalProperties: false,
+      required: ['title', 'columns', 'rows'],
+      properties: { title: STRING, columns: { type: 'array', items: STRING }, rows: { type: 'array', items: { type: 'array', items: STRING } } },
+    },
+  },
+};
+
+export function stageSchemaProperties(stage) {
+  return STAGE_SCHEMA[stage] || {};
+}
+
+// Applies the stage rules to the model output before the sections are joined into one report.
+export function finalizeStageOutput(stage, parsed, input) {
+  const sections = Array.isArray(parsed?.sections) ? parsed.sections : [];
+  if (stage === STAGE.DRAFT) {
+    return { parsed, extra: { dataTemplate: sanitizeDataTemplate(parsed?.dataTemplate) } };
+  }
+  if (stage === STAGE.FINAL || stage === STAGE.LITERATURE) {
+    const data = input.studentData || normalizeStudentData(null);
+    const stats = stage === STAGE.FINAL ? computeStats(data) : null;
+    const allowed = allowedNumberSet(data, stats);
+    String(input.taskDescription || '').match(/\d+(?:\.\d+)?/g)?.forEach((number) => allowed.add(canonicalNumber(number)));
+    let removed = 0;
+    const cleaned = sections.map((section) => {
+      const result = removeUnsupportedNumbers(section?.body, allowed);
+      removed += result.removed;
+      return { ...section, body: result.body };
+    });
+    const extra = stage === STAGE.FINAL
+      ? { figures: buildFigures(parsed?.figures, stats), figuresAfterSection: '탐구 결과', dataSummary: stats }
+      : { comparisonTable: sanitizeComparisonTable(parsed?.comparisonTable), comparisonTableAfterSection: '자료 비교 정리' };
+    return { parsed: { ...parsed, sections: cleaned }, extra: { ...extra, removedNumberSentences: removed } };
+  }
+  return { parsed, extra: {} };
+}

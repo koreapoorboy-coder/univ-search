@@ -16,6 +16,8 @@ const src = [
   slice("const KNOWN_SECTION_TITLES", "function isTableSection"),
   slice("const REPORT_SECTION_ALIASES", "function renderDocumentBody"),
   slice("function looksLikeUnfixedSecondaryDraft", "function cleanReportPhrase"),
+  slice("function formatFigureNumber", "function renderFigureTable"),
+  slice("function figurePlainText", "// Figures go right after"),
   "function makeReportPlainText" + slice("function makeReportPlainText", "function safeDownloadName").slice("function makeReportPlainText".length),
 ].join("\n");
 const api = new Function(src + "\nreturn {cleanReportText, splitSections, dedupeSections, normalizeDocumentSections, looksLikeUnfixedSecondaryDraft, makeReportPlainText};")();
