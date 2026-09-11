@@ -19,6 +19,7 @@ const checks = [
   [worker.includes("온도 상승은 활성화 에너지 자체를 바꾸지 않고"), "temperature and activation-energy correction is missing"],
   [worker.includes("확인되지 않은 저자, 책 제목, 연도"), "bibliography hallucination guard is missing"],
   [worker.includes("개인 경험, 관찰, 실험 수행을 입력에서 확인할 수 없으면"), "fabricated student experience guard is missing"],
+  [worker.includes('"~에서 확인하였다", "~를 활용했다"처럼 실제로 한 것처럼 쓰지 않는다'), "references section still allows claimed source use"],
   [worker.includes("connectedBook: input.useBookInReport ? input.selectedBookTitle : '사용하지 않음'"), "book opt-out is not bound to the prompt"],
   [bridge.includes("rawData?.result?.reportTitle"), "worker report title is not rendered"],
   [bridge.includes("value.result?.report"), "worker report body is not extracted"],

@@ -452,6 +452,52 @@
         "교과 연계",
         "한계"
       ]
+    },
+    {
+      "rule_id": "inquiry_report_003",
+      "fallback_only": true,
+      "match_terms": [
+        "보고서",
+        "주제 탐구",
+        "과제탐구",
+        "심화탐구",
+        "활용 방안",
+        "탐구 활동",
+        "탐구활동",
+        "탐구 과제",
+        "탐구하여"
+      ],
+      "exclude_terms": [
+        "실기",
+        "줄넘기",
+        "구르기",
+        "스트레칭",
+        "배구 기능",
+        "횟수"
+      ],
+      "content_axis": [
+        "과학개념탐구",
+        "자료해석"
+      ],
+      "method_axis": [
+        "보고서작성형"
+      ],
+      "output_axis": [
+        "탐구보고서"
+      ],
+      "report_mode": [
+        "탐구보고서형",
+        "연구보고서형"
+      ],
+      "required_sections": [
+        "연구 질문",
+        "선행 자료 검토",
+        "방법 설계",
+        "자료 수집",
+        "분석 결과",
+        "결론",
+        "참고문헌과 후속 탐구"
+      ]
     }
   ],
   "matching_policy": {
@@ -459,7 +505,8 @@
     "tie_break": "rules_array_order_first",
     "fallback": "subject_default_general",
     "fallback_student_notice": "입력한 과제 유형과 정확히 맞는 규칙이 없어 과목 기본값을 바탕으로 일반형으로 잡았습니다.",
-    "fallback_log": true
+    "fallback_log": true,
+    "fallback_only_rules": "fallback_only가 true인 규칙은 다른 규칙이 하나도 맞지 않을 때만 쓰고, exclude_terms가 있으면 쓰지 않는다. 기존 규칙의 판정은 바뀌지 않는다."
   },
   "non_report_task_policy": {
     "record_flag": "is_topic_generating=false",

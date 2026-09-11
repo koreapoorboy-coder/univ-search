@@ -382,13 +382,22 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.9.0-model-h-runtime";
     if(!text){
       return { matched:false, rule:null, matchCount:0, matchedTerms:[], fallbackActive:true, fallbackNotice:TASK_FALLBACK_NOTICE, overrideActive:false };
     }
-    let best = null;
-    rules.forEach((rule, index) => {
-      const matchedTerms = (rule.match_terms || []).filter(term => text.includes(String(term || "").toLowerCase()));
-      if(!matchedTerms.length) return;
-      const candidate = { rule, index, matchCount:matchedTerms.length, matchedTerms };
-      if(!best || candidate.matchCount > best.matchCount) best = candidate;
-    });
+    const hasTerm = term => text.includes(String(term || "").toLowerCase());
+    const pickBest = candidates => {
+      let found = null;
+      candidates.forEach(({ rule, index }) => {
+        if((rule.exclude_terms || []).some(hasTerm)) return;
+        const matchedTerms = (rule.match_terms || []).filter(hasTerm);
+        if(!matchedTerms.length) return;
+        const candidate = { rule, index, matchCount:matchedTerms.length, matchedTerms };
+        if(!found || candidate.matchCount > found.matchCount) found = candidate;
+      });
+      return found;
+    };
+    const indexed = rules.map((rule, index) => ({ rule, index }));
+    // fallback_only rules catch common report tasks only when no regular rule matches, so existing matches never change.
+    let best = pickBest(indexed.filter(item => !item.rule.fallback_only));
+    if(!best) best = pickBest(indexed.filter(item => item.rule.fallback_only));
     if(!best){
       return { matched:false, rule:null, matchCount:0, matchedTerms:[], fallbackActive:true, fallbackNotice:TASK_FALLBACK_NOTICE, overrideActive:false };
     }
