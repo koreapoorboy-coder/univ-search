@@ -289,7 +289,7 @@ const STUDENT_DATA = {
   const chart = (body.result?.figures || []).find(figure => figure.kind === "bar");
   const table = (body.result?.figures || []).find(figure => figure.kind === "table");
   check(res.status === 200 && body.result?.reportStage === "experiment_final" && chart?.values?.join(",") === "1.33,2.67,1.67"
-    && table?.rows?.[1]?.join("|") === "효소 세제 · 미지근한 물|3|3|2|2.67" && uses(kv) === 1,
+    && table?.rows?.[1]?.join("|") === "효소 세제 · 미지근한 물|3|3|2|2.67|1" && uses(kv) === 1,
     "I11 final stage draws the table and chart from the student's numbers (model values ignored), one more use");
   check(!report.includes("55도") && report.includes("2.67점") && report.includes("1.34점") && body.result?.removedNumberSentences === 1 && report.includes("세탁해 본 경험이 있어"),
     "I11 the invented-number sentence is removed; the student's own experience is kept");

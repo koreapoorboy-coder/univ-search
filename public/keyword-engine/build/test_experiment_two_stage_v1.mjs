@@ -43,7 +43,7 @@ const figures = buildFigures([
 const line = figures.find(f => f.kind === "line");
 const table = figures.find(f => f.kind === "table");
 check(line && line.values.join(",") === "2.67,1.67" && line.label === "그림 1", "the model picks the chart, the numbers come from the student data", JSON.stringify(line?.values));
-check(table && table.label === "표 1" && table.columns.join("|") === "조건|1회|2회|3회|평균" && table.rows[0].join("|") === "일반 세제 · 미지근한 물|1|2|1|1.33", "a raw-data table is always included", JSON.stringify(table?.rows?.[0]));
+check(table && table.label === "표 1" && table.columns.join("|") === "조건|1회|2회|3회|평균|흔들림" && table.rows[0].join("|") === "일반 세제 · 미지근한 물|1|2|1|1.33|1", "a raw-data table is always included, with the spread between repeats", JSON.stringify(table?.rows?.[0]));
 check(!figures.some(f => f.title === "invalid kind is dropped"), "unknown figure kinds are ignored");
 
 const allowed = allowedNumberSet(data, stats);

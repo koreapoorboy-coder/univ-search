@@ -157,7 +157,7 @@ export function buildFigures(specs, stats) {
     if (spec.kind === 'table') {
       if (metric === 'raw') {
         const trials = Array.from({ length: stats.trials }, (_, index) => `${index + 1}회`);
-        return { ...figure, columns: ['조건', ...trials, '평균'], rows: rows.map((row) => [row.label, ...trials.map((_, index) => row.values[index] ?? ''), row.mean]) };
+        return { ...figure, columns: ['조건', ...trials, '평균', '흔들림'], rows: rows.map((row) => [row.label, ...trials.map((_, index) => row.values[index] ?? ''), row.mean, row.spread]) };
       }
       return { ...figure, columns: ['조건', `${METRIC_LABEL[metric]}${unit ? ` (${unit})` : ''}`], rows: rows.map((row) => [row.label, row[metric]]) };
     }
@@ -196,6 +196,7 @@ export function summaryForPrompt(stats) {
 // 표시되어", "spread", "(sameMean)"; a draft wrote "dataTemplate").
 const INTERNAL_NAMES = 'sameMean|clearDifference|dataSummary|dataTemplate|comparisons|runnerUp|ranking|conditionOrder|spread|gap';
 const INTERNAL_NAME_FIXES = [
+  [/\s*\(\s*["“'‘]?(?:예|아니오)["”'’]?\s*\)/g, ''],
   [new RegExp(`\\s*\\([^()]*\\b(?:${INTERNAL_NAMES})\\b[^()]*\\)`, 'g'), ''],
   // The model states the meaning next to the flag ("…흔들림보다 차이가 커"), so the flag phrase itself is dropped.
   [/clearDifference\s*(?:가|는|이)?\s*(?:=\s*)?(?:true|false)(?:로 표시되어|로 나타나|로 나타났다|이므로|이며|이고)?\s*/g, ''],
