@@ -99,16 +99,18 @@ export function computeStats(data) {
 }
 
 // For a two-variable grid: at each level of the second variable (e.g. each water temperature), which level of the
-// first variable (e.g. which detergent) scored higher and by exactly how much, so the report states real gaps
-// instead of "비슷하다".
+// first variable (e.g. which detergent) scored highest and by exactly how much over the runner-up, so the report
+// states real gaps instead of "비슷하다". A gap no bigger than the repeat spread of the two rows is not a clear
+// difference: a 0~3 score that wobbles by 1 point between repeats cannot separate means 0.34 apart.
 function gridComparisons(rows) {
   const grid = splitFactors(rows);
   if (!grid) return [];
   return grid.seconds.map((second) => {
-    const values = grid.firsts.map((first) => ({ label: first, mean: grid.find(first, second).mean }));
+    const values = grid.firsts.map((first) => ({ label: first, mean: grid.find(first, second).mean, spread: grid.find(first, second).spread }));
     const sorted = [...values].sort((a, b) => b.mean - a.mean);
-    const gap = round(sorted[0].mean - sorted[sorted.length - 1].mean);
-    return { at: second, values, higher: gap === 0 ? '같음' : sorted[0].label, gap };
+    const gap = round(sorted[0].mean - sorted[1].mean);
+    const wobble = Math.max(sorted[0].spread, sorted[1].spread);
+    return { at: second, values, higher: gap === 0 ? '같음' : sorted[0].label, runnerUp: sorted[1].label, gap, clearDifference: gap > wobble };
   });
 }
 
@@ -318,7 +320,8 @@ export function stagePromptLines(stage, input) {
       '- 느낀 점 절은 reflection 문장을 먼저 거의 그대로 쓰고, 결과에서 알게 된 점만 1~2문장 덧붙인다. 학생이 쓰지 않은 감정(힘들었다, 재미있었다 등)은 자동으로 삭제된다.',
       '- 참고 자료 절은 쓰지 않는다. 학생이 적은 sources로 자동으로 붙는다.',
       '- 결과가 가설과 다르면 억지로 맞추지 말고 다르게 나온 그대로 쓴다.',
-      '- dataSummary.rows의 spread는 반복 측정값의 최대와 최소의 차이다. 흔들림이 큰 조건은 결과의 신뢰도가 낮다고 밝히고 원인을 추정한다.',
+      '- dataSummary.rows의 spread는 반복 측정값의 최대와 최소의 차이다. spread를 점수 범위와 비교해 판단한다(예: 0~3점에서 1점은 큰 흔들림이다). 흔들림이 큰 조건은 결과의 신뢰도가 낮다고 밝히고 원인을 추정한다.',
+      '- comparisons의 clearDifference가 false이면 그 차이는 반복 측정의 흔들림보다 작거나 같으므로 "확실한 차이라고 보기 어렵다"고 쓴다. 조건 간 평균 차이가 spread보다 작은 비교를 근거로 결론을 내리지 않는다.',
       '',
       '[학생 실험 데이터]',
       JSON.stringify({ studentData: { measurementName: data.measurementName, unit: data.unit, scaleGuide: data.scaleGuide, conditions: data.conditions, ...studentVoice(data) }, dataSummary: stats }, null, 2),

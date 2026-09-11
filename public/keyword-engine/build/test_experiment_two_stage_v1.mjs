@@ -121,4 +121,20 @@ check(twoStats.rows.map(r => r.spread).join(",") === "0,1,1,0" && removeUnsuppor
   "the spread between repeats is computed and may be written", twoStats.rows.map(r => r.spread).join(","));
 check(stageSections(STAGE.FINAL, { taskDescription: "" }).includes("계열 연계 탐구") && stageSections(STAGE.LITERATURE, { taskDescription: "" }).includes("계열 연계 탐구"), "the second stage has a 계열 연계 탐구 section");
 
+// Real depth test (2026-09-11, 세제 3 × 온도 2, 3 repeats): in hot water 효소 = 일반 = 1.33 but the summary said
+// "효소 1점 높음" (it compared against 물만), and a 0.34-point gap was treated as meaningful although every
+// condition wobbled by 1 point between repeats.
+const threeWay = computeStats(normalizeStudentData({
+  measurementName: "얼룩 제거 정도", unit: "점",
+  conditions: [
+    { label: "효소 세제 · 미지근한 물", values: [3, 3, 2] }, { label: "효소 세제 · 뜨거운 물", values: [1, 2, 1] },
+    { label: "일반 세제 · 미지근한 물", values: [2, 1, 2] }, { label: "일반 세제 · 뜨거운 물", values: [1, 1, 2] },
+    { label: "물만 · 미지근한 물", values: [1, 0, 1] }, { label: "물만 · 뜨거운 물", values: [0, 0, 1] },
+  ],
+}));
+const [warm, hot] = threeWay.comparisons;
+check(hot.higher === "같음" && hot.gap === 0 && hot.clearDifference === false, "a tie at the top (효소 = 일반 in hot water) is reported as 같음, not against 물만", JSON.stringify(hot));
+check(warm.higher === "효소 세제" && warm.runnerUp === "일반 세제" && warm.gap === 1 && warm.clearDifference === false,
+  "the gap is measured against the runner-up, and a gap no bigger than the repeat spread is not a clear difference", JSON.stringify(warm));
+
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
