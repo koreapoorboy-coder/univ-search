@@ -96,4 +96,21 @@ const noSources = finalizeStageOutput(STAGE.LITERATURE, { reportTitle: "t", sect
 check(appended.parsed.sections.at(-1).title === "참고 자료" && appended.parsed.sections.at(-1).body === "통합과학1 교과서 효소 단원"
   && noSources.parsed.sections.at(-1).body === "통합과학1 교과서 관련 단원", "참고 자료 is appended by code (student list, or the subject textbook)", JSON.stringify(noSources.parsed.sections.at(-1)));
 
+// Real test #2 (2026-09-11, 2×2): the report said "비슷하거나" for 1.5 vs 2 and added "흥미로웠다".
+// Per-temperature comparisons give the exact gap (and make it an allowed number); "흥미" is an invented feeling.
+const twoByTwo = normalizeStudentData({
+  measurementName: "얼룩 제거 정도", unit: "점",
+  conditions: [
+    { label: "효소 세제 · 미지근한 물", values: [3, 3] }, { label: "효소 세제 · 뜨거운 물", values: [1, 2] },
+    { label: "일반 세제 · 미지근한 물", values: [2, 1] }, { label: "일반 세제 · 뜨거운 물", values: [2, 2] },
+  ],
+  reflection: "효소 세제가 무조건 좋을 줄 알았는데 뜨거운 물에서는 일반 세제가 더 나아서 놀랐다.",
+});
+const twoStats = computeStats(twoByTwo);
+check(JSON.stringify(twoStats.comparisons.map(c => [c.at, c.higher, c.gap])) === JSON.stringify([["미지근한 물", "효소 세제", 1.5], ["뜨거운 물", "일반 세제", 0.5]]),
+  "per-temperature comparisons name the higher detergent and the exact gap", JSON.stringify(twoStats.comparisons));
+check(removeUnsupportedNumbers("뜨거운 물에서는 일반 세제가 0.5점 더 높았다.", allowedNumberSet(twoByTwo, twoStats)).removed === 0, "the computed gap may be written in the report");
+const feel2 = finalizeStageOutput(STAGE.FINAL, { reportTitle: "t", figures: [], sections: [{ title: "느낀 점", body: "효소 세제가 무조건 좋을 줄 알았는데 뜨거운 물에서는 일반 세제가 더 나아서 놀랐다. 교과서 내용을 직접 확인할 수 있어 흥미로웠다." }] }, { studentData: twoByTwo, taskDescription: "", subject: "통합과학1" });
+check(!feel2.parsed.sections[0].body.includes("흥미") && feel2.parsed.sections[0].body.includes("놀랐다"), "'흥미로웠다' the student never wrote is removed", feel2.parsed.sections[0].body);
+
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);

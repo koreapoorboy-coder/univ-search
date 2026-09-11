@@ -18,7 +18,7 @@ const METRIC_LABEL = { raw: '측정값', mean: '평균', diff_from_first: '첫 �
 const MAX_CONDITIONS = 8;
 const MAX_TRIALS = 5;
 // Feelings a model tends to add to 느낀 점 ("힘들었지만 보람 있었다") that the student never wrote.
-const FEELING_WORDS = ['힘들', '어려웠', '재미', '즐거', '뿌듯', '보람', '아쉬', '감동', '행복', '설레'];
+const FEELING_WORDS = ['힘들', '어려웠', '재미', '즐거', '뿌듯', '보람', '아쉬', '감동', '행복', '설레', '흥미', '신기', '인상 깊', '기뻤', '만족'];
 
 const clip = (value, max) => String(value ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
 const round = (value, digits = 2) => Math.round(value * 10 ** digits) / 10 ** digits;
@@ -93,7 +93,22 @@ export function computeStats(data) {
     rows,
     ranking: [...rows].sort((a, b) => b.mean - a.mean).map((row) => ({ label: row.label, mean: row.mean })),
     sameMean: [...byMean.values()].filter((labels) => labels.length > 1),
+    comparisons: gridComparisons(rows),
   };
+}
+
+// For a two-variable grid: at each level of the second variable (e.g. each water temperature), which level of the
+// first variable (e.g. which detergent) scored higher and by exactly how much, so the report states real gaps
+// instead of "비슷하다".
+function gridComparisons(rows) {
+  const grid = splitFactors(rows);
+  if (!grid) return [];
+  return grid.seconds.map((second) => {
+    const values = grid.firsts.map((first) => ({ label: first, mean: grid.find(first, second).mean }));
+    const sorted = [...values].sort((a, b) => b.mean - a.mean);
+    const gap = round(sorted[0].mean - sorted[sorted.length - 1].mean);
+    return { at: second, values, higher: gap === 0 ? '같음' : sorted[0].label, gap };
+  });
 }
 
 function orderRows(order, rows) {
@@ -175,6 +190,7 @@ export function allowedNumberSet(data, stats) {
   };
   for (let count = 0; count <= 10; count += 1) allowed.add(String(count));
   (stats?.rows || []).forEach((row) => [...row.values, row.mean, row.min, row.max, row.diff_from_first, row.percent_from_first].forEach(addValue));
+  (stats?.comparisons || []).forEach((comparison) => addValue(comparison.gap));
   const texts = [data.measurementName, data.unit, data.scaleGuide, data.reason, data.observations, data.reflection, data.draftReport, ...data.sources, ...data.conditions.flatMap((row) => [row.label, row.note])];
   texts.join(' ').match(/\d+(?:\.\d+)?/g)?.forEach((number) => allowed.add(canonicalNumber(number)));
   return allowed;
@@ -252,11 +268,11 @@ export function stageSectionGuide(title, stage) {
   if (/가설/.test(text)) return '"~하면 ~할 것이다" 형태의 가설 1~2개와 그렇게 생각한 교과 근거. 150~300자';
   if (/결과 기록 계획/.test(text)) return '무엇을 어떤 단위나 점수 기준으로 조건마다 몇 번 측정해 표에 기록할지. 점수는 클수록 측정 항목이 크다는 뜻이 되게 정한다. dataTemplate과 같은 내용이어야 한다. 결과나 예상 수치는 쓰지 않는다. 200~350자';
   if (/탐구 결과/.test(text)) return '표 1과 그림 1을 먼저 가리키고 조건별 평균을 dataSummary의 숫자 그대로 비교한다. 평균이 같은 조건(sameMean)은 같다고 쓴다. 학생의 관찰 메모(note, observations)를 함께 쓴다. 해석은 다음 절로 미룬다. 400~600자';
-  if (/결과 분석/.test(text)) return '가설이 맞았는지 조건마다 판단한다. 가설대로 나온 조건, 차이가 없는 조건(sameMean), 반대로 나온 조건을 나누어 밝히고 이유를 이론적 배경의 원리로 설명한다. 가능한 원인은 추정이라고 밝혀 쓴다. 400~600자';
+  if (/결과 분석/.test(text)) return '가설이 맞았는지 조건마다 판단한다. comparisons가 있으면 가로축 값마다 어느 쪽이 몇 점(gap) 높았는지 그대로 쓰고, 가설대로 나온 조건과 반대로 나온 조건을 나누어 밝힌다. 두 값이 다르면 "비슷하다"고 쓰지 않는다. 이유는 이론적 배경의 원리로 설명하고, 가능한 원인은 추정이라고 밝힌다. 400~600자';
   if (/결론/.test(text)) return stage === STAGE.FINAL
     ? '연구 질문에 학생 데이터로 직접 답한다. 모든 조건에서 그렇지 않았다면 어느 조건에서 그랬는지까지 쓴다. 한계와 개선점을 쓰고, 이론 설명을 다시 반복하지 않는다. 300~500자'
     : '연구 질문에 자료 조사 결과로 답하고, 실험으로 확인하지 못한 한계를 쓴다. 이론 설명을 다시 반복하지 않는다. 300~500자';
-  if (/활용 방안/.test(text)) return '탐구 결과를 근거로 실생활에서 쓸 수 있는 구체적인 방안 2~3개. 방안마다 어떤 결과에 근거했는지 밝힌다. 300~500자';
+  if (/활용 방안/.test(text)) return '탐구 결과를 근거로 실생활에서 쓸 수 있는 구체적인 방안 2~3개. 방안마다 어떤 결과에 근거했는지 밝힌다. 실험한 대상과 조건(재료, 얼룩 종류, 온도 등) 안에서만 말하고, 실험하지 않은 대상으로 넓히려면 추가 실험이 필요하다고 쓴다. 300~500자';
   if (/느낀 점/.test(text)) return '학생이 쓴 reflection 문장을 먼저 거의 그대로 쓰고(맞춤법만 다듬음), 결과에서 알게 된 점을 1~2문장 덧붙인다. 힘들었다, 재미있었다처럼 학생이 쓰지 않은 감정이나 경험은 새로 만들지 않는다. 150~350자';
   if (/참고 자료/.test(text)) return '학생이 적은 sources만 한 줄에 하나씩 쓴다. 다른 줄, 괄호 설명, ※ 문장을 덧붙이지 않는다. sources가 없으면 "통합과학1 교과서 효소 관련 단원"처럼 자료 종류만 적고, 단원명·기관명·사이트명을 지어내지 않는다.';
   if (/자료 조사 방법/.test(text)) return '어떤 종류의 자료(교과서, 과학 기사 등)를 어떤 기준으로 골라 비교했는지. 실험을 한 것처럼 쓰지 않는다. 300~450자';
@@ -288,7 +304,9 @@ export function stagePromptLines(stage, input) {
       '- 보고서의 모든 숫자는 studentData, dataSummary, 1차 설계서에 있는 숫자여야 한다. 새 숫자, 다른 실험이나 문헌의 수치를 만들지 않는다. 이를 어긴 문장은 자동으로 삭제된다.',
       '- dataSummary의 mean은 평균, diff_from_first는 첫 조건과의 차이, percent_from_first는 첫 조건 대비 변화율(%)이다. ranking은 평균이 큰 순서, sameMean은 평균이 같은 조건 묶음이다. 새로 계산하지 말고 이 값을 그대로 쓴다.',
       '- 점수의 뜻은 scaleGuide를 따른다. 점수가 무엇을 뜻하는지 헷갈리게 쓰지 않는다.',
-      '- 결과 분석과 결론은 조건마다 비교한다. sameMean에 있는 조건끼리는 차이가 없다고 쓰고, 가설과 반대로 나온 조건은 그대로 밝힌다. "같은 조건에서 항상", "모든 조건에서" 같은 말은 모든 조건에서 그랬을 때만 쓴다.',
+      '- 결과 분석과 결론은 조건마다 비교한다. comparisons가 있으면 가로축 값(at)마다 어느 쪽(higher)이 몇 점(gap) 높았는지 그대로 쓴다. 두 값이 다르면 "비슷하다", "큰 차이가 없다"처럼 흐리게 쓰지 않는다. 가설과 반대로 나온 조건은 그대로 밝힌다. "같은 조건에서 항상", "모든 조건에서" 같은 말은 모든 조건에서 그랬을 때만 쓴다.',
+      '- sameMean은 평균이 같은 조건 묶음이다. 서로 다른 조건의 평균이 같은 것은 우연일 수 있으므로 이를 근거로 해석하지 않는다.',
+      '- 활용 방안은 실험한 대상과 조건 안에서만 말한다. 실험하지 않은 재료나 얼룩 종류로 넓히려면 추가 실험이 필요하다고 쓴다.',
       '- figures에는 이 데이터를 보여줄 표나 그래프를 1~3개 고른다. 숫자는 넣지 말고 kind(table, bar, line, grouped_bar, grouped_line), metric(raw, mean, diff_from_first, percent_from_first), conditionOrder(보여줄 조건 이름과 순서), title, caption만 쓴다. 조건이 "앞 변인 · 뒤 변인" 조합이면 grouped_bar나 grouped_line으로 앞 변인을 색으로 나누고 뒤 변인을 가로축에 놓는다. 뒤 변인이 순서 있는 값(온도, 시간 등)이면 grouped_line이 알맞다. 숫자는 학생 데이터로 코드가 채운다.',
       '- 본문에서 표와 그래프는 종류별로 나온 순서대로 "표 1", "그림 1"처럼 가리킨다.',
       '- reason, observations는 학생의 목소리다. 뜻과 표현을 최대한 살려 해당 절에 녹이고 맞춤법만 다듬는다.',
