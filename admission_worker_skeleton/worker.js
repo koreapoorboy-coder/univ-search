@@ -352,10 +352,17 @@ function sectionWritingGuide(title) {
 }
 
 // The model answers section by section; the site still receives one numbered report text.
+// The input never carries the student's own experiences, so a first-person "I have experience of …" sentence is invented.
+const INVENTED_EXPERIENCE_SENTENCE = /[^.?!\n]*(?<![가-힣])(?:나는|저는|내가|제가)[^.?!\n]{0,120}(?:경험이 있|경험을 했|경험했|본 적이 있)[^.?!\n]*[.?!]/g;
+
+function removeInventedExperience(body) {
+  return String(body || '').replace(INVENTED_EXPERIENCE_SENTENCE, '').trim();
+}
+
 function assembleReport(result) {
   if (Array.isArray(result?.sections) && result.sections.length) {
     const report = result.sections
-      .map((section, index) => `${index + 1}. ${String(section?.title || '').trim()}\n${String(section?.body || '').trim()}`)
+      .map((section, index) => `${index + 1}. ${String(section?.title || '').trim()}\n${removeInventedExperience(section?.body)}`)
       .join('\n\n');
     return { reportTitle: String(result.reportTitle || ''), report };
   }
@@ -497,6 +504,7 @@ function buildPrompt(input, seedMatch, env) {
     '전문 용어와 영어 표현을 과시하듯 나열하지 말고 꼭 필요한 용어만 먼저 쉬운 말로 설명한다.',
     '실생활 사례는 여러 개를 얕게 나열하지 말고 연구 질문에 맞는 대표 사례 하나를 선택하여 처음부터 결론까지 유지한다.',
     '개인 경험, 관찰, 실험 수행을 입력에서 확인할 수 없으면 학생이 실제로 했다고 꾸며 쓰지 않는다.',
+    '입력에는 학생의 개인 경험이 없으므로, "나는 평소에 ~해 본 경험이 있다"처럼 학생 개인의 경험·습관을 쓰지 않는다. 주제를 고른 이유는 "수업에서 ~를 배우며 궁금해졌다", "일상에서 흔히 쓰이는 ~"처럼 일반적인 궁금증으로만 쓴다.',
     '같은 문장이나 수행평가 문구를 여러 절에 반복하지 않는다.',
     '입력에 실험 측정값이 없으면 측정값이나 관찰 결과를 지어내지 않는다. 대신 문헌 근거와 재현 가능한 실험 설계, 예상되는 해석 기준을 명확히 구분한다.',
     '참고문헌은 입력에 제공되었거나 생성 데이터에서 정확히 확인된 자료만 서지사항으로 적는다.',
