@@ -39,6 +39,12 @@ const REPORT = [
   "6. 참고문헌 및 후속 탐구", "통합과학1 교과서 효소 관련 단원",
 ].join("\n");
 
+// The same report as the model's sectioned answer ({title, body} per section).
+const REPORT_SECTIONS = REPORT.split(/\n\n(?=\d+\. )/).map(block => {
+  const [head, ...rest] = block.split("\n");
+  return { title: head.replace(/^\d+\.\s*/, ""), body: rest.join("\n") };
+});
+
 let openaiMode = "report";
 const openaiCalls = [];
 globalThis.fetch = async (input, init) => {
@@ -50,7 +56,9 @@ globalThis.fetch = async (input, init) => {
   if (request.url === "https://api.openai.com/v1/responses") {
     openaiCalls.push(await request.json());
     if (openaiMode === "error") return new Response(JSON.stringify({ error: { message: "rate limited" } }), { status: 429 });
-    const text = JSON.stringify({ reportTitle: "락타아제 우유로 본 효소의 기질 특이성", report: REPORT });
+    const text = openaiMode === "sections"
+      ? JSON.stringify({ reportTitle: "락타아제 우유로 본 효소의 기질 특이성", sections: REPORT_SECTIONS })
+      : JSON.stringify({ reportTitle: "락타아제 우유로 본 효소의 기질 특이성", report: REPORT });
     return new Response(JSON.stringify({ output: [{ content: [{ type: "output_text", text }] }] }), { status: 200 });
   }
   throw new Error(`unexpected outbound fetch in test: ${request.url}`);
@@ -183,6 +191,21 @@ const realAssessment = JSON.parse(readFileSync(new URL("./fixtures/enzyme_perfor
   check(prompt.includes("Michaelis-Menten 방정식의 Vmax, Km, [S] 의미를 생략하지 않는다") && prompt.includes("Michaelis-Menten 방정식으로 기질 농도와")
     && !prompt.includes("Vmax=100") && !prompt.includes("효소 구조·성능·안정성"),
     "I8 고2 prompt keeps advanced cautions and focus, but still no worked calculation or client guesses");
+}
+
+// I9 — the model answers section by section; the Worker joins them into one numbered report the site can split.
+{
+  const kv = makeKv();
+  openaiMode = "sections"; openaiCalls.length = 0;
+  const res = await viaGateway(basePayload, kv); const body = await res.json();
+  const report = String(body.result?.report || "");
+  const sections = site.normalizeDocumentSections(site.dedupeSections(site.splitSections(site.cleanReportText(report), { requestedTitles: SECTIONS })));
+  check(res.status === 200 && report.startsWith("1. 연구 질문\n") && sections.map(section => section.title).join("|") === SECTIONS.join("|") && uses(kv) === 1,
+    "I9 sectioned model answer becomes one numbered report that splits into the requested sections");
+  const prompt = openaiCalls[0]?.input || "";
+  check(prompt.includes("탐구 방법: 탐구 방식(문헌 조사인지 실험 계획인지)") && prompt.includes("연구 질문: 물음표(?)로 끝나는 질문 1~2개") && prompt.includes("600~800자"),
+    "I9 prompt carries a per-section writing plan with content and length for each requested section");
+  openaiMode = "report";
 }
 
 globalThis.Date = RealDate;

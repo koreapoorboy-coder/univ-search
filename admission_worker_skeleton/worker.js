@@ -199,11 +199,12 @@ export default {
         const prompt = buildPrompt(input, seedMatch, env);
 
         let result;
+        let usage = null;
         let source = 'seed-fallback';
 
         if (env.OPENAI_API_KEY && String(env.ALLOW_STUB).toLowerCase() === 'false') {
           try {
-            result = await callOpenAI(prompt, env);
+            ({ result, usage } = await callOpenAI(prompt, env));
             source = 'openai';
           } catch (error) {
             result = buildSeedFallbackResult(input, seedMatch);
@@ -223,6 +224,7 @@ export default {
           gradeModifier: seedMatch.gradeModifier,
           patternRule: seedMatch.patternRule,
           promptPreview: prompt.slice(0, 4000),
+          usage,
           result,
         });
       }
@@ -331,6 +333,33 @@ function buildAssessmentContext(input) {
     cautions: strings(constraints.avoidModes || seed.report?.avoid, 15),
     contentFocus: strings(foundation ? [levels.basic || seed.topic?.basic] : [levels.basic, levels.intermediate, levels.advanced], 3),
   };
+}
+
+// Per-section writing plan: what each section must contain and roughly how long it should be,
+// so the model fills every section instead of writing one short essay.
+function sectionWritingGuide(title) {
+  const text = String(title || '');
+  if (/연구 질문|탐구 질문|핵심 질문|문제 제기/.test(text)) return '물음표(?)로 끝나는 질문 1~2개, 이 사례를 고른 이유 2~3문장(수업이나 일상에서 생긴 궁금증으로 쓰고, "나는 ~한 경험이 있다"처럼 입력에 없는 개인 경험을 지어내지 않는다), 무엇을 비교·관찰할지. 250~400자';
+  if (/참고|출처/.test(text)) return '확인된 자료의 종류만 적고(교과서 단원 등, 지어낸 기관명·보고서명 금지), 후속 탐구 1~2개와 이유. 150~300자';
+  if (/후속|확장/.test(text)) return '이번 탐구의 한계를 보완할 다음 탐구 1~2개와 그 이유. 200~350자';
+  if (/선행|이론|배경|개념|자료 검토|원리/.test(text)) return '핵심 개념의 뜻, 원리의 인과 관계, 조건(온도·pH 등)이 미치는 영향, 선택한 사례와의 연결을 세 문단으로. 근거 없는 구체 수치는 쓰지 않는다. 600~800자';
+  if (/방법|설계|절차|변인/.test(text)) return '탐구 방식(문헌 조사인지 실험 계획인지), 준비물, 조작·통제·종속 변인, 번호를 붙인 절차, 기록·분석 방법, 안전 주의. 600~800자';
+  if (/수집/.test(text)) return '어떤 자료를 어떤 기준으로 모을지 계획으로 쓴다. 실제로 하지 않은 조사를 "확인하였다", "수집하였다"로 쓰지 않는다. 350~500자';
+  if (/결과|분석|해석/.test(text)) return '문헌으로 확실히 설명되는 경향과 예상 결과를 구분하고, 비교 기준에 따라 해석한다. 측정값이나 "~도 이상에서" 같은 구체 수치는 지어내지 않는다. 600~800자';
+  if (/결론|고찰|정리/.test(text)) return '연구 질문에 대한 직접적인 답, 근거, 한계, 개선점, 탐구하며 생각이 바뀐 점. 450~600자';
+  if (/느낀|성찰/.test(text)) return '탐구 전후로 판단이 어떻게 달라졌는지. 입력에 없는 개인 경험은 꾸미지 않는다. 250~400자';
+  return '이 절의 역할에 맞는 내용을 두 문단 이상. 400~600자';
+}
+
+// The model answers section by section; the site still receives one numbered report text.
+function assembleReport(result) {
+  if (Array.isArray(result?.sections) && result.sections.length) {
+    const report = result.sections
+      .map((section, index) => `${index + 1}. ${String(section?.title || '').trim()}\n${String(section?.body || '').trim()}`)
+      .join('\n\n');
+    return { reportTitle: String(result.reportTitle || ''), report };
+  }
+  return result;
 }
 
 function validateInput(input) {
@@ -461,8 +490,8 @@ function buildPrompt(input, seedMatch, env) {
   const prompt = [
     '너는 고등학생이 학교에 제출할 수 있는 완성형 수행평가 탐구보고서를 작성하는 전문 편집자다.',
     '반드시 자연스러운 한국어로 쓰고, 학생이 직접 탐구하고 이해한 문체를 사용한다.',
-    '출력은 JSON만 반환하며 reportTitle과 report 두 키만 사용한다.',
-    'report는 요약, 작성 안내, 개요가 아니라 처음부터 끝까지 이어지는 완성 보고서 본문이어야 한다.',
+    '출력은 JSON만 반환하며 reportTitle과 sections 두 키만 사용한다. sections에는 요청한 절을 순서대로 {title, body} 하나씩 담는다.',
+    '각 절의 body는 요약, 작성 안내, 개요가 아니라 그 절의 완성된 본문이어야 하며, 절끼리 이어 읽으면 하나의 완성 보고서가 된다.',
     '각 절은 제목만 채우지 말고 구체적인 교과 원리, 탐구 절차, 비교 기준, 해석과 한계를 충분히 설명한다.',
     '교과서에서 배운 내용을 학생이 자신의 질문으로 좁혀 탐구한 것처럼, 짧고 분명한 문장으로 쓴다.',
     '전문 용어와 영어 표현을 과시하듯 나열하지 말고 꼭 필요한 용어만 먼저 쉬운 말로 설명한다.',
@@ -508,7 +537,8 @@ function buildPrompt(input, seedMatch, env) {
     `- reportTitle: 20~35자 안팎의 자연스러운 명사구. 수행평가 문장을 잘라 붙이지 말고, 선택한 사례와 탐구 대상이 드러나게 쓴다.`,
     '- assessmentContext.rubricFocus는 채점 요소다. 이 단어들을 보고서의 주제나 핵심 개념으로 쓰지 않는다.',
     '- assessmentContext.cautions는 틀리기 쉬운 부분이다. 문장을 그대로 옮기지 말고 내용으로 지킨다.',
-    `- report: 일반 텍스트 문자열. #, ## 같은 Markdown 기호를 쓰지 말고 다음 절을 번호와 제목으로 시작한다: ${requestedSections.join(' → ')}`,
+    '- sections: 아래 절을 이 순서대로 하나씩 쓴다. title에는 절 제목만, body에는 본문만 쓰고 #, ## 같은 Markdown 기호나 절 번호는 넣지 않는다. 각 절의 내용과 분량은 다음 계획을 따른다.',
+    ...requestedSections.map((title, index) => `  ${index + 1}. ${title}: ${sectionWritingGuide(title)}`),
     '- 연구 질문 절은 물음표(?)로 끝나는 짧은 질문 1~2개로 쓰고, 비교 조건과 관찰 대상을 분명히 한다. "~을 탐구한다"처럼 서술문으로 쓰지 않는다.',
     '- 이론적 배경은 핵심 용어 정의에 그치지 말고 원리와 인과 관계를 설명한다.',
     '- 탐구 방법은 준비물·변인 통제·절차·기록 방법·안전 주의를 재현 가능하게 쓴다.',
@@ -522,6 +552,7 @@ function buildPrompt(input, seedMatch, env) {
         ]),
     '- 결론은 연구 질문에 직접 답하고 근거, 한계, 개선점을 함께 제시한다.',
     '- 확인하지 않은 내용을 확인하였다, 관찰하였다, 증명하였다라고 쓰지 않는다.',
+    '- 입력에 근거 자료가 없으면 온도·pH·시간·비율 같은 구체적 수치를 문헌 사실처럼 쓰지 않고 "적당한 온도", "너무 높은 온도"처럼 쓴다. 실험 계획에서 학생이 스스로 정하는 조건값(예: 두 가지 물 온도)은 계획으로 밝히고 쓸 수 있다.',
     '- 메타 표현(보고서를 작성한다, 형태가 드러나도록 한다), 빈칸, 학생 입력 필요, 임의의 복수 산출물 나열을 쓰지 않는다.',
   ];
 
@@ -548,10 +579,22 @@ async function callOpenAI(prompt, env) {
           schema: {
             type: 'object',
             additionalProperties: false,
-            required: ['reportTitle', 'report'],
+            required: ['reportTitle', 'sections'],
             properties: {
               reportTitle: { type: 'string', minLength: 8 },
-              report: { type: 'string', minLength: 1800 },
+              sections: {
+                type: 'array',
+                minItems: 3,
+                items: {
+                  type: 'object',
+                  additionalProperties: false,
+                  required: ['title', 'body'],
+                  properties: {
+                    title: { type: 'string' },
+                    body: { type: 'string', minLength: 150 },
+                  },
+                },
+              },
             },
           },
         },
@@ -568,7 +611,14 @@ async function callOpenAI(prompt, env) {
   if (!content) {
     throw new Error('OpenAI response did not include output text');
   }
-  return JSON.parse(content);
+  return {
+    result: assembleReport(JSON.parse(content)),
+    usage: {
+      model: String(body?.model || model),
+      input_tokens: Number(body?.usage?.input_tokens || 0),
+      output_tokens: Number(body?.usage?.output_tokens || 0),
+    },
+  };
 }
 
 function buildSeedFallbackResult(input, seedMatch) {

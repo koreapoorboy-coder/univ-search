@@ -6,6 +6,7 @@ keep_vars = true
 [vars]
 ALLOW_STUB = "false"
 ENGINE_MODE = "production"
+OPENAI_MODEL = "gpt-4.1"
 
 [[d1_databases]]
 binding = "DB"
