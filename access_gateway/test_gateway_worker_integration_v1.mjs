@@ -94,6 +94,15 @@ globalThis.fetch = async (input, init) => {
     if (openaiMode === "error") return new Response(JSON.stringify({ error: { message: "rate limited" } }), { status: 429 });
     // "flaky": the first call fails once, the retry gets the normal report.
     if (openaiMode === "flaky") { openaiMode = "report"; return new Response(JSON.stringify({ error: { message: "temporary" } }), { status: 500 }); }
+    // "reasoning": a gpt-5 style answer, with a reasoning item before the message and reasoning tokens in usage.
+    if (openaiMode === "reasoning") {
+      const text = JSON.stringify({ reportTitle: "락타아제 우유로 본 효소의 기질 특이성", sections: REPORT_SECTIONS });
+      return new Response(JSON.stringify({
+        status: "completed", model: "gpt-5",
+        output: [{ type: "reasoning", summary: [] }, { type: "message", content: [{ type: "output_text", text }] }],
+        usage: { input_tokens: 100, output_tokens: 300, output_tokens_details: { reasoning_tokens: 200 } },
+      }), { status: 200 });
+    }
     const text = STAGE_OUTPUTS[openaiMode] ? JSON.stringify(STAGE_OUTPUTS[openaiMode])
       : openaiMode === "sections"
       ? JSON.stringify({ reportTitle: "락타아제 우유로 본 효소의 기질 특이성", sections: REPORT_SECTIONS })
@@ -308,6 +317,21 @@ const STUDENT_DATA = {
   openaiMode = "flaky"; openaiCalls.length = 0;
   const res = await viaGateway(basePayload, kv); const body = await res.json();
   check(res.status === 200 && body.source === "openai" && openaiCalls.length === 2 && uses(kv) === 1, "I13 a transient model failure is retried once and counted once");
+  openaiMode = "report";
+}
+
+// I14 — gpt-5 family: no temperature (the API rejects it), a reasoning effort, room for reasoning tokens, and the
+// message is read even though a reasoning item comes first.
+{
+  const kv = makeKv();
+  workerEnv.OPENAI_MODEL = "gpt-5";
+  openaiMode = "reasoning"; openaiCalls.length = 0;
+  const res = await viaGateway(basePayload, kv); const body = await res.json();
+  const call = openaiCalls[0] || {};
+  check(res.status === 200 && body.source === "openai" && String(body.result?.report || "").startsWith("1. 연구 질문") && body.usage?.reasoning_tokens === 200
+    && !("temperature" in call) && call.reasoning?.effort === "medium" && call.max_output_tokens === 20000 && uses(kv) === 1,
+    "I14 gpt-5: no temperature, reasoning effort set, message read after the reasoning item");
+  delete workerEnv.OPENAI_MODEL;
   openaiMode = "report";
 }
 

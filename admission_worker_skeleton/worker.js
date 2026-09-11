@@ -605,6 +605,8 @@ async function callOpenAI(prompt, env, input = {}) {
   const model = env.OPENAI_MODEL || 'gpt-4.1-mini';
   const stage = input.reportStage || STAGE.COMPLETE;
   const stageProperties = stageSchemaProperties(stage);
+  // Reasoning models (gpt-5 family, o-series) reject temperature and spend part of the output budget on reasoning.
+  const reasoningModel = /^(gpt-5|o\d)/.test(model);
   const res = await fetch('https://api.openai.com/v1/responses', {
     method: 'POST',
     headers: {
@@ -614,8 +616,8 @@ async function callOpenAI(prompt, env, input = {}) {
     body: JSON.stringify({
       model,
       input: prompt,
-      temperature: 0.4,
-      max_output_tokens: 8000,
+      ...(reasoningModel ? { reasoning: { effort: env.OPENAI_REASONING_EFFORT || 'medium' } } : { temperature: 0.4 }),
+      max_output_tokens: reasoningModel ? 20000 : 8000,
       text: {
         format: {
           type: 'json_schema',
@@ -652,7 +654,9 @@ async function callOpenAI(prompt, env, input = {}) {
     throw new Error(body?.error?.message || `OpenAI error ${res.status}`);
   }
 
-  const content = body?.output?.[0]?.content?.[0]?.text || body?.output_text;
+  // A reasoning model puts a reasoning item before the message; read the message's output text.
+  const message = (body?.output || []).find((item) => item?.type === 'message') || body?.output?.[0];
+  const content = message?.content?.find((part) => part?.type === 'output_text')?.text || message?.content?.[0]?.text || body?.output_text;
   if (!content) {
     throw new Error('OpenAI response did not include output text');
   }
@@ -669,6 +673,7 @@ async function callOpenAI(prompt, env, input = {}) {
       model: String(body?.model || model),
       input_tokens: Number(body?.usage?.input_tokens || 0),
       output_tokens: Number(body?.usage?.output_tokens || 0),
+      reasoning_tokens: Number(body?.usage?.output_tokens_details?.reasoning_tokens || 0),
     },
   };
 }
