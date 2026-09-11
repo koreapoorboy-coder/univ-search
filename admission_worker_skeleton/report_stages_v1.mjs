@@ -231,11 +231,13 @@ function sanitizeComparisonTable(raw) {
   return { label: '표 1', title: clip(raw?.title, 60) || '자료 비교 정리', columns, rows };
 }
 
+// 참고 자료 is not asked of the model in the second stage: code appends the student's own list. Asking for a
+// two-line list under the 150-character section minimum made the model pad it, or repeat it until the output was cut off.
 export function stageSections(stage, input) {
   const wantsUse = /활용|적용|방안|제안/.test(String(input?.taskDescription || ''));
   if (stage === STAGE.DRAFT) return ['연구 질문', '이론적 배경', '가설', '탐구 방법', '결과 기록 계획'];
-  if (stage === STAGE.FINAL) return ['연구 질문', '이론적 배경', '탐구 방법', '탐구 결과', '결과 분석', '결론', ...(wantsUse ? ['활용 방안'] : []), '느낀 점', '참고 자료'];
-  if (stage === STAGE.LITERATURE) return ['연구 질문', '이론적 배경', '자료 조사 방법', '자료 비교 정리', '결론', ...(wantsUse ? ['활용 방안'] : []), '참고 자료'];
+  if (stage === STAGE.FINAL) return ['연구 질문', '이론적 배경', '탐구 방법', '탐구 결과', '결과 분석', '결론', ...(wantsUse ? ['활용 방안'] : []), '느낀 점'];
+  if (stage === STAGE.LITERATURE) return ['연구 질문', '이론적 배경', '자료 조사 방법', '자료 비교 정리', '결론', ...(wantsUse ? ['활용 방안'] : [])];
   return null;
 }
 
@@ -291,7 +293,7 @@ export function stagePromptLines(stage, input) {
       '- 본문에서 표와 그래프는 종류별로 나온 순서대로 "표 1", "그림 1"처럼 가리킨다.',
       '- reason, observations는 학생의 목소리다. 뜻과 표현을 최대한 살려 해당 절에 녹이고 맞춤법만 다듬는다.',
       '- 느낀 점 절은 reflection 문장을 먼저 거의 그대로 쓰고, 결과에서 알게 된 점만 1~2문장 덧붙인다. 학생이 쓰지 않은 감정(힘들었다, 재미있었다 등)은 자동으로 삭제된다.',
-      '- 참고 자료 절은 sources만 한 줄에 하나씩 쓴다. 다른 줄은 자동으로 지워진다.',
+      '- 참고 자료 절은 쓰지 않는다. 학생이 적은 sources로 자동으로 붙는다.',
       '- 결과가 가설과 다르면 억지로 맞추지 말고 다르게 나온 그대로 쓴다.',
       '',
       '[학생 실험 데이터]',
@@ -308,7 +310,7 @@ export function stagePromptLines(stage, input) {
       '- 1차 설계서가 있으면 연구 질문과 이론은 이어받고, 실험 설계는 자료 조사 방법으로 바꾼다.',
       '- comparisonTable에는 자료 비교 정리 절의 내용을 조건별로 정리한 표를 넣는다. columns는 3~4개, rows는 2~6개, 칸에는 짧은 말만 쓰고 숫자는 쓰지 않는다.',
       '- 입력에 근거 없는 숫자는 쓰지 않는다. 이를 어긴 문장은 자동으로 삭제된다.',
-      '- 참고 자료 절은 학생이 적은 sources만 한 줄에 하나씩 쓴다.',
+      '- 참고 자료 절은 쓰지 않는다. 학생이 적은 sources로 자동으로 붙는다.',
       '',
       '[학생이 적은 내용]',
       JSON.stringify(studentVoice(data), null, 2),
@@ -396,6 +398,8 @@ export function finalizeStageOutput(stage, parsed, input) {
       }
       return { ...section, body: numbers.body };
     });
+    const referencesBody = data.sources.length ? data.sources.join('\n') : [String(input.subject || '').trim(), '교과서 관련 단원'].filter(Boolean).join(' ');
+    if (!cleaned.some((section) => /참고 자료/.test(String(section?.title || '')))) cleaned.push({ title: '참고 자료', body: referencesBody });
     const extra = stage === STAGE.FINAL
       ? { figures: buildFigures(parsed?.figures, stats), figuresAfterSection: '탐구 결과', dataSummary: stats }
       : { comparisonTable: sanitizeComparisonTable(parsed?.comparisonTable), comparisonTableAfterSection: '자료 비교 정리' };

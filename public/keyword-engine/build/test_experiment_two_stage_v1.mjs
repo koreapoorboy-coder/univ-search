@@ -87,4 +87,13 @@ const [feel, refs] = gridOut.parsed.sections;
 check(!feel.body.includes("힘들었지만") && feel.body.includes("신기했다") && feel.body.includes("알게 되었다") && gridOut.extra.removedFeelingSentences === 1, "느낀 점 keeps the student's words and drops a feeling they never wrote", feel.body);
 check(refs.body === "통합과학1 교과서 효소 단원", "참고 자료 is exactly the student's source list", refs.body);
 
+// 참고 자료 is not asked of the model (a short list under the section minimum made it loop until cut off);
+// code appends the student's list, or the subject textbook when the student listed nothing.
+check(!stageSections(STAGE.FINAL, { taskDescription: "" }).includes("참고 자료") && !stageSections(STAGE.LITERATURE, { taskDescription: "" }).includes("참고 자료"),
+  "the model is not asked to write 참고 자료 in the second stage");
+const appended = finalizeStageOutput(STAGE.FINAL, { reportTitle: "t", figures: [], sections: [{ title: "결론", body: "효소 세제가 미지근한 물에서 가장 잘 지웠다." }] }, { studentData: gridData, taskDescription: "", subject: "통합과학1" });
+const noSources = finalizeStageOutput(STAGE.LITERATURE, { reportTitle: "t", sections: [{ title: "결론", body: "효소는 적당한 온도에서 잘 작용한다." }] }, { studentData: normalizeStudentData({}), taskDescription: "", subject: "통합과학1" });
+check(appended.parsed.sections.at(-1).title === "참고 자료" && appended.parsed.sections.at(-1).body === "통합과학1 교과서 효소 단원"
+  && noSources.parsed.sections.at(-1).body === "통합과학1 교과서 관련 단원", "참고 자료 is appended by code (student list, or the subject textbook)", JSON.stringify(noSources.parsed.sections.at(-1)));
+
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);

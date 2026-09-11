@@ -655,8 +655,15 @@ async function callOpenAI(prompt, env, input = {}) {
   if (!content) {
     throw new Error('OpenAI response did not include output text');
   }
+  // A cut-off answer (status "incomplete") fails to parse; keep the reason and the tail for the diagnostic.
+  let parsed;
+  try {
+    parsed = JSON.parse(content);
+  } catch (error) {
+    throw new Error(`${error.message}; status=${body?.status || ''} ${body?.incomplete_details?.reason || ''}; tail=${content.slice(-120)}`);
+  }
   return {
-    result: buildStageResult(stage, JSON.parse(content), input),
+    result: buildStageResult(stage, parsed, input),
     usage: {
       model: String(body?.model || model),
       input_tokens: Number(body?.usage?.input_tokens || 0),
