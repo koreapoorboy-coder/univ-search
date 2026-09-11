@@ -1,0 +1,13 @@
+name = "curly-base-a1a9"
+main = "worker.js"
+compatibility_date = "2026-03-30"
+keep_vars = true
+
+[vars]
+ALLOW_STUB = "false"
+ENGINE_MODE = "production"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "keyword-engine-db"
+database_id = "1bf11f1d-8747-4456-ace6-b0db6ff27d46"
