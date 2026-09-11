@@ -306,6 +306,33 @@ function pickReportPatterns(input, reportSeedIndex) {
     }));
 }
 
+const ADVANCED_CONTENT_PATTERN = /Michaelis|미카엘리스|미하엘리스|\bKm\b|Vmax|\[S\]|방정식|반응 속도식|MATLAB|Python/i;
+
+// Only objective task evidence reaches the model: no client-generated titles, focus questions,
+// scoring internals or worked calculation examples. At foundation level, anything tied to
+// university-level equations is dropped.
+function buildAssessmentContext(input) {
+  const assessment = input.performanceAssessment || {};
+  const connection = assessment.assessmentKeywordConnection || {};
+  const cross = connection.cross_axis || connection.crossAxis || {};
+  const record = cross.taskMatch?.record || {};
+  const constraints = cross.constraints || {};
+  const seed = cross.seedMatch?.seed || {};
+  const levels = seed.topic?.levels || {};
+  const foundation = isFoundationLevel(input);
+  const keep = (value) => typeof value === 'string' && value.trim() !== '' && !(foundation && ADVANCED_CONTENT_PATTERN.test(value));
+  const strings = (value, limit) => toArray(value).filter(keep).map((value) => value.trim()).slice(0, limit);
+  return {
+    similarRealTask: record.title ? { title: String(record.title), description: String(record.description || '').slice(0, 300) } : null,
+    reportMode: String(assessment.method?.reportMode || ''),
+    rubricFocus: strings(constraints.rubricFocus || connection.assessment_route?.rubricFocus, 10),
+    requiredOutputs: strings(constraints.requiredOutputs, 6),
+    numericConstraints: strings(constraints.numericConstraints, 6),
+    cautions: strings(constraints.avoidModes || seed.report?.avoid, 15),
+    contentFocus: strings(foundation ? [levels.basic || seed.topic?.basic] : [levels.basic, levels.intermediate, levels.advanced], 3),
+  };
+}
+
 function validateInput(input) {
   for (const key of REQUIRED_INPUTS) {
     if (!input[key]) {
@@ -421,8 +448,13 @@ function buildPrompt(input, seedMatch, env) {
     ? [
         '효소의 기질 특이성과 반응 활성을 막연한 정확성이라는 말로 바꾸지 않는다.',
         '온도 상승은 활성화 에너지 자체를 바꾸지 않고, 활성화 에너지 이상의 에너지를 가진 입자의 비율과 충돌 빈도를 높인다. 최적 온도를 넘으면 효소 단백질이 변성되어 활성이 떨어진다.',
-        'Km이 언제나 최적 pH에서 최소가 된다고 단정하지 않는다.',
-        '입력에 실제 실험값이 없으면 특정 효소의 Km, Vmax, 최적 온도·pH 수치를 제시하지 않는다.',
+        ...(isFoundationLevel(input)
+          ? ['효소 반응 속도를 식이나 상수 기호로 나타내는 대학 과정 내용은 쓰지 않는다. 온도·pH·기질의 양에 따라 효소의 작용이 어떻게 달라지는지 교과서 수준의 말로 설명한다.']
+          : [
+              'Km이 언제나 최적 pH에서 최소가 된다고 단정하지 않는다.',
+              '입력에 실제 실험값이 없으면 특정 효소의 Km, Vmax 수치를 제시하지 않는다.',
+            ]),
+        '입력에 실제 실험값이 없으면 특정 효소의 최적 온도·pH 같은 수치를 사실처럼 제시하지 않는다.',
         '실생활 사례는 세제, 식품, 소화 효소 등에서 하나를 골라 탐구 전체를 그 사례에 일관되게 연결한다.',
       ]
     : [];
@@ -442,7 +474,7 @@ function buildPrompt(input, seedMatch, env) {
     '확인되지 않은 저자, 책 제목, 연도, 기관 데이터베이스명, URL을 절대 만들지 않는다. 확인된 서지가 없으면 통합과학1 교과서의 관련 단원처럼 자료 종류만 정직하게 적는다.',
     '연결 도서를 사용하지 않기로 한 경우 도서명과 독서 내용을 절대 넣지 않는다.',
     '학과명은 탐구 동기나 확장 가능성에서만 절제해 사용하고 본론을 장식하는 단어로 반복하지 않는다.',
-    '분량은 공백 포함 2800~4200자를 목표로 하며, 절마다 서로 다른 역할을 수행한다.',
+    '분량은 공백 포함 2800~4200자다. 2800자보다 짧게 끝내지 않으며, 연구 질문과 참고문헌을 뺀 각 절은 두 문단 이상, 400자 이상으로 쓴다. 절마다 서로 다른 역할을 수행한다.',
     '',
     '[학생 입력 및 수행평가 계약]',
     JSON.stringify({
@@ -460,7 +492,7 @@ function buildPrompt(input, seedMatch, env) {
       structureId: input.structureId,
       requiredSections: requestedSections,
       reportChoices: input.reportChoices,
-      performanceAssessment: input.performanceAssessment,
+      assessmentContext: buildAssessmentContext(input),
     }, null, 2),
     '',
     '[교과·생성 데이터 매칭 결과]',
@@ -473,9 +505,11 @@ function buildPrompt(input, seedMatch, env) {
     }, null, 2),
     '',
     '[작성 지침]',
-    `- reportTitle: 수행평가와 탐구의 구체적인 변인을 드러내는 제목`,
+    `- reportTitle: 20~35자 안팎의 자연스러운 명사구. 수행평가 문장을 잘라 붙이지 말고, 선택한 사례와 탐구 대상이 드러나게 쓴다.`,
+    '- assessmentContext.rubricFocus는 채점 요소다. 이 단어들을 보고서의 주제나 핵심 개념으로 쓰지 않는다.',
+    '- assessmentContext.cautions는 틀리기 쉬운 부분이다. 문장을 그대로 옮기지 말고 내용으로 지킨다.',
     `- report: 일반 텍스트 문자열. #, ## 같은 Markdown 기호를 쓰지 말고 다음 절을 번호와 제목으로 시작한다: ${requestedSections.join(' → ')}`,
-    '- 연구 질문은 1~2개의 짧고 자연스러운 문장으로 쓰고 비교 조건과 관찰 대상을 분명히 한다.',
+    '- 연구 질문 절은 물음표(?)로 끝나는 짧은 질문 1~2개로 쓰고, 비교 조건과 관찰 대상을 분명히 한다. "~을 탐구한다"처럼 서술문으로 쓰지 않는다.',
     '- 이론적 배경은 핵심 용어 정의에 그치지 말고 원리와 인과 관계를 설명한다.',
     '- 탐구 방법은 준비물·변인 통제·절차·기록 방법·안전 주의를 재현 가능하게 쓴다.',
     '- 결과 및 분석은 입력에 실제 데이터가 있는 경우에만 그 값을 분석한다. 데이터가 없으면 문헌에서 확실히 설명되는 경향, 예상 결과, 실제 측정 후 적용할 분석법을 서로 구분해 쓴다.',

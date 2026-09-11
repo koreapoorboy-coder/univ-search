@@ -1,0 +1,86 @@
+{
+  "_note": "Compact fixture taken verbatim from the real 2026-09-11 enzyme request (통합과학1, 효소). Keeps the fields that leaked into the prompt: client concept '정확성', engineering focus, client title, seed worked calculation, Michaelis caution.",
+  "version": "dongguk-performance-assessment-v220-worker-subject-group",
+  "content": { "source": "수행평가 안내문 자동 해석", "concept": "정확성", "keyword": "효소" },
+  "method": { "source": "task_interpreter_rules", "reportMode": "논증형", "methodAxis": "논술형" },
+  "outputLevel": { "source": "structure_id", "structureId": "structure_research_report", "sections": ["연구 질문", "선행 자료 검토", "방법 설계", "자료 수집", "분석 결과", "결론", "참고문헌과 후속 탐구"], "outputAxis": "논술문" },
+  "generatedPerformanceName": "효소 구조·성능·안정성 비교 분석하기",
+  "generatedFocusQuestion": "효소의 판단 기준에서 구조, 조건, 성능, 안정성을 함께 비교하면 결론이 어떻게 달라질까?",
+  "assessmentKeywordConnection": {
+    "assessment_route": {
+      "rubricFocus": ["논리전개", "근거제시", "관점설정", "탐구질문", "자료분석", "결과해석", "개념정확성", "성실성"]
+    },
+    "score_diagnostics": {
+      "topCandidates": [{ "rank": 1, "seedId": "NAT-030", "label": "효소를 단순한 생명과학 개념 소개가 아니라 활성 부위와 기질 특이성, 활성화 에너지 감소, 효소 동역학과 Michaelis-Menten 방정식, 락타아제·유당불내증 사례, 효소 억제제·치환 요법·산업용 효소까지 연결하는 생명과학·화학·의학 융합 탐구" }]
+    },
+    "student_output": { "one_line_pick": "효소가 실생활에 쓰이는 현상을 찾아 활용 방안을 통한: 효소의 핵심 원리와 적용 조건" },
+    "cross_axis": {
+      "taskMatch": {
+        "record": {
+          "id": "assessment_task_ab53caf47f",
+          "grade": 1,
+          "subject": "통합과학1",
+          "title": "효소 작용 탐구",
+          "description": "• 효소 작용의 원리에 관한 탐구 활동 수행 하기 • 효소 작용 원리와 특성 설명 하기",
+          "rubricAxis": ["논리전개", "근거제시", "관점설정", "탐구질문", "자료분석", "결과해석", "개념정확성", "성실성", "참여도", "과정충실도"]
+        }
+      },
+      "seedMatch": {
+        "seedId": "NAT-030",
+        "seed": {
+          "id": "NAT-030",
+          "topic": {
+            "basic": "효소가 생물학적 촉매로서 활성화 에너지를 낮추고, 활성 부위와 기질 특이성으로 특정 반응을 선택적으로 촉진한다는 원리를 설명한다.",
+            "levels": {
+              "basic": "효소가 생물학적 촉매로서 활성화 에너지를 낮추고, 활성 부위와 기질 특이성으로 특정 반응을 선택적으로 촉진한다는 원리를 설명한다.",
+              "intermediate": "Michaelis-Menten 방정식으로 기질 농도와 반응 속도의 관계를 계산하고, 온도·pH·억제제가 효소 활성에 미치는 영향을 그래프로 해석한다.",
+              "advanced": "락타아제 보충제 또는 효소 억제제 사례를 선택해 용량, 조건 최적화, 모델 검증, 의학·산업 응용 가능성까지 분석한다."
+            }
+          },
+          "report": {
+            "paragraphBlueprint": [
+              "효소 동역학: Michaelis-Menten 방정식 v=Vmax[S]/(Km+[S])을 활용하면 기질 농도에 따른 반응 속도 변화를 정량적으로 분석할 수 있다.",
+              "계산 적용: 예를 들어 Vmax=100 μmol/min/mg, Km=10 mM, [S]=50 mM일 때 반응 속도를 계산하고 필요한 효소량을 추정해 실제 투여 전략으로 연결한다.",
+              "검증과 피드백: Python 또는 MATLAB 시뮬레이션과 실제 증상 개선 데이터를 비교하여 효소 투여량, pH 조건, 투여 시점을 조정한다."
+            ],
+            "avoid": [
+              "효소가 모든 반응을 무조건 빠르게 한다고 단정하지 않는다.",
+              "Michaelis-Menten 방정식의 Vmax, Km, [S] 의미를 생략하지 않는다."
+            ]
+          }
+        }
+      },
+      "topic": {
+        "generatedTitle": "효소가 실생활에 쓰이는 현상을 찾아 활용 방안을 통한: 효소의 핵심 원리와 적용 조건",
+        "subjectConcepts": ["정확성", "효소"],
+        "conceptDetail": { "conceptDisplayName": "정확성", "matchedTerms": ["정확성", "효소"], "parentConcepts": ["과학의 측정과 우리 사회"] }
+      },
+      "constraints": {
+        "rawTaskDescription": "• 효소 작용의 원리에 관한 탐구 활동 수행 하기 • 효소 작용 원리와 특성 설명 하기",
+        "numericConstraints": [],
+        "requiredOutputs": ["논술문", "탐구보고서", "자료분석지", "포트폴리오", "활동지"],
+        "rubricFocus": ["논리전개", "근거제시", "관점설정", "탐구질문", "자료분석", "결과해석", "개념정확성", "성실성", "참여도", "과정충실도"],
+        "avoidModes": [
+          "단순조사형",
+          "자료나열형",
+          "의견나열형",
+          "근거없는주장형",
+          "효소가 모든 반응을 무조건 빠르게 한다고 단정하지 않는다.",
+          "효소가 반응의 평형 자체를 바꾼다고 설명하지 않는다.",
+          "효소 특이성을 단순히 “하나의 효소는 하나의 기질만 작용한다”로 과도하게 단순화하지 않는다.",
+          "Michaelis-Menten 방정식의 Vmax, Km, [S] 의미를 생략하지 않는다.",
+          "온도와 pH가 높을수록 항상 효소 활성이 증가한다고 쓰지 않는다.",
+          "락타아제 보충제가 모든 유당불내증 환자에게 동일한 효과를 낸다고 단정하지 않는다.",
+          "산업적 활용을 말할 때 효소 안정성, 비용, 조건 최적화 같은 한계를 함께 언급한다.",
+          "단순 조사형 주제",
+          "진로명만 붙인 주제",
+          "결과 분석이 없는 주제",
+          "교과 개념이 보이지 않는 주제",
+          "방법 설계가 없는 실험형 주제",
+          "자료 출처와 해석 기준이 없는 발표형 주제"
+        ]
+      }
+    }
+  },
+  "dedupeRules": ["제목에서 같은 명사구를 반복하지 않는다.", "주제는 한 번만 제시하고 방법은 동사형으로 붙인다."]
+}

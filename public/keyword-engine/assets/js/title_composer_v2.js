@@ -62,6 +62,9 @@
       .replace(/^(?:다음|아래|제시된|선택한)\s+/g, "")
       .replace(/\s*(?:탐구\s*)?(?:보고서|발표자료|발표|논술문|포트폴리오|활동지)\s*(?:작성|제작)?(?:하기)?$/g, "")
       .replace(/\s*(?:조사|분석|비교|설명|논술|탐구|작성|발표|제작|설계|평가)(?:하여|하고|하기)?$/g, "")
+      // Drop a dangling connector or object particle left by the cut ("…방안을 통한", "…방안을").
+      .replace(/\s*(?:을|를)?\s*(?:통한|위한|대한|관한|이용한|활용한)$/u, "")
+      .replace(/(?<=[가-힣]{2})(?:을|를)$/u, "")
       .replace(/[.?!]+$/g, "");
     if ([...output].length > max) {
       const clipped = [...output].slice(0, max + 1).join("");

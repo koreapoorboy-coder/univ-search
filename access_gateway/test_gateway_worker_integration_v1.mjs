@@ -152,5 +152,38 @@ const check = (ok, label) => { assert.equal(ok, true, label); console.log(`PASS 
     "I6 고2 elective prompt keeps the advanced pattern and its analysis method");
 }
 
+// I7 — 고1 with the real client assessment payload: only objective task evidence reaches the prompt.
+const realAssessment = JSON.parse(readFileSync(new URL("./fixtures/enzyme_performance_assessment_20260911.json", import.meta.url), "utf8"));
+{
+  const kv = makeKv();
+  openaiMode = "report"; openaiCalls.length = 0;
+  const res = await viaGateway({ ...basePayload, performance_assessment: realAssessment }, kv);
+  const prompt = openaiCalls[0]?.input || "";
+  const forbidden = [
+    "효소 구조·성능·안정성", "구조, 조건, 성능, 안정성", "핵심 원리와 적용 조건", '"concept": "정확성"', "과학의 측정과 우리 사회",
+    "Vmax=100", "Km=10", "MATLAB", "Python", "Michaelis", "미카엘리스", "score_diagnostics", "topCandidates",
+  ].filter(word => prompt.includes(word));
+  check(res.status === 200 && forbidden.length === 0 && !/\bKm\b|Vmax/.test(prompt),
+    `I7 고1 prompt drops client guesses, worked calculations and university equations${forbidden.length ? ` (leaked: ${forbidden.join(", ")})` : ""}`);
+  check(prompt.includes("효소 작용 탐구") && prompt.includes("활성화 에너지를 낮추고") && prompt.includes("개념정확성") && prompt.includes("채점 요소다"),
+    "I7 prompt keeps the real similar task, the basic content focus and the rubric labelled as grading criteria");
+  check(prompt.includes("식이나 상수 기호로 나타내는 대학 과정") && prompt.includes("물음표(?)로 끝나는") && prompt.includes("400자 이상"),
+    "I7 prompt carries the foundation enzyme rule, question-form and per-section length rules");
+}
+// I8 — 고2 elective with the same payload keeps the advanced material (analysis cautions, intermediate focus).
+{
+  const kv = makeKv();
+  openaiMode = "report"; openaiCalls.length = 0;
+  const chemCandidate = browserIntake.buildCandidateFromValues({
+    school: "테스트고등학교", grade: "고2", subject: "화학", subject_group: "과학", task_description: TASK,
+    selected_subject: "화학", selected_subject_group: "과학",
+  });
+  await viaGateway({ ...basePayload, grade: "고2", subject: "화학", liveInputCandidate: chemCandidate, performance_assessment: realAssessment }, kv);
+  const prompt = openaiCalls[0]?.input || "";
+  check(prompt.includes("Michaelis-Menten 방정식의 Vmax, Km, [S] 의미를 생략하지 않는다") && prompt.includes("Michaelis-Menten 방정식으로 기질 농도와")
+    && !prompt.includes("Vmax=100") && !prompt.includes("효소 구조·성능·안정성"),
+    "I8 고2 prompt keeps advanced cautions and focus, but still no worked calculation or client guesses");
+}
+
 globalThis.Date = RealDate;
 console.log(`PASS gateway-Worker integration: ${passed}/${passed}`);
