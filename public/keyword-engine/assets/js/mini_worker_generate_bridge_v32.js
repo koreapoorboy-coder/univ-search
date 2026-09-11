@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v245-model-h-runtime";
+  const VERSION = "mini-worker-generate-bridge-v251-chunk1-report-finish";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -15,12 +15,14 @@
   const DIRECT_GENERATE_ENDPOINT = global.__KEYWORD_ENGINE_DIRECT_GENERATE_ENDPOINT || `${WORKER_BASE_URL}/generate`;
   const GENERATE_ENDPOINTS = Array.from(new Set([GENERATE_ENDPOINT, DIRECT_GENERATE_ENDPOINT].filter(Boolean)));
   const COLLECT_ENDPOINT = `${WORKER_BASE_URL}/collect`;
+  const LIVE_INTAKE_ENDPOINT = global.__KEYWORD_ENGINE_LIVE_INTAKE_ENDPOINT || `${WORKER_BASE_URL}/live-intake`;
 
   global.__MINI_WORKER_GENERATE_BRIDGE_VERSION__ = VERSION;
   global.__MINI_WORKER_GENERATE_ENDPOINT__ = GENERATE_ENDPOINT;
   global.__MINI_WORKER_GENERATE_FALLBACK_ENDPOINT__ = DIRECT_GENERATE_ENDPOINT;
   global.__MINI_WORKER_GENERATE_ENDPOINTS__ = GENERATE_ENDPOINTS.slice();
   global.__MINI_WORKER_COLLECT_ENDPOINT__ = COLLECT_ENDPOINT;
+  global.__MINI_WORKER_LIVE_INTAKE_ENDPOINT__ = LIVE_INTAKE_ENDPOINT;
 
   function $(id){ return document.getElementById(id); }
   function escapeHtml(value){
@@ -36,6 +38,15 @@
     const el = $(id);
     if(!el) return "";
     return String(el.value ?? "").trim();
+  }
+  function readRawValue(id){
+    const el = $(id);
+    return el ? String(el.value ?? "") : "";
+  }
+  function readSelectedSubjectGroup(){
+    const select = $("subject");
+    const option = select?.options?.[select.selectedIndex] || null;
+    return String(option?.dataset?.subjectGroup ?? "").trim();
   }
   function show(el, display="block"){
     if(el) el.style.display = display;
@@ -109,16 +120,14 @@
     const rawGrade = readValue("grade");
     return {
       sessionId: createSessionId(),
-      schoolName: readValue("schoolName"),
-      // 패치4에서 학년 선택을 제거했으므로 구형 Worker의 필수값 검사에만 쓰는 내부 호환값이다.
-      // 학생 화면·주제 선정 기준·school_name에는 노출하거나 활용하지 않는다.
-      grade: rawGrade || "고등학생",
-      subjectGroup: readValue("subjectGroup"),
+      schoolName: readRawValue("schoolName"),
+      grade: rawGrade,
+      subjectGroup: readSelectedSubjectGroup(),
       subject: readValue("subject"),
       taskName: readValue("taskName") || [readValue("subject"), readValue("taskType") || "탐구보고서"].filter(Boolean).join(" "),
       taskType: readValue("taskType") || "탐구보고서",
       usagePurpose: readValue("usagePurpose") || "학생용 완성 보고서 작성",
-      taskDescription: readValue("taskDescription"),
+      taskDescription: readRawValue("taskDescription"),
       career: readValue("career"),
       keyword: readValue("keyword"),
       major: readValue("career"),
@@ -615,6 +624,7 @@
       sessionId: form.sessionId,
       schoolName: form.schoolName,
       grade: form.grade,
+      subjectGroup: reqSubjectGroup,
       subject: s.subject || form.subject,
       taskName: form.taskName,
       taskType: form.taskType,
@@ -633,9 +643,9 @@
       interpretationConfirmed: !!mini.reportGenerationContext?.decisionFlow?.interpretationConfirmed,
       selectedCategory: mini.reportGenerationContext?.decisionFlow?.selectedCategory || form.career || "",
       legacyWorkerCompatibility: {
-        gradeDefaulted: !readValue("grade"),
-        gradeValue: form.grade || "고등학생",
-        requiredInputPolicy: "subject_taskDescription_career"
+        gradeDefaulted: false,
+        gradeValue: form.grade,
+        requiredInputPolicy: "school_grade_subject_taskDescription_career"
       },
       structureId: reqStructure.id || "structure_research_report",
       targetStructure: reqStructure.sections || [],
@@ -717,7 +727,10 @@
 
   function validateRequest(req){
     const missing = [];
+    if(!String(req.schoolName || "").trim()) missing.push("학교명");
+    if(!["고1","고2","고3"].includes(String(req.grade || ""))) missing.push("학년");
     if(!String(req.subject || "").trim()) missing.push("과목");
+    if(!String(req.subjectGroup || "").trim()) missing.push("과목 계열");
     if(!String(req.taskDescription || "").trim()) missing.push("수행평가 안내문");
     if(!req.interpretationConfirmed) missing.push("해석 결과 확인");
     if(!String(req.selectedCategory || req.career || "").trim()) missing.push("희망 계열");
@@ -725,6 +738,53 @@
     if(req.bookUsageMode === "useBook" && !String(req.selectedBookTitle || "").trim()) missing.push("사용할 도서");
     if(req.assessment_connection?.reportTarget === false || req.assessment_connection?.blocked) missing.push("보고서형 과제 안내문");
     return missing;
+  }
+
+  async function acquireTrustedLiveIntake(req){
+    const builder = global.Phase6SimpleLiveIntake;
+    if(!builder || typeof builder.buildCandidateFromDocument !== "function"){
+      throw new Error("LIVE_INTAKE_CANDIDATE_BUILDER_UNAVAILABLE");
+    }
+    const candidate = builder.buildCandidateFromDocument(document);
+    // The production legacy generator predates the standalone /live-intake
+    // preflight. Keep the candidate attached so a newer /generate route can
+    // validate it atomically, while allowing the legacy generator to continue
+    // when only that optional preflight route is absent.
+    req.liveInputCandidate = candidate;
+    let accepted;
+    try{
+      accepted = await postJson(LIVE_INTAKE_ENDPOINT, candidate);
+    }catch(error){
+      if(Number(error?.status || 0) === 404 || Number(error?.status || 0) === 405){
+        const compatibility = Object.freeze({
+          ok: true,
+          preflightSkipped: true,
+          reason: "LIVE_INTAKE_PREFLIGHT_UNAVAILABLE",
+          endpoint: LIVE_INTAKE_ENDPOINT
+        });
+        global.__LAST_PHASE6_LIVE_INTAKE_COMPATIBILITY__ = compatibility;
+        console.warn("live-intake preflight unavailable; defer candidate validation to /generate:", error);
+        return compatibility;
+      }
+      throw error;
+    }
+    if(!accepted?.ok || !accepted.envelope || !accepted.seal || !accepted.phase1_lineage){
+      throw new Error(accepted?.error || "LIVE_INTAKE_GATEWAY_REJECTED");
+    }
+    req.liveAuthorityEnvelope = accepted.envelope;
+    req.liveAuthoritySeal = accepted.seal;
+    req.phase1Lineage = accepted.phase1_lineage;
+    req.reportGenerationContext = req.reportGenerationContext || {};
+    req.reportGenerationContext.liveInputAuthority = {
+      envelope: accepted.envelope,
+      externalSeal: accepted.seal,
+      phase1Lineage: accepted.phase1_lineage
+    };
+    if(req.mini_payload){
+      req.mini_payload.reportGenerationContext = req.reportGenerationContext;
+      req.mini_payload.liveInputAuthority = req.reportGenerationContext.liveInputAuthority;
+    }
+    return accepted;
   }
 
   function makeHttpError(response, url, text, data){
@@ -931,6 +991,8 @@
     return String(value || "")
       .replace(/\r\n/g, "\n")
       .replace(/\r/g, "\n")
+      .replace(/^\s*#{1,6}\s*/gm, "")
+      .replace(/^\s*\d+[.)]\s*$/gm, "")
       .split("\n")
       .map(cleanReportLine)
       .join("\n")
@@ -1011,6 +1073,8 @@
       || req?.mini_payload?.reportGenerationContext?.performanceAssessment?.assessmentKeywordConnection
       || {};
     const cross = connection.cross_axis || connection.crossAxis || req?.reportGenerationContext?.assessmentSeedCrossAxis || {};
+    const workerTitle = cleanReportPhrase(rawData?.result?.reportTitle || rawData?.reportTitle || rawData?.data?.reportTitle, "");
+    if(workerTitle) return workerTitle;
     const exactTitle = cleanReportPhrase(cross?.topic?.generatedTitle || connection?.student_output?.one_line_pick, "");
     if(exactTitle) return exactTitle;
     const kw = cleanReportPhrase(s.selectedKeyword || req.keyword || getWorkerResolved(rawData).keyword, "");
@@ -2067,8 +2131,27 @@
     });
   }
 
+  // Mirrors the Worker's default report sections, used when the request carries no targetStructure.
+  const DEFAULT_WORKER_REPORT_SECTIONS = ["연구 질문", "이론적 배경 및 자료 검토", "탐구 방법", "탐구 결과 및 분석", "결론", "참고문헌 및 후속 탐구"];
+
+  function getRequestedReportSections(req){
+    const requested = Array.isArray(req?.targetStructure) ? req.targetStructure.map(title => String(title || "").trim()).filter(Boolean) : [];
+    return requested.length ? requested : DEFAULT_WORKER_REPORT_SECTIONS;
+  }
+
   function extractGeneratedText(data, req){
-    const candidate = cleanReportText(normalizeGeneratedCandidate(data));
+    const responseSource = firstNonEmpty(data?.source, data?.data?.source, data?.result?.source);
+    if(data?.localFallback || /^seed-fallback(?:-|$)/.test(responseSource)){
+      const error = new Error("완성 보고서를 생성하지 못했습니다. 잠시 후 다시 시도해 주세요.");
+      error.code = "COMPLETE_REPORT_GENERATION_FAILED";
+      throw error;
+    }
+    const explicitWorkerReport = firstNonEmpty(
+      data?.result?.report,
+      data?.data?.result?.report,
+      data?.data?.report
+    );
+    const candidate = cleanReportText(explicitWorkerReport || normalizeGeneratedCandidate(data));
     const s = req?.mini_payload?.selectionPayload || {};
     const expansion = getSecondaryExpansionContext(req, {
       subject: s.subject || req.subject || "",
@@ -2082,17 +2165,23 @@
       bookTitle: req.selectedBookTitle || ""
     });
     const path = (expansion?.paths || []).find(item => item.isRecommended) || (expansion?.paths || [])[0] || null;
-    if(candidate && !looksLikeUnfixedSecondaryDraft(candidate, path)){
-      const sections = dedupeSections(splitSections(candidate));
+    const acceptsStructuredWorkerReport = Boolean(explicitWorkerReport) && candidate.length >= 600;
+    if(candidate && (acceptsStructuredWorkerReport || !looksLikeUnfixedSecondaryDraft(candidate, path))){
+      const sections = dedupeSections(splitSections(candidate, { requestedTitles: getRequestedReportSections(req) }));
       return {
         text: candidate,
         sections,
-        source: "worker-complete-report-v240",
+        source: responseSource || "worker-complete-report-v240",
         fallback: false,
         note: "Worker가 실제 수행평가 방법축과 내용축을 반영해 생성한 완성 보고서입니다.",
         diagnostics: { majorUsedInCore: false, secondaryExpansionContext: expansion },
         title: buildReportTitle(req, data)
       };
+    }
+    if(data && typeof data === "object"){
+      const error = new Error("완성된 보고서 본문을 확인할 수 없습니다. 다시 생성해 주세요.");
+      error.code = "COMPLETE_REPORT_OUTPUT_INVALID";
+      throw error;
     }
     const composed = buildStudentReportFromPayload(req, data);
     return { text: composed.text, sections: composed.sections, source: composed.source, fallback: true, note: composed.note, diagnostics: composed.diagnostics, title: composed.title };
@@ -2131,7 +2220,7 @@
     "느낀 점",
     "세특 문구 예시",
     "참고문헌 및 자료",
-    "탐구 질문", "연구 질문", "선행연구 검토", "연구 가설/목표", "변인과 방법 설계", "수행 가능성 검토", "연구 윤리와 안전", "예상 결과와 한계",
+    "탐구 질문", "연구 질문", "이론적 배경 및 자료 검토", "탐구 방법", "탐구 결과 및 분석", "고찰 및 한계", "결론", "참고문헌 및 후속 탐구", "선행연구 검토", "연구 가설/목표", "변인과 방법 설계", "수행 가능성 검토", "연구 윤리와 안전", "예상 결과와 한계",
     "교과 개념 정리", "가설과 변인 설정", "실험 조건 또는 자료 수집", "결과 정리", "자료 해석", "오차·한계 분석", "후속 탐구",
     "자료 출처와 분석 기준", "핵심 개념 정리", "자료 정리", "패턴 해석", "결론 도출", "한계와 보완",
     "현상 설정", "모델 변수 정의", "교과 개념 연결", "모델 적용 과정", "예측/해석", "한계", "확장 모델",
@@ -2166,54 +2255,77 @@
     return { title: raw, body: "" };
   }
 
-  function splitSections(text){
-    const raw0 = String(text || "")
+  function isHeadingLikeLine(value){
+    const text = String(value || "").trim();
+    return text.length >= 2 && text.length <= 20 && !/[.?!。？！]$|다$|요$|[,，]/.test(text);
+  }
+
+  function matchRequestedTitle(value, requestedTitles){
+    const text = String(value || "").trim();
+    if(!text) return "";
+    if(requestedTitles.includes(text)) return text;
+    const matches = requestedTitles.filter(title => title.length >= 2 && text.length >= 2 && (title.includes(text) || text.includes(title)));
+    return matches.length === 1 ? matches[0] : "";
+  }
+
+  function splitSections(text, options = {}){
+    const requestedTitles = (Array.isArray(options.requestedTitles) ? options.requestedTitles : [])
+      .map(title => String(title || "").trim())
+      .filter(Boolean);
+    const raw = String(text || "")
       .replace(/\r\n/g, "\n")
       .replace(/\r/g, "\n")
       .trim();
-    if(!raw0) return [];
+    if(!raw) return [];
 
-    const headingAlternation = KNOWN_SECTION_TITLES.map(escapeRegex).join("|");
-    const raw = raw0
-      .replace(new RegExp("\\s+(?=\\d{1,2}[.)]\\s*(?:" + headingAlternation + "))", "g"), "\n")
-      .replace(new RegExp("(?<!^)\\s+(?=(?:" + headingAlternation + ")\\s)", "g"), "\n");
-
-    const blocks = raw.split(/\n(?=\d{1,2}[.)]\s*)/).map(v => v.trim()).filter(Boolean);
     const out = [];
+    let current = null;
+    let lastHeadingNumber = 0;
+    let headingDelimiter = "";
+    let listDelimiter = "";
+    const pushCurrent = () => {
+      if(!current) return;
+      current.body = current.body.trim();
+      out.push(current);
+      current = null;
+    };
 
-    blocks.forEach(block => {
-      const lines = block.split(/\n+/).map(v => v.trim()).filter(Boolean);
-      if(!lines.length) return;
-      const first = lines.shift();
-      const numbered = first.match(/^\d{1,2}[.)]\s*(.+)$/);
-      const head = splitInlineHeading(numbered ? numbered[1] : first);
-      let body = [head.body].concat(lines).filter(Boolean).join("\n").trim();
-      let title = head.title.trim();
-      if(!title && body){ title = "보고서 내용"; }
-      out.push({ title: title || "보고서 내용", body });
-    });
-
-    if(out.length <= 1){
-      const lines = raw.split(/\n+/).map(v => v.trim()).filter(Boolean);
-      const rebuilt = [];
-      let current = null;
-      lines.forEach(line => {
-        const numbered = line.match(/^\d{1,2}[.)]\s*(.+)$/);
-        const maybe = splitInlineHeading(numbered ? numbered[1] : line);
-        const isHeading = !!numbered || KNOWN_SECTION_TITLES.includes(maybe.title);
-        if(isHeading){
-          if(current) rebuilt.push(current);
-          current = { title: maybe.title, body: maybe.body || "" };
-        }else if(current){
-          current.body += (current.body ? "\n" : "") + line;
-        }else{
-          current = { title: "보고서 내용", body: line };
+    raw.split("\n").forEach(line => {
+      const trimmed = line.trim();
+      const numbered = trimmed.match(/^(\d{1,2})([.)])\s*(.+)$/);
+      const candidate = numbered ? numbered[3].trim() : trimmed.replace(/[:：]$/, "");
+      const bare = candidate.replace(/[:：]\s*$/, "");
+      const colonHeading = numbered ? KNOWN_SECTION_TITLES.find(t => candidate.startsWith(t + ":") || candidate.startsWith(t + "：")) : null;
+      const parsed = colonHeading ? { title: colonHeading, body: candidate.slice(colonHeading.length + 1).trim() } : { title: bare, body: "" };
+      const exactUnnumberedHeading = !numbered && KNOWN_SECTION_TITLES.includes(candidate);
+      const numberedKnownHeading = Boolean(numbered) && (KNOWN_SECTION_TITLES.includes(bare) || requestedTitles.includes(bare) || Boolean(colonHeading));
+      const number = numbered ? Number(numbered[1]) : 0;
+      const delimiter = numbered ? numbered[2] : "";
+      // A heading the model reworded: the next top-level number, the same numbering style,
+      // not inside a list using that style, and a short noun phrase rather than a sentence.
+      const rewordedHeading = Boolean(numbered) && !numberedKnownHeading
+        && number === lastHeadingNumber + 1
+        && (!headingDelimiter || delimiter === headingDelimiter)
+        && delimiter !== listDelimiter
+        && isHeadingLikeLine(bare);
+      if(trimmed && (exactUnnumberedHeading || numberedKnownHeading || rewordedHeading)){
+        pushCurrent();
+        current = rewordedHeading
+          ? { title: matchRequestedTitle(bare, requestedTitles) || bare, body: "" }
+          : { title: parsed.title, body: parsed.body || "" };
+        if(numbered){
+          lastHeadingNumber = number;
+          headingDelimiter = headingDelimiter || delimiter;
         }
-      });
-      if(current) rebuilt.push(current);
-      if(rebuilt.length > out.length) return rebuilt;
-    }
-
+        listDelimiter = "";
+        return;
+      }
+      if(numbered) listDelimiter = delimiter;
+      else if(trimmed) listDelimiter = "";
+      if(!current) current = { title: "보고서 내용", body: "" };
+      current.body += (current.body ? "\n" : "") + line;
+    });
+    pushCurrent();
     return out;
   }
 
@@ -2315,6 +2427,106 @@
         ${content}
       </article>
     `;
+  }
+
+  const REPORT_SECTION_ALIASES = new Map([
+    ["선행연구 검토", "이론적 배경 및 자료 검토"],
+    ["선행 자료 검토", "이론적 배경 및 자료 검토"],
+    ["방법 설계", "탐구 방법"],
+    ["변인과 방법 설계", "탐구 방법"],
+    ["자료 수집", "탐구 방법"],
+    ["실험 조건 또는 자료 수집", "탐구 방법"],
+    ["분석 결과", "탐구 결과 및 분석"],
+    ["자료 해석", "탐구 결과 및 분석"],
+    ["결과 정리", "탐구 결과 및 분석"],
+    ["결론 도출", "결론"],
+    ["참고문헌과 후속 탐구", "참고문헌 및 후속 탐구"],
+    ["참고문헌 및 자료", "참고문헌 및 후속 탐구"],
+    ["느낀점", "느낀 점"]
+  ]);
+
+  function inferDocumentSectionTitle(body, index){
+    const text = String(body || "");
+    if(/핵심 질문|연구 질문|탐구 질문/.test(text)) return "연구 질문";
+    if(/출처|선행 자료|교과서|공공기관/.test(text)) return "이론적 배경 및 자료 검토";
+    if(/변인|방법|절차|자료를 수집|조건을 설정/.test(text)) return "탐구 방법";
+    if(/분석 결과|결과는|차이가 나타|자료 정리/.test(text)) return "탐구 결과 및 분석";
+    if(/한계|오차|고찰/.test(text)) return "고찰 및 한계";
+    if(/결론|타당하|판단/.test(text)) return "결론";
+    if(/참고|후속 탐구/.test(text)) return "참고문헌 및 후속 탐구";
+    if(/느꼈|알게 되었|배웠/.test(text)) return "느낀 점";
+    return `본문 ${index + 1}`;
+  }
+
+  function normalizeDocumentSections(sections){
+    const grouped = [];
+    const byTitle = new Map();
+    const seenBodies = new Set();
+    (sections || []).forEach((sec, index) => {
+      const body = cleanReportText(sec?.body);
+      if(!body) return;
+      const bodyKey = body.replace(/\s+/g, " ").trim().toLowerCase();
+      if(bodyKey && seenBodies.has(bodyKey)) return;
+      if(bodyKey) seenBodies.add(bodyKey);
+
+      const rawTitle = normalizeSectionTitle(sec?.title);
+      const title = REPORT_SECTION_ALIASES.get(rawTitle)
+        || (!rawTitle || rawTitle === "보고서 내용" ? inferDocumentSectionTitle(body, index) : rawTitle);
+      if(byTitle.has(title)){
+        const existing = byTitle.get(title);
+        if(!existing.body.includes(body)) existing.body += `\n\n${body}`;
+        return;
+      }
+      const item = { title, body };
+      byTitle.set(title, item);
+      grouped.push(item);
+    });
+    return grouped;
+  }
+
+  function renderDocumentBody(body){
+    if(isTableSection({ body })) return renderTableFromText(body);
+    const paragraphs = String(body || "").split(/\n{2,}|\n(?=[가-힣A-Za-z0-9])/).map(v => v.trim()).filter(Boolean);
+    return paragraphs.map(paragraph => `<p>${escapeHtml(paragraph).replace(/\n/g, "<br>")}</p>`).join("");
+  }
+
+  function renderDocumentSection(sec, index){
+    return `
+      <section class="mini-report-section">
+        <h3><span>${index + 1}</span>${escapeHtml(sec.title)}</h3>
+        <div class="mini-report-section-body">${renderDocumentBody(sec.body)}</div>
+      </section>
+    `;
+  }
+
+  function makeReportPlainText(reportTitle, metadata, sections){
+    const header = [reportTitle, "", ...metadata.filter(Boolean), ""];
+    const body = sections.flatMap((sec, index) => [`${index + 1}. ${sec.title}`, sec.body, ""]);
+    return header.concat(body).join("\n").trim();
+  }
+
+  function safeDownloadName(value){
+    return String(value || "수행평가_보고서")
+      .replace(/[\\/:*?"<>|]/g, " ")
+      .replace(/\s+/g, "_")
+      .replace(/^_+|_+$/g, "")
+      .slice(0, 80) || "수행평가_보고서";
+  }
+
+  function downloadReportHtml(reportTitle, metadata, sections){
+    const sectionHtml = sections.map((sec, index) => `
+      <section><h2>${index + 1}. ${escapeHtml(sec.title)}</h2>${renderDocumentBody(sec.body)}</section>
+    `).join("");
+    const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(reportTitle)}</title><style>body{font-family:"Malgun Gothic",sans-serif;max-width:820px;margin:48px auto;padding:0 28px;color:#111827;line-height:1.85}h1{text-align:center;font-size:30px;margin:0 0 20px}header{border-bottom:2px solid #111827;padding-bottom:18px;margin-bottom:30px}.meta{color:#475569;text-align:center;font-size:14px}section{margin:0 0 30px;break-inside:avoid}h2{font-size:20px;border-bottom:1px solid #cbd5e1;padding-bottom:8px}p{white-space:pre-wrap;margin:0 0 12px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}@media print{body{margin:0;max-width:none}}</style></head><body><header><h1>${escapeHtml(reportTitle)}</h1><div class="meta">${metadata.filter(Boolean).map(escapeHtml).join(" · ")}</div></header>${sectionHtml}</body></html>`;
+    const blob = new Blob(["\ufeff", html], { type: "text/html;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = `${safeDownloadName(reportTitle)}.html`;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
 
@@ -2705,7 +2917,7 @@
     if(forbidden.test(t)) return true;
     const headingMatches = t.match(/(?:^|\n)\s*(?:\d{1,2}[.)]\s*)?[^\n]{1,35}(?:\n|$)/g) || [];
     const hasQuestion = /탐구 질문|연구 질문|탐구 문제|문제 제기|현상 설정/.test(t);
-    const hasAnalysis = /자료 해석|분석 결과|패턴 해석|결과 정리|풀이 비교|적용 사례 분석|해석과 비평|테스트 결과/.test(t);
+    const hasAnalysis = /자료 해석|분석 결과|결과 및 분석|탐구 결과|패턴 해석|결과 정리|풀이 비교|적용 사례 분석|해석과 비평|테스트 결과/.test(t);
     const hasConclusion = /결론|결론 도출|해결 방향|개선 방향|정책·실천 방안|후속 탐구|한계와 보완/.test(t);
     return t.length < 600 || headingMatches.length < 5 || !hasQuestion || !hasAnalysis || !hasConclusion;
   }
@@ -3410,7 +3622,7 @@ ${result}`;
     const sanitizedText = cleanReportText(text);
     const rawSections = Array.isArray(extraction?.sections) && extraction.sections.length
       ? extraction.sections.map(sec => ({ title: sec.title, body: cleanReportText(sec.body) }))
-      : splitSections(sanitizedText);
+      : splitSections(sanitizedText, { requestedTitles: getRequestedReportSections(req) });
     const sections = dedupeSections(rawSections);
     const s = req.mini_payload?.selectionPayload || {};
     const book = req.selectedBook || {};
@@ -3424,16 +3636,23 @@ ${result}`;
     const diag = extraction?.diagnostics || {};
     const focusQuestion = diag.focusQuestion || "";
 
-    const displaySections = sections
+    const displaySections = normalizeDocumentSections(sections
       .filter(sec => !/^(보고서|설계서)\s*제목$/.test(normalizeSectionTitle(sec.title)))
       .map(sec => {
         const title = normalizeSectionTitle(sec.title);
         return { title, body: sec.body };
-      });
+      }));
+
+    const metadata = [
+      s.subject || req.subject ? `과목: ${s.subject || req.subject}` : "",
+      req.taskDescription ? `수행평가: ${req.taskDescription}` : "",
+      book.title ? `연결 도서: ${book.title}` : "연결 도서: 사용하지 않음"
+    ];
+    const reportPlainText = makeReportPlainText(reportTitle, metadata, displaySections);
 
     const sectionHtml = displaySections.length
-      ? displaySections.map((sec, i) => renderMiniV43Section(sec, i + 1)).join("")
-      : `<article class="mini-v43-card core"><div class="mini-v43-card-head"><span class="mini-v43-icon">★</span><h4>탐구 설계</h4></div><ul class="mini-v43-list">${renderLineList(text)}</ul></article>`;
+      ? displaySections.map(renderDocumentSection).join("")
+      : `<section class="mini-report-section"><h3><span>1</span>보고서 본문</h3><div class="mini-report-section-body">${renderDocumentBody(text)}</div></section>`;
 
     root.style.display = "block";
     root.innerHTML = `
@@ -3445,13 +3664,19 @@ ${result}`;
         .mini-v43-sub{font-size:14px;color:#475569;margin:0;line-height:1.6}
         .mini-v43-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
         .mini-v43-actions button{border:1px solid #2f5bff;background:#2f5bff;color:#fff;border-radius:999px;padding:9px 14px;font-weight:900;cursor:pointer}
+        .mini-v43-actions button.secondary{background:#fff;color:#2f5bff}
         .mini-v43-quick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0 18px}
         .mini-v43-quick div{border:1px solid #d8e3ff;background:#fff;border-radius:16px;padding:13px 14px;min-height:66px}
         .mini-v43-quick b{display:block;color:#2454d8;font-size:13px;margin-bottom:5px}
         .mini-v43-quick span{display:block;color:#1f2937;font-size:14px;font-weight:800;line-height:1.35}
         .mini-v43-tags{display:flex;flex-wrap:wrap;gap:7px;margin:4px 0 18px}
         .mini-v43-tags span{font-size:12px;border:1px solid #d5e0ff;background:#fff;border-radius:999px;padding:5px 9px;color:#2446a5}
-        .mini-v43-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+        .mini-v43-grid{display:block;max-width:900px;margin:22px auto 0;background:#fff;border:1px solid #dbe5ff;border-radius:8px;padding:46px 54px;box-shadow:0 10px 28px rgba(15,23,42,.08)}
+        .mini-report-section{margin:0 0 34px;break-inside:avoid}
+        .mini-report-section:last-child{margin-bottom:0}
+        .mini-report-section h3{display:flex;align-items:center;gap:10px;margin:0 0 14px;padding-bottom:9px;border-bottom:1px solid #cbd5e1;color:#0f172a;font-size:20px}
+        .mini-report-section h3 span{font-size:13px;color:#fff;background:#2f5bff;border-radius:50%;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+        .mini-report-section-body p{margin:0 0 13px;color:#1f2937;font-size:15px;line-height:1.9;text-align:justify;word-break:keep-all}
         .mini-v43-card{border:1px solid #dbe5ff;background:#fff;border-radius:18px;padding:16px;box-shadow:0 6px 16px rgba(50,87,180,.045)}
         .mini-v43-card.core{grid-column:1/-1;background:#f4f8ff;border-color:#bcd0ff}
         .mini-v43-card.check{grid-column:1/-1}
@@ -3516,9 +3741,11 @@ ${result}`;
         @media (max-width: 820px){
           .mini-v43-head{grid-template-columns:1fr}
           .mini-v43-actions{justify-content:flex-start}
-          .mini-v43-quick,.mini-v43-grid,.mini-v43-expansion-options,.mini-v232-choice-grid,.mini-v229-input-grid{grid-template-columns:1fr}
+          .mini-v43-quick,.mini-v43-expansion-options,.mini-v232-choice-grid,.mini-v229-input-grid{grid-template-columns:1fr}
+          .mini-v43-grid{padding:28px 20px}
           .mini-v43-title{font-size:23px}
         }
+        @media print{.mini-v43-actions,.mini-v43-kicker,.mini-v43-sub,.mini-v43-tags{display:none!important}.mini-v43-result{border:0;box-shadow:none;padding:0}.mini-v43-grid{border:0;box-shadow:none;padding:0;max-width:none}}
       </style>
 
       <section class="mini-v43-result">
@@ -3530,6 +3757,7 @@ ${result}`;
           </div>
           <div class="mini-v43-actions">
             <button type="button" id="miniV32CopyReportBtn">결과 복사</button>
+            <button type="button" id="miniV32DownloadReportBtn" class="secondary">결과 다운로드</button>
           </div>
         </div>
 
@@ -3546,7 +3774,8 @@ ${result}`;
       </section>
     `;
 
-    $("miniV32CopyReportBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(sanitizedText));
+    $("miniV32CopyReportBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(reportPlainText));
+    $("miniV32DownloadReportBtn")?.addEventListener("click", () => downloadReportHtml(reportTitle, metadata, displaySections));
 
     const builtInStudentReport = $("studentReport");
     if(builtInStudentReport) builtInStudentReport.innerHTML = "";
@@ -3582,7 +3811,10 @@ ${result}`;
         return false;
       }
 
+      const liveIntake = await acquireTrustedLiveIntake(req);
+
       global.__LAST_MINI_WORKER_REQUEST_V32__ = req;
+      global.__LAST_PHASE6_LIVE_INTAKE_ACCEPTANCE__ = liveIntake;
 
       // 기존 로그 수집은 유지하되, 실패해도 생성 자체는 막지 않는다.
       try{

@@ -31,9 +31,24 @@
             <p>과목과 수행평가 안내문만으로 보고서 구조와 탐구 방향을 자동으로 구성합니다.</p>
           </div>
         </div>
+        <div class="decision-grid">
+          <label class="decision-field">
+            <span>학교명</span>
+            <input id="schoolName" type="text" required autocomplete="organization" placeholder="예) 한국고등학교" />
+          </label>
+          <label class="decision-field">
+            <span>학년</span>
+            <select id="grade" required>
+              <option value="">학년을 선택하세요</option>
+              <option value="고1">고1</option>
+              <option value="고2">고2</option>
+              <option value="고3">고3</option>
+            </select>
+          </label>
+        </div>
         <label class="decision-field full">
           <span>과목</span>
-          <select id="subject">
+          <select id="subject" required>
             <option value="">과목을 선택하세요</option>
             <optgroup label="준비 중">
               <option value="공통국어1" data-subject-group="국어">공통국어1</option>
@@ -91,7 +106,7 @@
         </div>
         <label class="decision-field full">
           <span>수행평가 안내문 (그대로 붙여넣기)</span>
-          <textarea id="taskDescription" rows="6" placeholder="예) 효소의 작용 탐구보고서 작성하기 / 단백질의 특징을 바탕으로 효소의 특성을 이해하고 효소 활성에 영향을 미치는 요인을 설명함. 효소 반응 속도를 측정하는 실험에 대해 가설을 설정하고 탐구 과정을 설계함. / 평가방법: 논술, 교사 관찰 및 기록 / 반영비율 30%"></textarea>
+          <textarea id="taskDescription" rows="6" required placeholder="예) 효소의 작용 탐구보고서 작성하기 / 단백질의 특징을 바탕으로 효소의 특성을 이해하고 효소 활성에 영향을 미치는 요인을 설명함. 효소 반응 속도를 측정하는 실험에 대해 가설을 설정하고 탐구 과정을 설계함. / 평가방법: 논술, 교사 관찰 및 기록 / 반영비율 30%"></textarea>
         </label>
         <div class="interpret-status-row">
           <span id="interpretStatus" role="status" aria-live="polite">과목과 안내문을 입력하면 자동으로 해석합니다.</span>
@@ -177,8 +192,6 @@
         </label>
       </section>
 
-      <input id="schoolName" type="hidden" value="" />
-      <input id="grade" type="hidden" value="" />
       <input id="subjectGroup" type="hidden" value="" />
       <input id="taskName" type="hidden" value="" />
       <input id="taskType" type="hidden" value="탐구보고서" />
@@ -213,8 +226,10 @@
   </div>
 
   <script src="assets/js/subject_alias.js?v=v1_subject_alias"></script>
+  <script src="assets/js/simple_live_intake_v1.js?v=phase6a_v1"></script>
   <script src="assets/js/decision_flow_v1.js?v=v2_guide_keyword_bridge"></script>
   <script src="assets/js/subject_support_notice.js?v=v11_pending_history"></script>
+  <script src="assets/js/title_composer_v2.js?v=patch6d_title_v2"></script>
   <script src="assets/textbook_concept_helper.js?v=v1_patch51_overlay"></script>
   <script src="assets/major_engine_helper.js?v=v1_patch51_overlay"></script>
   <script src="assets/topic_generator.js?v=v1_patch51_overlay"></script>
@@ -268,7 +283,35 @@
       `).join("");
     }
 
+    function setOverlayBookMode(mode) {
+      const normalized = mode === "useBook" ? "useBook" : "noBook";
+      const target = document.getElementById("patch51TagOverlay");
+      const usageField = document.getElementById("bookUsageMode");
+      if (usageField) usageField.value = normalized;
+      window.__BOOK_USAGE_MODE__ = normalized;
+      try { localStorage.setItem("ke.bookUsageMode.v222", normalized); } catch (error) {}
+
+      target?.querySelectorAll("[data-overlay-book-mode]").forEach(button => {
+        button.classList.toggle("is-active", button.dataset.overlayBookMode === normalized);
+        button.setAttribute("aria-pressed", button.dataset.overlayBookMode === normalized ? "true" : "false");
+      });
+      const candidates = target?.querySelector("[data-overlay-book-candidates]");
+      if (candidates) candidates.hidden = normalized !== "useBook";
+
+      if (normalized === "noBook") {
+        window.__PATCH51_SELECTED_BOOK__ = null;
+        window.__BOOK_210_LAST_CLICKED_BOOK__ = null;
+        target?.querySelectorAll(".engine-book-card").forEach(card => card.classList.remove("is-active"));
+        const titleField = document.getElementById("selectedBookTitle");
+        const stateField = document.getElementById("patch51SelectedBookState");
+        if (titleField) titleField.value = "";
+        if (stateField) stateField.value = "";
+        document.dispatchEvent(new CustomEvent("patch51-book-cleared"));
+      }
+    }
+
     function selectBookCard(bookCard) {
+      setOverlayBookMode("useBook");
       document.querySelectorAll("#patch51TagOverlay .engine-book-card").forEach(card => card.classList.remove("is-active"));
       bookCard.classList.add("is-active");
       const selectedBook = {
@@ -299,6 +342,8 @@
       }
       try {
         await loadBridge();
+        const previousBookMode = document.getElementById("bookUsageMode")?.value === "useBook" ? "useBook" : "noBook";
+        const previousBookId = window.__PATCH51_SELECTED_BOOK__?.id || "";
         const rows = getProfileRows(career);
         const keywords = uniq(rows.flatMap(row => row.matchKeywords || [])).slice(0, 10);
         const names = rows.map(row => row.majorName || row.display_name).filter(Boolean);
@@ -315,13 +360,29 @@
             <div class="full"><dt>연계 교과</dt><dd>${esc(subjects.join(" · ") || "선택 과목 중심")}</dd></div>
             <div class="full"><dt>탐구 방향</dt><dd>${esc(inquiry.join(" / ") || "계열 공통 탐구 방향")}</dd></div>
           </dl>
-          <div class="engine-subtitle" style="margin-top:16px;">연결 도서</div>
-          <p class="engine-help">도서는 선택 사항입니다. 선택하지 않아도 보고서를 만들 수 있습니다.</p>
-          <div class="engine-book-list">${buildBookCards(rows)}</div>
+          <div class="engine-subtitle" style="margin-top:16px;">연결 도서 사용 여부</div>
+          <p class="engine-help">보고서에 연결 도서를 넣을지 먼저 선택하세요. 사용하지 않아도 보고서를 만들 수 있습니다.</p>
+          <div class="book-choice-row" role="group" aria-label="연결 도서 사용 여부">
+            <button type="button" data-overlay-book-mode="noBook" class="is-active" aria-pressed="true">사용하지 않음</button>
+            <button type="button" data-overlay-book-mode="useBook" aria-pressed="false">연결 도서 사용</button>
+          </div>
+          <div data-overlay-book-candidates hidden>
+            <p class="engine-help">사용할 도서를 한 권 선택하세요.</p>
+            <div class="engine-book-list">${buildBookCards(rows)}</div>
+          </div>
         `;
+        target.querySelectorAll("[data-overlay-book-mode]").forEach(button => {
+          button.addEventListener("click", () => setOverlayBookMode(button.dataset.overlayBookMode));
+        });
         target.querySelectorAll(".engine-book-card[data-kind='book']").forEach(card => {
           card.addEventListener("click", () => selectBookCard(card));
         });
+        setOverlayBookMode(previousBookMode);
+        if (previousBookMode === "useBook" && previousBookId) {
+          const previousCard = Array.from(target.querySelectorAll(".engine-book-card[data-kind='book']"))
+            .find(card => card.dataset.value === previousBookId);
+          if (previousCard) selectBookCard(previousCard);
+        }
       } catch (error) {
         step.hidden = false;
         target.innerHTML = `<p class="interpretation-notice">전공·도서 연결 정보를 불러오지 못했습니다. 도서 없이 계속 진행할 수 있습니다.</p>`;
@@ -334,9 +395,7 @@
     }, true);
 
     document.getElementById("resetBtn")?.addEventListener("click", () => {
-      window.__PATCH51_SELECTED_BOOK__ = null;
-      const stateField = document.getElementById("patch51SelectedBookState");
-      if (stateField) stateField.value = "";
+      setOverlayBookMode("noBook");
       const target = document.getElementById("patch51TagOverlay");
       const step = document.getElementById("tagOverlayStep");
       if (target) target.innerHTML = "";
@@ -348,6 +407,6 @@
   <script src="assets/assessment_keyword_bridge_helper.js?v=v30_model_h_runtime"></script>
   <script src="assets/keyword_engine.js?v=v42_required_input_hotfix"></script>
   <script src="assets/js/decision_flow_payload_adapter.js?v=v1_structure_payload"></script>
-  <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v245_model_h_runtime"></script>
+  <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v251_chunk1_report_finish"></script>
 </body>
 </html>

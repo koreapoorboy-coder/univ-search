@@ -1,0 +1,10 @@
+# access-gateway deploy config, mirroring the live settings read on 2026-09-11
+# (version 65d1105f-6bbd-45ec-9e13-f7116e1dc237: compatibility date 2026-05-08, ACCESS_KV binding).
+name = "access-gateway"
+main = "worker.js"
+compatibility_date = "2026-05-08"
+workers_dev = true
+
+[[kv_namespaces]]
+binding = "ACCESS_KV"
+id = "0ca743ecf2574a529d074a1b60d62384"

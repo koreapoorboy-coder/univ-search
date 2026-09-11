@@ -1,3 +1,5 @@
+import { acceptLiveInputCandidate, handleSimpleLiveIntakeRequest, parseStrictIJson } from './simple_live_intake_v1.mjs';
+
 const SERVICE_NAME = 'admission-keyword-worker';
 
 const DEFAULT_SEED_BASE =
@@ -24,7 +26,81 @@ const SEED_FILES = {
   flowBlocks: 'generation_flow_blocks.json',
   extensionBlocks: 'generation_extension_blocks.json',
   warningBlocks: 'generation_warning_blocks.json',
+  reportSeedIndex: 'seed-bank/index/report_seed_index.json',
 };
+
+// Execution authority is intentionally non-serializable. Audit hashes and
+// provenance labels remain descriptive only; they cannot mint this binding.
+const runtimeOriginCapabilityByEnvelope = new WeakMap();
+
+function mintRuntimeOriginCapability(trustedEnvelope, request) {
+  if (!trustedEnvelope || typeof trustedEnvelope !== 'object' || !(request instanceof Request)) {
+    const error = new Error('RUNTIME_ORIGIN_CAPABILITY_MINT_INPUT_INVALID');
+    error.code = 'RUNTIME_ORIGIN_CAPABILITY_MINT_INPUT_INVALID';
+    throw error;
+  }
+  runtimeOriginCapabilityByEnvelope.set(trustedEnvelope, request);
+}
+
+export function hasRuntimeOriginCapability(trustedEnvelope, request) {
+  return Boolean(
+    trustedEnvelope
+    && typeof trustedEnvelope === 'object'
+    && request instanceof Request
+    && runtimeOriginCapabilityByEnvelope.get(trustedEnvelope) === request
+  );
+}
+
+function buildRuntimeOriginAuditDiagnostics(trustedEnvelope, request) {
+  const jsonRoundTrip = JSON.parse(JSON.stringify(trustedEnvelope));
+  const spreadClone = { ...trustedEnvelope };
+  const rewrittenSerializableClone = {
+    ...jsonRoundTrip,
+    execution_provenance: 'genuine_http_request',
+    runtime_origin_capability: true,
+  };
+  const differentRequest = new Request(request.url, {
+    method: request.method,
+    headers: request.headers,
+  });
+  return Object.freeze({
+    exact_envelope_and_request: hasRuntimeOriginCapability(trustedEnvelope, request),
+    json_round_trip_rejected: !hasRuntimeOriginCapability(jsonRoundTrip, request),
+    spread_clone_rejected: !hasRuntimeOriginCapability(spreadClone, request),
+    rewritten_labels_rejected: !hasRuntimeOriginCapability(rewrittenSerializableClone, request),
+    cross_request_rejected: !hasRuntimeOriginCapability(trustedEnvelope, differentRequest),
+  });
+}
+
+export async function establishTrustedLiveAuthorityForGenerate(payload, options = {}) {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload) || !payload.liveInputCandidate) {
+    const error = new Error('LIVE_INPUT_CANDIDATE_REQUIRED');
+    error.code = 'LIVE_INPUT_CANDIDATE_REQUIRED';
+    throw error;
+  }
+  const accepted = await acceptLiveInputCandidate(payload.liveInputCandidate, options);
+  const raw = accepted.envelope.raw_authority;
+  const protectedFields = [
+    ['schoolName', raw.school, 'LIVE_INPUT_SCHOOL_CONFLICT'],
+    ['grade', raw.grade, 'LIVE_INPUT_GRADE_CONFLICT'],
+    ['subjectGroup', raw.subject_group, 'LIVE_INPUT_SUBJECT_GROUP_CONFLICT'],
+    ['subject', raw.subject, 'LIVE_INPUT_SUBJECT_CONFLICT'],
+    ['taskDescription', raw.task_description, 'LIVE_INPUT_TASK_DESCRIPTION_CONFLICT']
+  ];
+  for (const [field, trustedValue, code] of protectedFields) {
+    if (Object.prototype.hasOwnProperty.call(payload, field) && payload[field] !== trustedValue) {
+      const error = new Error(code);
+      error.code = code;
+      throw error;
+    }
+  }
+  return Object.freeze({
+    envelope: accepted.envelope,
+    seal: accepted.seal,
+    phase1Lineage: accepted.phase1_lineage,
+    candidateVersion: payload.liveInputCandidate.candidate_version
+  });
+}
 
 export default {
   async fetch(request, env, ctx) {
@@ -50,6 +126,10 @@ export default {
         });
       }
 
+      if (url.pathname === '/live-intake') {
+        return withCors(await handleSimpleLiveIntakeRequest(request));
+      }
+
       if (url.pathname === '/collect' && request.method === 'POST') {
         if (!env.DB) {
           return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
@@ -72,8 +152,46 @@ export default {
         });
       }
       if (url.pathname === '/generate' && request.method === 'POST') {
-        const payload = await request.json();
-        const input = resolveInput(payload);
+        let payload;
+        let liveAuthority;
+        try {
+          payload = parseStrictIJson(await request.text());
+          liveAuthority = await establishTrustedLiveAuthorityForGenerate(payload);
+          mintRuntimeOriginCapability(liveAuthority.envelope, request);
+        } catch (error) {
+          return json({ ok: false, error: error?.code || error?.message || 'LIVE_INPUT_AUTHORITY_REJECTED' }, 400);
+        }
+        const runtimeOriginVerified = hasRuntimeOriginCapability(liveAuthority.envelope, request);
+        if (!runtimeOriginVerified) {
+          return json({ ok: false, error: 'RUNTIME_ORIGIN_CAPABILITY_MISSING' }, 500);
+        }
+        if (env?.PHASE6_RUNTIME_ORIGIN_AUDIT_ONLY === true) {
+          return json({
+            ok: true,
+            audit_only: true,
+            runtime_origin_verified: runtimeOriginVerified,
+            diagnostics: buildRuntimeOriginAuditDiagnostics(liveAuthority.envelope, request),
+            gate_g_created: false,
+            api_requests: 0,
+            reports_generated: 0,
+          });
+        }
+        const trustedPayload = {
+          ...payload,
+          schoolName: liveAuthority.envelope.raw_authority.school,
+          grade: liveAuthority.envelope.raw_authority.grade,
+          subjectGroup: liveAuthority.envelope.raw_authority.subject_group,
+          subject: liveAuthority.envelope.raw_authority.subject,
+          taskDescription: liveAuthority.envelope.raw_authority.task_description,
+          liveAuthorityEnvelope: liveAuthority.envelope,
+          liveAuthoritySeal: liveAuthority.seal,
+          phase1Lineage: liveAuthority.phase1Lineage,
+          reportGenerationContext: {
+            ...(payload.reportGenerationContext || {}),
+            liveInputAuthority: liveAuthority
+          }
+        };
+        const input = resolveInput(trustedPayload);
         validateInput(input);
 
         const seedPack = await loadSeedPack(env);
@@ -100,6 +218,7 @@ export default {
           ok: true,
           source,
           resolved: input,
+          phase1Lineage: liveAuthority.phase1Lineage,
           matchedCluster: seedMatch.matchedCluster,
           gradeModifier: seedMatch.gradeModifier,
           patternRule: seedMatch.patternRule,
@@ -121,6 +240,8 @@ export default {
 };
 
 function resolveInput(payload) {
+  const selection = payload?.mini_payload?.selectionPayload || {};
+  const reportContext = payload?.reportGenerationContext || payload?.mini_payload?.reportGenerationContext || {};
   return {
     keyword: String(payload?.keyword || '').trim(),
     grade: String(payload?.grade || '').trim(),
@@ -128,7 +249,61 @@ function resolveInput(payload) {
     major: String(payload?.major || '').trim(),
     activityLevel: String(payload?.activityLevel || '미입력').trim(),
     style: String(payload?.style || '미입력').trim(),
+    schoolName: String(payload?.schoolName || '').trim(),
+    subject: String(payload?.subject || selection.subject || '').trim(),
+    subjectGroup: String(payload?.subjectGroup || '').trim(),
+    taskDescription: String(payload?.taskDescription || '').trim().slice(0, 6000),
+    selectedConcept: String(payload?.selectedConcept || selection.selectedConcept || '').trim(),
+    selectedKeyword: String(payload?.selectedKeyword || selection.selectedKeyword || payload?.keyword || '').trim(),
+    selectedFollowupAxis: String(payload?.selectedFollowupAxis || selection.selectedFollowupAxis || '').trim(),
+    selectedBookTitle: String(payload?.selectedBookTitle || '').trim(),
+    useBookInReport: payload?.useBookInReport === true,
+    structureId: String(payload?.structureId || '').trim(),
+    targetStructure: Array.isArray(payload?.targetStructure) ? payload.targetStructure.map(String).slice(0, 12) : [],
+    reportChoices: payload?.report_choices && typeof payload.report_choices === 'object' ? payload.report_choices : {},
+    performanceAssessment: payload?.performance_assessment && typeof payload.performance_assessment === 'object'
+      ? payload.performance_assessment
+      : (reportContext.performanceAssessment || {}),
   };
+}
+
+const FOUNDATION_SUBJECT_PATTERN = /^(통합과학|통합사회|공통)/;
+
+// 고1 and common subjects get no example-report content (the examples are university-level topics);
+// 고2·고3 electives get the full pattern, analysis method included.
+function isFoundationLevel(input) {
+  return /^(고\s*)?1(학년)?$/.test(String(input.grade || '').trim())
+    || FOUNDATION_SUBJECT_PATTERN.test(String(input.subject || '').trim());
+}
+
+function pickReportPatterns(input, reportSeedIndex) {
+  if (isFoundationLevel(input)) return [];
+  const seeds = Array.isArray(reportSeedIndex?.seeds) ? reportSeedIndex.seeds : [];
+  // Topic terms decide relevance; subject and major only rank seeds that already match the topic.
+  const topicTerms = [...new Set([input.keyword, input.selectedKeyword, input.selectedConcept, input.selectedFollowupAxis]
+    .map(normalize)
+    .filter((term) => term.length >= 2))];
+  const subject = normalize(input.subject);
+  const majorTerms = [input.track, input.major].map(normalize).filter(Boolean);
+  const overlaps = (value, term) => value.includes(term) || term.includes(value);
+  return seeds.map((seed) => {
+    const triggerValues = [...toArray(seed.axisTriggers), ...toArray(seed.sourceKeywords)].map(normalize).filter(Boolean);
+    const topicHits = topicTerms.filter((term) => triggerValues.some((value) => overlaps(value, term))).length;
+    const subjectHit = Boolean(subject) && toArray(seed.bestForSubjects).map(normalize).some((value) => overlaps(value, subject));
+    const majorHit = toArray(seed.bestForMajors).map(normalize).some((value) => majorTerms.some((term) => overlaps(value, term)));
+    return { score: topicHits * 5 + (subjectHit ? 2 : 0) + (majorHit ? 1 : 0), topicHits, seed };
+  }).filter(({ topicHits }) => topicHits > 0)
+    .sort((a, b) => b.score - a.score || String(a.seed.seedId).localeCompare(String(b.seed.seedId)))
+    .slice(0, 3)
+    .map(({ seed }) => ({
+      patternLevel: '심화 과목: 분석 방법까지 참고',
+      patternName: seed.seedName,
+      studentFacingLabel: seed.studentFacingLabel,
+      corePattern: seed.corePattern,
+      problemFrame: seed.problemFrame,
+      analysisMethod: seed.analysisMethod,
+      avoid: seed.avoid,
+    }));
 }
 
 function validateInput(input) {
@@ -238,42 +413,82 @@ function findPatternRule(input, matchedCluster, patternData) {
 
 function buildPrompt(input, seedMatch, env) {
   const { matchedCluster, gradeModifier, patternRule, seedPack } = seedMatch;
+  const reportPatterns = pickReportPatterns(input, seedPack.reportSeedIndex);
+  const requestedSections = input.targetStructure.length
+    ? input.targetStructure
+    : ['연구 질문', '이론적 배경 및 자료 검토', '탐구 방법', '탐구 결과 및 분석', '결론', '참고문헌 및 후속 탐구'];
+  const domainGuardrails = /효소/.test(`${input.taskDescription} ${input.selectedConcept} ${input.selectedKeyword}`)
+    ? [
+        '효소의 기질 특이성과 반응 활성을 막연한 정확성이라는 말로 바꾸지 않는다.',
+        '온도 상승은 활성화 에너지 자체를 바꾸지 않고, 활성화 에너지 이상의 에너지를 가진 입자의 비율과 충돌 빈도를 높인다. 최적 온도를 넘으면 효소 단백질이 변성되어 활성이 떨어진다.',
+        'Km이 언제나 최적 pH에서 최소가 된다고 단정하지 않는다.',
+        '입력에 실제 실험값이 없으면 특정 효소의 Km, Vmax, 최적 온도·pH 수치를 제시하지 않는다.',
+        '실생활 사례는 세제, 식품, 소화 효소 등에서 하나를 골라 탐구 전체를 그 사례에 일관되게 연결한다.',
+      ]
+    : [];
   const prompt = [
-    '너는 고등학생용 탐구 설계 엔진이다.',
-    '반드시 학생 눈높이의 한국어로만 답하라.',
-    '출력은 JSON만 반환하라.',
-    '키는 reason, steps, flow, recommendedApproach, extension, subjectLinks, warnings 이다.',
-    'steps, flow, subjectLinks, warnings는 배열이어야 한다.',
-    '생활기록부 문장이나 교사 평가 문체는 절대 쓰지 마라.',
-    '대학교 수준의 과도한 이론이나 실험은 피하고, 학년 수준을 지켜라.',
+    '너는 고등학생이 학교에 제출할 수 있는 완성형 수행평가 탐구보고서를 작성하는 전문 편집자다.',
+    '반드시 자연스러운 한국어로 쓰고, 학생이 직접 탐구하고 이해한 문체를 사용한다.',
+    '출력은 JSON만 반환하며 reportTitle과 report 두 키만 사용한다.',
+    'report는 요약, 작성 안내, 개요가 아니라 처음부터 끝까지 이어지는 완성 보고서 본문이어야 한다.',
+    '각 절은 제목만 채우지 말고 구체적인 교과 원리, 탐구 절차, 비교 기준, 해석과 한계를 충분히 설명한다.',
+    '교과서에서 배운 내용을 학생이 자신의 질문으로 좁혀 탐구한 것처럼, 짧고 분명한 문장으로 쓴다.',
+    '전문 용어와 영어 표현을 과시하듯 나열하지 말고 꼭 필요한 용어만 먼저 쉬운 말로 설명한다.',
+    '실생활 사례는 여러 개를 얕게 나열하지 말고 연구 질문에 맞는 대표 사례 하나를 선택하여 처음부터 결론까지 유지한다.',
+    '개인 경험, 관찰, 실험 수행을 입력에서 확인할 수 없으면 학생이 실제로 했다고 꾸며 쓰지 않는다.',
+    '같은 문장이나 수행평가 문구를 여러 절에 반복하지 않는다.',
+    '입력에 실험 측정값이 없으면 측정값이나 관찰 결과를 지어내지 않는다. 대신 문헌 근거와 재현 가능한 실험 설계, 예상되는 해석 기준을 명확히 구분한다.',
+    '참고문헌은 입력에 제공되었거나 생성 데이터에서 정확히 확인된 자료만 서지사항으로 적는다.',
+    '확인되지 않은 저자, 책 제목, 연도, 기관 데이터베이스명, URL을 절대 만들지 않는다. 확인된 서지가 없으면 통합과학1 교과서의 관련 단원처럼 자료 종류만 정직하게 적는다.',
+    '연결 도서를 사용하지 않기로 한 경우 도서명과 독서 내용을 절대 넣지 않는다.',
+    '학과명은 탐구 동기나 확장 가능성에서만 절제해 사용하고 본론을 장식하는 단어로 반복하지 않는다.',
+    '분량은 공백 포함 2800~4200자를 목표로 하며, 절마다 서로 다른 역할을 수행한다.',
     '',
-    '[학생 입력]',
-    JSON.stringify(input, null, 2),
+    '[학생 입력 및 수행평가 계약]',
+    JSON.stringify({
+      school: input.schoolName,
+      grade: input.grade,
+      subject: input.subject,
+      subjectGroup: input.subjectGroup,
+      taskDescription: input.taskDescription,
+      selectedConcept: input.selectedConcept,
+      selectedKeyword: input.selectedKeyword || input.keyword,
+      selectedFollowupAxis: input.selectedFollowupAxis,
+      careerTrack: input.track,
+      majorInterest: input.major,
+      connectedBook: input.useBookInReport ? input.selectedBookTitle : '사용하지 않음',
+      structureId: input.structureId,
+      requiredSections: requestedSections,
+      reportChoices: input.reportChoices,
+      performanceAssessment: input.performanceAssessment,
+    }, null, 2),
     '',
-    '[매칭 결과]',
+    '[교과·생성 데이터 매칭 결과]',
     JSON.stringify({
       matchedCluster,
       gradeModifier,
       patternRule,
-    }, null, 2),
-    '',
-    '[생성용 블록]',
-    JSON.stringify({
-      reasonBlocks: pickBlocks(seedPack.reasonBlocks, input, 5),
-      stepBlocks: pickBlocks(seedPack.stepBlocks, input, 8),
-      flowBlocks: pickBlocks(seedPack.flowBlocks, input, 8),
-      extensionBlocks: pickBlocks(seedPack.extensionBlocks, input, 6),
-      warningBlocks: pickBlocks(seedPack.warningBlocks, input, 6),
+      reportPatterns,
+      domainGuardrails,
     }, null, 2),
     '',
     '[작성 지침]',
-    '- reason: 2~3문장 문자열',
-    '- steps: 4~5개 배열',
-    '- flow: 4~5개 배열',
-    '- recommendedApproach: 2문장 문자열',
-    '- extension: 2문장 문자열',
-    '- subjectLinks: 3~5개 배열',
-    '- warnings: 2~4개 배열',
+    `- reportTitle: 수행평가와 탐구의 구체적인 변인을 드러내는 제목`,
+    `- report: 일반 텍스트 문자열. #, ## 같은 Markdown 기호를 쓰지 말고 다음 절을 번호와 제목으로 시작한다: ${requestedSections.join(' → ')}`,
+    '- 연구 질문은 1~2개의 짧고 자연스러운 문장으로 쓰고 비교 조건과 관찰 대상을 분명히 한다.',
+    '- 이론적 배경은 핵심 용어 정의에 그치지 말고 원리와 인과 관계를 설명한다.',
+    '- 탐구 방법은 준비물·변인 통제·절차·기록 방법·안전 주의를 재현 가능하게 쓴다.',
+    '- 결과 및 분석은 입력에 실제 데이터가 있는 경우에만 그 값을 분석한다. 데이터가 없으면 문헌에서 확실히 설명되는 경향, 예상 결과, 실제 측정 후 적용할 분석법을 서로 구분해 쓴다.',
+    '- 통합과학 과제에는 대학 전공 교재 수준의 방정식이나 매개변수를 핵심 근거로 사용하지 않는다. 꼭 필요한 경우 뜻을 쉬운 말로 설명한다.',
+    ...(isFoundationLevel(input)
+      ? ['- 이번 과제는 기본 과목 수준이므로 교과서 개념과 실생활 사례 하나로 탐구 흐름을 스스로 구성하고, 대학 전공 수준의 분석 기법이나 수식은 쓰지 않는다.']
+      : [
+          '- reportPatterns는 다른 주제의 우수 보고서에서 뽑은 사고 흐름 예시다. 그 보고서의 주제, 사례, 수치, 고유명사는 가져오지 않는다.',
+          '- reportPatterns의 분석 방법은 교과 개념으로 설명할 수 있는 범위에서만 활용하고, 쓸 때는 뜻을 먼저 쉬운 말로 설명한다.',
+        ]),
+    '- 결론은 연구 질문에 직접 답하고 근거, 한계, 개선점을 함께 제시한다.',
+    '- 확인하지 않은 내용을 확인하였다, 관찰하였다, 증명하였다라고 쓰지 않는다.',
+    '- 메타 표현(보고서를 작성한다, 형태가 드러나도록 한다), 빈칸, 학생 입력 필요, 임의의 복수 산출물 나열을 쓰지 않는다.',
   ];
 
   return prompt.join('\n');
@@ -290,6 +505,8 @@ async function callOpenAI(prompt, env) {
     body: JSON.stringify({
       model,
       input: prompt,
+      temperature: 0.4,
+      max_output_tokens: 6000,
       text: {
         format: {
           type: 'json_schema',
@@ -297,15 +514,10 @@ async function callOpenAI(prompt, env) {
           schema: {
             type: 'object',
             additionalProperties: false,
-            required: OUTPUT_SECTIONS,
+            required: ['reportTitle', 'report'],
             properties: {
-              reason: { type: 'string' },
-              steps: { type: 'array', items: { type: 'string' } },
-              flow: { type: 'array', items: { type: 'string' } },
-              recommendedApproach: { type: 'string' },
-              extension: { type: 'string' },
-              subjectLinks: { type: 'array', items: { type: 'string' } },
-              warnings: { type: 'array', items: { type: 'string' } },
+              reportTitle: { type: 'string', minLength: 8 },
+              report: { type: 'string', minLength: 1800 },
             },
           },
         },
