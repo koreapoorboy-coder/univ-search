@@ -5,7 +5,7 @@
 import assert from "node:assert/strict";
 import {
   STAGE, allowedNumberSet, buildFigures, computeStats, finalizeStageOutput, normalizeStudentData,
-  removeUnsupportedNumbers, resolveReportStage, stageSchemaProperties, stageSections,
+  removeUnsupportedNumbers, resolveReportStage, scrubInternalNames, stageSchemaProperties, stageSections, summaryForPrompt,
 } from "../../../admission_worker_skeleton/report_stages_v1.mjs";
 
 let passed = 0;
@@ -136,5 +136,27 @@ const [warm, hot] = threeWay.comparisons;
 check(hot.higher === "같음" && hot.gap === 0 && hot.clearDifference === false, "a tie at the top (효소 = 일반 in hot water) is reported as 같음, not against 물만", JSON.stringify(hot));
 check(warm.higher === "효소 세제" && warm.runnerUp === "일반 세제" && warm.gap === 1 && warm.clearDifference === false,
   "the gap is measured against the runner-up, and a gap no bigger than the repeat spread is not a clear difference", JSON.stringify(warm));
+
+// Real gpt-5 production report (2026-09-11) leaked internal field names into the student's text.
+const leakedSentences = [
+  "이 비교는 clearDifference가 true로 표시되어 반복의 흔들림보다 차이가 커, 가설을 뚜렷하게 지지한다.",
+  "1위와 2위 사이의 차이는 1점이고 clearDifference가 false로 나타나 확실한 차이라고 보기 어렵다.",
+  "평균이 0.67로 같다(sameMean). 반복 측정의 흔들림(spread)을 보면 나머지 다섯 조건은 spread가 1이었다.",
+  "효소 세제의 우위가 확실하지 않았으므로(‘차가운 물’ 비교의 clearDifference=false) 물리적 요소를 강화한다.",
+  "본 표는 아래 dataTemplate와 동일 구성으로 사용한다.",
+].map(scrubInternalNames);
+check(leakedSentences.join("|") === [
+    "이 비교는 반복의 흔들림보다 차이가 커, 가설을 뚜렷하게 지지한다.",
+    "1위와 2위 사이의 차이는 1점이고 확실한 차이라고 보기 어렵다.",
+    "평균이 0.67로 같다. 반복 측정의 흔들림을 보면 나머지 다섯 조건은 흔들림이 1이었다.",
+    "효소 세제의 우위가 확실하지 않았으므로 물리적 요소를 강화한다.",
+    "본 표는 아래 결과 기록 표와 동일 구성으로 사용한다.",
+  ].join("|"),
+  "internal field names are removed or rewritten with correct particles", leakedSentences.join(" / "));
+const koreanSummary = summaryForPrompt(threeWay);
+check(koreanSummary.조건별결과[0].흔들림 === 1 && koreanSummary.수준별비교[1].흔들림보다큰차이인가 === "아니오" && !JSON.stringify(koreanSummary).includes("spread"),
+  "the model sees the data summary under Korean names", JSON.stringify(koreanSummary.수준별비교[1]));
+const captionFigure = buildFigures([{ kind: "bar", metric: "mean", conditionOrder: [], title: "평균 비교", caption: "각 조건의 평균을 비교한다. 에러표시는 반복 측정의 spread를 함께 제시한다." }], threeWay).find(f => f.kind !== "table");
+check(captionFigure.caption === "각 조건의 평균을 비교한다.", "a caption may not describe error bars the chart does not draw", captionFigure.caption);
 
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);

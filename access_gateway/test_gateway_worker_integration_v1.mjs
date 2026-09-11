@@ -294,7 +294,7 @@ const STUDENT_DATA = {
   check(!report.includes("55도") && report.includes("2.67점") && report.includes("1.34점") && body.result?.removedNumberSentences === 1 && report.includes("세탁해 본 경험이 있어"),
     "I11 the invented-number sentence is removed; the student's own experience is kept");
   const prompt = String(openaiCalls[0]?.input || "");
-  check(prompt.includes('"mean": 2.67') && prompt.includes("20분 동안 세탁한다") && openaiCalls[0]?.text?.format?.schema?.required?.includes("figures") && !prompt.includes("입력에는 학생의 개인 경험이 없으므로"),
+  check(prompt.includes('"평균": 2.67') && prompt.includes('"흔들림"') && !prompt.includes('"spread"') && prompt.includes("20분 동안 세탁한다") && openaiCalls[0]?.text?.format?.schema?.required?.includes("figures") && !prompt.includes("입력에는 학생의 개인 경험이 없으므로"),
     "I11 prompt carries the data summary and the draft; the no-experience rule is lifted when the student wrote one");
 }
 // I12 — an empty table turns the second stage into a literature report with a text comparison table.

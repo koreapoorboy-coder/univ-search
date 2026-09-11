@@ -153,7 +153,7 @@ export function buildFigures(specs, stats) {
     const metric = spec.metric === 'percent_from_first' && !hasPercentBase ? 'diff_from_first' : spec.metric;
     const unit = metric === 'percent_from_first' ? '%' : stats.unit;
     const label = spec.kind === 'table' ? `표 ${++counters.table}` : `그림 ${++counters.chart}`;
-    const figure = { label, kind: spec.kind, metric, metricLabel: METRIC_LABEL[metric], title: clip(spec.title, 60) || `조건별 ${name}`, caption: clip(spec.caption, 160), unit };
+    const figure = { label, kind: spec.kind, metric, metricLabel: METRIC_LABEL[metric], title: clip(scrubInternalNames(spec.title), 60) || `조건별 ${name}`, caption: clip(cleanCaption(spec.caption), 160), unit };
     if (spec.kind === 'table') {
       if (metric === 'raw') {
         const trials = Array.from({ length: stats.trials }, (_, index) => `${index + 1}회`);
@@ -176,6 +176,48 @@ export function buildFigures(specs, stats) {
     }
     return { ...base, kind, labels: rows.map((row) => row.label), values: rows.map((row) => row[chartMetric]) };
   });
+}
+
+// The model sees the summary under Korean names, so it writes "흔들림" rather than "spread" in a student's report.
+export function summaryForPrompt(stats) {
+  return {
+    측정항목: stats.measurementName,
+    단위: stats.unit,
+    점수기준: stats.scaleGuide,
+    반복횟수: stats.trials,
+    조건별결과: stats.rows.map((row) => ({ 조건: row.label, 측정값: row.values, 평균: row.mean, 흔들림: row.spread, 첫조건과의차이: row.diff_from_first, 첫조건대비변화율: row.percent_from_first, 관찰메모: row.note })),
+    평균이높은순서: stats.ranking.map((item) => `${item.label} (${item.mean})`),
+    평균이같은조건: stats.sameMean,
+    수준별비교: (stats.comparisons || []).map((item) => ({ 기준: item.at, 가장높은쪽: item.higher, 두번째: item.runnerUp, 차이: item.gap, 흔들림보다큰차이인가: item.clearDifference ? '예' : '아니오' })),
+  };
+}
+
+// Internal field names must never reach a student's report (a real gpt-5 report wrote "clearDifference가 true로
+// 표시되어", "spread", "(sameMean)"; a draft wrote "dataTemplate").
+const INTERNAL_NAMES = 'sameMean|clearDifference|dataSummary|dataTemplate|comparisons|runnerUp|ranking|conditionOrder|spread|gap';
+const INTERNAL_NAME_FIXES = [
+  [new RegExp(`\\s*\\([^()]*\\b(?:${INTERNAL_NAMES})\\b[^()]*\\)`, 'g'), ''],
+  // The model states the meaning next to the flag ("…흔들림보다 차이가 커"), so the flag phrase itself is dropped.
+  [/clearDifference\s*(?:가|는|이)?\s*(?:=\s*)?(?:true|false)(?:로 표시되어|로 나타나|로 나타났다|이므로|이며|이고)?\s*/g, ''],
+  // Replacements keep Korean particles right (흔들림 ends in a consonant, 차이 and 표 in a vowel).
+  [/\bspread(?:가|이)/g, '흔들림이'], [/\bspread(?:는|은)/g, '흔들림은'], [/\bspread(?:를|을)/g, '흔들림을'], [/\bspread(?:와|과)/g, '흔들림과'], [/\bspread(?:로|으로)/g, '흔들림으로'],
+  [/\bspread\b/g, '흔들림'],
+  [/\bdataTemplate(?:과|와)/g, '결과 기록 표와'], [/\bdataTemplate(?:은|는)/g, '결과 기록 표는'], [/\bdataTemplate(?:이|가)/g, '결과 기록 표가'], [/\bdataTemplate(?:을|를)/g, '결과 기록 표를'],
+  [/\bdataTemplate\b/g, '결과 기록 표'],
+  [/\bgap(?:이|가)/g, '차이가'], [/\bgap(?:은|는)/g, '차이는'], [/\bgap(?:을|를)/g, '차이를'],
+  [/\bgap\b/g, '차이'],
+  [/\b(?:dataSummary|sameMean|comparisons|clearDifference|runnerUp|ranking|conditionOrder)\b/g, ''],
+];
+
+export function scrubInternalNames(text) {
+  return INTERNAL_NAME_FIXES.reduce((out, [pattern, replacement]) => out.replace(pattern, replacement), String(text || ''))
+    .replace(/[ \t]{2,}/g, ' ')
+    .replace(/ +([.,])/g, '$1');
+}
+
+// Charts carry no error bars, so a caption must not describe any.
+function cleanCaption(text) {
+  return filterSentences(scrubInternalNames(text), (sentence) => !/에러|오차\s*막대|error/i.test(sentence)).body;
 }
 
 const canonicalNumber = (text) => String(Number(text));
@@ -269,9 +311,9 @@ export function stageSectionGuide(title, stage) {
   if (stage === STAGE.FINAL && /탐구 방법/.test(text)) return '1차 설계서의 준비물, 변인, 절차, 안전을 실제로 한 과정으로 과거형으로 쓴다. 학생 관찰 메모에 설계와 다르게 한 점이 있으면 반영한다. 500~800자';
   if (stage === STAGE.DRAFT && /탐구 방법/.test(text)) return '학생이 직접 하는 실험으로 설계한다. 준비물, 조작·통제·종속 변인, 대조군, 번호를 붙인 절차, 조건마다 3회 이상 측정해 어떻게 기록할지, 측정 오차를 줄이는 방법, 안전 주의. 문헌 조사로 대신하지 않는다. 700~1000자';
   if (/가설/.test(text)) return '"~하면 ~할 것이다" 형태의 가설 1~2개와 그렇게 생각한 교과 근거. 150~300자';
-  if (/결과 기록 계획/.test(text)) return '무엇을 어떤 단위나 점수 기준으로 조건마다 몇 번 측정해 표에 기록할지. 점수는 클수록 측정 항목이 크다는 뜻이 되게 정한다. dataTemplate과 같은 내용이어야 한다. 결과나 예상 수치는 쓰지 않는다. 200~350자';
-  if (/탐구 결과/.test(text)) return '표 1과 그림 1을 먼저 가리키고 조건별 평균을 dataSummary의 숫자 그대로 비교한다. 평균이 같은 조건(sameMean)은 같다고 쓴다. 학생의 관찰 메모(note, observations)를 함께 쓴다. 해석은 다음 절로 미룬다. 400~600자';
-  if (/결과 분석/.test(text)) return '가설이 맞았는지 조건마다 판단한다. comparisons가 있으면 가로축 값마다 어느 쪽이 몇 점(gap) 높았는지 그대로 쓰고, 가설대로 나온 조건과 반대로 나온 조건을 나누어 밝힌다. 두 값이 다르면 "비슷하다"고 쓰지 않는다. 가장 그럴듯한 설명 외에 다른 가능한 설명을 최소 1개 검토하고 데이터가 어느 쪽을 더 지지하는지 따진다. 반복 측정의 흔들림(spread)이 큰 조건은 신뢰도가 낮다고 밝히고 원인을 추정한다. 700~1000자';
+  if (/결과 기록 계획/.test(text)) return '무엇을 어떤 단위나 점수 기준으로 조건마다 몇 번 측정해 표에 기록할지. 점수는 클수록 측정 항목이 크다는 뜻이 되게 정한다. 학생이 채울 결과 표 양식과 같은 내용이어야 한다. 결과나 예상 수치는 쓰지 않는다. 200~350자';
+  if (/탐구 결과/.test(text)) return '표 1과 그림 1을 먼저 가리키고 조건별 평균을 결과정리의 숫자 그대로 비교한다. 평균이 같은 조건은 같다고 쓴다. 학생의 관찰 메모(note, observations)를 함께 쓴다. 해석은 다음 절로 미룬다. 400~600자';
+  if (/결과 분석/.test(text)) return '가설이 맞았는지 조건마다 판단한다. 수준별비교가 있으면 기준마다 어느 쪽이 몇 점 높았는지 그대로 쓰고, 가설대로 나온 조건과 반대로 나온 조건을 나누어 밝힌다. 두 값이 다르면 "비슷하다"고 쓰지 않는다. 가장 그럴듯한 설명 외에 다른 가능한 설명을 최소 1개 검토하고 데이터가 어느 쪽을 더 지지하는지 따진다. 반복 측정의 흔들림이 큰 조건은 신뢰도가 낮다고 밝히고 원인을 추정한다. 700~1000자';
   if (/결론/.test(text)) return stage === STAGE.FINAL
     ? '연구 질문에 학생 데이터로 직접 답한다. 모든 조건에서 그렇지 않았다면 어느 조건에서 그랬는지까지 쓴다. 한계와 개선점을 쓰고, 이론 설명을 다시 반복하지 않는다. 300~500자'
     : '연구 질문에 자료 조사 결과로 답하고, 실험으로 확인하지 못한 한계를 쓴다. 이론 설명을 다시 반복하지 않는다. 300~500자';
@@ -300,6 +342,7 @@ export function stagePromptLines(stage, input) {
       '- 목표 수준에 맞게 설계를 깊게 한다. 비교의 기준이 되는 대조군(예: 세제 없이 물만)을 conditions에 넣고, 조건마다 3회 이상 반복한다.',
       '- 측정은 눈대중보다 숫자로 잴 수 있는 방법을 우선한다(예: 같은 조명에서 찍은 사진으로 남은 얼룩 면적 비율 비교, 질량·시간 측정). 점수를 쓰면 점수마다 기준을 구체적으로 정하고, 같은 사람이 같은 조건에서 평가하는 등 오차를 줄이는 방법을 쓴다.',
       '- 가설에는 그렇게 예상하는 과학적 근거를 구체적인 물질·반응 수준으로 쓰고, 다른 결과가 나온다면 무엇을 뜻하는지도 한 문장 쓴다.',
+      '- 본문에는 dataTemplate 같은 영어 항목 이름을 쓰지 않는다.',
       '- dataTemplate은 학생이 채울 결과 표다. conditions는 표의 행이 될 조건 이름 2~8개(두 변인을 함께 바꾸면 "효소 세제 · 미지근한 물"처럼 "앞 변인 · 뒤 변인" 순서로 모든 조합), trials는 조건마다 반복 횟수(1~5), measurementName과 unit은 측정 항목과 단위(점수면 "점"), scaleGuide는 점수 기준이나 측정 방법 한 문장이다.',
     ];
   }
@@ -307,12 +350,12 @@ export function stagePromptLines(stage, input) {
     const stats = computeStats(data);
     return [
       '[이번 단계: 2차 최종 보고서, 학생 실험 데이터 반영]',
-      '- 학생이 1차 설계서대로 실험하고 결과를 입력했다. studentData와 dataSummary가 학생의 실제 결과다.',
-      '- 보고서의 모든 숫자는 studentData, dataSummary, 1차 설계서에 있는 숫자여야 한다. 새 숫자, 다른 실험이나 문헌의 수치를 만들지 않는다. 이를 어긴 문장은 자동으로 삭제된다.',
-      '- dataSummary의 mean은 평균, diff_from_first는 첫 조건과의 차이, percent_from_first는 첫 조건 대비 변화율(%)이다. ranking은 평균이 큰 순서, sameMean은 평균이 같은 조건 묶음이다. 새로 계산하지 말고 이 값을 그대로 쓴다.',
+      '- 학생이 1차 설계서대로 실험하고 결과를 입력했다. 아래 [학생 실험 데이터]의 학생입력과 결과정리가 학생의 실제 결과다.',
+      '- 보고서의 모든 숫자는 학생입력, 결과정리, 1차 설계서에 있는 숫자여야 한다. 새 숫자, 다른 실험이나 문헌의 수치를 만들지 않는다. 이를 어긴 문장은 자동으로 삭제된다.',
+      '- 결과정리의 평균, 첫조건과의차이, 첫조건대비변화율(%), 평균이높은순서, 평균이같은조건은 새로 계산하지 말고 그대로 쓴다.',
       '- 점수의 뜻은 scaleGuide를 따른다. 점수가 무엇을 뜻하는지 헷갈리게 쓰지 않는다.',
-      '- 결과 분석과 결론은 조건마다 비교한다. comparisons가 있으면 가로축 값(at)마다 어느 쪽(higher)이 몇 점(gap) 높았는지 그대로 쓴다. 두 값이 다르면 "비슷하다", "큰 차이가 없다"처럼 흐리게 쓰지 않는다. 가설과 반대로 나온 조건은 그대로 밝힌다. "같은 조건에서 항상", "모든 조건에서" 같은 말은 모든 조건에서 그랬을 때만 쓴다.',
-      '- sameMean은 평균이 같은 조건 묶음이다. 서로 다른 조건의 평균이 같은 것은 우연일 수 있으므로 이를 근거로 해석하지 않는다.',
+      '- 결과 분석과 결론은 조건마다 비교한다. 수준별비교가 있으면 기준마다 가장높은쪽이 두번째보다 몇 점(차이) 높았는지 그대로 쓴다. 두 값이 다르면 "비슷하다", "큰 차이가 없다"처럼 흐리게 쓰지 않는다. 가설과 반대로 나온 조건은 그대로 밝힌다. "같은 조건에서 항상", "모든 조건에서" 같은 말은 모든 조건에서 그랬을 때만 쓴다.',
+      '- 평균이같은조건은 평균이 같은 조건 묶음이다. 서로 다른 조건의 평균이 같은 것은 우연일 수 있으므로 이를 근거로 해석하지 않는다.',
       '- 활용 방안은 실험한 대상과 조건 안에서만 말한다. 실험하지 않은 재료나 얼룩 종류로 넓히려면 추가 실험이 필요하다고 쓴다.',
       '- figures에는 이 데이터를 보여줄 표나 그래프를 1~3개 고른다. 숫자는 넣지 말고 kind(table, bar, line, grouped_bar, grouped_line), metric(raw, mean, diff_from_first, percent_from_first), conditionOrder(보여줄 조건 이름과 순서), title, caption만 쓴다. 조건이 "앞 변인 · 뒤 변인" 조합이면 grouped_bar나 grouped_line으로 앞 변인을 색으로 나누고 뒤 변인을 가로축에 놓는다. 뒤 변인이 순서 있는 값(온도, 시간 등)이면 grouped_line이 알맞다. 숫자는 학생 데이터로 코드가 채운다.',
       '- 본문에서 표와 그래프는 종류별로 나온 순서대로 "표 1", "그림 1"처럼 가리킨다.',
@@ -320,11 +363,12 @@ export function stagePromptLines(stage, input) {
       '- 느낀 점 절은 reflection 문장을 먼저 거의 그대로 쓰고, 결과에서 알게 된 점만 1~2문장 덧붙인다. 학생이 쓰지 않은 감정(힘들었다, 재미있었다 등)은 자동으로 삭제된다.',
       '- 참고 자료 절은 쓰지 않는다. 학생이 적은 sources로 자동으로 붙는다.',
       '- 결과가 가설과 다르면 억지로 맞추지 말고 다르게 나온 그대로 쓴다.',
-      '- dataSummary.rows의 spread는 반복 측정값의 최대와 최소의 차이다. spread를 점수 범위와 비교해 판단한다(예: 0~3점에서 1점은 큰 흔들림이다). 흔들림이 큰 조건은 결과의 신뢰도가 낮다고 밝히고 원인을 추정한다.',
-      '- comparisons의 clearDifference가 false이면 그 차이는 반복 측정의 흔들림보다 작거나 같으므로 "확실한 차이라고 보기 어렵다"고 쓴다. 조건 간 평균 차이가 spread보다 작은 비교를 근거로 결론을 내리지 않는다.',
+      '- 흔들림은 반복 측정값의 최대와 최소의 차이다. 흔들림을 점수 범위와 비교해 판단한다(예: 0~3점에서 1점은 큰 흔들림이다). 흔들림이 큰 조건은 결과의 신뢰도가 낮다고 밝히고 원인을 추정한다.',
+      '- 수준별비교의 흔들림보다큰차이인가가 아니오이면 그 차이는 반복 측정의 흔들림보다 작거나 같으므로 "확실한 차이라고 보기 어렵다"고 쓴다. 조건 간 평균 차이가 흔들림보다 작은 비교를 근거로 결론을 내리지 않는다.',
+      '- 본문과 그림 제목·설명에는 입력 자료의 항목 이름(결과정리, 수준별비교 같은 이름이나 영어 이름)을 그대로 쓰지 말고 "반복 측정값의 흔들림", "평균의 차이"처럼 자연스러운 말로 풀어 쓴다. 그림 설명에는 그림에 실제로 그려진 것만 쓴다(오차 막대는 그려지지 않는다).',
       '',
       '[학생 실험 데이터]',
-      JSON.stringify({ studentData: { measurementName: data.measurementName, unit: data.unit, scaleGuide: data.scaleGuide, conditions: data.conditions, ...studentVoice(data) }, dataSummary: stats }, null, 2),
+      JSON.stringify({ 학생입력: { measurementName: data.measurementName, unit: data.unit, scaleGuide: data.scaleGuide, conditions: data.conditions, ...studentVoice(data) }, 결과정리: summaryForPrompt(stats) }, null, 2),
       '',
       '[1차 탐구 설계서]',
       data.draftReport || '(없음)',
@@ -403,7 +447,8 @@ export function stageSchemaProperties(stage) {
 export function finalizeStageOutput(stage, parsed, input) {
   const sections = Array.isArray(parsed?.sections) ? parsed.sections : [];
   if (stage === STAGE.DRAFT) {
-    return { parsed, extra: { dataTemplate: sanitizeDataTemplate(parsed?.dataTemplate) } };
+    const scrubbed = sections.map((section) => ({ ...section, body: scrubInternalNames(section?.body) }));
+    return { parsed: { ...parsed, sections: scrubbed }, extra: { dataTemplate: sanitizeDataTemplate(parsed?.dataTemplate) } };
   }
   if (stage === STAGE.FINAL || stage === STAGE.LITERATURE) {
     const data = input.studentData || normalizeStudentData(null);
@@ -416,7 +461,7 @@ export function finalizeStageOutput(stage, parsed, input) {
     const cleaned = sections.map((section) => {
       const title = String(section?.title || '');
       if (/참고 자료/.test(title)) return { ...section, body: buildReferencesBody(section?.body, data.sources) };
-      const numbers = removeUnsupportedNumbers(section?.body, allowed);
+      const numbers = removeUnsupportedNumbers(scrubInternalNames(section?.body), allowed);
       removed += numbers.removed;
       if (stage === STAGE.FINAL && /느낀 점/.test(title)) {
         const feelings = removeInventedFeelings(numbers.body, studentText);
