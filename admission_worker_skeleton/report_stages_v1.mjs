@@ -134,7 +134,9 @@ function gridComparisons(rows) {
     const sorted = [...values].sort((a, b) => b.mean - a.mean);
     const gap = round(sorted[0].mean - sorted[1].mean);
     const wobble = Math.max(sorted[0].spread, sorted[1].spread);
-    return { at: second, values, higher: gap === 0 ? '같음' : sorted[0].label, runnerUp: sorted[1].label, gap, clearDifference: gap > wobble };
+    // With one value per cell there is no wobble to compare against, so the report may not call a gap clear.
+    const singleShot = rows.every((row) => row.values.length < 2);
+    return { at: second, values, higher: gap === 0 ? '같음' : sorted[0].label, runnerUp: sorted[1].label, gap, clearDifference: singleShot ? null : gap > wobble };
   });
 }
 
@@ -180,6 +182,10 @@ export function buildFigures(specs, stats) {
     const figure = { label, kind: spec.kind, metric, metricLabel: METRIC_LABEL[metric], title: clip(scrubInternalNames(spec.title), 60) || `조건별 ${name}`, caption: clip(cleanCaption(spec.caption), 160), unit };
     if (spec.kind === 'table') {
       if (metric === 'raw') {
+        // One value per cell: the repeat columns, the mean of a single number and its wobble would all say the same thing.
+        if (stats.trials <= 1) {
+          return { ...figure, columns: ['조건', `${name}${stats.unit ? ` (${stats.unit})` : ''}`], rows: rows.map((row) => [row.label, row.values[0] ?? '']) };
+        }
         const trials = Array.from({ length: stats.trials }, (_, index) => `${index + 1}회`);
         return { ...figure, columns: ['조건', ...trials, '평균', '흔들림'], rows: rows.map((row) => [row.label, ...trials.map((_, index) => row.values[index] ?? ''), row.mean, row.spread]) };
       }
@@ -204,15 +210,19 @@ export function buildFigures(specs, stats) {
 
 // The model sees the summary under Korean names, so it writes "흔들림" rather than "spread" in a student's report.
 export function summaryForPrompt(stats) {
+  // With one value per cell there is no mean to speak of, so the summary is named after the value itself.
+  const single = stats.trials <= 1;
   return {
     측정항목: stats.measurementName,
     단위: stats.unit,
     점수기준: stats.scaleGuide,
     반복횟수: stats.trials,
-    조건별결과: stats.rows.map((row) => ({ 조건: row.label, 측정값: row.values, 평균: row.mean, 흔들림: row.spread, 첫조건과의차이: row.diff_from_first, 첫조건대비변화율: row.percent_from_first, 관찰메모: row.note })),
-    평균이높은순서: stats.ranking.map((item) => `${item.label} (${item.mean})`),
-    평균이같은조건: stats.sameMean,
-    수준별비교: (stats.comparisons || []).map((item) => ({ 기준: item.at, 가장높은쪽: item.higher, 두번째: item.runnerUp, 차이: item.gap, 흔들림보다큰차이인가: item.clearDifference ? '예' : '아니오' })),
+    조건별결과: stats.rows.map((row) => (single
+      ? { 조건: row.label, 값: row.mean, 첫조건과의차이: row.diff_from_first, 첫조건대비변화율: row.percent_from_first, 관찰메모: row.note }
+      : { 조건: row.label, 측정값: row.values, 평균: row.mean, 흔들림: row.spread, 첫조건과의차이: row.diff_from_first, 첫조건대비변화율: row.percent_from_first, 관찰메모: row.note })),
+    [single ? '값이높은순서' : '평균이높은순서']: stats.ranking.map((item) => `${item.label} (${item.mean})`),
+    [single ? '값이같은조건' : '평균이같은조건']: stats.sameMean,
+    수준별비교: (stats.comparisons || []).map((item) => ({ 기준: item.at, 가장높은쪽: item.higher, 두번째: item.runnerUp, 차이: item.gap, 흔들림보다큰차이인가: item.clearDifference === null ? '반복이 없어 알 수 없음' : (item.clearDifference ? '예' : '아니오') })),
   };
 }
 
@@ -306,8 +316,9 @@ function sanitizeSourceTemplate(raw) {
 
 function sanitizeDataTemplate(raw, kind) {
   const conditions = [...new Set((Array.isArray(raw?.conditions) ? raw.conditions : []).map((label) => clip(label, 60)).filter(Boolean))].slice(0, MAX_CONDITIONS);
-  const minTrials = kind === COLLECTION.MEASUREMENT ? 3 : 1;
-  const trials = Math.min(MAX_TRIALS, Math.max(minTrials, Math.round(Number(raw?.trials) || minTrials)));
+  // Repeating makes sense only for a measurement: a student cannot ask the same class the same question three
+  // times, and a published figure for one year has one value.
+  const trials = kind === COLLECTION.MEASUREMENT ? Math.min(MAX_TRIALS, Math.max(3, Math.round(Number(raw?.trials) || 3))) : 1;
   return {
     measurementName: clip(raw?.measurementName, 40) || '측정값',
     unit: clip(raw?.unit, 20),
@@ -407,10 +418,11 @@ function studentVoice(data) {
 
 export function stagePromptLines(stage, input) {
   const data = input.studentData || normalizeStudentData(null);
+  const kind = input.collectionKind || COLLECTION.MEASUREMENT;
   if (stage === STAGE.DRAFT) {
     return [
       '[이번 단계: 1차 탐구 설계서]',
-      `- 이 과제에서 학생이 모을 자료는 "${COLLECTION_LABEL[input.collectionKind || COLLECTION.MEASUREMENT]}"이다. 설계는 이 방식에 맞춘다.`,
+      `- 이 과제에서 학생이 모을 자료는 "${COLLECTION_LABEL[kind]}"이다. 설계는 이 방식에 맞춘다.`,
       '- 이 보고서는 자료를 모으기 전에 쓰는 설계서다. 학생이 이 설계대로 자료를 모아 표나 카드를 채우면 2차로 최종 보고서를 만든다.',
       ...(input.collectionKind === COLLECTION.SURVEY
         ? ['- 설문은 고등학생이 학급이나 학교에서 받을 수 있는 규모로 설계한다. 문항은 3~5개, 보기는 3~5개로 하고, conditions에는 "집단 · 보기"처럼 응답을 셀 칸의 이름을 넣는다. measurementName은 "응답 수", unit은 "명"으로 한다.']
@@ -423,10 +435,12 @@ export function stagePromptLines(stage, input) {
            '- 학생은 자료마다 제목, 자료 종류, 핵심 내용, 내 해석을 카드로 적는다. 본문에는 학생이 아직 읽지 않은 자료의 내용을 미리 쓰지 않는다.']
         : []),
       '- 결과, 예상 수치, 결론을 쓰지 않는다. 가설은 쓴다.',
-      '- 측정은 고등학생이 학교나 집에서 안전하게 할 수 있고 숫자로 기록할 수 있어야 한다. 기구로 재기 어려우면 0~3점 같은 점수 기준을 정한다.',
-      '- 점수 기준은 값이 클수록 measurementName이 크다는 뜻이 되게 정한다. 예: 얼룩 제거 정도는 0점 그대로, 3점 완전히 제거. 작을수록 좋은 점수는 쓰지 않는다.',
-      '- 목표 수준에 맞게 설계를 깊게 한다. 비교의 기준이 되는 대조군(예: 세제 없이 물만)을 conditions에 넣고, 조건마다 3회 이상 반복한다.',
-      '- 측정은 눈대중보다 숫자로 잴 수 있는 방법을 우선한다(예: 같은 조명에서 찍은 사진으로 남은 얼룩 면적 비율 비교, 질량·시간 측정). 점수를 쓰면 점수마다 기준을 구체적으로 정하고, 같은 사람이 같은 조건에서 평가하는 등 오차를 줄이는 방법을 쓴다.',
+      ...(kind === COLLECTION.MEASUREMENT
+        ? ['- 측정은 고등학생이 학교나 집에서 안전하게 할 수 있고 숫자로 기록할 수 있어야 한다. 기구로 재기 어려우면 0~3점 같은 점수 기준을 정한다.',
+           '- 점수 기준은 값이 클수록 measurementName이 크다는 뜻이 되게 정한다. 예: 얼룩 제거 정도는 0점 그대로, 3점 완전히 제거. 작을수록 좋은 점수는 쓰지 않는다.',
+           '- 목표 수준에 맞게 설계를 깊게 한다. 비교의 기준이 되는 대조군(예: 세제 없이 물만)을 conditions에 넣고, 조건마다 3회 이상 반복한다.']
+        : ['- 같은 칸을 여러 번 채우게 하지 않는다. 칸마다 값은 하나이고, 비교는 conditions에 넣은 칸들 사이에서 한다. 목표 수준에 맞게 비교할 칸을 충분히(4개 이상) 두어 설계를 깊게 한다.']),
+      ...(kind !== COLLECTION.MEASUREMENT ? [] : ['- 측정은 눈대중보다 숫자로 잴 수 있는 방법을 우선한다(예: 같은 조명에서 찍은 사진으로 남은 얼룩 면적 비율 비교, 질량·시간 측정). 점수를 쓰면 점수마다 기준을 구체적으로 정하고, 같은 사람이 같은 조건에서 평가하는 등 오차를 줄이는 방법을 쓴다.']),
       '- 가설에는 그렇게 예상하는 과학적 근거를 구체적인 물질·반응 수준으로 쓰고, 다른 결과가 나온다면 무엇을 뜻하는지도 한 문장 쓴다.',
       '- 본문에는 dataTemplate 같은 영어 항목 이름을 쓰지 않는다.',
       '- caseTag에는 이번 탐구의 실생활 사례를 8~20자로 짧게 적는다. 예: "우유 유당 분해", "렌즈 세척액 과산화수소". 본문에는 쓰지 않는다.',
@@ -435,7 +449,7 @@ export function stagePromptLines(stage, input) {
            ...input.recentCombinations.map((line, index) => `  ${index + 1}. ${line}`),
            '- 위 목록과 겹치지 않는 사례를 고른다. 사례가 겹칠 수밖에 없으면 바꾸는 변인을, 그것도 겹치면 재는 방법을 다르게 한다. 목록에 없는 새 사례를 우선한다.', '']
         : []),
-      '- dataTemplate은 학생이 채울 결과 표다. conditions는 표의 행이 될 조건 이름 2~8개(두 변인을 함께 바꾸면 "효소 세제 · 미지근한 물"처럼 "앞 변인 · 뒤 변인" 순서로 모든 조합), trials는 조건마다 반복 횟수(1~5), measurementName과 unit은 측정 항목과 단위(점수면 "점"), scaleGuide는 점수 기준이나 측정 방법 한 문장이다.',
+      `- dataTemplate은 학생이 채울 결과 표다. conditions는 표의 행이 될 조건 이름 2~8개(두 변인을 함께 바꾸면 "효소 세제 · 미지근한 물"처럼 "앞 변인 · 뒤 변인" 순서로 모든 조합), ${kind === COLLECTION.MEASUREMENT ? 'trials는 조건마다 반복 횟수(3~5)' : 'trials는 반드시 1'}, measurementName과 unit은 ${kind === COLLECTION.MEASUREMENT ? '측정 항목과 단위(점수면 "점")' : '적을 값의 이름과 단위'}, scaleGuide는 ${kind === COLLECTION.MEASUREMENT ? '점수 기준이나 측정 방법' : '값을 어디서 어떻게 옮겨 적는지'} 한 문장이다.`,
     ];
   }
   if (stage === STAGE.FINAL) {
@@ -447,6 +461,9 @@ export function stagePromptLines(stage, input) {
       '- 결과정리의 평균, 첫조건과의차이, 첫조건대비변화율(%), 평균이높은순서, 평균이같은조건은 새로 계산하지 말고 그대로 쓴다.',
       '- 점수의 뜻은 scaleGuide를 따른다. 점수가 무엇을 뜻하는지 헷갈리게 쓰지 않는다.',
       '- 결과 분석과 결론은 조건마다 비교한다. 수준별비교가 있으면 기준마다 가장높은쪽이 두번째보다 몇 점(차이) 높았는지 그대로 쓴다. 두 값이 다르면 "비슷하다", "큰 차이가 없다"처럼 흐리게 쓰지 않는다. 가설과 반대로 나온 조건은 그대로 밝힌다. "같은 조건에서 항상", "모든 조건에서" 같은 말은 모든 조건에서 그랬을 때만 쓴다.',
+      ...(stats.trials <= 1
+        ? ['- 칸마다 값이 하나뿐이라 반복의 흔들림이 없다. 값 하나를 "평균"이라고 부르지 않는다. 평균, 흔들림, 반복의 안정성을 근거로 쓰지 않고, 값 자체와 칸 사이의 차이로만 비교한다. 차이가 작을 때는 확실하다고 단정하지 않고, 값이 하나뿐이라 단정할 수 없다고 밝힌다.']
+        : []),
       '- 평균이같은조건은 평균이 같은 조건 묶음이다. 서로 다른 조건의 평균이 같은 것은 우연일 수 있으므로 이를 근거로 해석하지 않는다.',
       '- 활용 방안은 실험한 대상과 조건 안에서만 말한다. 실험하지 않은 재료나 얼룩 종류로 넓히려면 추가 실험이 필요하다고 쓴다.',
       '- figures에는 이 데이터를 보여줄 표나 그래프를 1~3개 고른다. 숫자는 넣지 말고 kind(table, bar, line, grouped_bar, grouped_line), metric(raw, mean, diff_from_first, percent_from_first), conditionOrder(보여줄 조건 이름과 순서), title, caption만 쓴다. 조건이 "앞 변인 · 뒤 변인" 조합이면 grouped_bar나 grouped_line으로 앞 변인을 색으로 나누고 뒤 변인을 가로축에 놓는다. 뒤 변인이 순서 있는 값(온도, 시간 등)이면 grouped_line이 알맞다. 숫자는 학생 데이터로 코드가 채운다.',
@@ -545,6 +562,16 @@ export function stageSchemaProperties(stage, input = {}) {
         additionalProperties: false,
         required: ['cardCount', 'whatToFind'],
         properties: { cardCount: { type: 'integer', minimum: 3, maximum: 6 }, whatToFind: { type: 'string' } },
+      },
+    };
+  }
+  if (stage === STAGE.DRAFT && input.collectionKind && input.collectionKind !== COLLECTION.MEASUREMENT) {
+    const draft = STAGE_SCHEMA[STAGE.DRAFT];
+    return {
+      ...draft,
+      dataTemplate: {
+        ...draft.dataTemplate,
+        properties: { ...draft.dataTemplate.properties, trials: { type: 'integer', minimum: 1, maximum: 1 } },
       },
     };
   }

@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v255-collection-kinds";
+  const VERSION = "mini-worker-generate-bridge-v256-single-shot-columns";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2676,7 +2676,10 @@
     const conditions = Array.isArray(template?.conditions) ? template.conditions : [];
     const unit = template?.unit ? ` (${template.unit})` : "";
     const text = panelText(kind);
-    const head = `<tr><th>조건</th>${Array.from({ length: trials }, (_, i) => `<th>${i + 1}회${escapeHtml(unit)}</th>`).join("")}<th>관찰 메모</th></tr>`;
+    const valueHead = trials > 1
+      ? Array.from({ length: trials }, (_, i) => `<th>${i + 1}회${escapeHtml(unit)}</th>`).join("")
+      : `<th>${escapeHtml(template?.measurementName || "값")}${escapeHtml(unit)}</th>`;
+    const head = `<tr><th>조건</th>${valueHead}<th>관찰 메모</th></tr>`;
     const rows = conditions.map((label, r) => `<tr><th scope="row">${escapeHtml(label)}</th>${Array.from({ length: trials }, (_, i) => `<td><input type="text" inputmode="decimal" data-row="${r}" data-trial="${i}" aria-label="${escapeHtml(label)} ${i + 1}회"></td>`).join("")}<td><input type="text" data-row="${r}" data-note="1" aria-label="${escapeHtml(label)} 관찰 메모"></td></tr>`).join("");
     return `
       <section class="mini-exp-panel" id="miniExpPanel">

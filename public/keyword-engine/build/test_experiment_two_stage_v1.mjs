@@ -3,6 +3,7 @@
 // Every table/chart number is computed from student data, body sentences with other numbers are removed,
 // and an empty table turns stage 2 into a literature report.
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import {
   STAGE, allowedNumberSet, buildFigures, computeStats, finalizeStageOutput, normalizeStudentData,
   describeCombination, removeUnsupportedNumbers, resolveReportStage, scrubInternalNames, stagePromptLines, stageSchemaProperties, stageSections, summaryForPrompt,
@@ -190,8 +191,30 @@ check(Object.keys(stageSchemaProperties(STAGE.DRAFT, { collectionKind: COLLECTIO
 const readingDraft = finalizeStageOutput(STAGE.DRAFT, { reportTitle: "t", sections: [], caseTag: "청소년 노동 인권", sourceTemplate: { cardCount: 9, whatToFind: "사례와 제도" } }, readingInput);
 check(readingDraft.extra.collectionKind === COLLECTION.READING && readingDraft.extra.sourceTemplate.cardCount === 6 && !readingDraft.extra.dataTemplate,
   "the reading draft returns a card plan with a sane card count", JSON.stringify(readingDraft.extra.sourceTemplate));
-const surveyDraft = finalizeStageOutput(STAGE.DRAFT, { reportTitle: "t", sections: [], caseTag: "미디어 이용", dataTemplate: { measurementName: "응답 수", unit: "명", conditions: ["1시간 미만", "1~3시간", "3시간 이상"], trials: 1 } }, { collectionKind: COLLECTION.SURVEY });
-check(surveyDraft.extra.dataTemplate.trials === 1, "a survey is counted once, not repeated three times", String(surveyDraft.extra.dataTemplate.trials));
+const surveyDraft = finalizeStageOutput(STAGE.DRAFT, { reportTitle: "t", sections: [], caseTag: "미디어 이용", dataTemplate: { measurementName: "응답 수", unit: "명", conditions: ["1시간 미만", "1~3시간", "3시간 이상"], trials: 3 } }, { collectionKind: COLLECTION.SURVEY });
+check(surveyDraft.extra.dataTemplate.trials === 1, "a survey is counted once even when the model asks for three repeats", String(surveyDraft.extra.dataTemplate.trials));
+check(stageSchemaProperties(STAGE.DRAFT, { collectionKind: COLLECTION.SURVEY }).dataTemplate.properties.trials.maximum === 1
+  && stageSchemaProperties(STAGE.DRAFT, { collectionKind: COLLECTION.MEASUREMENT }).dataTemplate.properties.trials.minimum === 3,
+  "the schema asks a survey for one value per cell and an experiment for three");
+
+// 2026-09-12 live test: a survey draft came back as "8칸 × 3회" and a statistics draft as "4회".
+const oneShot = computeStats(normalizeStudentData({ measurementName: "응답 수", unit: "명", conditions: [
+  { label: "1학년 · 그렇다", values: ["7"] }, { label: "1학년 · 아니다", values: ["5"] },
+  { label: "2학년 · 그렇다", values: ["9"] }, { label: "2학년 · 아니다", values: ["3"] }] }));
+const oneShotTable = buildFigures([], oneShot).find((f) => f.kind === "table");
+check(oneShotTable.columns.join("|") === "조건|응답 수 (명)" && oneShotTable.rows[0].join("|") === "1학년 · 그렇다|7",
+  "one value per cell means no repeat columns, no mean and no wobble", oneShotTable.columns.join("|"));
+const oneShotSummary = summaryForPrompt(oneShot);
+check(oneShotSummary.값이높은순서 && !oneShotSummary.평균이높은순서 && oneShotSummary.조건별결과[0].값 === 7 && !("평균" in oneShotSummary.조건별결과[0]) && !("흔들림" in oneShotSummary.조건별결과[0]),
+  "a single response count is called a value, never a mean", JSON.stringify(oneShotSummary.조건별결과[0]));
+check(summaryForPrompt(threeWay).평균이높은순서 && "흔들림" in summaryForPrompt(threeWay).조건별결과[0], "repeated measurements keep the mean and the wobble");
+check(summaryForPrompt(oneShot).수준별비교[0].흔들림보다큰차이인가 === "반복이 없어 알 수 없음",
+  "a gap with nothing to compare it against is not called clear", JSON.stringify(summaryForPrompt(oneShot).수준별비교[0]));
+check(stagePromptLines(STAGE.FINAL, { studentData: normalizeStudentData({ conditions: [{ label: "가", values: ["1"] }, { label: "나", values: ["2"] }] }) }).join("\n").includes("값이 하나뿐이라"),
+  "the final report is told not to lean on a mean of one number");
+check(!stagePromptLines(STAGE.DRAFT, { collectionKind: COLLECTION.SURVEY }).join("\n").includes("조건마다 3회 이상 반복")
+  && stagePromptLines(STAGE.DRAFT, { collectionKind: COLLECTION.MEASUREMENT }).join("\n").includes("조건마다 3회 이상 반복"),
+  "repeat-measurement design rules are only given to an experiment");
 
 const cards = [
   { title: "청소년 아르바이트 실태 기사", type: "신문 기사", point: "임금을 못 받은 경험이 많다", take: "구제 절차를 모르는 것이 문제다" },
@@ -220,5 +243,8 @@ check(!scrubInternalNames(cardLeak).includes("카드") && scrubInternalNames(car
   "the word 카드 is rewritten as the real name of the source", scrubInternalNames(cardLeak));
 check(stagePromptLines(STAGE.LITERATURE, { studentData: normalizeStudentData({ sourceCards: cards }) }).join("\n").includes("'카드'라는 말은 쓰지 않는다"),
   "the model is told not to write 카드 in the report");
+
+const bridgeSource = await readFile(new URL("../assets/js/mini_worker_generate_bridge_v32.js", import.meta.url), "utf8");
+check(bridgeSource.includes("const valueHead = trials > 1"), "the input table still heads a single value column with 1회");
 
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
