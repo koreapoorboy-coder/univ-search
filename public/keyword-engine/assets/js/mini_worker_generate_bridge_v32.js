@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v258-optional-charts";
+  const VERSION = "mini-worker-generate-bridge-v259-record-draft";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2659,6 +2659,18 @@
       </section>`;
   }
 
+  function renderRecordDraft(lines){
+    if(!Array.isArray(lines) || lines.length < 3) return "";
+    return `
+      <section class="mini-record" id="miniRecordDraft">
+        <div class="mini-v43-kicker">참고 · 활동 요약</div>
+        <h3>선생님이 생활기록부를 쓸 때 참고할 수 있는 요약이에요</h3>
+        <p class="mini-record-help">이 요약은 <b>제출하는 보고서에는 들어가지 않아요.</b> 위 보고서에 있는 내용만 학교 기록에서 쓰는 말투로 정리한 것입니다. 내가 실제로 한 것과 다른 문장이 있으면 지우고 선생님께 전달하세요.</p>
+        <ul class="mini-record-list">${lines.map(line => `<li>${escapeHtml(line)}</li>`).join("")}</ul>
+        <div class="mini-v229-actions"><button type="button" id="miniRecordCopyBtn" class="secondary">활동 요약 복사</button></div>
+      </section>`;
+  }
+
   function renderCollectionPanel(result){
     if(result?.collectionKind === "reading") return result?.sourceTemplate ? renderSourceCardPanel(result.sourceTemplate) : "";
     return result?.dataTemplate ? renderExperimentInputPanel(result.dataTemplate, result.collectionKind) : "";
@@ -4047,6 +4059,11 @@ ${result}`;
         .mini-exp-fields label span{font-weight:600;color:#64748b}
         .mini-exp-fields textarea{border:1px solid #cbd5e1;border-radius:10px;padding:9px;font-size:14px;line-height:1.5;resize:vertical;font-family:inherit}
         .mini-exp-error{color:#b91c1c;font-weight:700;font-size:14px;margin:0 0 10px}
+        .mini-record{border:1px solid #cbd5e1;background:#f8fafc;border-radius:14px;padding:18px 20px;margin:18px 0}
+        .mini-record h3{margin:6px 0 8px;font-size:17px}
+        .mini-record-help{color:#475569;font-size:14px;margin:0 0 12px;line-height:1.7}
+        .mini-record-list{margin:0 0 14px;padding-left:20px}
+        .mini-record-list li{margin:0 0 8px;font-size:15px;line-height:1.7}
         .mini-card-grid{display:grid;gap:12px;margin:14px 0}
         .mini-card{border:1px solid #cbd5e1;background:#fff;border-radius:12px;padding:12px 14px;display:grid;gap:8px}
         .mini-card b{color:#173ea9;font-size:13px}
@@ -4088,10 +4105,12 @@ ${result}`;
           ${sectionHtml}
         </div>
         ${stage === "experiment_draft" ? renderCollectionPanel(stageResult) : ""}
+        ${renderRecordDraft(stageResult.recordDraft)}
       </section>
     `;
 
     $("miniV32CopyReportBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(reportPlainText));
+    $("miniRecordCopyBtn")?.addEventListener("click", () => navigator.clipboard?.writeText((stageResult.recordDraft || []).join("\n")));
     $("miniV32DownloadReportBtn")?.addEventListener("click", () => downloadReportHtml(reportTitle, metadata, displaySections));
     if(stage === "experiment_draft" && (stageResult.dataTemplate || stageResult.sourceTemplate)){
       global.__MINI_EXPERIMENT_DRAFT__ = { result: stageResult, template: stageResult.dataTemplate, title: reportTitle, plainText: reportPlainText };

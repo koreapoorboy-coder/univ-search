@@ -7,7 +7,7 @@ import { readFile } from "node:fs/promises";
 import {
   STAGE, allowedNumberSet, buildFigures, computeStats, finalizeStageOutput, normalizeStudentData,
   describeCombination, removeUnsupportedNumbers, resolveReportStage, scrubInternalNames, stagePromptLines, stageSchemaProperties, stageSections, summaryForPrompt,
-  COLLECTION, buildSourceCardTable, resolveCollectionKind, stageOutputKeys, stageSectionGuide,
+  COLLECTION, buildSourceCardTable, buildRecordDraft, resolveCollectionKind, stageOutputKeys, stageSectionGuide,
 } from "../../../admission_worker_skeleton/report_stages_v1.mjs";
 
 let passed = 0;
@@ -62,7 +62,7 @@ const litOut = finalizeStageOutput(STAGE.LITERATURE, { reportTitle: "t", section
 check(litOut.extra.comparisonTable === null, "a literature table with a number is dropped (nothing backs it)");
 
 check(stageSections(STAGE.FINAL, { taskDescription: "활용 방안을 통한 탐구보고서" }).includes("활용 방안") && !stageSections(STAGE.FINAL, { taskDescription: "탐구보고서" }).includes("활용 방안"), "활용 방안 section appears only when the task asks for it");
-check(Object.keys(stageSchemaProperties(STAGE.DRAFT)).join() === "caseTag,dataTemplate" && Object.keys(stageSchemaProperties(STAGE.FINAL)).join() === "figures", "each stage asks the model for its own extra output");
+check(Object.keys(stageSchemaProperties(STAGE.DRAFT)).join() === "caseTag,dataTemplate" && Object.keys(stageSchemaProperties(STAGE.FINAL)).join() === "recordDraft,figures", "each stage asks the model for its own extra output");
 
 // Real test 2026-09-11: 세제 2 × 온도 3 conditions. Charts over the whole grid are grouped (세제 = colours,
 // 온도 = x-axis), ties are reported, 참고 자료 is the student's own list, and invented feelings are removed.
@@ -294,5 +294,36 @@ const litFeelings = finalizeStageOutput(STAGE.LITERATURE, { reportTitle: "t", se
   { studentData: normalizeStudentData({ reflection: "기준을 정하는 게 중요하다고 느꼈다." }) });
 check(!litFeelings.parsed.sections[0].body.includes("보람"), "invented feelings are filtered in the literature report too",
   litFeelings.parsed.sections[0].body);
+
+// 2026-09-12: a 명사형 활동 요약 for the teacher, kept out of the report the student hands in.
+const recordLines = [
+  "조도를 세 수준으로 나누고 잎 뒷면 기공 수를 면적당 밀도로 환산해 비교 설계함.",
+  "빛 신호가 형질 발현을 조절한다는 개념을 실제 측정으로 확인함.",
+  "나는 교과서 형질 발현 단원을 참고했다.",
+  "성실한 태도로 반복 측정을 수행함.",
+  "표피 세포 크기를 함께 세지 못해 원인을 분리하지 못한 한계를 밝힘.",
+  "후속으로 스펙트럼 조건을 바꾼 비교 탐구를 제안함.",
+];
+const recordDraft = buildRecordDraft(recordLines, null);
+check(recordDraft.length === 4 && recordDraft.every((line) => !/^나는/.test(line)) && !recordDraft.some((line) => /성실/.test(line)),
+  "first-person lines and self-praise never reach the record summary", JSON.stringify(recordDraft));
+check(recordDraft.some((line) => line.endsWith("밝힘.")), "a ㅁ ending other than 함/됨/임 is still a record line");
+check(buildRecordDraft(["조건을 비교하였다.", "자료를 읽었다.", "결과를 정리하였다."], null) === null,
+  "sentences in the student's own voice make no record summary");
+check(buildRecordDraft(["조도를 세 수준으로 나누어 비교 설계함."], null) === null, "fewer than three usable lines means no box");
+const recordData = normalizeStudentData({ conditions: [{ label: "가", values: ["115"] }, { label: "나", values: ["167"] }] });
+const numbersAllowed = allowedNumberSet(recordData, computeStats(recordData));
+const withFakeNumber = buildRecordDraft([
+  "평균이 암조건 115, 실험군 167로 나타남을 확인함.",
+  "선행 연구에서 보고된 82%와 일치함을 확인함.",
+  "빛 신호가 형질 발현을 조절한다는 개념을 측정으로 확인함.",
+  "후속으로 스펙트럼 조건을 바꾼 비교 탐구를 제안함.",
+], numbersAllowed);
+check(!withFakeNumber.some((line) => line.includes("82%")), "a number the student never measured is cut from the summary too",
+  JSON.stringify(withFakeNumber));
+check(stageOutputKeys(STAGE.FINAL).includes("recordDraft") && stageOutputKeys(STAGE.LITERATURE).includes("recordDraft"),
+  "both finished reports ask for the record summary");
+check(bridgeSource.includes("function renderRecordDraft") && bridgeSource.includes("제출하는 보고서에는 들어가지 않아요"),
+  "the site shows the summary as a separate, non-submitted box");
 
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);

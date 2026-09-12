@@ -334,6 +334,30 @@ function sanitizeDataTemplate(raw, kind) {
   };
 }
 
+// Shaped after 69 real 세특 entries: noun-form endings, no first person, one fact per sentence.
+const HANGUL_BASE = 0xac00;
+const JONGSEONG_MIEUM = 16;
+function endsInNounForm(text) {
+  const last = String(text || '').replace(/[.\s]+$/, '').slice(-1);
+  const index = last.charCodeAt(0) - HANGUL_BASE;
+  return index >= 0 && index < 11172 && index % 28 === JONGSEONG_MIEUM;
+}
+const SELF_PRAISE = /성실|적극적|우수|뛰어|탁월|훌륭|모범|열정적|돋보|인상적/;
+const FIRST_PERSON = /^(나는|내가|저는|제가)\b|\b(나의|내)\s/;
+
+// Keeps only the sentences that are actually usable as a record line: noun ending, no first person, no praise
+// of the student. Fewer than three usable lines means no box at all rather than a half-empty one.
+export function buildRecordDraft(lines, allowed) {
+  const cleaned = (Array.isArray(lines) ? lines : [])
+    .map((line) => scrubInternalNames(String(line || "")).trim().replace(/^[-·•\d.\s]+/, "").replace(/\s+/g, " "))
+    .map((line) => (allowed ? removeUnsupportedNumbers(line, allowed).body.trim() : line))
+    .filter((line) => line.length >= 20 && line.length <= 120)
+    .filter((line) => endsInNounForm(line))
+    .filter((line) => !FIRST_PERSON.test(line) && !SELF_PRAISE.test(line))
+    .slice(0, 6);
+  return cleaned.length >= 3 ? cleaned : null;
+}
+
 export function buildSourceCardTable(cards) {
   if (!Array.isArray(cards) || cards.length < 2) return null;
   return {
@@ -477,6 +501,11 @@ export function stagePromptLines(stage, input) {
       '- figures에는 이 데이터를 보여줄 표나 그래프를 고른다. 표는 코드가 항상 만들므로 넣지 않아도 된다. 그래프는 보여 줄 모양이 있을 때만 고르고(조건이 셋 이상이거나 두 변인 조합), 조건이 둘뿐이면 그래프를 고르지 않는다. 억지로 채우지 말고 필요 없으면 빈 배열로 둔다. 최대 3개다. 숫자는 넣지 말고 kind(table, bar, line, grouped_bar, grouped_line), metric(raw, mean, diff_from_first, percent_from_first), conditionOrder(보여줄 조건 이름과 순서), title, caption만 쓴다. 조건이 "앞 변인 · 뒤 변인" 조합이면 grouped_bar나 grouped_line으로 앞 변인을 색으로 나누고 뒤 변인을 가로축에 놓는다. 뒤 변인이 순서 있는 값(온도, 시간 등)이면 grouped_line이 알맞다. 숫자는 학생 데이터로 코드가 채운다.',
       '- 본문에서 표와 그래프는 종류별로 나온 순서대로 "표 1", "그림 1"처럼 가리킨다.',
       '- reason, observations는 학생의 목소리다. 뜻과 표현을 최대한 살려 해당 절에 녹이고 맞춤법만 다듬는다.',
+      '- recordDraft는 담당 선생님이 생활기록부를 쓸 때 참고하도록 이번 탐구를 정리한 문장 묶음이다. 학생이 제출하는 보고서 본문에는 들어가지 않는다.',
+      '- recordDraft 문장은 4~6개, 한 문장 40~90자로 쓴다. 모두 3인칭 명사형으로 끝낸다(예: ~를 설계함, ~를 비교 분석함, ~를 확인함, ~로 해석함). 나는, 내가 같은 1인칭이나 ~했다 같은 종결은 쓰지 않는다.',
+      '- recordDraft 순서는 ①무엇을 어떤 기준으로 했는지 ②이해한 교과 개념 ③참고한 자료에서 확인한 것 ④결과에서 드러난 것(숫자가 있으면 숫자와 함께) ⑤한계나 보완할 점 ⑥이어서 하고 싶은 탐구다. 한 문장에 한 가지만 담는다.',
+      '- recordDraft에는 성실함, 적극성, 우수함처럼 학생을 평가하는 말을 쓰지 않는다. 평가는 선생님이 한다. 우리는 한 일과 알아낸 것만 적는다. 이를 어긴 문장은 자동으로 삭제된다.',
+      '- recordDraft의 내용은 모두 위 보고서와 학생이 입력한 자료에 있는 것이어야 한다. 새 사실이나 새 숫자를 만들지 않는다.',
       '- 느낀 점 절은 reflection 문장을 먼저 거의 그대로 쓰고, 이어서 활동 → 이해한 개념 → 참고한 자료 → 숫자로 드러난 것 → 한계 → 다음에 하고 싶은 것 순서로 이어 쓴다. 이 절은 담당 선생님이 학생의 활동을 파악하는 자리이므로, 무엇을 어떤 기준으로 했는지가 문장마다 드러나야 한다.',
       '- 느낀 점 절에서 성실함, 적극성, 협동심처럼 학생의 태도를 평가하는 말은 쓰지 않는다. 실제로 한 일(조건을 통제한 것, 반복 측정한 것, 자료를 비교한 것)만 쓰면 된다. 학생이 쓰지 않은 감정(힘들었다, 재미있었다 등)은 자동으로 삭제된다.',
       '- 참고 자료 절은 쓰지 않는다. 학생이 적은 sources로 자동으로 붙는다.',
@@ -503,6 +532,11 @@ export function stagePromptLines(stage, input) {
       '- 자료가 같은 기준으로 나란히 비교될 때만 comparisonTable을 넣는다. 기준이 서로 다른 자료를 억지로 한 표에 넣지 않는다. 넣을 때는 columns 3~4개, rows 2~6개, 칸에는 짧은 말만 쓰고 숫자는 쓰지 않는다. 필요 없으면 표 없이 글로만 쓴다.',
       '- 입력에 근거 없는 숫자는 쓰지 않는다. 이를 어긴 문장은 자동으로 삭제된다.',
       '- 참고 자료 절은 쓰지 않는다. 학생이 적은 sources로 자동으로 붙는다.',
+      '- recordDraft는 담당 선생님이 생활기록부를 쓸 때 참고하도록 이번 탐구를 정리한 문장 묶음이다. 학생이 제출하는 보고서 본문에는 들어가지 않는다.',
+      '- recordDraft 문장은 4~6개, 한 문장 40~90자로 쓴다. 모두 3인칭 명사형으로 끝낸다(예: ~를 설계함, ~를 비교 분석함, ~를 확인함, ~로 해석함). 나는, 내가 같은 1인칭이나 ~했다 같은 종결은 쓰지 않는다.',
+      '- recordDraft 순서는 ①무엇을 어떤 기준으로 했는지 ②이해한 교과 개념 ③참고한 자료에서 확인한 것 ④결과에서 드러난 것(숫자가 있으면 숫자와 함께) ⑤한계나 보완할 점 ⑥이어서 하고 싶은 탐구다. 한 문장에 한 가지만 담는다.',
+      '- recordDraft에는 성실함, 적극성, 우수함처럼 학생을 평가하는 말을 쓰지 않는다. 평가는 선생님이 한다. 우리는 한 일과 알아낸 것만 적는다. 이를 어긴 문장은 자동으로 삭제된다.',
+      '- recordDraft의 내용은 모두 위 보고서와 학생이 입력한 자료에 있는 것이어야 한다. 새 사실이나 새 숫자를 만들지 않는다.',
       '',
       '[학생이 적은 내용]',
       JSON.stringify({ ...studentVoice(data), 자료카드: data.sourceCards }, null, 2),
@@ -523,8 +557,8 @@ export function stageLengthRule(stage) {
 export function stageOutputKeys(stage, input = {}) {
   if (stage === STAGE.DRAFT && input.collectionKind === COLLECTION.READING) return 'reportTitle, sections, sourceTemplate, caseTag';
   if (stage === STAGE.DRAFT) return 'reportTitle, sections, dataTemplate, caseTag';
-  if (stage === STAGE.FINAL) return 'reportTitle, sections, figures';
-  if (stage === STAGE.LITERATURE) return 'reportTitle, sections, comparisonTable';
+  if (stage === STAGE.FINAL) return 'reportTitle, sections, figures, recordDraft';
+  if (stage === STAGE.LITERATURE) return 'reportTitle, sections, comparisonTable, recordDraft';
   return 'reportTitle, sections';
 }
 
@@ -540,6 +574,7 @@ const STAGE_SCHEMA = {
     },
   },
   [STAGE.FINAL]: {
+    recordDraft: { type: 'array', minItems: 3, maxItems: 6, items: STRING },
     figures: {
       type: 'array',
       minItems: 0,
@@ -553,6 +588,7 @@ const STAGE_SCHEMA = {
     },
   },
   [STAGE.LITERATURE]: {
+    recordDraft: { type: 'array', minItems: 3, maxItems: 6, items: STRING },
     comparisonTable: {
       type: 'object',
       additionalProperties: false,
@@ -628,7 +664,8 @@ export function finalizeStageOutput(stage, parsed, input) {
     const extra = stage === STAGE.FINAL
       ? { figures: buildFigures(parsed?.figures, stats), figuresAfterSection: '탐구 결과', dataSummary: stats }
       : { comparisonTable: buildSourceCardTable(data.sourceCards) || sanitizeComparisonTable(parsed?.comparisonTable), comparisonTableAfterSection: '자료 비교 정리' };
-    return { parsed: { ...parsed, sections: cleaned }, extra: { ...extra, removedNumberSentences: removed, removedFeelingSentences: removedFeelings } };
+    const recordDraft = buildRecordDraft(parsed?.recordDraft, allowed);
+    return { parsed: { ...parsed, sections: cleaned }, extra: { ...extra, recordDraft, removedNumberSentences: removed, removedFeelingSentences: removedFeelings } };
   }
   return { parsed, extra: {} };
 }
