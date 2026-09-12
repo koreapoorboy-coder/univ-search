@@ -384,7 +384,7 @@ function sanitizeComparisonTable(raw) {
 // What this draft investigates, in three short tags. They are stored per school+task so the next student in the
 // same class can be steered to a different combination; nothing is ever rejected because of them.
 export function describeCombination(dataTemplate, caseTag) {
-  const parts = (dataTemplate?.conditions || []).map((condition) => String(condition).split(/s*·s*/).map((piece) => piece.trim()));
+  const parts = (dataTemplate?.conditions || []).map((condition) => String(condition).split(/\s*·\s*/).map((piece) => piece.trim()));
   const firsts = [...new Set(parts.map((part) => part[0]).filter(Boolean))];
   const seconds = [...new Set(parts.map((part) => part[1]).filter(Boolean))];
   return {
@@ -396,7 +396,16 @@ export function describeCombination(dataTemplate, caseTag) {
 
 export function stageSections(stage, input) {
   const wantsUse = /활용|적용|방안|제안/.test(String(input?.taskDescription || ''));
+  // The draft is a plan, not the report, so it keeps its own five parts whatever the task is.
   if (stage === STAGE.DRAFT) return ['연구 질문', '이론적 배경', '가설', '탐구 방법', '결과 기록 계획'];
+  // The finished report follows the structure this kind of task really uses (7,131 real 과제 decided the
+  // seventeen shapes); the two sections our own flow needs are added to it. A structure the site sent
+  // explicitly still wins — that came from the student answering questions about their own task.
+  const shaped = (input?.reportShape?.sections || []).filter(Boolean);
+  const siteChose = (input?.targetStructure || []).filter(Boolean).length >= 4;
+  if (shaped.length >= 4 && !siteChose && stage !== STAGE.COMPLETE) {
+    return [...shaped, ...(wantsUse && !shaped.some((section) => /활용|방안/.test(section)) ? ['활용 방안'] : []), '계열 연계 탐구', '느낀 점'];
+  }
   if (stage === STAGE.FINAL) return ['연구 질문', '이론적 배경', '탐구 방법', '탐구 결과', '결과 분석', '결론', ...(wantsUse ? ['활용 방안'] : []), '계열 연계 탐구', '느낀 점'];
   if (stage === STAGE.LITERATURE) return ['연구 질문', '이론적 배경', '자료 조사 방법', '자료 비교 정리', '결론', ...(wantsUse ? ['활용 방안'] : []), '계열 연계 탐구', '느낀 점'];
   return null;
@@ -428,8 +437,9 @@ function stageSectionGuideBase(title, stage) {
   if (stage === STAGE.DRAFT && /탐구 방법/.test(text)) return '학생이 직접 하는 실험으로 설계한다. 준비물, 조작·통제·종속 변인, 대조군, 번호를 붙인 절차, 조건마다 3회 이상 측정해 어떻게 기록할지, 측정 오차를 줄이는 방법, 안전 주의. 문헌 조사로 대신하지 않는다. 700~1000자';
   if (/가설/.test(text)) return '"~하면 ~할 것이다" 형태의 가설 1~2개와 그렇게 생각한 교과 근거. 150~300자';
   if (/결과 기록 계획/.test(text)) return '무엇을 어떤 단위나 점수 기준으로 조건마다 몇 번 측정해 표에 기록할지. 점수는 클수록 측정 항목이 크다는 뜻이 되게 정한다. 학생이 채울 결과 표 양식과 같은 내용이어야 한다. 2차 보고서에서는 조건별 값과 평균, 흔들림(최댓값-최솟값)을 담은 표가 만들어지고, 비교가 뚜렷한 경우에만 막대나 선 그래프가 하나 붙는다. 표준편차, 오차막대, 흔들림을 표시한 선, 통계 검정처럼 만들어지지 않는 것을 하겠다고 쓰지 않고, 그래프가 반드시 들어간다고도 쓰지 않는다. 결과나 예상 수치는 쓰지 않는다. 200~350자';
-  if (/탐구 결과/.test(text)) return '표 1을 먼저 가리키고, 그림이 있을 때만 그림 1도 함께 가리킨다. 조건별 평균을 결과정리의 숫자 그대로 비교한다. 평균이 같은 조건은 같다고 쓴다. 학생의 관찰 메모(note, observations)를 함께 쓴다. 해석은 다음 절로 미룬다. 400~600자';
-  if (/결과 분석/.test(text)) return '가설이 맞았는지 조건마다 판단한다. 수준별비교가 있으면 기준마다 어느 쪽이 몇 점 높았는지 그대로 쓰고, 가설대로 나온 조건과 반대로 나온 조건을 나누어 밝힌다. 두 값이 다르면 "비슷하다"고 쓰지 않는다. 가장 그럴듯한 설명 외에 다른 가능한 설명을 최소 1개 검토하고 데이터가 어느 쪽을 더 지지하는지 따진다. 반복 측정의 흔들림이 큰 조건은 신뢰도가 낮다고 밝히고 원인을 추정한다. 700~1000자';
+  if (/탐구 결과|결과 정리|관찰 기록|자료 정리/.test(text)) return '표 1을 먼저 가리키고, 그림이 있을 때만 그림 1도 함께 가리킨다. 조건별 평균을 결과정리의 숫자 그대로 비교한다. 평균이 같은 조건은 같다고 쓴다. 학생의 관찰 메모(note, observations)를 함께 쓴다. 해석은 다음 절로 미룬다. 400~600자';
+  if (/결과 분석|자료 해석|패턴 해석|결과 해석/.test(text)) return '가설이 맞았는지 조건마다 판단한다. 수준별비교가 있으면 기준마다 어느 쪽이 몇 점 높았는지 그대로 쓰고, 가설대로 나온 조건과 반대로 나온 조건을 나누어 밝힌다. 두 값이 다르면 "비슷하다"고 쓰지 않는다. 가장 그럴듯한 설명 외에 다른 가능한 설명을 최소 1개 검토하고 데이터가 어느 쪽을 더 지지하는지 따진다. 반복 측정의 흔들림이 큰 조건은 신뢰도가 낮다고 밝히고 원인을 추정한다. 700~1000자';
+  if (/오차|한계/.test(text)) return '이 탐구에서 확실하게 말할 수 있는 것과 없는 것을 나눈다. 측정이나 자료의 한계, 조건 수가 적어 생긴 제약을 구체적으로 쓰고, 그래서 결론을 어디까지만 말할 수 있는지 밝힌다. 300~500자';
   if (/결론/.test(text)) return stage === STAGE.FINAL
     ? '연구 질문에 학생 데이터로 직접 답한다. 모든 조건에서 그렇지 않았다면 어느 조건에서 그랬는지까지 쓴다. 한계와 개선점을 쓰고, 이론 설명을 다시 반복하지 않는다. 300~500자'
     : '연구 질문에 자료 조사 결과로 답하고, 실험으로 확인하지 못한 한계를 쓴다. 이론 설명을 다시 반복하지 않는다. 300~500자';

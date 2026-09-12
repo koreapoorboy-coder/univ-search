@@ -1,6 +1,7 @@
 import { acceptLiveInputCandidate, handleSimpleLiveIntakeRequest, parseStrictIJson } from './simple_live_intake_v1.mjs';
 import { COLLECTION, STAGE, finalizeStageOutput, normalizeStudentData, resolveCollectionKind, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
 import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, priorWorkPromptLines, sanitizeAnalysis, sharesGround } from './upload_analysis_v1.mjs';
+import { pickReportShape, shapePromptLines } from './report_shape_v1.mjs';
 
 const SERVICE_NAME = 'admission-keyword-worker';
 
@@ -29,6 +30,8 @@ const SEED_FILES = {
   extensionBlocks: 'generation_extension_blocks.json',
   warningBlocks: 'generation_warning_blocks.json',
   reportSeedIndex: 'seed-bank/index/report_seed_index.json',
+  // Built by tools/build_engine_index.mjs from the 7,131-task corpus: what shape this kind of report takes.
+  reportShapeIndex: 'engine-index/report_shape_index.v1.json',
 };
 
 // Execution authority is intentionally non-serializable. Audit hashes and
@@ -218,7 +221,9 @@ export default {
         }
 
         const seedPack = await loadSeedPack(env);
-        const seedMatch = matchSeed(input, seedPack);
+        // What shape this kind of task actually takes, from real 평가계획 rather than one fixed outline.
+    input.reportShape = pickReportShape(input, seedPack.reportShapeIndex);
+    const seedMatch = matchSeed(input, seedPack);
         const prompt = buildPrompt(input, seedMatch, env);
 
         let result;
@@ -805,6 +810,7 @@ function buildPrompt(input, seedMatch, env) {
     '- reportPatterns의 분석 방법은 목표 수준에 맞게 뜻을 먼저 설명한 뒤 활용한다.',
     '',
     ...priorWorkPromptLines(input.priorWork, sharesGround(input.priorWork, input)),
+    ...shapePromptLines(input.reportShape),
     '',
     '[깊이 기준]',
     '- 원리는 구체적인 물질과 반응 수준까지 설명한다. 예: 어떤 효소가 어떤 결합을 끊는지, 대상(얼룩, 음식 등)이 어떤 성분으로 되어 있는지, 조건이 효소와 대상 각각에 어떤 영향을 주는지.',
