@@ -28,7 +28,7 @@ const checks = [
   [bridge.includes("makeReportPlainText"), "copy output is not built from the displayed report document"]
   ,[bridge.includes("LIVE_INTAKE_PREFLIGHT_UNAVAILABLE"), "missing live-intake preflight is not handled"]
   ,[bridge.includes("req.liveInputCandidate = candidate"), "live-input candidate is not retained for generate"]
-  ,[html.includes("v260_prior_work_upload"), "browser cache version was not advanced"]
+  ,[html.includes("v261_large_uploads"), "browser cache version was not advanced"]
 ];
 
 for (const [passed, message] of checks) assert.equal(passed, true, message);

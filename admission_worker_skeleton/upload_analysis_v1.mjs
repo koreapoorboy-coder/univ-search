@@ -10,9 +10,14 @@
 export const DOC = Object.freeze({ REPORT: 'report', RECORD: 'record', OTHER: 'other' });
 
 export const UPLOAD_LIMITS = Object.freeze({
-  // The size cap is what the student meets, not a file count: a 생활기록부 can run to many pages.
-  totalBytes: 20 * 1024 * 1024,
-  fileBytes: 10 * 1024 * 1024,
+  // The size cap is what the student meets, not a file count: a 생활기록부 can run to many pages, and a real one
+  // scanned at full quality passes 20MB easily.
+  totalBytes: 60 * 1024 * 1024,
+  // OpenAI refuses a single file over 50MB, so one file stops at 45MB while the batch may reach 60MB.
+  fileBytes: 45 * 1024 * 1024,
+  // Anything past this is handed to the model as an uploaded file instead of base64: a 60MB file becomes an
+  // 80MB base64 string, and the Worker only has 128MB of memory to work in.
+  inlineBytes: 4 * 1024 * 1024,
   maxFiles: 30,
   types: Object.freeze(['application/pdf', 'image/png', 'image/jpeg', 'image/webp', 'image/heic']),
 });

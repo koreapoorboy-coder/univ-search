@@ -466,8 +466,15 @@ async function analyzeUploadWithModel(files, meta, env) {
   const reasoningModel = /^(gpt-5|o\d)/.test(model);
   const content = [{ type: "input_text", text: analysisPromptLines(meta).join("\n") }];
   for (const file of files) {
-    const base64 = bytesToBase64(new Uint8Array(await file.arrayBuffer()));
     const type = String(file.type || "").toLowerCase();
+    // A big file is streamed to the Files API as it is. Turning it into base64 here would cost a third more
+    // memory again, and the Worker has 128MB in total.
+    if (file.size > UPLOAD_LIMITS.inlineBytes) {
+      const fileId = await uploadFileToOpenAI(file, env);
+      content.push(type === "application/pdf" ? { type: "input_file", file_id: fileId } : { type: "input_image", file_id: fileId });
+      continue;
+    }
+    const base64 = bytesToBase64(new Uint8Array(await file.arrayBuffer()));
     content.push(type === "application/pdf"
       ? { type: "input_file", filename: file.name || "upload.pdf", file_data: `data:application/pdf;base64,${base64}` }
       : { type: "input_image", image_url: `data:${type};base64,${base64}` });
@@ -493,9 +500,12 @@ async function analyzeUploadWithModel(files, meta, env) {
   });
   const body = await res.json();
   if (!res.ok) throw new Error(body?.error?.message || `OpenAI error ${res.status}`);
+  // A file with almost no readable text sends the model in circles until it runs out of room. The student gets a
+  // sentence they can act on, not a JSON parse error.
+  if (body?.status === "incomplete") throw new Error("자료에서 읽을 내용을 찾지 못했어요. 글자가 선명하게 보이는 파일인지 확인하고 다시 올려 주세요.");
   const message = (body?.output || []).find((item) => item?.type === "message") || body?.output?.[0];
   const text = message?.content?.find((part) => part?.type === "output_text")?.text || message?.content?.[0]?.text || body?.output_text;
-  if (!text) throw new Error("OpenAI response did not include output text");
+  if (!text) throw new Error("자료를 읽지 못했어요. 잠시 뒤 다시 시도해 주세요.");
   let parsed;
   try {
     parsed = JSON.parse(text);
@@ -511,6 +521,20 @@ async function analyzeUploadWithModel(files, meta, env) {
       reasoning_tokens: Number(body?.usage?.output_tokens_details?.reasoning_tokens || 0),
     },
   };
+}
+
+async function uploadFileToOpenAI(file, env) {
+  const form = new FormData();
+  form.append("purpose", "user_data");
+  form.append("file", file, file.name || "upload");
+  const res = await fetch("https://api.openai.com/v1/files", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${env.OPENAI_API_KEY}` },
+    body: form,
+  });
+  const body = await res.json();
+  if (!res.ok || !body?.id) throw new Error(body?.error?.message || `파일을 올리지 못했습니다 (${res.status})`);
+  return body.id;
 }
 
 // btoa works on binary strings only, and a whole PDF at once overflows the argument list.

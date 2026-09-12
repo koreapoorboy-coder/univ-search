@@ -17,12 +17,16 @@ const MB = 1024 * 1024;
 // The student meets a size limit, not a file count: a 생활기록부 can run to many pages.
 check(checkUpload([file("보고서.pdf", "application/pdf", 2 * MB)]) === "", "a normal upload passes");
 check(checkUpload([]) !== "", "an empty upload is refused");
-check(checkUpload([file("큰파일.pdf", "application/pdf", 11 * MB)]).includes("10MB"), "one oversized file is refused by size",
-  checkUpload([file("큰파일.pdf", "application/pdf", 11 * MB)]));
-check(checkUpload(Array.from({ length: 12 }, (_, i) => file(`p${i}.jpg`, "image/jpeg", 2 * MB))).includes("20MB"),
+// A real 생활기록부 in the user's own folder is 24MB, so the cap is 60MB.
+check(checkUpload([file("생기부.pdf", "application/pdf", 24 * MB)]) === "", "a 24MB 생활기록부 is accepted");
+check(checkUpload([file("큰파일.pdf", "application/pdf", 46 * MB)]).includes("45MB"), "one file past what the model accepts is refused",
+  checkUpload([file("큰파일.pdf", "application/pdf", 46 * MB)]));
+check(checkUpload([file("a.pdf", "application/pdf", 30 * MB), file("b.pdf", "application/pdf", 25 * MB)]) === "", "two large files inside the total are fine");
+check(checkUpload(Array.from({ length: 25 }, (_, i) => file(`p${i}.jpg`, "image/jpeg", 3 * MB))).includes("60MB"),
   "many photos are refused on the total, not the count");
-check(checkUpload(Array.from({ length: 14 }, (_, i) => file(`p${i}.jpg`, "image/jpeg", MB))) === "",
-  "fourteen photos inside the total are fine — a 생활기록부 has many pages");
+check(checkUpload(Array.from({ length: 25 }, (_, i) => file(`p${i}.jpg`, "image/jpeg", 2 * MB))) === "",
+  "twenty-five photos inside the total are fine — a 생활기록부 has many pages");
+check(UPLOAD_LIMITS.inlineBytes < UPLOAD_LIMITS.fileBytes, "big files are not turned into base64 inside the Worker");
 check(checkUpload([file("보고서.hwp", "application/x-hwp", MB)]).includes("PDF와 사진"), "a file we cannot read is refused with a reason");
 check(UPLOAD_LIMITS.types.includes("application/pdf") && UPLOAD_LIMITS.types.includes("image/jpeg"), "PDFs and photos are both accepted");
 
@@ -93,6 +97,10 @@ check(prompt.includes("색도계") && prompt.includes("통계 검정") && prompt
 const worker = await readFile(new URL("../../../admission_worker_skeleton/worker.js", import.meta.url), "utf8");
 check(worker.includes("url.pathname === '/analyze-upload'"), "the Worker serves the upload analysis as its own action");
 check(worker.includes("input_file") && worker.includes("input_image"), "PDFs and photos are both sent to the model");
+check(worker.includes('body?.status === "incomplete"') && worker.includes("글자가 선명하게 보이는 파일인지"),
+  "a file with nothing readable gives the student a sentence, not a JSON error");
+check(worker.includes("async function uploadFileToOpenAI") && worker.includes("file.size > UPLOAD_LIMITS.inlineBytes"),
+  "a file too big for base64 is streamed to the model instead — the Worker has 128MB of memory");
 check(worker.includes("CREATE TABLE IF NOT EXISTS student_uploads"), "the analysis is stored so the corpus grows");
 const uploadTable = worker.slice(worker.indexOf("CREATE TABLE IF NOT EXISTS student_uploads"), worker.indexOf("async function saveUploadAnalysis"));
 check(!/raw_text|transcript|full_text|file_data/.test(uploadTable) && worker.includes("JSON.stringify(analysis)"),
@@ -122,7 +130,7 @@ check(bridgeSource.includes("function renderPriorWork") && bridgeSource.includes
   "the analysis has its own screen with a button into the draft");
 check(bridgeSource.includes("올리지 않아도 보고서는 만들 수 있어요"), "uploading stays optional");
 check(bridgeSource.includes("const fileSizeText = bytes =>") && bridgeSource.includes("KB"), "a small file shows its size in KB, not 0.0MB");
-check(bridgeSource.includes("모두 합쳐 20MB") && bridgeSource.includes("파일 하나는 10MB까지"),
+check(bridgeSource.includes("모두 합쳐 60MB") && bridgeSource.includes("파일 하나는 45MB까지"),
   "the student is told the size limit before the Worker refuses the upload");
 
 console.log(`PASS upload analysis: ${passed}/${passed}`);

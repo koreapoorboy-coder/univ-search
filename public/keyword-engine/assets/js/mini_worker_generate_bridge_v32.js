@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v260-prior-work-upload";
+  const VERSION = "mini-worker-generate-bridge-v261-large-uploads";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -4219,7 +4219,7 @@ ${result}`;
     }
   }
 
-  const UPLOAD_LIMITS = { fileBytes: 10 * 1024 * 1024, totalBytes: 20 * 1024 * 1024, maxFiles: 30 };
+  const UPLOAD_LIMITS = { fileBytes: 45 * 1024 * 1024, totalBytes: 60 * 1024 * 1024, maxFiles: 30 };
   const UPLOAD_ACCEPT = ".pdf,image/png,image/jpeg,image/webp,image/heic";
   let chosenUploads = [];
 
@@ -4229,9 +4229,9 @@ ${result}`;
     if(!files.length) return "먼저 파일을 고르세요.";
     if(files.length > UPLOAD_LIMITS.maxFiles) return `파일은 한 번에 ${UPLOAD_LIMITS.maxFiles}개까지 올릴 수 있어요.`;
     const big = files.find(file => file.size > UPLOAD_LIMITS.fileBytes);
-    if(big) return `파일 하나는 10MB까지예요. "${big.name}"이(가) 너무 큽니다.`;
+    if(big) return `파일 하나는 45MB까지예요. 나눠서 올리면 모두 합쳐 60MB까지 돼요. "${big.name}"이(가) 너무 큽니다.`;
     const total = files.reduce((sum, file) => sum + file.size, 0);
-    if(total > UPLOAD_LIMITS.totalBytes) return "한 번에 올리는 파일은 모두 합쳐 20MB까지예요. 사진 장수를 줄여 주세요.";
+    if(total > UPLOAD_LIMITS.totalBytes) return "한 번에 올리는 파일은 모두 합쳐 60MB까지예요. 사진 장수를 줄이거나 나눠서 올려 주세요.";
     return "";
   }
 
@@ -4242,7 +4242,7 @@ ${result}`;
     panel.innerHTML = `
       <div class="mini-v43-kicker">선택 · 내가 전에 쓴 자료</div>
       <h3>전에 쓴 탐구보고서나 생활기록부가 있으면 올려 주세요</h3>
-      <p class="mini-upload-help">올린 자료를 읽고 <b>지금까지 무엇을 했는지</b> 정리해 드려요. 그리고 이번 보고서를 그 다음 단계로 이어서 만들어요. 올리지 않아도 보고서는 만들 수 있어요.<br>PDF와 사진 모두 되고, <b>파일 하나 10MB · 모두 합쳐 20MB</b>까지예요. 생활기록부처럼 장수가 많아도 괜찮아요.</p>
+      <p class="mini-upload-help">올린 자료를 읽고 <b>지금까지 무엇을 했는지</b> 정리해 드려요. 그리고 이번 보고서를 그 다음 단계로 이어서 만들어요. 올리지 않아도 보고서는 만들 수 있어요.<br>PDF와 사진 모두 되고, <b>파일 하나 45MB · 모두 합쳐 60MB</b>까지예요. 생활기록부처럼 장수가 많아도 괜찮아요.</p>
       <div class="mini-upload-row">
         <label class="mini-upload-pick">파일 고르기<input type="file" id="miniUploadInput" multiple accept="${UPLOAD_ACCEPT}" hidden></label>
         <button type="button" id="miniUploadGoBtn" disabled>내 자료 분석하기</button>
