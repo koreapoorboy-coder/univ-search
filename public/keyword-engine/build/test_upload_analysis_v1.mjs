@@ -133,4 +133,13 @@ check(bridgeSource.includes("const fileSizeText = bytes =>") && bridgeSource.inc
 check(bridgeSource.includes("모두 합쳐 60MB") && bridgeSource.includes("파일 하나는 45MB까지"),
   "the student is told the size limit before the Worker refuses the upload");
 
+// From the first real 생활기록부 (2026-09-12): it proposed "조건별 10회", read a misread word as 인사적 활용,
+// named a career field as the subject, and aimed at the grade of the document instead of the student.
+check(prompt.includes("3~5회로 쓴다") && prompt.includes("결과 표가 한 조건에 다섯 번까지만"),
+  "proposals ask for as many repeats as the result table can hold, and no more");
+check(prompt.includes("확실히 읽히지 않는 낱말은 옮기지 않는다"), "an unreadable word is left out, not guessed at");
+check(prompt.includes("학교 교과목 이름을 쓴다") && prompt.includes("항공우주공학"), "the subject is a school subject, not a career field");
+check(bridgeSource.includes('"고2": "고3~대학 1학년 수준"'),
+  "the proposals aim at the grade the student is in, not the grade of the uploaded document");
+
 console.log(`PASS upload analysis: ${passed}/${passed}`);

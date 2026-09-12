@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v261-large-uploads";
+  const VERSION = "mini-worker-generate-bridge-v262-upload-level-fix";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -4306,7 +4306,13 @@ ${result}`;
     errorBox.hidden = true;
     const form = new FormData();
     const req = buildWorkerRequest();
-    form.append("payload", JSON.stringify({ schoolName: req.schoolName, grade: req.grade, targetLevel: req.grade }));
+    // The upload may hold only 1학년 records, but the proposals are for the grade the student is in now.
+    const LEVEL_BY_GRADE = { "고1": "고2~고3 심화 수준", "고2": "고3~대학 1학년 수준", "고3": "대학 교양~전공 기초 수준" };
+    form.append("payload", JSON.stringify({
+      schoolName: req.schoolName,
+      grade: req.grade,
+      targetLevel: LEVEL_BY_GRADE[String(req.grade || "").trim()] || "고2~고3 심화 수준",
+    }));
     chosenUploads.forEach(file => form.append("files", file, file.name));
     if(button){
       button.disabled = true;
