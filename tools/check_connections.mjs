@@ -8,7 +8,9 @@ import { createHash } from "node:crypto";
 const SITE = "https://univ-search.pages.dev";
 const WORKER = "https://curly-base-a1a9.koreapoorboy.workers.dev";
 const GATEWAY = "https://access-gateway.koreapoorboy.workers.dev";
-const SEED_BASE = "https://cdn.jsdelivr.net/gh/koreapoorboy-coder/univ-search@main/public/keyword-engine/seed";
+// The Worker reads its seeds from our own Pages deploy: the repo is never pushed to GitHub, so a newly built
+// seed would 404 on jsDelivr. Checking the same place the Worker reads keeps this honest.
+const SEED_BASE = "https://univ-search.pages.dev/keyword-engine/seed";
 
 const local = path => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 const lf = text => text.replace(/\r\n/g, "\n");
