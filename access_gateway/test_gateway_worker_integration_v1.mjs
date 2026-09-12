@@ -59,6 +59,7 @@ const STAGE_OUTPUTS = {
       { title: "탐구 방법", body: longBody("같은 천에 달걀 흰자 얼룩을 묻히고 세제와 물 온도를 바꾸어 20분 동안 세탁한다.") },
       { title: "결과 기록 계획", body: longBody("조건마다 세 번 세탁하고 얼룩 제거 정도를 점수로 기록한다.") },
     ],
+    caseTag: "세탁 세제 얼룩 제거",
     dataTemplate: { measurementName: "얼룩 제거 정도", unit: "점", scaleGuide: "0점 그대로, 3점 완전히 제거", conditions: ["일반 세제 · 미지근한 물", "효소 세제 · 미지근한 물", "효소 세제 · 뜨거운 물"], trials: 3 },
   },
   final: {
@@ -332,6 +333,31 @@ const STUDENT_DATA = {
     && !("temperature" in call) && call.reasoning?.effort === "medium" && call.max_output_tokens === 20000 && uses(kv) === 1,
     "I14 gpt-5: no temperature, reasoning effort set, message read after the reasoning item");
   delete workerEnv.OPENAI_MODEL;
+  openaiMode = "report";
+}
+
+// I15 — class-level variety: cases already used for the same school+task steer the next draft, and the new one is
+// stored. A student is never asked and never blocked.
+{
+  const kv = makeKv();
+  const saved = [];
+  workerEnv.DB = {
+    prepare: (sql) => ({
+      run: async () => ({}),
+      bind: (...args) => ({
+        run: async () => { if (/INSERT INTO report_cases/.test(sql)) saved.push(args); return {}; },
+        all: async () => ({ results: /SELECT case_tag/.test(sql) ? [{ case_tag: "렌즈 세척액 과산화수소", variable_tag: "무효소/활성 × 실온/차가움", measure_tag: "거품 높이 (cm)" }] : [] }),
+        first: async () => null,
+      }),
+    }),
+  };
+  openaiMode = "draft"; openaiCalls.length = 0;
+  const res = await viaGateway({ ...basePayload, reportStage: "experiment_draft" }, kv); const body = await res.json();
+  const prompt = String(openaiCalls[0]?.input || "");
+  check(res.status === 200 && prompt.includes("이미 만든 탐구") && prompt.includes("렌즈 세척액 과산화수소")
+    && saved.length === 1 && saved[0][2] === "세탁 세제 얼룩 제거" && body.result?.combination?.measureTag === "얼룩 제거 정도 (점)",
+    "I15 recent cases from the same school+task steer the next draft, and the new case is stored");
+  delete workerEnv.DB;
   openaiMode = "report";
 }
 

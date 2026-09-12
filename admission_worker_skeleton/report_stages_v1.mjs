@@ -194,7 +194,7 @@ export function summaryForPrompt(stats) {
 
 // Internal field names must never reach a student's report (a real gpt-5 report wrote "clearDifference가 true로
 // 표시되어", "spread", "(sameMean)"; a draft wrote "dataTemplate").
-const INTERNAL_NAMES = 'sameMean|clearDifference|dataSummary|dataTemplate|comparisons|runnerUp|ranking|conditionOrder|spread|gap';
+const INTERNAL_NAMES = 'caseTag|sameMean|clearDifference|dataSummary|dataTemplate|comparisons|runnerUp|ranking|conditionOrder|spread|gap';
 const INTERNAL_NAME_FIXES = [
   [/\s*\(\s*["“'‘]?(?:예|아니오)["”'’]?\s*\)/g, ''],
   [new RegExp(`\\s*\\([^()]*\\b(?:${INTERNAL_NAMES})\\b[^()]*\\)`, 'g'), ''],
@@ -207,7 +207,7 @@ const INTERNAL_NAME_FIXES = [
   [/\bdataTemplate\b/g, '결과 기록 표'],
   [/\bgap(?:이|가)/g, '차이가'], [/\bgap(?:은|는)/g, '차이는'], [/\bgap(?:을|를)/g, '차이를'],
   [/\bgap\b/g, '차이'],
-  [/\b(?:dataSummary|sameMean|comparisons|clearDifference|runnerUp|ranking|conditionOrder)\b/g, ''],
+  [/\b(?:dataSummary|sameMean|comparisons|clearDifference|runnerUp|ranking|conditionOrder|caseTag)\b/g, ''],
 ];
 
 export function scrubInternalNames(text) {
@@ -295,6 +295,19 @@ function sanitizeComparisonTable(raw) {
 
 // 참고 자료 is not asked of the model in the second stage: code appends the student's own list. Asking for a
 // two-line list under the 150-character section minimum made the model pad it, or repeat it until the output was cut off.
+// What this draft investigates, in three short tags. They are stored per school+task so the next student in the
+// same class can be steered to a different combination; nothing is ever rejected because of them.
+export function describeCombination(dataTemplate, caseTag) {
+  const parts = (dataTemplate?.conditions || []).map((condition) => String(condition).split(/s*·s*/).map((piece) => piece.trim()));
+  const firsts = [...new Set(parts.map((part) => part[0]).filter(Boolean))];
+  const seconds = [...new Set(parts.map((part) => part[1]).filter(Boolean))];
+  return {
+    caseTag: clip(caseTag, 40),
+    variableTag: clip([firsts.join('/'), seconds.join('/')].filter(Boolean).join(' × '), 60),
+    measureTag: clip([dataTemplate?.measurementName, dataTemplate?.unit ? `(${dataTemplate.unit})` : ''].filter(Boolean).join(' '), 40),
+  };
+}
+
 export function stageSections(stage, input) {
   const wantsUse = /활용|적용|방안|제안/.test(String(input?.taskDescription || ''));
   if (stage === STAGE.DRAFT) return ['연구 질문', '이론적 배경', '가설', '탐구 방법', '결과 기록 계획'];
@@ -344,6 +357,12 @@ export function stagePromptLines(stage, input) {
       '- 측정은 눈대중보다 숫자로 잴 수 있는 방법을 우선한다(예: 같은 조명에서 찍은 사진으로 남은 얼룩 면적 비율 비교, 질량·시간 측정). 점수를 쓰면 점수마다 기준을 구체적으로 정하고, 같은 사람이 같은 조건에서 평가하는 등 오차를 줄이는 방법을 쓴다.',
       '- 가설에는 그렇게 예상하는 과학적 근거를 구체적인 물질·반응 수준으로 쓰고, 다른 결과가 나온다면 무엇을 뜻하는지도 한 문장 쓴다.',
       '- 본문에는 dataTemplate 같은 영어 항목 이름을 쓰지 않는다.',
+      '- caseTag에는 이번 탐구의 실생활 사례를 8~20자로 짧게 적는다. 예: "우유 유당 분해", "렌즈 세척액 과산화수소". 본문에는 쓰지 않는다.',
+      ...((input.recentCombinations || []).length
+        ? ['', '[같은 학교에서 이 과제로 이미 만든 탐구 (사례 | 바꾼 것 | 잰 것)]',
+           ...input.recentCombinations.map((line, index) => `  ${index + 1}. ${line}`),
+           '- 위 목록과 겹치지 않는 사례를 고른다. 사례가 겹칠 수밖에 없으면 바꾸는 변인을, 그것도 겹치면 재는 방법을 다르게 한다. 목록에 없는 새 사례를 우선한다.', '']
+        : []),
       '- dataTemplate은 학생이 채울 결과 표다. conditions는 표의 행이 될 조건 이름 2~8개(두 변인을 함께 바꾸면 "효소 세제 · 미지근한 물"처럼 "앞 변인 · 뒤 변인" 순서로 모든 조합), trials는 조건마다 반복 횟수(1~5), measurementName과 unit은 측정 항목과 단위(점수면 "점"), scaleGuide는 점수 기준이나 측정 방법 한 문장이다.',
     ];
   }
@@ -401,7 +420,7 @@ export function stageLengthRule(stage) {
 }
 
 export function stageOutputKeys(stage) {
-  if (stage === STAGE.DRAFT) return 'reportTitle, sections, dataTemplate';
+  if (stage === STAGE.DRAFT) return 'reportTitle, sections, dataTemplate, caseTag';
   if (stage === STAGE.FINAL) return 'reportTitle, sections, figures';
   if (stage === STAGE.LITERATURE) return 'reportTitle, sections, comparisonTable';
   return 'reportTitle, sections';
@@ -410,6 +429,7 @@ export function stageOutputKeys(stage) {
 const STRING = { type: 'string' };
 const STAGE_SCHEMA = {
   [STAGE.DRAFT]: {
+    caseTag: { type: 'string' },
     dataTemplate: {
       type: 'object',
       additionalProperties: false,
@@ -449,7 +469,8 @@ export function finalizeStageOutput(stage, parsed, input) {
   const sections = Array.isArray(parsed?.sections) ? parsed.sections : [];
   if (stage === STAGE.DRAFT) {
     const scrubbed = sections.map((section) => ({ ...section, body: scrubInternalNames(section?.body) }));
-    return { parsed: { ...parsed, sections: scrubbed }, extra: { dataTemplate: sanitizeDataTemplate(parsed?.dataTemplate) } };
+    const dataTemplate = sanitizeDataTemplate(parsed?.dataTemplate);
+    return { parsed: { ...parsed, sections: scrubbed }, extra: { dataTemplate, combination: describeCombination(dataTemplate, parsed?.caseTag) } };
   }
   if (stage === STAGE.FINAL || stage === STAGE.LITERATURE) {
     const data = input.studentData || normalizeStudentData(null);

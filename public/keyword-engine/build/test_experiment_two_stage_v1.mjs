@@ -5,7 +5,7 @@
 import assert from "node:assert/strict";
 import {
   STAGE, allowedNumberSet, buildFigures, computeStats, finalizeStageOutput, normalizeStudentData,
-  removeUnsupportedNumbers, resolveReportStage, scrubInternalNames, stageSchemaProperties, stageSections, summaryForPrompt,
+  describeCombination, removeUnsupportedNumbers, resolveReportStage, scrubInternalNames, stagePromptLines, stageSchemaProperties, stageSections, summaryForPrompt,
 } from "../../../admission_worker_skeleton/report_stages_v1.mjs";
 
 let passed = 0;
@@ -60,7 +60,7 @@ const litOut = finalizeStageOutput(STAGE.LITERATURE, { reportTitle: "t", section
 check(litOut.extra.comparisonTable === null, "a literature table with a number is dropped (nothing backs it)");
 
 check(stageSections(STAGE.FINAL, { taskDescription: "활용 방안을 통한 탐구보고서" }).includes("활용 방안") && !stageSections(STAGE.FINAL, { taskDescription: "탐구보고서" }).includes("활용 방안"), "활용 방안 section appears only when the task asks for it");
-check(Object.keys(stageSchemaProperties(STAGE.DRAFT)).join() === "dataTemplate" && Object.keys(stageSchemaProperties(STAGE.FINAL)).join() === "figures", "each stage asks the model for its own extra output");
+check(Object.keys(stageSchemaProperties(STAGE.DRAFT)).join() === "caseTag,dataTemplate" && Object.keys(stageSchemaProperties(STAGE.FINAL)).join() === "figures", "each stage asks the model for its own extra output");
 
 // Real test 2026-09-11: 세제 2 × 온도 3 conditions. Charts over the whole grid are grouped (세제 = colours,
 // 온도 = x-axis), ties are reported, 참고 자료 is the student's own list, and invented feelings are removed.
@@ -158,5 +158,19 @@ check(koreanSummary.조건별결과[0].흔들림 === 1 && koreanSummary.수준�
   "the model sees the data summary under Korean names", JSON.stringify(koreanSummary.수준별비교[1]));
 const captionFigure = buildFigures([{ kind: "bar", metric: "mean", conditionOrder: [], title: "평균 비교", caption: "각 조건의 평균을 비교한다. 에러표시는 반복 측정의 spread를 함께 제시한다." }], threeWay).find(f => f.kind !== "table");
 check(captionFigure.caption === "각 조건의 평균을 비교한다.", "a caption may not describe error bars the chart does not draw", captionFigure.caption);
+
+// Class-level variety (2026-09-12): the draft records what it investigated, and recent combinations from the same
+// school+task are shown to the next student so the engine picks a different one. The student is never asked.
+const combo = describeCombination({ conditions: ["효소 세제 · 찬물", "효소 세제 · 미지근한 물", "물만 · 찬물", "물만 · 미지근한 물"], measurementName: "얼룩 제거 정도", unit: "점" }, "세탁 세제 얼룩 제거");
+check(combo.caseTag === "세탁 세제 얼룩 제거" && combo.variableTag === "효소 세제/물만 × 찬물/미지근한 물" && combo.measureTag === "얼룩 제거 정도 (점)",
+  "a draft is tagged with its case, what it varied and what it measured", JSON.stringify(combo));
+const draftOutTagged = finalizeStageOutput(STAGE.DRAFT, { reportTitle: "t", sections: [], caseTag: "우유 유당 분해", dataTemplate: { measurementName: "포도당", unit: "mg/dL", scaleGuide: "", conditions: ["락타아제 · 찬 우유", "락타아제 · 미지근한 우유", "무효소 · 찬 우유", "무효소 · 미지근한 우유"], trials: 3 } }, { studentData: data });
+check(draftOutTagged.extra.combination.caseTag === "우유 유당 분해" && draftOutTagged.extra.combination.measureTag === "포도당 (mg/dL)",
+  "the case tag comes back with the draft", JSON.stringify(draftOutTagged.extra.combination));
+const withRecent = stagePromptLines(STAGE.DRAFT, { recentCombinations: ["렌즈 세척액 과산화수소 | 무효소/활성 × 실온/차가움 | 거품 높이 (cm)"] }).join("\n");
+check(withRecent.includes("[같은 학교에서 이 과제로 이미 만든 탐구") && withRecent.includes("렌즈 세척액 과산화수소") && withRecent.includes("겹치지 않는 사례를 고른다"),
+  "recent combinations from the same class reach the draft instructions");
+check(!stagePromptLines(STAGE.DRAFT, {}).join("\n").includes("이미 만든 탐구"), "the first student in a class gets no such list");
+check(scrubInternalNames("이번 caseTag는 우유 유당 분해다.") === "이번 는 우유 유당 분해다.", "caseTag never reaches the student's text", scrubInternalNames("이번 caseTag는 우유 유당 분해다."));
 
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);

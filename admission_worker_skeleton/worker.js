@@ -195,6 +195,15 @@ export default {
         const input = resolveInput(trustedPayload);
         validateInput(input);
 
+        if (env.DB && input.reportStage === STAGE.DRAFT) {
+          // Variety is a hint, never a gate: a lookup failure must not stop the report.
+          try {
+            input.recentCombinations = await recentReportCases(env.DB, input);
+          } catch (error) {
+            console.error('recent case lookup failed:', error?.message || error);
+          }
+        }
+
         const seedPack = await loadSeedPack(env);
         const seedMatch = matchSeed(input, seedPack);
         const prompt = buildPrompt(input, seedMatch, env);
@@ -207,6 +216,13 @@ export default {
           try {
             ({ result, usage } = await callOpenAIWithRetry(prompt, env, input));
             source = 'openai';
+            if (env.DB && input.reportStage === STAGE.DRAFT && result?.combination) {
+              try {
+                await saveReportCase(env.DB, input, result.combination);
+              } catch (error) {
+                console.error('case save failed:', error?.message || error);
+              }
+            }
           } catch (error) {
             result = { ...buildSeedFallbackResult(input, seedMatch), diagnostic: String(error?.message || error).slice(0, 200) };
             source = 'seed-fallback-after-openai-error';
@@ -384,6 +400,44 @@ function buildStageResult(stage, parsed, input) {
     sectionTitles: (finalized.sections || []).map((section) => String(section?.title || '').trim()),
     ...extra,
   };
+}
+
+// Class-level variety: each draft's case is remembered per school+task, and the recent ones are shown to the next
+// student so the engine picks a different combination on its own. A student is never asked, and never blocked.
+async function ensureReportCaseTable(db) {
+  await db.prepare(`
+    CREATE TABLE IF NOT EXISTS report_cases (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      school_name TEXT,
+      task_key TEXT,
+      case_tag TEXT,
+      variable_tag TEXT,
+      measure_tag TEXT
+    )
+  `).run();
+}
+
+const taskKeyOf = (input) => String(input.taskDescription || '').replace(/s+/g, ' ').trim().slice(0, 200);
+
+async function recentReportCases(db, input) {
+  await ensureReportCaseTable(db);
+  const rows = await db.prepare(`
+    SELECT case_tag, variable_tag, measure_tag FROM report_cases
+    WHERE school_name = ? AND task_key = ? AND created_at >= datetime('now', '-120 days')
+    ORDER BY id DESC LIMIT 12
+  `).bind(input.schoolName, taskKeyOf(input)).all();
+  return (rows?.results || [])
+    .map((row) => [row.case_tag, row.variable_tag, row.measure_tag].filter(Boolean).join(' | '))
+    .filter(Boolean);
+}
+
+async function saveReportCase(db, input, combination) {
+  if (!combination?.caseTag) return;
+  await ensureReportCaseTable(db);
+  await db.prepare('INSERT INTO report_cases (school_name, task_key, case_tag, variable_tag, measure_tag) VALUES (?, ?, ?, ?, ?)')
+    .bind(input.schoolName, taskKeyOf(input), combination.caseTag, combination.variableTag || '', combination.measureTag || '')
+    .run();
 }
 
 function validateInput(input) {
