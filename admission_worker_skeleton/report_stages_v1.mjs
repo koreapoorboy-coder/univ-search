@@ -374,7 +374,7 @@ export function stageSections(stage, input) {
   const wantsUse = /활용|적용|방안|제안/.test(String(input?.taskDescription || ''));
   if (stage === STAGE.DRAFT) return ['연구 질문', '이론적 배경', '가설', '탐구 방법', '결과 기록 계획'];
   if (stage === STAGE.FINAL) return ['연구 질문', '이론적 배경', '탐구 방법', '탐구 결과', '결과 분석', '결론', ...(wantsUse ? ['활용 방안'] : []), '계열 연계 탐구', '느낀 점'];
-  if (stage === STAGE.LITERATURE) return ['연구 질문', '이론적 배경', '자료 조사 방법', '자료 비교 정리', '결론', ...(wantsUse ? ['활용 방안'] : []), '계열 연계 탐구'];
+  if (stage === STAGE.LITERATURE) return ['연구 질문', '이론적 배경', '자료 조사 방법', '자료 비교 정리', '결론', ...(wantsUse ? ['활용 방안'] : []), '계열 연계 탐구', '느낀 점'];
   return null;
 }
 
@@ -411,7 +411,7 @@ function stageSectionGuideBase(title, stage) {
     : '연구 질문에 자료 조사 결과로 답하고, 실험으로 확인하지 못한 한계를 쓴다. 이론 설명을 다시 반복하지 않는다. 300~500자';
   if (/계열 연계 탐구/.test(text)) return '선택한 계열(careerTrack)의 관점에서 이 결과가 연결되는 실제 문제나 기술을 설명하고, 그 분야에서 이어서 할 수 있는 심화 탐구 1~2개를 목표 수준에 맞게 구체적으로 제안한다(무엇을 바꾸어 무엇을 측정할지). 확립된 개념만 쓰고 기업명·제품명·수치는 지어내지 않는다. 400~600자';
   if (/활용 방안/.test(text)) return '탐구 결과를 근거로 실생활에서 쓸 수 있는 구체적인 방안 2~3개. 방안마다 어떤 결과에 근거했는지 밝힌다. 실험한 대상과 조건(재료, 얼룩 종류, 온도 등) 안에서만 말하고, 실험하지 않은 대상으로 넓히려면 추가 실험이 필요하다고 쓴다. 300~500자';
-  if (/느낀 점/.test(text)) return '학생이 쓴 reflection 문장을 먼저 거의 그대로 쓰고(맞춤법만 다듬음), 결과에서 알게 된 점을 1~2문장 덧붙인다. 힘들었다, 재미있었다처럼 학생이 쓰지 않은 감정이나 경험은 새로 만들지 않는다. 150~350자';
+  if (/느낀 점/.test(text)) return '학생이 쓴 reflection 문장을 먼저 거의 그대로 쓰고(맞춤법만 다듬음), 이어서 이번 탐구를 다음 순서로 정리한다. ①내가 한 활동을 무엇을 어떤 기준으로 했는지 구체적으로 ②그래서 이해하게 된 교과 개념 ③참고한 자료에서 확인한 것(sources에 있는 것만) ④결과에서 드러난 것을 숫자와 함께 ⑤이 탐구의 한계 ⑥다음에 확인하고 싶은 것. 모두 학생의 말투(~했다)로 쓰고, 성실했다·적극적이었다처럼 태도를 스스로 칭찬하는 말은 쓰지 않는다. 한 것을 적으면 태도는 드러난다. 힘들었다, 재미있었다처럼 학생이 쓰지 않은 감정이나 경험은 새로 만들지 않는다. 400~700자';
   if (/참고 자료/.test(text)) return '학생이 적은 sources만 한 줄에 하나씩 쓴다. 다른 줄, 괄호 설명, ※ 문장을 덧붙이지 않는다. sources가 없으면 "통합과학1 교과서 효소 관련 단원"처럼 자료 종류만 적고, 단원명·기관명·사이트명을 지어내지 않는다.';
   if (/자료 조사 방법/.test(text)) return '어떤 종류의 자료(교과서, 과학 기사 등)를 어떤 기준으로 골라 비교했는지. 실험을 한 것처럼 쓰지 않는다. 300~450자';
   if (/자료 비교 정리/.test(text)) return '자료에서 설명하는 경향을 비교 기준에 따라 정리한다. 표가 있을 때만 표 1과 연결하고, 표가 없으면 글로만 비교한다. 숫자를 지어내지 않는다. 500~700자';
@@ -477,7 +477,8 @@ export function stagePromptLines(stage, input) {
       '- figures에는 이 데이터를 보여줄 표나 그래프를 고른다. 표는 코드가 항상 만들므로 넣지 않아도 된다. 그래프는 보여 줄 모양이 있을 때만 고르고(조건이 셋 이상이거나 두 변인 조합), 조건이 둘뿐이면 그래프를 고르지 않는다. 억지로 채우지 말고 필요 없으면 빈 배열로 둔다. 최대 3개다. 숫자는 넣지 말고 kind(table, bar, line, grouped_bar, grouped_line), metric(raw, mean, diff_from_first, percent_from_first), conditionOrder(보여줄 조건 이름과 순서), title, caption만 쓴다. 조건이 "앞 변인 · 뒤 변인" 조합이면 grouped_bar나 grouped_line으로 앞 변인을 색으로 나누고 뒤 변인을 가로축에 놓는다. 뒤 변인이 순서 있는 값(온도, 시간 등)이면 grouped_line이 알맞다. 숫자는 학생 데이터로 코드가 채운다.',
       '- 본문에서 표와 그래프는 종류별로 나온 순서대로 "표 1", "그림 1"처럼 가리킨다.',
       '- reason, observations는 학생의 목소리다. 뜻과 표현을 최대한 살려 해당 절에 녹이고 맞춤법만 다듬는다.',
-      '- 느낀 점 절은 reflection 문장을 먼저 거의 그대로 쓰고, 결과에서 알게 된 점만 1~2문장 덧붙인다. 학생이 쓰지 않은 감정(힘들었다, 재미있었다 등)은 자동으로 삭제된다.',
+      '- 느낀 점 절은 reflection 문장을 먼저 거의 그대로 쓰고, 이어서 활동 → 이해한 개념 → 참고한 자료 → 숫자로 드러난 것 → 한계 → 다음에 하고 싶은 것 순서로 이어 쓴다. 이 절은 담당 선생님이 학생의 활동을 파악하는 자리이므로, 무엇을 어떤 기준으로 했는지가 문장마다 드러나야 한다.',
+      '- 느낀 점 절에서 성실함, 적극성, 협동심처럼 학생의 태도를 평가하는 말은 쓰지 않는다. 실제로 한 일(조건을 통제한 것, 반복 측정한 것, 자료를 비교한 것)만 쓰면 된다. 학생이 쓰지 않은 감정(힘들었다, 재미있었다 등)은 자동으로 삭제된다.',
       '- 참고 자료 절은 쓰지 않는다. 학생이 적은 sources로 자동으로 붙는다.',
       '- 결과가 가설과 다르면 억지로 맞추지 말고 다르게 나온 그대로 쓴다.',
       '- 흔들림은 반복 측정값의 최대와 최소의 차이다. 흔들림을 점수 범위와 비교해 판단한다(예: 0~3점에서 1점은 큰 흔들림이다). 흔들림이 큰 조건은 결과의 신뢰도가 낮다고 밝히고 원인을 추정한다.',
@@ -615,7 +616,7 @@ export function finalizeStageOutput(stage, parsed, input) {
       if (/참고 자료/.test(title)) return { ...section, body: buildReferencesBody(section?.body, data.sources) };
       const numbers = removeUnsupportedNumbers(scrubInternalNames(section?.body), allowed);
       removed += numbers.removed;
-      if (stage === STAGE.FINAL && /느낀 점/.test(title)) {
+      if (/느낀 점/.test(title)) {
         const feelings = removeInventedFeelings(numbers.body, studentText);
         removedFeelings += feelings.removed;
         return { ...section, body: feelings.body };

@@ -1,6 +1,7 @@
 // Builds the folder that is uploaded to Cloudflare Pages (project univ-search).
 // Rule: git-tracked files under public/ + untracked files under public/keyword-engine/assets,
-// minus public/keyword-engine/audit/ and public/keyword-engine/build/ (internal work files, never published).
+// minus public/keyword-engine/audit/, public/keyword-engine/build/ (internal work files) and
+// public/students/ (real 생활기록부 records: source data for our own work, never published).
 // Usage (repo root): node tools/build_pages_deploy_dir.mjs <new-output-dir-outside-the-repo>
 import { execFileSync } from "node:child_process";
 import { copyFileSync, existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
@@ -8,7 +9,7 @@ import { dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const MAX_FILE_BYTES = 25 * 1024 * 1024;
-const EXCLUDED = /^public\/keyword-engine\/(audit|build)\//;
+const EXCLUDED = /^public\/(keyword-engine\/(audit|build)|students)\//;
 const REQUIRED = [
   "keyword-engine/index.html",
   "keyword-engine/assets/js/mini_worker_generate_bridge_v32.js",
@@ -58,5 +59,5 @@ if (missing.length) {
 }
 
 console.log(`Pages upload folder ready: ${out}`);
-console.log(`files: ${files.length}, size: ${(bytes / 1048576).toFixed(1)} MB (audit/ and build/ excluded)`);
+console.log(`files: ${files.length}, size: ${(bytes / 1048576).toFixed(1)} MB (audit/, build/ and students/ excluded)`);
 console.log(`deploy (only after approval): npx wrangler pages deploy "${out}" --project-name univ-search --branch main --commit-dirty=true`);

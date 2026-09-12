@@ -281,4 +281,18 @@ check(stagePromptLines(STAGE.LITERATURE, { studentData: normalizeStudentData({})
 check(finalizeStageOutput(STAGE.LITERATURE, { reportTitle: "t", sections: [] }, { studentData: normalizeStudentData({}) }).extra.comparisonTable === null,
   "no comparable sources means no table at all");
 
+// 2026-09-12: measured 69 real 세특 entries (598자 / 8문장 median, 90% noun endings, material ordered
+// 활동 > 개념 > 자료 > 판단 > 확장). The reflection is the teacher's source, so it must carry that material.
+const reflectionGuide = stageSectionGuide("느낀 점", STAGE.FINAL, COLLECTION.MEASUREMENT);
+check(["활동", "개념", "자료", "한계", "다음에 확인하고 싶은"].every((part) => reflectionGuide.includes(part)) && reflectionGuide.includes("400~700자"),
+  "the reflection carries what a teacher needs to write 세특", reflectionGuide.slice(0, 60));
+check(reflectionGuide.includes("태도를 스스로 칭찬하는 말은 쓰지 않는다"), "the student may not praise their own attitude");
+check(stageSections(STAGE.LITERATURE, {}).includes("느낀 점"), "the literature report ends with a reflection too",
+  stageSections(STAGE.LITERATURE, {}).join("/"));
+const litFeelings = finalizeStageOutput(STAGE.LITERATURE, { reportTitle: "t", sections: [
+  { title: "느낀 점", body: "자료마다 기준이 다르다는 점을 알게 되었다. 힘들었지만 보람이 있었다." }] },
+  { studentData: normalizeStudentData({ reflection: "기준을 정하는 게 중요하다고 느꼈다." }) });
+check(!litFeelings.parsed.sections[0].body.includes("보람"), "invented feelings are filtered in the literature report too",
+  litFeelings.parsed.sections[0].body);
+
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
