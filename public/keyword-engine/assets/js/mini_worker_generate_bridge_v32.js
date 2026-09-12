@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v254-gpt5-wait-notice";
+  const VERSION = "mini-worker-generate-bridge-v255-collection-kinds";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2609,30 +2609,83 @@
   }
 
   const STAGE_HEADINGS = {
-    experiment_draft: ["1차 탐구 설계서", "실험 전에 쓰는 설계서예요. 이대로 실험한 뒤 아래 표에 결과를 넣으면, 그 값으로 최종 보고서와 표·그래프를 만들어요."],
-    experiment_final: ["최종 탐구 보고서", "직접 넣은 실험 결과로 만든 보고서예요. 표와 그래프의 숫자는 모두 입력한 값에서 나왔어요. 제출 전에 내 말투로 한 번 읽고 고쳐 주세요."],
-    literature: ["문헌 탐구 보고서", "실험 결과 없이 교과서와 자료 조사로 쓴 보고서예요. 제출 전에 실제로 읽은 자료가 맞는지 확인해 주세요."]
+    experiment_draft: ["1차 탐구 설계서", "자료를 모으기 전에 쓰는 설계서예요. 이대로 해 본 뒤 아래 칸을 채우면, 그 내용으로 최종 보고서를 만들어요."],
+    experiment_final: ["최종 탐구 보고서", "직접 넣은 결과로 만든 보고서예요. 표와 그래프의 숫자는 모두 입력한 값에서 나왔어요. 제출 전에 내 말투로 한 번 읽고 고쳐 주세요."],
+    literature: ["문헌 탐구 보고서", "읽은 자료와 직접 적은 내용으로 쓴 보고서예요. 제출 전에 실제로 읽은 자료가 맞는지 확인해 주세요."]
   };
 
-  function renderExperimentInputPanel(template){
+  const PANEL_TEXT = {
+    measurement: ["2단계 · 실험 후 직접 채우기", "실험 결과를 넣으면 이 값으로 최종 보고서와 표·그래프를 만들어요", "위 설계서대로 실험한 뒤 측정한 값을 숫자로 적어 주세요.", "실험하면서 관찰한 점"],
+    survey: ["2단계 · 설문 후 직접 채우기", "설문 결과를 넣으면 이 값으로 최종 보고서와 표·그래프를 만들어요", "위 설계서대로 설문을 받은 뒤 칸마다 응답한 사람 수를 적어 주세요.", "설문을 하면서 알게 된 점"],
+    dataset: ["2단계 · 자료를 찾은 뒤 직접 채우기", "찾은 수치를 넣으면 이 값으로 최종 보고서와 표·그래프를 만들어요", "위 설계서대로 공개 자료에서 찾은 수치를 그대로 적어 주세요.", "자료를 보면서 알게 된 점"],
+    reading: ["2단계 · 자료를 읽은 뒤 직접 채우기", "읽은 자료를 정리하면 그 내용으로 최종 보고서를 만들어요", "위 설계서대로 자료를 읽고, 자료마다 핵심 내용과 내 생각을 적어 주세요.", "자료를 읽으면서 알게 된 점"]
+  };
+
+  function panelText(kind){
+    return PANEL_TEXT[kind] || PANEL_TEXT.measurement;
+  }
+
+  function renderStudentFields(observationLabel){
+    return `
+        <div class="mini-exp-fields">
+          <label>이 주제를 고른 내 이유 <span>(선택)</span><textarea id="miniExpReason" rows="2"></textarea></label>
+          <label>${escapeHtml(observationLabel)} <span>(선택)</span><textarea id="miniExpObservations" rows="2"></textarea></label>
+          <label>느낀 점 <span>(선택)</span><textarea id="miniExpReflection" rows="2"></textarea></label>
+          <label>실제로 참고한 자료 <span>(선택, 한 줄에 하나)</span><textarea id="miniExpSources" rows="2"></textarea></label>
+        </div>`;
+  }
+
+  // Reading tasks (논설문 분석, 자료 조사, 사례 탐구 …) collect source cards instead of numbers.
+  function renderSourceCardPanel(template){
+    const count = Math.max(3, Math.min(6, Number(template?.cardCount) || 4));
+    const text = panelText("reading");
+    const cards = Array.from({ length: count }, (_, i) => `
+          <div class="mini-card"><b>자료 ${i + 1}</b>
+            <label>자료 제목<input type="text" data-card-field="title" data-card-index="${i}"></label>
+            <label>자료 종류 <span>(예: 신문 기사, 책, 교과서, 기관 자료)</span><input type="text" data-card-field="type" data-card-index="${i}"></label>
+            <label>핵심 내용<textarea rows="2" data-card-field="point" data-card-index="${i}"></textarea></label>
+            <label>내 해석<textarea rows="2" data-card-field="take" data-card-index="${i}"></textarea></label>
+          </div>`).join("");
+    return `
+      <section class="mini-exp-panel" id="miniExpPanel" data-kind="reading">
+        <div class="mini-v43-kicker">${escapeHtml(text[0])}</div>
+        <h3>${escapeHtml(text[1])}</h3>
+        <p class="mini-exp-help">${escapeHtml(text[2])}${template?.whatToFind ? `<br><b>각 자료에서 찾을 것: ${escapeHtml(template.whatToFind)}</b>` : ""}</p>
+        <div class="mini-card-grid">${cards}</div>
+        ${renderStudentFields(text[3])}
+        <p class="mini-exp-note">적은 내용은 최종 보고서에 거의 그대로 들어가요. 자료를 <b>2개 이상</b> 적어야 최종 보고서를 만들 수 있어요. 최종 보고서를 만들 때 사용 횟수가 1회 차감되고, 만드는 데 2~3분 걸려요.</p>
+        <p class="mini-exp-error" id="miniExpError" hidden></p>
+        <div class="mini-v229-actions"><button type="button" id="miniExpFinalBtn">최종 보고서 만들기</button></div>
+      </section>`;
+  }
+
+  function renderCollectionPanel(result){
+    if(result?.collectionKind === "reading") return result?.sourceTemplate ? renderSourceCardPanel(result.sourceTemplate) : "";
+    return result?.dataTemplate ? renderExperimentInputPanel(result.dataTemplate, result.collectionKind) : "";
+  }
+
+  function collectSourceCards(panel){
+    const read = (index, field) => panel.querySelector(`[data-card-field="${field}"][data-card-index="${index}"]`)?.value.trim() || "";
+    return Array.from({ length: panel.querySelectorAll(".mini-card").length }, (_, i) => ({
+      title: read(i, "title"), type: read(i, "type"), point: read(i, "point"), take: read(i, "take")
+    })).filter(card => card.title && card.point);
+  }
+
+  function renderExperimentInputPanel(template, kind){
     const trials = Math.max(1, Math.min(5, Number(template?.trials) || 3));
     const conditions = Array.isArray(template?.conditions) ? template.conditions : [];
     const unit = template?.unit ? ` (${template.unit})` : "";
+    const text = panelText(kind);
     const head = `<tr><th>조건</th>${Array.from({ length: trials }, (_, i) => `<th>${i + 1}회${escapeHtml(unit)}</th>`).join("")}<th>관찰 메모</th></tr>`;
     const rows = conditions.map((label, r) => `<tr><th scope="row">${escapeHtml(label)}</th>${Array.from({ length: trials }, (_, i) => `<td><input type="text" inputmode="decimal" data-row="${r}" data-trial="${i}" aria-label="${escapeHtml(label)} ${i + 1}회"></td>`).join("")}<td><input type="text" data-row="${r}" data-note="1" aria-label="${escapeHtml(label)} 관찰 메모"></td></tr>`).join("");
     return `
       <section class="mini-exp-panel" id="miniExpPanel">
-        <div class="mini-v43-kicker">2단계 · 실험 후 직접 채우기</div>
-        <h3>실험 결과를 넣으면 이 값으로 최종 보고서와 표·그래프를 만들어요</h3>
-        <p class="mini-exp-help">위 설계서대로 실험한 뒤 측정한 값을 숫자로 적어 주세요. <b>측정 항목: ${escapeHtml(template?.measurementName || "측정값")}${escapeHtml(unit)}</b>${template?.scaleGuide ? `<br>기준: ${escapeHtml(template.scaleGuide)}` : ""}</p>
+        <div class="mini-v43-kicker">${escapeHtml(text[0])}</div>
+        <h3>${escapeHtml(text[1])}</h3>
+        <p class="mini-exp-help">${escapeHtml(text[2])} <b>기록 항목: ${escapeHtml(template?.measurementName || "측정값")}${escapeHtml(unit)}</b>${template?.scaleGuide ? `<br>기준: ${escapeHtml(template.scaleGuide)}` : ""}</p>
         <div class="mini-v43-table-wrap"><table class="mini-v43-table mini-exp-table"><thead>${head}</thead><tbody>${rows}</tbody></table></div>
-        <div class="mini-exp-fields">
-          <label>이 주제를 고른 내 이유 <span>(선택)</span><textarea id="miniExpReason" rows="2"></textarea></label>
-          <label>실험하면서 관찰한 점 <span>(선택)</span><textarea id="miniExpObservations" rows="2"></textarea></label>
-          <label>느낀 점 <span>(선택)</span><textarea id="miniExpReflection" rows="2"></textarea></label>
-          <label>실제로 참고한 자료 <span>(선택, 한 줄에 하나)</span><textarea id="miniExpSources" rows="2"></textarea></label>
-        </div>
-        <p class="mini-exp-note">적은 문장은 최종 보고서에 거의 그대로 들어가요. 표를 비워 두고 만들면 실험 없이 쓰는 <b>문헌 탐구 보고서</b>로 만들어요. 최종 보고서를 만들 때 사용 횟수가 1회 차감되고, 만드는 데 2~3분 걸려요.</p>
+        ${renderStudentFields(text[3])}
+        <p class="mini-exp-note">적은 문장은 최종 보고서에 거의 그대로 들어가요. 표를 비워 두고 만들면 모은 자료로 쓰는 <b>문헌 탐구 보고서</b>로 만들어요. 최종 보고서를 만들 때 사용 횟수가 1회 차감되고, 만드는 데 2~3분 걸려요.</p>
         <p class="mini-exp-error" id="miniExpError" hidden></p>
         <div class="mini-v229-actions"><button type="button" id="miniExpFinalBtn">최종 보고서 만들기</button></div>
       </section>`;
@@ -2673,9 +2726,31 @@
       return false;
     }
     errorBox.hidden = true;
-    const studentData = collectExperimentInput(draft.template);
-    const measured = studentData.conditions.filter(row => row.values.length).length;
-    if(measured < 2 && !global.confirm("결과 표에 값이 있는 조건이 두 개보다 적어요. 실험 없이 쓰는 문헌 탐구 보고서로 만들까요?")) return false;
+    const reading = draft.result?.collectionKind === "reading";
+    const text = id => $(id)?.value.trim() || "";
+    let studentData;
+    let measured;
+    if(reading){
+      const sourceCards = collectSourceCards(panel);
+      measured = sourceCards.length;
+      if(measured < 2){
+        errorBox.hidden = false;
+        errorBox.textContent = "자료를 2개 이상 적어 주세요. 자료 제목과 핵심 내용은 꼭 있어야 해요.";
+        return false;
+      }
+      const written = text("miniExpSources").split(/\n/).map(v => v.trim()).filter(Boolean);
+      studentData = {
+        sourceCards,
+        reason: text("miniExpReason"),
+        observations: text("miniExpObservations"),
+        reflection: text("miniExpReflection"),
+        sources: written.length ? written : sourceCards.map(card => card.title)
+      };
+    }else{
+      studentData = collectExperimentInput(draft.template);
+      measured = studentData.conditions.filter(row => row.values.length).length;
+      if(measured < 2 && !global.confirm("결과 표에 값이 있는 칸이 두 곳보다 적어요. 모은 자료로 쓰는 문헌 탐구 보고서로 만들까요?")) return false;
+    }
     studentData.draftTitle = draft.title;
     studentData.draftReport = draft.plainText;
     const button = $("miniExpFinalBtn");
@@ -2684,7 +2759,7 @@
       button.textContent = "최종 보고서 만드는 중... (최대 2~3분)";
     }
     try{
-      return await runGenerate({ reportStage: measured >= 2 ? "experiment_final" : "literature", studentData });
+      return await runGenerate({ reportStage: !reading && measured >= 2 ? "experiment_final" : "literature", studentData });
     }finally{
       if(button?.isConnected){
         button.disabled = false;
@@ -3950,6 +4025,12 @@ ${result}`;
         .mini-exp-fields label span{font-weight:600;color:#64748b}
         .mini-exp-fields textarea{border:1px solid #cbd5e1;border-radius:10px;padding:9px;font-size:14px;line-height:1.5;resize:vertical;font-family:inherit}
         .mini-exp-error{color:#b91c1c;font-weight:700;font-size:14px;margin:0 0 10px}
+        .mini-card-grid{display:grid;gap:12px;margin:14px 0}
+        .mini-card{border:1px solid #cbd5e1;background:#fff;border-radius:12px;padding:12px 14px;display:grid;gap:8px}
+        .mini-card b{color:#173ea9;font-size:13px}
+        .mini-card label{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:800;color:#334155}
+        .mini-card label span{font-weight:600;color:#64748b}
+        .mini-card input,.mini-card textarea{border:1px solid #cbd5e1;border-radius:8px;padding:8px;font-size:14px;line-height:1.5;font-family:inherit;resize:vertical}
         @media (max-width: 820px){.mini-exp-fields{grid-template-columns:1fr}.mini-exp-panel{padding:18px}}
         @media print{.mini-exp-panel{display:none!important}}
         @media (max-width: 1100px){.mini-v43-expansion-options,.mini-v232-choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -3984,14 +4065,14 @@ ${result}`;
         <div class="mini-v43-grid">
           ${sectionHtml}
         </div>
-        ${stage === "experiment_draft" && stageResult.dataTemplate ? renderExperimentInputPanel(stageResult.dataTemplate) : ""}
+        ${stage === "experiment_draft" ? renderCollectionPanel(stageResult) : ""}
       </section>
     `;
 
     $("miniV32CopyReportBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(reportPlainText));
     $("miniV32DownloadReportBtn")?.addEventListener("click", () => downloadReportHtml(reportTitle, metadata, displaySections));
-    if(stage === "experiment_draft" && stageResult.dataTemplate){
-      global.__MINI_EXPERIMENT_DRAFT__ = { template: stageResult.dataTemplate, title: reportTitle, plainText: reportPlainText };
+    if(stage === "experiment_draft" && (stageResult.dataTemplate || stageResult.sourceTemplate)){
+      global.__MINI_EXPERIMENT_DRAFT__ = { result: stageResult, template: stageResult.dataTemplate, title: reportTitle, plainText: reportPlainText };
       $("miniExpFinalBtn")?.addEventListener("click", handleExperimentFinal);
     }
     if(stage === "experiment_final" || stage === "literature") root.scrollIntoView?.({ behavior: "smooth", block: "start" });
@@ -4012,9 +4093,10 @@ ${result}`;
     if(actionSteps) actionSteps.innerHTML = "";
   }
 
-  // Science tasks go through the two-stage experiment flow first (설계서 → 학생 결과 입력 → 최종 보고서).
-  function decideReportStage(req){
-    return String(req?.subjectGroup || "").trim() === "과학" ? "experiment_draft" : "";
+  // Every report task starts with a design draft (설계서 → 학생이 모은 자료 입력 → 최종 보고서). The Worker reads the
+  // task type and falls back to a one-shot report when there is nothing for the student to collect (논술·창작·발표).
+  function decideReportStage(){
+    return "experiment_draft";
   }
 
   async function handleGenerateV32(event){

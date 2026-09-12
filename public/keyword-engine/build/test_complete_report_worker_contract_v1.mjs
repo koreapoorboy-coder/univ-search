@@ -43,5 +43,17 @@ checks.push(
   [removeInventedExperience("이 문제가 생기는 것을 본 적이 있는 사람도 많다.").length > 0, "'문제가' was mistaken for a first-person subject"],
 );
 
+// Task types (2026-09-12): the Worker picks what the student will collect; tasks with nothing to collect stay one-shot.
+checks.push(
+  [worker.includes("input.collectionKind = resolveCollectionKind(input)"), "the Worker does not decide the collection type"],
+  [worker.includes("input.collectionKind === COLLECTION.NONE") && worker.includes("input.reportStage = STAGE.COMPLETE"), "an essay/창작 task is not sent back to the one-shot report"],
+  [worker.includes("stageSectionGuide(title, stage, input.collectionKind)"), "the section guide is not told the collection type"],
+  [bridge.includes('function decideReportStage(){') && bridge.includes('return "experiment_draft";'), "the site still starts the two-stage flow only for science"],
+  [bridge.includes("function renderSourceCardPanel"), "the source-card form is missing"],
+  [bridge.includes('result?.collectionKind === "reading"'), "the site does not switch the form by collection type"],
+  [bridge.includes("collectSourceCards(panel)") && bridge.includes("sourceCards,"), "typed source cards are not sent to the Worker"],
+  [bridge.includes('reportStage: !reading && measured >= 2 ? "experiment_final" : "literature"'), "a reading task must end in the literature report"],
+);
+
 for (const [passed, message] of checks) assert.equal(passed, true, message);
 console.log(`PASS complete report worker contract: ${checks.length}/${checks.length}`);

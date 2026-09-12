@@ -6,6 +6,7 @@ import assert from "node:assert/strict";
 import {
   STAGE, allowedNumberSet, buildFigures, computeStats, finalizeStageOutput, normalizeStudentData,
   describeCombination, removeUnsupportedNumbers, resolveReportStage, scrubInternalNames, stagePromptLines, stageSchemaProperties, stageSections, summaryForPrompt,
+  COLLECTION, buildSourceCardTable, resolveCollectionKind, stageOutputKeys, stageSectionGuide,
 } from "../../../admission_worker_skeleton/report_stages_v1.mjs";
 
 let passed = 0;
@@ -172,5 +173,44 @@ check(withRecent.includes("[같은 학교에서 이 과제로 이미 만든 탐�
   "recent combinations from the same class reach the draft instructions");
 check(!stagePromptLines(STAGE.DRAFT, {}).join("\n").includes("이미 만든 탐구"), "the first student in a class gets no such list");
 check(scrubInternalNames("이번 caseTag는 우유 유당 분해다.") === "이번 는 우유 유당 분해다.", "caseTag never reaches the student's text", scrubInternalNames("이번 caseTag는 우유 유당 분해다."));
+
+// Task types (2026-09-12): every report task goes through the two stages, but what the student collects differs.
+const kindOf = (taskDescription, subjectGroup = "") => resolveCollectionKind({ taskDescription, subjectGroup });
+check(kindOf("염화나트륨 농도에 따른 발아율을 실험으로 확인하는 보고서") === COLLECTION.MEASUREMENT, "an experiment task collects measurements", kindOf("염화나트륨 농도에 따른 발아율을 실험으로 확인하는 보고서"));
+check(kindOf("우리 반 학생들의 미디어 이용 습관을 설문으로 조사해 보고서를 쓰시오") === COLLECTION.SURVEY, "a survey task collects answer counts", kindOf("우리 반 학생들의 미디어 이용 습관을 설문으로 조사해 보고서를 쓰시오"));
+check(kindOf("최근 10년 청년 고용 통계 자료를 해석해 보고서를 작성하시오") === COLLECTION.DATASET, "a statistics task collects published figures", kindOf("최근 10년 청년 고용 통계 자료를 해석해 보고서를 작성하시오"));
+check(kindOf("관심 있는 사회 문제를 정해 주제 탐구 보고서를 작성하시오") === COLLECTION.READING, "a research task collects source cards", kindOf("관심 있는 사회 문제를 정해 주제 탐구 보고서를 작성하시오"));
+check(kindOf("주제에 대한 자신의 주장을 담은 논술문을 쓰시오") === COLLECTION.NONE, "an essay task collects nothing", kindOf("주제에 대한 자신의 주장을 담은 논술문을 쓰시오"));
+check(kindOf("탐구 보고서를 쓰시오", "과학") === COLLECTION.MEASUREMENT, "a science subject still means an experiment");
+
+const readingInput = { collectionKind: COLLECTION.READING };
+check(Object.keys(stageSchemaProperties(STAGE.DRAFT, readingInput)).join(",") === "caseTag,sourceTemplate" && stageOutputKeys(STAGE.DRAFT, readingInput).includes("sourceTemplate"),
+  "a reading draft asks for a source plan, not a number table", Object.keys(stageSchemaProperties(STAGE.DRAFT, readingInput)).join(","));
+check(Object.keys(stageSchemaProperties(STAGE.DRAFT, { collectionKind: COLLECTION.SURVEY })).join(",") === "caseTag,dataTemplate", "a survey draft still asks for a table");
+const readingDraft = finalizeStageOutput(STAGE.DRAFT, { reportTitle: "t", sections: [], caseTag: "청소년 노동 인권", sourceTemplate: { cardCount: 9, whatToFind: "사례와 제도" } }, readingInput);
+check(readingDraft.extra.collectionKind === COLLECTION.READING && readingDraft.extra.sourceTemplate.cardCount === 6 && !readingDraft.extra.dataTemplate,
+  "the reading draft returns a card plan with a sane card count", JSON.stringify(readingDraft.extra.sourceTemplate));
+const surveyDraft = finalizeStageOutput(STAGE.DRAFT, { reportTitle: "t", sections: [], caseTag: "미디어 이용", dataTemplate: { measurementName: "응답 수", unit: "명", conditions: ["1시간 미만", "1~3시간", "3시간 이상"], trials: 1 } }, { collectionKind: COLLECTION.SURVEY });
+check(surveyDraft.extra.dataTemplate.trials === 1, "a survey is counted once, not repeated three times", String(surveyDraft.extra.dataTemplate.trials));
+
+const cards = [
+  { title: "청소년 아르바이트 실태 기사", type: "신문 기사", point: "임금을 못 받은 경험이 많다", take: "구제 절차를 모르는 것이 문제다" },
+  { title: "근로기준법 해설", type: "기관 자료", point: "18세 미만도 최저임금을 받는다", take: "법은 있으나 현장에서 안 지켜진다" },
+];
+const cardTable = buildSourceCardTable(cards);
+check(cardTable.columns.join("|") === "자료|종류|핵심 내용|내 해석" && cardTable.rows.length === 2 && cardTable.rows[0][1] === "신문 기사",
+  "the student cards become the first table of the report", JSON.stringify(cardTable.rows[0]));
+check(buildSourceCardTable([cards[0]]) === null, "one card is not enough for a table");
+const readingFinal = finalizeStageOutput(STAGE.LITERATURE, { reportTitle: "t", sections: [{ title: "자료 비교 정리", body: "카드를 비교한다." }] }, { studentData: normalizeStudentData({ sourceCards: cards, sources: [] }) });
+check(readingFinal.extra.comparisonTable.rows.length === 2 && readingFinal.extra.comparisonTable.title === "내가 조사한 자료 정리",
+  "the literature report builds its table from the cards the student typed", JSON.stringify(readingFinal.extra.comparisonTable.columns));
+check(normalizeStudentData({ sourceCards: [{ title: "제목만", type: "", point: "", take: "" }] }).sourceCards.length === 0, "a card with no key content is dropped");
+
+const readingGuide = stageSectionGuide("탐구 방법", STAGE.DRAFT, COLLECTION.READING);
+const surveyGuide = stageSectionGuide("탐구 방법", STAGE.DRAFT, COLLECTION.SURVEY);
+check(readingGuide !== surveyGuide && /자료/.test(readingGuide) && /설문/.test(surveyGuide),
+  "the method section is written for the task type", `${readingGuide} // ${surveyGuide}`);
+check(stagePromptLines(STAGE.DRAFT, { collectionKind: COLLECTION.READING }).join("\n").includes("sourceTemplate"),
+  "the reading draft instructions describe the card plan");
 
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);

@@ -20,6 +20,26 @@ const MAX_TRIALS = 5;
 // Feelings a model tends to add to 느낀 점 ("힘들었지만 보람 있었다") that the student never wrote.
 const FEELING_WORDS = ['힘들', '어려웠', '재미', '즐거', '뿌듯', '보람', '아쉬', '감동', '행복', '설레', '흥미', '신기', '인상 깊', '기뻤', '만족'];
 
+// A report task is staged around whatever the student can collect: measurements, survey answers, published
+// figures, or source cards. 논술·창작·발표 tasks have nothing to collect, so they keep the one-shot report.
+export const COLLECTION = Object.freeze({ MEASUREMENT: 'measurement', SURVEY: 'survey', DATASET: 'dataset', READING: 'reading', NONE: 'none' });
+
+export function resolveCollectionKind(input) {
+  const text = [input?.taskDescription, input?.reportMode, input?.subject].filter(Boolean).join(' ');
+  if (/논술|창작|소설|시 쓰기|발표 대본|토론|포트폴리오|산출물 제작/.test(text)) return COLLECTION.NONE;
+  if (/실험|측정|실습|관찰 실험/.test(text) || String(input?.subjectGroup || '').trim() === '과학') return COLLECTION.MEASUREMENT;
+  if (/설문|인터뷰|여론|응답자|만족도/.test(text)) return COLLECTION.SURVEY;
+  if (/통계|지표|데이터|자료 ?해석|그래프 분석|추이/.test(text)) return COLLECTION.DATASET;
+  return COLLECTION.READING;
+}
+
+const COLLECTION_LABEL = {
+  [COLLECTION.MEASUREMENT]: '실험 측정',
+  [COLLECTION.SURVEY]: '설문 조사',
+  [COLLECTION.DATASET]: '공개 자료 수치 정리',
+  [COLLECTION.READING]: '자료 조사(문헌)',
+};
+
 const clip = (value, max) => String(value ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
 const round = (value, digits = 2) => Math.round(value * 10 ** digits) / 10 ** digits;
 
@@ -47,6 +67,9 @@ export function normalizeStudentData(raw) {
     observations: clip(src.observations, 1200),
     reflection: clip(src.reflection, 800),
     sources: (Array.isArray(src.sources) ? src.sources : []).map((source) => clip(source, 200)).filter(Boolean).slice(0, 6),
+    sourceCards: (Array.isArray(src.sourceCards) ? src.sourceCards : []).slice(0, 6)
+      .map((card) => ({ title: clip(card?.title, 80), type: clip(card?.type, 30), point: clip(card?.point, 300), take: clip(card?.take, 300) }))
+      .filter((card) => card.title && card.point),
     draftTitle: clip(src.draftTitle, 80),
     draftReport: String(src.draftReport ?? '').trim().slice(0, 6000),
   };
@@ -61,6 +84,7 @@ export function resolveReportStage(payload) {
   const requested = String(payload?.reportStage || '').trim();
   if (requested === STAGE.DRAFT) return STAGE.DRAFT;
   if (requested === STAGE.FINAL || requested === STAGE.LITERATURE) {
+    // Numbers go to the measured report; source cards (or nothing) go to the literature report.
     return requested === STAGE.FINAL && hasStudentMeasurements(normalizeStudentData(payload?.studentData))
       ? STAGE.FINAL
       : STAGE.LITERATURE;
@@ -270,15 +294,33 @@ export function buildReferencesBody(body, sources) {
   return String(body || '').split('\n').map((line) => line.trim()).filter((line) => line && !/^(※|\(|\[)/.test(line)).join('\n');
 }
 
-function sanitizeDataTemplate(raw) {
+function sanitizeSourceTemplate(raw) {
+  return {
+    cardCount: Math.min(6, Math.max(3, Math.round(Number(raw?.cardCount) || 4))),
+    whatToFind: clip(raw?.whatToFind, 200),
+  };
+}
+
+function sanitizeDataTemplate(raw, kind) {
   const conditions = [...new Set((Array.isArray(raw?.conditions) ? raw.conditions : []).map((label) => clip(label, 60)).filter(Boolean))].slice(0, MAX_CONDITIONS);
-  const trials = Math.min(MAX_TRIALS, Math.max(3, Math.round(Number(raw?.trials) || 3)));
+  const minTrials = kind === COLLECTION.MEASUREMENT ? 3 : 1;
+  const trials = Math.min(MAX_TRIALS, Math.max(minTrials, Math.round(Number(raw?.trials) || minTrials)));
   return {
     measurementName: clip(raw?.measurementName, 40) || '측정값',
     unit: clip(raw?.unit, 20),
     scaleGuide: clip(raw?.scaleGuide, 200),
     conditions: conditions.length >= 2 ? conditions : ['조건 1', '조건 2'],
     trials,
+  };
+}
+
+export function buildSourceCardTable(cards) {
+  if (!Array.isArray(cards) || cards.length < 2) return null;
+  return {
+    label: '표 1',
+    title: '내가 조사한 자료 정리',
+    columns: ['자료', '종류', '핵심 내용', '내 해석'],
+    rows: cards.map((card) => [card.title, card.type || '-', card.point, card.take || '-']),
   };
 }
 
@@ -316,7 +358,23 @@ export function stageSections(stage, input) {
   return null;
 }
 
-export function stageSectionGuide(title, stage) {
+export function stageSectionGuide(title, stage, kind = COLLECTION.MEASUREMENT) {
+  const draftMethod = {
+    [COLLECTION.SURVEY]: '설문을 설계한다. 묻는 대상과 인원, 문항과 보기, 언제 어떻게 받을지, 응답을 어떻게 셀지, 답을 왜곡하지 않는 문항 표현, 개인정보를 묻지 않는 주의까지 쓴다. 700~1000자',
+    [COLLECTION.DATASET]: '어떤 공개 자료에서 어떤 지표를 어떤 기준으로 뽑아 비교할지 설계한다. 비교할 항목(연도·지역 등), 같은 기준으로 맞추는 방법, 자료의 한계(조사 방법이 다를 수 있음)까지 쓴다. 수치와 기관명은 지어내지 않는다. 700~1000자',
+    [COLLECTION.READING]: '어떤 종류의 자료를 몇 개 읽고 무엇을 뽑아 적을지 설계한다. 자료를 고르는 기준, 서로 다른 관점을 함께 보는 방법, 각 자료에서 확인할 항목, 자료를 믿을 수 있는지 따지는 방법을 쓴다. 실제로 읽지 않은 자료의 내용을 미리 쓰지 않는다. 700~1000자',
+  };
+  const draftRecord = {
+    [COLLECTION.SURVEY]: '응답을 어떤 표에 어떻게 기록할지 쓴다. 집단과 보기별로 몇 명이 답했는지 세어 적는 방식이어야 한다. 결과나 예상 수치는 쓰지 않는다. 200~350자',
+    [COLLECTION.DATASET]: '찾은 수치를 어떤 표에 어떤 단위로 기록할지, 출처를 어디에 적을지 쓴다. 결과나 예상 수치는 쓰지 않는다. 200~350자',
+    [COLLECTION.READING]: '자료마다 제목, 자료 종류, 핵심 내용, 내 해석을 카드로 적는다는 계획을 쓴다. 몇 개를 읽을지와 무엇을 찾을지가 드러나야 한다. 아직 읽지 않았으므로 내용을 미리 쓰지 않는다. 200~350자',
+  };
+  if (stage === STAGE.DRAFT && /탐구 방법/.test(String(title)) && draftMethod[kind]) return draftMethod[kind];
+  if (stage === STAGE.DRAFT && /결과 기록 계획/.test(String(title)) && draftRecord[kind]) return draftRecord[kind];
+  return stageSectionGuideBase(title, stage);
+}
+
+function stageSectionGuideBase(title, stage) {
   if (stage === STAGE.COMPLETE) return '';
   const text = String(title || '');
   const second = stage === STAGE.FINAL || stage === STAGE.LITERATURE;
@@ -349,7 +407,18 @@ export function stagePromptLines(stage, input) {
   if (stage === STAGE.DRAFT) {
     return [
       '[이번 단계: 1차 탐구 설계서]',
-      '- 이 보고서는 실험 전에 쓰는 설계서다. 학생이 이 설계대로 실험한 뒤 결과 표를 채우면 2차로 최종 보고서를 만든다.',
+      `- 이 과제에서 학생이 모을 자료는 "${COLLECTION_LABEL[input.collectionKind || COLLECTION.MEASUREMENT]}"이다. 설계는 이 방식에 맞춘다.`,
+      '- 이 보고서는 자료를 모으기 전에 쓰는 설계서다. 학생이 이 설계대로 자료를 모아 표나 카드를 채우면 2차로 최종 보고서를 만든다.',
+      ...(input.collectionKind === COLLECTION.SURVEY
+        ? ['- 설문은 고등학생이 학급이나 학교에서 받을 수 있는 규모로 설계한다. 문항은 3~5개, 보기는 3~5개로 하고, conditions에는 "집단 · 보기"처럼 응답을 셀 칸의 이름을 넣는다. measurementName은 "응답 수", unit은 "명"으로 한다.']
+        : []),
+      ...(input.collectionKind === COLLECTION.DATASET
+        ? ['- 학생이 공개 자료(통계표, 기관 공개 지표 등)에서 숫자를 옮겨 적을 수 있게 설계한다. conditions에는 "연도"나 "지역·항목"처럼 비교할 칸 이름을 넣고, measurementName과 unit에는 그 지표와 단위를 쓴다. 자료의 출처 종류(무엇에서 찾을지)는 본문에 밝히되 기관명이나 수치를 지어내지 않는다.']
+        : []),
+      ...(input.collectionKind === COLLECTION.READING
+        ? ['- 이 과제는 숫자를 재지 않는다. dataTemplate 대신 sourceTemplate을 쓴다. cardCount는 학생이 읽을 자료 수(3~6), whatToFind에는 각 자료에서 무엇을 찾아 적어야 하는지 한 문장으로 쓴다.',
+           '- 학생은 자료마다 제목, 자료 종류, 핵심 내용, 내 해석을 카드로 적는다. 본문에는 학생이 아직 읽지 않은 자료의 내용을 미리 쓰지 않는다.']
+        : []),
       '- 결과, 예상 수치, 결론을 쓰지 않는다. 가설은 쓴다.',
       '- 측정은 고등학생이 학교나 집에서 안전하게 할 수 있고 숫자로 기록할 수 있어야 한다. 기구로 재기 어려우면 0~3점 같은 점수 기준을 정한다.',
       '- 점수 기준은 값이 클수록 measurementName이 크다는 뜻이 되게 정한다. 예: 얼룩 제거 정도는 0점 그대로, 3점 완전히 제거. 작을수록 좋은 점수는 쓰지 않는다.',
@@ -397,14 +466,16 @@ export function stagePromptLines(stage, input) {
   if (stage === STAGE.LITERATURE) {
     return [
       '[이번 단계: 문헌 탐구 보고서]',
-      '- 학생이 실험 결과를 입력하지 않았다. 실험을 했다고 쓰지 않고, 교과서와 자료 조사로 연구 질문에 답하는 문헌 탐구 보고서로 쓴다.',
+      ...(data.sourceCards.length
+        ? ['- 학생이 직접 조사한 자료 카드가 아래에 있다. 카드에 적힌 제목, 핵심 내용, 학생의 해석만을 근거로 쓰고, 카드에 없는 자료나 내용을 지어내지 않는다. 표 1은 학생의 카드로 코드가 만든다.']
+        : ['- 학생이 실험 결과를 입력하지 않았다. 실험을 했다고 쓰지 않고, 교과서와 자료 조사로 연구 질문에 답하는 문헌 탐구 보고서로 쓴다.']),
       '- 1차 설계서가 있으면 연구 질문과 이론은 이어받고, 실험 설계는 자료 조사 방법으로 바꾼다.',
       '- comparisonTable에는 자료 비교 정리 절의 내용을 조건별로 정리한 표를 넣는다. columns는 3~4개, rows는 2~6개, 칸에는 짧은 말만 쓰고 숫자는 쓰지 않는다.',
       '- 입력에 근거 없는 숫자는 쓰지 않는다. 이를 어긴 문장은 자동으로 삭제된다.',
       '- 참고 자료 절은 쓰지 않는다. 학생이 적은 sources로 자동으로 붙는다.',
       '',
       '[학생이 적은 내용]',
-      JSON.stringify(studentVoice(data), null, 2),
+      JSON.stringify({ ...studentVoice(data), 자료카드: data.sourceCards }, null, 2),
       '',
       '[1차 탐구 설계서]',
       data.draftReport || '(없음)',
@@ -419,7 +490,8 @@ export function stageLengthRule(stage) {
   return '분량은 공백 포함 3200~4500자다. 절마다 서로 다른 역할을 수행하고, 이론 설명을 여러 절에서 반복하지 않는다.';
 }
 
-export function stageOutputKeys(stage) {
+export function stageOutputKeys(stage, input = {}) {
+  if (stage === STAGE.DRAFT && input.collectionKind === COLLECTION.READING) return 'reportTitle, sections, sourceTemplate, caseTag';
   if (stage === STAGE.DRAFT) return 'reportTitle, sections, dataTemplate, caseTag';
   if (stage === STAGE.FINAL) return 'reportTitle, sections, figures';
   if (stage === STAGE.LITERATURE) return 'reportTitle, sections, comparisonTable';
@@ -460,7 +532,18 @@ const STAGE_SCHEMA = {
   },
 };
 
-export function stageSchemaProperties(stage) {
+export function stageSchemaProperties(stage, input = {}) {
+  if (stage === STAGE.DRAFT && input.collectionKind === COLLECTION.READING) {
+    return {
+      caseTag: { type: 'string' },
+      sourceTemplate: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['cardCount', 'whatToFind'],
+        properties: { cardCount: { type: 'integer', minimum: 3, maximum: 6 }, whatToFind: { type: 'string' } },
+      },
+    };
+  }
   return STAGE_SCHEMA[stage] || {};
 }
 
@@ -469,8 +552,16 @@ export function finalizeStageOutput(stage, parsed, input) {
   const sections = Array.isArray(parsed?.sections) ? parsed.sections : [];
   if (stage === STAGE.DRAFT) {
     const scrubbed = sections.map((section) => ({ ...section, body: scrubInternalNames(section?.body) }));
-    const dataTemplate = sanitizeDataTemplate(parsed?.dataTemplate);
-    return { parsed: { ...parsed, sections: scrubbed }, extra: { dataTemplate, combination: describeCombination(dataTemplate, parsed?.caseTag) } };
+    const kind = input.collectionKind || COLLECTION.MEASUREMENT;
+    if (kind === COLLECTION.READING) {
+      const sourceTemplate = sanitizeSourceTemplate(parsed?.sourceTemplate);
+      return {
+        parsed: { ...parsed, sections: scrubbed },
+        extra: { collectionKind: kind, sourceTemplate, combination: { caseTag: clip(parsed?.caseTag, 40), variableTag: '', measureTag: clip(sourceTemplate.whatToFind, 40) } },
+      };
+    }
+    const dataTemplate = sanitizeDataTemplate(parsed?.dataTemplate, kind);
+    return { parsed: { ...parsed, sections: scrubbed }, extra: { collectionKind: kind, dataTemplate, combination: describeCombination(dataTemplate, parsed?.caseTag) } };
   }
   if (stage === STAGE.FINAL || stage === STAGE.LITERATURE) {
     const data = input.studentData || normalizeStudentData(null);
@@ -496,7 +587,7 @@ export function finalizeStageOutput(stage, parsed, input) {
     if (!cleaned.some((section) => /참고 자료/.test(String(section?.title || '')))) cleaned.push({ title: '참고 자료', body: referencesBody });
     const extra = stage === STAGE.FINAL
       ? { figures: buildFigures(parsed?.figures, stats), figuresAfterSection: '탐구 결과', dataSummary: stats }
-      : { comparisonTable: sanitizeComparisonTable(parsed?.comparisonTable), comparisonTableAfterSection: '자료 비교 정리' };
+      : { comparisonTable: buildSourceCardTable(data.sourceCards) || sanitizeComparisonTable(parsed?.comparisonTable), comparisonTableAfterSection: '자료 비교 정리' };
     return { parsed: { ...parsed, sections: cleaned }, extra: { ...extra, removedNumberSentences: removed, removedFeelingSentences: removedFeelings } };
   }
   return { parsed, extra: {} };

@@ -1,5 +1,5 @@
 import { acceptLiveInputCandidate, handleSimpleLiveIntakeRequest, parseStrictIJson } from './simple_live_intake_v1.mjs';
-import { STAGE, finalizeStageOutput, normalizeStudentData, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
+import { COLLECTION, STAGE, finalizeStageOutput, normalizeStudentData, resolveCollectionKind, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
 
 const SERVICE_NAME = 'admission-keyword-worker';
 
@@ -194,6 +194,11 @@ export default {
         };
         const input = resolveInput(trustedPayload);
         validateInput(input);
+        input.collectionKind = resolveCollectionKind(input);
+        // 논술·창작·발표 have nothing for the student to collect, so they keep the one-shot report.
+        if (input.collectionKind === COLLECTION.NONE && input.reportStage !== STAGE.COMPLETE) {
+          input.reportStage = STAGE.COMPLETE;
+        }
 
         if (env.DB && input.reportStage === STAGE.DRAFT) {
           // Variety is a hint, never a gate: a lookup failure must not stop the report.
@@ -569,7 +574,7 @@ function buildPrompt(input, seedMatch, env) {
     '너는 고등학생이 학교에 제출할 수 있는 완성형 수행평가 탐구보고서를 작성하는 전문 편집자다.',
     '반드시 자연스러운 한국어로 쓰고, 학생이 직접 탐구하고 이해한 문체를 사용한다.',
     `이 보고서의 목표 수준은 ${level.label}이다. ${input.grade || '고등학교'} 학생이 한 단계 위 수준까지 파고든 보고서로 쓴다. ${level.guide}`,
-    `출력은 JSON만 반환하며 ${stageOutputKeys(stage)} 키만 사용한다. sections에는 요청한 절을 순서대로 {title, body} 하나씩 담는다.`,
+    `출력은 JSON만 반환하며 ${stageOutputKeys(stage, input)} 키만 사용한다. sections에는 요청한 절을 순서대로 {title, body} 하나씩 담는다.`,
     '각 절의 body는 요약, 작성 안내, 개요가 아니라 그 절의 완성된 본문이어야 하며, 절끼리 이어 읽으면 하나의 완성 보고서가 된다.',
     '각 절은 제목만 채우지 말고 구체적인 교과 원리, 탐구 절차, 비교 기준, 해석과 한계를 충분히 설명한다.',
     '교과서 개념에서 출발해 목표 수준의 개념과 분석으로 깊게 들어가되, 문장은 분명하게 쓴다.',
@@ -622,7 +627,7 @@ function buildPrompt(input, seedMatch, env) {
     '- assessmentContext.rubricFocus는 채점 요소다. 이 단어들을 보고서의 주제나 핵심 개념으로 쓰지 않는다.',
     '- assessmentContext.cautions는 틀리기 쉬운 부분이다. 문장을 그대로 옮기지 말고 내용으로 지킨다.',
     '- sections: 아래 절을 이 순서대로 하나씩 쓴다. title에는 절 제목만, body에는 본문만 쓰고 #, ## 같은 Markdown 기호나 절 번호는 넣지 않는다. 각 절의 내용과 분량은 다음 계획을 따른다.',
-    ...requestedSections.map((title, index) => `  ${index + 1}. ${title}: ${stageSectionGuide(title, stage) || sectionWritingGuide(title)}`),
+    ...requestedSections.map((title, index) => `  ${index + 1}. ${title}: ${stageSectionGuide(title, stage, input.collectionKind) || sectionWritingGuide(title)}`),
     '- 연구 질문 절은 물음표(?)로 끝나는 짧은 질문 1~2개로 쓰고, 비교 조건과 관찰 대상을 분명히 한다. "~을 탐구한다"처럼 서술문으로 쓰지 않는다.',
     '- 이론적 배경은 핵심 용어 정의에 그치지 말고 원리와 인과 관계를 설명한다.',
     '- 탐구 방법은 준비물·변인 통제·절차·기록 방법·안전 주의를 재현 가능하게 쓴다.',
@@ -659,7 +664,7 @@ async function callOpenAIWithRetry(prompt, env, input) {
 async function callOpenAI(prompt, env, input = {}) {
   const model = env.OPENAI_MODEL || 'gpt-4.1-mini';
   const stage = input.reportStage || STAGE.COMPLETE;
-  const stageProperties = stageSchemaProperties(stage);
+  const stageProperties = stageSchemaProperties(stage, input);
   // Reasoning models (gpt-5 family, o-series) reject temperature and spend part of the output budget on reasoning.
   const reasoningModel = /^(gpt-5|o\d)/.test(model);
   const res = await fetch('https://api.openai.com/v1/responses', {
