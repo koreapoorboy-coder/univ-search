@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v256-single-shot-columns";
+  const VERSION = "mini-worker-generate-bridge-v257-score-range-check";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2696,6 +2696,17 @@
 
   const NUMBER_TEXT = /^-?\d+(\.\d+)?$/;
 
+  // A score scale ("0점 그대로, 3점 완전히 제거") sets a range the student's numbers must stay inside;
+  // measured quantities such as cm or seconds have no such limit.
+  function scoreRange(template){
+    if(!/점/.test(String(template?.unit || ""))) return null;
+    const numbers = (String(template?.scaleGuide || "").match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+    if(numbers.length < 2) return null;
+    const min = Math.min(...numbers);
+    const max = Math.max(...numbers);
+    return max > min && max - min <= 100 ? { min, max } : null;
+  }
+
   function collectExperimentInput(template){
     const panel = $("miniExpPanel");
     const conditions = (template?.conditions || []).map((label, r) => ({
@@ -2721,11 +2732,19 @@
     const panel = $("miniExpPanel");
     if(!draft || !panel) return false;
     const errorBox = $("miniExpError");
-    const invalid = Array.from(panel.querySelectorAll("input[data-trial]")).filter(input => input.value.trim() && !NUMBER_TEXT.test(input.value.trim().replace(/,/g, "")));
-    panel.querySelectorAll("input[data-trial]").forEach(input => input.classList.toggle("is-invalid", invalid.includes(input)));
-    if(invalid.length){
+    const cells = Array.from(panel.querySelectorAll("input[data-trial]"));
+    const invalid = cells.filter(input => input.value.trim() && !NUMBER_TEXT.test(input.value.trim().replace(/,/g, "")));
+    const range = scoreRange(draft.template);
+    const outOfRange = invalid.length ? [] : cells.filter(input => {
+      const value = Number(input.value.trim().replace(/,/g, ""));
+      return input.value.trim() && range && (value < range.min || value > range.max);
+    });
+    cells.forEach(input => input.classList.toggle("is-invalid", invalid.includes(input) || outOfRange.includes(input)));
+    if(invalid.length || outOfRange.length){
       errorBox.hidden = false;
-      errorBox.textContent = "결과 칸에는 숫자만 넣어 주세요. 설명은 관찰 메모 칸에 적어 주세요.";
+      errorBox.textContent = invalid.length
+        ? "결과 칸에는 숫자만 넣어 주세요. 설명은 관찰 메모 칸에 적어 주세요."
+        : `점수는 ${range.min}에서 ${range.max} 사이로 적어 주세요. 설계서에 정한 기준을 벗어난 값이 있어요.`;
       return false;
     }
     errorBox.hidden = true;

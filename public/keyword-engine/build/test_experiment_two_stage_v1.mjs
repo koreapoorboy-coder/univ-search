@@ -247,4 +247,17 @@ check(stagePromptLines(STAGE.LITERATURE, { studentData: normalizeStudentData({ s
 const bridgeSource = await readFile(new URL("../assets/js/mini_worker_generate_bridge_v32.js", import.meta.url), "utf8");
 check(bridgeSource.includes("const valueHead = trials > 1"), "the input table still heads a single value column with 1회");
 
+// 고2 선택과목 live test 2026-09-12: the drafts promised 표준편차 and 오차막대, which the final report never gets,
+// and a physics draft wrote "flux 결합".
+check(stageSectionGuide("결과 기록 계획", STAGE.DRAFT, COLLECTION.MEASUREMENT).includes("표준편차나 오차막대"),
+  "the record plan may not promise statistics the report cannot draw");
+check(stagePromptLines(STAGE.DRAFT, {}).join("\n").includes("오차막대, 유의성 검정"), "the draft is told what the second stage actually produces");
+check(scrubInternalNames("권수를 늘리면 flux 결합이 커진다.") === "권수를 늘리면 자속 결합이 커진다.", "English terms are written in Korean", scrubInternalNames("권수를 늘리면 flux 결합이 커진다."));
+const rangeSource = bridgeSource.slice(bridgeSource.indexOf("function scoreRange"), bridgeSource.indexOf("function collectExperimentInput"));
+const scoreRange = new Function(`${rangeSource}\nreturn scoreRange;`)();
+check(JSON.stringify(scoreRange({ unit: "점", scaleGuide: "0점 그대로, 3점 완전히 제거" })) === '{"min":0,"max":3}',
+  "a score scale sets the range the typed numbers must stay inside", JSON.stringify(scoreRange({ unit: "점", scaleGuide: "0점 그대로, 3점 완전히 제거" })));
+check(scoreRange({ unit: "cm", scaleGuide: "풍선의 가장 넓은 부분을 잰다" }) === null, "a measured length has no score range");
+check(scoreRange({ unit: "점", scaleGuide: "보라색이 짙을수록 높게 준다" }) === null, "a scale with no numbers sets no range");
+
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
