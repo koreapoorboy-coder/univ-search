@@ -89,6 +89,7 @@ export function analysisPromptLines(input) {
     '- 보고서면 docType을 report로 하고 report 항목을 채운다. 생활기록부면 record로 하고 record 항목을 채운다. 둘 다 아니면 other로 하고 두 항목을 빈 값으로 둔다.',
     '',
     '[반드시 지킬 것]',
+    '- 모든 항목을 한국어로 쓴다. 원문이 영어나 다른 언어여도 한국어로 옮겨 적는다. 교과 용어는 우리 교과서에서 쓰는 말로 바꾼다.',
     '- 사람 이름, 학교 이름, 선생님 이름, 친구 이름은 어떤 항목에도 쓰지 않는다. 읽었더라도 옮기지 않는다.',
     '- 파일에 적힌 내용만 쓴다. 없는 활동이나 수치를 지어내지 않는다. 읽히지 않는 부분은 빈 값으로 둔다.',
     '- 글자가 흐리거나 잘려 확실하지 않으면 docTypeReason에 그렇게 적는다.',
@@ -142,6 +143,12 @@ export function sanitizeAnalysis(parsed) {
       why: text(line?.why, 200),
       step: text(line?.step, 150),
     })).filter((line) => line.title && line.why),
+    chosenLine: parsed?.chosenLine?.title ? {
+      title: text(parsed.chosenLine.title, 80),
+      subject: text(parsed.chosenLine.subject, 30),
+      why: text(parsed.chosenLine.why, 200),
+      step: text(parsed.chosenLine.step, 150),
+    } : null,
   };
 }
 
@@ -165,6 +172,11 @@ export function priorWorkPromptLines(analysis, sameGround) {
     if (analysis.record.thinSides.length) lines.push(`- 아직 얇은 것: ${analysis.record.thinSides.join(' / ')}`);
   }
   if (analysis.level && analysis.level !== '판단 어려움') lines.push(`- 지난 자료의 수준: ${analysis.level}. 이번 설계는 여기서 한 단계 위로 간다.`);
+  if (analysis.chosenLine) {
+    lines.push(`- 학생이 다음 탐구로 고른 주제: ${analysis.chosenLine.title}`);
+    if (analysis.chosenLine.step) lines.push(`- 그 주제에서 깊어져야 하는 점: ${analysis.chosenLine.step}`);
+    lines.push('- 이번 설계서는 이 주제로 만든다. 과제 안내문의 조건과 맞지 않는 부분만 과제에 맞게 고친다.');
+  }
   lines.push(sameGround
     ? '- 이번 탐구는 위 자료에서 이어지는 종단 탐구다. 같은 주제를 다시 하지 말고, 남은 한계나 다음 탐구로 적힌 것에서 출발해 한 단계 깊게 설계한다. 무엇이 이어지는지는 연구 질문에 자연스럽게 드러나야 하고, 본문에 "지난 보고서"라는 말을 쓰지 않는다.'
     : '- 이번 과제는 위 자료와 주제가 다르다. 주제를 억지로 잇지 않는다. 대신 그때보다 한 단계 높은 탐구 방법(변인 통제, 수치 비교, 반복 측정, 근거 검토)을 쓰도록 설계한다.');

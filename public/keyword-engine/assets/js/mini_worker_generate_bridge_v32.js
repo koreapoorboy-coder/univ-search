@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v259-record-draft";
+  const VERSION = "mini-worker-generate-bridge-v260-prior-work-upload";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -644,6 +644,7 @@
       bookUsageMode: mini.bookUsageMode || mini.selectionPayload?.bookUsageMode || ((mini.selectedBook?.title) ? "useBook" : "noBook"),
       useBookInReport: !!(mini.useBookInReport || mini.selectionPayload?.useBookInReport),
       interpretationConfirmed: !!mini.reportGenerationContext?.decisionFlow?.interpretationConfirmed,
+      priorWork: global.__MINI_PRIOR_WORK__ || null,
       selectedCategory: mini.reportGenerationContext?.decisionFlow?.selectedCategory || form.career || "",
       legacyWorkerCompatibility: {
         gradeDefaulted: false,
@@ -4059,6 +4060,31 @@ ${result}`;
         .mini-exp-fields label span{font-weight:600;color:#64748b}
         .mini-exp-fields textarea{border:1px solid #cbd5e1;border-radius:10px;padding:9px;font-size:14px;line-height:1.5;resize:vertical;font-family:inherit}
         .mini-exp-error{color:#b91c1c;font-weight:700;font-size:14px;margin:0 0 10px}
+        .mini-upload{border:1px dashed #94a3b8;background:#fff;border-radius:14px;padding:18px 20px;margin:18px 0}
+        .mini-upload h3{margin:6px 0 8px;font-size:17px}
+        .mini-upload-help{color:#475569;font-size:14px;margin:0 0 12px;line-height:1.7}
+        .mini-upload-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+        .mini-upload-pick{display:inline-block;border:1px solid #173ea9;color:#173ea9;background:#fff;border-radius:9px;padding:9px 16px;font-weight:800;font-size:14px;cursor:pointer}
+        .mini-upload-row button{border:0;background:#173ea9;color:#fff;border-radius:9px;padding:10px 18px;font-weight:800;font-size:14px;cursor:pointer}
+        .mini-upload-row button:disabled{background:#cbd5e1;cursor:default}
+        .mini-upload-list{list-style:none;margin:12px 0 0;padding:0}
+        .mini-upload-list li{display:flex;align-items:center;gap:10px;font-size:14px;padding:6px 0;border-bottom:1px solid #eef2f7}
+        .mini-upload-list li span{flex:1;word-break:break-all}
+        .mini-upload-list li b{color:#475569;font-weight:700}
+        .mini-upload-list li button{border:0;background:none;color:#b91c1c;font-size:15px;cursor:pointer}
+        .mini-upload-total{color:#64748b;font-weight:700;border-bottom:0 !important}
+        .mini-upload-error{color:#b91c1c;font-weight:700;font-size:14px;margin:10px 0 0}
+        .mini-prior-block{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin:12px 0}
+        .mini-prior-block b{color:#173ea9;font-size:14px}
+        .mini-prior-block div{margin-top:7px;font-size:14.5px;line-height:1.7}
+        .mini-prior-block span,.mini-prior-line span{display:inline-block;min-width:104px;color:#64748b;font-weight:700}
+        .mini-prior-h3{margin:22px 0 4px;font-size:17px}
+        .mini-prior-note{color:#64748b;font-size:14px;margin:0 0 10px;line-height:1.7}
+        .mini-prior-line{border:1px solid #cbd5e1;border-radius:12px;padding:13px 16px;margin:10px 0;background:#fff}
+        .mini-prior-line b{color:#173ea9;font-size:15px}
+        .mini-prior-line div{margin-top:6px;font-size:14px;line-height:1.7;color:#334155}
+        .mini-prior-line button{margin-top:11px;border:0;background:#173ea9;color:#fff;border-radius:9px;padding:9px 16px;font-weight:800;font-size:14px;cursor:pointer}
+        .mini-prior-line button:disabled{background:#cbd5e1;cursor:default}
         .mini-record{border:1px solid #cbd5e1;background:#f8fafc;border-radius:14px;padding:18px 20px;margin:18px 0}
         .mini-record h3{margin:6px 0 8px;font-size:17px}
         .mini-record-help{color:#475569;font-size:14px;margin:0 0 12px;line-height:1.7}
@@ -4193,6 +4219,173 @@ ${result}`;
     }
   }
 
+  const UPLOAD_LIMITS = { fileBytes: 10 * 1024 * 1024, totalBytes: 20 * 1024 * 1024, maxFiles: 30 };
+  const UPLOAD_ACCEPT = ".pdf,image/png,image/jpeg,image/webp,image/heic";
+  let chosenUploads = [];
+
+  const fileSizeText = bytes => bytes >= 1048576 ? `${(bytes / 1048576).toFixed(1)}MB` : `${Math.max(1, Math.round(bytes / 1024))}KB`;
+
+  function uploadProblem(files){
+    if(!files.length) return "먼저 파일을 고르세요.";
+    if(files.length > UPLOAD_LIMITS.maxFiles) return `파일은 한 번에 ${UPLOAD_LIMITS.maxFiles}개까지 올릴 수 있어요.`;
+    const big = files.find(file => file.size > UPLOAD_LIMITS.fileBytes);
+    if(big) return `파일 하나는 10MB까지예요. "${big.name}"이(가) 너무 큽니다.`;
+    const total = files.reduce((sum, file) => sum + file.size, 0);
+    if(total > UPLOAD_LIMITS.totalBytes) return "한 번에 올리는 파일은 모두 합쳐 20MB까지예요. 사진 장수를 줄여 주세요.";
+    return "";
+  }
+
+  function renderUploadPanel(){
+    const panel = document.createElement("section");
+    panel.className = "mini-upload";
+    panel.id = "miniUploadPanel";
+    panel.innerHTML = `
+      <div class="mini-v43-kicker">선택 · 내가 전에 쓴 자료</div>
+      <h3>전에 쓴 탐구보고서나 생활기록부가 있으면 올려 주세요</h3>
+      <p class="mini-upload-help">올린 자료를 읽고 <b>지금까지 무엇을 했는지</b> 정리해 드려요. 그리고 이번 보고서를 그 다음 단계로 이어서 만들어요. 올리지 않아도 보고서는 만들 수 있어요.<br>PDF와 사진 모두 되고, <b>파일 하나 10MB · 모두 합쳐 20MB</b>까지예요. 생활기록부처럼 장수가 많아도 괜찮아요.</p>
+      <div class="mini-upload-row">
+        <label class="mini-upload-pick">파일 고르기<input type="file" id="miniUploadInput" multiple accept="${UPLOAD_ACCEPT}" hidden></label>
+        <button type="button" id="miniUploadGoBtn" disabled>내 자료 분석하기</button>
+      </div>
+      <ul class="mini-upload-list" id="miniUploadList"></ul>
+      <p class="mini-upload-error" id="miniUploadError" hidden></p>
+    `;
+    return panel;
+  }
+
+  function paintUploadList(){
+    const list = $("miniUploadList");
+    const go = $("miniUploadGoBtn");
+    if(!list || !go) return;
+    const total = chosenUploads.reduce((sum, file) => sum + file.size, 0);
+    list.innerHTML = chosenUploads.map((file, index) => `<li><span>${escapeHtml(file.name)}</span><b>${fileSizeText(file.size)}</b><button type="button" data-drop="${index}" aria-label="빼기">✕</button></li>`).join("")
+      + (chosenUploads.length ? `<li class="mini-upload-total">모두 합쳐 ${fileSizeText(total)}</li>` : "");
+    list.querySelectorAll("[data-drop]").forEach(button => button.addEventListener("click", () => {
+      chosenUploads.splice(Number(button.dataset.drop), 1);
+      paintUploadList();
+    }));
+    go.disabled = !chosenUploads.length;
+  }
+
+  function mountUploadPanel(){
+    if($("miniUploadPanel")) return;
+    const button = $("generateBtn");
+    // Right above the generate button, so the student has already filled in school, grade and subject:
+    // those travel with the upload and decide the level the proposals aim at.
+    const anchor = button?.parentElement;
+    if(!anchor?.parentNode) return;
+    const panel = renderUploadPanel();
+    anchor.parentNode.insertBefore(panel, anchor);
+    const input = $("miniUploadInput");
+    input?.addEventListener("change", () => {
+      const picked = Array.from(input.files || []);
+      const problem = uploadProblem(chosenUploads.concat(picked));
+      const errorBox = $("miniUploadError");
+      if(problem){
+        errorBox.hidden = false;
+        errorBox.textContent = problem;
+      }else{
+        errorBox.hidden = true;
+        chosenUploads = chosenUploads.concat(picked);
+      }
+      input.value = "";
+      paintUploadList();
+    });
+    $("miniUploadGoBtn")?.addEventListener("click", handleAnalyzeUpload);
+  }
+
+  async function handleAnalyzeUpload(){
+    const errorBox = $("miniUploadError");
+    const button = $("miniUploadGoBtn");
+    const problem = uploadProblem(chosenUploads);
+    if(problem){
+      errorBox.hidden = false;
+      errorBox.textContent = problem;
+      return false;
+    }
+    errorBox.hidden = true;
+    const form = new FormData();
+    const req = buildWorkerRequest();
+    form.append("payload", JSON.stringify({ schoolName: req.schoolName, grade: req.grade, targetLevel: req.grade }));
+    chosenUploads.forEach(file => form.append("files", file, file.name));
+    if(button){
+      button.disabled = true;
+      button.textContent = "읽는 중... (1~2분)";
+    }
+    try{
+      const res = await fetch(`${WORKER_BASE_URL}/analyze-upload`, { method: "POST", body: form });
+      const data = await res.json().catch(() => ({}));
+      if(!res.ok || !data.ok){
+        errorBox.hidden = false;
+        errorBox.textContent = data?.message || "자료를 읽지 못했어요. 사진이 흐리거나 파일이 너무 크지 않은지 확인하고 다시 시도해 주세요.";
+        return false;
+      }
+      global.__MINI_PRIOR_WORK__ = data.analysis;
+      renderPriorWork(data.analysis);
+      return true;
+    }catch(error){
+      errorBox.hidden = false;
+      errorBox.textContent = "인터넷 연결을 확인하고 다시 시도해 주세요.";
+      return false;
+    }finally{
+      if(button?.isConnected){
+        button.disabled = false;
+        button.textContent = "내 자료 다시 분석하기";
+      }
+    }
+  }
+
+  const DOC_LABEL = { report: "지난 탐구보고서", record: "생활기록부", other: "보고서나 생활기록부로 보이지 않는 자료" };
+
+  function priorBlock(title, rows){
+    const kept = rows.filter(([, value]) => value && String(value).trim());
+    if(!kept.length) return "";
+    return `<div class="mini-prior-block"><b>${escapeHtml(title)}</b>${kept.map(([label, value]) => `<div><span>${escapeHtml(label)}</span>${escapeHtml(value)}</div>`).join("")}</div>`;
+  }
+
+  function renderPriorWork(analysis){
+    const root = ensureResultRoot();
+    const report = analysis.report || {};
+    const record = analysis.record || {};
+    const lines = (analysis.reportLines || []).map((line, index) => `
+      <div class="mini-prior-line">
+        <b>${escapeHtml(line.title)}</b>
+        <div><span>어디서</span>${escapeHtml(line.subject || "-")}</div>
+        <div><span>왜 이어지나</span>${escapeHtml(line.why)}</div>
+        <div><span>무엇이 깊어지나</span>${escapeHtml(line.step || "-")}</div>
+        <button type="button" data-line="${index}">이 주제로 설계서 만들기</button>
+      </div>`).join("");
+    root.innerHTML = `
+      <section class="mini-v43-card mini-prior">
+        <div class="mini-v43-kicker">내 자료 분석</div>
+        <h2>${escapeHtml(DOC_LABEL[analysis.docType] || DOC_LABEL.other)}를 읽었어요</h2>
+        <p class="mini-prior-note">${escapeHtml(analysis.docTypeReason || "")}</p>
+        ${priorBlock("읽어낸 내용", [
+          ["수준", analysis.level],
+          ["과목", analysis.subjectGuess],
+          ["연구 질문", report.question],
+          ["쓴 개념", (report.concepts || []).join(", ")],
+          ["방법", report.method],
+          ["결과", report.findings],
+          ["남은 한계", report.limits],
+          ["지금까지의 흐름", record.activitySummary],
+          ["반복해서 나오는 관심", (record.repeatedInterests || []).join(", ")],
+          ["이미 잘 해 둔 것", (record.strongSides || []).join(" / ")],
+          ["아직 얇은 것", (record.thinSides || []).join(" / ")],
+        ])}
+        ${lines ? `<h3 class="mini-prior-h3">다음에 쓰면 좋을 보고서</h3><p class="mini-prior-note">한 가지를 고르면 그 주제로 설계서를 만들어요. 고르지 않고 그냥 보고서를 만들어도, 올린 자료에서 이어서 만들어요.</p>${lines}` : ""}
+      </section>`;
+    root.querySelectorAll("[data-line]").forEach(button => button.addEventListener("click", () => {
+      const line = (analysis.reportLines || [])[Number(button.dataset.line)];
+      if(!line) return;
+      global.__MINI_PRIOR_WORK__ = { ...analysis, chosenLine: line };
+      button.disabled = true;
+      button.textContent = "설계서 만드는 중... (최대 2~3분)";
+      runGenerate();
+    }));
+    root.scrollIntoView?.({ behavior: "smooth", block: "start" });
+  }
+
   function bindGenerateButton(){
     let btn = $("generateBtn");
     if(!btn) return;
@@ -4212,6 +4405,7 @@ ${result}`;
     btn.dataset.miniWorkerV53Bound = "1";
     btn.dataset.miniWorkerV32Bound = "v220";
     btn.addEventListener("click", handleGenerateV32, true);
+    mountUploadPanel();
   }
 
   global.__BUILD_MINI_WORKER_REQUEST_V32__ = buildWorkerRequest;

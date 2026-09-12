@@ -86,6 +86,7 @@ const prompt = analysisPromptLines({ targetLevel: "고3~대학 1학년 수준" }
 check(prompt.includes("사람 이름, 학교 이름") && prompt.includes("옮기지 않는다"), "the model is told to leave names behind");
 check(prompt.includes("고3~대학 1학년 수준"), "the proposed lines aim at this student's level");
 check(prompt.includes("억지로 잇지 않는다"), "the model is told not to force an unrelated link");
+check(prompt.includes("모든 항목을 한국어로 쓴다"), "an English report is still analysed in Korean");
 check(prompt.includes("색도계") && prompt.includes("통계 검정") && prompt.includes("평균과 흔들림"),
   "the proposals stay inside what a student and this engine can actually do");
 
@@ -101,5 +102,27 @@ check(worker.includes("priorWorkPromptLines(input.priorWork, sharesGround(input.
   "what the student already did reaches the draft instructions");
 check(worker.includes("input.priorWork = trustedPayload?.priorWork ? sanitizeAnalysis(trustedPayload.priorWork) : null"),
   "the analysis is sanitised again when it comes back through the browser");
+
+// The student may pick one of the proposed lines on the analysis screen; that choice decides the topic.
+const chosen = sanitizeAnalysis({ ...rawRecord, chosenLine: { title: "효소 활성의 온도 의존성 정량 비교", subject: "생명과학", why: "이어짐", step: "문헌 정리 → 변인 통제 실험" } });
+check(chosen.chosenLine.title === "효소 활성의 온도 의존성 정량 비교", "the chosen line survives sanitising");
+check(sanitizeAnalysis(rawRecord).chosenLine === null, "no choice means no chosen line");
+const chosenPrompt = priorWorkPromptLines(chosen, true).join("\n");
+check(chosenPrompt.includes("학생이 다음 탐구로 고른 주제") && chosenPrompt.includes("이 주제로 만든다"),
+  "a chosen line decides the topic of the draft");
+check(!priorWorkPromptLines(sanitizeAnalysis(rawRecord), true).join("\n").includes("고른 주제"),
+  "without a choice the engine still picks the topic itself");
+
+// The site sends what was uploaded with the report request, and shows the analysis on its own screen.
+const bridgeSource = await readFile(new URL("../assets/js/mini_worker_generate_bridge_v32.js", import.meta.url), "utf8");
+check(bridgeSource.includes("function mountUploadPanel") && bridgeSource.includes("/analyze-upload"),
+  "the site can upload a past report or 생활기록부");
+check(bridgeSource.includes("priorWork: global.__MINI_PRIOR_WORK__ || null"), "the analysis rides along with the report request");
+check(bridgeSource.includes("function renderPriorWork") && bridgeSource.includes("이 주제로 설계서 만들기"),
+  "the analysis has its own screen with a button into the draft");
+check(bridgeSource.includes("올리지 않아도 보고서는 만들 수 있어요"), "uploading stays optional");
+check(bridgeSource.includes("const fileSizeText = bytes =>") && bridgeSource.includes("KB"), "a small file shows its size in KB, not 0.0MB");
+check(bridgeSource.includes("모두 합쳐 20MB") && bridgeSource.includes("파일 하나는 10MB까지"),
+  "the student is told the size limit before the Worker refuses the upload");
 
 console.log(`PASS upload analysis: ${passed}/${passed}`);
