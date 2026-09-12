@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v257-score-range-check";
+  const VERSION = "mini-worker-generate-bridge-v258-optional-charts";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2610,7 +2610,7 @@
 
   const STAGE_HEADINGS = {
     experiment_draft: ["1차 탐구 설계서", "자료를 모으기 전에 쓰는 설계서예요. 이대로 해 본 뒤 아래 칸을 채우면, 그 내용으로 최종 보고서를 만들어요."],
-    experiment_final: ["최종 탐구 보고서", "직접 넣은 결과로 만든 보고서예요. 표와 그래프의 숫자는 모두 입력한 값에서 나왔어요. 제출 전에 내 말투로 한 번 읽고 고쳐 주세요."],
+    experiment_final: ["최종 탐구 보고서", "직접 넣은 결과로 만든 보고서예요. 표에 있는 숫자는 모두 입력한 값에서 나왔어요. 제출 전에 내 말투로 한 번 읽고 고쳐 주세요."],
     literature: ["문헌 탐구 보고서", "읽은 자료와 직접 적은 내용으로 쓴 보고서예요. 제출 전에 실제로 읽은 자료가 맞는지 확인해 주세요."]
   };
 

@@ -169,10 +169,15 @@ export function buildFigures(specs, stats) {
   const name = stats.measurementName || '측정값';
   const grid = splitFactors(stats.rows);
   if (!valid.some((spec) => spec.kind === 'table')) valid.push({ kind: 'table', metric: 'raw', title: `조건별 ${name} 결과` });
-  if (!valid.some((spec) => spec.kind !== 'table')) valid.push({ kind: grid ? 'grouped_bar' : 'bar', metric: 'mean', title: `조건별 평균 ${name}` });
+  // A chart is worth drawing when there is a shape to see: a two-variable grid, or at least three conditions to
+  // line up. Two bars say nothing the table has not already said, so no chart is added and any the model asked
+  // for is dropped.
+  const chartHelps = Boolean(grid) || stats.rows.length >= 3;
+  const kept = chartHelps ? valid : valid.filter((spec) => spec.kind === 'table');
+  if (chartHelps && !kept.some((spec) => spec.kind !== 'table')) kept.push({ kind: grid ? 'grouped_bar' : 'bar', metric: 'mean', title: `조건별 평균 ${name}` });
   const counters = { table: 0, chart: 0 };
   // The raw-data table comes first, then the charts drawn from it.
-  const ordered = valid.slice(0, 4).sort((a, b) => (a.kind === 'table' ? 0 : 1) - (b.kind === 'table' ? 0 : 1));
+  const ordered = kept.slice(0, 4).sort((a, b) => (a.kind === 'table' ? 0 : 1) - (b.kind === 'table' ? 0 : 1));
   return ordered.map((spec) => {
     const rows = orderRows(spec.conditionOrder, stats.rows);
     const hasPercentBase = rows.every((row) => row.percent_from_first !== null);
@@ -398,8 +403,8 @@ function stageSectionGuideBase(title, stage) {
   if (stage === STAGE.FINAL && /탐구 방법/.test(text)) return '1차 설계서의 준비물, 변인, 절차, 안전을 실제로 한 과정으로 과거형으로 쓴다. 학생 관찰 메모에 설계와 다르게 한 점이 있으면 반영한다. 500~800자';
   if (stage === STAGE.DRAFT && /탐구 방법/.test(text)) return '학생이 직접 하는 실험으로 설계한다. 준비물, 조작·통제·종속 변인, 대조군, 번호를 붙인 절차, 조건마다 3회 이상 측정해 어떻게 기록할지, 측정 오차를 줄이는 방법, 안전 주의. 문헌 조사로 대신하지 않는다. 700~1000자';
   if (/가설/.test(text)) return '"~하면 ~할 것이다" 형태의 가설 1~2개와 그렇게 생각한 교과 근거. 150~300자';
-  if (/결과 기록 계획/.test(text)) return '무엇을 어떤 단위나 점수 기준으로 조건마다 몇 번 측정해 표에 기록할지. 점수는 클수록 측정 항목이 크다는 뜻이 되게 정한다. 학생이 채울 결과 표 양식과 같은 내용이어야 한다. 2차 보고서의 표와 그래프는 조건별 평균과 흔들림(최댓값-최솟값)까지만 만들어지므로, 표준편차나 오차막대, 통계 검정을 하겠다고 쓰지 않는다. 결과나 예상 수치는 쓰지 않는다. 200~350자';
-  if (/탐구 결과/.test(text)) return '표 1과 그림 1을 먼저 가리키고 조건별 평균을 결과정리의 숫자 그대로 비교한다. 평균이 같은 조건은 같다고 쓴다. 학생의 관찰 메모(note, observations)를 함께 쓴다. 해석은 다음 절로 미룬다. 400~600자';
+  if (/결과 기록 계획/.test(text)) return '무엇을 어떤 단위나 점수 기준으로 조건마다 몇 번 측정해 표에 기록할지. 점수는 클수록 측정 항목이 크다는 뜻이 되게 정한다. 학생이 채울 결과 표 양식과 같은 내용이어야 한다. 2차 보고서에서는 조건별 값과 평균, 흔들림(최댓값-최솟값)을 담은 표가 만들어지고, 비교가 뚜렷한 경우에만 막대나 선 그래프가 하나 붙는다. 표준편차, 오차막대, 흔들림을 표시한 선, 통계 검정처럼 만들어지지 않는 것을 하겠다고 쓰지 않고, 그래프가 반드시 들어간다고도 쓰지 않는다. 결과나 예상 수치는 쓰지 않는다. 200~350자';
+  if (/탐구 결과/.test(text)) return '표 1을 먼저 가리키고, 그림이 있을 때만 그림 1도 함께 가리킨다. 조건별 평균을 결과정리의 숫자 그대로 비교한다. 평균이 같은 조건은 같다고 쓴다. 학생의 관찰 메모(note, observations)를 함께 쓴다. 해석은 다음 절로 미룬다. 400~600자';
   if (/결과 분석/.test(text)) return '가설이 맞았는지 조건마다 판단한다. 수준별비교가 있으면 기준마다 어느 쪽이 몇 점 높았는지 그대로 쓰고, 가설대로 나온 조건과 반대로 나온 조건을 나누어 밝힌다. 두 값이 다르면 "비슷하다"고 쓰지 않는다. 가장 그럴듯한 설명 외에 다른 가능한 설명을 최소 1개 검토하고 데이터가 어느 쪽을 더 지지하는지 따진다. 반복 측정의 흔들림이 큰 조건은 신뢰도가 낮다고 밝히고 원인을 추정한다. 700~1000자';
   if (/결론/.test(text)) return stage === STAGE.FINAL
     ? '연구 질문에 학생 데이터로 직접 답한다. 모든 조건에서 그렇지 않았다면 어느 조건에서 그랬는지까지 쓴다. 한계와 개선점을 쓰고, 이론 설명을 다시 반복하지 않는다. 300~500자'
@@ -409,7 +414,7 @@ function stageSectionGuideBase(title, stage) {
   if (/느낀 점/.test(text)) return '학생이 쓴 reflection 문장을 먼저 거의 그대로 쓰고(맞춤법만 다듬음), 결과에서 알게 된 점을 1~2문장 덧붙인다. 힘들었다, 재미있었다처럼 학생이 쓰지 않은 감정이나 경험은 새로 만들지 않는다. 150~350자';
   if (/참고 자료/.test(text)) return '학생이 적은 sources만 한 줄에 하나씩 쓴다. 다른 줄, 괄호 설명, ※ 문장을 덧붙이지 않는다. sources가 없으면 "통합과학1 교과서 효소 관련 단원"처럼 자료 종류만 적고, 단원명·기관명·사이트명을 지어내지 않는다.';
   if (/자료 조사 방법/.test(text)) return '어떤 종류의 자료(교과서, 과학 기사 등)를 어떤 기준으로 골라 비교했는지. 실험을 한 것처럼 쓰지 않는다. 300~450자';
-  if (/자료 비교 정리/.test(text)) return '조건별로 자료에서 설명하는 경향을 비교 기준에 따라 정리하고 표 1(comparisonTable)과 연결한다. 숫자를 지어내지 않는다. 500~700자';
+  if (/자료 비교 정리/.test(text)) return '자료에서 설명하는 경향을 비교 기준에 따라 정리한다. 표가 있을 때만 표 1과 연결하고, 표가 없으면 글로만 비교한다. 숫자를 지어내지 않는다. 500~700자';
   return '';
 }
 
@@ -444,7 +449,7 @@ export function stagePromptLines(stage, input) {
       ...(kind !== COLLECTION.MEASUREMENT ? [] : ['- 측정은 눈대중보다 숫자로 잴 수 있는 방법을 우선한다(예: 같은 조명에서 찍은 사진으로 남은 얼룩 면적 비율 비교, 질량·시간 측정). 점수를 쓰면 점수마다 기준을 구체적으로 정하고, 같은 사람이 같은 조건에서 평가하는 등 오차를 줄이는 방법을 쓴다.']),
       '- 가설에는 그렇게 예상하는 과학적 근거를 구체적인 물질·반응 수준으로 쓰고, 다른 결과가 나온다면 무엇을 뜻하는지도 한 문장 쓴다.',
       '- 본문에는 dataTemplate 같은 영어 항목 이름을 쓰지 않는다. flux, gap 같은 영어 낱말도 자속, 차이처럼 우리말로 쓴다.',
-      '- 2차 보고서에서 만들어지는 것은 조건별 평균과 흔들림(최댓값-최솟값), 그리고 그 값으로 그린 표와 막대·선 그래프뿐이다. 표준편차, 오차막대, 유의성 검정처럼 만들어 주지 않는 것을 하겠다고 쓰지 않는다.',
+      '- 2차 보고서에서 만들어지는 것은 조건별 값과 평균, 흔들림(최댓값-최솟값)을 담은 표이고, 그래프는 비교가 뚜렷할 때만 하나 붙는다. 표준편차, 오차막대, 흔들림 표시선, 유의성 검정처럼 만들어 주지 않는 것을 하겠다고 쓰지 않는다.',
       '- caseTag에는 이번 탐구의 실생활 사례를 8~20자로 짧게 적는다. 예: "우유 유당 분해", "렌즈 세척액 과산화수소". 본문에는 쓰지 않는다.',
       ...((input.recentCombinations || []).length
         ? ['', '[같은 학교에서 이 과제로 이미 만든 탐구 (사례 | 바꾼 것 | 잰 것)]',
@@ -461,6 +466,7 @@ export function stagePromptLines(stage, input) {
       '- 학생이 1차 설계서대로 실험하고 결과를 입력했다. 아래 [학생 실험 데이터]의 학생입력과 결과정리가 학생의 실제 결과다.',
       '- 보고서의 모든 숫자는 학생입력, 결과정리, 1차 설계서에 있는 숫자여야 한다. 새 숫자, 다른 실험이나 문헌의 수치를 만들지 않는다. 이를 어긴 문장은 자동으로 삭제된다.',
       '- 결과정리의 평균, 첫조건과의차이, 첫조건대비변화율(%), 평균이높은순서, 평균이같은조건은 새로 계산하지 말고 그대로 쓴다.',
+      '- 표 1은 항상 만들어진다. 그래프는 조건이 셋 이상이거나 두 변인 조합일 때만 붙으므로, 그런 경우가 아니면 본문에서 그림을 가리키지 않는다.',
       '- 점수의 뜻은 scaleGuide를 따른다. 점수가 무엇을 뜻하는지 헷갈리게 쓰지 않는다.',
       '- 결과 분석과 결론은 조건마다 비교한다. 수준별비교가 있으면 기준마다 가장높은쪽이 두번째보다 몇 점(차이) 높았는지 그대로 쓴다. 두 값이 다르면 "비슷하다", "큰 차이가 없다"처럼 흐리게 쓰지 않는다. 가설과 반대로 나온 조건은 그대로 밝힌다. "같은 조건에서 항상", "모든 조건에서" 같은 말은 모든 조건에서 그랬을 때만 쓴다.',
       ...(stats.trials <= 1
@@ -468,7 +474,7 @@ export function stagePromptLines(stage, input) {
         : []),
       '- 평균이같은조건은 평균이 같은 조건 묶음이다. 서로 다른 조건의 평균이 같은 것은 우연일 수 있으므로 이를 근거로 해석하지 않는다.',
       '- 활용 방안은 실험한 대상과 조건 안에서만 말한다. 실험하지 않은 재료나 얼룩 종류로 넓히려면 추가 실험이 필요하다고 쓴다.',
-      '- figures에는 이 데이터를 보여줄 표나 그래프를 1~3개 고른다. 숫자는 넣지 말고 kind(table, bar, line, grouped_bar, grouped_line), metric(raw, mean, diff_from_first, percent_from_first), conditionOrder(보여줄 조건 이름과 순서), title, caption만 쓴다. 조건이 "앞 변인 · 뒤 변인" 조합이면 grouped_bar나 grouped_line으로 앞 변인을 색으로 나누고 뒤 변인을 가로축에 놓는다. 뒤 변인이 순서 있는 값(온도, 시간 등)이면 grouped_line이 알맞다. 숫자는 학생 데이터로 코드가 채운다.',
+      '- figures에는 이 데이터를 보여줄 표나 그래프를 고른다. 표는 코드가 항상 만들므로 넣지 않아도 된다. 그래프는 보여 줄 모양이 있을 때만 고르고(조건이 셋 이상이거나 두 변인 조합), 조건이 둘뿐이면 그래프를 고르지 않는다. 억지로 채우지 말고 필요 없으면 빈 배열로 둔다. 최대 3개다. 숫자는 넣지 말고 kind(table, bar, line, grouped_bar, grouped_line), metric(raw, mean, diff_from_first, percent_from_first), conditionOrder(보여줄 조건 이름과 순서), title, caption만 쓴다. 조건이 "앞 변인 · 뒤 변인" 조합이면 grouped_bar나 grouped_line으로 앞 변인을 색으로 나누고 뒤 변인을 가로축에 놓는다. 뒤 변인이 순서 있는 값(온도, 시간 등)이면 grouped_line이 알맞다. 숫자는 학생 데이터로 코드가 채운다.',
       '- 본문에서 표와 그래프는 종류별로 나온 순서대로 "표 1", "그림 1"처럼 가리킨다.',
       '- reason, observations는 학생의 목소리다. 뜻과 표현을 최대한 살려 해당 절에 녹이고 맞춤법만 다듬는다.',
       '- 느낀 점 절은 reflection 문장을 먼저 거의 그대로 쓰고, 결과에서 알게 된 점만 1~2문장 덧붙인다. 학생이 쓰지 않은 감정(힘들었다, 재미있었다 등)은 자동으로 삭제된다.',
@@ -493,7 +499,7 @@ export function stagePromptLines(stage, input) {
           '- 학생이 직접 조사한 자료 카드가 아래에 있다. 카드에 적힌 제목, 핵심 내용, 학생의 해석만을 근거로 쓰고, 카드에 없는 자료나 내용을 지어내지 않는다. 표 1은 학생의 카드로 코드가 만든다.']
         : ['- 학생이 실험 결과를 입력하지 않았다. 실험을 했다고 쓰지 않고, 교과서와 자료 조사로 연구 질문에 답하는 문헌 탐구 보고서로 쓴다.']),
       '- 1차 설계서가 있으면 연구 질문과 이론은 이어받고, 실험 설계는 자료 조사 방법으로 바꾼다.',
-      '- comparisonTable에는 자료 비교 정리 절의 내용을 조건별로 정리한 표를 넣는다. columns는 3~4개, rows는 2~6개, 칸에는 짧은 말만 쓰고 숫자는 쓰지 않는다.',
+      '- 자료가 같은 기준으로 나란히 비교될 때만 comparisonTable을 넣는다. 기준이 서로 다른 자료를 억지로 한 표에 넣지 않는다. 넣을 때는 columns 3~4개, rows 2~6개, 칸에는 짧은 말만 쓰고 숫자는 쓰지 않는다. 필요 없으면 표 없이 글로만 쓴다.',
       '- 입력에 근거 없는 숫자는 쓰지 않는다. 이를 어긴 문장은 자동으로 삭제된다.',
       '- 참고 자료 절은 쓰지 않는다. 학생이 적은 sources로 자동으로 붙는다.',
       '',
@@ -535,7 +541,7 @@ const STAGE_SCHEMA = {
   [STAGE.FINAL]: {
     figures: {
       type: 'array',
-      minItems: 1,
+      minItems: 0,
       maxItems: 3,
       items: {
         type: 'object',

@@ -249,9 +249,9 @@ check(bridgeSource.includes("const valueHead = trials > 1"), "the input table st
 
 // 고2 선택과목 live test 2026-09-12: the drafts promised 표준편차 and 오차막대, which the final report never gets,
 // and a physics draft wrote "flux 결합".
-check(stageSectionGuide("결과 기록 계획", STAGE.DRAFT, COLLECTION.MEASUREMENT).includes("표준편차나 오차막대"),
+check(stageSectionGuide("결과 기록 계획", STAGE.DRAFT, COLLECTION.MEASUREMENT).includes("표준편차, 오차막대, 흔들림을 표시한 선"),
   "the record plan may not promise statistics the report cannot draw");
-check(stagePromptLines(STAGE.DRAFT, {}).join("\n").includes("오차막대, 유의성 검정"), "the draft is told what the second stage actually produces");
+check(stagePromptLines(STAGE.DRAFT, {}).join("\n").includes("오차막대, 흔들림 표시선, 유의성 검정"), "the draft is told what the second stage actually produces");
 check(scrubInternalNames("권수를 늘리면 flux 결합이 커진다.") === "권수를 늘리면 자속 결합이 커진다.", "English terms are written in Korean", scrubInternalNames("권수를 늘리면 flux 결합이 커진다."));
 const rangeSource = bridgeSource.slice(bridgeSource.indexOf("function scoreRange"), bridgeSource.indexOf("function collectExperimentInput"));
 const scoreRange = new Function(`${rangeSource}\nreturn scoreRange;`)();
@@ -259,5 +259,26 @@ check(JSON.stringify(scoreRange({ unit: "점", scaleGuide: "0점 그대로, 3점
   "a score scale sets the range the typed numbers must stay inside", JSON.stringify(scoreRange({ unit: "점", scaleGuide: "0점 그대로, 3점 완전히 제거" })));
 check(scoreRange({ unit: "cm", scaleGuide: "풍선의 가장 넓은 부분을 잰다" }) === null, "a measured length has no score range");
 check(scoreRange({ unit: "점", scaleGuide: "보라색이 짙을수록 높게 준다" }) === null, "a scale with no numbers sets no range");
+
+// 2026-09-12: a chart was forced onto every report. Two bars show nothing the table has not shown already.
+const twoRows = computeStats(normalizeStudentData({ measurementName: "거품 높이", unit: "mm", conditions: [
+  { label: "대조군", values: ["3", "4", "3"] }, { label: "실험군", values: ["8", "9", "8"] }] }));
+const twoRowFigures = buildFigures([], twoRows);
+check(twoRowFigures.length === 1 && twoRowFigures[0].kind === "table", "two conditions get a table and no chart", twoRowFigures.map((f) => f.kind).join(","));
+check(buildFigures([{ kind: "bar", metric: "mean", conditionOrder: [], title: "평균 비교", caption: "" }], twoRows).every((f) => f.kind === "table"),
+  "a chart the model asked for is dropped when there is nothing to show");
+const threeRows = computeStats(normalizeStudentData({ measurementName: "거품 높이", unit: "mm", conditions: [
+  { label: "가", values: ["3"] }, { label: "나", values: ["8"] }, { label: "다", values: ["5"] }] }));
+check(buildFigures([], threeRows).some((f) => f.kind !== "table"), "three conditions still get a chart");
+check(buildFigures([], threeWay).some((f) => f.kind.startsWith("grouped_")), "a two-variable grid still gets a grouped chart");
+check(stageSchemaProperties(STAGE.FINAL).figures.minItems === 0, "the model may return no figures at all");
+check(stageSectionGuide("탐구 결과", STAGE.FINAL, COLLECTION.MEASUREMENT).includes("그림이 있을 때만"),
+  "the result section may not point at a chart that was not drawn");
+check(stageSectionGuide("결과 기록 계획", STAGE.DRAFT, COLLECTION.MEASUREMENT).includes("그래프가 반드시 들어간다고도 쓰지 않는다"),
+  "the draft may not promise a chart either");
+check(stagePromptLines(STAGE.LITERATURE, { studentData: normalizeStudentData({}) }).join("\n").includes("같은 기준으로 나란히 비교될 때만"),
+  "the literature report only tables sources that actually compare");
+check(finalizeStageOutput(STAGE.LITERATURE, { reportTitle: "t", sections: [] }, { studentData: normalizeStudentData({}) }).extra.comparisonTable === null,
+  "no comparable sources means no table at all");
 
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
