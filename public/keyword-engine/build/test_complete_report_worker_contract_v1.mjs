@@ -15,6 +15,7 @@ const checks = [
   [worker.includes("같은 문장이나 수행평가 문구를 여러 절에 반복하지 않는다"), "repetition guard is missing"],
   [worker.includes("측정값이나 관찰 결과를 지어내지 않는다"), "fabricated-result guard is missing"],
   [worker.includes("여러 개를 얕게 나열하지 말고"), "single real-life case depth rule is missing"],
+  [worker.includes("기본값으로 삼지 않는다") && !worker.includes("실생활 사례는 세제, 식품"), "the case is still defaulted to the most obvious one (duplicate reports across a class)"],
   [worker.includes("Km이 언제나 최적 pH에서 최소가 된다고 단정하지 않는다"), "enzyme misconception guard is missing"],
   [worker.includes("온도 상승은 활성화 에너지 자체를 바꾸지 않고"), "temperature and activation-energy correction is missing"],
   [worker.includes("확인되지 않은 저자, 책 제목, 연도"), "bibliography hallucination guard is missing"],
