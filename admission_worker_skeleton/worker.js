@@ -1,5 +1,6 @@
 import { acceptLiveInputCandidate, handleSimpleLiveIntakeRequest, parseStrictIJson } from './simple_live_intake_v1.mjs';
 import { COLLECTION, STAGE, finalizeStageOutput, normalizeStudentData, resolveCollectionKind, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
+import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, priorWorkPromptLines, sanitizeAnalysis, sharesGround } from './upload_analysis_v1.mjs';
 
 const SERVICE_NAME = 'admission-keyword-worker';
 
@@ -131,6 +132,10 @@ export default {
         return withCors(await handleSimpleLiveIntakeRequest(request));
       }
 
+      if (url.pathname === '/analyze-upload' && request.method === 'POST') {
+        return withCors(await handleAnalyzeUpload(request, env));
+      }
+
       if (url.pathname === '/collect' && request.method === 'POST') {
         if (!env.DB) {
           return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
@@ -195,6 +200,9 @@ export default {
         const input = resolveInput(trustedPayload);
         validateInput(input);
         input.collectionKind = resolveCollectionKind(input);
+        // What the student already did, read from their upload in the separate step. Sanitised again here
+        // because it travels back through the browser between the two calls.
+        input.priorWork = trustedPayload?.priorWork ? sanitizeAnalysis(trustedPayload.priorWork) : null;
         // 논술·창작·발표 have nothing for the student to collect, so they keep the one-shot report.
         if (input.collectionKind === COLLECTION.NONE && input.reportStage !== STAGE.COMPLETE) {
           input.reportStage = STAGE.COMPLETE;
@@ -405,6 +413,143 @@ function buildStageResult(stage, parsed, input) {
     sectionTitles: (finalized.sections || []).map((section) => String(section?.title || '').trim()),
     ...extra,
   };
+}
+
+
+// Reading a past 보고서 or a 생활기록부 is a separate action: a student may want the analysis on its own, and it
+// is charged on its own. Only the derived structure is stored — never the transcription, never a name.
+async function handleAnalyzeUpload(request, env) {
+  if (!env.OPENAI_API_KEY) return json({ ok: false, error: "OPENAI_KEY_MISSING" }, 500);
+  let form;
+  try {
+    form = await request.formData();
+  } catch {
+    return json({ ok: false, error: "UPLOAD_FORM_INVALID" }, 400);
+  }
+  const files = form.getAll("files").filter((file) => file && typeof file === "object" && "arrayBuffer" in file);
+  const problem = checkUpload(files.map((file) => ({ name: file.name, type: file.type, size: file.size })));
+  if (problem) return json({ ok: false, error: "UPLOAD_REJECTED", message: problem }, 400);
+
+  let meta = {};
+  try {
+    meta = JSON.parse(String(form.get("payload") || "{}"));
+  } catch {
+    meta = {};
+  }
+
+  const started = Date.now();
+  let read;
+  try {
+    read = await analyzeUploadWithModel(files, meta, env);
+  } catch (error) {
+    console.error("upload analysis failed:", error?.message || error);
+    return json({ ok: false, error: "UPLOAD_ANALYSIS_FAILED", message: String(error?.message || error).slice(0, 300) }, 502);
+  }
+
+  if (env.DB) {
+    try {
+      await saveUploadAnalysis(env.DB, meta, read.analysis, files);
+    } catch (error) {
+      console.error("saving the upload analysis failed:", error?.message || error);
+    }
+  }
+
+  return json({
+    ok: true,
+    analysis: read.analysis,
+    usage: { ...read.usage, seconds: Math.round((Date.now() - started) / 1000), files: files.length },
+  });
+}
+
+async function analyzeUploadWithModel(files, meta, env) {
+  const model = env.OPENAI_MODEL || "gpt-4.1-mini";
+  const reasoningModel = /^(gpt-5|o\d)/.test(model);
+  const content = [{ type: "input_text", text: analysisPromptLines(meta).join("\n") }];
+  for (const file of files) {
+    const base64 = bytesToBase64(new Uint8Array(await file.arrayBuffer()));
+    const type = String(file.type || "").toLowerCase();
+    content.push(type === "application/pdf"
+      ? { type: "input_file", filename: file.name || "upload.pdf", file_data: `data:application/pdf;base64,${base64}` }
+      : { type: "input_image", image_url: `data:${type};base64,${base64}` });
+  }
+
+  const properties = analysisSchema();
+  const res = await fetch("https://api.openai.com/v1/responses", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
+    body: JSON.stringify({
+      model,
+      input: [{ role: "user", content }],
+      ...(reasoningModel ? { reasoning: { effort: env.OPENAI_REASONING_EFFORT || "medium" } } : { temperature: 0.2 }),
+      max_output_tokens: reasoningModel ? 12000 : 6000,
+      text: {
+        format: {
+          type: "json_schema",
+          name: "student_upload_analysis",
+          schema: { type: "object", additionalProperties: false, required: Object.keys(properties), properties },
+        },
+      },
+    }),
+  });
+  const body = await res.json();
+  if (!res.ok) throw new Error(body?.error?.message || `OpenAI error ${res.status}`);
+  const message = (body?.output || []).find((item) => item?.type === "message") || body?.output?.[0];
+  const text = message?.content?.find((part) => part?.type === "output_text")?.text || message?.content?.[0]?.text || body?.output_text;
+  if (!text) throw new Error("OpenAI response did not include output text");
+  let parsed;
+  try {
+    parsed = JSON.parse(text);
+  } catch (error) {
+    throw new Error(`${error.message}; status=${body?.status || ""} ${body?.incomplete_details?.reason || ""}; tail=${text.slice(-120)}`);
+  }
+  return {
+    analysis: sanitizeAnalysis(parsed),
+    usage: {
+      model: String(body?.model || model),
+      input_tokens: Number(body?.usage?.input_tokens || 0),
+      output_tokens: Number(body?.usage?.output_tokens || 0),
+      reasoning_tokens: Number(body?.usage?.output_tokens_details?.reasoning_tokens || 0),
+    },
+  };
+}
+
+// btoa works on binary strings only, and a whole PDF at once overflows the argument list.
+function bytesToBase64(bytes) {
+  let binary = "";
+  for (let i = 0; i < bytes.length; i += 8192) binary += String.fromCharCode(...bytes.subarray(i, i + 8192));
+  return btoa(binary);
+}
+
+async function ensureUploadTable(db) {
+  await db.prepare(`
+    CREATE TABLE IF NOT EXISTS student_uploads (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      school_name TEXT NOT NULL,
+      grade TEXT,
+      doc_type TEXT NOT NULL,
+      subject_guess TEXT,
+      level TEXT,
+      analysis TEXT NOT NULL,
+      file_count INTEGER,
+      created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+    )
+  `).run();
+}
+
+async function saveUploadAnalysis(db, meta, analysis, files) {
+  await ensureUploadTable(db);
+  await db.prepare(`
+    INSERT INTO student_uploads (school_name, grade, doc_type, subject_guess, level, analysis, file_count)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `).bind(
+    String(meta?.schoolName || "").slice(0, 80),
+    String(meta?.grade || "").slice(0, 10),
+    analysis.docType,
+    analysis.subjectGuess,
+    analysis.level,
+    JSON.stringify(analysis),
+    files.length,
+  ).run();
 }
 
 // Class-level variety: each draft's case is remembered per school+task, and the recent ones are shown to the next
@@ -634,6 +779,8 @@ function buildPrompt(input, seedMatch, env) {
     '- 결과 및 분석은 입력에 실제 데이터가 있는 경우에만 그 값을 분석한다. 데이터가 없으면 문헌에서 확실히 설명되는 경향, 예상 결과, 실제 측정 후 적용할 분석법을 서로 구분해 쓴다.',
     '- reportPatterns는 다른 주제의 우수 보고서에서 뽑은 사고 흐름 예시다. 그 보고서의 주제, 사례, 수치, 고유명사는 가져오지 않는다.',
     '- reportPatterns의 분석 방법은 목표 수준에 맞게 뜻을 먼저 설명한 뒤 활용한다.',
+    '',
+    ...priorWorkPromptLines(input.priorWork, sharesGround(input.priorWork, input)),
     '',
     '[깊이 기준]',
     '- 원리는 구체적인 물질과 반응 수준까지 설명한다. 예: 어떤 효소가 어떤 결합을 끊는지, 대상(얼룩, 음식 등)이 어떤 성분으로 되어 있는지, 조건이 효소와 대상 각각에 어떤 영향을 주는지.',
