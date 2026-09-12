@@ -423,7 +423,7 @@ async function ensureReportCaseTable(db) {
   `).run();
 }
 
-const taskKeyOf = (input) => String(input.taskDescription || '').replace(/s+/g, ' ').trim().slice(0, 200);
+const taskKeyOf = (input) => String(input.taskDescription || '').replace(/\s+/g, ' ').trim().slice(0, 200);
 
 async function recentReportCases(db, input) {
   await ensureReportCaseTable(db);

@@ -213,4 +213,12 @@ check(readingGuide !== surveyGuide && /자료/.test(readingGuide) && /설문/.te
 check(stagePromptLines(STAGE.DRAFT, { collectionKind: COLLECTION.READING }).join("\n").includes("sourceTemplate"),
   "the reading draft instructions describe the card plan");
 
+// Real gpt-5 output from the 2026-09-12 production test said "기사 카드", "카드 자료" — the word on the input form
+// must never reach the student's report.
+const cardLeak = "그러나 신문 기사 카드에서 확인된 것처럼 신청자 중 실제 수급은 적었다. 다만 카드 자료는 크기를 말하지 않는다. 자료 카드에 표시를 남기고, 카드별 출처를 요약한다.";
+check(!scrubInternalNames(cardLeak).includes("카드") && scrubInternalNames(cardLeak).includes("신문 기사에서") && scrubInternalNames(cardLeak).includes("자료별 출처"),
+  "the word 카드 is rewritten as the real name of the source", scrubInternalNames(cardLeak));
+check(stagePromptLines(STAGE.LITERATURE, { studentData: normalizeStudentData({ sourceCards: cards }) }).join("\n").includes("'카드'라는 말은 쓰지 않는다"),
+  "the model is told not to write 카드 in the report");
+
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
