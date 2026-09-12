@@ -7,6 +7,9 @@ keep_vars = true
 ALLOW_STUB = "false"
 ENGINE_MODE = "production"
 OPENAI_MODEL = "gpt-5"
+# Seeds come from our own Pages deploy, not jsDelivr@main: the repo is never pushed to GitHub, so a newly
+# built seed (engine-index) would 404 there. Pages serves exactly what we deployed.
+SEED_BASE_URL = "https://univ-search.pages.dev/keyword-engine/seed"
 
 [[d1_databases]]
 binding = "DB"

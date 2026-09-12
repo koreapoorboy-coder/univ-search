@@ -403,8 +403,15 @@ export function stageSections(stage, input) {
   // explicitly still wins — that came from the student answering questions about their own task.
   const shaped = (input?.reportShape?.sections || []).filter(Boolean);
   const siteChose = (input?.targetStructure || []).filter(Boolean).length >= 4;
-  if (shaped.length >= 4 && !siteChose && stage !== STAGE.COMPLETE) {
-    return [...shaped, ...(wantsUse && !shaped.some((section) => /활용|방안/.test(section)) ? ['활용 방안'] : []), '계열 연계 탐구', '느낀 점'];
+  if (shaped.length >= 4 && !siteChose) {
+    const useSection = wantsUse && !shaped.some((section) => /활용|방안/.test(section)) ? ['활용 방안'] : [];
+    // The one-shot report closes with its sources; the two-stage flow closes with the sections our own
+    // pipeline needs (계열 연계 탐구 feeds the student's track, 느낀 점 feeds the teacher's 세특).
+    if (stage === STAGE.COMPLETE) {
+      const closes = shaped.some((section) => /참고|출처/.test(section));
+      return [...shaped, ...useSection, ...(closes ? [] : ['참고문헌'])];
+    }
+    return [...shaped, ...useSection, '계열 연계 탐구', '느낀 점'];
   }
   if (stage === STAGE.FINAL) return ['연구 질문', '이론적 배경', '탐구 방법', '탐구 결과', '결과 분석', '결론', ...(wantsUse ? ['활용 방안'] : []), '계열 연계 탐구', '느낀 점'];
   if (stage === STAGE.LITERATURE) return ['연구 질문', '이론적 배경', '자료 조사 방법', '자료 비교 정리', '결론', ...(wantsUse ? ['활용 방안'] : []), '계열 연계 탐구', '느낀 점'];
