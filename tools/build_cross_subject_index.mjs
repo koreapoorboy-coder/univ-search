@@ -18,7 +18,13 @@ const corpus = join(repo, "public/keyword-engine/data/assessment/records/assessm
 const outDir = join(repo, "public/keyword-engine/seed/engine-index");
 
 const clip = (value, max) => String(value ?? "").trim().slice(0, max);
-const list = (value, max, each) => (Array.isArray(value) ? value : []).map((item) => clip(item, each)).filter(Boolean).slice(0, max);
+// The curriculum maps put majors and school subjects in one "next" list — 간호학과 next to 화학. A report can cross
+// into a subject; it cannot cross into a career, so major names are dropped here rather than leaking downstream.
+const MAJOR_NAME = /(학과|학부|전공|대학|예과)$/;
+const list = (value, max, each) => (Array.isArray(value) ? value : [])
+  .map((item) => clip(item, each))
+  .filter((item) => item && !MAJOR_NAME.test(item))
+  .slice(0, max);
 
 // The corpus labels subject groups 32 different ways (사회, 사회·역사, 사회·역사·윤리 …). A report only needs to
 // know whether two subjects are far enough apart to count as a crossing, so they collapse to eight.

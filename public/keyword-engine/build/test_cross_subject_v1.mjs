@@ -84,6 +84,28 @@ check(pickCrossSubject({ subject: "생명과학" }, null) === null, "C6 no index
   check(text(bridge, "experiment_draft").includes("하나만 고른다"), "C9 the draft, which sets the topic, still chooses");
 }
 
+// C11: a major is a career, not a class. The 종단 축 mixes 간호학과 and 생명공학과 into its "next" lists, and those
+// were reaching the prompt as subjects to cross into.
+{
+  const majorish = Object.keys(index.subjectGroup).filter((name) => /(학과|학부|전공|대학|예과)$/.test(name));
+  check(majorish.length === 0, "C11 no major name survived the index build", majorish.slice(0, 5).join(","));
+  const bridge = pickCrossSubject({ subject: "화학", taskDescription: "반응 속도를 실험으로 확인한다", major: "간호학과", track: "의약계열", careerAxes: [{ next: ["간호학과", "생명공학과", "통합사회"], why: "축" }] }, index);
+  check(bridge.partners.every((partner) => !/(학과|학부|전공|대학|예과)$/.test(partner.subject)), "C11 a major offered by an axis is refused as a partner", bridge.partners.map((p) => p.subject).join(","));
+}
+
+// C12: two students with the same task must not get the same report. The track decides which way it leans.
+{
+  const task = { subject: "물리", subjectGroup: "과학", taskDescription: "운동하는 물체의 속도 변화를 측정하여 분석한다", selectedConcept: "가속도" };
+  const engineer = pickCrossSubject({ ...task, major: "컴퓨터공학과", track: "공학계열" }, index);
+  const nurse = pickCrossSubject({ ...task, major: "간호학과", track: "의약계열" }, index);
+  const names = (bridge) => bridge.partners.map((partner) => partner.subject).join(",");
+  check(names(engineer) !== names(nurse), "C12 the same physics task offers different partners by track", `${names(engineer)} vs ${names(nurse)}`);
+  check(engineer.partners.some((partner) => ["정보·기술", "수학"].includes(partner.group)), "C12 an engineer is offered 정보 or 수학", names(engineer));
+  check(nurse.partners.some((partner) => ["과학", "사회"].includes(partner.group)), "C12 a nurse is offered 과학 or 사회", names(nurse));
+  const writer = pickCrossSubject({ ...task, major: "미디어커뮤니케이션학과", track: "인문계열" }, index);
+  check(writer.partners.some((partner) => ["국어", "사회"].includes(partner.group)), "C12 a 인문 student is offered 국어 or 사회", names(writer));
+}
+
 // C10: nothing to say is said as nothing, so the prompt does not grow an empty heading.
 check(crossSubjectPromptLines(null).length === 0, "C10 no bridge, no prompt lines");
 check(crossSubjectPromptLines({ partners: [] }).length === 0, "C10 an empty partner list adds nothing");

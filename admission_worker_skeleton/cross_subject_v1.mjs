@@ -36,7 +36,7 @@ const GROUP_PARTNERS = {
 };
 
 // A generic subject name per group, for when no real subject name was found. Every school teaches these.
-const GROUP_SUBJECT = { 국어: '국어', 수학: '수학', '영어·외국어': '영어', 사회: '사회', 과학: '과학', '정보·기술': '정보', '예술·체육': '체육·예술', '교양·융합': '융합 교과' };
+const GROUP_SUBJECT = { 국어: '공통국어', 수학: '공통수학', '영어·외국어': '영어', 사회: '통합사회', 과학: '통합과학', '정보·기술': '정보', '예술·체육': '체육', '교양·융합': '융합 교과' };
 
 const NAME_GROUP = [
   [/국어|문학|화법|독서|작문|언어와 매체|논술|문예/, '국어'],
@@ -86,6 +86,32 @@ function displayName(subject, index) {
   if (counts[name]) return name;
   const stem = clean(name).replace(/[12]$/, '').trim();
   return stem && counts[stem] ? stem : name;
+}
+
+// The 종단 축 mixes subjects and majors in one "next" list — 기계공학, 심리학과 sit next to 화학 — so a candidate
+// has to be a school subject the index actually knows. A major is a career, not a class the student can cross into.
+const MAJOR_NAME = /(학과|학부|전공|대학|예과)$/;
+function knownSubject(subject, index) {
+  const table = index?.subjectGroup || {};
+  const name = clean(subject);
+  if (!name || MAJOR_NAME.test(name)) return false;
+  return Boolean(table[name] || table[bare(name)] || table[displayName(subject, index)]);
+}
+
+// Two students with the same task should not get the same partner. What the student is aiming at decides which
+// way the report leans, so the track pulls the choice toward the subjects that track really uses.
+const TRACK_GROUPS = [
+  [/의약|의예|치의|한의|수의|간호|보건|약학|재활|임상/, ['과학', '사회']],
+  [/공학|컴퓨터|기계|전자|전기|화공|신소재|반도체|건축|도시|항공|로봇|소프트웨어|데이터|정보/, ['정보·기술', '수학']],
+  [/자연|생명|생물|화학|물리|지구|환경|농림|수산|식품|천문/, ['과학', '수학']],
+  [/사회|경영|경제|행정|정치|법|교육|심리|복지|관광|무역/, ['사회', '수학']],
+  [/인문|어문|국어|영문|문헌|철학|사학|역사|종교|미디어|언론|신문방송|문예/, ['국어', '사회']],
+  [/예술|예체능|체육|디자인|음악|미술|무용|연극|영화|스포츠/, ['예술·체육', '국어']],
+];
+function trackGroups(input) {
+  const text = [input?.track, input?.career, input?.major].filter(Boolean).join(' ');
+  for (const [pattern, groups] of TRACK_GROUPS) if (pattern.test(text)) return groups;
+  return [];
 }
 
 // A partner subject is only useful if the student is plausibly in it. The corpus counts say which subjects schools
@@ -144,25 +170,45 @@ export function pickCrossSubject(input, index, limit = 2) {
     for (const next of axis?.next || []) add(next, 4, axis.why);
   }
 
+  const leaning = trackGroups(input);
   const ranked = [...scores.entries()]
-    .map(([subject, score]) => ({
-      subject: displayName(subject, index),
-      score: score + commonBonus(subject, index),
-      group: normalizeGroup(subject, index),
-      why: reasons.get(subject) || '',
-    }))
+    .filter(([subject]) => knownSubject(subject, index))
+    .map(([subject, score]) => {
+      const group = normalizeGroup(subject, index);
+      const pull = leaning.indexOf(group);
+      return {
+        subject: displayName(subject, index),
+        score: score + commonBonus(subject, index) + (pull === 0 ? 6 : pull === 1 ? 3 : 0),
+        group,
+        why: reasons.get(subject) || '',
+      };
+    })
     .filter((item) => item.group && item.group !== homeGroup && bare(item.subject) !== bare(home))
     .sort((a, b) => b.score - a.score);
 
   const partners = [];
   const takenGroups = new Set();
-  for (const item of ranked) {
-    if (takenGroups.has(item.group) || partners.length >= limit) continue;
+  const take = (item) => {
+    if (!item || takenGroups.has(item.group) || partners.length >= limit) return;
     takenGroups.add(item.group);
     partners.push({ subject: item.subject, group: item.group, why: item.why, ...GROUP_LENS[item.group] });
+  };
+  // The best-evidenced partner leads. The next slot is held for the student's own track, so two students handed
+  // the same 안내문 do not walk away with the same report — a task's wording alone would give everyone one answer.
+  take(ranked[0]);
+  const leaned = ranked.find((item) => leaning.includes(item.group) && !takenGroups.has(item.group));
+  if (leaned) take(leaned);
+  else {
+    // The data reaches nowhere near this student's track. Offer the track's own direction anyway, named by the
+    // subject every student recognises rather than a bare group label.
+    const group = leaning.find((name) => name !== homeGroup && !takenGroups.has(name));
+    if (group) take({ subject: GROUP_SUBJECT[group] || group, group, why: '' });
   }
-  // Nothing in the data reaches out of this subject — fall back to where this group usually crosses.
-  for (const group of GROUP_PARTNERS[homeGroup] || []) {
+  for (const item of ranked) take(item);
+  // Nothing in the data reaches out of this subject — fall back to where this group usually crosses, with the
+  // student's own track first in the queue.
+  const fallback = [...leaning, ...(GROUP_PARTNERS[homeGroup] || [])];
+  for (const group of fallback) {
     if (partners.length >= limit) break;
     if (takenGroups.has(group) || group === homeGroup) continue;
     takenGroups.add(group);
