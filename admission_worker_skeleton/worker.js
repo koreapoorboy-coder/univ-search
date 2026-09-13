@@ -2,6 +2,7 @@ import { acceptLiveInputCandidate, handleSimpleLiveIntakeRequest, parseStrictIJs
 import { COLLECTION, STAGE, finalizeStageOutput, normalizeStudentData, resolveCollectionKind, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
 import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, careerAxisPromptLines, checkUpload, matchAxes, priorWorkPromptLines, sanitizeAnalysis, sharesGround } from './upload_analysis_v1.mjs';
 import { pickReportShape, shapePromptLines } from './report_shape_v1.mjs';
+import { crossSubjectPromptLines, pickCrossSubject } from './cross_subject_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
 const SERVICE_NAME = 'admission-keyword-worker';
@@ -35,6 +36,8 @@ const SEED_FILES = {
   reportShapeIndex: 'engine-index/report_shape_index.v1.json',
   // Built by tools/build_axis_index.mjs: 465 종단 축 and the 1,684 keywords that reach them.
   axisIndex: 'engine-index/longitudinal_axis_index.v1.json',
+  // Built by tools/build_cross_subject_index.mjs: which other subject this one honestly crosses into.
+  crossSubjectIndex: 'engine-index/cross_subject_index.v1.json',
 };
 
 // Execution authority is intentionally non-serializable. Audit hashes and
@@ -234,6 +237,8 @@ export default {
         input.reportShape = pickReportShape(input, seedPack.reportShapeIndex);
         // Where this concept leads next, from our own 종단 축 rather than the model's guess.
         input.careerAxes = matchAxes([input.selectedKeyword, input.keyword, input.selectedConcept, input.subject, input.track], seedPack.axisIndex, 2);
+        // 횡단 평가: which second subject this topic can really carry, named from our own bridge data.
+        input.crossSubject = pickCrossSubject(input, seedPack.crossSubjectIndex);
     const seedMatch = matchSeed(input, seedPack);
         const prompt = buildPrompt(input, seedMatch, env);
 
@@ -837,6 +842,7 @@ function buildPrompt(input, seedMatch, env) {
     '',
     ...priorWorkPromptLines(input.priorWork, sharesGround(input.priorWork, input)),
     ...shapePromptLines(input.reportShape),
+    ...crossSubjectPromptLines(input.crossSubject, stage),
     ...careerAxisPromptLines(input.careerAxes),
     '',
     '[깊이 기준]',
