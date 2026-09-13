@@ -401,10 +401,12 @@ check(bridgeSource.includes("function renderRecordDraft") && bridgeSource.includ
   check(/OUV, BOD, KNN/.test(lab), "field-only abbreviations are spelled out for the reader");
   // Only the finished report knows what was found, so only it may say so.
   const final = titleRules(COLLECTION.MEASUREMENT, STAGE.FINAL).join("\n");
-  check(/확인된 방향까지 제목에 담을 수 있다/.test(final), "the finished report may name what it found");
-  check(/차이가 뚜렷하지 않았으면 방향을 쓰지 않는다/.test(final), "but not when the data does not show it");
+  check(/제목은 "비교"에서 끝내지 말고 그 방향까지 적는다/.test(final), "the finished report names what it found, not just that it compared");
+  check(/농도가 높을수록 값이 커짐을 확인/.test(final), "with an example of how that reads");
+  check(/조건 간 차이가 반복 측정의 흔들림보다 작을 때/.test(final), "and the three cases where it must not claim a direction");
+  check(/확인하지 않은 것을 확인했다고 쓰지 않는다/.test(final), "but not when the data does not show it");
   check(/1차 설계서의 제목을 그대로 쓰지 않는다/.test(final), "and it does not reuse the draft's title");
-  check(!/확인된 방향까지/.test(lab), "the 설계서, which has no data yet, may not claim a finding");
+  check(!/그 방향까지 적는다/.test(lab), "the 설계서, which has no data yet, may not claim a finding");
 }
 
 // Asking for scale worked — 32 of 32 titles carried it — but five came back stuffed with three or four numbers
