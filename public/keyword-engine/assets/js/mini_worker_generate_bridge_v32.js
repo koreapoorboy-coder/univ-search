@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v267-upload-through-gateway";
+  const VERSION = "mini-worker-generate-bridge-v268-input-guidance";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2651,7 +2651,13 @@
       <section class="mini-exp-panel" id="miniExpPanel" data-kind="reading">
         <div class="mini-v43-kicker">${escapeHtml(text[0])}</div>
         <h3>${escapeHtml(text[1])}</h3>
-        <p class="mini-exp-help">${escapeHtml(text[2])}${template?.whatToFind ? `<br><b>각 자료에서 찾을 것: ${escapeHtml(template.whatToFind)}</b>` : ""}</p>
+        <p class="mini-exp-help">${escapeHtml(text[2])}</p>
+        <ol class="mini-exp-steps">
+          <li>설계서에 적힌 종류의 자료를 <b>${count}개</b> 찾아 읽어요. (신문 기사, 책, 교과서, 기관 자료)</li>
+          <li>자료마다 <b>제목</b>과 <b>핵심 내용</b>을 적어요. 이 둘은 꼭 있어야 해요.</li>
+          <li><b>내 해석</b>에는 그 자료를 읽고 든 내 생각을 한두 문장으로 적어요. 요약이 아니라 내 판단이에요.</li>
+        </ol>
+        ${template?.whatToFind ? `<p class="mini-exp-measure"><b>각 자료에서 찾을 것</b> ${escapeHtml(template.whatToFind)}</p>` : ""}
         <div class="mini-card-grid">${cards}</div>
         ${renderStudentFields(text[3])}
         <p class="mini-exp-note">적은 내용은 최종 보고서에 거의 그대로 들어가요. 자료를 <b>2개 이상</b> 적어야 최종 보고서를 만들 수 있어요. 최종 보고서를 만들 때 사용 횟수가 1회 차감되고, 만드는 데 2~3분 걸려요.</p>
@@ -2684,22 +2690,49 @@
     })).filter(card => card.title && card.point);
   }
 
+  // What to do, in the order it is done, written for the kind of collecting this task asks for.
+  function fillSteps(template, kind, trials){
+    const what = `${template?.measurementName || "값"}${template?.unit ? `(${template.unit})` : ""}`;
+    const repeat = trials > 1
+      ? `같은 조건을 <b>${trials}번</b> 해서 1회·2회·3회 칸에 각각 적어요. 한 번만 한 값을 세 칸에 똑같이 적지 않아요.`
+      : "칸마다 값은 하나예요. 같은 칸을 여러 번 채우지 않아요.";
+    if(kind === "survey") return [
+      "위 설계서의 문항으로 설문을 받아요.",
+      `보기마다 <b>몇 명이 골랐는지</b> 세어 그 수를 적어요. (${what})`,
+      "설문을 받으며 눈에 띈 점은 오른쪽 메모 칸에 적어요.",
+    ];
+    if(kind === "dataset") return [
+      "설계서에 적힌 곳에서 자료를 찾아요.",
+      `칸에 해당하는 <b>수치를 그대로</b> 옮겨 적어요. (${what})`,
+      "자료의 출처나 이상한 점은 오른쪽 메모 칸에 적어요.",
+    ];
+    return [
+      "위 설계서대로 실험을 해요.",
+      `잰 값을 <b>숫자만</b> 적어요. (${what})`,
+      repeat,
+      "눈으로 본 것(색, 냄새, 모양)은 오른쪽 <b>관찰 메모</b> 칸에 글로 적어요.",
+    ];
+  }
+
   function renderExperimentInputPanel(template, kind){
     const trials = Math.max(1, Math.min(5, Number(template?.trials) || 3));
     const conditions = Array.isArray(template?.conditions) ? template.conditions : [];
     const unit = template?.unit ? ` (${template.unit})` : "";
     const text = panelText(kind);
     const valueHead = trials > 1
-      ? Array.from({ length: trials }, (_, i) => `<th>${i + 1}회${escapeHtml(unit)}</th>`).join("")
+      ? Array.from({ length: trials }, (_, i) => `<th>${i + 1}회<span>${escapeHtml(template?.measurementName || "값")}${escapeHtml(unit)}</span></th>`).join("")
       : `<th>${escapeHtml(template?.measurementName || "값")}${escapeHtml(unit)}</th>`;
     const head = `<tr><th>조건</th>${valueHead}<th>관찰 메모</th></tr>`;
-    const rows = conditions.map((label, r) => `<tr><th scope="row">${escapeHtml(label)}</th>${Array.from({ length: trials }, (_, i) => `<td><input type="text" inputmode="decimal" data-row="${r}" data-trial="${i}" aria-label="${escapeHtml(label)} ${i + 1}회"></td>`).join("")}<td><input type="text" data-row="${r}" data-note="1" aria-label="${escapeHtml(label)} 관찰 메모"></td></tr>`).join("");
+    const rows = conditions.map((label, r) => `<tr><th scope="row">${escapeHtml(label)}</th>${Array.from({ length: trials }, (_, i) => `<td><input type="text" inputmode="decimal" placeholder="숫자" data-row="${r}" data-trial="${i}" aria-label="${escapeHtml(label)} ${i + 1}회"></td>`).join("")}<td><input type="text" placeholder="예: 색이 연했다" data-row="${r}" data-note="1" aria-label="${escapeHtml(label)} 관찰 메모"></td></tr>`).join("");
     return `
       <section class="mini-exp-panel" id="miniExpPanel">
         <div class="mini-v43-kicker">${escapeHtml(text[0])}</div>
         <h3>${escapeHtml(text[1])}</h3>
-        <p class="mini-exp-help">${escapeHtml(text[2])} <b>기록 항목: ${escapeHtml(template?.measurementName || "측정값")}${escapeHtml(unit)}</b>${template?.scaleGuide ? `<br>기준: ${escapeHtml(template.scaleGuide)}` : ""}</p>
+        <p class="mini-exp-help">${escapeHtml(text[2])}</p>
+        <ol class="mini-exp-steps">${fillSteps(template, kind, trials).map(step => `<li>${step}</li>`).join("")}</ol>
+        ${template?.scaleGuide ? `<p class="mini-exp-measure"><b>어떻게 재나</b> ${escapeHtml(template.scaleGuide)}</p>` : ""}
         <div class="mini-v43-table-wrap"><table class="mini-v43-table mini-exp-table"><thead>${head}</thead><tbody>${rows}</tbody></table></div>
+        <p class="mini-exp-hint">아직 못 한 칸은 비워 두어도 돼요. 표를 통째로 비우면 실험 없이 <b>모은 자료로 쓰는 보고서</b>로 만들어 드려요.</p>
         ${renderStudentFields(text[3])}
         <p class="mini-exp-note">적은 문장은 최종 보고서에 거의 그대로 들어가요. 표를 비워 두고 만들면 모은 자료로 쓰는 <b>문헌 탐구 보고서</b>로 만들어요. 최종 보고서를 만들 때 사용 횟수가 1회 차감되고, 만드는 데 2~3분 걸려요.</p>
         <p class="mini-exp-error" id="miniExpError" hidden></p>
@@ -4224,6 +4257,14 @@ ${result}`;
     "        .mini-exp-fields label{display:flex;flex-direction:column;gap:6px;font-size:13.5px;font-weight:800;color:#334155}",
     "        .mini-exp-fields label span{font-weight:600;color:var(--mini-muted,#667085)}",
     "        .mini-exp-fields textarea{border:1px solid var(--mini-line,#e6eaf2);border-radius:var(--mini-r-sm,10px);padding:10px;font:inherit;font-size:14px;line-height:1.6;resize:vertical;background:#fff}",
+    "        .mini-exp-steps{margin:0 0 14px;padding-left:22px;font-size:14.5px;line-height:1.8;color:#334155}",
+    "        .mini-exp-steps li{margin:0 0 4px}",
+    "        .mini-exp-steps li::marker{color:var(--mini-primary,#2458ff);font-weight:800}",
+    "        .mini-exp-measure{background:#fff;border:1px solid var(--mini-line,#e6eaf2);border-radius:var(--mini-r-sm,10px);padding:11px 14px;margin:0 0 14px;font-size:14px;line-height:1.7;color:#334155}",
+    "        .mini-exp-measure b{color:var(--mini-primary,#2458ff);margin-right:6px}",
+    "        .mini-exp-hint{font-size:13.5px;color:var(--mini-muted,#667085);margin:10px 0 0;line-height:1.7}",
+    "        .mini-exp-table thead th span{display:block;font-weight:600;font-size:12px;color:var(--mini-muted,#667085);margin-top:2px}",
+    "        .mini-exp-table input::placeholder{color:#b6c0cf}",
     "        .mini-exp-error,.mini-upload-error{color:#b42318;font-weight:700;font-size:14px;margin:12px 0 0;padding:10px 12px;background:#fff4f3;border:1px solid #fcd9d4;border-radius:var(--mini-r-sm,10px)}",
     "",
     "        .mini-card-grid{display:grid;gap:12px;margin:16px 0 0}",
