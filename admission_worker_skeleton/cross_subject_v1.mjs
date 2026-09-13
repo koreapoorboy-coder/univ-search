@@ -192,9 +192,10 @@ export function crossSubjectPromptLines(bridge, stage = '') {
     '',
     '[교과 융합 — 주제가 걸쳐야 할 다른 과목]',
     `- 이 과제의 본 과목은 ${bridge.home}(${bridge.homeGroup})이다. 본 과목은 그대로 중심에 두고, 다른 과목 하나의 보는 방식을 실제로 끌어와 주제를 세운다.`,
-    ...bridge.partners.map((partner) => [
+    // Both partners often come from one bridge point, so the reason is the same sentence twice. Say it once.
+    ...bridge.partners.map((partner, index) => [
       `- ${partner.subject}(${partner.group}): ${partner.lens}. 이 과목이 던지는 물음은 "${partner.ask}"이다.`,
-      partner.why ? `  우리 교육과정 지도에서 이어지는 근거: ${partner.why}` : '',
+      partner.why && partner.why !== bridge.partners[index - 1]?.why ? `  우리 교육과정 지도에서 이어지는 근거: ${partner.why}` : '',
     ].filter(Boolean).join('\n')),
     '- 위 과목 중 이번 과제에 실제로 쓸모가 있는 하나만 고른다. 둘 다 끌어오면 둘 다 얕아진다.',
     '- 융합은 이름표가 아니다. "사회적 관점에서 보면", "수학적으로 분석하면" 같은 문장을 덧붙이는 것은 융합이 아니다. 고른 과목이 아래 세 곳 중 최소 두 곳에서 실제로 일을 해야 한다.',
