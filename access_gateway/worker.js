@@ -3,6 +3,11 @@ const TARGET_BASE_PATH = '/keyword-engine';
 
 const GENERATE_WORKER_URL = 'https://curly-base-a1a9.koreapoorboy.workers.dev/generate';
 const GENERATE_GATEWAY_PATH = '/__mini/generate';
+// Reading a student's past 보고서 or 생활기록부 is its own paid action: they may come only for the analysis and
+// never generate a report, so it cannot ride along on the report's use.
+const ANALYZE_GATEWAY_PATH = '/__mini/analyze-upload';
+const ANALYZE_WORKER_URL = 'https://curly-base-a1a9.koreapoorboy.workers.dev/analyze-upload';
+const UPLOAD_ANALYSIS_STAGE = 'student_upload_analysis';
 
 const GATEWAY_MODE = 'generate-stage-aware-flow-token-v241-count-on-completed-report';
 const PRIMARY_GENERATION_STAGE = 'primary_student_result';
@@ -73,13 +78,19 @@ export default {
       return handleGenerateRequest(request, env);
     }
 
+    if (url.pathname === ANALYZE_GATEWAY_PATH) {
+      return handleAnalyzeUploadRequest(request, env);
+    }
+
     if (
       pathParts.length >= 3 &&
       ACCESS_CODES[firstPart] &&
       pathParts[1] === '__mini' &&
-      pathParts[2] === 'generate'
+      (pathParts[2] === 'generate' || pathParts[2] === 'analyze-upload')
     ) {
-      return handleGenerateRequest(request, env, firstPart);
+      return pathParts[2] === 'analyze-upload'
+        ? handleAnalyzeUploadRequest(request, env, firstPart)
+        : handleGenerateRequest(request, env, firstPart);
     }
 
     if (ACCESS_CODES[firstPart]) {
@@ -119,6 +130,69 @@ export default {
     return proxyRequest(request, targetUrl);
   },
 };
+
+// Same door as the report: a valid access code, one use counted, and nothing counted when the read fails.
+async function handleAnalyzeUploadRequest(request, env, pathCode = '') {
+  if (request.method !== 'POST') {
+    return json({ ok: false, error: '자료 분석은 POST 요청만 허용됩니다.' }, 405);
+  }
+
+  const code = pathCode || getCookie(request, COOKIE_NAME);
+  if (!code || !ACCESS_CODES[code]) {
+    return json({ ok: false, error: '유효한 접속 코드가 없습니다. 전용 접속 주소로 다시 접속해 주세요.' }, 403);
+  }
+
+  const allowance = await checkCodeForGenerate(code, env);
+  if (!allowance.ok) {
+    return json({
+      ok: false,
+      error: allowance.message,
+      gateway: { ok: false, mode: GATEWAY_MODE, stage: UPLOAD_ANALYSIS_STAGE, counted: false, accessCode: code },
+    }, 403);
+  }
+
+  let upstreamStatus = 0;
+  let upstreamJson = null;
+  try {
+    // The body is multipart with the files in it; it is forwarded as it arrived.
+    const upstream = await fetch(new Request(ANALYZE_WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': request.headers.get('Content-Type') || 'multipart/form-data' },
+      body: request.body,
+      duplex: "half",
+    }));
+    upstreamStatus = upstream.status;
+    const text = await upstream.text();
+    try {
+      upstreamJson = JSON.parse(text);
+    } catch (e) {
+      upstreamJson = null;
+    }
+  } catch (error) {
+    return json({
+      ok: false,
+      error: '자료를 읽지 못했습니다. 사용 횟수는 차감되지 않았습니다.',
+      gateway: { ok: false, mode: GATEWAY_MODE, stage: UPLOAD_ANALYSIS_STAGE, counted: false, accessCode: code, upstreamStatus },
+    }, 502);
+  }
+
+  // Anything short of a real analysis is free: a refused upload, a file we could not read, a network failure.
+  const accepted = upstreamStatus >= 200 && upstreamStatus < 300 && upstreamJson && upstreamJson.ok !== false && upstreamJson.analysis;
+  if (!accepted) {
+    return json({
+      ...(upstreamJson || {}),
+      ok: false,
+      error: upstreamJson?.message || upstreamJson?.error || '자료를 읽지 못했습니다. 사용 횟수는 차감되지 않았습니다.',
+      gateway: { ok: false, mode: GATEWAY_MODE, stage: UPLOAD_ANALYSIS_STAGE, counted: false, accessCode: code, upstreamStatus },
+    }, upstreamStatus >= 400 && upstreamStatus < 500 ? upstreamStatus : 502);
+  }
+
+  await increaseUsage(code, env);
+  return json({
+    ...upstreamJson,
+    gateway: { ok: true, mode: GATEWAY_MODE, stage: UPLOAD_ANALYSIS_STAGE, counted: true, accessCode: code, upstreamStatus },
+  });
+}
 
 async function handleGenerateRequest(request, env, pathCode = '') {
   if (request.method !== 'POST') {

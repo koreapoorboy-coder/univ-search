@@ -1,6 +1,6 @@
 import { acceptLiveInputCandidate, handleSimpleLiveIntakeRequest, parseStrictIJson } from './simple_live_intake_v1.mjs';
 import { COLLECTION, STAGE, finalizeStageOutput, normalizeStudentData, resolveCollectionKind, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
-import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, matchAxes, priorWorkPromptLines, sanitizeAnalysis, sharesGround } from './upload_analysis_v1.mjs';
+import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, careerAxisPromptLines, checkUpload, matchAxes, priorWorkPromptLines, sanitizeAnalysis, sharesGround } from './upload_analysis_v1.mjs';
 import { pickReportShape, shapePromptLines } from './report_shape_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
@@ -231,7 +231,9 @@ export default {
 
         const seedPack = await loadSeedPack(env);
         // What shape this kind of task actually takes, from real 평가계획 rather than one fixed outline.
-    input.reportShape = pickReportShape(input, seedPack.reportShapeIndex);
+        input.reportShape = pickReportShape(input, seedPack.reportShapeIndex);
+        // Where this concept leads next, from our own 종단 축 rather than the model's guess.
+        input.careerAxes = matchAxes([input.selectedKeyword, input.keyword, input.selectedConcept, input.subject, input.track], seedPack.axisIndex, 2);
     const seedMatch = matchSeed(input, seedPack);
         const prompt = buildPrompt(input, seedMatch, env);
 
@@ -835,6 +837,7 @@ function buildPrompt(input, seedMatch, env) {
     '',
     ...priorWorkPromptLines(input.priorWork, sharesGround(input.priorWork, input)),
     ...shapePromptLines(input.reportShape),
+    ...careerAxisPromptLines(input.careerAxes),
     '',
     '[깊이 기준]',
     '- 원리는 구체적인 물질과 반응 수준까지 설명한다. 예: 어떤 효소가 어떤 결합을 끊는지, 대상(얼룩, 음식 등)이 어떤 성분으로 되어 있는지, 조건이 효소와 대상 각각에 어떤 영향을 주는지.',

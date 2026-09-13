@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v266-design-tokens-root";
+  const VERSION = "mini-worker-generate-bridge-v267-upload-through-gateway";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -4389,7 +4389,12 @@ ${result}`;
       button.textContent = "읽는 중... (1~2분)";
     }
     try{
-      const res = await fetch(`${WORKER_BASE_URL}/analyze-upload`, { method: "POST", body: form });
+      // Through the gateway so the read is authorised and counted the same way a report is. The direct
+      // Worker URL is the fallback for anywhere the gateway is not in front (local checks).
+      let res = await fetch("/__mini/analyze-upload", { method: "POST", body: form }).catch(() => null);
+      if(!res || res.status === 404 || res.status === 405){
+        res = await fetch(`${WORKER_BASE_URL}/analyze-upload`, { method: "POST", body: form });
+      }
       const data = await res.json().catch(() => ({}));
       if(!res.ok || !data.ok){
         errorBox.hidden = false;
