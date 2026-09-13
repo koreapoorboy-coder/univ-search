@@ -333,6 +333,14 @@ export function removeInventedFeelings(body, studentText) {
   return filterSentences(body, (sentence) => !invented.some((word) => sentence.includes(word)));
 }
 
+// 느낀 점 is what the teacher reads when they write 세특, so a sentence that praises the student — 성실하게
+// 참여했다, 적극적으로 협동하였다 — is the one thing that must not be in it: the judgement is the teacher's to
+// make. The prompt forbids it and the 생기부 draft strips it, but the section itself never did.
+export function removeSelfPraise(body, studentText) {
+  const text = String(studentText || '');
+  return filterSentences(body, (sentence) => !SELF_PRAISE.test(sentence) || text.includes(sentence.trim().slice(0, 12)));
+}
+
 // 참고 자료 lists exactly what the student wrote; without that, only lines that are not notes or asides.
 export function buildReferencesBody(body, sources) {
   if (sources.length) return sources.join('\n');
@@ -697,8 +705,9 @@ export function finalizeStageOutput(stage, parsed, input) {
       removed += numbers.removed;
       if (/느낀 점/.test(title)) {
         const feelings = removeInventedFeelings(numbers.body, studentText);
-        removedFeelings += feelings.removed;
-        return { ...section, body: feelings.body };
+        const praise = removeSelfPraise(feelings.body, studentText);
+        removedFeelings += feelings.removed + praise.removed;
+        return { ...section, body: praise.body };
       }
       return { ...section, body: numbers.body };
     });
@@ -710,5 +719,17 @@ export function finalizeStageOutput(stage, parsed, input) {
     const recordDraft = buildRecordDraft(parsed?.recordDraft, allowed);
     return { parsed: { ...parsed, sections: cleaned }, extra: { ...extra, recordDraft, removedNumberSentences: removed, removedFeelingSentences: removedFeelings } };
   }
-  return { parsed, extra: {} };
+  // The one-shot report has no student data to check numbers against, but the two filters that need no data were
+  // never run on it: our own field names (카드, dataTemplate, gap) and sentences that praise the student.
+  let removedPraise = 0;
+  const oneShot = sections.map((section) => {
+    const body = scrubInternalNames(section?.body);
+    if (!/느낀 점|소감|성찰/.test(String(section?.title || ''))) return { ...section, body };
+    // The student wrote nothing here, so any feeling in it was invented by the model.
+    const feelings = removeInventedFeelings(body, '');
+    const praise = removeSelfPraise(feelings.body, '');
+    removedPraise += praise.removed + feelings.removed;
+    return { ...section, body: praise.body };
+  });
+  return { parsed: { ...parsed, sections: oneShot }, extra: { removedFeelingSentences: removedPraise } };
 }

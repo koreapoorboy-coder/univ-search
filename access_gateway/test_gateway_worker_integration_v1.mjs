@@ -204,6 +204,27 @@ const check = (ok, label) => { assert.equal(ok, true, label); console.log(`PASS 
     "I4b the student is told in Korean which choice is missing", body.error);
 }
 
+// I4c — 논술·창작 tasks keep the one-shot report, but not when the student has already filled a table. Throwing
+// their numbers away also skips every guard the two-stage path runs, so the invented sentences would survive.
+{
+  openaiMode = "final";
+  const essay = "매체에 나타난 사회 쟁점에 대해 자신의 입장을 논술한다.";
+  const withData = {
+    ...basePayload, taskDescription: essay, reportStage: "experiment_final",
+    studentData: { measurementName: "응답 수", unit: "명", conditions: [{ label: "찬성", values: [12] }, { label: "반대", values: [8] }], reason: "궁금했다", sources: ["통합과학1 교과서"] },
+    liveInputCandidate: browserIntake.buildCandidateFromValues({
+      school: "테스트고등학교", grade: "고1", subject: "통합과학1", subject_group: "과학",
+      task_description: essay, selected_subject: "통합과학1", selected_subject_group: "과학",
+    }),
+  };
+  const res = await worker.fetch(new Request(WORKER_GENERATE_URL, { method: "POST", body: JSON.stringify(withData) }), workerEnv);
+  const body = await res.json();
+  check(body.resolved?.reportStage === "experiment_final", "I4c a filled table keeps the two-stage report even on a 논술 task", body.resolved?.reportStage);
+  const { liveInputCandidate, studentData, ...noData } = withData;
+  const plain = await (await worker.fetch(new Request(WORKER_GENERATE_URL, { method: "POST", body: JSON.stringify({ ...noData, liveInputCandidate }) }), workerEnv)).json();
+  check(plain.resolved?.reportStage === "complete", "I4c an empty 논술 task still gets the one-shot report", plain.resolved?.reportStage);
+}
+
 // I5 — path A (direct Worker, as the site falls back to it): same request works without the gateway.
 {
   openaiMode = "report";

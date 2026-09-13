@@ -326,4 +326,35 @@ check(stageOutputKeys(STAGE.FINAL).includes("recordDraft") && stageOutputKeys(ST
 check(bridgeSource.includes("function renderRecordDraft") && bridgeSource.includes("제출하는 보고서에는 들어가지 않아요"),
   "the site shows the summary as a separate, non-submitted box");
 
+// 느낀 점 is what the teacher reads to write 세특, so a sentence praising the student is the one thing that must
+// not survive there — the judgement is the teacher's. The prompt forbade it and the 생기부 draft stripped it, but
+// the section itself passed it straight through. 11,136 dry runs all carried it.
+{
+  const praised = finalizeStageOutput(STAGE.FINAL, {
+    reportTitle: "t", figures: [],
+    sections: [{ title: "느낀 점", body: "나는 성실하게 참여했고 적극적으로 협동하였다. 조건을 나누어 재는 것이 중요하다는 것을 알았다." }],
+  }, { studentData: normalizeStudentData(studentData), taskDescription: "", subject: "통합과학1" });
+  const body = praised.parsed.sections.find((section) => section.title === "느낀 점").body;
+  check(!/성실|적극적/.test(body), "느낀 점 drops a sentence that praises the student", body);
+  check(body.includes("중요하다는 것을 알았다"), "what the student actually did stays", body);
+  check(praised.extra.removedFeelingSentences >= 1, "the removal is counted");
+}
+
+// The one-shot report skipped both data-free filters: our own field names and self-praise. "카드" reaching a
+// student report is the fault that was already fixed once — for the two-stage path only.
+{
+  const one = finalizeStageOutput(STAGE.COMPLETE, {
+    reportTitle: "t",
+    sections: [
+      { title: "결과 분석", body: "카드에 적힌 내용과 비교하면 comparisons 항목이 더 크다." },
+      { title: "느낀 점", body: "정말 힘들었지만 재미있었다. 나는 성실하게 참여하였다. 개념을 확인하였다." },
+    ],
+  }, { studentData: normalizeStudentData(null), taskDescription: "", subject: "통합과학1" });
+  const analysis = one.parsed.sections[0].body;
+  const feeling = one.parsed.sections[1].body;
+  check(!analysis.includes("카드") && !analysis.includes("comparisons"), "the one-shot report no longer leaks our field names", analysis);
+  check(!/힘들|재미있|성실/.test(feeling) && feeling.includes("개념을 확인하였다"),
+    "the one-shot report drops invented feelings and self-praise too", feeling);
+}
+
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);

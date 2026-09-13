@@ -1,5 +1,5 @@
 import { acceptLiveInputCandidate, handleSimpleLiveIntakeRequest, parseStrictIJson } from './simple_live_intake_v1.mjs';
-import { COLLECTION, STAGE, finalizeStageOutput, normalizeStudentData, resolveCollectionKind, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
+import { COLLECTION, STAGE, finalizeStageOutput, hasStudentMeasurements, normalizeStudentData, resolveCollectionKind, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
 import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, careerAxisPromptLines, checkUpload, matchAxes, priorWorkPromptLines, sanitizeAnalysis, sharesGround } from './upload_analysis_v1.mjs';
 import { pickReportShape, shapePromptLines } from './report_shape_v1.mjs';
 import { crossSubjectPromptLines, pickCrossSubject } from './cross_subject_v1.mjs';
@@ -221,8 +221,12 @@ export default {
         // What the student already did, read from their upload in the separate step. Sanitised again here
         // because it travels back through the browser between the two calls.
         input.priorWork = trustedPayload?.priorWork ? sanitizeAnalysis(trustedPayload.priorWork) : null;
-        // 논술·창작·발표 have nothing for the student to collect, so they keep the one-shot report.
-        if (input.collectionKind === COLLECTION.NONE && input.reportStage !== STAGE.COMPLETE) {
+        // 논술·창작·발표 have nothing for the student to collect, so they keep the one-shot report — unless the
+        // student has already filled a table or read cards, in which case throwing their work away and writing a
+        // generic report instead would also skip every anti-fabrication guard the two-stage path runs.
+        const alreadyCollected = hasStudentMeasurements(input.studentData || normalizeStudentData(null))
+          || Boolean((input.studentData || normalizeStudentData(null)).sourceCards.length);
+        if (input.collectionKind === COLLECTION.NONE && input.reportStage !== STAGE.COMPLETE && !alreadyCollected) {
           input.reportStage = STAGE.COMPLETE;
         }
 
