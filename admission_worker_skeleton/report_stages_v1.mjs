@@ -439,6 +439,50 @@ function withConclusion(sections) {
   return [...sections.slice(0, at), '결론', ...sections.slice(at)];
 }
 
+// The title is not a heading — it is the line that ends up in 생활기록부. Teachers copy it across and rarely
+// carry the body with it, so an 입학사정관 reads this one line and nothing else. It has to say what the student
+// handled, what they did with their own hands, and what they were trying to see.
+const TITLE_EXAMPLES = {
+  [COLLECTION.MEASUREMENT]: [
+    '  나쁨: "효소의 작용에 대한 탐구" — 무엇을 재었는지, 무엇과 비교했는지 하나도 보이지 않는다.',
+    '  좋음: "물 온도와 세제 종류에 따른 얼룩 제거 정도 3회 반복 측정 비교"',
+    '  좋음: "스마트폰 색분석으로 잰 FeSCN2+ 평형 이동의 조건별 비교"',
+  ],
+  [COLLECTION.SURVEY]: [
+    '  나쁨: "청소년 수면에 관한 연구" — 누구에게 무엇을 물었는지 없다.',
+    '  좋음: "학급 30명 설문으로 본 취침 시각과 1교시 집중도의 관계 분석"',
+  ],
+  [COLLECTION.DATASET]: [
+    '  나쁨: "고령화 문제 탐구" — 어떤 자료로 무엇을 견주었는지 없다.',
+    '  좋음: "최근 10년 지역 인구 통계로 비교한 고령화 속도와 편차 분석"',
+  ],
+  [COLLECTION.READING]: [
+    '  나쁨: "원자력 발전에 대한 고찰" — 무엇을 읽고 무엇을 따졌는지 없다.',
+    '  좋음: "기사 4편을 견주어 분석한 원자력 발전 찬반 논거의 근거 방식"',
+  ],
+  [COLLECTION.NONE]: [
+    '  나쁨: "매체 언어의 이해" — 한 일이 없다.',
+    '  좋음: "급식실 손 소독 의무화 찬반 칼럼의 논증 타당성 비교 평가"',
+  ],
+};
+
+export function titleRules(kind = COLLECTION.MEASUREMENT) {
+  return [
+    '',
+    '[reportTitle — 생활기록부에 그대로 옮겨 적히는 한 줄]',
+    '- 담당 선생님은 이 제목을 생활기록부에 거의 그대로 옮긴다. 대학 입학사정관은 보고서 본문을 보지 못하고 이 한 줄만 읽는다.',
+    '- 그러므로 제목만 읽고도 다음 세 가지가 보여야 한다.',
+    '  ① 무엇을 다루었나 — 막연한 분야 이름이 아니라 구체적인 대상이나 상황',
+    '  ② 학생이 직접 무엇을 했나 — 측정·설문·수집·비교·설계·분석 중 실제로 한 일',
+    '  ③ 무엇을 보려 했나 — 어떤 차이나 영향을 확인하려 했는지',
+    '- 길이는 공백 포함 25~45자. 명사구로 끝낸다(~비교, ~분석, ~측정, ~설계, ~평가).',
+    '- 쓰지 않는다: 콜론(:)과 부제, 물음표, 과목 이름, "~에 대한 고찰", "~의 이해", "~ 연구"처럼 한 일이 드러나지 않는 말, 수행평가 안내문을 잘라 붙인 문장.',
+    '- 처음 보는 약어나 기호는 넣지 않는다. 널리 쓰이는 화학식이나 단위는 괜찮다.',
+    '- 두 과목을 제목에 억지로 다 넣지 않는다. 실제로 한 일 안에 다른 과목의 방법이 들어 있으면 그 방법을 적는 것만으로 드러난다.',
+    ...(TITLE_EXAMPLES[kind] || TITLE_EXAMPLES[COLLECTION.MEASUREMENT]),
+  ];
+}
+
 export function stageSections(stage, input) {
   const wantsUse = /활용|적용|방안|제안/.test(String(input?.taskDescription || ''));
   // The draft is a plan, not the report, so it keeps its own five parts whatever the task is.

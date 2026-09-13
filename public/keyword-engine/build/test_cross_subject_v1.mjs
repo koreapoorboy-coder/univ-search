@@ -69,7 +69,7 @@ check(pickCrossSubject({ subject: "생명과학" }, null) === null, "C6 no index
   check(/최소 두 곳/.test(lines), "C8 two of the three are required, not one");
   check(/하나만 고른다/.test(lines), "C8 one partner, not both");
   check(/이름표가 아니다/.test(lines), "C8 a label is refused outright");
-  check(/억지 연결을 만들지 않는다/.test(lines), "C8 a task that does not fit is allowed to stay single-subject");
+  check(/안 하느니만 못하다/.test(lines), "C8 a task that does not fit is allowed to stay single-subject");
   check(/reportTitle/.test(lines), "C8 the title carries the crossing too");
   check(lines.includes(bridge.partners[0].subject), "C8 the partner subject is named by name");
 }
@@ -138,5 +138,15 @@ check(pickCrossSubject({ subject: "생명과학" }, null) === null, "C6 no index
 // C10: nothing to say is said as nothing, so the prompt does not grow an empty heading.
 check(crossSubjectPromptLines(null).length === 0, "C10 no bridge, no prompt lines");
 check(crossSubjectPromptLines({ partners: [] }).length === 0, "C10 an empty partner list adds nothing");
+
+// C15: a forced crossing is worse than none. The user's line: 억지로 끼워 맞추는 형태는 절대 안 된다.
+{
+  const bridge = pickCrossSubject({ subject: "생명과학", subjectGroup: "과학", taskDescription: "뉴런의 분극 상태를 실험으로 확인한다", major: "미디어커뮤니케이션학과", track: "인문계열" }, index);
+  const lines = crossSubjectPromptLines(bridge, "experiment_draft", "measurement").join("\n");
+  check(/억지로 끼워 맞춘 융합은 안 하느니만 못하다/.test(lines), "C15 a forced crossing is refused outright");
+  check(/그 과목을 빼도 연구 질문과 결론이 그대로 성립한다/.test(lines), "C15 the test for a fake crossing is given: remove it and see");
+  check(/억지 비유를 만들어야 한다/.test(lines), "C15 inventing an analogy to fit counts as forcing");
+  check(/한 과목을 끝까지 깊게 판 보고서로 쓴다/.test(lines), "C15 and staying single-subject is a real option, not an apology");
+}
 
 console.log(`PASS cross subject: ${passed}/${passed}`);

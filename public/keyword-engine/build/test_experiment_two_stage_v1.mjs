@@ -7,7 +7,7 @@ import { readFile } from "node:fs/promises";
 import {
   STAGE, allowedNumberSet, buildFigures, computeStats, finalizeStageOutput, normalizeStudentData,
   describeCombination, removeUnsupportedNumbers, resolveReportStage, scrubInternalNames, stagePromptLines, stageSchemaProperties, stageSections, summaryForPrompt,
-  COLLECTION, buildSourceCardTable, buildRecordDraft, resolveCollectionKind, stageOutputKeys, stageSectionGuide,
+  COLLECTION, buildSourceCardTable, buildRecordDraft, resolveCollectionKind, stageOutputKeys, stageSectionGuide, titleRules,
 } from "../../../admission_worker_skeleton/report_stages_v1.mjs";
 
 let passed = 0;
@@ -369,6 +369,23 @@ check(bridgeSource.includes("function renderRecordDraft") && bridgeSource.includ
   check(complete.includes("결론"), "the one-shot report gets it too", complete.join("/"));
   const already = stageSections(STAGE.FINAL, { reportShape: { sections: ["연구 질문", "이론적 배경", "탐구 방법", "탐구 결과", "결론"] }, taskDescription: "" });
   check(already.filter((section) => section === "결론").length === 1, "a shape that already concludes is left alone", already.join("/"));
+}
+
+// The title is the line 생활기록부 keeps. Teachers copy it across and rarely carry the body with it, so an
+// 입학사정관 reads this one line and nothing else — it has to show what the student handled, what they did, and
+// what they were looking for. "효소의 작용에 대한 탐구" says none of the three.
+{
+  const lines = titleRules(COLLECTION.MEASUREMENT).join("\n");
+  check(/생활기록부에 거의 그대로 옮긴다/.test(lines), "the model is told where this title ends up");
+  check(/입학사정관은 보고서 본문을 보지 못하고/.test(lines), "and that nobody downstream reads the body");
+  check(/학생이 직접 무엇을 했나/.test(lines) && /무엇을 보려 했나/.test(lines), "the three things a title must show are named");
+  check(/25~45자/.test(lines), "a length that can hold all three");
+  check(/"~에 대한 고찰"/.test(lines) && /콜론/.test(lines), "the empty title shapes are refused by name");
+  check(/억지로 다 넣지 않는다/.test(lines), "and the crossing is not forced into the title");
+  check(/얼룩 제거 정도 3회 반복 측정 비교/.test(lines), "an experiment gets an experiment example");
+  check(/학급 30명 설문/.test(titleRules(COLLECTION.SURVEY).join("\n")), "a survey gets a survey example");
+  check(/기사 4편을 견주어/.test(titleRules(COLLECTION.READING).join("\n")), "a reading task gets its own");
+  check(/논증 타당성 비교 평가/.test(titleRules(COLLECTION.NONE).join("\n")), "and a 논술 task gets its own");
 }
 
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
