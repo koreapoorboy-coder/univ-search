@@ -11,6 +11,7 @@ import { createReadStream, mkdirSync, readFileSync, writeFileSync } from "node:f
 import { createInterface } from "node:readline";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { resolveReportScope, SCOPE } from "../admission_worker_skeleton/report_scope_v1.mjs";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
 const corpus = join(repo, "public/keyword-engine/data/assessment/records/assessment_tasks.v1.json");
@@ -56,7 +57,7 @@ const modeOnly = new Map();    // 유형만 (사다리 한 칸 위)
 const termsByStructure = new Map();
 const termTotals = new Map();
 let totalTerms = 0;
-let read = 0; let dropped = 0; let noStructure = 0;
+let read = 0; let dropped = 0; let noStructure = 0; let notReport = 0;
 
 const emptyBucket = () => ({ count: 0, modes: new Map(), outputs: new Map(), rubrics: new Map(), avoid: new Map(), methods: new Map(), grades: new Map() });
 const collect = (bucket, row) => {
@@ -80,6 +81,9 @@ for await (const line of rl) {
   let row;
   try { row = JSON.parse(trimmed); } catch { continue; }
   read += 1;
+  // Tasks with no report in them (연주, 경기, 실기, 작품 제작, 참여도) are not what this engine writes, so they
+  // must not shape what it writes either.
+  if (resolveReportScope({ taskDescription: `${row.raw_task_title || ""} ${row.raw_task_desc || ""}` }).scope !== SCOPE.REPORT) { notReport += 1; continue; }
   const structure = row.structure_id;
   if (!structure) { noStructure += 1; continue; }
   const group = normalizeGroup(row.subject_group);
@@ -161,7 +165,7 @@ writeFileSync(signaturePath, JSON.stringify({ version: "structure-signatures-v1"
 
 const kb = (p) => (readFileSync(p).length / 1024).toFixed(0);
 console.log(`읽은 과제 ${read.toLocaleString()}건`);
-console.log(`  구조가 없어 건너뜀 ${noStructure}건 · 계열에 안 맞아 제외 ${dropped}건`);
+console.log(`  보고서 과제가 아니라 제외 ${notReport}건 · 구조가 없어 건너뜀 ${noStructure}건 · 계열에 안 맞아 제외 ${dropped}건`);
 console.log(`계열 × 유형 칸 ${groupMode.size}개 (10건 이상 ${[...groupMode.values()].filter((b) => b.count >= 10).length}개) · 유형 ${modeOnly.size}가지`);
 console.log(`계열 × 구조 칸 ${buckets.size}개 (10건 이상 ${[...buckets.values()].filter((b) => b.count >= 10).length}개)`);
 console.log(`계열 사다리 ${groupOnly.size}개 · 구조 사다리 ${structureOnly.size}개`);

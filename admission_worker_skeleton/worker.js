@@ -1,7 +1,8 @@
 import { acceptLiveInputCandidate, handleSimpleLiveIntakeRequest, parseStrictIJson } from './simple_live_intake_v1.mjs';
 import { COLLECTION, STAGE, finalizeStageOutput, normalizeStudentData, resolveCollectionKind, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
-import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, priorWorkPromptLines, sanitizeAnalysis, sharesGround } from './upload_analysis_v1.mjs';
+import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, matchAxes, priorWorkPromptLines, sanitizeAnalysis, sharesGround } from './upload_analysis_v1.mjs';
 import { pickReportShape, shapePromptLines } from './report_shape_v1.mjs';
+import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
 const SERVICE_NAME = 'admission-keyword-worker';
 
@@ -32,6 +33,8 @@ const SEED_FILES = {
   reportSeedIndex: 'seed-bank/index/report_seed_index.json',
   // Built by tools/build_engine_index.mjs from the 7,131-task corpus: what shape this kind of report takes.
   reportShapeIndex: 'engine-index/report_shape_index.v1.json',
+  // Built by tools/build_axis_index.mjs: 465 종단 축 and the 1,684 keywords that reach them.
+  axisIndex: 'engine-index/longitudinal_axis_index.v1.json',
 };
 
 // Execution authority is intentionally non-serializable. Audit hashes and
@@ -202,6 +205,12 @@ export default {
         };
         const input = resolveInput(trustedPayload);
         validateInput(input);
+        // A 수행평가 graded on playing the drums or serving a shuttlecock has no report in it. Writing one
+        // would cost a use and hand the student a page they cannot submit.
+        const scope = resolveReportScope(input);
+        if (scope.scope !== SCOPE.REPORT) {
+          return json({ ok: false, error: 'NOT_A_REPORT_TASK', scope: scope.scope, message: scope.message }, 422);
+        }
         input.collectionKind = resolveCollectionKind(input);
         // What the student already did, read from their upload in the separate step. Sanitised again here
         // because it travels back through the browser between the two calls.
@@ -445,6 +454,13 @@ async function handleAnalyzeUpload(request, env) {
   const started = Date.now();
   let read;
   try {
+    let axisIndex = null;
+    try {
+      axisIndex = await loadSeedFile(env, SEED_FILES.axisIndex);
+    } catch (error) {
+      console.error("axis index unavailable:", error?.message || error);
+    }
+    meta.matchedAxes = matchAxes([meta?.selectedKeyword, meta?.keyword, meta?.selectedConcept, meta?.subject, meta?.career], axisIndex);
     read = await analyzeUploadWithModel(files, meta, env);
   } catch (error) {
     console.error("upload analysis failed:", error?.message || error);
@@ -462,6 +478,7 @@ async function handleAnalyzeUpload(request, env) {
   return json({
     ok: true,
     analysis: read.analysis,
+    axes: (meta.matchedAxes || []).map((axis) => ({ title: axis.title, subject: axis.subject, next: axis.next })),
     usage: { ...read.usage, seconds: Math.round((Date.now() - started) / 1000), files: files.length },
   });
 }
@@ -625,6 +642,13 @@ function validateInput(input) {
       throw new Error(`Missing required input: ${key}`);
     }
   }
+}
+
+async function loadSeedFile(env, file) {
+  const base = env.SEED_BASE_URL || DEFAULT_SEED_BASE;
+  const res = await fetch(`${base}/${file}`, { cf: { cacheTtl: 300, cacheEverything: true } });
+  if (!res.ok) throw new Error(`Failed to load seed file: ${file} (${res.status})`);
+  return res.json();
 }
 
 async function loadSeedPack(env) {

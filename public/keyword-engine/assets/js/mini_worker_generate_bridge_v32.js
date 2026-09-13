@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v262-upload-level-fix";
+  const VERSION = "mini-worker-generate-bridge-v263-report-scope";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -4186,6 +4186,12 @@ ${result}`;
         showError("아직 선택되지 않은 항목이 있습니다.", missing.join(" / "));
         return false;
       }
+      // Turned away here, before the request is made, so nothing is charged for a task that has no report in it.
+      const outOfScope = reportScopeProblem(req);
+      if(outOfScope){
+        showError("이 과제는 보고서 과제가 아닌 것 같아요.", outOfScope);
+        return false;
+      }
       const reportStage = options.reportStage || decideReportStage(req);
       if(reportStage) req.reportStage = reportStage;
       if(options.studentData) req.studentData = options.studentData;
@@ -4217,6 +4223,24 @@ ${result}`;
     }finally{
       setLoading(false);
     }
+  }
+
+  // Kept word for word with admission_worker_skeleton/report_scope_v1.mjs. This program writes reports; a task
+  // graded on a performance or a finished artwork has no report in it, so the student is told here rather than
+  // being charged for a page they cannot hand in.
+  const SCOPE_WRITTEN = /보고서|논술|논설|서평|비평문|감상문|평론|에세이|글로 ?쓰|글쓰기|작성하여 ?제출|정리하여 ?제출|탐구 ?결과를 ?정리|기록지|활동지|학습지|소감문|성찰문|계획서|제안서|분석하여 ?쓰/;
+  const SCOPE_OUT = [
+    [/연주|가창|합창|독창|중주|시연|실기|경기|리그전|타격|송구|드리블|스파이크|스매시|리시브|숏서비스|언더서비스|서브를 ?넣|서비스 ?실시|슛하기|패스하기|스트로크|영법|수영하기|달리기|체조|무용|안무|연기|발표회|공연/, "몸으로 하는 수행(연주·경기·실기)을 평가하는 과제로 보여요."],
+    [/그림을 ?그리|그리기 ?과정|형태묘사|드로잉|스케치|채색|조소|판화|도예|작품을 ?제작|작품 ?만들|포스터를 ?만들|영상을 ?제작|사진을 ?촬영|디자인하여 ?제작/, "작품을 만들어 내는 과제로 보여요."],
+    [/학습 ?참여도|수업 ?참여|참여 ?태도|출석|성실도 ?평가|태도 ?평가|과제 ?제출 ?여부/, "수업 참여나 태도를 보는 평가로 보여요."],
+  ];
+
+  function reportScopeProblem(req){
+    const text = [req?.taskDescription, req?.taskName, req?.taskType].filter(Boolean).join(" ");
+    if(!text.trim() || SCOPE_WRITTEN.test(text)) return "";
+    const hit = SCOPE_OUT.find(([pattern]) => pattern.test(text));
+    if(!hit) return "";
+    return `${hit[1]} 이 프로그램은 글로 내는 보고서를 만들어요. 안내문에 보고서나 감상문을 쓰라는 부분이 있으면 그 문장까지 함께 붙여 넣어 주세요.`;
   }
 
   const UPLOAD_LIMITS = { fileBytes: 45 * 1024 * 1024, totalBytes: 60 * 1024 * 1024, maxFiles: 30 };
@@ -4312,6 +4336,13 @@ ${result}`;
       schoolName: req.schoolName,
       grade: req.grade,
       targetLevel: LEVEL_BY_GRADE[String(req.grade || "").trim()] || "고2~고3 심화 수준",
+      // What the student already chose, so the engine can find the 종단 축 their work sits on.
+      subject: req.subject,
+      subjectGroup: req.subjectGroup,
+      career: req.career,
+      keyword: req.keyword,
+      selectedKeyword: req.selectedKeyword,
+      selectedConcept: req.selectedConcept,
     }));
     chosenUploads.forEach(file => form.append("files", file, file.name));
     if(button){

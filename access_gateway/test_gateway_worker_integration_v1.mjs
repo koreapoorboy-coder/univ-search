@@ -14,7 +14,8 @@ const workerSource = readFileSync(new URL("admission_worker_skeleton/worker.js",
   .replace("'./simple_live_intake_v1.mjs'", `'${new URL("admission_worker_skeleton/simple_live_intake_v1.mjs", repo).href}'`)
   .replace("'./report_stages_v1.mjs'", `'${new URL("admission_worker_skeleton/report_stages_v1.mjs", repo).href}'`)
   .replace("'./upload_analysis_v1.mjs'", `'${new URL("admission_worker_skeleton/upload_analysis_v1.mjs", repo).href}'`)
-  .replace("'./report_shape_v1.mjs'", `'${new URL("admission_worker_skeleton/report_shape_v1.mjs", repo).href}'`);
+  .replace("'./report_shape_v1.mjs'", `'${new URL("admission_worker_skeleton/report_shape_v1.mjs", repo).href}'`)
+  .replace("'./report_scope_v1.mjs'", `'${new URL("admission_worker_skeleton/report_scope_v1.mjs", repo).href}'`);
 const worker = await importSource(workerSource);
 const gateway = await importSource(readFileSync(new URL("worker.js", import.meta.url), "utf8"));
 const browserIntake = createRequire(import.meta.url)(new URL("public/keyword-engine/assets/js/simple_live_intake_v1.js", repo).pathname.replace(/^\/([A-Za-z]:)/, "$1"));

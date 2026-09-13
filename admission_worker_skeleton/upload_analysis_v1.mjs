@@ -87,6 +87,47 @@ export function analysisSchema() {
   };
 }
 
+// Which of the engine's 종단 축 this student's own work already sits on. The axes carry where each one leads
+// (next_subjects), why, and what a student produces along it — all of it from our own curriculum maps, so the
+// next report is proposed on ground we can point at instead of whatever the model thinks of.
+export function matchAxes(terms, index, limit = 4) {
+  if (!index?.keywords || !index?.axes) return [];
+  const wanted = (Array.isArray(terms) ? terms : []).map((term) => String(term || '').trim()).filter((term) => term.length >= 2);
+  const scores = new Map();
+  for (const term of wanted) {
+    for (const [keyword, hits] of Object.entries(index.keywords)) {
+      // A repeated interest rarely matches a keyword exactly: 항공우주 meets 항공, 미세먼지 meets 미세먼지 농도.
+      if (!term.includes(keyword) && !keyword.includes(term)) continue;
+      const closeness = Math.min(term.length, keyword.length) / Math.max(term.length, keyword.length);
+      for (const [axisId, boost] of hits) {
+        scores.set(axisId, (scores.get(axisId) || 0) + boost * closeness);
+      }
+    }
+  }
+  return [...scores.entries()]
+    .map(([axisId, score]) => ({ ...index.axes[axisId], axisId, score: Math.round(score) }))
+    .filter((axis) => axis.title)
+    .sort((a, b) => b.score - a.score || a.priority - b.priority)
+    .slice(0, limit);
+}
+
+// What the reading side of the analysis is told about those axes.
+export function axisPromptLines(matched) {
+  if (!matched?.length) return [];
+  return [
+    '',
+    '[이 학생의 관심이 이미 올라타 있는 탐구 축 — 우리 교육과정 지도에서 찾은 것]',
+    ...matched.map((axis, index) => [
+      `${index + 1}. ${axis.title} (${axis.subject}의 "${axis.concept}"에서 이어짐)`,
+      `   이어지는 과목·학과: ${axis.next.join(', ')}`,
+      `   왜: ${axis.why}`,
+      `   이 축에서 나오는 산출물: ${axis.output}`,
+    ].join('\n')),
+    '- reportLines는 위 축 중에서 고른다. 축의 "이어지는 과목"을 subject에 쓰고, why에는 그 축이 학생의 어떤 활동과 이어지는지 적는다.',
+    '- 위 축이 이번 학생과 전혀 맞지 않을 때만 축 밖에서 제안하고, why에 그 이유를 밝힌다.',
+  ];
+}
+
 export function analysisPromptLines(input) {
   return [
     '[너의 일]',
@@ -117,6 +158,7 @@ export function analysisPromptLines(input) {
     '- 제안한 탐구는 조건별로 값을 여러 번 재서 평균과 흔들림(최댓값-최솟값)을 비교하는 것만으로 확인할 수 있어야 한다. 학교에서 구할 수 있는 도구(자, 저울, 타이머, 스마트폰 카메라, 온도계)와 공개 자료로 할 수 있는 범위에서 고른다.',
     '- 반복 횟수를 적을 때는 3~5회로 쓴다. 결과 표가 한 조건에 다섯 번까지만 받으므로 "5회 이상"이나 "10회"처럼 그보다 많은 횟수를 제안하지 않는다.',
     '- 올린 자료와 이번 학생의 계열이 많이 다르면 주제를 억지로 잇지 않는다. 대신 이전에 쓴 탐구 방법과 분석 능력을 한 단계 올리는 방향으로 잇고, why에 그렇게 적는다.',
+    ...axisPromptLines(input?.matchedAxes),
   ];
 }
 
