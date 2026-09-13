@@ -428,6 +428,17 @@ export function describeCombination(dataTemplate, caseTag) {
   };
 }
 
+const CONCLUSION = /결론|맺음|종합|마무리/;
+// Three of the corpus shapes run 자료 해석 → 오차·한계 분석 → 후속 탐구 and simply stop: 19 of 32 real reports
+// came back with no 결론 at all. A 탐구보고서 that never answers its own question is not one, so a conclusion is
+// put back in front of whatever closes the report.
+function withConclusion(sections) {
+  if (!sections.length || sections.some((section) => CONCLUSION.test(section))) return sections;
+  const closing = sections.findIndex((section) => /후속|활용|제언|참고|출처|성찰/.test(section));
+  const at = closing < 0 ? sections.length : closing;
+  return [...sections.slice(0, at), '결론', ...sections.slice(at)];
+}
+
 export function stageSections(stage, input) {
   const wantsUse = /활용|적용|방안|제안/.test(String(input?.taskDescription || ''));
   // The draft is a plan, not the report, so it keeps its own five parts whatever the task is.
@@ -435,7 +446,7 @@ export function stageSections(stage, input) {
   // The finished report follows the structure this kind of task really uses (7,131 real 과제 decided the
   // seventeen shapes); the two sections our own flow needs are added to it. A structure the site sent
   // explicitly still wins — that came from the student answering questions about their own task.
-  const shaped = (input?.reportShape?.sections || []).filter(Boolean);
+  const shaped = withConclusion((input?.reportShape?.sections || []).filter(Boolean));
   const siteChose = (input?.targetStructure || []).filter(Boolean).length >= 4;
   if (shaped.length >= 4 && !siteChose) {
     const useSection = wantsUse && !shaped.some((section) => /활용|방안/.test(section)) ? ['활용 방안'] : [];

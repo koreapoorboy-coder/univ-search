@@ -220,7 +220,23 @@ export function pickCrossSubject(input, index, limit = 2) {
 
 // What the report is told. Three places the partner subject must do work, because "융합" without a place to land
 // comes back as a sentence with another subject's name in it.
-export function crossSubjectPromptLines(bridge, stage = '') {
+// A hands-on 실험 과제 is where the crossing goes wrong. The model designs a clean single-subject experiment
+// first and only remembers the other subject in the closing 계열 연계 절, which reads as an afterthought because
+// it is one. The way in is the measurement itself: what is measured, and which conditions are compared.
+const KIND_LINES = {
+  measurement: [
+    '- 이 과제는 학생이 직접 재는 실험이다. 실험 설계를 먼저 끝내고 다른 과목을 마지막 절에서 꺼내면 융합이 아니다. 아래 중 최소 하나를 실험 설계 안에서 한다.',
+    '  ① 재는 항목을 고른 과목의 물음에 답할 수 있는 값으로 정한다. (예: 저항만 재지 않고 측정 방식에 따른 흔들림을 함께 재기)',
+    '  ② 비교할 조건 중 하나를 그 과목이 중요하게 보는 차이로 둔다. (예: 사람마다 다른 조건, 자료 처리 방식이 다른 조건)',
+    '  ③ 같은 값을 두 가지 방법으로 재고 어느 쪽이 더 믿을 만한지 따진다.',
+    '- 실험 대상과 장면도 학생의 진로 쪽에서 고른다. 같은 원리라도 어디에서 재는지가 달라지면 다른 탐구가 된다.',
+  ],
+  survey: ['- 문항을 만들 때 고른 과목의 물음이 문항 하나로 들어가야 한다. 응답을 세는 방법이나 집단을 나누는 기준에서도 그 과목이 일하게 한다.'],
+  dataset: ['- 어떤 지표를 고르고 무엇과 무엇을 견줄지 정하는 자리에서 고른 과목의 방식을 쓴다. 자료를 다 정리한 뒤 마지막에 한 문단 덧붙이는 것은 융합이 아니다.'],
+  reading: ['- 자료를 고르는 기준이나 자료끼리 견주는 기준에서 고른 과목의 방식을 쓴다. 자료를 다 읽은 뒤 마지막에 한 문단 덧붙이는 것은 융합이 아니다.'],
+};
+
+export function crossSubjectPromptLines(bridge, stage = '', kind = '') {
   if (!bridge?.partners?.length) return [];
   // The second stage inherits the question the 설계서 already set; choosing a partner subject again there would
   // split one report into two halves that do not meet.
@@ -248,6 +264,13 @@ export function crossSubjectPromptLines(bridge, stage = '') {
     '  ① 연구 질문: 두 과목의 물음이 하나의 질문으로 합쳐진 형태로 쓴다. 본 과목의 질문 뒤에 다른 과목의 질문을 덧붙이지 않는다.',
     '  ② 비교 기준이나 분석 방법: 무엇과 무엇을 어떤 기준으로 견줄지 정하는 자리에서 그 과목의 방식을 쓴다.',
     '  ③ 결론: 본 과목만으로는 답할 수 없던 부분을 그 과목이 어떻게 메웠는지 밝힌다.',
+    '- 맨 뒤 계열 연계 탐구 절에서만 다른 과목을 꺼내면 위 세 곳 중 어느 것도 채운 것이 아니다. 그 절은 이미 끝난 탐구의 다음 걸음을 적는 자리다.',
+    ...(KIND_LINES[kind] || []),
+    // A 국어·사회 lens has no place inside a physics or biology bench experiment, so the model drops it and writes
+    // a single-subject lab. It does have one: what the measurement is shown as, and what that does to a reader.
+    ...(kind === 'measurement' && bridge.partners.some((partner) => ['국어', '사회'].includes(partner.group))
+      ? ['- 고른 과목이 국어나 사회라면, 잰 값 자체가 아니라 그 값을 어떻게 전하느냐를 조건으로 둘 수 있다. 같은 결과를 서로 다른 방식(수치만 · 수치와 범위 · 그림)으로 보여 주고, 읽는 사람의 판단이나 정답률이 어떻게 달라지는지 재는 설계는 고등학생이 실제로 할 수 있다. 실험 대상이나 장면을 그 과목이 다루는 자리에서 고르는 것도 같은 방법이다.']
+      : []),
     '- reportTitle에는 탐구 대상과 그것을 보는 관점이 함께 드러나게 쓴다. 과목 이름을 제목에 넣으라는 뜻이 아니다.',
     '- 두 과목을 잇는 다리는 학생이 실제로 할 수 있는 일이어야 한다. 대학 연구나 전문 장비가 있어야 가능한 연결은 쓰지 않는다.',
     '- 다른 과목의 개념을 가져올 때는 이름만 쓰지 말고 이번 탐구에서 그 개념이 무엇을 가리키는지 한 문장으로 풀어 쓴다.',

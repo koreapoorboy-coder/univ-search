@@ -357,4 +357,18 @@ check(bridgeSource.includes("function renderRecordDraft") && bridgeSource.includ
     "the one-shot report drops invented feelings and self-praise too", feeling);
 }
 
+// 19 of 32 real reports came back with no 결론: three corpus shapes run 자료 해석 → 오차·한계 → 후속 탐구 and
+// stop. A report that never answers its own question is not a report.
+{
+  const shape = { sections: ["탐구 질문", "교과 개념 정리", "가설과 변인 설정", "실험 조건 또는 자료 수집", "결과 정리", "자료 해석", "오차·한계 분석", "후속 탐구"] };
+  const final = stageSections(STAGE.FINAL, { reportShape: shape, taskDescription: "" });
+  check(final.includes("결론"), "a shape with no conclusion gets one", final.join("/"));
+  check(final.indexOf("결론") < final.indexOf("후속 탐구"), "the conclusion comes before the next-steps section", final.join("/"));
+  check(final.indexOf("결론") > final.indexOf("자료 해석"), "and after the analysis it concludes from", final.join("/"));
+  const complete = stageSections(STAGE.COMPLETE, { reportShape: shape, taskDescription: "" });
+  check(complete.includes("결론"), "the one-shot report gets it too", complete.join("/"));
+  const already = stageSections(STAGE.FINAL, { reportShape: { sections: ["연구 질문", "이론적 배경", "탐구 방법", "탐구 결과", "결론"] }, taskDescription: "" });
+  check(already.filter((section) => section === "결론").length === 1, "a shape that already concludes is left alone", already.join("/"));
+}
+
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);

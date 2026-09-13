@@ -106,6 +106,35 @@ check(pickCrossSubject({ subject: "생명과학" }, null) === null, "C6 no index
   check(writer.partners.some((partner) => ["국어", "사회"].includes(partner.group)), "C12 a 인문 student is offered 국어 or 사회", names(writer));
 }
 
+// C13: a hands-on experiment was the case that kept failing. 5 of 32 real reports crossed into the second subject
+// only in the closing 계열 연계 절 — every one of them a 과학 과목 with a lab. The way in has to be the
+// measurement itself, and the closing section must be told it does not count.
+{
+  const bridge = pickCrossSubject({ subject: "전자기와 양자", subjectGroup: "과학", taskDescription: "니크롬선의 저항을 측정하여 길이와의 관계를 확인한다", major: "컴퓨터공학과", track: "공학계열" }, index);
+  const lab = crossSubjectPromptLines(bridge, "experiment_draft", "measurement").join("\n");
+  check(/실험 설계 안에서 한다/.test(lab), "C13 the crossing has to land inside the experiment design");
+  check(/재는 항목/.test(lab) && /비교할 조건/.test(lab), "C13 it names the measurement and the conditions as the way in");
+  check(/마지막 절에서 꺼내면 융합이 아니다/.test(lab), "C13 leaving it to the closing section is refused");
+  check(/계열 연계 탐구 절에서만/.test(lab), "C13 and the closing section is told it does not count");
+  const reading = crossSubjectPromptLines(bridge, "experiment_draft", "reading").join("\n");
+  check(/자료를 고르는 기준/.test(reading) && !/재는 항목/.test(reading), "C13 a reading task gets its own way in, not the lab one", reading.slice(0, 60));
+  const plain = crossSubjectPromptLines(bridge, "experiment_draft").join("\n");
+  check(!/재는 항목/.test(plain) && /최소 두 곳/.test(plain), "C13 an unknown kind keeps the three general landing places");
+}
+
+// C14: a 국어·사회 lens has nowhere to stand inside a bench experiment, so the model dropped it and wrote a
+// single-subject lab. What the result is shown as, and what that does to a reader, is a design a student can
+// actually run.
+{
+  const bridge = pickCrossSubject({ subject: "생명과학", subjectGroup: "과학", taskDescription: "뉴런의 분극 상태를 실험으로 확인한다", major: "미디어커뮤니케이션학과", track: "인문계열" }, index);
+  const lab = crossSubjectPromptLines(bridge, "experiment_draft", "measurement").join("\n");
+  check(bridge.partners.some((partner) => ["국어", "사회"].includes(partner.group)), "C14 an 인문 student on a science lab is offered 국어 or 사회", bridge.partners.map((p) => p.group).join(","));
+  check(/어떻게 전하느냐를 조건으로/.test(lab), "C14 the way the result is shown can be the measured condition");
+  const engineer = pickCrossSubject({ subject: "생명과학", subjectGroup: "과학", taskDescription: "뉴런의 분극 상태를 실험으로 확인한다", major: "컴퓨터공학과", track: "공학계열" }, index);
+  check(!/어떻게 전하느냐를 조건으로/.test(crossSubjectPromptLines(engineer, "experiment_draft", "measurement").join("\n")),
+    "C14 an engineer, who has a place inside the measurement already, is not given it");
+}
+
 // C10: nothing to say is said as nothing, so the prompt does not grow an empty heading.
 check(crossSubjectPromptLines(null).length === 0, "C10 no bridge, no prompt lines");
 check(crossSubjectPromptLines({ partners: [] }).length === 0, "C10 an empty partner list adds nothing");

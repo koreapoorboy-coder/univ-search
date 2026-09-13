@@ -848,7 +848,7 @@ function buildPrompt(input, seedMatch, env) {
     '',
     ...priorWorkPromptLines(input.priorWork, sharesGround(input.priorWork, input)),
     ...shapePromptLines(input.reportShape),
-    ...crossSubjectPromptLines(input.crossSubject, stage),
+    ...crossSubjectPromptLines(input.crossSubject, stage, input.collectionKind),
     ...careerAxisPromptLines(input.careerAxes),
     '',
     '[깊이 기준]',
