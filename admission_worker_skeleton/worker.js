@@ -834,7 +834,7 @@ function buildPrompt(input, seedMatch, env) {
     }, null, 2),
     '',
     '[작성 지침]',
-    ...titleRules(input.collectionKind),
+    ...titleRules(input.collectionKind, stage),
     '- assessmentContext.rubricFocus는 채점 요소다. 이 단어들을 보고서의 주제나 핵심 개념으로 쓰지 않는다.',
     '- assessmentContext.cautions는 틀리기 쉬운 부분이다. 문장을 그대로 옮기지 말고 내용으로 지킨다.',
     '- sections: 아래 절을 이 순서대로 하나씩 쓴다. title에는 절 제목만, body에는 본문만 쓰고 #, ## 같은 Markdown 기호나 절 번호는 넣지 않는다. 각 절의 내용과 분량은 다음 계획을 따른다.',

@@ -379,13 +379,43 @@ check(bridgeSource.includes("function renderRecordDraft") && bridgeSource.includ
   check(/생활기록부에 거의 그대로 옮긴다/.test(lines), "the model is told where this title ends up");
   check(/입학사정관은 보고서 본문을 보지 못하고/.test(lines), "and that nobody downstream reads the body");
   check(/학생이 직접 무엇을 했나/.test(lines) && /무엇을 보려 했나/.test(lines), "the three things a title must show are named");
-  check(/25~45자/.test(lines), "a length that can hold all three");
+  check(/30~50자/.test(lines), "a length that can hold all three");
   check(/"~에 대한 고찰"/.test(lines) && /콜론/.test(lines), "the empty title shapes are refused by name");
   check(/억지로 다 넣지 않는다/.test(lines), "and the crossing is not forced into the title");
   check(/얼룩 제거 정도 3회 반복 측정 비교/.test(lines), "an experiment gets an experiment example");
-  check(/학급 30명 설문/.test(titleRules(COLLECTION.SURVEY).join("\n")), "a survey gets a survey example");
-  check(/기사 4편을 견주어/.test(titleRules(COLLECTION.READING).join("\n")), "a reading task gets its own");
+  check(/같은 학년 62명 설문/.test(titleRules(COLLECTION.SURVEY).join("\n")), "a survey gets a survey example");
+  check(/찬반 기사 4편을 견주어/.test(titleRules(COLLECTION.READING).join("\n")), "a reading task gets its own");
   check(/논증 타당성 비교 평가/.test(titleRules(COLLECTION.NONE).join("\n")), "and a 논술 task gets its own");
+}
+
+// Half the new titles came back with no scale in them — "물 온도에 따른 얼룩 제거 비교" reads the same whether the
+// student ran it once or ran four conditions three times each. Scale is what tells a stranger how much work it was.
+{
+  const lab = titleRules(COLLECTION.MEASUREMENT).join("\n");
+  check(/규모를 반드시 넣는다/.test(lab), "the title has to carry the scale");
+  check(/조건을 몇 개 두고 몇 번 반복해 쟀는지/.test(lab), "an experiment's scale is conditions and repeats", lab.slice(0, 40));
+  check(/몇 명에게 물었는지/.test(titleRules(COLLECTION.SURVEY).join("\n")), "a survey's scale is how many people");
+  check(/자료를 몇 편 읽었는지/.test(titleRules(COLLECTION.READING).join("\n")), "a reading task's scale is how many sources");
+  check(/지어내지 않는다/.test(lab), "and the scale may not be invented to look bigger");
+  check(/30~50자/.test(lab) && /25자 아래로/.test(lab), "the length was raised to fit the scale");
+  check(/OUV, BOD, KNN/.test(lab), "field-only abbreviations are spelled out for the reader");
+  // Only the finished report knows what was found, so only it may say so.
+  const final = titleRules(COLLECTION.MEASUREMENT, STAGE.FINAL).join("\n");
+  check(/확인된 방향까지 제목에 담을 수 있다/.test(final), "the finished report may name what it found");
+  check(/차이가 뚜렷하지 않았으면 방향을 쓰지 않는다/.test(final), "but not when the data does not show it");
+  check(/1차 설계서의 제목을 그대로 쓰지 않는다/.test(final), "and it does not reuse the draft's title");
+  check(!/확인된 방향까지/.test(lab), "the 설계서, which has no data yet, may not claim a finding");
+}
+
+// Asking for scale worked — 32 of 32 titles carried it — but five came back stuffed with three or four numbers
+// ("최근 4개 여름 4개 지역 …"), one carried a chemical formula that needs a superscript to read, and several read
+// as noun piles with the particles dropped.
+{
+  const lines = titleRules(COLLECTION.MEASUREMENT).join("\n");
+  check(/숫자는 제목에 많아야 두 개다/.test(lines), "a title carries at most two numbers");
+  check(/소리 내어 읽어 자연스러운 우리말이어야 한다/.test(lines), "and has to read as Korean, not a noun pile");
+  check(/위첨자나 아래첨자가 있어야 제대로 보이는 화학식/.test(lines), "a formula that needs a superscript is named in words");
+  check(/물, 소금물, 이산화탄소처럼 익숙한 이름은 그대로/.test(lines), "but the familiar ones are left alone");
 }
 
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
