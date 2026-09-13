@@ -193,6 +193,17 @@ const check = (ok, label) => { assert.equal(ok, true, label); console.log(`PASS 
   const res = await viaGateway(withoutCandidate, kv); const body = await res.json();
   check(res.status === 502 && /LIVE_INPUT_CANDIDATE_REQUIRED/.test(body.gateway?.upstreamPreview || "") && uses(kv) === 0, "I4 missing live-input candidate is rejected and not counted");
 }
+// I4b — a student who has not picked a keyword or a track used to get HTTP 500 and the English words
+// "Missing required input: keyword". A missing choice is the student's to fix, and it must read that way.
+{
+  openaiMode = "report";
+  const res = await worker.fetch(new Request(WORKER_GENERATE_URL, { method: "POST", body: JSON.stringify({ ...basePayload, keyword: "", selectedKeyword: "", track: "", career: "", major: "" }) }), workerEnv);
+  const body = await res.json();
+  check(res.status === 400, "I4b a missing choice is a 400, not a server error", String(res.status));
+  check(body.code === "MISSING_INPUT" && /키워드/.test(body.error) && !/Missing required input/.test(body.error),
+    "I4b the student is told in Korean which choice is missing", body.error);
+}
+
 // I5 — path A (direct Worker, as the site falls back to it): same request works without the gateway.
 {
   openaiMode = "report";

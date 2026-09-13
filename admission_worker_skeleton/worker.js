@@ -207,7 +207,10 @@ export default {
           }
         };
         const input = resolveInput(trustedPayload);
-        validateInput(input);
+        const missing = missingInputs(input);
+        if (missing.length) {
+          return json({ ok: false, error: `${missing.join(', ')}을(를) 먼저 고른 뒤에 만들 수 있어요.`, code: 'MISSING_INPUT', missing }, 400);
+        }
         // A 수행평가 graded on playing the drums or serving a shuttlecock has no report in it. Writing one
         // would cost a use and hand the student a page they cannot submit.
         const scope = resolveReportScope(input);
@@ -643,12 +646,11 @@ async function saveReportCase(db, input, combination) {
     .run();
 }
 
-function validateInput(input) {
-  for (const key of REQUIRED_INPUTS) {
-    if (!input[key]) {
-      throw new Error(`Missing required input: ${key}`);
-    }
-  }
+// A student who has not picked a keyword or a track used to get HTTP 500 and the English words
+// "Missing required input: keyword". They are missing a choice, not looking at a broken server.
+const INPUT_LABEL = { keyword: '키워드', grade: '학년', track: '진로 계열', major: '관심 학과' };
+function missingInputs(input) {
+  return REQUIRED_INPUTS.filter((key) => !input[key]).map((key) => INPUT_LABEL[key] || key);
 }
 
 async function loadSeedFile(env, file) {

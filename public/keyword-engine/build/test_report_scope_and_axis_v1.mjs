@@ -27,10 +27,20 @@ check(isReportTask({ taskDescription: "연주를 한 뒤 연주 계획과 과정
 check(isReportTask({ taskDescription: "" }), "an empty task is not turned away on a guess");
 check(isReportTask({ taskDescription: "주제를 정해 탐구 보고서를 작성하시오." }), "the ordinary case is untouched");
 
+// 독창적 and 독창성 sit in almost every 평가 루브릭 and mean "original". They were reading as 독창 — a solo voice —
+// and throwing real 탐구 과제 out of scope. 41 tasks in the corpus were being turned away this way.
+check(isReportTask({ taskDescription: "주제가 독창적이며 학문적·사회적 의의가 있는가? 물리학 원리를 정확히 적용하였는가?" }),
+  "독창적 is originality, not a solo performance");
+check(isReportTask({ taskDescription: "창의성과 독창성이 드러나게 탐구 주제를 선정하고 분석한다." }), "독창성 does not put a task out of scope either");
+check(scopeOf("독창과 중창의 발성 차이를 살려 노래한다.").scope === SCOPE.PERFORMANCE, "an actual 독창 is still a performance");
+// 경기 침체 is the economy, not a match.
+check(isReportTask({ taskDescription: "경기 침체가 청년 고용에 미친 영향을 통계로 분석하여 보고서를 쓴다." }), "경기 침체 is not a sports match");
+check(scopeOf("배드민턴 경기에 참여하여 규칙을 지킨다").scope === SCOPE.PERFORMANCE, "an actual 경기 is still a performance");
+
 // The site and the Worker have to agree, or a student is turned away in one place and charged in the other.
 const bridge = await readFile(new URL("../assets/js/mini_worker_generate_bridge_v32.js", import.meta.url), "utf8");
 const scopeSource = await readFile(new URL("../../../admission_worker_skeleton/report_scope_v1.mjs", import.meta.url), "utf8");
-const shared = "연주|가창|합창|독창|중주|시연|실기|경기|리그전|타격|송구|드리블";
+const shared = "연주|가창|합창|독창(?!적|성)|중주|시연|실기|경기(?! ?침체| ?회복| ?불황| ?호황| ?변동| ?순환| ?지표| ?동향| ?전망)|리그전|타격|송구|드리블";
 check(bridge.includes(shared) && scopeSource.includes(shared), "the site turns away exactly what the Worker would");
 check(bridge.includes("reportScopeProblem(req)") && bridge.includes("이 과제는 보고서 과제가 아닌 것 같아요"),
   "the site says so before any request is made, so nothing is charged");

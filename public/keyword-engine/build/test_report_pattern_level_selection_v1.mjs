@@ -11,7 +11,7 @@ const slice = (from, to) => {
   return worker.slice(a, b);
 };
 const { pickReportPatterns, targetLevel } = new Function(
-  slice("const TARGET_LEVELS", "function validateInput") + slice("function toArray", "function compactJoin")
+  slice("const TARGET_LEVELS", "const INPUT_LABEL") + slice("function toArray", "function compactJoin")
   + "\nreturn { pickReportPatterns, targetLevel };"
 )();
 

@@ -10,12 +10,14 @@ export const SCOPE = Object.freeze({ REPORT: 'report', PERFORMANCE: 'performance
 
 // A written deliverable anywhere in the task puts it back in scope: "연주한 뒤 감상문을 쓴다" is a report task with a
 // performance attached, and those are common.
-const WRITTEN = /보고서|논술|논설|서평|비평문|감상문|평론|에세이|글로 ?쓰|글쓰기|작성하여 ?제출|정리하여 ?제출|탐구 ?결과를 ?정리|기록지|활동지|학습지|소감문|성찰문|계획서|제안서|분석하여 ?쓰/;
+const WRITTEN = /보고서|논술|논설|서평|비평문|감상문|평론|에세이|글로 ?쓰|글쓰기|작성하여 ?제출|정리하여 ?제출|탐구 ?결과를 ?정리|기록지|활동지|학습지|소감문|성찰문|설명문|해설문|기록문|보고문|계획서|제안서|설명서|분석하여 ?쓰/;
 
+// 독창적·독창성 is "original", not a solo voice, and it sits in almost every 평가 루브릭; 경기 침체 is the
+// economy, not a match. Both were pulling real report tasks out of scope.
 const OUT_OF_SCOPE = [
   {
     scope: SCOPE.PERFORMANCE,
-    test: /연주|가창|합창|독창|중주|시연|실기|경기|리그전|타격|송구|드리블|스파이크|스매시|리시브|숏서비스|언더서비스|서브를 ?넣|서비스 ?실시|슛하기|패스하기|스트로크|영법|수영하기|달리기|체조|무용|안무|연기|발표회|공연/,
+    test: /연주|가창|합창|독창(?!적|성)|중주|시연|실기|경기(?! ?침체| ?회복| ?불황| ?호황| ?변동| ?순환| ?지표| ?동향| ?전망)|리그전|타격|송구|드리블|스파이크|스매시|리시브|숏서비스|언더서비스|서브를 ?넣|서비스 ?실시|슛하기|패스하기|스트로크|영법|수영하기|달리기|체조|무용|안무|연기|발표회|공연/,
     reason: '몸으로 하는 수행(연주·경기·실기)을 평가하는 과제로 보여요.',
   },
   {
