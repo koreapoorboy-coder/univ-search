@@ -25,13 +25,39 @@ const FEELING_WORDS = ['힘들', '어려웠', '재미', '즐거', '뿌듯', '보
 export const COLLECTION = Object.freeze({ MEASUREMENT: 'measurement', SURVEY: 'survey', DATASET: 'dataset', READING: 'reading', NONE: 'none' });
 
 export function resolveCollectionKind(input) {
-  const text = [input?.taskDescription, input?.reportMode, input?.subject].filter(Boolean).join(' ');
-  if (/논술|창작|소설|시 쓰기|발표 대본|토론|포트폴리오|산출물 제작/.test(text)) return COLLECTION.NONE;
-  if (/실험|측정|실습|관찰 실험/.test(text) || String(input?.subjectGroup || '').trim() === '과학') return COLLECTION.MEASUREMENT;
-  if (/설문|인터뷰|여론|응답자|만족도/.test(text)) return COLLECTION.SURVEY;
-  if (/통계|지표|데이터|자료 ?해석|그래프 분석|추이/.test(text)) return COLLECTION.DATASET;
-  return COLLECTION.READING;
+  // Only what the assignment itself says. The subject name used to be in here, so 과학탐구실험 or 생명과학실험
+  // made every task a measurement no matter what it asked for — a 통계 자료 분석 in 과학탐구실험 came out as one.
+  const text = [input?.taskDescription, input?.taskName, input?.taskType, input?.reportMode].filter(Boolean).join(' ');
+
+  // Order matters, and it is the order a teacher would read the sentence in. What the student is asked to go out
+  // and get comes first: "화학 반응을 관찰한 뒤 논술형 문제를 해결한다" is an experiment that ends in writing, not a
+  // writing task. Only when nothing is being collected do the writing and performing words decide.
+  if (/설문|인터뷰|여론 ?조사|응답자|만족도 ?조사/.test(text)) return COLLECTION.SURVEY;
+  if (/실험|측정|실습|재어|계측/.test(text)) return COLLECTION.MEASUREMENT;
+  // Graded as an essay answer: the student looks at something, but there is no table to fill in.
+  if (/논술형 ?문제|논술형 ?평가|서·?논술형|논술형으로 ?해결|논술 ?문항/.test(text)) return COLLECTION.NONE;
+  if (/통계|지표|빅데이터|공공 ?데이터|데이터를 ?수집|데이터를 ?분석|데이터 ?시각화|자료 ?해석|그래프 ?분석|추이|수치 ?자료|관측 ?자료/.test(text)) return COLLECTION.DATASET;
+  if (/관찰하여|관찰한|관측하여|관측한/.test(text)) return COLLECTION.MEASUREMENT;
+  // Running a program and recording what it outputs is the same kind of work as measuring.
+  if (/알고리즘|프로그래밍|프로그램을 ?작성|코드를 ?작성|구현하여|구현한|테스트 ?결과|오류를 ?수정|디버깅/.test(text)) return COLLECTION.MEASUREMENT;
+  if (/데이터|자료를 ?분석/.test(text)) return COLLECTION.DATASET;
+
+  // Nothing to collect: the student writes it, performs it, or makes it.
+  if (/논술|논설|비평|서평|감상문|평론|창작|소설|시 ?쓰기|대본|각본|발표 ?대본|토론|토의|포트폴리오|산출물 ?제작|작품 ?제작|작품을 ?만|프로토타입|모형 ?제작/.test(text)) return COLLECTION.NONE;
+  if (/연주|가창|합창|실기|시연|경기|연습|드로잉|스케치|디자인 ?작업|안무|무용/.test(text)) return COLLECTION.NONE;
+  if (/타격|송구|드리블|서브|스파이크|리그전|경기에 ?참여|자세를 ?익|동작을 ?익/.test(text)) return COLLECTION.NONE;
+  if (/말하기|말한다|듣기|읽고 ?쓰기|발음|회화|작문|번역|암송|낭독|어휘를 ?활용|의사소통 ?표현/.test(text)) return COLLECTION.NONE;
+
+  if (/예술|체육|예체능|음악|미술|스포츠|운동|무용|체조|태권도|공예|연극/.test(String(input?.subjectGroup || '') + ' ' + String(input?.subject || ''))) return COLLECTION.NONE;
+  // "탐구 보고서" is not a clue: every kind of task ends in one. Only the words that say where the material
+  // comes from count here.
+  if (/조사|문헌|자료를 ?찾|사례를 ?찾|주제 ?탐구|자료를 ?모아/.test(text)) return COLLECTION.READING;
+
+  // Nothing in the wording says either way. A science task is far more often a measurement than anything else;
+  // everywhere else, reading is the safe assumption because it asks least of the student.
+  return String(input?.subjectGroup || '').trim() === '과학' ? COLLECTION.MEASUREMENT : COLLECTION.READING;
 }
+
 
 const COLLECTION_LABEL = {
   [COLLECTION.MEASUREMENT]: '실험 측정',
