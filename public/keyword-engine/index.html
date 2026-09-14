@@ -6,7 +6,7 @@
   <title>RNY 탐구 보고서 프로그램</title>
   <link rel="stylesheet" href="assets/keyword_engine.css" />
   <link rel="stylesheet" href="assets/topic_generator.css" />
-  <link rel="stylesheet" href="assets/decision_flow.css?v=v1_three_decisions" />
+  <link rel="stylesheet" href="assets/decision_flow.css?v=v269_major_pick" />
 </head>
 <body>
   <div class="page decision-flow-page">
@@ -162,6 +162,18 @@
         </div>
       </section>
 
+      <section id="majorStep" class="decision-step-card" hidden>
+        <div class="decision-step-heading">
+          <span class="decision-step-number">4</span>
+          <div>
+            <h2>전공 선택 <span class="major-optional">선택 사항</span></h2>
+            <p>전공을 고르면 그 학과에서 실제로 배우는 과목과 이어서 보고서를 씁니다. 아직 안 정했어도 괜찮아요 &mdash; 그때는 교과를 더 깊게 파는 쪽으로 씁니다.</p>
+          </div>
+        </div>
+        <div id="majorChoiceList"></div>
+        <p id="majorPickedNote" class="major-note" hidden></p>
+      </section>
+
       <section id="tagOverlayStep" class="decision-step-card optional-step" hidden aria-live="polite">
         <div class="decision-step-heading">
           <span class="decision-step-number">참고</span>
@@ -197,6 +209,7 @@
       <input id="taskType" type="hidden" value="탐구보고서" />
       <input id="usagePurpose" type="hidden" value="학생용 완성 보고서 작성" />
       <input id="career" type="hidden" value="" />
+      <input id="majorPick" type="hidden" value="" />
       <input id="keyword" type="hidden" value="" />
       <input id="selectedConcept" type="hidden" value="" />
       <input id="selectedBookTitle" type="hidden" value="" />
@@ -227,7 +240,7 @@
 
   <script src="assets/js/subject_alias.js?v=v1_subject_alias"></script>
   <script src="assets/js/simple_live_intake_v1.js?v=phase6a_v1"></script>
-  <script src="assets/js/decision_flow_v1.js?v=v2_guide_keyword_bridge"></script>
+  <script src="assets/js/decision_flow_v1.js?v=v269_major_pick"></script>
   <script src="assets/js/subject_support_notice.js?v=v11_pending_history"></script>
   <script src="assets/js/title_composer_v2.js?v=patch6e_title_particles"></script>
   <script src="assets/textbook_concept_helper.js?v=v1_patch51_overlay"></script>
@@ -407,6 +420,6 @@
   <script src="assets/assessment_keyword_bridge_helper.js?v=v32_fallback_only_rule"></script>
   <script src="assets/keyword_engine.js?v=v42_required_input_hotfix"></script>
   <script src="assets/js/decision_flow_payload_adapter.js?v=v1_structure_payload"></script>
-  <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v268_input_guidance"></script>
+  <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v269_major_pick"></script>
 </body>
 </html>

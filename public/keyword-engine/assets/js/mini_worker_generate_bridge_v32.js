@@ -6,7 +6,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v268-input-guidance";
+  const VERSION = "mini-worker-generate-bridge-v269-major-pick";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -133,7 +133,9 @@
       taskDescription: readRawValue("taskDescription"),
       career: readValue("career"),
       keyword: readValue("keyword"),
-      major: readValue("career"),
+      // The major is what the student picked on the 전공 step; empty means 아직 못 정했어요, and the report
+      // then goes to 교과 심화 확장 instead of naming a department.
+      major: readValue("majorPick"),
       track: readValue("career")
     };
   }
@@ -289,6 +291,9 @@
     const snap = getVisibleSelectionSnapshot();
     s.subject = snap.subject || s.subject || form.subject || readValue("subject");
     s.department = snap.career || s.department || form.career || readValue("career");
+    // 계열 and 전공 are different answers. department carries the 계열; selectedMajor carries the 학과 the
+    // student picked, and stays empty when they said 아직 못 정했어요.
+    s.selectedMajor = s.selectedMajor || form.major || readValue("majorPick");
     if(snap.concept) s.selectedConcept = snap.concept;
     else s.selectedConcept = s.selectedConcept || getActiveText([
       ".engine-concept-card.is-active[data-concept]",
@@ -634,7 +639,7 @@
       usagePurpose: form.usagePurpose,
       taskDescription: form.taskDescription || miniInstruction,
       career: s.department || form.career,
-      major: s.department || form.career,
+      major: firstNonEmpty(s.selectedMajor, form.major, ""),
       track: s.department || form.career,
       keyword: s.selectedKeyword || s.selectedRecommendedKeyword || form.keyword,
       selectedConcept: s.selectedConcept || "",

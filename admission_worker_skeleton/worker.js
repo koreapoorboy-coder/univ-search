@@ -11,8 +11,9 @@ const SERVICE_NAME = 'admission-keyword-worker';
 const DEFAULT_SEED_BASE =
   'https://cdn.jsdelivr.net/gh/koreapoorboy-coder/univ-search@main/public/keyword-engine/seed';
 
-const REQUIRED_INPUTS = ['keyword', 'grade', 'track', 'major'];
-const OPTIONAL_INPUTS = ['activityLevel', 'style'];
+// 전공은 안 정한 학생이 더 많다. 학과를 비워 두면 보고서는 교과 심화 확장으로 가고, 그게 정상 경로다.
+const REQUIRED_INPUTS = ['keyword', 'grade', 'track'];
+const OPTIONAL_INPUTS = ['activityLevel', 'style', 'major'];
 const OUTPUT_SECTIONS = [
   'reason',
   'steps',
@@ -660,7 +661,7 @@ async function saveReportCase(db, input, combination) {
 
 // A student who has not picked a keyword or a track used to get HTTP 500 and the English words
 // "Missing required input: keyword". They are missing a choice, not looking at a broken server.
-const INPUT_LABEL = { keyword: '키워드', grade: '학년', track: '진로 계열', major: '관심 학과' };
+const INPUT_LABEL = { keyword: '키워드', grade: '학년', track: '진로 계열' };
 function missingInputs(input) {
   return REQUIRED_INPUTS.filter((key) => !input[key]).map((key) => INPUT_LABEL[key] || key);
 }

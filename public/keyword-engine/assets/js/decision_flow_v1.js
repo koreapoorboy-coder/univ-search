@@ -95,6 +95,58 @@
       interpretationOverride: state.override || null
     };
   }
+  const MAJOR_GROUPS = [
+    ["공학", ["컴퓨터학과", "인공지능학과", "전기전자공학부", "기계공학과", "화학공학과", "신소재공학과", "산업공학과", "건축학과", "토목공학과", "항공우주공학과", "생명공학과"]],
+    ["자연", ["물리학과", "화학과", "생명과학과", "수학과", "통계학과", "지구환경과학과"]],
+    ["의약·보건", ["의예과", "약학과", "간호학과", "식품영양학과"]],
+    ["사회", ["경영학과", "경제학과", "심리학과", "행정학과", "사회학과", "정치외교학과", "교육학과"]],
+    ["인문", ["국어국문학과", "영어영문학과", "사학과"]],
+    ["예체능", ["산업디자인학과", "체육교육과"]],
+  ];
+  function renderMajorChoices(){
+    const root = $("majorChoiceList");
+    if(!root || root.dataset.ready === "1") return;
+    root.dataset.ready = "1";
+    const undecided = document.createElement("button");
+    undecided.type = "button";
+    undecided.className = "major-undecided";
+    undecided.setAttribute("data-major", "");
+    undecided.textContent = "아직 못 정했어요";
+    root.appendChild(undecided);
+    for(const [group, majors] of MAJOR_GROUPS){
+      const box = document.createElement("div");
+      box.className = "major-group";
+      const head = document.createElement("h3");
+      head.textContent = group;
+      box.appendChild(head);
+      const row = document.createElement("div");
+      row.className = "major-row";
+      for(const major of majors){
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.setAttribute("data-major", major);
+        btn.textContent = major;
+        row.appendChild(btn);
+      }
+      box.appendChild(row);
+      root.appendChild(box);
+    }
+    root.addEventListener("click", event => {
+      const btn = event.target.closest("[data-major]");
+      if(!btn) return;
+      state.major = text(btn.getAttribute("data-major"));
+      root.querySelectorAll("[data-major]").forEach(other => other.classList.toggle("is-active", other === btn));
+      const note = $("majorPickedNote");
+      if(note){
+        note.hidden = false;
+        note.textContent = state.major
+          ? state.major + "에서 실제로 배우는 과목과 이어서 씁니다. 이번 과제와 닿는 과목이 없으면 교과를 더 깊게 파는 쪽으로 씁니다."
+          : "전공 없이 씁니다. 이번 탐구에서 쓴 교과 역량이 어디까지 뻗는지를 쓰게 됩니다. 나중에 바꿔도 됩니다.";
+      }
+      syncHiddenBase();
+      updateBookAndGenerate();
+    });
+  }
   function syncHiddenBase(){
     const subject = text($("subject")?.value);
     const guide = text($("taskDescription")?.value);
@@ -102,6 +154,7 @@
     if($("subjectGroup")) $("subjectGroup").value = group;
     if($("taskName")) $("taskName").value = taskTitleFromGuide(guide, subject);
     if($("career")) $("career").value = state.category;
+    if($("majorPick")) $("majorPick").value = text(state.major);
     if($("selectedBookTitle")) $("selectedBookTitle").value = state.bookMode === "useBook" ? state.bookTitle : "";
     if($("bookUsageMode")) $("bookUsageMode").value = state.bookMode;
   }
@@ -205,6 +258,7 @@
     if(actions) actions.hidden = !!blocked;
     $("interpretationCorrection").hidden = true;
     $("categoryStep").hidden = true;
+    if($("majorStep")) $("majorStep").hidden = true;
     $("bookStep").hidden = true;
     $("generateBtn").hidden = true;
     $("generateBtn").disabled = true;
@@ -232,11 +286,13 @@
     state.confirmed = !!confirmed;
     if(!confirmed){
       $("categoryStep").hidden = true;
+      if($("majorStep")) $("majorStep").hidden = true;
       $("bookStep").hidden = true;
       $("generateBtn").hidden = true;
       return;
     }
     $("categoryStep").hidden = false;
+    renderMajorChoices();
     setProgress("category");
     updateBookAndGenerate();
     $("categoryStep").scrollIntoView({behavior:"smooth",block:"center"});
@@ -380,6 +436,8 @@
       state.categoryLabel = text(btn.getAttribute("data-label"));
       document.querySelectorAll("[data-category]").forEach(other => other.classList.toggle("is-active", other === btn));
       syncHiddenBase();
+      renderMajorChoices();
+      if($("majorStep")) $("majorStep").hidden = false;
       await refreshWithCategory();
       updateBookAndGenerate();
     }));
