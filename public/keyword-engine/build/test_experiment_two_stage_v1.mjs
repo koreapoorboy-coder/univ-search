@@ -445,4 +445,19 @@ check(bridgeSource.includes("function renderRecordDraft") && bridgeSource.includ
     "naming the kind may not become inventing a source the student never used");
 }
 
+// Tightening the shape cost the substance: with "하나의 명사구" in front of it, the finding fell out of three of
+// four titles that had carried it the run before. The two rules are not in conflict and the prompt now says so,
+// with a good example per kind and the exact title that lost its finding shown as a bad one.
+{
+  const final = titleRules(COLLECTION.MEASUREMENT, STAGE.FINAL).join("\n");
+  check(/명사구로 쓰라는 규칙 때문에 알아낸 것을 빼지 않는다/.test(final), "keeping the shape is not a reason to drop the finding");
+  check(/값이 뚜렷하게 올라갔는데 알아낸 것이 빠졌다/.test(final), "the title that lost its finding is shown as a bad example");
+  check(/구리 착이온 녹색 성분 증가 측정/.test(final) && /출동 비율의 연도별 증가 비교/.test(final),
+    "a good example for an experiment and for a statistics task");
+  check(/인물 서술 차이 비교/.test(final), "and one for a reading task, where the finding is a difference");
+  const lines = titleRules(COLLECTION.READING).join("\n");
+  check(/대표로 두세 가지만 적는다/.test(lines), "a title lists two or three kinds, not five");
+  check(/제목이 목록이 된다/.test(lines), "with the reason given");
+}
+
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
