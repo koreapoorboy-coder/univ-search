@@ -1,8 +1,9 @@
 import { acceptLiveInputCandidate, handleSimpleLiveIntakeRequest, parseStrictIJson } from './simple_live_intake_v1.mjs';
 import { COLLECTION, STAGE, finalizeStageOutput, hasStudentMeasurements, normalizeStudentData, titleRules, resolveCollectionKind, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
-import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, careerAxisPromptLines, checkUpload, matchAxes, priorWorkPromptLines, sanitizeAnalysis, sharesGround } from './upload_analysis_v1.mjs';
+import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, matchAxes, priorWorkPromptLines, sanitizeAnalysis, sharesGround } from './upload_analysis_v1.mjs';
 import { pickReportShape, shapePromptLines } from './report_shape_v1.mjs';
 import { crossSubjectPromptLines, pickCrossSubject } from './cross_subject_v1.mjs';
+import { majorPathPromptLines, resolveMajorPath } from './major_path_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
 const SERVICE_NAME = 'admission-keyword-worker';
@@ -38,6 +39,9 @@ const SEED_FILES = {
   axisIndex: 'engine-index/longitudinal_axis_index.v1.json',
   // Built by tools/build_cross_subject_index.mjs: which other subject this one honestly crosses into.
   crossSubjectIndex: 'engine-index/cross_subject_index.v1.json',
+  // Built by tools/build_major_curriculum_index.mjs: 33 majors' published curricula, already matched to the
+  // 고교 개념 each course stands on.
+  majorCurriculumIndex: 'engine-index/major_curriculum_index.v1.json',
 };
 
 // Execution authority is intentionally non-serializable. Audit hashes and
@@ -246,6 +250,10 @@ export default {
         input.careerAxes = matchAxes([input.selectedKeyword, input.keyword, input.selectedConcept, input.subject, input.track], seedPack.axisIndex, 2);
         // 횡단 평가: which second subject this topic can really carry, named from our own bridge data.
         input.crossSubject = pickCrossSubject(input, seedPack.crossSubjectIndex);
+        // Where this report reaches next. A named major with a published curriculum that actually touches this
+        // task is the upgrade; everything else — no major, 계열 only, a major we hold nothing for, a curriculum
+        // that does not reach this concept — falls back to the concept's own 종단 축.
+        input.majorPath = resolveMajorPath(input, seedPack.majorCurriculumIndex);
     const seedMatch = matchSeed(input, seedPack);
         const prompt = buildPrompt(input, seedMatch, env);
 
@@ -849,7 +857,7 @@ function buildPrompt(input, seedMatch, env) {
     ...priorWorkPromptLines(input.priorWork, sharesGround(input.priorWork, input)),
     ...shapePromptLines(input.reportShape),
     ...crossSubjectPromptLines(input.crossSubject, stage, input.collectionKind),
-    ...careerAxisPromptLines(input.careerAxes),
+    ...majorPathPromptLines(input.majorPath, input.careerAxes),
     '',
     '[깊이 기준]',
     '- 원리는 구체적인 물질과 반응 수준까지 설명한다. 예: 어떤 효소가 어떤 결합을 끊는지, 대상(얼룩, 음식 등)이 어떤 성분으로 되어 있는지, 조건이 효소와 대상 각각에 어떤 영향을 주는지.',

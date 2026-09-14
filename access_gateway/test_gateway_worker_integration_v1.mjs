@@ -15,6 +15,7 @@ const workerSource = readFileSync(new URL("admission_worker_skeleton/worker.js",
   .replace("'./report_stages_v1.mjs'", `'${new URL("admission_worker_skeleton/report_stages_v1.mjs", repo).href}'`)
   .replace("'./upload_analysis_v1.mjs'", `'${new URL("admission_worker_skeleton/upload_analysis_v1.mjs", repo).href}'`)
   .replace("'./report_shape_v1.mjs'", `'${new URL("admission_worker_skeleton/report_shape_v1.mjs", repo).href}'`)
+  .replace("'./major_path_v1.mjs'", `'${new URL("admission_worker_skeleton/major_path_v1.mjs", repo).href}'`)
   .replace("'./cross_subject_v1.mjs'", `'${new URL("admission_worker_skeleton/cross_subject_v1.mjs", repo).href}'`)
   .replace("'./report_scope_v1.mjs'", `'${new URL("admission_worker_skeleton/report_scope_v1.mjs", repo).href}'`);
 const worker = await importSource(workerSource);

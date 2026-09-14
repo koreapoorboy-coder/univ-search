@@ -264,7 +264,7 @@ export function crossSubjectPromptLines(bridge, stage = '', kind = '') {
     '  ① 연구 질문: 두 과목의 물음이 하나의 질문으로 합쳐진 형태로 쓴다. 본 과목의 질문 뒤에 다른 과목의 질문을 덧붙이지 않는다.',
     '  ② 비교 기준이나 분석 방법: 무엇과 무엇을 어떤 기준으로 견줄지 정하는 자리에서 그 과목의 방식을 쓴다.',
     '  ③ 결론: 본 과목만으로는 답할 수 없던 부분을 그 과목이 어떻게 메웠는지 밝힌다.',
-    '- 맨 뒤 계열 연계 탐구 절에서만 다른 과목을 꺼내면 위 세 곳 중 어느 것도 채운 것이 아니다. 그 절은 이미 끝난 탐구의 다음 걸음을 적는 자리다.',
+    '- 맨 뒤 교과 심화와 확장 절에서만 다른 과목을 꺼내면 위 세 곳 중 어느 것도 채운 것이 아니다. 그 절은 이미 끝난 탐구의 다음 걸음을 적는 자리다.',
     ...(KIND_LINES[kind] || []),
     // A 국어·사회 lens has no place inside a physics or biology bench experiment, so the model drops it and writes
     // a single-subject lab. It does have one: what the measurement is shown as, and what that does to a reader.

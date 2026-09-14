@@ -116,12 +116,12 @@ const feel2 = finalizeStageOutput(STAGE.FINAL, { reportTitle: "t", figures: [], 
 check(!feel2.parsed.sections[0].body.includes("흥미") && feel2.parsed.sections[0].body.includes("놀랐다"), "'흥미로웠다' the student never wrote is removed", feel2.parsed.sections[0].body);
 
 // Depth (level policy 2026-09-11): at least 3 repeats, spread between repeats is computed and usable,
-// and the second stage has a 계열 연계 탐구 section.
+// and the second stage closes with 교과 심화와 확장 — the section that says where this competency goes next.
 const shallow = finalizeStageOutput(STAGE.DRAFT, { reportTitle: "t", sections: [], dataTemplate: { measurementName: "m", unit: "점", scaleGuide: "", conditions: ["A", "B"], trials: 2 } }, { studentData: data });
 check(shallow.extra.dataTemplate.trials === 3, "the data template asks for at least 3 repeats", String(shallow.extra.dataTemplate.trials));
 check(twoStats.rows.map(r => r.spread).join(",") === "0,1,1,0" && removeUnsupportedNumbers("효소 세제·뜨거운 물은 반복 측정 사이에 1점 차이가 났다.", allowedNumberSet(twoByTwo, twoStats)).removed === 0,
   "the spread between repeats is computed and may be written", twoStats.rows.map(r => r.spread).join(","));
-check(stageSections(STAGE.FINAL, { taskDescription: "" }).includes("계열 연계 탐구") && stageSections(STAGE.LITERATURE, { taskDescription: "" }).includes("계열 연계 탐구"), "the second stage has a 계열 연계 탐구 section");
+check(stageSections(STAGE.FINAL, { taskDescription: "" }).includes("교과 심화와 확장") && stageSections(STAGE.LITERATURE, { taskDescription: "" }).includes("교과 심화와 확장"), "the second stage closes with 교과 심화와 확장, not a 계열 section");
 
 // Real depth test (2026-09-11, 세제 3 × 온도 2, 3 repeats): in hot water 효소 = 일반 = 1.33 but the summary said
 // "효소 1점 높음" (it compared against 물만), and a 0.34-point gap was treated as meaningful although every
