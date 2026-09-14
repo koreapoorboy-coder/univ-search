@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>내 탐구 기록 · 키워드 엔진</title>
+<style>
+  :root {
+    --ink: #1b1d21; --dim: #6a7078; --line: #e3e6ea; --bg: #f7f8fa; --card: #ffffff;
+    --accent: #2f5bd7; --soft: #eef2fd; --warm: #fff6e8; --warmline: #f0d9b0;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif;
+    line-height: 1.62; font-size: 15px; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 28px 18px 80px; }
+  h1 { font-size: 22px; margin: 0 0 6px; letter-spacing: -0.4px; }
+  h2 { font-size: 17px; margin: 34px 0 12px; letter-spacing: -0.3px; }
+  h3 { font-size: 15px; margin: 0 0 6px; letter-spacing: -0.2px; }
+  p.lead { color: var(--dim); margin: 0 0 22px; font-size: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; margin-bottom: 14px; }
+  .gate { display: flex; gap: 8px; flex-wrap: wrap; }
+  .gate input { flex: 1 1 220px; min-width: 0; padding: 12px 14px; border: 1px solid var(--line);
+    border-radius: 9px; font-size: 15px; font-family: inherit; }
+  .gate button { padding: 12px 22px; border: 0; border-radius: 9px; background: var(--accent);
+    color: #fff; font-size: 15px; font-family: inherit; cursor: pointer; }
+  .gate button:disabled { background: #a8b4d4; cursor: default; }
+  .msg { margin-top: 10px; font-size: 14px; color: #c0392b; }
+  .who { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: baseline; }
+  .who .name { font-size: 20px; font-weight: 700; letter-spacing: -0.4px; }
+  .who .meta { color: var(--dim); font-size: 14px; }
+  .code { font-family: ui-monospace, Menlo, Consolas, monospace; background: var(--soft);
+    color: var(--accent); padding: 3px 8px; border-radius: 6px; font-size: 13px; }
+  .counts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .count { background: var(--soft); border-radius: 9px; padding: 8px 14px; font-size: 14px; }
+  .count b { font-size: 17px; }
+  .line-note { background: var(--warm); border: 1px solid var(--warmline); border-radius: 10px;
+    padding: 12px 15px; font-size: 14px; margin-top: 12px; }
+  .year { margin-top: 18px; }
+  .year > .label { font-weight: 700; font-size: 14px; color: var(--accent); margin-bottom: 8px; }
+  .rep { border-left: 3px solid var(--soft); padding: 2px 0 2px 14px; margin-bottom: 16px; }
+  .rep .tags { color: var(--dim); font-size: 13px; margin-bottom: 3px; }
+  .rep .title { font-weight: 600; letter-spacing: -0.2px; }
+  .rep details { margin-top: 7px; }
+  .rep summary { cursor: pointer; color: var(--accent); font-size: 13px; }
+  .rep ul { margin: 8px 0 0; padding-left: 18px; font-size: 14px; color: #3a3f46; }
+  .fit { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; background: var(--card); }
+  .fit.picked { border-color: var(--accent); background: var(--soft); }
+  .fit .head { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
+  .fit .head b { font-size: 16px; }
+  .fit .head span { color: var(--dim); font-size: 13px; }
+  .fit ul { margin: 10px 0 0; padding-left: 18px; font-size: 14px; }
+  .fit li { margin-bottom: 5px; }
+  .fit .via { color: var(--dim); font-size: 13px; }
+  .open { margin-top: 10px; font-size: 13px; color: var(--dim); }
+  .foot { margin-top: 34px; font-size: 13px; color: var(--dim); border-top: 1px solid var(--line); padding-top: 14px; }
+  .hide { display: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>내 탐구 기록</h1>
+  <p class="lead">학생 코드 하나로 고등학교 3년 동안 쓴 보고서를 한 자리에서 봅니다.</p>
+
+  <div class="card" id="gateCard">
+    <div class="gate">
+      <input id="codeInput" placeholder="sc-study0001-abcd" autocomplete="off" spellcheck="false">
+      <button id="openBtn" type="button">열기</button>
+    </div>
+    <div class="msg hide" id="msg"></div>
+  </div>
+
+  <div id="body" class="hide"></div>
+
+  <div class="foot">
+    이름과 학교 이름은 이 화면에만 남고, 보고서를 만드는 AI에게는 보내지 않습니다.
+  </div>
+</div>
+
+<script>
+(function () {
+  var WORKER = window.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (value) {
+    return String(value == null ? "" : value).replace(/[&<>"']/g, function (ch) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+    });
+  };
+
+  function say(text) {
+    var box = $("msg");
+    box.textContent = text || "";
+    box.className = text ? "msg" : "msg hide";
+  }
+
+  // 학년 순서는 고1 → 고2 → 고3. 저장 순서가 아니라 학생이 보낸 시간 순서로 읽힌다.
+  var GRADE_ORDER = ["고1", "고2", "고3"];
+  function gradeRank(grade) {
+    var at = GRADE_ORDER.indexOf(String(grade || "").trim());
+    return at < 0 ? 99 : at;
+  }
+
+  var METHOD_KO = {
+    measurement: "직접 측정", survey: "설문", dataset: "공개 자료", reading: "문헌 읽기",
+    observation: "관찰", experiment: "실험"
+  };
+
+  function renderReport(report) {
+    var tags = [report.subject, report.concept].filter(Boolean);
+    if (report.crossSubject && report.crossSubject.length) tags.push("융합 " + report.crossSubject.join("·"));
+    if (report.collectionKind) tags.push(METHOD_KO[report.collectionKind] || report.collectionKind);
+    var draft = (report.recordDraft || []).map(function (line) {
+      return "<li>" + esc(line) + "</li>";
+    }).join("");
+    return '<div class="rep">'
+      + '<div class="tags">' + esc(tags.join(" · ")) + "</div>"
+      + '<div class="title">' + esc(report.title) + "</div>"
+      + (report.axis ? '<div class="tags">축: ' + esc(report.axis.title) + "</div>" : "")
+      + (draft ? "<details><summary>생활기록부에 적을 문장 보기</summary><ul>" + draft + "</ul></details>" : "")
+      + "</div>";
+  }
+
+  function renderFit(row, isPicked) {
+    if (row.unknown) {
+      return '<div class="fit picked"><div class="head"><b>' + esc(row.major) + "</b>"
+        + "<span>아직 교육과정 자료를 모아 두지 않은 학과예요</span></div></div>";
+    }
+    var courses = (row.touched || []).slice(0, 5).map(function (course) {
+      var via = (course.via || []).map(function (link) {
+        return esc(link.subject) + " · " + esc(link.concept);
+      }).join(" / ");
+      var titles = [];
+      (course.via || []).forEach(function (link) {
+        (link.reports || []).forEach(function (r) { if (titles.indexOf(r.title) < 0) titles.push(r.title); });
+      });
+      return "<li><b>" + esc(course.title) + "</b> <span class=\"via\">(" + esc(course.year) + "학년 · " + via + ")</span>"
+        + '<div class="via">← ' + esc(titles.join(" / ")) + "</div></li>";
+    }).join("");
+    var open = (row.open || []).slice(0, 3).map(function (course) {
+      return esc(course.title) + "(" + esc((course.needs || []).join("·")) + ")";
+    }).join(", ");
+    return '<div class="fit' + (isPicked ? " picked" : "") + '">'
+      + '<div class="head"><b>' + esc(row.major) + "</b>"
+      + "<span>대학 과목 " + esc(row.touchedCount) + "개가 내 보고서와 닿아 있음"
+      + (row.courseCount ? " · 조사한 과목 " + esc(row.courseCount) + "개 중" : "") + "</span></div>"
+      + (courses ? "<ul>" + courses + "</ul>" : "")
+      + (open ? '<div class="open">아직 안 닿은 곳: ' + open + "</div>" : "")
+      + "</div>";
+  }
+
+  function render(data) {
+    var student = data.student || {};
+    var summary = data.summary || {};
+    var reports = (data.reports || []).slice().sort(function (a, b) { return gradeRank(a.grade) - gradeRank(b.grade); });
+    var html = "";
+
+    html += '<div class="card"><div class="who">'
+      + '<span class="name">' + esc(student.name) + "</span>"
+      + '<span class="meta">' + esc([student.school, student.enteredGrade, student.track, student.major].filter(Boolean).join(" · ")) + "</span>"
+      + '<span class="code">' + esc(student.code) + "</span></div>"
+      + '<div class="counts">'
+      + '<div class="count">보고서 <b>' + esc(summary.reportCount || 0) + "</b>편</div>"
+      + '<div class="count">과목 <b>' + esc((summary.subjects || []).length) + "</b>개</div>"
+      + '<div class="count">축 <b>' + esc((summary.axes || []).length) + "</b>개</div>"
+      + "</div>";
+    if ((summary.lines || []).length) {
+      html += '<div class="line-note">3년을 관통하는 줄기: '
+        + esc(summary.lines.map(function (line) { return line.name + "(" + line.count + "편)"; }).join(", "))
+        + "<br>한 편은 보고서지만, 같은 축이 여러 번 나오면 방향이 됩니다.</div>";
+    }
+    html += "</div>";
+
+    html += "<h2>3년 기록</h2>";
+    if (!reports.length) {
+      html += '<div class="card">아직 저장된 보고서가 없어요. 보고서를 만들 때 학생 코드를 넣으면 여기에 쌓입니다.</div>';
+    } else {
+      GRADE_ORDER.concat(["기타"]).forEach(function (grade) {
+        var mine = reports.filter(function (report) {
+          return grade === "기타" ? gradeRank(report.grade) === 99 : report.grade === grade;
+        });
+        if (!mine.length) return;
+        html += '<div class="year"><div class="label">' + esc(grade) + " · " + mine.length + "편</div>"
+          + mine.map(renderReport).join("") + "</div>";
+      });
+    }
+
+    var fit = data.fit;
+    if (fit) {
+      html += "<h2>학과와 닿은 곳</h2>";
+      html += '<div class="card">' + esc(fit.note) + "</div>";
+      if (fit.picked) html += renderFit(fit.picked, true);
+      (fit.ranked || []).forEach(function (row) {
+        if (fit.picked && row.major === fit.picked.major) return;
+        html += renderFit(row, false);
+      });
+      html += '<div class="open">학과 ' + esc(fit.checked) + "개의 실제 교육과정을 읽어 비교한 결과입니다. 점수가 아니라, 어떤 보고서가 어떤 대학 과목과 닿았는지 그대로 적었습니다.</div>";
+    }
+
+    $("body").innerHTML = html;
+    $("body").className = "";
+  }
+
+  function open(code) {
+    say("");
+    $("openBtn").disabled = true;
+    fetch(WORKER + "/student/portfolio?code=" + encodeURIComponent(code))
+      .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+      .then(function (result) {
+        $("openBtn").disabled = false;
+        if (!result.ok || !result.data.ok) {
+          $("body").className = "hide";
+          say(result.data.error || "기록을 불러오지 못했어요.");
+          return;
+        }
+        render(result.data);
+      })
+      .catch(function () {
+        $("openBtn").disabled = false;
+        say("연결이 되지 않았어요. 잠시 뒤 다시 눌러 주세요.");
+      });
+  }
+
+  $("openBtn").addEventListener("click", function () {
+    var code = $("codeInput").value.trim().toLowerCase();
+    if (!code) { say("학생 코드를 적어 주세요."); return; }
+    open(code);
+  });
+  $("codeInput").addEventListener("keydown", function (event) {
+    if (event.key === "Enter") $("openBtn").click();
+  });
+
+  // 링크로 바로 열 수 있게. 선생님이 학생에게 주소만 보내도 되도록.
+  var fromUrl = new URLSearchParams(location.search).get("code");
+  if (fromUrl) { $("codeInput").value = fromUrl; open(fromUrl.trim().toLowerCase()); }
+})();
+</script>
+</body>
+</html>

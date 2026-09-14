@@ -4,6 +4,8 @@ import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, m
 import { pickReportShape, shapePromptLines } from './report_shape_v1.mjs';
 import { crossSubjectPromptLines, pickCrossSubject } from './cross_subject_v1.mjs';
 import { majorPathPromptLines, resolveMajorPath } from './major_path_v1.mjs';
+import { issueStudentCode, loadPortfolio, parseStudentCode, saveStudentReport, updateStudent } from './student_portfolio_v1.mjs';
+import { majorFit } from './major_fit_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
 const SERVICE_NAME = 'admission-keyword-worker';
@@ -150,6 +152,39 @@ export default {
         return withCors(await handleAnalyzeUpload(request, env));
       }
 
+      // 학생 코드는 우리가 발급한다. The gateway stands in front of this, so reaching it means a valid access code.
+      if (url.pathname === '/student/register' && request.method === 'POST') {
+        if (!env.DB) return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
+        const body = await request.json().catch(() => ({}));
+        const issued = await issueStudentCode(env.DB, body);
+        return withCors(json(issued, issued.ok ? 200 : 400));
+      }
+      if (url.pathname === '/student/profile' && request.method === 'POST') {
+        if (!env.DB) return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
+        const body = await request.json().catch(() => ({}));
+        const saved = await updateStudent(env.DB, body?.code, body);
+        return withCors(json(saved, saved.ok ? 200 : 404));
+      }
+      // A student opens their own three years. The code is the key and the only thing that identifies them.
+      if (url.pathname === '/student/portfolio') {
+        if (!env.DB) return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
+        const code = url.searchParams.get('code') || '';
+        if (!parseStudentCode(code)) {
+          return withCors(json({ ok: false, error: '학생 코드 형식이 아니에요. sc-study0001-abcd 처럼 적어 주세요.' }, 400));
+        }
+        const folio = await loadPortfolio(env.DB, code);
+        if (!folio) return withCors(json({ ok: false, error: '그 코드로 만든 기록이 없어요.' }, 404));
+        let fit = null;
+        try {
+          const curriculum = await loadSeedFile(env, SEED_FILES.majorCurriculumIndex);
+          fit = majorFit(folio.reports, curriculum, { major: folio.student.major });
+        } catch (error) {
+          // 적합도를 못 읽어도 3년치는 보여 준다.
+          console.error('major fit failed:', error?.message || error);
+        }
+        return withCors(json({ ok: true, ...folio, fit }));
+      }
+
       if (url.pathname === '/collect' && request.method === 'POST') {
         if (!env.DB) {
           return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
@@ -266,6 +301,24 @@ export default {
           try {
             ({ result, usage } = await callOpenAIWithRetry(prompt, env, input));
             source = 'openai';
+            // The report becomes a row under the student's own code, so three years of them add up to something.
+            // The 학생 이름 is not part of it — the code is the key, and the name never travels with the work.
+            if (env.DB && input.studentCode && result?.reportTitle) {
+              try {
+                await saveStudentReport(env.DB, input.studentCode, {
+                  grade: input.grade, subject: input.subject, subjectGroup: input.subjectGroup,
+                  taskKey: taskKeyOf(input), concept: input.selectedConcept,
+                  keyword: input.selectedKeyword || input.keyword,
+                  axis: (input.careerAxes || [])[0] || null,
+                  crossSubject: (input.crossSubject?.partners || []).map((partner) => partner.subject),
+                  stage: input.reportStage, collectionKind: input.collectionKind,
+                  title: result.reportTitle, ...(result.combination || {}),
+                  recordDraft: result.recordDraft || [],
+                });
+              } catch (error) {
+                console.error('student report save failed:', error?.message || error);
+              }
+            }
             if (env.DB && input.reportStage === STAGE.DRAFT && result?.combination) {
               try {
                 await saveReportCase(env.DB, input, result.combination);
@@ -335,6 +388,8 @@ function resolveInput(payload) {
       : (reportContext.performanceAssessment || {}),
     reportStage: resolveReportStage(payload),
     studentData: normalizeStudentData(payload?.studentData),
+    // 학생 코드가 있으면 만든 보고서가 그 학생의 3년 기록에 쌓인다. 없으면 예전처럼 만들고 끝난다.
+    studentCode: String(payload?.studentCode || '').trim().toLowerCase(),
   };
 }
 
