@@ -34,11 +34,16 @@ function conceptMatches(mine, theirs) {
 }
 
 // What the student has actually done, flattened once so each department is a cheap pass over it.
+//
+// 주 과목과 융합 과목은 같은 무게가 아니다. A 물리 report that borrowed 정보 for its analysis is not evidence
+// for 경영학과 because 디지털마케팅 also lists 정보 — that is the 억지 맞추기 this engine refuses everywhere
+// else. The partner subject still counts, but a department reached only through it is said to be only that.
 function evidenceFrom(reports) {
   return (reports || []).map((report) => ({
     title: clean(report.title, 200),
     grade: clean(report.grade, 10),
-    subjects: [report.subject, ...(report.crossSubject || [])].map((value) => clean(value)).filter(Boolean),
+    subjects: [clean(report.subject)].filter(Boolean),
+    crossSubjects: (report.crossSubject || []).map((value) => clean(value)).filter(Boolean),
     concepts: [report.concept, report.keyword, report.axis?.title].map((value) => clean(value)).filter(Boolean),
   }));
 }
@@ -50,20 +55,27 @@ export function fitForMajor(name, entry, evidence) {
     for (const course of year?.courses || []) {
       const via = [];
       for (const link of course?.highSchool || []) {
-        const hits = evidence.filter((item) =>
-          item.subjects.some((subject) => subjectMatches(subject, link.subject))
-          || item.concepts.some((concept) => conceptMatches(concept, link.concept)));
+        const reach = (item) => {
+          if ((item.subjects || []).some((subject) => subjectMatches(subject, link.subject))) return 'subject';
+          if ((item.concepts || []).some((concept) => conceptMatches(concept, link.concept))) return 'concept';
+          if ((item.crossSubjects || []).some((subject) => subjectMatches(subject, link.subject))) return 'cross';
+          return '';
+        };
+        const hits = evidence.map((item) => ({ item, how: reach(item) })).filter((hit) => hit.how);
         if (hits.length) {
           via.push({
             subject: clean(link.subject, 40),
             concept: clean(link.concept, 60),
-            reports: hits.map((hit) => ({ grade: hit.grade, title: hit.title })),
+            // 이 과목을 주 과목으로 닿았는가, 융합 과목으로만 닿았는가.
+            how: hits.some((hit) => hit.how !== 'cross') ? 'subject' : 'cross',
+            reports: hits.map((hit) => ({ grade: hit.item.grade, title: hit.item.title, how: hit.how })),
           });
         }
       }
       courses.push({
         year: year.year, title: clean(course.title, 60),
         needs: (course?.highSchool || []).map((link) => clean(link.subject, 40)),
+        how: via.some((link) => link.how === 'subject') ? 'subject' : (via.length ? 'cross' : ''),
         via,
       });
     }
@@ -73,6 +85,7 @@ export function fitForMajor(name, entry, evidence) {
   const open = courses.filter((course) => !course.via.length && course.needs.length);
   const subjects = [...new Set(touched.flatMap((course) => course.via.map((link) => link.subject)))];
   const backing = [...new Set(touched.flatMap((course) => course.via.flatMap((link) => link.reports.map((r) => r.title))))];
+  const direct = touched.filter((course) => course.how === 'subject');
   return {
     major: name,
     group: clean(entry?.group, 20),
@@ -81,6 +94,9 @@ export function fitForMajor(name, entry, evidence) {
     subjects,
     reportCount: backing.length,
     touchedCount: touched.length,
+    directCount: direct.length,
+    // 융합 과목으로만 닿은 학과는 그렇다고 말한다. 순위에 올려놓고 아닌 척하지 않는다.
+    crossOnly: touched.length > 0 && direct.length === 0,
     linkedCount: entry?.linkedCount || courses.filter((course) => course.needs.length).length,
     courseCount: entry?.courseCount || courses.length,
   };
@@ -96,8 +112,10 @@ export function majorFit(reports, index, options = {}) {
     const fit = fitForMajor(name, entry, evidence);
     if (fit.touchedCount) ranked.push(fit);
   }
+  // 주 과목으로 닿은 학과가 먼저다. 융합 과목으로만 닿은 학과는 뒤로 간다.
   ranked.sort((a, b) =>
-    b.touchedCount - a.touchedCount
+    b.directCount - a.directCount
+    || b.touchedCount - a.touchedCount
     || b.reportCount - a.reportCount
     || b.subjects.length - a.subjects.length
     || a.major.localeCompare(b.major, 'ko'));
@@ -106,7 +124,7 @@ export function majorFit(reports, index, options = {}) {
   let picked = null;
   if (chosen) {
     const key = Object.keys(majors).find((name) => normalise(name) === normalise(chosen) || normalise(name).startsWith(normalise(chosen)));
-    picked = key ? fitForMajor(key, majors[key], evidence) : { major: chosen, group: '', touched: [], open: [], subjects: [], reportCount: 0, touchedCount: 0, linkedCount: 0, courseCount: 0, unknown: true };
+    picked = key ? fitForMajor(key, majors[key], evidence) : { major: chosen, group: '', touched: [], open: [], subjects: [], reportCount: 0, touchedCount: 0, directCount: 0, crossOnly: false, linkedCount: 0, courseCount: 0, unknown: true };
   }
 
   return { picked, ranked: ranked.slice(0, options.limit || 6), checked: Object.keys(majors).length, note: fitNote(evidence.length, ranked, picked) };

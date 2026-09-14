@@ -66,6 +66,25 @@ const report = (over = {}) => ({
   check(viaShort.touchedCount === 0, "F5 one syllable is not a subject match");
 }
 
+// F7: 융합 과목으로만 닿은 학과는 주 과목으로 닿은 학과 뒤로 간다.
+// 물리 충격량 보고서가 정보를 빌려 썼다고 경영학과 디지털마케팅에 닿는 것은 억지 맞추기다.
+{
+  const physics = [report({ subject: "물리", crossSubject: ["정보"], concept: "충격량", keyword: "충격힘",
+    title: "테니스공 낙하 충격힘 3회 반복 측정" })];
+  const fit = majorFit(physics, index, { limit: 10 });
+  const at = (name) => fit.ranked.findIndex((row) => row.major === name);
+  const business = fit.ranked.find((row) => row.major === "경영학과");
+  const physicsDept = fit.ranked.find((row) => row.major === "물리학과");
+  check(physicsDept && physicsDept.directCount > 0, "F7 물리학과 is reached through the student's own subject",
+    JSON.stringify(physicsDept && { d: physicsDept.directCount, t: physicsDept.touchedCount }));
+  check(!business || business.crossOnly === true, "F7 경영학과 is reached only through the borrowed 정보, and says so",
+    JSON.stringify(business && { d: business.directCount, cross: business.crossOnly }));
+  check(!business || at("물리학과") < at("경영학과"), "F7 and it ranks below the department the subject actually points at",
+    `물리학과 ${at("물리학과")} vs 경영학과 ${at("경영학과")}`);
+  check(fit.ranked.every((row, index) => index === 0 || row.directCount <= fit.ranked[index - 1].directCount),
+    "F7 the whole list is ordered by 주 과목 evidence first", JSON.stringify(fit.ranked.map((row) => row.major + ":" + row.directCount)));
+}
+
 // F6: 한 줄 설명은 과장하지 않는다.
 {
   check(fitNote(0, [], null).includes("아직"), "F6 no reports, no claim");

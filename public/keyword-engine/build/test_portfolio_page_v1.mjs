@@ -24,6 +24,14 @@ check(!/적합도\s*\d|%|퍼센트|점수는|점\s*\//.test(html.replace(/점수
 check(html.includes("점수가 아니라"), "P4 and the page says so out loud");
 check(html.includes("아직 안 닿은 곳"), "P4 an untouched department reads as an opening, not a failure");
 
+// The first live render printed the same two long report titles under every one of eight courses. Unreadable.
+check(html.includes("닿게 한 보고서"), "P4b the reports behind a department are listed once, not under every course");
+check(!/link\.reports.*\n?.*course\.title/.test(html) && html.includes("backing.indexOf(label) < 0"),
+  "P4b and deduplicated before they are printed");
+check(html.includes('label.slice(0, 46)') && html.includes("backing.slice(0, 4)"),
+  "P4b long titles are trimmed and only a few are shown");
+check(html.includes('"그 밖에 "') || html.includes("그 밖에 "), "P4b a department with many touched courses says how many are left over");
+
 check(html.includes("AI에게는 보내지 않습니다"), "P5 the page states the name never goes to the model");
 check(!/school_name|생활기록부를 불러|students\//.test(html), "P5 and it never reaches for the 생기부 source data");
 

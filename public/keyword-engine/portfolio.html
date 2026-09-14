@@ -125,16 +125,29 @@
       return '<div class="fit picked"><div class="head"><b>' + esc(row.major) + "</b>"
         + "<span>아직 교육과정 자료를 모아 두지 않은 학과예요</span></div></div>";
     }
-    var courses = (row.touched || []).slice(0, 5).map(function (course) {
-      var via = (course.via || []).map(function (link) {
-        return esc(link.subject) + " · " + esc(link.concept);
-      }).join(" / ");
-      var titles = [];
+    // 같은 보고서 제목을 과목마다 다시 쓰면 아무도 못 읽는다. 과목은 짧게 줄지어 놓고, 보고서는 아래 한 번만.
+    var courses = (row.touched || []).slice(0, 6).map(function (course) {
+      var subjects = [];
       (course.via || []).forEach(function (link) {
-        (link.reports || []).forEach(function (r) { if (titles.indexOf(r.title) < 0) titles.push(r.title); });
+        if (subjects.indexOf(link.subject) < 0) subjects.push(link.subject);
       });
-      return "<li><b>" + esc(course.title) + "</b> <span class=\"via\">(" + esc(course.year) + "학년 · " + via + ")</span>"
-        + '<div class="via">← ' + esc(titles.join(" / ")) + "</div></li>";
+      return "<li><b>" + esc(course.title) + "</b> <span class=\"via\">"
+        + esc(course.year) + "학년 · " + esc(subjects.join("·")) + "</span></li>";
+    }).join("");
+    var more = (row.touched || []).length - 6;
+    if (more > 0) courses += '<li class="via">그 밖에 ' + esc(more) + "개</li>";
+
+    var backing = [];
+    (row.touched || []).forEach(function (course) {
+      (course.via || []).forEach(function (link) {
+        (link.reports || []).forEach(function (report) {
+          var label = (report.grade ? report.grade + " " : "") + report.title;
+          if (backing.indexOf(label) < 0) backing.push(label);
+        });
+      });
+    });
+    var from = backing.slice(0, 4).map(function (label) {
+      return "<div>· " + esc(label.length > 46 ? label.slice(0, 46) + "…" : label) + "</div>";
     }).join("");
     var open = (row.open || []).slice(0, 3).map(function (course) {
       return esc(course.title) + "(" + esc((course.needs || []).join("·")) + ")";
@@ -143,7 +156,9 @@
       + '<div class="head"><b>' + esc(row.major) + "</b>"
       + "<span>대학 과목 " + esc(row.touchedCount) + "개가 내 보고서와 닿아 있음"
       + (row.courseCount ? " · 조사한 과목 " + esc(row.courseCount) + "개 중" : "") + "</span></div>"
+      + (row.crossOnly ? '<div class="open">주 과목이 아니라 <b>융합으로 끌어온 과목</b>으로만 닿았어요. 이 학과 쪽이라고 말하기엔 아직 약한 연결입니다.</div>' : "")
       + (courses ? "<ul>" + courses + "</ul>" : "")
+      + (from ? '<div class="open"><b>닿게 한 보고서</b>' + from + "</div>" : "")
       + (open ? '<div class="open">아직 안 닿은 곳: ' + open + "</div>" : "")
       + "</div>";
   }
