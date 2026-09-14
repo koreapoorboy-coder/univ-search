@@ -379,13 +379,13 @@ check(bridgeSource.includes("function renderRecordDraft") && bridgeSource.includ
   check(/생활기록부에 거의 그대로 옮긴다/.test(lines), "the model is told where this title ends up");
   check(/입학사정관은 보고서 본문을 보지 못하고/.test(lines), "and that nobody downstream reads the body");
   check(/학생이 직접 무엇을 했나/.test(lines) && /무엇을 보려 했나/.test(lines), "the three things a title must show are named");
-  check(/30~50자/.test(lines), "a length that can hold all three");
+  check(/45~90자/.test(lines), "a length that can hold all three");
   check(/"~에 대한 고찰"/.test(lines) && /콜론/.test(lines), "the empty title shapes are refused by name");
   check(/억지로 다 넣지 않는다/.test(lines), "and the crossing is not forced into the title");
-  check(/얼룩 제거 정도 3회 반복 측정 비교/.test(lines), "an experiment gets an experiment example");
-  check(/같은 학년 62명 설문/.test(titleRules(COLLECTION.SURVEY).join("\n")), "a survey gets a survey example");
-  check(/찬반 기사 4편을 견주어/.test(titleRules(COLLECTION.READING).join("\n")), "a reading task gets its own");
-  check(/논증 타당성 비교 평가/.test(titleRules(COLLECTION.NONE).join("\n")), "and a 논술 task gets its own");
+  check(/네 조건으로 나누어 얼룩이 지워진 정도를 3회씩/.test(lines), "an experiment gets an experiment example");
+  check(/같은 학년 62명에게 취침 시각을 묻고/.test(titleRules(COLLECTION.SURVEY).join("\n")), "a survey gets a survey example");
+  check(/찬반 신문 기사 네 편을 읽고/.test(titleRules(COLLECTION.READING).join("\n")), "a reading task gets its own");
+  check(/찬반 칼럼 세 편이 어떤 조건과 범위를 밝히는지/.test(titleRules(COLLECTION.NONE).join("\n")), "and a 논술 task gets its own");
 }
 
 // Half the new titles came back with no scale in them — "물 온도에 따른 얼룩 제거 비교" reads the same whether the
@@ -397,12 +397,12 @@ check(bridgeSource.includes("function renderRecordDraft") && bridgeSource.includ
   check(/몇 명에게 물었는지/.test(titleRules(COLLECTION.SURVEY).join("\n")), "a survey's scale is how many people");
   check(/자료를 몇 편 읽었는지/.test(titleRules(COLLECTION.READING).join("\n")), "a reading task's scale is how many sources");
   check(/지어내지 않는다/.test(lab), "and the scale may not be invented to look bigger");
-  check(/30~50자/.test(lab) && /25자 아래로/.test(lab), "the length was raised to fit the scale");
+  check(/45~90자/.test(lab) && /30자 아래로/.test(lab), "the length was raised to fit the scale");
   check(/OUV, BOD, KNN/.test(lab), "field-only abbreviations are spelled out for the reader");
   // Only the finished report knows what was found, so only it may say so.
   const final = titleRules(COLLECTION.MEASUREMENT, STAGE.FINAL).join("\n");
   check(/알아낸 방향까지 제목에 담는다/.test(final), "the finished report names what it found, not just that it compared");
-  check(/각도에 따른 운동량 보존도 증가 측정/.test(final), "with an example of how that reads as one noun phrase");
+  check(/각도가 클수록 운동량 보존도가 커짐을 확인한 측정/.test(final), "with an example of how that reads as one noun phrase");
   check(/조건 간 차이가 반복 측정의 흔들림보다 작을 때/.test(final), "and the three cases where it must not claim a direction");
   check(/확인하지 않은 것을 확인했다고 쓰지 않는다/.test(final), "but not when the data does not show it");
   check(/1차 설계서의 제목을 그대로 쓰지 않는다/.test(final), "and it does not reuse the draft's title");
@@ -426,7 +426,7 @@ check(bridgeSource.includes("function renderRecordDraft") && bridgeSource.includ
 {
   const final = titleRules(COLLECTION.MEASUREMENT, STAGE.FINAL).join("\n");
   check(/제목은 처음부터 끝까지 하나의 명사구다/.test(final), "a title is one noun phrase from end to end");
-  check(/쉼표로 두 토막을 잇지 않는다/.test(final), "it is not two halves joined by a comma");
+  check(/쉼표로 명사구 두 개를 나란히 붙이지 않는다/.test(final), "it is not two halves joined by a comma");
   check(/'제목'을 수행하여/.test(final), "and the model is told why: the teacher wraps it in their own sentence");
   check(/명사구 안에 넣는다/.test(final), "so the finding goes inside the phrase");
   check(/나쁨: "진자 충돌 6조건 3회 측정, 각도가 클수록 보존도 증가 확인"/.test(final), "with the exact shape that went wrong shown as the bad example");
@@ -452,12 +452,25 @@ check(bridgeSource.includes("function renderRecordDraft") && bridgeSource.includ
   const final = titleRules(COLLECTION.MEASUREMENT, STAGE.FINAL).join("\n");
   check(/명사구로 쓰라는 규칙 때문에 알아낸 것을 빼지 않는다/.test(final), "keeping the shape is not a reason to drop the finding");
   check(/값이 뚜렷하게 올라갔는데 알아낸 것이 빠졌다/.test(final), "the title that lost its finding is shown as a bad example");
-  check(/구리 착이온 녹색 성분 증가 측정/.test(final) && /출동 비율의 연도별 증가 비교/.test(final),
+  check(/농도와 온도가 높을수록 커짐을 확인한 측정/.test(final) && /해마다 늘어남을 확인한 비교/.test(final),
     "a good example for an experiment and for a statistics task");
-  check(/인물 서술 차이 비교/.test(final), "and one for a reading task, where the finding is a difference");
+  check(/인물 서술이 어떻게 갈리는지 견준 비교/.test(final), "and one for a reading task, where the finding is a difference");
   const lines = titleRules(COLLECTION.READING).join("\n");
   check(/대표로 두세 가지만 적는다/.test(lines), "a title lists two or three kinds, not five");
   check(/제목이 목록이 된다/.test(lines), "with the reason given");
+}
+
+// The titles were correct and still unreadable: "용액 3종·측정법 2종 6조건 전류 3회 측정에서 간접법 흔들림 감소
+// 비교" packs every rule in and lands as a cipher. The reader is a teacher copying it into 생활기록부 and an
+// 입학사정관 with nothing else in front of them, so a longer line that parses beats a short one that does not.
+{
+  const lines = titleRules(COLLECTION.MEASUREMENT).join("\n");
+  check(/짧게 줄이려고 뜻을 깎지 않는다/.test(lines), "length is not the thing being optimised");
+  check(/묶음말로 압축하지 않는다/.test(lines) && /측정법 2종/.test(lines), "the compressed forms are shown as what to avoid");
+  check(/가운뎃점\(·\)은 한 제목에 한 번까지만/.test(lines), "and the separator that makes them possible is capped");
+  check(/조사를 넣어 말이 되게 쓴다/.test(lines), "particles go back in");
+  check(/소리 내어 읽어 본다/.test(lines), "with a test the model can apply to its own output");
+  check(/증류수와 수돗물, 소금물 세 가지 용액에서/.test(lines), "and the good example is written out the long way");
 }
 
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
