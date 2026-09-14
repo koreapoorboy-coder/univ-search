@@ -79,6 +79,26 @@ const meta = { reportId: "r-test-1", taskKey: "물리 저항 수행평가", mode
   check(row.title.includes("니크롬선") && row.record_draft.split("\n").length === 2, "A1 제목과 생기부 초안도 함께");
 }
 
+// A1b: 최종보고서는 한 덩어리로 온다. 절로 쪼개 둬야 "어느 과목에서 결론이 빠지나"를 세는 일이 검색이 아니라 셈이 된다.
+{
+  const oneBlob = {
+    reportTitle: "t",
+    report: "1. 탐구 질문\n온도가 오르면 저항은 어떻게 변하는가.\n\n2. 교과 개념 정리\n금속의 저항은 온도에 따라 커진다.\n\n"
+      + "3. 탐구 결과\n40도에서 80도까지 12% 증가했다.\n\n4. 결론\n저항은 온도에 비례해 커진다.",
+  };
+  const row = archiveRow(input, oneBlob, meta);
+  const body = JSON.parse(row.body_json);
+  check(body.length === 4, "A1b one blob becomes four sections", JSON.stringify(body.map((s) => s.key)));
+  check(body.map((s) => s.key).join("/") === "탐구 질문/교과 개념 정리/탐구 결과/결론",
+    "A1b named by their own headings", body.map((s) => s.key).join("/"));
+  check(body[3].text === "저항은 온도에 비례해 커진다.", "A1b and carrying only their own text", body[3].text);
+  check(JSON.parse(archiveRow(input, { reportTitle: "t", report: "1. 하나\n내용\n\n2. 둘\n내용" }, meta).body_json).length === 1,
+    "A1b a couple of numbers in running prose is not a heading structure — it stays whole");
+  const withLead = archiveRow(input, { reportTitle: "t", report: "머리말입니다.\n\n1. 가\n갑\n\n2. 나\n을\n\n3. 다\n병" }, meta);
+  check(JSON.parse(withLead.body_json)[0].key.endsWith(":머리말"), "A1b text before the first heading is not dropped",
+    JSON.parse(withLead.body_json)[0].key);
+}
+
 // A2: 입력도 같은 줄에 있어야 한다. 무엇을 넣었을 때 이렇게 나왔는지가 한 줄에 없으면 고칠 수가 없다.
 {
   const row = archiveRow(input, result, meta);

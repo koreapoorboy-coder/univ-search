@@ -86,15 +86,34 @@ export async function ensureArchiveTable(db) {
 
 // The report the model returned, as it was written. Sections keep their headings so a later sweep can ask
 // structural questions ("어느 단계에서 결론이 빠지나") without re-parsing prose.
+// FINAL returns the whole report as one `report` string with its own numbered headings, so storing it as a single
+// blob would make "어느 과목에서 결론이 자주 빠지나" a text search instead of a count. Split it back apart.
+const HEADING = /^[ \t]*(\d{1,2})[.)]\s*([^\n]{2,40})$/gm;
+function splitHeadings(key, text) {
+  const marks = [...text.matchAll(HEADING)];
+  if (marks.length < 3) return [{ key, text }];
+  const parts = [];
+  marks.forEach((mark, at) => {
+    const from = mark.index + mark[0].length;
+    const to = at + 1 < marks.length ? marks[at + 1].index : text.length;
+    const body = text.slice(from, to).trim();
+    if (body) parts.push({ key: mark[2].trim(), text: body });
+  });
+  const lead = text.slice(0, marks[0].index).trim();
+  if (lead) parts.unshift({ key: `${key}:머리말`, text: lead });
+  return parts.length ? parts : [{ key, text }];
+}
+
 function bodyOf(result) {
   const sections = [];
+  const add = (key, text) => {
+    const scrubbed = scrubForArchive(text);
+    if (scrubbed.trim()) sections.push(...splitHeadings(key, scrubbed));
+  };
   for (const [key, value] of Object.entries(result || {})) {
     if (key === 'reportTitle' || key === 'recordDraft' || key === 'combination' || key === 'figures') continue;
-    if (typeof value === 'string' && value.trim()) sections.push({ key, text: scrubForArchive(value) });
-    else if (Array.isArray(value) && value.every((item) => typeof item === 'string')) {
-      const joined = value.filter(Boolean).join('\n');
-      if (joined.trim()) sections.push({ key, text: scrubForArchive(joined) });
-    }
+    if (typeof value === 'string') add(key, value);
+    else if (Array.isArray(value) && value.every((item) => typeof item === 'string')) add(key, value.filter(Boolean).join('\n'));
   }
   return sections;
 }
