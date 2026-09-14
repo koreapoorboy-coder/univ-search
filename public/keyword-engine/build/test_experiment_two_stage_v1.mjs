@@ -401,8 +401,8 @@ check(bridgeSource.includes("function renderRecordDraft") && bridgeSource.includ
   check(/OUV, BOD, KNN/.test(lab), "field-only abbreviations are spelled out for the reader");
   // Only the finished report knows what was found, so only it may say so.
   const final = titleRules(COLLECTION.MEASUREMENT, STAGE.FINAL).join("\n");
-  check(/제목은 "비교"에서 끝내지 말고 그 방향까지 적는다/.test(final), "the finished report names what it found, not just that it compared");
-  check(/농도가 높을수록 값이 커짐을 확인/.test(final), "with an example of how that reads");
+  check(/알아낸 방향까지 제목에 담는다/.test(final), "the finished report names what it found, not just that it compared");
+  check(/각도에 따른 운동량 보존도 증가 측정/.test(final), "with an example of how that reads as one noun phrase");
   check(/조건 간 차이가 반복 측정의 흔들림보다 작을 때/.test(final), "and the three cases where it must not claim a direction");
   check(/확인하지 않은 것을 확인했다고 쓰지 않는다/.test(final), "but not when the data does not show it");
   check(/1차 설계서의 제목을 그대로 쓰지 않는다/.test(final), "and it does not reuse the draft's title");
@@ -418,6 +418,20 @@ check(bridgeSource.includes("function renderRecordDraft") && bridgeSource.includ
   check(/소리 내어 읽어 자연스러운 우리말이어야 한다/.test(lines), "and has to read as Korean, not a noun pile");
   check(/위첨자나 아래첨자가 있어야 제대로 보이는 화학식/.test(lines), "a formula that needs a superscript is named in words");
   check(/물, 소금물, 이산화탄소처럼 익숙한 이름은 그대로/.test(lines), "but the familiar ones are left alone");
+}
+
+// Asking for the finding turned the title into a summary sentence: "진자 충돌 6조건 3회 측정, 각도가 클수록 보존도
+// 증가 확인". A teacher writes "'제목'을 수행하여 ~" in 생활기록부, so a title with a sentence inside it collides
+// with the sentence around it. The finding belongs inside the noun phrase, not after a comma.
+{
+  const final = titleRules(COLLECTION.MEASUREMENT, STAGE.FINAL).join("\n");
+  check(/제목은 처음부터 끝까지 하나의 명사구다/.test(final), "a title is one noun phrase from end to end");
+  check(/쉼표로 두 토막을 잇지 않는다/.test(final), "it is not two halves joined by a comma");
+  check(/'제목'을 수행하여/.test(final), "and the model is told why: the teacher wraps it in their own sentence");
+  check(/명사구 안에 넣는다/.test(final), "so the finding goes inside the phrase");
+  check(/나쁨: "진자 충돌 6조건 3회 측정, 각도가 클수록 보존도 증가 확인"/.test(final), "with the exact shape that went wrong shown as the bad example");
+  check(/Cu–Cl은 구리–염화/.test(final), "element symbols strung together are spelled out too");
+  check(/물·소금물·이산화탄소·산소처럼 누구나 아는 이름은 그대로/.test(final), "but the familiar ones still stay");
 }
 
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
