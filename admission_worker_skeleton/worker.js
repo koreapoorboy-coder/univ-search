@@ -173,7 +173,7 @@ export default {
         if (!parseStudentCode(body?.code)) return withCors(json({ ok: false, error: '학생 코드 형식이 아니에요. sc-study0001-abcd 처럼 적어 주세요.' }, 400));
         if (!await loadStudent(env.DB, body.code)) return withCors(json({ ok: false, error: '그 코드로 만든 기록이 없어요.' }, 404));
         const linked = await attachToStudent(env.DB, body?.reportId, body.code);
-        if (!linked.ok) return withCors(json({ ok: false, error: '그 보고서를 찾지 못했어요. 만든 지 오래된 보고서는 붙일 수 없어요.' }, 404));
+        if (!linked.ok) return withCors(json({ ok: false, error: '그 보고서를 찾지 못했어요. 보고서를 만든 화면에서 바로 눌러 주세요.' }, 404));
         const row = linked.row;
         await saveStudentReport(env.DB, body.code, {
           grade: row.grade, subject: row.subject, subjectGroup: row.subject_group,
