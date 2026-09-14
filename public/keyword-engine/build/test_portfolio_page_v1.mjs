@@ -23,6 +23,9 @@ check(!/innerHTML\s*=\s*[a-z]*\s*\+/i.test(html), "P3 nothing is concatenated st
 check(!/적합도\s*\d|%|퍼센트|점수는|점\s*\//.test(html.replace(/점수가 아니라/g, "")), "P4 no percentage, no score — the fit is evidence");
 check(html.includes("점수가 아니라"), "P4 and the page says so out loud");
 check(html.includes("아직 안 닿은 곳"), "P4 an untouched department reads as an opening, not a failure");
+check(html.includes("아직 닿은 보고서가 없어요"), "P4 a student with nothing yet is not told '대학 과목 0개가 닿아 있음'");
+check(html.includes("row.touchedCount\n") || /row\.touchedCount\s*\n?\s*\?/.test(html),
+  "P4 the count is only printed when there is something to count");
 
 // The first live render printed the same two long report titles under every one of eight courses. Unreadable.
 check(html.includes("닿게 한 보고서"), "P4b the reports behind a department are listed once, not under every course");

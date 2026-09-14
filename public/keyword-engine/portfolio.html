@@ -26,6 +26,8 @@
     color: #fff; font-size: 15px; font-family: inherit; cursor: pointer; }
   .gate button:disabled { background: #a8b4d4; cursor: default; }
   .msg { margin-top: 10px; font-size: 14px; color: #c0392b; }
+  .ask { margin-top: 12px; font-size: 13px; color: var(--dim); }
+  .ask a { color: var(--accent); }
   .who { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: baseline; }
   .who .name { font-size: 20px; font-weight: 700; letter-spacing: -0.4px; }
   .who .meta { color: var(--dim); font-size: 14px; }
@@ -68,6 +70,7 @@
       <button id="openBtn" type="button">열기</button>
     </div>
     <div class="msg hide" id="msg"></div>
+    <div class="ask">코드가 없나요? <a href="join.html">코드 받기</a></div>
   </div>
 
   <div id="body" class="hide"></div>
@@ -154,8 +157,12 @@
     }).join(", ");
     return '<div class="fit' + (isPicked ? " picked" : "") + '">'
       + '<div class="head"><b>' + esc(row.major) + "</b>"
-      + "<span>대학 과목 " + esc(row.touchedCount) + "개가 내 보고서와 닿아 있음"
-      + (row.courseCount ? " · 조사한 과목 " + esc(row.courseCount) + "개 중" : "") + "</span></div>"
+      // 아직 아무것도 안 한 학생에게 "0개가 닿아 있음"이라고 세어 주지 않는다. 셀 것이 없으면 안 센다.
+      + "<span>" + (row.touchedCount
+        ? "대학 과목 " + esc(row.touchedCount) + "개가 내 보고서와 닿아 있음"
+          + (row.courseCount ? " · 조사한 과목 " + esc(row.courseCount) + "개 중" : "")
+        : "아직 닿은 보고서가 없어요"
+          + (row.courseCount ? " · 이 학과 과목 " + esc(row.courseCount) + "개를 읽어 뒀어요" : "")) + "</span></div>"
       + (row.crossOnly ? '<div class="open">주 과목이 아니라 <b>융합으로 끌어온 과목</b>으로만 닿았어요. 이 학과 쪽이라고 말하기엔 아직 약한 연결입니다.</div>' : "")
       + (courses ? "<ul>" + courses + "</ul>" : "")
       + (from ? '<div class="open"><b>닿게 한 보고서</b>' + from + "</div>" : "")
@@ -245,8 +252,16 @@
   });
 
   // 링크로 바로 열 수 있게. 선생님이 학생에게 주소만 보내도 되도록.
+  // 없으면 이 기기에서 받은 코드를 채워 둔다 — 코드는 이름으로 되찾을 수 없으니 기기가 대신 기억한다.
   var fromUrl = new URLSearchParams(location.search).get("code");
-  if (fromUrl) { $("codeInput").value = fromUrl; open(fromUrl.trim().toLowerCase()); }
+  var mine = "";
+  try { mine = localStorage.getItem("keyword-engine:student-code") || ""; } catch (error) { mine = ""; }
+  var code = (fromUrl || mine || "").trim().toLowerCase();
+  if (code) {
+    $("codeInput").value = code;
+    try { localStorage.setItem("keyword-engine:student-code", code); } catch (error) { /* 저장 못 해도 화면은 돈다 */ }
+    open(code);
+  }
 })();
 </script>
 </body>
