@@ -4,8 +4,9 @@ import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, m
 import { pickReportShape, shapePromptLines } from './report_shape_v1.mjs';
 import { crossSubjectPromptLines, pickCrossSubject } from './cross_subject_v1.mjs';
 import { majorPathPromptLines, resolveMajorPath } from './major_path_v1.mjs';
-import { issueStudentCode, loadPortfolio, parseStudentCode, saveStudentReport, updateStudent } from './student_portfolio_v1.mjs';
+import { issueStudentCode, loadPortfolio, loadStudent, parseStudentCode, saveStudentReport, updateStudent } from './student_portfolio_v1.mjs';
 import { majorFit } from './major_fit_v1.mjs';
+import { attachToStudent, saveReportOutput } from './report_archive_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
 const SERVICE_NAME = 'admission-keyword-worker';
@@ -166,6 +167,25 @@ export default {
         return withCors(json(saved, saved.ok ? 200 : 404));
       }
       // A student opens their own three years. The code is the key and the only thing that identifies them.
+      if (url.pathname === '/student/attach' && request.method === 'POST') {
+        if (!env.DB) return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
+        const body = await request.json().catch(() => ({}));
+        if (!parseStudentCode(body?.code)) return withCors(json({ ok: false, error: '학생 코드 형식이 아니에요. sc-study0001-abcd 처럼 적어 주세요.' }, 400));
+        if (!await loadStudent(env.DB, body.code)) return withCors(json({ ok: false, error: '그 코드로 만든 기록이 없어요.' }, 404));
+        const linked = await attachToStudent(env.DB, body?.reportId, body.code);
+        if (!linked.ok) return withCors(json({ ok: false, error: '그 보고서를 찾지 못했어요. 만든 지 오래된 보고서는 붙일 수 없어요.' }, 404));
+        const row = linked.row;
+        await saveStudentReport(env.DB, body.code, {
+          grade: row.grade, subject: row.subject, subjectGroup: row.subject_group,
+          taskKey: row.task_key, concept: row.concept, keyword: row.keyword,
+          axis: row.axis_title ? { axisId: row.axis_id, title: row.axis_title, next: [] } : null,
+          crossSubject: (row.cross_subject || '').split(', ').filter(Boolean),
+          stage: row.report_stage, collectionKind: row.collection_kind,
+          title: row.title, caseTag: row.case_tag, variableTag: row.variable_tag, measureTag: row.measure_tag,
+          recordDraft: (row.record_draft || '').split('\n').filter(Boolean),
+        });
+        return withCors(json({ ok: true, code: body.code }));
+      }
       if (url.pathname === '/student/portfolio') {
         if (!env.DB) return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
         const code = url.searchParams.get('code') || '';
@@ -296,6 +316,9 @@ export default {
         let result;
         let usage = null;
         let source = 'seed-fallback';
+        // AI가 쓴 것을 남기려면 언제 시작했는지부터 알아야 한다.
+        const startedAt = Date.now();
+        const reportId = `r-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 
         if (env.OPENAI_API_KEY && String(env.ALLOW_STUB).toLowerCase() === 'false') {
           try {
@@ -335,9 +358,24 @@ export default {
           result = buildSeedFallbackResult(input, seedMatch);
         }
 
+        // 코드가 없어도 남는다. 엔진을 고치는 데 쓸 데이터는 학생이 포트폴리오를 원했는지와 아무 상관이 없다.
+        if (env.DB) {
+          try {
+            await saveReportOutput(env.DB, input, result, {
+              reportId, taskKey: taskKeyOf(input), usage, source,
+              model: env.OPENAI_MODEL || '', tookMs: Date.now() - startedAt,
+              structure: input.reportShape?.structure || '',
+            });
+          } catch (error) {
+            // 보관에 실패해도 학생의 보고서는 그대로 나간다.
+            console.error('report archive failed:', error?.message || error);
+          }
+        }
+
         return json({
           ok: true,
           source,
+          reportId,
           resolved: input,
           phase1Lineage: liveAuthority.phase1Lineage,
           matchedCluster: seedMatch.matchedCluster,
