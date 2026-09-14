@@ -80,9 +80,12 @@ const addPart = (word, ids) => {
   if (!parts.has(word)) parts.set(word, new Set());
   for (const id of ids) parts.get(word).add(id);
 };
+// Korean phrases are head-final: the last word is the general category (양자 *컴퓨터*, 확률의 기본 *성질*) and the
+// ones before it carry what the phrase is actually about. Indexing the head made 컴퓨터프로그래밍 look like quantum
+// computing, so only the modifiers are taken.
 for (const [term, ids] of byTerm) {
   if (!/\s/.test(term)) continue;
-  for (const raw of term.split(/\s+/)) {
+  for (const raw of term.split(/\s+/).slice(0, -1)) {
     const word = raw.replace(PARTICLE, "");
     addPart(word, ids);
     const root = word.replace(SUFFIX, "");
