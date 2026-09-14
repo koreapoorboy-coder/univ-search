@@ -434,4 +434,15 @@ check(bridgeSource.includes("function renderRecordDraft") && bridgeSource.includ
   check(/물·소금물·이산화탄소·산소처럼 누구나 아는 이름은 그대로/.test(final), "but the familiar ones still stay");
 }
 
+// "자료 5편에 나타난 …" counts something the reader cannot identify. An 입학사정관 has no way to tell whether that
+// was five newspaper articles, five papers or five textbook pages, and those are not the same piece of work.
+{
+  const lines = titleRules(COLLECTION.READING).join("\n");
+  check(/규모를 뭉뚱그린 말에 붙이지 않는다/.test(lines), "the count has to sit on a named thing");
+  check(/나쁨: 자료 5편 \/ 문헌 4개 \/ 사례 3건/.test(lines), "the vague forms are listed so they can be recognised");
+  check(/좋음: 신문 기사 4편/.test(lines), "and the named forms alongside them");
+  check(/기관 이름, 신문 이름, 출판사 이름은 학생이 적은 것이 아니면/.test(lines),
+    "naming the kind may not become inventing a source the student never used");
+}
+
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
