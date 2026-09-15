@@ -131,7 +131,7 @@ export async function releaseSeat(db, licenseId) {
 // 학생이 지금 보고서를 만들 수 있는가. 이유를 학생이 읽을 말로 돌려준다.
 export function checkEntitlement(student, now = new Date()) {
   if (!student) return { ok: false, reason: 'NO_STUDENT', error: '그 코드로 만든 기록이 없어요.' };
-  if (!num(student.enabled, 1)) return { ok: false, reason: 'DISABLED', error: '지금은 쓸 수 없는 코드예요. 학원에 문의해 주세요.' };
+  if (!num(student.enabled, 1)) return { ok: false, reason: 'DISABLED', error: '지금은 쓸 수 없는 코드예요. 학원에 문의해 주세요.', expiresAt: clean(student.expires_at, 40), maxUses: num(student.max_uses, UNLIMITED), used: num(student.used_count) };
   const expires = clean(student.expires_at, 40);
   if (expires) {
     const until = new Date(expires);
@@ -144,7 +144,8 @@ export function checkEntitlement(student, now = new Date()) {
   // 무제한은 -1이고 0은 '남은 횟수 없음'이다. 처음에는 0을 무제한으로 뒀는데, 그러면 관리자가 횟수를 빼서
   // 0으로 만든 학생이 무제한이 되어 버렸다 — 막으려는 조작이 정반대로 동작했다.
   if (max >= 0 && used >= max) {
-    return { ok: false, reason: 'NO_USES', error: `보고서 ${max}회를 모두 썼어요. 학원에 문의해 주세요.`, remaining: 0, maxUses: max, used };
+    // 막힌 학생에게도 언제까지인지는 보여 준다. 충전하면 바로 쓸 수 있는지 판단할 재료다.
+    return { ok: false, reason: 'NO_USES', error: `보고서 ${max}회를 모두 썼어요. 학원에 문의해 주세요.`, remaining: 0, maxUses: max, used, expiresAt: expires || '' };
   }
   return { ok: true, remaining: max > 0 ? max - used : null, maxUses: max, used, expiresAt: expires || '' };
 }

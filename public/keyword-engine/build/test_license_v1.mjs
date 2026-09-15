@@ -141,6 +141,11 @@ function makeDb() {
   const gone = checkEntitlement({ max_uses: 10, used_count: 0, enabled: 1, expires_at: "2026-09-01T00:00:00Z" }, now);
   check(gone.ok === false && gone.reason === "EXPIRED", "L5 기간이 끝나면 횟수가 남아도 막는다");
   check(checkEntitlement({ max_uses: 10, used_count: 0, enabled: 0 }, now).reason === "DISABLED", "L5 정지된 코드는 막는다");
+  // 막힌 학생에게도 언제까지인지는 보여 준다 — 충전하면 바로 쓸 수 있는지 판단할 재료다.
+  check(checkEntitlement({ max_uses: 2, used_count: 2, enabled: 1, expires_at: "2027-01-01T00:00:00Z" }, now).expiresAt === "2027-01-01T00:00:00Z",
+    "L5 다 쓴 학생에게도 만료일은 실어 보낸다");
+  check(checkEntitlement({ max_uses: 2, used_count: 0, enabled: 0, expires_at: "2027-01-01T00:00:00Z" }, now).expiresAt === "2027-01-01T00:00:00Z",
+    "L5 정지된 학생에게도");
   check(checkEntitlement(null, now).reason === "NO_STUDENT", "L5 없는 학생은 이용권도 없다");
   check(checkEntitlement({ max_uses: 10, used_count: 0, enabled: 1, expires_at: "2027-01-01T00:00:00Z" }, now).ok === true,
     "L5 기간이 남았으면 통과");
