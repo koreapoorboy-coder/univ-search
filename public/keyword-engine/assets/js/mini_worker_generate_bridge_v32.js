@@ -2858,12 +2858,66 @@
       .slice(0, 80) || "수행평가_보고서";
   }
 
-  function downloadReportHtml(reportTitle, metadata, sections){
+  // 제출본의 생김새. 화면 규칙과 따로 두는 이유는 종이에 나가기 때문이다 — 색도 그림자도 여기서는 짐이다.
+  // 이름을 붙여 둔 것은 미리보기 도구가 이 규칙을 그대로 꺼내 쓸 수 있게 하기 위해서다(build/preview_report_screen.mjs).
+  const DOWNLOAD_STYLE = [
+    '@page{margin:20mm 18mm}',
+    // 맑은 고딕만 적으면 맥에서는 아무 글꼴로나 떨어진다.
+    'body{font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",AppleGothic,sans-serif;'
+    + 'max-width:820px;margin:44px auto;padding:0 28px;color:#111827;line-height:1.85;font-size:15px}',
+    '.cover{border-bottom:2px solid #111827;padding-bottom:20px;margin-bottom:26px}',
+    '.cover h1{font-size:25px;line-height:1.45;margin:0 0 14px;text-align:center;word-break:keep-all}',
+    '.cover dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:14px;color:#374151}',
+    '.cover dt{font-weight:700;color:#111827;white-space:nowrap}',
+    '.cover dd{margin:0}',
+    '.cover .write-in{border-bottom:1px solid #9ca3af;display:inline-block;min-width:150px}',
+    '.task{background:#f6f8fc;border:1px solid #d9e0ee;border-radius:8px;padding:13px 15px;margin:0 0 26px;font-size:13.5px;line-height:1.7;color:#374151}',
+    '.task b{display:block;margin-bottom:5px;color:#111827;font-size:13px}',
+    // 절은 쪽을 넘어가며 쪼개지지 않는다. 제목만 남고 내용이 다음 장으로 가는 일도 없다.
+    'section{margin:0 0 28px;break-inside:avoid;page-break-inside:avoid}',
+    'h2{font-size:18px;border-bottom:1px solid #cbd5e1;padding-bottom:8px;margin:0 0 12px;'
+    + 'break-after:avoid;page-break-after:avoid}',
+    'p{white-space:pre-wrap;margin:0 0 12px;word-break:keep-all}',
+    'table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}',
+    // 표가 쪽을 넘어가면 머리줄을 다시 찍는다. 안 그러면 다음 장의 숫자가 무슨 값인지 알 수 없다.
+    'thead{display:table-header-group}',
+    'th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}',
+    'th{background:#f3f6fb}',
+    'figure{margin:18px 0 22px;break-inside:avoid;page-break-inside:avoid}',
+    'figcaption{font-weight:700;margin:0 0 8px}',
+    '.mini-figure-caption{color:#475569;font-size:14px}',
+    'svg{width:100%;height:auto;max-width:640px;display:block;margin:0 auto}',
+    '.tail{margin-top:34px;padding-top:14px;border-top:1px solid #d1d5db;font-size:12.5px;color:#6b7280}',
+    '@media print{body{margin:0;max-width:none;padding:0}.tail{display:none}}'
+  ].join("");
+
+  function downloadReportHtml(reportTitle, metadata, sections, info){
     const sectionHtml = sections.map((sec, index) => `
       <section><h2>${index + 1}. ${escapeHtml(sec.title)}</h2>${renderDocumentBody(sec.body)}${renderSectionFigures(sec)}</section>
     `).join("");
-    const figureCss = "figure{margin:18px 0 22px}figcaption{font-weight:700;margin:0 0 8px}.mini-figure-caption{color:#475569;font-size:14px}svg{width:100%;height:auto;max-width:640px;display:block;margin:0 auto}";
-    const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(reportTitle)}</title><style>body{font-family:"Malgun Gothic",sans-serif;max-width:820px;margin:48px auto;padding:0 28px;color:#111827;line-height:1.85}h1{text-align:center;font-size:30px;margin:0 0 20px}header{border-bottom:2px solid #111827;padding-bottom:18px;margin-bottom:30px}.meta{color:#475569;text-align:center;font-size:14px}section{margin:0 0 30px;break-inside:avoid}h2{font-size:20px;border-bottom:1px solid #cbd5e1;padding-bottom:8px}p{white-space:pre-wrap;margin:0 0 12px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}${figureCss}@media print{body{margin:0;max-width:none}}</style></head><body><header><h1>${escapeHtml(reportTitle)}</h1><div class="meta">${metadata.filter(Boolean).map(escapeHtml).join(" · ")}</div></header>${sectionHtml}</body></html>`;
+    const at = new Date();
+    const today = `${at.getFullYear()}년 ${at.getMonth() + 1}월 ${at.getDate()}일`;
+    const facts = [
+      ["과목", escapeHtml(info?.subject || "")],
+      ["학년", escapeHtml(info?.grade || "")],
+      ["학교", escapeHtml(info?.school || "")],
+      // 이름은 우리가 모른다 — 모델에 보내지 않는 값이다. 인쇄해서 손으로 적을 수 있게 줄만 남긴다.
+      ["이름", '<span class="write-in"></span>'],
+      ["작성일", escapeHtml(today)]
+    ].filter(pair => pair[1]);
+    const coverFacts = `<dl>${facts.map(pair => `<dt>${pair[0]}</dt><dd>${pair[1]}</dd>`).join("")}</dl>`;
+    // 수행평가 안내문은 표지에 있으면 글 덩어리가 된다. 본문 앞의 작은 상자로 내린다.
+    const task = String(info?.task || "").trim();
+    const taskHtml = task
+      ? `<div class="task"><b>수행평가 안내문</b>${escapeHtml(task.slice(0, 1200))}</div>`
+      : "";
+    const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${escapeHtml(reportTitle)}</title><style>${DOWNLOAD_STYLE}</style></head><body>
+<div class="cover"><h1>${escapeHtml(reportTitle)}</h1>${coverFacts}</div>
+${taskHtml}${sectionHtml}
+<div class="tail">이 파일은 브라우저에서 바로 인쇄하거나 PDF로 저장할 수 있습니다. 제출 전에 한 번 읽고 직접 다듬어 주세요.</div>
+</body></html>`;
     const blob = new Blob(["\ufeff", html], { type: "text/html;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
@@ -4035,7 +4089,12 @@ ${result}`;
 
     $("miniV32CopyReportBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(reportPlainText));
     $("miniRecordCopyBtn")?.addEventListener("click", () => navigator.clipboard?.writeText((stageResult.recordDraft || []).join("\n")));
-    $("miniV32DownloadReportBtn")?.addEventListener("click", () => downloadReportHtml(reportTitle, metadata, displaySections));
+    $("miniV32DownloadReportBtn")?.addEventListener("click", () => downloadReportHtml(reportTitle, metadata, displaySections, {
+      subject: s.subject || req.subject || "",
+      grade: readValue("grade") || req.grade || "",
+      school: readValue("schoolName") || req.schoolName || "",
+      task: req.taskDescription || ""
+    }));
     if(stage === "experiment_draft" && (stageResult.dataTemplate || stageResult.sourceTemplate)){
       global.__MINI_EXPERIMENT_DRAFT__ = { result: stageResult, template: stageResult.dataTemplate, title: reportTitle, plainText: reportPlainText };
       $("miniExpFinalBtn")?.addEventListener("click", handleExperimentFinal);
