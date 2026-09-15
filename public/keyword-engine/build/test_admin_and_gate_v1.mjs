@@ -74,6 +74,11 @@ check(admin.includes("비우면 무제한") && admin.includes("이른 쪽이 이
 check(admin.includes("var esc = function") && (admin.match(/esc\(/g) || []).length >= 20,
   "G6 every value is escaped — student names and academy names are user input");
 check(!/<script[^>]+src=/i.test(admin), "G6 it loads nothing from outside");
+// 브라우저에서 돌려 보고서야 나온 둘: 관리자 헤더가 CORS에 막혔고, 한글 열쇠는 fetch 자체를 터뜨렸다.
+check(worker.includes("Content-Type, Authorization, x-admin-key"),
+  "G6 the admin header is allowed through the preflight — without it the screen cannot call anything");
+check(admin.includes("\\x20-\\x7E]/.test(adminKey)"),
+  "G6 a key with Korean in it is refused on the page — a header cannot carry it and fetch throws");
 
 // G7: 학생 화면은 관리 경로를 하나도 모른다.
 check(!/admin\/students|admin\/licenses|license\/issue|license\/adjust|student\/adjust|x-admin-key/.test(join + folio),
