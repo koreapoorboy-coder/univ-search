@@ -7,6 +7,19 @@
   <link rel="stylesheet" href="assets/keyword_engine.css" />
   <link rel="stylesheet" href="assets/topic_generator.css" />
   <link rel="stylesheet" href="assets/decision_flow.css?v=v269_major_pick" />
+  <style>
+    /* 학생 코드 — 보고서가 누구 것이 되는지 정하는 칸이라 첫 화면에 있어야 한다. */
+    .student-code-panel { padding: 16px 20px; margin-bottom: 14px; }
+    .student-code-known { display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+      justify-content: space-between; font-size: .95rem; }
+    .student-code-known b { font-family: ui-monospace, Menlo, Consolas, monospace;
+      background: var(--primary-soft); color: var(--primary); padding: 3px 9px; border-radius: 8px; }
+    .student-code-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .student-code-row input { flex: 1 1 240px; min-width: 0; }
+    .student-code-help { margin: 8px 0 0; color: var(--muted); font-size: .88rem; line-height: 1.55; }
+    .student-code-help a { color: var(--primary); font-weight: 700; }
+    .student-code-panel .hide { display: none !important; }
+  </style>
 </head>
 <body>
   <div class="page decision-flow-page">
@@ -14,6 +27,22 @@
       <div class="hero-badge">RNY 탐구보고서 프로그램</div>
       <h1>수행평가 안내문으로 바로 만드는 탐구보고서</h1>
       <p class="decision-flow-hero-copy">과목을 고르고 선생님 안내문을 통째로 붙여넣으면 보고서 유형과 구성을 자동으로 해석합니다.</p>
+    </section>
+
+    <section class="panel form-panel student-code-panel" id="studentCodeBox">
+      <div class="student-code-known hide" id="studentCodeKnown">
+        <span>내 학생 코드 <b id="studentCodeShown"></b></span>
+        <button type="button" class="secondary-btn" id="studentCodeChange">바꾸기</button>
+      </div>
+      <div class="student-code-ask" id="studentCodeAsk">
+        <label for="studentCodeInput"><span>학생 코드</span></label>
+        <div class="student-code-row">
+          <input id="studentCodeInput" type="text" autocomplete="off" spellcheck="false" placeholder="sc-study0001-abcd" />
+          <button type="button" class="primary-btn" id="studentCodeSave">저장</button>
+        </div>
+        <p class="student-code-help">보고서는 이 코드로 만들어지고, 만든 보고서는 <a href="portfolio.html">내 탐구 기록</a>에 쌓입니다.
+          코드가 없다면 <a href="join.html">코드 받기</a>에서 먼저 받아 주세요.</p>
+      </div>
     </section>
 
     <section class="panel form-panel decision-flow-panel">
@@ -438,7 +467,40 @@
     var next = String(value || "").trim().toLowerCase();
     field.value = next;
     try { if (next) localStorage.setItem(KEY, next); } catch (error) { /* 저장 못 해도 이번 한 번은 쓴다 */ }
+    show();
   };
+
+  // 코드를 아는 학생에게는 한 줄만, 모르는 학생에게는 넣을 칸을 준다.
+  var known = document.getElementById("studentCodeKnown");
+  var ask = document.getElementById("studentCodeAsk");
+  var shown = document.getElementById("studentCodeShown");
+  var input = document.getElementById("studentCodeInput");
+  function show() {
+    if (!known || !ask) return;
+    var has = /^sc-study\d{4,6}-[a-z2-9]{4}$/.test(field.value);
+    known.className = has ? "student-code-known" : "student-code-known hide";
+    ask.className = has ? "student-code-ask hide" : "student-code-ask";
+    if (has && shown) shown.textContent = field.value;
+  }
+  var saveBtn = document.getElementById("studentCodeSave");
+  if (saveBtn) saveBtn.addEventListener("click", function () {
+    var typed = String(input.value || "").trim().toLowerCase();
+    if (!/^sc-study\d{4,6}-[a-z2-9]{4}$/.test(typed)) {
+      input.focus();
+      window.alert("학생 코드 형식이 아니에요. sc-study0001-abcd 처럼 적어 주세요.");
+      return;
+    }
+    window.__keywordEngineSetStudentCode(typed);
+  });
+  if (input) input.addEventListener("keydown", function (event) { if (event.key === "Enter") saveBtn.click(); });
+  var changeBtn = document.getElementById("studentCodeChange");
+  if (changeBtn) changeBtn.addEventListener("click", function () {
+    if (input) input.value = field.value;
+    field.value = "";
+    show();
+    if (input) input.focus();
+  });
+  show();
 })();
 </script>
 </body>

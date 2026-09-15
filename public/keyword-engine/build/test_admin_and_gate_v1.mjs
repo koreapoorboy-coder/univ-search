@@ -37,6 +37,16 @@ check(index.includes('localStorage.getItem(KEY)') && index.includes("keyword-eng
 check(index.includes('new URLSearchParams(location.search).get("code")'),
   "G2 and a link carrying the code fills it in");
 
+// G2b: 코드가 없는 학생에게 넣을 곳이 있어야 한다. 403만 주고 칸이 없으면 막다른 길이다.
+check(index.includes('id="studentCodeInput"') && index.includes('id="studentCodeSave"'),
+  "G2b the report screen has a visible place to put the code");
+check(index.includes('id="studentCodeKnown"') && index.includes("내 학생 코드"),
+  "G2b and collapses to one line once the code is known");
+check(index.includes('href="join.html"') && index.includes('href="portfolio.html"'),
+  "G2b with the way to get one, and the place the reports end up");
+check(/\^sc-study\\d\{4,6\}-\[a-z2-9\]\{4\}\$/.test(index),
+  "G2b a typo is caught on the page rather than becoming a 404 from the server");
+
 // G3: 가입은 열려 있고 사용은 잠겨 있다 — 대표님 설계.
 check(worker.includes("let grant = emptyGrant();") && worker.includes("if (body?.joinCode) {"),
   "G3 signing up without a join code is allowed");

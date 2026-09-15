@@ -4,61 +4,26 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>학생 코드 받기 · 키워드 엔진</title>
+<link rel="stylesheet" href="assets/student_screens.css?v=v1" />
 <style>
-  :root {
-    --ink: #1b1d21; --dim: #6a7078; --line: #e3e6ea; --bg: #f7f8fa; --card: #ffffff;
-    --accent: #2f5bd7; --soft: #eef2fd; --warm: #fff6e8; --warmline: #f0d9b0; --bad: #c0392b;
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink);
-    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif;
-    line-height: 1.62; font-size: 15px; }
-  .wrap { max-width: 620px; margin: 0 auto; padding: 28px 18px 80px; }
-  h1 { font-size: 22px; margin: 0 0 6px; letter-spacing: -0.4px; }
-  p.lead { color: var(--dim); margin: 0 0 22px; font-size: 14px; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; margin-bottom: 14px; }
-  label { display: block; font-size: 14px; font-weight: 600; margin: 0 0 6px; }
-  label .opt { font-weight: 400; color: var(--dim); }
-  .hint { margin-top: 6px; font-size: 13px; color: var(--dim); }
-  .hint.good { color: var(--accent); }
-  .hint.bad { color: var(--bad); }
-  .field { margin-bottom: 18px; }
-  input[type=text] { width: 100%; padding: 11px 13px; border: 1px solid var(--line);
-    border-radius: 9px; font-size: 15px; font-family: inherit; }
-  input[type=text]:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: var(--accent); }
-  .picks { display: flex; flex-wrap: wrap; gap: 7px; }
-  .picks button { padding: 9px 14px; border: 1px solid var(--line); background: var(--card);
-    border-radius: 999px; font-size: 14px; font-family: inherit; cursor: pointer; color: var(--ink); }
-  .picks button[aria-pressed="true"] { border-color: var(--accent); background: var(--soft); color: var(--accent); font-weight: 600; }
-  .go { width: 100%; padding: 14px; border: 0; border-radius: 10px; background: var(--accent);
-    color: #fff; font-size: 16px; font-family: inherit; cursor: pointer; }
-  .go:disabled { background: #a8b4d4; cursor: default; }
-  .msg { margin-top: 12px; font-size: 14px; color: var(--bad); }
-  .warn { background: var(--warm); border: 1px solid var(--warmline); border-radius: 10px;
-    padding: 12px 15px; font-size: 14px; margin-bottom: 14px; }
-  .codebox { text-align: center; padding: 26px 20px; }
-  .codebox .big { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 27px;
-    letter-spacing: 1px; color: var(--accent); background: var(--soft); border-radius: 10px;
-    padding: 14px 10px; margin: 12px 0 4px; word-break: break-all; }
-  .codebox .who { color: var(--dim); font-size: 14px; }
-  .row { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
-  .row a, .row button { flex: 1 1 140px; text-align: center; padding: 12px; border-radius: 9px;
-    font-size: 15px; font-family: inherit; cursor: pointer; text-decoration: none;
-    border: 1px solid var(--accent); background: var(--card); color: var(--accent); }
-  .row a.fill { background: var(--accent); color: #fff; }
-  .foot { margin-top: 30px; font-size: 13px; color: var(--dim); border-top: 1px solid var(--line); padding-top: 14px; }
-  .foot a { color: var(--accent); }
-  .hide { display: none; }
+  .codebox { text-align: center; }
+  .codebox .who { color: var(--muted); font-size: .92rem; }
+  .codebox .who + .who { margin-top: 4px; }
+  .done-row { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+  .done-row a, .done-row button { flex: 1 1 150px; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>학생 코드 받기</h1>
-  <p class="lead">코드 하나로 3년 동안 쓴 탐구보고서가 한 자리에 쌓입니다. 가입은 누구나 할 수 있고, 보고서를 만들려면 이용 권한이 있어야 합니다.</p>
+<div class="page">
+  <section class="hero">
+    <a class="hero-badge" href="index.html">RNY 탐구보고서 프로그램</a>
+    <h1>학생 코드 받기</h1>
+    <p>코드 하나로 3년 동안 쓴 탐구보고서가 한 자리에 쌓입니다. 가입은 누구나 할 수 있고, 보고서를 만들려면 이용 권한이 있어야 합니다.</p>
+  </section>
 
-  <div id="already" class="warn hide"></div>
+  <div id="already" class="note hide"></div>
 
-  <div class="card" id="form">
+  <div class="panel" id="form">
     <div class="field">
       <label for="joinCode">등록 코드 <span class="opt">· 학원에서 받았으면 넣어 주세요</span></label>
       <input id="joinCode" type="text" autocomplete="off" spellcheck="false" placeholder="ac-7k2pqm">
@@ -198,22 +163,22 @@
 
   function showCode(code, name, school, data) {
     remember(code);
-    $("form").className = "card hide";
-    $("already").className = "warn hide";
+    $("form").className = "panel hide";
+    $("already").className = "note hide";
     $("done").className = "";
-    $("done").innerHTML = '<div class="warn"><b>이 코드를 꼭 적어 두세요.</b><br>'
+    $("done").innerHTML = '<div class="note"><b>이 코드를 꼭 적어 두세요.</b><br>'
       + "이름으로는 다시 찾아 줄 수 없어요. 이름으로 찾을 수 있게 만들면, 남의 이름만 알아도 그 사람의 3년치를 열어 볼 수 있게 되기 때문입니다. "
       + "이 기기에는 저장해 두었지만, 폰을 바꾸거나 기록을 지우면 사라집니다. "
       + "<b>아래 ‘내 기록 열기’를 눌러 그 주소를 즐겨찾기 해 두세요.</b> 주소 안에 코드가 들어 있어서, 즐겨찾기 하나가 코드입니다. "
       + "그래도 잃어버렸다면 다니는 학원에 문의해 주세요.</div>"
-      + '<div class="card codebox"><div class="who">' + esc(name) + (school ? " · " + esc(school) : "") + "</div>"
-      + '<div class="big">' + esc(code) + "</div>"
+      + '<div class="panel codebox"><div class="who">' + esc(name) + (school ? " · " + esc(school) : "") + "</div>"
+      + '<div class="code-big">' + esc(code) + "</div>"
       + (planLine(data) ? '<div class="who">' + esc(planLine(data)) + "</div>" : "")
       + (lockedLine(data) ? '<div class="who" style="color:#a5281b">' + esc(lockedLine(data)) + "</div>" : "")
       + '<div class="who">보고서를 만들 때 이 코드를 넣으면 여기에 쌓입니다.</div>'
-      + '<div class="row">'
-      + '<button type="button" id="copyBtn">코드 복사</button>'
-      + '<a class="fill" href="portfolio.html?code=' + encodeURIComponent(code) + '">내 기록 열기</a>'
+      + '<div class="done-row">'
+      + '<button type="button" class="ghost" id="copyBtn">코드 복사</button>'
+      + '<a class="btn" href="portfolio.html?code=' + encodeURIComponent(code) + '">내 기록 열기</a>'
       + "</div></div>";
     var copy = $("copyBtn");
     copy.addEventListener("click", function () {
@@ -270,7 +235,7 @@
   // 같은 기기에서 두 번 받으면 먼저 쓴 보고서가 앞의 코드에 남아 흩어진다. 막지는 않되 먼저 알려 준다.
   var mine = recall();
   if (mine) {
-    $("already").className = "warn";
+    $("already").className = "note";
     $("already").innerHTML = "이 기기에서 이미 코드를 받았어요: <b>" + esc(mine) + "</b><br>"
       + '<a href="portfolio.html?code=' + encodeURIComponent(mine) + '">그 코드로 내 기록 열기</a>'
       + " · 새로 받으면 전에 쓴 보고서는 앞의 코드에 그대로 남습니다.";

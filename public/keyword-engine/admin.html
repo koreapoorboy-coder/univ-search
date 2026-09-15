@@ -4,67 +4,39 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>이용권 관리 · 키워드 엔진</title>
+<link rel="stylesheet" href="assets/student_screens.css?v=v1" />
 <style>
-  :root {
-    --ink: #1b1d21; --dim: #6a7078; --line: #e3e6ea; --bg: #f7f8fa; --card: #ffffff;
-    --accent: #2f5bd7; --soft: #eef2fd; --bad: #c0392b; --good: #1e7a4d; --warn: #fff6e8;
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink);
-    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif;
-    line-height: 1.55; font-size: 14px; }
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 22px 16px 80px; }
-  h1 { font-size: 20px; margin: 0 0 4px; letter-spacing: -0.4px; }
-  h2 { font-size: 16px; margin: 28px 0 10px; letter-spacing: -0.3px; }
-  p.lead { color: var(--dim); margin: 0 0 18px; font-size: 13px; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 11px; padding: 16px 18px; margin-bottom: 12px; }
-  label { display: block; font-size: 13px; font-weight: 600; margin: 0 0 5px; }
-  input, select { width: 100%; padding: 9px 11px; border: 1px solid var(--line); border-radius: 8px;
-    font-size: 14px; font-family: inherit; background: var(--card); color: var(--ink); }
-  input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
-  .grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
-  button { padding: 9px 16px; border: 1px solid var(--accent); border-radius: 8px; background: var(--accent);
-    color: #fff; font-size: 14px; font-family: inherit; cursor: pointer; white-space: nowrap; }
-  button.ghost { background: var(--card); color: var(--accent); }
-  button.small { padding: 5px 10px; font-size: 13px; }
-  button:disabled { opacity: 0.5; cursor: default; }
-  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end; margin-top: 12px; }
-  .msg { margin-top: 10px; font-size: 13px; }
-  .msg.bad { color: var(--bad); }
-  .msg.good { color: var(--good); }
-  .scroll { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 760px; }
-  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
-  th { background: var(--soft); font-weight: 600; position: sticky; top: 0; }
-  tr:hover td { background: #fafbfe; }
-  .code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12.5px; color: var(--accent); }
-  .off { color: var(--bad); font-weight: 600; }
-  .on { color: var(--good); }
-  .pill { background: var(--soft); border-radius: 999px; padding: 2px 9px; font-size: 12px; }
-  .issued { background: var(--warn); border: 1px solid #f0d9b0; border-radius: 9px; padding: 12px 14px; margin-top: 12px; }
-  .issued .big { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 20px; color: var(--accent); }
-  .hide { display: none; }
-  .note { font-size: 12.5px; color: var(--dim); margin-top: 8px; }
+  .issued { background: var(--warn); border: 1px solid var(--warn-line);
+    border-radius: var(--radius-sm); padding: 14px 16px; margin-top: 14px; }
+  .issued .big { font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 1.35rem; color: var(--primary); letter-spacing: 1px; margin: 4px 0; }
+  .keyrow { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
+  .keyrow input { flex: 1 1 280px; }
+  .find { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
+  .find .grow { flex: 1 1 250px; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>이용권 관리</h1>
-  <p class="lead">이용권을 발급하고, 학생에게 횟수와 기간을 줍니다. 배포 없이 여기서 다 됩니다.</p>
+<div class="page wide">
+  <section class="hero">
+    <a class="hero-badge" href="index.html">RNY 탐구보고서 프로그램</a>
+    <h1>이용권 관리</h1>
+    <p>이용권을 발급하고, 학생에게 횟수와 기간을 줍니다. 배포 없이 여기서 다 됩니다.</p>
+  </section>
 
-  <div class="card" id="gate">
+  <div class="panel" id="gate">
     <label for="key">관리자 열쇠</label>
-    <div class="row">
-      <input id="key" type="password" autocomplete="off" placeholder="관리자 열쇠" style="flex:1 1 300px">
+    <div class="keyrow">
+      <input id="key" type="password" autocomplete="off" placeholder="관리자 열쇠">
       <button id="keyBtn" type="button">열기</button>
     </div>
     <div class="msg hide" id="keyMsg"></div>
-    <div class="note">열쇠는 이 브라우저 탭에만 남고, 탭을 닫으면 사라집니다.</div>
+    <div class="hint">열쇠는 이 브라우저 탭에만 남고, 탭을 닫으면 사라집니다.</div>
   </div>
 
   <div id="main" class="hide">
     <h2>이용권 발급</h2>
-    <div class="card">
+    <div class="panel">
       <div class="grid">
         <div><label for="orgName">학원 이름</label><input id="orgName" placeholder="미래학원 · 개인이면 비워 두세요"></div>
         <div><label for="planName">요금제 이름</label><input id="planName" placeholder="3개월 10회"></div>
@@ -76,26 +48,26 @@
         <div><label for="paidAt">입금일</label><input id="paidAt" type="date"></div>
       </div>
       <div style="margin-top:10px"><label for="memo">메모</label><input id="memo" placeholder="입금자명 등 나중에 찾을 단서"></div>
-      <div class="row"><button id="issueBtn" type="button">이용권 만들기</button></div>
+      <div class="row top"><button id="issueBtn" type="button">이용권 만들기</button></div>
       <div class="msg hide" id="issueMsg"></div>
       <div class="issued hide" id="issued"></div>
-      <div class="note">기간과 날짜를 둘 다 넣으면 이른 쪽이 이깁니다. 횟수를 비우면 기간 안에서 무제한입니다.</div>
+      <div class="hint">기간과 날짜를 둘 다 넣으면 이른 쪽이 이깁니다. 횟수를 비우면 기간 안에서 무제한입니다.</div>
     </div>
 
     <h2>이용권 목록</h2>
-    <div class="card scroll"><table id="licTable"><tbody><tr><td>불러오는 중…</td></tr></tbody></table></div>
+    <div class="panel scroll"><table id="licTable"><tbody><tr><td>불러오는 중…</td></tr></tbody></table></div>
 
     <h2>학생</h2>
-    <div class="card">
-      <div class="row">
-        <div style="flex:1 1 260px"><label for="q">이름·코드·학교·학원·번호 뒤 4자리로 찾기</label>
+    <div class="panel">
+      <div class="find">
+        <div class="grow"><label for="q">이름·코드·학교·학원·번호 뒤 4자리로 찾기</label>
           <input id="q" placeholder="비우면 최근 가입 순"></div>
         <button id="findBtn" type="button">찾기</button>
         <button id="onlyLocked" class="ghost" type="button">권한 없는 학생만</button>
       </div>
       <div class="msg hide" id="stuMsg"></div>
     </div>
-    <div class="card scroll"><table id="stuTable"><tbody><tr><td>불러오는 중…</td></tr></tbody></table></div>
+    <div class="panel scroll"><table id="stuTable"><tbody><tr><td>불러오는 중…</td></tr></tbody></table></div>
   </div>
 </div>
 
@@ -221,7 +193,7 @@
       if (result.status === 403) { say("keyMsg", "열쇠가 맞지 않아요."); return; }
       if (!result.data.ok) { say("keyMsg", result.data.error || "열 수 없어요."); return; }
       try { sessionStorage.setItem(KEY_STORE, adminKey); } catch (error) { /* 탭에만 두는 값이라 실패해도 그만 */ }
-      $("gate").className = "card hide";
+      $("gate").className = "panel hide";
       $("main").className = "";
       loadLicenses();
       loadStudents();

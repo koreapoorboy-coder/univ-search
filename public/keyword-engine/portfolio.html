@@ -4,71 +4,52 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>내 탐구 기록 · 키워드 엔진</title>
+<link rel="stylesheet" href="assets/student_screens.css?v=v1" />
 <style>
-  :root {
-    --ink: #1b1d21; --dim: #6a7078; --line: #e3e6ea; --bg: #f7f8fa; --card: #ffffff;
-    --accent: #2f5bd7; --soft: #eef2fd; --warm: #fff6e8; --warmline: #f0d9b0;
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink);
-    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif;
-    line-height: 1.62; font-size: 15px; }
-  .wrap { max-width: 860px; margin: 0 auto; padding: 28px 18px 80px; }
-  h1 { font-size: 22px; margin: 0 0 6px; letter-spacing: -0.4px; }
-  h2 { font-size: 17px; margin: 34px 0 12px; letter-spacing: -0.3px; }
-  h3 { font-size: 15px; margin: 0 0 6px; letter-spacing: -0.2px; }
-  p.lead { color: var(--dim); margin: 0 0 22px; font-size: 14px; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; margin-bottom: 14px; }
-  .gate { display: flex; gap: 8px; flex-wrap: wrap; }
-  .gate input { flex: 1 1 220px; min-width: 0; padding: 12px 14px; border: 1px solid var(--line);
-    border-radius: 9px; font-size: 15px; font-family: inherit; }
-  .gate button { padding: 12px 22px; border: 0; border-radius: 9px; background: var(--accent);
-    color: #fff; font-size: 15px; font-family: inherit; cursor: pointer; }
-  .gate button:disabled { background: #a8b4d4; cursor: default; }
-  .msg { margin-top: 10px; font-size: 14px; color: #c0392b; }
-  .ask { margin-top: 12px; font-size: 13px; color: var(--dim); }
-  .ask a { color: var(--accent); }
-  .pass { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline;
-    background: var(--soft); border-radius: 9px; padding: 10px 14px; margin-top: 14px; font-size: 14px; }
-  .pass b { font-size: 16px; }
-  .pass.out { background: #fdecea; color: #a5281b; }
-  .who { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: baseline; }
-  .who .name { font-size: 20px; font-weight: 700; letter-spacing: -0.4px; }
-  .who .meta { color: var(--dim); font-size: 14px; }
-  .code { font-family: ui-monospace, Menlo, Consolas, monospace; background: var(--soft);
-    color: var(--accent); padding: 3px 8px; border-radius: 6px; font-size: 13px; }
-  .counts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
-  .count { background: var(--soft); border-radius: 9px; padding: 8px 14px; font-size: 14px; }
-  .count b { font-size: 17px; }
-  .line-note { background: var(--warm); border: 1px solid var(--warmline); border-radius: 10px;
-    padding: 12px 15px; font-size: 14px; margin-top: 12px; }
-  .year { margin-top: 18px; }
-  .year > .label { font-weight: 700; font-size: 14px; color: var(--accent); margin-bottom: 8px; }
-  .rep { border-left: 3px solid var(--soft); padding: 2px 0 2px 14px; margin-bottom: 16px; }
-  .rep .tags { color: var(--dim); font-size: 13px; margin-bottom: 3px; }
-  .rep .title { font-weight: 600; letter-spacing: -0.2px; }
-  .rep details { margin-top: 7px; }
-  .rep summary { cursor: pointer; color: var(--accent); font-size: 13px; }
-  .rep ul { margin: 8px 0 0; padding-left: 18px; font-size: 14px; color: #3a3f46; }
-  .fit { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; background: var(--card); }
-  .fit.picked { border-color: var(--accent); background: var(--soft); }
+  .who { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; }
+  .who .name { font-size: 1.32rem; font-weight: 800; letter-spacing: -.5px; }
+  .who .meta { color: var(--muted); font-size: .92rem; }
+  .counts { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 15px; }
+  .count { background: var(--primary-soft); border-radius: var(--radius-xs); padding: 8px 14px; font-size: .9rem; color: #2440a8; }
+  .count b { font-size: 1.1rem; }
+  .pass { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline;
+    background: var(--accent-soft); border-radius: var(--radius-xs); padding: 11px 15px; margin-top: 13px; font-size: .92rem; }
+  .pass b { font-size: 1.05rem; }
+  .pass.out { background: var(--danger-soft); color: #9b2020; }
+  .line-note { background: var(--warn); border: 1px solid var(--warn-line); border-radius: var(--radius-xs);
+    padding: 12px 15px; font-size: .92rem; margin-top: 13px; }
+  .year { margin-top: 20px; }
+  .year > .label { font-weight: 800; font-size: .9rem; color: var(--primary); margin-bottom: 9px; }
+  .rep { border-left: 3px solid var(--primary-soft); padding: 2px 0 2px 15px; margin-bottom: 17px; }
+  .rep .tags { color: var(--muted); font-size: .85rem; margin-bottom: 3px; }
+  .rep .title { font-weight: 700; letter-spacing: -.2px; }
+  .rep summary { cursor: pointer; color: var(--primary); font-size: .85rem; margin-top: 7px; font-weight: 700; }
+  .rep ul { margin: 8px 0 0; padding-left: 18px; font-size: .92rem; color: #3a4252; }
+  .fit { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-sm);
+    padding: 15px 17px; margin-bottom: 10px; }
+  .fit.picked { border-color: var(--primary); background: linear-gradient(180deg, #fff, #f7faff); }
   .fit .head { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
-  .fit .head b { font-size: 16px; }
-  .fit .head span { color: var(--dim); font-size: 13px; }
-  .fit ul { margin: 10px 0 0; padding-left: 18px; font-size: 14px; }
+  .fit .head b { font-size: 1.05rem; }
+  .fit .head span { color: var(--muted); font-size: .85rem; }
+  .fit ul { margin: 11px 0 0; padding-left: 18px; font-size: .92rem; }
   .fit li { margin-bottom: 5px; }
-  .fit .via { color: var(--dim); font-size: 13px; }
-  .open { margin-top: 10px; font-size: 13px; color: var(--dim); }
-  .foot { margin-top: 34px; font-size: 13px; color: var(--dim); border-top: 1px solid var(--line); padding-top: 14px; }
-  .hide { display: none; }
+  .fit .via { color: var(--muted); font-size: .85rem; }
+  .open { margin-top: 11px; font-size: .85rem; color: var(--muted); }
+  .ask { margin-top: 13px; font-size: .86rem; color: var(--muted); }
+  .ask a { color: var(--primary); font-weight: 700; }
+  .gate { display: flex; gap: 10px; flex-wrap: wrap; }
+  .gate input { flex: 1 1 230px; min-width: 0; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>내 탐구 기록</h1>
-  <p class="lead">학생 코드 하나로 고등학교 3년 동안 쓴 보고서를 한 자리에서 봅니다.</p>
+<div class="page">
+  <section class="hero">
+    <a class="hero-badge" href="index.html">RNY 탐구보고서 프로그램</a>
+    <h1>내 탐구 기록</h1>
+    <p>학생 코드 하나로 고등학교 3년 동안 쓴 보고서를 한 자리에서 봅니다.</p>
+  </section>
 
-  <div class="card" id="gateCard">
+  <div class="panel" id="gateCard">
     <div class="gate">
       <input id="codeInput" placeholder="sc-study0001-abcd" autocomplete="off" spellcheck="false">
       <button id="openBtn" type="button">열기</button>
@@ -180,7 +161,7 @@
     var reports = (data.reports || []).slice().sort(function (a, b) { return gradeRank(a.grade) - gradeRank(b.grade); });
     var html = "";
 
-    html += '<div class="card"><div class="who">'
+    html += '<div class="panel"><div class="who">'
       + '<span class="name">' + esc(student.name) + "</span>"
       + '<span class="meta">' + esc([student.school, student.gradeNow || student.enteredGrade, student.track, student.major].filter(Boolean).join(" · ")) + "</span>"
       + '<span class="code">' + esc(student.code) + "</span></div>"
@@ -214,7 +195,7 @@
 
     html += "<h2>3년 기록</h2>";
     if (!reports.length) {
-      html += '<div class="card">아직 저장된 보고서가 없어요. 보고서를 만들 때 학생 코드를 넣으면 여기에 쌓입니다.</div>';
+      html += '<div class="panel flat">아직 저장된 보고서가 없어요. 보고서를 만들 때 학생 코드를 넣으면 여기에 쌓입니다.</div>';
     } else {
       GRADE_ORDER.concat(["기타"]).forEach(function (grade) {
         var mine = reports.filter(function (report) {
@@ -229,7 +210,7 @@
     var fit = data.fit;
     if (fit) {
       html += "<h2>학과와 닿은 곳</h2>";
-      html += '<div class="card">' + esc(fit.note) + "</div>";
+      html += '<div class="panel flat">' + esc(fit.note) + "</div>";
       if (fit.picked) html += renderFit(fit.picked, true);
       (fit.ranked || []).forEach(function (row) {
         if (fit.picked && row.major === fit.picked.major) return;

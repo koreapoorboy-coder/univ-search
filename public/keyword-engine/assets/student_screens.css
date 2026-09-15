@@ -1,0 +1,141 @@
+/* 학생·관리 화면 공용 — 가입(join), 내 기록(portfolio), 이용권 관리(admin).
+ *
+ * 이 세 화면은 각자 자기 색과 자기 모서리를 들고 있었다. 파란색만 해도 본 화면은 #2458ff, 이쪽은 #2f5bd7
+ * 이어서, 같은 제품인데 다른 제품처럼 보였다. 토큰은 keyword_engine.css와 같은 값을 쓴다 — 나중에 색을
+ * 바꿀 때 네 군데를 고치지 않으려면 여기 한 장만 있어야 한다.
+ */
+
+:root {
+  --bg: #f5f7fb; --panel: #fff; --text: #172033; --muted: #667085; --line: #e6eaf2;
+  --primary: #2458ff; --primary-soft: #eaf0ff; --accent: #0f9b8e; --accent-soft: #e8fbf8;
+  --danger: #c62828; --danger-soft: #fff3f2; --warn: #fff7e8; --warn-line: #f2dcb4;
+  --radius: 18px; --radius-sm: 14px; --radius-xs: 10px;
+  --shadow: 0 10px 28px rgba(15, 23, 42, .06);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+  background: linear-gradient(180deg, #f7faff 0%, #f3f6fb 100%);
+  background-attachment: fixed;
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+}
+
+.page { max-width: 760px; margin: 0 auto; padding: 28px 16px 72px; }
+.page.wide { max-width: 1180px; }
+
+/* 머리 — 본 화면과 같은 모양이라 학생이 같은 곳이라고 알아본다. */
+.hero { margin-bottom: 18px; }
+.hero-badge {
+  display: inline-block; padding: 6px 12px; border-radius: 999px;
+  background: var(--primary-soft); color: var(--primary);
+  font-weight: 700; font-size: .84rem; margin-bottom: 10px;
+  text-decoration: none;
+}
+a.hero-badge:hover { background: #dfe8ff; }
+.hero h1 { margin: 0 0 8px; font-size: 1.9rem; line-height: 1.25; letter-spacing: -.5px; }
+.hero p { margin: 0; color: var(--muted); font-size: .95rem; }
+
+h2 { font-size: 1.12rem; margin: 30px 0 10px; letter-spacing: -.3px; }
+h2:first-of-type { margin-top: 22px; }
+
+.panel {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 20px; margin-bottom: 14px;
+}
+.panel.flat { box-shadow: none; }
+
+/* 입력 */
+.field { margin-bottom: 18px; }
+.field:last-child { margin-bottom: 0; }
+label { display: block; font-weight: 700; font-size: .95rem; margin: 0 0 6px; }
+label .opt { font-weight: 400; color: var(--muted); font-size: .9rem; }
+input, select, textarea {
+  width: 100%; padding: 13px 14px; border: 1px solid var(--line);
+  border-radius: var(--radius-sm); background: #fff; font: inherit; color: var(--text);
+}
+input:focus, select:focus { outline: 2px solid var(--primary); outline-offset: -1px; border-color: var(--primary); }
+.hint { margin-top: 6px; font-size: .86rem; color: var(--muted); }
+.hint.good { color: var(--primary); font-weight: 700; }
+.hint.bad { color: var(--danger); }
+
+/* 버튼 — 본 화면과 같은 굵기와 모서리. */
+button, .btn {
+  border: 0; border-radius: var(--radius-sm); padding: 12px 18px;
+  font: inherit; font-weight: 800; cursor: pointer;
+  background: var(--primary); color: #fff; white-space: nowrap;
+}
+button.ghost, .btn.ghost { background: #eef2ff; color: #2440a8; }
+button.small { padding: 6px 11px; font-size: .84rem; font-weight: 700; border-radius: var(--radius-xs); }
+button:disabled { opacity: .55; cursor: default; }
+.btn { display: inline-block; text-align: center; text-decoration: none; }
+.go { width: 100%; padding: 15px; font-size: 1.02rem; }
+
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
+.row.top { margin-top: 14px; }
+
+/* 고르는 칸 — 폰에서 타자 치지 않게. */
+.picks { display: flex; flex-wrap: wrap; gap: 8px; }
+.picks button {
+  background: #fff; color: var(--text); border: 1px solid var(--line);
+  border-radius: 999px; padding: 10px 15px; font-weight: 600; font-size: .94rem;
+}
+.picks button[aria-pressed="true"] {
+  border-color: var(--primary); background: var(--primary-soft);
+  color: var(--primary); font-weight: 800;
+}
+
+/* 알림 */
+.msg { margin-top: 12px; font-size: .92rem; color: var(--danger); }
+.msg.good { color: var(--accent); }
+.note {
+  background: var(--warn); border: 1px solid var(--warn-line);
+  border-radius: var(--radius-sm); padding: 13px 15px; font-size: .92rem; margin-bottom: 14px;
+}
+.foot {
+  margin-top: 30px; padding-top: 16px; border-top: 1px solid var(--line);
+  font-size: .86rem; color: var(--muted);
+}
+.foot a { color: var(--primary); }
+
+/* 코드 — 학생이 종이에서 옮겨 적는 값이라 한 글자씩 또렷해야 한다. */
+.code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background: var(--primary-soft); color: var(--primary);
+  padding: 3px 9px; border-radius: 8px; font-size: .84rem; letter-spacing: .3px;
+}
+.code-big {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 1.6rem; letter-spacing: 1px; color: var(--primary);
+  background: var(--primary-soft); border-radius: var(--radius-sm);
+  padding: 16px 12px; margin: 12px 0 6px; word-break: break-all; text-align: center;
+}
+
+.pill { display: inline-block; background: var(--primary-soft); color: var(--primary);
+  border-radius: 999px; padding: 3px 10px; font-size: .8rem; font-weight: 700; }
+.on { color: var(--accent); font-weight: 700; }
+.off { color: var(--danger); font-weight: 700; }
+
+/* 표 — 관리 화면. 좁은 화면에서는 표만 옆으로 밀린다, 페이지가 아니라. */
+.scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font-size: .88rem; min-width: 780px; }
+th, td { text-align: left; padding: 10px 11px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { background: #f7f9fe; font-weight: 700; color: var(--muted); font-size: .82rem; position: sticky; top: 0; }
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover td { background: #fbfcff; }
+
+.grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+.hide { display: none !important; }
+
+@media (max-width: 560px) {
+  .page { padding: 20px 13px 64px; }
+  .hero h1 { font-size: 1.55rem; }
+  .panel { padding: 16px; border-radius: var(--radius-sm); }
+  .code-big { font-size: 1.25rem; }
+  .row > button, .row > .btn { flex: 1 1 100%; }
+}
