@@ -1,15 +1,86 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Redirect</title>
-  <meta http-equiv="refresh" content="0; url=./math-weakness-engine/index.html">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>RNY</title>
+<style>
+  /* 뿌리는 절대 깨지면 안 되는 한 장이라, 다른 파일에 기대지 않고 자기 규칙만 들고 있다.
+     값은 keyword_engine.css와 같은 것을 쓴다. */
+  :root {
+    --text: #172033; --muted: #667085; --line: #e6eaf2; --panel: #fff;
+    --primary: #2458ff; --primary-soft: #eaf0ff; --radius: 18px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+    background: linear-gradient(180deg, #f7faff 0%, #f3f6fb 100%);
+    color: var(--text); line-height: 1.6;
+  }
+  .page { max-width: 760px; margin: 0 auto; padding: 52px 18px 72px; }
+  .badge {
+    display: inline-block; padding: 6px 12px; border-radius: 999px;
+    background: var(--primary-soft); color: var(--primary);
+    font-weight: 700; font-size: .84rem; margin-bottom: 12px;
+  }
+  h1 { margin: 0 0 8px; font-size: 1.9rem; letter-spacing: -.5px; line-height: 1.25; }
+  .lead { margin: 0 0 26px; color: var(--muted); font-size: .95rem; }
+  .apps { display: grid; gap: 12px; }
+  a.app {
+    display: block; text-decoration: none; color: inherit;
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 20px 22px; box-shadow: 0 10px 28px rgba(15, 23, 42, .06);
+    transition: border-color .12s ease, transform .12s ease;
+  }
+  a.app:hover { border-color: var(--primary); transform: translateY(-1px); }
+  a.app h2 { margin: 0 0 5px; font-size: 1.12rem; letter-spacing: -.3px; }
+  a.app p { margin: 0; color: var(--muted); font-size: .92rem; }
+  a.app .go { display: inline-block; margin-top: 11px; color: var(--primary); font-weight: 700; font-size: .9rem; }
+  .sub { margin-top: 22px; display: flex; gap: 8px 18px; flex-wrap: wrap; font-size: .88rem; }
+  .sub a { color: var(--primary); font-weight: 700; text-decoration: none; }
+  .sub a:hover { text-decoration: underline; }
+  .foot { margin-top: 30px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
+  @media (max-width: 560px) {
+    .page { padding: 34px 14px 60px; }
+    h1 { font-size: 1.55rem; }
+    a.app { padding: 17px 18px; border-radius: 14px; }
+  }
+</style>
 </head>
 <body>
-이동 중...
-<script>
-  location.replace("./math-weakness-engine/index.html");
-</script>
+  <div class="page">
+    <span class="badge">RNY</span>
+    <h1>어떤 것을 여실 건가요</h1>
+    <p class="lead">세 가지가 각각 다른 주소에 있습니다. 쓰실 것을 골라 주세요.</p>
+
+    <div class="apps">
+      <a class="app" href="./keyword-engine/index.html">
+        <h2>탐구보고서 프로그램</h2>
+        <p>수행평가 안내문을 붙여넣으면 보고서 유형과 구성을 해석해, 학생이 직접 채우는 설계서와 최종 보고서를 만듭니다.</p>
+        <span class="go">열기 →</span>
+      </a>
+      <a class="app" href="./math-weakness-engine/index.html">
+        <h2>수학 취약유형 진단</h2>
+        <p>틀린 문제에서 어떤 유형이 약한지 찾아 줍니다.</p>
+        <span class="go">열기 →</span>
+      </a>
+      <a class="app" href="./univ-search/index.html">
+        <h2>대학 지원 판독기</h2>
+        <p>성적과 조건으로 지원 가능한 대학을 찾아 봅니다.</p>
+        <span class="go">열기 →</span>
+      </a>
+    </div>
+
+    <div class="sub">
+      <span style="color:var(--muted)">탐구보고서를 쓰는 학생이라면 —</span>
+      <a href="./keyword-engine/join.html">학생 코드 받기</a>
+      <a href="./keyword-engine/portfolio.html">내 탐구 기록</a>
+    </div>
+
+    <div class="foot">
+      이 주소는 예전에 수학 취약유형 진단으로 바로 넘어갔습니다. 그 주소를 저장해 두셨다면 위의 <b>수학 취약유형 진단</b>을 눌러 주세요.
+    </div>
+  </div>
 </body>
 </html>
