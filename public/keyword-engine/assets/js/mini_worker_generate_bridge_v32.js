@@ -2641,13 +2641,25 @@
     return PANEL_TEXT[kind] || PANEL_TEXT.measurement;
   }
 
-  function renderStudentFields(observationLabel){
+  // 읽기 보고서는 자료 카드가 본체라 이미 위에 있다. 두 벌을 주면 학생이 어느 쪽에 적어야 하는지 모른다.
+  function renderStudentFields(observationLabel, withRefCards){
+    const refBlock = withRefCards ? `
+          <div class="mini-ref-block">
+            <b>실제로 찾아본 자료 <span>(선택)</span></b>
+            <p class="mini-ref-why">안 적으면 참고 자료 절에 교과서 한 줄만 남아요. 읽은 게 있으면 적어 주세요 — <b>읽지 않은 자료는 적지 않아요.</b></p>
+            ${[0, 1].map((i) => `
+            <div class="mini-card mini-card-slim"><b>자료 ${i + 1}</b>
+              <label>제목<input type="text" data-card-field="title" data-card-index="${i}"></label>
+              <label>종류 <span>(예: 책, 기사, 기관 자료, 통계)</span><input type="text" data-card-field="type" data-card-index="${i}"></label>
+              <label>여기서 얻은 것<textarea rows="2" data-card-field="take" data-card-index="${i}"></textarea></label>
+            </div>`).join("")}
+          </div>` : "";
     return `
         <div class="mini-exp-fields">
           <label>이 주제를 고른 내 이유 <span>(선택)</span><textarea id="miniExpReason" rows="2"></textarea></label>
           <label>${escapeHtml(observationLabel)} <span>(선택)</span><textarea id="miniExpObservations" rows="2"></textarea></label>
           <label>느낀 점 <span>(선택)</span><textarea id="miniExpReflection" rows="2"></textarea></label>
-          <label>실제로 참고한 자료 <span>(선택, 한 줄에 하나)</span><textarea id="miniExpSources" rows="2"></textarea></label>
+          ${refBlock}
         </div>`;
   }
 
@@ -2674,7 +2686,7 @@
         </ol>
         ${template?.whatToFind ? `<p class="mini-exp-measure"><b>각 자료에서 찾을 것</b> ${escapeHtml(template.whatToFind)}</p>` : ""}
         <div class="mini-card-grid">${cards}</div>
-        ${renderStudentFields(text[3])}
+        ${renderStudentFields(text[3], false)}
         <p class="mini-exp-note">적은 내용은 최종 보고서에 거의 그대로 들어가요. 자료를 <b>2개 이상</b> 적어야 최종 보고서를 만들 수 있어요. 최종 보고서를 만들 때 사용 횟수가 1회 차감되고, 만드는 데 2~3분 걸려요.</p>
         <p class="mini-exp-error" id="miniExpError" hidden></p>
         <div class="mini-v229-actions"><button type="button" id="miniExpFinalBtn">최종 보고서 만들기</button></div>
@@ -2696,6 +2708,17 @@
   function renderCollectionPanel(result){
     if(result?.collectionKind === "reading") return result?.sourceTemplate ? renderSourceCardPanel(result.sourceTemplate) : "";
     return result?.dataTemplate ? renderExperimentInputPanel(result.dataTemplate, result.collectionKind) : "";
+  }
+
+  // 실험·설문·자료 해석 보고서의 자료 카드. 읽기 보고서와 달리 핵심 내용은 묻지 않고 "얻은 것"만 묻는다 —
+  // 선택 항목이라 칸이 많으면 아무도 안 적는다.
+  function collectRefCards(panel){
+    const block = panel.querySelector(".mini-ref-block");
+    if(!block) return [];
+    const read = (index, field) => block.querySelector(`[data-card-field="${field}"][data-card-index="${index}"]`)?.value.trim() || "";
+    return [0, 1]
+      .map(i => ({ title: read(i, "title"), type: read(i, "type"), take: read(i, "take") }))
+      .filter(card => card.title);
   }
 
   function collectSourceCards(panel){
@@ -2748,7 +2771,7 @@
         ${template?.scaleGuide ? `<p class="mini-exp-measure"><b>어떻게 재나</b> ${escapeHtml(template.scaleGuide)}</p>` : ""}
         <div class="mini-v43-table-wrap"><table class="mini-v43-table mini-exp-table"><thead>${head}</thead><tbody>${rows}</tbody></table></div>
         <p class="mini-exp-hint">아직 못 한 칸은 비워 두어도 돼요. 표를 통째로 비우면 실험 없이 <b>모은 자료로 쓰는 보고서</b>로 만들어 드려요.</p>
-        ${renderStudentFields(text[3])}
+        ${renderStudentFields(text[3], true)}
         <p class="mini-exp-note">적은 문장은 최종 보고서에 거의 그대로 들어가요. 표를 비워 두고 만들면 모은 자료로 쓰는 <b>문헌 탐구 보고서</b>로 만들어요. 최종 보고서를 만들 때 사용 횟수가 1회 차감되고, 만드는 데 2~3분 걸려요.</p>
         <p class="mini-exp-error" id="miniExpError" hidden></p>
         <div class="mini-v229-actions"><button type="button" id="miniExpFinalBtn">최종 보고서 만들기</button></div>
@@ -2784,7 +2807,9 @@
       reason: text("miniExpReason"),
       observations: text("miniExpObservations"),
       reflection: text("miniExpReflection"),
-      sources: text("miniExpSources").split(/\n/).map(v => v.trim()).filter(Boolean)
+      // 실험 보고서에서도 카드로 걷는다. 제목만 있고 얻은 것이 없으면 참고 자료로 치지 않는다.
+      sourceCards: collectRefCards(panel),
+      sources: []
     };
   }
 
@@ -2821,13 +2846,13 @@
         errorBox.textContent = "자료를 2개 이상 적어 주세요. 자료 제목과 핵심 내용은 꼭 있어야 해요.";
         return false;
       }
-      const written = text("miniExpSources").split(/\n/).map(v => v.trim()).filter(Boolean);
       studentData = {
         sourceCards,
         reason: text("miniExpReason"),
         observations: text("miniExpObservations"),
         reflection: text("miniExpReflection"),
-        sources: written.length ? written : sourceCards.map(card => card.title)
+        // 참고 자료는 이제 카드에서 만든다 — 제목만 적힌 줄보다 "무엇을 얻었는지"가 붙은 줄이 참고 자료답다.
+        sources: []
       };
     }else{
       studentData = collectExperimentInput(draft.template);
@@ -4363,6 +4388,11 @@ ${result}`;
     "        .mini-exp-error,.mini-upload-error{color:#b42318;font-weight:700;font-size:14px;margin:12px 0 0;padding:10px 12px;background:#fff4f3;border:1px solid #fcd9d4;border-radius:var(--mini-r-sm,10px)}",
     "",
     "        .mini-card-grid{display:grid;gap:12px;margin:16px 0 0}",
+    "        .mini-ref-block{margin:16px 0 0;padding:14px 16px;border:1px dashed var(--mini-line,#e6eaf2);border-radius:var(--mini-r,14px);background:#fbfcff}",
+    "        .mini-ref-block>b{display:block;font-size:14px;margin:0 0 4px}",
+    "        .mini-ref-block>b span{font-weight:500;color:#667085}",
+    "        .mini-ref-why{margin:0 0 12px;font-size:13px;color:#667085;line-height:1.6}",
+    "        .mini-card-slim{gap:8px;padding:12px 14px}",
     "        .mini-card{border:1px solid var(--mini-line,#e6eaf2);background:#fff;border-radius:var(--mini-r,14px);padding:14px 16px;display:grid;gap:10px}",
     "        .mini-card b{color:var(--mini-primary,#2458ff);font-size:13px}",
     "        .mini-card label{display:flex;flex-direction:column;gap:6px;font-size:13.5px;font-weight:800;color:#334155}",

@@ -8,6 +8,7 @@ import { countAttempts, gradeNow, issueStudentCode, loadPortfolio, loadStudent, 
 import { majorFit } from './major_fit_v1.mjs';
 import { attachToStudent, saveReportOutput } from './report_archive_v1.mjs';
 import { adjustLicense, adjustStudent, checkEntitlement, claimSeat, emptyGrant, issueLicense, listLicenses, listStudents, loadLicense, releaseSeat, spendUse } from './license_v1.mjs';
+import { textbookCitation } from './references_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
 const SERVICE_NAME = 'admission-keyword-worker';
@@ -380,6 +381,8 @@ export default {
         // task is the upgrade; everything else — no major, 계열 only, a major we hold nothing for, a curriculum
         // that does not reach this concept — falls back to the concept's own 종단 축.
         input.majorPath = resolveMajorPath(input, seedPack.majorCurriculumIndex);
+        // 참고 자료에 "화학 교과서 관련 단원"이라고 뭉뚱그리던 것을, 우리가 아는 과목·단원으로 정확히 적는다.
+        input.textbookCitation = textbookCitation(input, seedPack.axisIndex);
         // 모든 보고서는 학생 코드를 지나간다. 코드 없이 만들 수 있으면 이용권은 세어 봐야 소용이 없다.
         if (env.DB) {
           if (!input.studentCode) {

@@ -1,3 +1,4 @@
+import { normalizeSourceCards, referencesBody } from './references_v1.mjs';
 // Two-stage experiment report.
 // Stage 1 (experiment_draft): a design report plus a data template the student fills in after doing the experiment.
 // Stage 2 (experiment_final): the final report from the student's own numbers. The model chooses how to show the data
@@ -341,10 +342,16 @@ export function removeSelfPraise(body, studentText) {
   return filterSentences(body, (sentence) => !SELF_PRAISE.test(sentence) || text.includes(sentence.trim().slice(0, 12)));
 }
 
-// 참고 자료 lists exactly what the student wrote; without that, only lines that are not notes or asides.
-export function buildReferencesBody(body, sources) {
-  if (sources.length) return sources.join('\n');
-  return String(body || '').split('\n').map((line) => line.trim()).filter((line) => line && !/^(※|\(|\[)/.test(line)).join('\n');
+// 참고 자료는 학생이 적은 것이 먼저고, 교과서 한 줄이 마지막에 붙는다. 만드는 규칙은 references_v1에 있다.
+// 카드가 있으면 카드가 이긴다 — 제목만 적힌 줄보다 "무엇을 얻었는지"가 적힌 카드가 참고 자료답다.
+export function buildReferencesBody(body, sources, extra = {}) {
+  const cards = normalizeSourceCards(extra.cards);
+  const written = (sources || []).map((line) => String(line || '').trim()).filter(Boolean);
+  return referencesBody({
+    cards,
+    textbook: extra.textbook || '',
+    fallbackBody: written.length ? written.join('\n') : body,
+  });
 }
 
 function sanitizeSourceTemplate(raw) {
@@ -800,7 +807,11 @@ export function finalizeStageOutput(stage, parsed, input) {
     let removedFeelings = 0;
     const cleaned = sections.map((section) => {
       const title = String(section?.title || '');
-      if (/참고 자료/.test(title)) return { ...section, body: buildReferencesBody(section?.body, data.sources) };
+      if (/참고 자료/.test(title)) {
+        return { ...section, body: buildReferencesBody(section?.body, data.sources, {
+          cards: data.sourceCards, textbook: input.textbookCitation || '',
+        }) };
+      }
       const numbers = removeUnsupportedNumbers(scrubInternalNames(section?.body), allowed);
       removed += numbers.removed;
       if (/느낀 점/.test(title)) {
