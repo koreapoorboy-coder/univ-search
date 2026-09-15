@@ -15,11 +15,14 @@ const worker = await readFile(new URL("../../../admission_worker_skeleton/worker
 let passed = 0;
 const check = (ok, label, detail = "") => { assert.equal(ok, true, `${label} -> ${detail}`); console.log(`PASS ${label}`); passed++; };
 
-const axisIndex = { axes: { chem: { subject: "화학", concept: "동적 평형과 화학 평형" } } };
+const axisIndex = { axes: {
+  chem: { subject: "화학", concept: "동적 평형과 화학 평형" },
+  ko: { subject: "공통국어1", concept: "비판적 읽기와 토론" },
+} };
 
 // F1: 교과서 인용은 지어내는 것이 아니라 우리가 아는 것을 꺼내는 일이다.
 {
-  const fromAxis = textbookCitation({ careerAxes: [{ axisId: "chem" }] }, axisIndex);
+  const fromAxis = textbookCitation({ subject: "화학", careerAxes: [{ axisId: "chem" }] }, axisIndex);
   check(fromAxis === "화학Ⅰ 교과서 · 동적 평형과 화학 평형 단원", "F1 the axis names the subject and the unit", fromAxis);
   check(!/관련 단원/.test(fromAxis), "F1 '관련 단원'은 아무것도 말하지 않으면서 말한 척한다");
   const noAxis = textbookCitation({ subject: "물리", selectedConcept: "물질의 전기적 특성" }, null);
@@ -30,6 +33,11 @@ const axisIndex = { axes: { chem: { subject: "화학", concept: "동적 평형�
   // 평가 기준 문장이 개념 칸에 들어오는 일이 있다(실제로 D1에 그렇게 저장된 적이 있다).
   const rubric = textbookCitation({ subject: "화학", selectedConcept: "실험 목적에 맞게 조건을 설정하고 변인을 통제하여 타당한 절차를 구성했는가." }, null);
   check(rubric === "화학Ⅰ 교과서", "F1 문장은 단원 이름이 아니다", rubric);
+  // 실제 보고서에서 나온 것: 생명과학 보고서에 "공통국어1 교과서"가 적혀 나왔다. 축은 이 탐구가 앞으로
+  // 어디로 가는지를 가리키므로 다른 과목일 수 있고, 그 과목의 교과서를 적으면 거짓이다.
+  const crossed = textbookCitation({ subject: "생명과학", selectedConcept: "뉴런과 흥분 전도", careerAxes: [{ axisId: "ko" }] }, axisIndex);
+  check(crossed === "생명과학Ⅰ 교과서 · 뉴런과 흥분 전도 단원",
+    "F1 교과서는 학생이 지금 하는 과목의 것이다 — 축이 다른 과목을 가리켜도 따라가지 않는다", crossed);
 }
 
 // F2: 교과서 이름은 표지에 적힌 대로.

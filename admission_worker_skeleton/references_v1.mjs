@@ -28,12 +28,16 @@ export function textbookName(subject) {
 // 우리는 이 보고서가 어느 축에서 나왔는지 알고 있고, 축마다 과목과 단원이 붙어 있다. 그걸 그대로 적는다.
 // 단원을 모르면 단원을 쓰지 않는다 — "관련 단원"은 아무것도 말하지 않으면서 뭔가 말한 척한다.
 export function textbookCitation(input, axisIndex) {
+  // 교과서는 **학생이 지금 하는 과목**의 것이다. 축은 이 탐구가 앞으로 어디로 가는지를 가리키므로 다른 과목일
+  // 수 있다 — 실제로 생명과학 보고서에 "공통국어1 교과서"가 적혀 나왔다.
+  const ownSubject = clean(input?.subject, 40);
+  const subject = textbookName(ownSubject);
+  if (!subject) return '';
   const axis = (input?.careerAxes || [])[0] || null;
   const fromAxis = axis?.axisId ? (axisIndex?.axes || {})[axis.axisId] : null;
-  const subject = textbookName(fromAxis?.subject || input?.subject);
-  if (!subject) return '';
-  // 개념은 축에 적힌 것이 먼저다 — 학생이 고른 개념보다 이 보고서가 실제로 선 자리에 가깝다.
-  const unit = clean(fromAxis?.concept || input?.selectedConcept, 60);
+  // 축의 단원은 축의 과목이 학생 과목과 같을 때만 쓴다. 다른 과목의 단원을 이 교과서 이름 뒤에 붙이면 거짓이다.
+  const axisUnit = clean(fromAxis?.subject, 40) === ownSubject ? clean(fromAxis?.concept, 60) : '';
+  const unit = axisUnit || clean(input?.selectedConcept, 60);
   // 평가 기준 문장이 개념 칸에 들어오는 일이 있다. 문장은 단원 이름이 아니다.
   const looksLikeSentence = unit.length > 30 || /(하였는가|했는가|는가[.?]?|[다요][.]?)$/.test(unit);
   return unit && !looksLikeSentence ? `${subject} 교과서 · ${unit} 단원` : `${subject} 교과서`;
