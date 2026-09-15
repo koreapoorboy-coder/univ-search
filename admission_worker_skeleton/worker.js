@@ -7,6 +7,7 @@ import { majorPathPromptLines, resolveMajorPath } from './major_path_v1.mjs';
 import { issueStudentCode, loadPortfolio, loadStudent, parseStudentCode, saveStudentReport, updateStudent } from './student_portfolio_v1.mjs';
 import { majorFit } from './major_fit_v1.mjs';
 import { attachToStudent, saveReportOutput } from './report_archive_v1.mjs';
+import { adjustStudent, checkEntitlement, claimSeat, issueLicense, loadLicense, releaseSeat, spendUse } from './license_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
 const SERVICE_NAME = 'admission-keyword-worker';
@@ -157,8 +158,39 @@ export default {
       if (url.pathname === '/student/register' && request.method === 'POST') {
         if (!env.DB) return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
         const body = await request.json().catch(() => ({}));
-        const issued = await issueStudentCode(env.DB, body);
-        return withCors(json(issued, issued.ok ? 200 : 400));
+        const seat = await claimSeat(env.DB, body?.joinCode);
+        if (!seat.ok) return withCors(json({ ok: false, error: seat.error, reason: seat.reason }, seat.reason === 'NO_CODE' ? 404 : 403));
+        const issued = await issueStudentCode(env.DB, { ...body, grant: seat.grant });
+        // 가입이 안 됐으면 가져간 자리를 돌려놓는다. 안 그러면 산 석이 조용히 사라진다.
+        if (!issued.ok) {
+          await releaseSeat(env.DB, seat.grant.licenseId);
+          return withCors(json(issued, 400));
+        }
+        return withCors(json({ ...issued, org: seat.grant.orgName, maxUses: seat.grant.maxUses, expiresAt: seat.grant.expiresAt }));
+      }
+      // 결제를 받은 뒤 우리가 이용권을 만든다. 배포 없이.
+      if (url.pathname === '/license/issue' && request.method === 'POST') {
+        if (!isAdmin(request, env)) return withCors(json({ ok: false, error: '권한이 없습니다.' }, 403));
+        if (!env.DB) return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
+        const body = await request.json().catch(() => ({}));
+        const made = await issueLicense(env.DB, body);
+        return withCors(json(made, made.ok ? 200 : 400));
+      }
+      if (url.pathname === '/license/check') {
+        if (!env.DB) return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
+        const found = await loadLicense(env.DB, url.searchParams.get('joinCode') || '');
+        if (!found) return withCors(json({ ok: false, error: '등록 코드를 찾을 수 없어요.' }, 404));
+        // 학생에게는 어디 소속인지와 자리가 남았는지만 알려 준다. 얼마를 받았는지는 학생이 볼 것이 아니다.
+        return withCors(json({ ok: true, org: found.org_name || '', plan: found.plan_name || '',
+          seatsLeft: Math.max(0, Number(found.seats || 0) - Number(found.seats_used || 0)) }));
+      }
+      // 충전·연장·정지. 대표님의 후속 조치가 여기로 들어온다.
+      if (url.pathname === '/student/adjust' && request.method === 'POST') {
+        if (!isAdmin(request, env)) return withCors(json({ ok: false, error: '권한이 없습니다.' }, 403));
+        if (!env.DB) return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
+        const body = await request.json().catch(() => ({}));
+        const changed = await adjustStudent(env.DB, body?.code, body);
+        return withCors(json(changed, changed.ok ? 200 : 404));
       }
       if (url.pathname === '/student/profile' && request.method === 'POST') {
         if (!env.DB) return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
@@ -202,7 +234,12 @@ export default {
           // 적합도를 못 읽어도 3년치는 보여 준다.
           console.error('major fit failed:', error?.message || error);
         }
-        return withCors(json({ ok: true, ...folio, fit }));
+        const student = await loadStudent(env.DB, code);
+        const pass = checkEntitlement(student);
+        return withCors(json({ ok: true, ...folio, fit,
+          pass: { ok: pass.ok, reason: pass.reason || '', remaining: pass.remaining ?? null,
+            maxUses: pass.maxUses || 0, used: pass.used || 0, expiresAt: pass.expiresAt || '',
+            org: student?.org_name || '' } }));
       }
 
       if (url.pathname === '/collect' && request.method === 'POST') {
@@ -310,6 +347,14 @@ export default {
         // task is the upgrade; everything else — no major, 계열 only, a major we hold nothing for, a curriculum
         // that does not reach this concept — falls back to the concept's own 종단 축.
         input.majorPath = resolveMajorPath(input, seedPack.majorCurriculumIndex);
+        // 코드를 낸 학생은 이용권을 본 뒤에 부른다. 코드가 없으면 기존 접근 코드 문이 그대로 막는다.
+        if (env.DB && input.studentCode) {
+          const holder = await loadStudent(env.DB, input.studentCode);
+          const pass = checkEntitlement(holder);
+          if (!pass.ok) {
+            return withCors(json({ ok: false, error: pass.error, reason: pass.reason }, pass.reason === 'NO_STUDENT' ? 404 : 403));
+          }
+        }
     const seedMatch = matchSeed(input, seedPack);
         const prompt = buildPrompt(input, seedMatch, env);
 
@@ -337,6 +382,9 @@ export default {
                   stage: input.reportStage, collectionKind: input.collectionKind,
                   title: result.reportTitle, ...(result.combination || {}),
                   recordDraft: result.recordDraft || [],
+                }).then(async (saved) => {
+                  if (saved?.ok && !saved.replaced) await spendUse(env.DB, input.studentCode);
+                  return saved;
                 });
               } catch (error) {
                 console.error('student report save failed:', error?.message || error);
@@ -757,6 +805,18 @@ async function saveReportCase(db, input, combination) {
 const INPUT_LABEL = { keyword: '키워드', grade: '학년', track: '진로 계열' };
 function missingInputs(input) {
   return REQUIRED_INPUTS.filter((key) => !input[key]).map((key) => INPUT_LABEL[key] || key);
+}
+
+// 관리자 열쇠. env.ADMIN_KEY를 정해 두지 않으면 관리 경로는 전부 잠긴다 — 빈 값이 통과가 되어서는 안 된다.
+function isAdmin(request, env) {
+  const key = String(env.ADMIN_KEY || '');
+  if (!key) return false;
+  const sent = request.headers.get('x-admin-key') || '';
+  if (sent.length !== key.length) return false;
+  // 길이가 같을 때 글자를 하나씩 다 비교한다. 빨리 틀리면 몇 글자가 맞았는지가 새어 나간다.
+  let diff = 0;
+  for (let at = 0; at < key.length; at += 1) diff |= sent.charCodeAt(at) ^ key.charCodeAt(at);
+  return diff === 0;
 }
 
 async function loadSeedFile(env, file) {

@@ -28,6 +28,10 @@
   .msg { margin-top: 10px; font-size: 14px; color: #c0392b; }
   .ask { margin-top: 12px; font-size: 13px; color: var(--dim); }
   .ask a { color: var(--accent); }
+  .pass { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline;
+    background: var(--soft); border-radius: 9px; padding: 10px 14px; margin-top: 14px; font-size: 14px; }
+  .pass b { font-size: 16px; }
+  .pass.out { background: #fdecea; color: #a5281b; }
   .who { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: baseline; }
   .who .name { font-size: 20px; font-weight: 700; letter-spacing: -0.4px; }
   .who .meta { color: var(--dim); font-size: 14px; }
@@ -178,13 +182,28 @@
 
     html += '<div class="card"><div class="who">'
       + '<span class="name">' + esc(student.name) + "</span>"
-      + '<span class="meta">' + esc([student.school, student.enteredGrade, student.track, student.major].filter(Boolean).join(" · ")) + "</span>"
+      + '<span class="meta">' + esc([student.school, student.gradeNow || student.enteredGrade, student.track, student.major].filter(Boolean).join(" · ")) + "</span>"
       + '<span class="code">' + esc(student.code) + "</span></div>"
       + '<div class="counts">'
       + '<div class="count">보고서 <b>' + esc(summary.reportCount || 0) + "</b>편</div>"
       + '<div class="count">과목 <b>' + esc((summary.subjects || []).length) + "</b>개</div>"
       + '<div class="count">축 <b>' + esc((summary.axes || []).length) + "</b>개</div>"
       + "</div>";
+    var pass = data.pass;
+    if (pass) {
+      var bits = [];
+      if (pass.org) bits.push(esc(pass.org));
+      if (pass.maxUses > 0) bits.push("남은 보고서 <b>" + esc(pass.remaining) + "</b>회 <span class=\"meta\">/ " + esc(pass.maxUses) + "회</span>");
+      else bits.push("보고서 <b>횟수 제한 없음</b>");
+      if (pass.expiresAt) bits.push(esc(String(pass.expiresAt).slice(0, 10)) + "까지");
+      var trouble = pass.ok ? "" : ({
+        NO_USES: "횟수를 모두 썼어요. 학원에 문의해 주세요.",
+        EXPIRED: "이용 기간이 끝났어요. 학원에 문의해 주세요.",
+        DISABLED: "지금은 쓸 수 없는 코드예요. 학원에 문의해 주세요."
+      }[pass.reason] || "지금은 새 보고서를 만들 수 없어요. 학원에 문의해 주세요.");
+      html += '<div class="pass' + (pass.ok ? "" : " out") + '">' + bits.join("<span>·</span>")
+        + (trouble ? "<span>" + esc(trouble) + "</span>" : "") + "</div>";
+    }
     if ((summary.lines || []).length) {
       html += '<div class="line-note">3년을 관통하는 줄기: '
         + esc(summary.lines.map(function (line) { return line.name + "(" + line.count + "편)"; }).join(", "))

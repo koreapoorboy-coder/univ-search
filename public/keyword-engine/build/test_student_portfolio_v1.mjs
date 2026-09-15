@@ -18,8 +18,11 @@ function makeDb() {
     if (/^CREATE/i.test(text)) return { results: [] };
     if (text.startsWith("SELECT MAX(serial)")) return { first: { last: [...students.values()].reduce((a, s) => Math.max(a, s.serial), 0) } };
     if (text.startsWith("INSERT INTO students")) {
-      const [code, serial, name, school_name, entered_grade, track, major] = args;
-      students.set(code, { code, serial, name, school_name, entered_grade, track, major, created_at: "2026-03-02" });
+      const keys = ["code", "serial", "name", "school_name", "entered_grade", "entered_year", "track", "major",
+        "license_id", "org_name", "max_uses", "expires_at"];
+      const row = Object.fromEntries([["created_at", "2026-03-02"], ["used_count", 0], ["enabled", 1],
+        ...keys.map((key, at) => [key, args[at]])]);
+      students.set(row.code, row);
       return {};
     }
     if (text.startsWith("SELECT * FROM students")) return { first: students.get(args[0]) || null };

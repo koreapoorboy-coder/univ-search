@@ -41,10 +41,18 @@ export async function ensureStudentTables(db) {
       entered_grade TEXT,
       track TEXT,
       major TEXT,
+      license_id INTEGER,
+      org_name TEXT,
+      max_uses INTEGER NOT NULL DEFAULT 0,
+      used_count INTEGER NOT NULL DEFAULT 0,
+      expires_at TEXT,
+      enabled INTEGER NOT NULL DEFAULT 1,
+      entered_year INTEGER,
       created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
       updated_at TEXT
     )
   `).run();
+  await addMissingColumns(db);
   await db.prepare(`
     CREATE TABLE IF NOT EXISTS student_reports (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -72,6 +80,42 @@ export async function ensureStudentTables(db) {
   await db.prepare('CREATE INDEX IF NOT EXISTS student_reports_by_code ON student_reports (student_code, id)').run();
 }
 
+// 이미 만들어진 표에 칸을 더한다. SQLite는 있는 칸을 또 더하면 오류를 내므로, 오류 하나하나를 삼킨다.
+const ADDED_COLUMNS = [
+  'license_id INTEGER', 'org_name TEXT',
+  'max_uses INTEGER NOT NULL DEFAULT 0', 'used_count INTEGER NOT NULL DEFAULT 0',
+  'expires_at TEXT', 'enabled INTEGER NOT NULL DEFAULT 1', 'entered_year INTEGER',
+];
+async function addMissingColumns(db) {
+  for (const column of ADDED_COLUMNS) {
+    try {
+      await db.prepare(`ALTER TABLE students ADD COLUMN ${column}`).run();
+    } catch (error) {
+      // 이미 있는 칸이다. 그게 정상이다.
+    }
+  }
+}
+
+// 학년은 해마다 바뀐다. 가입할 때 적은 '고1'을 그대로 두면 3년 뒤에도 고1로 보인다. 입학연도만 저장하고
+// 지금 학년은 그때그때 센다. 3월에 학년이 오르므로 1~2월은 아직 지난 학년이다.
+export function gradeNow(enteredYear, now = new Date()) {
+  const year = Number(enteredYear);
+  if (!Number.isFinite(year) || year < 2000) return '';
+  const schoolYear = now.getFullYear() - (now.getMonth() < 2 ? 1 : 0);
+  const step = schoolYear - year + 1;
+  if (step < 1) return '입학 전';
+  if (step > 3) return '졸업';
+  return `고${step}`;
+}
+
+// 학생이 고른 '고2'와 오늘 날짜로 입학연도를 되돌린다. 가입할 때 한 번만 쓴다.
+export function enteredYearFrom(grade, now = new Date()) {
+  const step = Number(String(grade || '').replace(/[^123]/g, '')) || 0;
+  if (!step) return 0;
+  const schoolYear = now.getFullYear() - (now.getMonth() < 2 ? 1 : 0);
+  return schoolYear - step + 1;
+}
+
 // We issue the code, so the serial is ours to hand out and the check is what makes it unguessable.
 export async function issueStudentCode(db, profile) {
   const name = clean(profile?.name, 40);
@@ -80,10 +124,18 @@ export async function issueStudentCode(db, profile) {
   const row = await db.prepare('SELECT MAX(serial) AS last FROM students').first();
   const serial = Number(row?.last || 0) + 1;
   const code = formatStudentCode(serial, makeCheck());
+  const grant = profile?.grant || {};
   await db.prepare(`
-    INSERT INTO students (code, serial, name, school_name, entered_grade, track, major, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))
-  `).bind(code, serial, name, clean(profile?.school, 60), clean(profile?.grade, 10), clean(profile?.track, 40), clean(profile?.major, 40)).run();
+    INSERT INTO students (code, serial, name, school_name, entered_grade, entered_year, track, major,
+      license_id, org_name, max_uses, used_count, expires_at, enabled, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, 1, datetime('now'))
+  `).bind(
+    code, serial, name, clean(profile?.school, 60), clean(profile?.grade, 10),
+    enteredYearFrom(profile?.grade) || null,
+    clean(profile?.track, 40), clean(profile?.major, 40),
+    grant.licenseId || null, clean(grant.orgName, 60) || null,
+    Math.max(0, Number(grant.maxUses) || 0), clean(grant.expiresAt, 40) || null,
+  ).run();
   return { ok: true, code, serial, name };
 }
 
@@ -182,7 +234,7 @@ export async function loadPortfolio(db, code) {
     caseTag: row.case_tag, variableTag: row.variable_tag, measureTag: row.measure_tag,
     recordDraft: (row.record_draft || '').split('\n').filter(Boolean),
   }));
-  return { student: { code: student.code, serial: student.serial, name: student.name, school: student.school_name, enteredGrade: student.entered_grade, track: student.track, major: student.major }, reports, summary: summarise(reports) };
+  return { student: { code: student.code, serial: student.serial, name: student.name, school: student.school_name, enteredGrade: student.entered_grade, gradeNow: gradeNow(student.entered_year), track: student.track, major: student.major, org: student.org_name || '' }, reports, summary: summarise(reports) };
 }
 
 // What three years add up to, counted rather than described. This is what the 면접·전공 적합도 work will read.
