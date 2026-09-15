@@ -65,8 +65,15 @@ export function referencesBody({ cards = [], textbook = '', fallbackBody = '' } 
       if (line && !/^(※|\(|\[)/.test(line)) lines.push(line);
     }
   }
-  // 교과서는 있으면 늘 한 줄 붙는다. 다만 모델이 이미 교과서를 적었다면 두 번 적지 않는다.
-  if (textbook && !lines.some((line) => line.includes('교과서'))) lines.push(textbook);
+  if (textbook) {
+    // 모델은 "화학 교과서 관련 단원"처럼 뭉뚱그린 줄을 쓴다. 우리가 정확한 단원을 아는데 그 줄을 남겨 두면,
+    // 아는 것을 두고 모르는 척한 줄이 보고서에 남는다. 뭉뚱그린 줄은 우리 줄로 갈아 끼운다.
+    const vague = /교과서/;
+    const precise = lines.findIndex((line) => line === textbook);
+    const kept = lines.filter((line) => !vague.test(line) || line.includes('·'));
+    if (precise < 0) kept.push(textbook);
+    return kept.join('\n');
+  }
   return lines.join('\n');
 }
 

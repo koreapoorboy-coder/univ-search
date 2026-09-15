@@ -8,7 +8,7 @@ import { readFile } from "node:fs/promises";
 import {
   normalizeSourceCards, referencesBody, sourceLine, textbookCitation, textbookName, wantsSourceCards,
 } from "../../../admission_worker_skeleton/references_v1.mjs";
-import { buildReferencesBody } from "../../../admission_worker_skeleton/report_stages_v1.mjs";
+import { buildReferencesBody, normalizeStudentData } from "../../../admission_worker_skeleton/report_stages_v1.mjs";
 
 const bridge = await readFile(new URL("../assets/js/mini_worker_generate_bridge_v32.js", import.meta.url), "utf8");
 const worker = await readFile(new URL("../../../admission_worker_skeleton/worker.js", import.meta.url), "utf8");
@@ -67,6 +67,26 @@ const axisIndex = { axes: { chem: { subject: "화학", concept: "동적 평형�
   check(dupes.split("\n").length === 1, "F4 같은 자료를 두 번 적어도 한 줄");
   check(referencesBody({ cards: [], fallbackBody: "※ 안내문\n(괄호 설명)\n진짜 자료" }) === "진짜 자료",
     "F4 안내문과 괄호 설명은 자료가 아니다");
+}
+
+// F4b: 실제 보고서를 한 편 돌려 보고서야 나온 둘. 테스트만으로는 안 잡혔다.
+{
+  const T = '화학Ⅰ 교과서 · 동적 평형과 화학 평형 단원';
+  // 모델은 "화학 교과서 관련 단원"처럼 뭉뚱그린다. 정확한 단원을 아는데 그 줄을 남기면, 아는 것을 두고
+  // 모르는 척한 줄이 보고서에 남는다.
+  const vague = referencesBody({ cards: [], fallbackBody: '화학 교과서 관련 단원', textbook: T });
+  check(vague === T, "F4b a vague textbook line is replaced by the precise one, not kept beside it", vague);
+  const both = referencesBody({ cards: [{ title: '기후변화 보고서', take: '기온 상승 폭 확인' }], fallbackBody: '화학 교과서 관련 단원', textbook: T });
+  check(both.split("\n").length === 2 && both.endsWith(T), "F4b and the student's own source survives beside it", both);
+  check(referencesBody({ cards: [], fallbackBody: T, textbook: T }) === T, 'F4b the precise line is never written twice');
+  check(referencesBody({ cards: [], fallbackBody: '화학 교과서 관련 단원', textbook: '' }) === '화학 교과서 관련 단원',
+    "F4b but with no citation of our own we keep what the model wrote — deleting it would leave nothing");
+
+  // 읽기 보고서 카드는 point를, 실험 보고서 카드는 take만 채운다. point를 요구하면 후자가 통째로 버려진다.
+  const kept = normalizeStudentData({ sourceCards: [{ title: '기관 자료', take: '얻은 것만 적음' }] }).sourceCards;
+  check(kept.length === 1, "F4b a card with only 여기서 얻은 것 is kept — the experiment form never asks for 핵심 내용", String(kept.length));
+  const dropped = normalizeStudentData({ sourceCards: [{ take: '제목이 없음' }] }).sourceCards;
+  check(dropped.length === 0, "F4b but a card with no title is still not a source");
 }
 
 // F5: 옛 경로도 그대로 돈다. 읽기 보고서는 오래전부터 이렇게 써 왔다.

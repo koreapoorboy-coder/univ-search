@@ -96,7 +96,9 @@ export function normalizeStudentData(raw) {
     sources: (Array.isArray(src.sources) ? src.sources : []).map((source) => clip(source, 200)).filter(Boolean).slice(0, 6),
     sourceCards: (Array.isArray(src.sourceCards) ? src.sourceCards : []).slice(0, 6)
       .map((card) => ({ title: clip(card?.title, 80), type: clip(card?.type, 30), point: clip(card?.point, 300), take: clip(card?.take, 300) }))
-      .filter((card) => card.title && card.point),
+      // 읽기 보고서의 카드는 '핵심 내용'(point)을 묻고, 실험 보고서의 카드는 '여기서 얻은 것'(take)만 묻는다.
+      // point만 요구하면 실험 보고서에서 적은 자료가 여기서 통째로 버려진다 — 실제로 그렇게 버려지고 있었다.
+      .filter((card) => card.title && (card.point || card.take)),
     draftTitle: clip(src.draftTitle, 80),
     draftReport: String(src.draftReport ?? '').trim().slice(0, 6000),
   };
