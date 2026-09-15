@@ -208,6 +208,8 @@
       <input id="taskName" type="hidden" value="" />
       <input id="taskType" type="hidden" value="탐구보고서" />
       <input id="usagePurpose" type="hidden" value="학생용 완성 보고서 작성" />
+      <!-- 학생 코드. 이용권이 여기에 붙어 있어서, 이 칸이 비면 보고서를 만들 수 없다. -->
+      <input id="studentCode" type="hidden" value="" />
       <input id="career" type="hidden" value="" />
       <input id="majorPick" type="hidden" value="" />
       <input id="keyword" type="hidden" value="" />
@@ -421,5 +423,23 @@
   <script src="assets/keyword_engine.js?v=v42_required_input_hotfix"></script>
   <script src="assets/js/decision_flow_payload_adapter.js?v=v1_structure_payload"></script>
   <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v269_major_pick"></script>
+<script>
+// 한 번 넣은 학생 코드는 이 기기가 기억한다. 가입 화면·기록 화면과 같은 자리를 쓴다.
+(function () {
+  var KEY = "keyword-engine:student-code";
+  var field = document.getElementById("studentCode");
+  if (!field) return;
+  var fromUrl = new URLSearchParams(location.search).get("code") || "";
+  var saved = "";
+  try { saved = localStorage.getItem(KEY) || ""; } catch (error) { saved = ""; }
+  var code = String(fromUrl || saved).trim().toLowerCase();
+  if (code) field.value = code;
+  window.__keywordEngineSetStudentCode = function (value) {
+    var next = String(value || "").trim().toLowerCase();
+    field.value = next;
+    try { if (next) localStorage.setItem(KEY, next); } catch (error) { /* 저장 못 해도 이번 한 번은 쓴다 */ }
+  };
+})();
+</script>
 </body>
 </html>

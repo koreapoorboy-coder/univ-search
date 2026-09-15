@@ -342,6 +342,26 @@ async function handleGenerateRequest(request, env, pathCode = '') {
     .trim()
     .slice(0, 500);
 
+  // 생성 Worker가 '권한이 없다'고 답한 것은 고장이 아니라 결정이다. 문구를 덮지 않고, 대체본으로도 빠지지
+  // 않는다 — 여기서 빠지면 권한 없는 학생이 보고서를 받는다. 사용 횟수는 세지 않는다.
+  if ((upstreamStatus === 403 || upstreamStatus === 404) && upstreamJson && upstreamJson.ok === false && upstreamJson.reason) {
+    return json(
+      {
+        ...upstreamJson,
+        gateway: {
+          ok: false,
+          counted: false,
+          mode: GATEWAY_MODE,
+          source: 'upstream-refused',
+          accessCode: code,
+          stage: billingDecision.stage,
+          upstreamStatus,
+        },
+      },
+      upstreamStatus
+    );
+  }
+
   if (billingDecision.countUsage) {
     return json(
       {

@@ -35,7 +35,7 @@ function makeDb() {
     }
     if (text.startsWith("SELECT MAX(serial)")) return { first: { last: [...students.values()].reduce((a, s) => Math.max(a, s.serial), 0) } };
     if (text.startsWith("INSERT INTO students")) {
-      const keys = ["code", "serial", "name", "school_name", "entered_grade", "entered_year", "track", "major",
+      const keys = ["code", "serial", "name", "school_name", "entered_grade", "entered_year", "phone_tail", "track", "major",
         "license_id", "org_name", "max_uses", "expires_at"];
       const row = Object.fromEntries([["used_count", 0], ["enabled", 1], ...keys.map((key, at) => [key, args[at]])]);
       students.set(row.code, row);

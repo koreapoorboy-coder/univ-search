@@ -48,6 +48,7 @@ export async function ensureStudentTables(db) {
       expires_at TEXT,
       enabled INTEGER NOT NULL DEFAULT 1,
       entered_year INTEGER,
+      phone_tail TEXT,
       created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
       updated_at TEXT
     )
@@ -84,7 +85,7 @@ export async function ensureStudentTables(db) {
 const ADDED_COLUMNS = [
   'license_id INTEGER', 'org_name TEXT',
   'max_uses INTEGER NOT NULL DEFAULT -1', 'used_count INTEGER NOT NULL DEFAULT 0',
-  'expires_at TEXT', 'enabled INTEGER NOT NULL DEFAULT 1', 'entered_year INTEGER',
+  'expires_at TEXT', 'enabled INTEGER NOT NULL DEFAULT 1', 'entered_year INTEGER', 'phone_tail TEXT',
 ];
 async function addMissingColumns(db) {
   for (const column of ADDED_COLUMNS) {
@@ -126,12 +127,14 @@ export async function issueStudentCode(db, profile) {
   const code = formatStudentCode(serial, makeCheck());
   const grant = profile?.grant || {};
   await db.prepare(`
-    INSERT INTO students (code, serial, name, school_name, entered_grade, entered_year, track, major,
+    INSERT INTO students (code, serial, name, school_name, entered_grade, entered_year, phone_tail, track, major,
       license_id, org_name, max_uses, used_count, expires_at, enabled, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, 1, datetime('now'))
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, 1, datetime('now'))
   `).bind(
     code, serial, name, clean(profile?.school, 60), clean(profile?.grade, 10),
     enteredYearFrom(profile?.grade) || null,
+    // 입금한 사람과 학생을 맞추는 데만 쓴다. 번호 전체는 받지 않는다.
+    clean(profile?.phoneTail, 4).replace(/\D/g, '') || null,
     clean(profile?.track, 40), clean(profile?.major, 40),
     grant.licenseId || null, clean(grant.orgName, 60) || null,
     // 무제한은 -1이다. 여기서 0으로 깎으면 무제한 이용권이 소진된 것으로 뒤집힌다.

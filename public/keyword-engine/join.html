@@ -54,15 +54,15 @@
 <body>
 <div class="wrap">
   <h1>학생 코드 받기</h1>
-  <p class="lead">학원에서 받은 등록 코드를 넣으면 내 학생 코드가 나옵니다. 코드 하나로 3년 동안 쓴 탐구보고서가 한 자리에 쌓입니다.</p>
+  <p class="lead">코드 하나로 3년 동안 쓴 탐구보고서가 한 자리에 쌓입니다. 가입은 누구나 할 수 있고, 보고서를 만들려면 이용 권한이 있어야 합니다.</p>
 
   <div id="already" class="warn hide"></div>
 
   <div class="card" id="form">
     <div class="field">
-      <label for="joinCode">등록 코드</label>
+      <label for="joinCode">등록 코드 <span class="opt">· 학원에서 받았으면 넣어 주세요</span></label>
       <input id="joinCode" type="text" autocomplete="off" spellcheck="false" placeholder="ac-7k2pqm">
-      <div class="hint" id="joinHint">학원에서 받은 코드를 넣어 주세요.</div>
+      <div class="hint" id="joinHint">없어도 가입은 됩니다. 이 경우 이용 권한은 따로 받아야 해요.</div>
     </div>
     <div class="field">
       <label for="name">이름</label>
@@ -71,6 +71,11 @@
     <div class="field">
       <label for="school">다니는 고등학교 <span class="opt">· 수행평가를 내주는 학교</span></label>
       <input id="school" type="text" autocomplete="off" spellcheck="false" placeholder="○○고등학교">
+    </div>
+    <div class="field">
+      <label for="phoneTail">전화번호 뒤 4자리</label>
+      <input id="phoneTail" type="text" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="1234">
+      <div class="hint">누가 결제했는지 맞추는 데만 씁니다. 번호 전체는 받지 않고, 문자도 보내지 않아요.</div>
     </div>
     <div class="field">
       <label>지금 학년</label>
@@ -181,9 +186,14 @@
     var parts = [];
     if (data && data.org) parts.push(data.org);
     if (data && data.maxUses > 0) parts.push("보고서 " + data.maxUses + "회");
-    else if (data) parts.push("보고서 횟수 제한 없음");
+    else if (data && data.maxUses < 0) parts.push("보고서 횟수 제한 없음");
     if (data && data.expiresAt) parts.push(String(data.expiresAt).slice(0, 10) + "까지");
     return parts.join(" · ");
+  }
+  // 0회는 무제한이 아니라 아직 권한이 없는 것이다. 빈 화면을 주면 학생은 고장으로 읽는다.
+  function lockedLine(data) {
+    if (!data || Number(data.maxUses) !== 0) return "";
+    return "아직 보고서를 만들 수 있는 권한이 없어요. 결제한 곳에 이 코드를 알려 주면 권한이 열립니다.";
   }
 
   function showCode(code, name, school, data) {
@@ -198,7 +208,8 @@
       + "그래도 잃어버렸다면 다니는 학원에 문의해 주세요.</div>"
       + '<div class="card codebox"><div class="who">' + esc(name) + (school ? " · " + esc(school) : "") + "</div>"
       + '<div class="big">' + esc(code) + "</div>"
-      + '<div class="who">' + esc(planLine(data)) + "</div>"
+      + (planLine(data) ? '<div class="who">' + esc(planLine(data)) + "</div>" : "")
+      + (lockedLine(data) ? '<div class="who" style="color:#a5281b">' + esc(lockedLine(data)) + "</div>" : "")
       + '<div class="who">보고서를 만들 때 이 코드를 넣으면 여기에 쌓입니다.</div>'
       + '<div class="row">'
       + '<button type="button" id="copyBtn">코드 복사</button>'
@@ -221,8 +232,10 @@
     var name = $("name").value.trim();
     var school = $("school").value.trim();
     var major = $("major").value.trim();
-    if (!/^ac-[a-z2-9]{6}$/.test(joinCode)) { say("학원에서 받은 등록 코드를 넣어 주세요."); $("joinCode").focus(); return; }
+    var phoneTail = $("phoneTail").value.replace(/\D/g, "");
+    if (joinCode && !/^ac-[a-z2-9]{6}$/.test(joinCode)) { say("등록 코드 모양이 아니에요. 비워 두고 가입해도 됩니다."); $("joinCode").focus(); return; }
     if (!name) { say("이름을 적어 주세요."); $("name").focus(); return; }
+    if (phoneTail.length !== 4) { say("전화번호 뒤 4자리를 넣어 주세요."); $("phoneTail").focus(); return; }
     if (!school) { say("학교 이름을 적어 주세요."); $("school").focus(); return; }
     if (!state.grade) { say("지금 학년을 골라 주세요."); return; }
     say("");
@@ -232,7 +245,7 @@
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        joinCode: joinCode, name: name, school: school, grade: state.grade,
+        joinCode: joinCode, name: name, school: school, grade: state.grade, phoneTail: phoneTail,
         track: state.track === "아직 못 정했어요" ? "" : state.track,
         major: major
       })

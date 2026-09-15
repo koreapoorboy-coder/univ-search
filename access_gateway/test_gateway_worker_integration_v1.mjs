@@ -373,22 +373,42 @@ const STUDENT_DATA = {
 {
   const kv = makeKv();
   const saved = [];
+  // 이용권이 붙은 뒤로는 D1이 있으면 학생 코드도 있어야 한다. 이 학생은 무제한(-1)이다.
+  const holder = { code: "sc-study0001-abcd", name: "권민규", max_uses: -1, used_count: 0, enabled: 1, expires_at: null };
   workerEnv.DB = {
     prepare: (sql) => ({
       run: async () => ({}),
       bind: (...args) => ({
         run: async () => { if (/INSERT INTO report_cases/.test(sql)) saved.push(args); return {}; },
         all: async () => ({ results: /SELECT case_tag/.test(sql) ? [{ case_tag: "렌즈 세척액 과산화수소", variable_tag: "무효소/활성 × 실온/차가움", measure_tag: "거품 높이 (cm)" }] : [] }),
-        first: async () => null,
+        first: async () => (/SELECT \* FROM students/.test(sql) ? holder : null),
       }),
     }),
   };
   openaiMode = "draft"; openaiCalls.length = 0;
-  const res = await viaGateway({ ...basePayload, reportStage: "experiment_draft" }, kv); const body = await res.json();
+  const res = await viaGateway({ ...basePayload, reportStage: "experiment_draft", studentCode: holder.code }, kv); const body = await res.json();
   const prompt = String(openaiCalls[0]?.input || "");
   check(res.status === 200 && prompt.includes("이미 만든 탐구") && prompt.includes("렌즈 세척액 과산화수소")
     && saved.length === 1 && saved[0][2] === "세탁 세제 얼룩 제거" && body.result?.combination?.measureTag === "얼룩 제거 정도 (점)",
     "I15 recent cases from the same school+task steer the next draft, and the new case is stored");
+  // I16 — 문: D1이 붙어 있으면 학생 코드 없이는 보고서를 만들 수 없다. 모델은 불리지 않는다.
+  openaiCalls.length = 0;
+  const noCode = await viaGateway({ ...basePayload, reportStage: "experiment_draft" }, makeKv());
+  const noCodeBody = await noCode.json();
+  check(noCode.status === 403 && noCodeBody.reason === "NO_CODE" && openaiCalls.length === 0,
+    "I16 a report with no student code is refused before the model is called",
+    `${noCode.status} / ${noCodeBody.reason} / calls ${openaiCalls.length}`);
+
+  // I17 — 다 쓴 학생도 같은 자리에서 막힌다.
+  openaiCalls.length = 0;
+  holder.max_uses = 2; holder.used_count = 2;
+  const spent = await viaGateway({ ...basePayload, reportStage: "experiment_draft", studentCode: holder.code }, makeKv());
+  const spentBody = await spent.json();
+  check(spent.status === 403 && spentBody.reason === "NO_USES" && openaiCalls.length === 0,
+    "I17 a student who has used everything is refused before the model is called",
+    `${spent.status} / ${spentBody.reason} / calls ${openaiCalls.length}`);
+  holder.max_uses = -1; holder.used_count = 0;
+
   delete workerEnv.DB;
   openaiMode = "report";
 }

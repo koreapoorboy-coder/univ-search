@@ -121,6 +121,12 @@ export async function claimSeat(db, joinCode, now = new Date()) {
   };
 }
 
+// 등록 코드 없이 온 학생. 가입은 되고 사용은 잠긴다 — 0회는 무제한이 아니라 남은 횟수 없음이다.
+// 대표님이 관리 화면에서 부여하면 그때 열린다.
+export function emptyGrant() {
+  return { licenseId: null, orgName: '', maxUses: 0, expiresAt: '' };
+}
+
 // 자리를 가져갔는데 가입이 실패하면 되돌린다. 안 그러면 산 석이 조용히 사라진다.
 export async function releaseSeat(db, licenseId) {
   if (!licenseId) return { ok: false };
@@ -157,6 +163,39 @@ export async function spendUse(db, code, { charge = true } = {}) {
   if (!charge) return { ok: true, charged: false };
   await db.prepare('UPDATE students SET used_count = COALESCE(used_count, 0) + 1 WHERE code = ?').bind(student).run();
   return { ok: true, charged: true };
+}
+
+// 관리 화면이 읽는 목록. 이름으로 찾는 것은 오직 여기, 관리자 열쇠 뒤에서만 된다.
+export async function listStudents(db, { q = "", limit = 50, offset = 0 } = {}) {
+  const term = `%${clean(q, 40)}%`;
+  const rows = await db.prepare(`
+    SELECT code, serial, name, school_name, entered_grade, entered_year, phone_tail, org_name, track, major,
+           max_uses, used_count, expires_at, enabled, created_at
+    FROM students
+    WHERE (? = '%%' OR name LIKE ? OR code LIKE ? OR school_name LIKE ? OR org_name LIKE ? OR phone_tail LIKE ?)
+    ORDER BY serial DESC LIMIT ? OFFSET ?
+  `).bind(term, term, term, term, term, term, Math.min(200, Math.max(1, num(limit, 50))), Math.max(0, num(offset))).all();
+  return rows?.results || [];
+}
+
+export async function listLicenses(db, { limit = 50 } = {}) {
+  const rows = await db.prepare(`
+    SELECT id, join_code, kind, org_name, plan_name, seats, seats_used, max_uses, period_days, expires_at,
+           amount_krw, paid_at, memo, enabled, created_at
+    FROM licenses ORDER BY id DESC LIMIT ?
+  `).bind(Math.min(200, Math.max(1, num(limit, 50)))).all();
+  return rows?.results || [];
+}
+
+// 이용권 자체를 멈춘다. 이미 가입한 학생은 각자 자기 몫을 그대로 들고 있다 — 학원이 환불을 받아도
+// 학생이 이미 쓴 것을 빼앗지는 않는다. 학생을 멈추려면 학생을 멈춘다.
+export async function adjustLicense(db, joinCode, change = {}) {
+  const license = await loadLicense(db, joinCode);
+  if (!license) return { ok: false, error: '등록 코드를 찾을 수 없어요.' };
+  const seats = change.addSeats ? Math.max(num(license.seats_used), num(license.seats) + num(change.addSeats)) : num(license.seats);
+  const enabled = change.enabled === undefined ? num(license.enabled, 1) : (change.enabled ? 1 : 0);
+  await db.prepare('UPDATE licenses SET seats = ?, enabled = ? WHERE id = ?').bind(seats, enabled, license.id).run();
+  return { ok: true, seats, seatsUsed: num(license.seats_used), enabled: Boolean(enabled) };
 }
 
 // 대표님의 후속 조치: 충전, 연장, 정지, 해제. 배포 없이.

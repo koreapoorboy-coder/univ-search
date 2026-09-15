@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이용권 관리 · 키워드 엔진</title>
+<style>
+  :root {
+    --ink: #1b1d21; --dim: #6a7078; --line: #e3e6ea; --bg: #f7f8fa; --card: #ffffff;
+    --accent: #2f5bd7; --soft: #eef2fd; --bad: #c0392b; --good: #1e7a4d; --warn: #fff6e8;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif;
+    line-height: 1.55; font-size: 14px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 22px 16px 80px; }
+  h1 { font-size: 20px; margin: 0 0 4px; letter-spacing: -0.4px; }
+  h2 { font-size: 16px; margin: 28px 0 10px; letter-spacing: -0.3px; }
+  p.lead { color: var(--dim); margin: 0 0 18px; font-size: 13px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 11px; padding: 16px 18px; margin-bottom: 12px; }
+  label { display: block; font-size: 13px; font-weight: 600; margin: 0 0 5px; }
+  input, select { width: 100%; padding: 9px 11px; border: 1px solid var(--line); border-radius: 8px;
+    font-size: 14px; font-family: inherit; background: var(--card); color: var(--ink); }
+  input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  .grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  button { padding: 9px 16px; border: 1px solid var(--accent); border-radius: 8px; background: var(--accent);
+    color: #fff; font-size: 14px; font-family: inherit; cursor: pointer; white-space: nowrap; }
+  button.ghost { background: var(--card); color: var(--accent); }
+  button.small { padding: 5px 10px; font-size: 13px; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end; margin-top: 12px; }
+  .msg { margin-top: 10px; font-size: 13px; }
+  .msg.bad { color: var(--bad); }
+  .msg.good { color: var(--good); }
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 760px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th { background: var(--soft); font-weight: 600; position: sticky; top: 0; }
+  tr:hover td { background: #fafbfe; }
+  .code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12.5px; color: var(--accent); }
+  .off { color: var(--bad); font-weight: 600; }
+  .on { color: var(--good); }
+  .pill { background: var(--soft); border-radius: 999px; padding: 2px 9px; font-size: 12px; }
+  .issued { background: var(--warn); border: 1px solid #f0d9b0; border-radius: 9px; padding: 12px 14px; margin-top: 12px; }
+  .issued .big { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 20px; color: var(--accent); }
+  .hide { display: none; }
+  .note { font-size: 12.5px; color: var(--dim); margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>이용권 관리</h1>
+  <p class="lead">이용권을 발급하고, 학생에게 횟수와 기간을 줍니다. 배포 없이 여기서 다 됩니다.</p>
+
+  <div class="card" id="gate">
+    <label for="key">관리자 열쇠</label>
+    <div class="row">
+      <input id="key" type="password" autocomplete="off" placeholder="관리자 열쇠" style="flex:1 1 300px">
+      <button id="keyBtn" type="button">열기</button>
+    </div>
+    <div class="msg hide" id="keyMsg"></div>
+    <div class="note">열쇠는 이 브라우저 탭에만 남고, 탭을 닫으면 사라집니다.</div>
+  </div>
+
+  <div id="main" class="hide">
+    <h2>이용권 발급</h2>
+    <div class="card">
+      <div class="grid">
+        <div><label for="orgName">학원 이름</label><input id="orgName" placeholder="미래학원 · 개인이면 비워 두세요"></div>
+        <div><label for="planName">요금제 이름</label><input id="planName" placeholder="3개월 10회"></div>
+        <div><label for="seats">인원(석)</label><input id="seats" type="number" min="1" value="1"></div>
+        <div><label for="maxUses">1인당 횟수</label><input id="maxUses" type="number" min="0" placeholder="비우면 무제한"></div>
+        <div><label for="periodDays">기간(일)</label><input id="periodDays" type="number" min="0" placeholder="비우면 무기한"></div>
+        <div><label for="expiresAt">또는 이 날짜까지</label><input id="expiresAt" type="date"></div>
+        <div><label for="amountKrw">받은 금액(원)</label><input id="amountKrw" type="number" min="0" placeholder="300000"></div>
+        <div><label for="paidAt">입금일</label><input id="paidAt" type="date"></div>
+      </div>
+      <div style="margin-top:10px"><label for="memo">메모</label><input id="memo" placeholder="입금자명 등 나중에 찾을 단서"></div>
+      <div class="row"><button id="issueBtn" type="button">이용권 만들기</button></div>
+      <div class="msg hide" id="issueMsg"></div>
+      <div class="issued hide" id="issued"></div>
+      <div class="note">기간과 날짜를 둘 다 넣으면 이른 쪽이 이깁니다. 횟수를 비우면 기간 안에서 무제한입니다.</div>
+    </div>
+
+    <h2>이용권 목록</h2>
+    <div class="card scroll"><table id="licTable"><tbody><tr><td>불러오는 중…</td></tr></tbody></table></div>
+
+    <h2>학생</h2>
+    <div class="card">
+      <div class="row">
+        <div style="flex:1 1 260px"><label for="q">이름·코드·학교·학원·번호 뒤 4자리로 찾기</label>
+          <input id="q" placeholder="비우면 최근 가입 순"></div>
+        <button id="findBtn" type="button">찾기</button>
+        <button id="onlyLocked" class="ghost" type="button">권한 없는 학생만</button>
+      </div>
+      <div class="msg hide" id="stuMsg"></div>
+    </div>
+    <div class="card scroll"><table id="stuTable"><tbody><tr><td>불러오는 중…</td></tr></tbody></table></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var WORKER = window.__KEYWORD_ENGINE_WORKER_BASE_URL || "https://curly-base-a1a9.koreapoorboy.workers.dev";
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (value) {
+    return String(value == null ? "" : value).replace(/[&<>"']/g, function (ch) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+    });
+  };
+  // 열쇠는 이 탭에만 둔다. 잠금 화면이 아니라 열쇠 보관함이므로 localStorage보다 좁은 자리가 맞다.
+  var KEY_STORE = "keyword-engine:admin-key";
+  var adminKey = "";
+  try { adminKey = sessionStorage.getItem(KEY_STORE) || ""; } catch (error) { adminKey = ""; }
+
+  function say(id, text, good) {
+    var box = $(id);
+    box.textContent = text || "";
+    box.className = text ? ("msg " + (good ? "good" : "bad")) : "msg hide";
+  }
+
+  function call(path, options) {
+    var init = options || {};
+    init.headers = init.headers || {};
+    init.headers["x-admin-key"] = adminKey;
+    if (init.body) init.headers["Content-Type"] = "application/json";
+    return fetch(WORKER + path, init).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (data) {
+        return { status: res.status, data: data };
+      });
+    });
+  }
+
+  var LOCKED_ONLY = { on: false };
+
+  function money(value) {
+    var n = Number(value || 0);
+    return n ? n.toLocaleString("ko-KR") + "원" : "—";
+  }
+  function day(value) { return value ? String(value).slice(0, 10) : "—"; }
+  function usesLabel(max, used) {
+    if (Number(max) < 0) return "무제한 <span class=\"pill\">" + esc(used || 0) + "회 씀</span>";
+    var left = Math.max(0, Number(max) - Number(used || 0));
+    return "<b>" + left + "</b> / " + Number(max) + "회";
+  }
+
+  function renderLicenses(rows) {
+    var head = "<thead><tr><th>등록 코드</th><th>학원</th><th>요금제</th><th>자리</th><th>1인당</th>"
+      + "<th>기간</th><th>금액</th><th>입금일</th><th>메모</th><th>상태</th><th></th></tr></thead>";
+    var body = rows.map(function (row) {
+      var period = row.period_days > 0 ? row.period_days + "일" : "";
+      if (row.expires_at) period += (period ? " · " : "") + day(row.expires_at) + "까지";
+      return "<tr><td class=\"code\">" + esc(row.join_code) + "</td>"
+        + "<td>" + esc(row.org_name || "개인") + "</td>"
+        + "<td>" + esc(row.plan_name || "—") + "</td>"
+        + "<td>" + esc(row.seats_used) + " / " + esc(row.seats) + "</td>"
+        + "<td>" + (Number(row.max_uses) < 0 ? "무제한" : esc(row.max_uses) + "회") + "</td>"
+        + "<td>" + esc(period || "무기한") + "</td>"
+        + "<td>" + esc(money(row.amount_krw)) + "</td>"
+        + "<td>" + esc(day(row.paid_at)) + "</td>"
+        + "<td>" + esc(row.memo || "—") + "</td>"
+        + "<td class=\"" + (row.enabled ? "on" : "off") + "\">" + (row.enabled ? "사용 중" : "정지") + "</td>"
+        + "<td><button class=\"small ghost\" data-lic=\"" + esc(row.join_code) + "\" data-act=\"seats\">자리+10</button> "
+        + "<button class=\"small ghost\" data-lic=\"" + esc(row.join_code) + "\" data-act=\"toggle\">"
+        + (row.enabled ? "정지" : "해제") + "</button></td></tr>";
+    }).join("");
+    $("licTable").innerHTML = head + "<tbody>" + (body || "<tr><td>아직 발급한 이용권이 없어요.</td></tr>") + "</tbody>";
+  }
+
+  function renderStudents(rows) {
+    var shown = LOCKED_ONLY.on ? rows.filter(function (row) {
+      return Number(row.max_uses) === 0 || !row.enabled;
+    }) : rows;
+    var head = "<thead><tr><th>학생 코드</th><th>이름</th><th>번호뒤4</th><th>학원</th><th>학교</th><th>학년</th>"
+      + "<th>진로</th><th>남은 횟수</th><th>기간</th><th>상태</th><th>부여 · 조정</th></tr></thead>";
+    var body = shown.map(function (row) {
+      return "<tr><td class=\"code\">" + esc(row.code) + "</td>"
+        + "<td>" + esc(row.name) + "</td>"
+        + "<td>" + esc(row.phone_tail || "—") + "</td>"
+        + "<td>" + esc(row.org_name || "—") + "</td>"
+        + "<td>" + esc(row.school_name || "—") + "</td>"
+        + "<td>" + esc(row.gradeNow || row.entered_grade || "—") + "</td>"
+        + "<td>" + esc([row.track, row.major].filter(Boolean).join(" · ") || "—") + "</td>"
+        + "<td>" + usesLabel(row.max_uses, row.used_count) + "</td>"
+        + "<td>" + esc(day(row.expires_at)) + "</td>"
+        + "<td class=\"" + (row.enabled ? "on" : "off") + "\">" + (row.enabled ? "사용 중" : "정지") + "</td>"
+        + "<td>"
+        + "<button class=\"small ghost\" data-code=\"" + esc(row.code) + "\" data-act=\"uses\">횟수</button> "
+        + "<button class=\"small ghost\" data-code=\"" + esc(row.code) + "\" data-act=\"days\">기간</button> "
+        + "<button class=\"small ghost\" data-code=\"" + esc(row.code) + "\" data-act=\"unlimited\">무제한</button> "
+        + "<button class=\"small ghost\" data-code=\"" + esc(row.code) + "\" data-act=\"toggle\">"
+        + (row.enabled ? "정지" : "해제") + "</button></td></tr>";
+    }).join("");
+    $("stuTable").innerHTML = head + "<tbody>"
+      + (body || "<tr><td>조건에 맞는 학생이 없어요.</td></tr>") + "</tbody>";
+  }
+
+  var lastStudents = [];
+  function loadStudents() {
+    say("stuMsg", "");
+    return call("/admin/students?limit=200&q=" + encodeURIComponent($("q").value.trim()))
+      .then(function (result) {
+        if (!result.data.ok) { say("stuMsg", result.data.error || "불러오지 못했어요."); return; }
+        lastStudents = result.data.students || [];
+        renderStudents(lastStudents);
+      });
+  }
+  function loadLicenses() {
+    return call("/admin/licenses?limit=200").then(function (result) {
+      if (result.data.ok) renderLicenses(result.data.licenses || []);
+    });
+  }
+
+  $("keyBtn").addEventListener("click", function () {
+    adminKey = $("key").value.trim();
+    if (!adminKey) { say("keyMsg", "열쇠를 넣어 주세요."); return; }
+    call("/admin/licenses?limit=1").then(function (result) {
+      if (result.status === 403) { say("keyMsg", "열쇠가 맞지 않아요."); return; }
+      if (!result.data.ok) { say("keyMsg", result.data.error || "열 수 없어요."); return; }
+      try { sessionStorage.setItem(KEY_STORE, adminKey); } catch (error) { /* 탭에만 두는 값이라 실패해도 그만 */ }
+      $("gate").className = "card hide";
+      $("main").className = "";
+      loadLicenses();
+      loadStudents();
+    });
+  });
+  $("key").addEventListener("keydown", function (event) { if (event.key === "Enter") $("keyBtn").click(); });
+
+  $("issueBtn").addEventListener("click", function () {
+    var body = {
+      orgName: $("orgName").value.trim(),
+      planName: $("planName").value.trim(),
+      seats: Number($("seats").value || 1),
+      maxUses: $("maxUses").value === "" ? 0 : Number($("maxUses").value),
+      periodDays: Number($("periodDays").value || 0),
+      expiresAt: $("expiresAt").value ? $("expiresAt").value + "T23:59:59+09:00" : "",
+      amountKrw: Number($("amountKrw").value || 0),
+      paidAt: $("paidAt").value || "",
+      memo: $("memo").value.trim()
+    };
+    if (!body.orgName && body.seats > 1) { say("issueMsg", "여러 명분이면 학원 이름을 적어 주세요."); return; }
+    $("issueBtn").disabled = true;
+    call("/license/issue", { method: "POST", body: JSON.stringify(body) }).then(function (result) {
+      $("issueBtn").disabled = false;
+      if (!result.data.ok) { say("issueMsg", result.data.error || "만들지 못했어요."); return; }
+      say("issueMsg", "");
+      $("issued").className = "issued";
+      $("issued").innerHTML = "<div>" + esc(result.data.orgName) + " · " + esc(result.data.seats) + "석</div>"
+        + "<div class=\"big\">" + esc(result.data.joinCode) + "</div>"
+        + "<div>이 등록 코드를 학원에 전달하세요. 학생이 가입 화면에 넣으면 바로 쓸 수 있습니다.</div>";
+      loadLicenses();
+    });
+  });
+
+  function adjustStudent(code, change, done) {
+    change.code = code;
+    call("/student/adjust", { method: "POST", body: JSON.stringify(change) }).then(function (result) {
+      if (!result.data.ok) { say("stuMsg", result.data.error || "바꾸지 못했어요."); return; }
+      say("stuMsg", done, true);
+      loadStudents();
+    });
+  }
+
+  $("stuTable").addEventListener("click", function (event) {
+    var button = event.target.closest("button[data-code]");
+    if (!button) return;
+    var code = button.getAttribute("data-code");
+    var act = button.getAttribute("data-act");
+    var row = lastStudents.filter(function (item) { return item.code === code; })[0] || {};
+    if (act === "uses") {
+      var add = prompt(code + " — 몇 회를 더할까요? 빼려면 음수를 넣으세요.", "5");
+      if (add === null || add.trim() === "") return;
+      adjustStudent(code, { addUses: Number(add) }, code + " 횟수를 " + add + "회 조정했어요.");
+    } else if (act === "days") {
+      var days = prompt(code + " — 며칠을 더할까요?", "90");
+      if (days === null || days.trim() === "") return;
+      adjustStudent(code, { extendDays: Number(days) }, code + " 기간을 " + days + "일 늘렸어요.");
+    } else if (act === "unlimited") {
+      if (!confirm(code + " 를 횟수 무제한으로 바꿀까요? 기간은 그대로입니다.")) return;
+      adjustStudent(code, { unlimited: true }, code + " 를 무제한으로 바꿨어요.");
+    } else if (act === "toggle") {
+      var next = !row.enabled;
+      if (!confirm(code + " 를 " + (next ? "다시 열까요?" : "정지할까요?"))) return;
+      adjustStudent(code, { enabled: next }, code + " 를 " + (next ? "열었어요." : "정지했어요."));
+    }
+  });
+
+  $("licTable").addEventListener("click", function (event) {
+    var button = event.target.closest("button[data-lic]");
+    if (!button) return;
+    var joinCode = button.getAttribute("data-lic");
+    var act = button.getAttribute("data-act");
+    var body = act === "seats" ? { joinCode: joinCode, addSeats: 10 }
+      : { joinCode: joinCode, enabled: button.textContent.trim() === "해제" };
+    if (act === "toggle" && !confirm(joinCode + " 를 " + (body.enabled ? "다시 열까요?" : "정지할까요?"))) return;
+    call("/license/adjust", { method: "POST", body: JSON.stringify(body) }).then(loadLicenses);
+  });
+
+  $("findBtn").addEventListener("click", loadStudents);
+  $("q").addEventListener("keydown", function (event) { if (event.key === "Enter") loadStudents(); });
+  $("onlyLocked").addEventListener("click", function () {
+    LOCKED_ONLY.on = !LOCKED_ONLY.on;
+    $("onlyLocked").textContent = LOCKED_ONLY.on ? "전체 보기" : "권한 없는 학생만";
+    renderStudents(lastStudents);
+  });
+
+  if (adminKey) { $("key").value = adminKey; $("keyBtn").click(); }
+})();
+</script>
+</body>
+</html>

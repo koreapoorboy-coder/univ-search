@@ -4,10 +4,10 @@ import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, m
 import { pickReportShape, shapePromptLines } from './report_shape_v1.mjs';
 import { crossSubjectPromptLines, pickCrossSubject } from './cross_subject_v1.mjs';
 import { majorPathPromptLines, resolveMajorPath } from './major_path_v1.mjs';
-import { issueStudentCode, loadPortfolio, loadStudent, parseStudentCode, saveStudentReport, updateStudent } from './student_portfolio_v1.mjs';
+import { gradeNow, issueStudentCode, loadPortfolio, loadStudent, parseStudentCode, saveStudentReport, updateStudent } from './student_portfolio_v1.mjs';
 import { majorFit } from './major_fit_v1.mjs';
 import { attachToStudent, saveReportOutput } from './report_archive_v1.mjs';
-import { adjustStudent, checkEntitlement, claimSeat, issueLicense, loadLicense, releaseSeat, spendUse } from './license_v1.mjs';
+import { adjustLicense, adjustStudent, checkEntitlement, claimSeat, emptyGrant, issueLicense, listLicenses, listStudents, loadLicense, releaseSeat, spendUse } from './license_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
 const SERVICE_NAME = 'admission-keyword-worker';
@@ -158,15 +158,21 @@ export default {
       if (url.pathname === '/student/register' && request.method === 'POST') {
         if (!env.DB) return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
         const body = await request.json().catch(() => ({}));
-        const seat = await claimSeat(env.DB, body?.joinCode);
-        if (!seat.ok) return withCors(json({ ok: false, error: seat.error, reason: seat.reason }, seat.reason === 'NO_CODE' ? 404 : 403));
-        const issued = await issueStudentCode(env.DB, { ...body, grant: seat.grant });
+        // 등록 코드는 선택이다. 학원에서 받아 온 학생은 가입 즉시 열리고, 혼자 온 학생은 가입만 되고
+        // 사용은 잠긴 채로 기다린다 — 권한은 우리가 준다.
+        let grant = emptyGrant();
+        if (body?.joinCode) {
+          const seat = await claimSeat(env.DB, body.joinCode);
+          if (!seat.ok) return withCors(json({ ok: false, error: seat.error, reason: seat.reason }, seat.reason === 'NO_CODE' ? 404 : 403));
+          grant = seat.grant;
+        }
+        const issued = await issueStudentCode(env.DB, { ...body, grant });
         // 가입이 안 됐으면 가져간 자리를 돌려놓는다. 안 그러면 산 석이 조용히 사라진다.
         if (!issued.ok) {
-          await releaseSeat(env.DB, seat.grant.licenseId);
+          await releaseSeat(env.DB, grant.licenseId);
           return withCors(json(issued, 400));
         }
-        return withCors(json({ ...issued, org: seat.grant.orgName, maxUses: seat.grant.maxUses, expiresAt: seat.grant.expiresAt }));
+        return withCors(json({ ...issued, org: grant.orgName, maxUses: grant.maxUses, expiresAt: grant.expiresAt }));
       }
       // 결제를 받은 뒤 우리가 이용권을 만든다. 배포 없이.
       if (url.pathname === '/license/issue' && request.method === 'POST') {
@@ -183,6 +189,28 @@ export default {
         // 학생에게는 어디 소속인지와 자리가 남았는지만 알려 준다. 얼마를 받았는지는 학생이 볼 것이 아니다.
         return withCors(json({ ok: true, org: found.org_name || '', plan: found.plan_name || '',
           seatsLeft: Math.max(0, Number(found.seats || 0) - Number(found.seats_used || 0)) }));
+      }
+      if (url.pathname === '/admin/students') {
+        if (!isAdmin(request, env)) return withCors(json({ ok: false, error: '권한이 없습니다.' }, 403));
+        if (!env.DB) return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
+        const rows = await listStudents(env.DB, {
+          q: url.searchParams.get('q') || '',
+          limit: Number(url.searchParams.get('limit') || 50),
+          offset: Number(url.searchParams.get('offset') || 0),
+        });
+        return withCors(json({ ok: true, students: rows.map((row) => ({ ...row, gradeNow: gradeNow(row.entered_year) })) }));
+      }
+      if (url.pathname === '/admin/licenses') {
+        if (!isAdmin(request, env)) return withCors(json({ ok: false, error: '권한이 없습니다.' }, 403));
+        if (!env.DB) return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
+        return withCors(json({ ok: true, licenses: await listLicenses(env.DB, { limit: Number(url.searchParams.get('limit') || 50) }) }));
+      }
+      if (url.pathname === '/license/adjust' && request.method === 'POST') {
+        if (!isAdmin(request, env)) return withCors(json({ ok: false, error: '권한이 없습니다.' }, 403));
+        if (!env.DB) return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
+        const body = await request.json().catch(() => ({}));
+        const changed = await adjustLicense(env.DB, body?.joinCode, body);
+        return withCors(json(changed, changed.ok ? 200 : 404));
       }
       // 충전·연장·정지. 대표님의 후속 조치가 여기로 들어온다.
       if (url.pathname === '/student/adjust' && request.method === 'POST') {
@@ -347,8 +375,12 @@ export default {
         // task is the upgrade; everything else — no major, 계열 only, a major we hold nothing for, a curriculum
         // that does not reach this concept — falls back to the concept's own 종단 축.
         input.majorPath = resolveMajorPath(input, seedPack.majorCurriculumIndex);
-        // 코드를 낸 학생은 이용권을 본 뒤에 부른다. 코드가 없으면 기존 접근 코드 문이 그대로 막는다.
-        if (env.DB && input.studentCode) {
+        // 모든 보고서는 학생 코드를 지나간다. 코드 없이 만들 수 있으면 이용권은 세어 봐야 소용이 없다.
+        if (env.DB) {
+          if (!input.studentCode) {
+            return withCors(json({ ok: false, reason: 'NO_CODE',
+              error: '학생 코드를 넣어 주세요. 코드가 없으면 먼저 발급받아야 해요.' }, 403));
+          }
           const holder = await loadStudent(env.DB, input.studentCode);
           const pass = checkEntitlement(holder);
           if (!pass.ok) {

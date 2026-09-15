@@ -136,7 +136,9 @@
       // The major is what the student picked on the 전공 step; empty means 아직 못 정했어요, and the report
       // then goes to 교과 심화 확장 instead of naming a department.
       major: readValue("majorPick"),
-      track: readValue("career")
+      track: readValue("career"),
+      // 이용권이 학생 코드에 붙어 있다. 이 값이 없으면 워커가 보고서를 만들지 않는다.
+      studentCode: readValue("studentCode")
     };
   }
 
@@ -640,6 +642,7 @@
       taskDescription: form.taskDescription || miniInstruction,
       career: s.department || form.career,
       major: firstNonEmpty(s.selectedMajor, form.major, ""),
+      studentCode: form.studentCode || readValue("studentCode") || "",
       track: s.department || form.career,
       keyword: s.selectedKeyword || s.selectedRecommendedKeyword || form.keyword,
       selectedConcept: s.selectedConcept || "",
