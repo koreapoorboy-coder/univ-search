@@ -2504,9 +2504,16 @@
     return paragraphs.map(paragraph => `<p>${escapeHtml(paragraph).replace(/\n/g, "<br>")}</p>`).join("");
   }
 
+  // 목차는 절이 넉넉히 있을 때만 쓸모가 있다. 서너 개짜리 보고서에 붙이면 목차가 본문보다 눈에 띈다.
+  function renderReportToc(sections){
+    if (!Array.isArray(sections) || sections.length < 5) return "";
+    const items = sections.map((sec, index) => `<a href="#miniSec${index + 1}" data-mini-toc="${index + 1}"><i>${index + 1}</i>${escapeHtml(sec.title)}</a>`).join("");
+    return `<nav class="mini-toc" aria-label="보고서 차례"><b>차례</b><div>${items}</div></nav>`;
+  }
+
   function renderDocumentSection(sec, index){
     return `
-      <section class="mini-report-section">
+      <section class="mini-report-section" id="miniSec${index + 1}">
         <h3><span>${index + 1}</span>${escapeHtml(sec.title)}</h3>
         <div class="mini-report-section-body">${renderDocumentBody(sec.body)}${renderSectionFigures(sec)}</div>
       </section>
@@ -4079,6 +4086,8 @@ ${result}`;
           ${book.title ? `<span>도서: ${escapeHtml(book.title)}</span>` : ""}
         </div>
 
+        ${renderReportToc(displaySections)}
+
         <div class="mini-v43-grid">
           ${sectionHtml}
         </div>
@@ -4087,6 +4096,14 @@ ${result}`;
       </section>
     `;
 
+    root.querySelector(".mini-toc")?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[data-mini-toc]");
+      if(!link) return;
+      const target = root.querySelector(`#miniSec${link.getAttribute("data-mini-toc")}`);
+      if(!target) return;
+      event.preventDefault();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
     $("miniV32CopyReportBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(reportPlainText));
     $("miniRecordCopyBtn")?.addEventListener("click", () => navigator.clipboard?.writeText((stageResult.recordDraft || []).join("\n")));
     $("miniV32DownloadReportBtn")?.addEventListener("click", () => downloadReportHtml(reportTitle, metadata, displaySections, {
@@ -4284,6 +4301,17 @@ ${result}`;
     "        /* A grid child is as wide as its widest content unless told otherwise, and the result table pushed the",
     "           whole card past the screen on a phone. minmax(0,1fr) lets the column shrink; the table scrolls inside. */",
     "        .mini-v43-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}",
+    "        .mini-toc{border:1px solid var(--mini-line,#e6eaf2);border-radius:14px;padding:14px 16px;margin:0 0 20px;background:#fbfcff}",
+    "        .mini-toc>b{display:block;font-size:13px;color:#667085;margin:0 0 9px;letter-spacing:.02em}",
+    "        .mini-toc>div{display:flex;flex-wrap:wrap;gap:7px}",
+    "        .mini-toc a{display:inline-flex;align-items:center;gap:7px;text-decoration:none;",
+    "          border:1px solid var(--mini-line,#e6eaf2);border-radius:999px;padding:6px 13px 6px 7px;",
+    "          font-size:13.5px;color:#172033;background:#fff;line-height:1.3}",
+    "        .mini-toc a:hover{border-color:var(--mini-primary,#2458ff);color:var(--mini-primary,#2458ff)}",
+    "        .mini-toc a i{display:inline-flex;align-items:center;justify-content:center;font-style:normal;",
+    "          width:20px;height:20px;border-radius:50%;background:var(--mini-primary-soft,#eaf0ff);",
+    "          color:var(--mini-primary,#2458ff);font-size:11.5px;font-weight:800;flex:none}",
+    "        .mini-report-section{scroll-margin-top:16px}",
     "        .mini-report-section,.mini-figure,.mini-report-section-body{min-width:0}",
     "",
     "        /* The report itself: numbered sections, a comfortable measure, and room to breathe between them. */",

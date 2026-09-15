@@ -89,8 +89,9 @@ ${sections.map((sec, index) => `<section><h2>${index + 1}. ${esc(sec.key)}</h2>$
       </div>
     </div>
     <div class="mini-v43-tags">${tags.map((t) => `<span>${esc(t)}</span>`).join("")}</div>
+    ${sections.length >= 5 ? `<nav class="mini-toc" aria-label="보고서 차례"><b>차례</b><div>${sections.map((sec, at) => `<a href="#miniSec${at + 1}" data-mini-toc="${at + 1}"><i>${at + 1}</i>${esc(sec.key)}</a>`).join("")}</div></nav>` : ""}
     <div class="mini-v43-grid">
-      ${sections.map((s, at) => `<section class="mini-report-section">
+      ${sections.map((s, at) => `<section class="mini-report-section" id="miniSec${at + 1}">
         <h3><span>${at + 1}</span>${esc(s.key)}</h3>
         <div class="mini-report-section-body">${para(s.text)}</div>
       </section>`).join("")}
