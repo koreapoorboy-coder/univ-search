@@ -12,6 +12,14 @@
 const clean = (value, max = 200) => String(value ?? '').trim().slice(0, max);
 const num = (value, fallback = 0) => (Number.isFinite(Number(value)) ? Math.trunc(Number(value)) : fallback);
 
+// 무제한은 -1. 0은 '남은 횟수 없음'이어야 관리자가 횟수를 빼서 학생을 멈출 수 있다.
+export const UNLIMITED = -1;
+// 이용권을 발급할 때 횟수를 안 적으면 무제한이다. 0회짜리 이용권은 팔 이유가 없으므로 0도 무제한으로 읽는다.
+export function capFrom(value) {
+  const asked = num(value, UNLIMITED);
+  return asked > 0 ? asked : UNLIMITED;
+}
+
 // 학생이 종이에서 옮겨 적는다. 0/O/1/l 없음 — 학생 코드와 같은 규칙.
 const ALPHABET = 'abcdefghjkmnpqrstuvwxyz23456789';
 export const JOIN_CODE_RE = /^ac-([a-z2-9]{6})$/;
@@ -37,7 +45,7 @@ export async function ensureLicenseTables(db) {
       plan_name TEXT,
       seats INTEGER NOT NULL DEFAULT 1,
       seats_used INTEGER NOT NULL DEFAULT 0,
-      max_uses INTEGER NOT NULL DEFAULT 0,
+      max_uses INTEGER NOT NULL DEFAULT -1,
       period_days INTEGER NOT NULL DEFAULT 0,
       expires_at TEXT,
       amount_krw INTEGER NOT NULL DEFAULT 0,
@@ -76,7 +84,7 @@ export async function issueLicense(db, input = {}) {
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).bind(
     joinCode, kind, orgName, clean(input.planName, 60),
-    seats, Math.max(0, num(input.maxUses)), Math.max(0, num(input.periodDays)),
+    seats, capFrom(input.maxUses), Math.max(0, num(input.periodDays)),
     clean(input.expiresAt, 40) || null, Math.max(0, num(input.amountKrw)),
     clean(input.paidAt, 40) || null, clean(input.memo, 300) || null,
   ).run();
@@ -107,7 +115,7 @@ export async function claimSeat(db, joinCode, now = new Date()) {
     // 학생에게 복사되는 몫. 이 순간부터 이 학생의 기간이 시작된다.
     grant: {
       licenseId: license.id, orgName: license.org_name || '',
-      maxUses: Math.max(0, num(license.max_uses)),
+      maxUses: num(license.max_uses, UNLIMITED),
       expiresAt: endOfPeriod(license, now),
     },
   };
@@ -131,10 +139,11 @@ export function checkEntitlement(student, now = new Date()) {
       return { ok: false, reason: 'EXPIRED', error: '이용 기간이 끝났어요. 학원에 문의해 주세요.', expiresAt: expires };
     }
   }
-  const max = Math.max(0, num(student.max_uses));
+  const max = num(student.max_uses, UNLIMITED);
   const used = Math.max(0, num(student.used_count));
-  // 0은 무제한이다. 판 적 없는 값이 0으로 남아 학생을 막아서는 안 된다.
-  if (max > 0 && used >= max) {
+  // 무제한은 -1이고 0은 '남은 횟수 없음'이다. 처음에는 0을 무제한으로 뒀는데, 그러면 관리자가 횟수를 빼서
+  // 0으로 만든 학생이 무제한이 되어 버렸다 — 막으려는 조작이 정반대로 동작했다.
+  if (max >= 0 && used >= max) {
     return { ok: false, reason: 'NO_USES', error: `보고서 ${max}회를 모두 썼어요. 학원에 문의해 주세요.`, remaining: 0, maxUses: max, used };
   }
   return { ok: true, remaining: max > 0 ? max - used : null, maxUses: max, used, expiresAt: expires || '' };
@@ -157,7 +166,10 @@ export async function adjustStudent(db, code, change = {}) {
   if (!row) return { ok: false, error: '그 코드로 만든 기록이 없어요.' };
   const addUses = num(change.addUses);
   const extendDays = num(change.extendDays);
-  const maxUses = addUses ? Math.max(0, num(row.max_uses) + addUses) : num(row.max_uses);
+  const current = num(row.max_uses, UNLIMITED);
+  const maxUses = addUses
+    ? Math.max(0, (current < 0 ? num(row.used_count) : current) + addUses)
+    : (change.unlimited ? UNLIMITED : current);
   let expires = clean(row.expires_at, 40);
   if (extendDays) {
     // 이미 끝난 이용권을 연장하면 오늘부터 다시 센다. 지나간 날을 연장해 봐야 여전히 끝나 있다.

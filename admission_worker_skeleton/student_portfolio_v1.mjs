@@ -43,7 +43,7 @@ export async function ensureStudentTables(db) {
       major TEXT,
       license_id INTEGER,
       org_name TEXT,
-      max_uses INTEGER NOT NULL DEFAULT 0,
+      max_uses INTEGER NOT NULL DEFAULT -1,
       used_count INTEGER NOT NULL DEFAULT 0,
       expires_at TEXT,
       enabled INTEGER NOT NULL DEFAULT 1,
@@ -83,7 +83,7 @@ export async function ensureStudentTables(db) {
 // 이미 만들어진 표에 칸을 더한다. SQLite는 있는 칸을 또 더하면 오류를 내므로, 오류 하나하나를 삼킨다.
 const ADDED_COLUMNS = [
   'license_id INTEGER', 'org_name TEXT',
-  'max_uses INTEGER NOT NULL DEFAULT 0', 'used_count INTEGER NOT NULL DEFAULT 0',
+  'max_uses INTEGER NOT NULL DEFAULT -1', 'used_count INTEGER NOT NULL DEFAULT 0',
   'expires_at TEXT', 'enabled INTEGER NOT NULL DEFAULT 1', 'entered_year INTEGER',
 ];
 async function addMissingColumns(db) {
@@ -134,7 +134,8 @@ export async function issueStudentCode(db, profile) {
     enteredYearFrom(profile?.grade) || null,
     clean(profile?.track, 40), clean(profile?.major, 40),
     grant.licenseId || null, clean(grant.orgName, 60) || null,
-    Math.max(0, Number(grant.maxUses) || 0), clean(grant.expiresAt, 40) || null,
+    // 무제한은 -1이다. 여기서 0으로 깎으면 무제한 이용권이 소진된 것으로 뒤집힌다.
+    Number.isFinite(Number(grant.maxUses)) ? Math.trunc(Number(grant.maxUses)) : -1, clean(grant.expiresAt, 40) || null,
   ).run();
   return { ok: true, code, serial, name };
 }

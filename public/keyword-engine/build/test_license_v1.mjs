@@ -1,7 +1,7 @@
 // 이용권 — 누가 샀고, 몇 명이, 몇 번, 언제까지. 돈이 걸린 계산이라 경계를 하나씩 민다.
 import assert from "node:assert/strict";
 import {
-  adjustStudent, checkEntitlement, claimSeat, endOfPeriod, issueLicense,
+  adjustStudent, capFrom, checkEntitlement, claimSeat, endOfPeriod, issueLicense, UNLIMITED,
   loadLicense, parseJoinCode, releaseSeat, spendUse,
 } from "../../../admission_worker_skeleton/license_v1.mjs";
 import { enteredYearFrom, gradeNow, issueStudentCode, loadStudent } from "../../../admission_worker_skeleton/student_portfolio_v1.mjs";
@@ -126,12 +126,16 @@ function makeDb() {
   check(db.licenses[0].seats_used === 0, "L4 twice over does not go negative");
 }
 
-// L5: 학생이 지금 쓸 수 있는가. 0은 무제한이다 — 판 적 없는 값이 학생을 막아서는 안 된다.
+// L5: 학생이 지금 쓸 수 있는가. 무제한은 -1이고 0은 '남은 횟수 없음'이다.
+//
+// 처음에는 0을 무제한으로 뒀다. 그러면 관리자가 2회권 학생의 횟수를 2 빼서 0으로 만든 순간 그 학생이 무제한이
+// 된다 — 멈추려는 조작이 정반대로 동작했다. 실제 배포에서 걸렸다.
 {
   const now = new Date("2026-09-15T00:00:00Z");
   check(checkEntitlement({ max_uses: 10, used_count: 3, enabled: 1 }, now).remaining === 7, "L5 남은 횟수를 센다");
-  check(checkEntitlement({ max_uses: 0, used_count: 999, enabled: 1 }, now).ok === true, "L5 0회는 무제한이다");
-  check(checkEntitlement({ max_uses: 0, used_count: 999, enabled: 1 }, now).remaining === null, "L5 무제한은 남은 수가 숫자가 아니다");
+  check(checkEntitlement({ max_uses: UNLIMITED, used_count: 999, enabled: 1 }, now).ok === true, "L5 -1은 무제한이다");
+  check(checkEntitlement({ max_uses: UNLIMITED, used_count: 999, enabled: 1 }, now).remaining === null, "L5 무제한은 남은 수가 숫자가 아니다");
+  check(checkEntitlement({ max_uses: 0, used_count: 0, enabled: 1 }, now).ok === false, "L5 0회는 무제한이 아니라 남은 횟수가 없는 것이다");
   const spent = checkEntitlement({ max_uses: 5, used_count: 5, enabled: 1 }, now);
   check(spent.ok === false && spent.reason === "NO_USES" && spent.error.includes("5회를 모두 썼어요"), "L5 다 쓰면 막고 몇 회였는지 말한다", spent.error);
   const gone = checkEntitlement({ max_uses: 10, used_count: 0, enabled: 1, expires_at: "2026-09-01T00:00:00Z" }, now);
@@ -169,6 +173,17 @@ function makeDb() {
   const topped = await adjustStudent(db, code, { addUses: 5 });
   check(topped.ok && topped.maxUses === 7, "L7 충전하면 이어서 쓴다 — 쓴 횟수를 지우지 않는다", String(topped.maxUses));
   check(checkEntitlement(await loadStudent(db, code)).remaining === 5, "L7 남은 5회");
+  // 배포에서 잡힌 것: 횟수를 다 빼면 무제한이 되어 버렸다.
+  const stripped = await adjustStudent(db, code, { addUses: -99 });
+  check(stripped.maxUses === 0, "L7 횟수를 다 빼면 0이 된다", String(stripped.maxUses));
+  check(checkEntitlement(await loadStudent(db, code)).reason === "NO_USES",
+    "L7 그리고 0은 막힌 것이다 — 멈추려는 조작이 무제한을 만들어서는 안 된다");
+  const freed = await adjustStudent(db, code, { unlimited: true });
+  check(freed.maxUses === UNLIMITED && checkEntitlement(await loadStudent(db, code)).ok === true, "L7 무제한으로 바꿀 수도 있다");
+  const used = (await loadStudent(db, code)).used_count;
+  const capped = await adjustStudent(db, code, { addUses: 3 });
+  check(capped.maxUses === used + 3, "L7 무제한에 3회를 더하면 이미 쓴 만큼 위로 3회가 남는다", `${capped.maxUses} (쓴 ${used})`);
+  check(checkEntitlement(await loadStudent(db, code)).remaining === 3, "L7 남은 3회");
   const stopped = await adjustStudent(db, code, { enabled: false });
   check(stopped.enabled === false && checkEntitlement(await loadStudent(db, code)).reason === "DISABLED", "L7 정지된다");
   await adjustStudent(db, code, { enabled: true });
@@ -191,6 +206,20 @@ function makeDb() {
   check(enteredYearFrom("고2", new Date("2026-09-15")) === 2025, "L8 고2가 지금 가입하면 작년 입학");
   check(enteredYearFrom("고1", new Date("2027-01-10")) === 2026, "L8 1월의 고1은 작년에 입학한 것");
   check(enteredYearFrom("", new Date()) === 0, "L8 학년을 안 고르면 입학연도도 없다");
+}
+
+// L9: 이용권을 발급할 때 횟수를 안 적으면 무제한이다. 0회짜리 이용권은 팔 이유가 없다.
+{
+  check(capFrom(10) === 10, "L9 적은 숫자는 그대로 상한");
+  check(capFrom(undefined) === UNLIMITED && capFrom(0) === UNLIMITED, "L9 안 적었거나 0이면 무제한");
+  check(capFrom(-5) === UNLIMITED, "L9 음수도 무제한 — 발급에서 음수 상한은 뜻이 없다");
+  const db = makeDb();
+  const open = await issueLicense(db, { orgName: "미래학원", seats: 2, periodDays: 30 });
+  const seat = await claimSeat(db, open.joinCode);
+  check(seat.grant.maxUses === UNLIMITED, "L9 무제한 이용권은 학생에게도 무제한으로 간다", String(seat.grant.maxUses));
+  const { code } = await issueStudentCode(db, { name: "권민규", grade: "고1", grant: seat.grant });
+  await spendUse(db, code); await spendUse(db, code); await spendUse(db, code);
+  check(checkEntitlement(await loadStudent(db, code)).ok === true, "L9 세 번 써도 막히지 않는다");
 }
 
 console.log(`PASS license: ${passed}/${passed}`);
