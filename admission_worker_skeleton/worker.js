@@ -4,7 +4,7 @@ import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, m
 import { pickReportShape, shapePromptLines } from './report_shape_v1.mjs';
 import { crossSubjectPromptLines, pickCrossSubject } from './cross_subject_v1.mjs';
 import { majorPathPromptLines, resolveMajorPath } from './major_path_v1.mjs';
-import { gradeNow, issueStudentCode, loadPortfolio, loadStudent, parseStudentCode, saveStudentReport, updateStudent } from './student_portfolio_v1.mjs';
+import { countAttempts, gradeNow, issueStudentCode, loadPortfolio, loadStudent, parseStudentCode, resetAttempts, saveStudentReport, updateStudent } from './student_portfolio_v1.mjs';
 import { majorFit } from './major_fit_v1.mjs';
 import { attachToStudent, saveReportOutput } from './report_archive_v1.mjs';
 import { adjustLicense, adjustStudent, checkEntitlement, claimSeat, emptyGrant, issueLicense, listLicenses, listStudents, loadLicense, releaseSeat, spendUse } from './license_v1.mjs';
@@ -17,6 +17,9 @@ const DEFAULT_SEED_BASE =
 
 // 전공은 안 정한 학생이 더 많다. 학과를 비워 두면 보고서는 교과 심화 확장으로 가고, 그게 정상 경로다.
 const REQUIRED_INPUTS = ['keyword', 'grade', 'track'];
+// 한 과제를 몇 번까지 다시 만들 수 있는가. 보통 흐름은 설계서 1 + 최종 1 = 2번이므로, 5번이면 세 번을
+// 다시 만들 여유가 있다. 무제한이면 한 과제에 우리가 ₩3,000을 쓰고 1회만 받는 일이 생긴다.
+const MAX_ATTEMPTS_PER_TASK = 5;
 const OPTIONAL_INPUTS = ['activityLevel', 'style', 'major'];
 const OUTPUT_SECTIONS = [
   'reason',
@@ -217,6 +220,8 @@ export default {
         if (!isAdmin(request, env)) return withCors(json({ ok: false, error: '권한이 없습니다.' }, 403));
         if (!env.DB) return json({ ok: false, error: 'D1 binding(DB)이 연결되지 않았습니다.' }, 500);
         const body = await request.json().catch(() => ({}));
+        // 재시도 상한에 걸린 학생을 풀어 준다. 진짜로 고장 나서 못 쓴 경우가 있다.
+        if (body?.resetAttempts) await resetAttempts(env.DB, body?.code);
         const changed = await adjustStudent(env.DB, body?.code, body);
         return withCors(json(changed, changed.ok ? 200 : 404));
       }
@@ -385,6 +390,13 @@ export default {
           const pass = checkEntitlement(holder);
           if (!pass.ok) {
             return withCors(json({ ok: false, error: pass.error, reason: pass.reason }, pass.reason === 'NO_STUDENT' ? 404 : 403));
+          }
+          // 한 과제는 1회로 세므로 재생성은 공짜다. 공짜인 것에 상한이 없으면 우리 돈이 샌다.
+          const tries = await countAttempts(env.DB, input.studentCode, taskKeyOf(input), input.subject);
+          if (tries >= MAX_ATTEMPTS_PER_TASK) {
+            return withCors(json({ ok: false, reason: 'TOO_MANY_TRIES',
+              error: `이 과제는 ${MAX_ATTEMPTS_PER_TASK}번까지 다시 만들 수 있어요. 다른 과제로 해 보거나 학원에 문의해 주세요.`,
+              tries }, 429));
           }
         }
     const seedMatch = matchSeed(input, seedPack);

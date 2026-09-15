@@ -75,10 +75,17 @@ export async function ensureStudentTables(db) {
       case_tag TEXT,
       variable_tag TEXT,
       measure_tag TEXT,
-      record_draft TEXT
+      record_draft TEXT,
+      attempts INTEGER NOT NULL DEFAULT 1
     )
   `).run();
   await db.prepare('CREATE INDEX IF NOT EXISTS student_reports_by_code ON student_reports (student_code, id)').run();
+  // 한 과제를 몇 번 다시 만들었는지. 이 표가 만들어진 뒤에 생긴 칸이라 나중에 붙인다.
+  try {
+    await db.prepare('ALTER TABLE student_reports ADD COLUMN attempts INTEGER NOT NULL DEFAULT 1').run();
+  } catch (error) {
+    // 이미 있는 칸이다.
+  }
 }
 
 // 이미 만들어진 표에 칸을 더한다. SQLite는 있는 칸을 또 더하면 오류를 내므로, 오류 하나하나를 삼킨다.
@@ -185,7 +192,7 @@ export async function saveStudentReport(db, code, report) {
   const taskKey = clean(report.taskKey, 200);
   // The same task, coming back finished, replaces what it wrote on the way in.
   const prior = taskKey
-    ? await db.prepare('SELECT id FROM student_reports WHERE student_code = ? AND task_key = ? AND subject = ? ORDER BY id DESC LIMIT 1')
+    ? await db.prepare('SELECT id, attempts FROM student_reports WHERE student_code = ? AND task_key = ? AND subject = ? ORDER BY id DESC LIMIT 1')
         .bind(student, taskKey, clean(report.subject, 40)).first()
     : null;
   if (prior?.id) {
@@ -193,7 +200,8 @@ export async function saveStudentReport(db, code, report) {
       UPDATE student_reports SET
         grade = ?, subject_group = ?, concept = ?, keyword = ?,
         axis_id = ?, axis_title = ?, axis_next = ?, cross_subject = ?, report_stage = ?, collection_kind = ?,
-        title = ?, case_tag = ?, variable_tag = ?, measure_tag = ?, record_draft = ?
+        title = ?, case_tag = ?, variable_tag = ?, measure_tag = ?, record_draft = ?,
+        attempts = COALESCE(attempts, 1) + 1
       WHERE id = ?
     `).bind(
       clean(report.grade, 10), clean(report.subjectGroup, 20), conceptOf(report), clean(report.keyword, 60),
@@ -203,7 +211,7 @@ export async function saveStudentReport(db, code, report) {
       clean(report.title, 200), clean(report.caseTag, 40), clean(report.variableTag, 60), clean(report.measureTag, 40),
       (report.recordDraft || []).map((v) => clean(v, 200)).join('\n'), prior.id,
     ).run();
-    return { ok: true, replaced: true };
+    return { ok: true, replaced: true, attempts: Number(prior.attempts || 1) + 1 };
   }
   await db.prepare(`
     INSERT INTO student_reports (
@@ -220,6 +228,28 @@ export async function saveStudentReport(db, code, report) {
     clean(report.title, 200), clean(report.caseTag, 40), clean(report.variableTag, 60), clean(report.measureTag, 40),
     (report.recordDraft || []).map((v) => clean(v, 200)).join('\n'),
   ).run();
+  return { ok: true };
+}
+
+// 같은 과제를 지금까지 몇 번 만들었는가. 한 과제는 1회로 세면서 재생성은 무제한이면, 설계서를 열 번
+// 다시 만든 학생 하나에 우리는 ₩1,200을 쓰고 1회만 받는다. 만들기 전에 이 숫자를 본다.
+export async function countAttempts(db, code, taskKey, subject) {
+  const student = clean(code, 40).toLowerCase();
+  const task = clean(taskKey, 200);
+  if (!student || !task) return 0;
+  await ensureStudentTables(db);
+  const row = await db.prepare(
+    'SELECT attempts FROM student_reports WHERE student_code = ? AND task_key = ? AND subject = ? ORDER BY id DESC LIMIT 1'
+  ).bind(student, task, clean(subject, 40)).first();
+  return Number(row?.attempts || 0);
+}
+
+// 막힌 학생을 다시 열어 주는 길. 진짜로 고장 나서 못 쓴 경우가 있고, 그때 우리가 풀어 줄 수 있어야 한다.
+export async function resetAttempts(db, code) {
+  const student = clean(code, 40).toLowerCase();
+  if (!parseStudentCode(student)) return { ok: false };
+  await ensureStudentTables(db);
+  await db.prepare('UPDATE student_reports SET attempts = 1 WHERE student_code = ?').bind(student).run();
   return { ok: true };
 }
 

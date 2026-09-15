@@ -188,6 +188,7 @@
         + "<button class=\"small ghost\" data-code=\"" + esc(row.code) + "\" data-act=\"uses\">횟수</button> "
         + "<button class=\"small ghost\" data-code=\"" + esc(row.code) + "\" data-act=\"days\">기간</button> "
         + "<button class=\"small ghost\" data-code=\"" + esc(row.code) + "\" data-act=\"unlimited\">무제한</button> "
+        + "<button class=\"small ghost\" data-code=\"" + esc(row.code) + "\" data-act=\"retry\">재시도 풀기</button> "
         + "<button class=\"small ghost\" data-code=\"" + esc(row.code) + "\" data-act=\"toggle\">"
         + (row.enabled ? "정지" : "해제") + "</button></td></tr>";
     }).join("");
@@ -280,6 +281,10 @@
     } else if (act === "unlimited") {
       if (!confirm(code + " 를 횟수 무제한으로 바꿀까요? 기간은 그대로입니다.")) return;
       adjustStudent(code, { unlimited: true }, code + " 를 무제한으로 바꿨어요.");
+    } else if (act === "retry") {
+      // 한 과제를 다섯 번 다시 만들면 막힌다. 진짜로 고장 나서 못 쓴 학생을 여기서 풀어 준다.
+      if (!confirm(code + " 의 재시도 제한을 풀까요? 남은 횟수는 그대로입니다.")) return;
+      adjustStudent(code, { resetAttempts: true }, code + " 의 재시도 제한을 풀었어요.");
     } else if (act === "toggle") {
       var next = !row.enabled;
       if (!confirm(code + " 를 " + (next ? "다시 열까요?" : "정지할까요?"))) return;

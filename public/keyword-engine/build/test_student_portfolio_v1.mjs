@@ -37,10 +37,10 @@ function makeDb() {
       reports.push(Object.fromEntries([["id", nextId++], ["created_at", "2026-03-02"], ...keys.map((key, at) => [key, args[at]])]));
       return {};
     }
-    if (text.startsWith("SELECT id FROM student_reports")) {
+    if (text.startsWith("SELECT id, attempts FROM student_reports")) {
       const [code, task_key, subject] = args;
       const hit = [...reports].reverse().find((r) => r.student_code === code && r.task_key === task_key && r.subject === subject);
-      return { first: hit ? { id: hit.id } : null };
+      return { first: hit ? { id: hit.id, attempts: hit.attempts || 1 } : null };
     }
     if (text.startsWith("UPDATE student_reports")) {
       const keys = ["grade", "subject_group", "concept", "keyword", "axis_id", "axis_title", "axis_next", "cross_subject", "report_stage", "collection_kind", "title", "case_tag", "variable_tag", "measure_tag", "record_draft"];
