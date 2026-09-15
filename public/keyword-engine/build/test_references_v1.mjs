@@ -8,7 +8,7 @@ import { readFile } from "node:fs/promises";
 import {
   normalizeSourceCards, referencesBody, sourceLine, textbookCitation, textbookName, wantsSourceCards,
 } from "../../../admission_worker_skeleton/references_v1.mjs";
-import { buildReferencesBody, normalizeStudentData } from "../../../admission_worker_skeleton/report_stages_v1.mjs";
+import { buildReferencesBody, finalizeStageOutput, normalizeStudentData, STAGE } from "../../../admission_worker_skeleton/report_stages_v1.mjs";
 
 const bridge = await readFile(new URL("../assets/js/mini_worker_generate_bridge_v32.js", import.meta.url), "utf8");
 const worker = await readFile(new URL("../../../admission_worker_skeleton/worker.js", import.meta.url), "utf8");
@@ -87,6 +87,34 @@ const axisIndex = { axes: { chem: { subject: "화학", concept: "동적 평형�
   check(kept.length === 1, "F4b a card with only 여기서 얻은 것 is kept — the experiment form never asks for 핵심 내용", String(kept.length));
   const dropped = normalizeStudentData({ sourceCards: [{ take: '제목이 없음' }] }).sourceCards;
   check(dropped.length === 0, "F4b but a card with no title is still not a source");
+}
+
+// F4c: **실제 경로**. 모델에게는 참고 자료 절을 쓰지 말라고 일러 두었으므로 그 절은 거의 항상 코드가 붙인다.
+// 처음에 buildReferencesBody만 고쳤을 때 실제 보고서가 하나도 안 바뀐 이유가 이것이었다 — 보고서를 두 편
+// (₩592) 돌리고 나서야 찾았다. 이 묶음은 그 경로를 통째로 지나간다.
+{
+  const cite = '물리학Ⅰ 교과서 · 물질의 전기적 특성 단원';
+  const run = (sections, studentExtra) => {
+    const input = {
+      subject: '물리', textbookCitation: cite, reportStage: 'experiment_final',
+      studentData: normalizeStudentData({
+        measurementName: '저항', unit: 'Ω', conditions: [{ label: '조건1', values: [1, 2, 3] }], sources: [],
+        ...studentExtra,
+      }),
+    };
+    const out = finalizeStageOutput(STAGE.FINAL, { sections }, input);
+    return ((out.parsed?.sections) || []).find((section) => /참고/.test(section.title))?.body;
+  };
+  const card = { sourceCards: [{ title: '기후변화 감시 보고서 2025', type: '기관 자료', take: '기온 상승 폭을 확인했다' }] };
+  const body = [{ title: '결론', body: 'x' }];
+
+  const withCard = run(body, card);
+  check(withCard.split("\n").length === 2 && withCard.startsWith("기후변화"),
+    "F4c the section the code appends carries the student's own source first", withCard);
+  check(withCard.endsWith(cite), "F4c and the precise textbook line after it");
+  check(run(body, {}) === cite, "F4c a student who read nothing still gets the precise unit, not '관련 단원'", run(body, {}));
+  const vague = run([...body, { title: '참고 자료', body: '물리 교과서 관련 단원' }], card);
+  check(!vague.includes("관련 단원"), "F4c and when the model does write the section, its vague line is replaced", vague);
 }
 
 // F5: 옛 경로도 그대로 돈다. 읽기 보고서는 오래전부터 이렇게 써 왔다.

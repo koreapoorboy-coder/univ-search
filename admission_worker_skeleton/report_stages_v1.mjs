@@ -824,8 +824,11 @@ export function finalizeStageOutput(stage, parsed, input) {
       }
       return { ...section, body: numbers.body };
     });
-    const referencesBody = data.sources.length ? data.sources.join('\n') : [String(input.subject || '').trim(), '교과서 관련 단원'].filter(Boolean).join(' ');
-    if (!cleaned.some((section) => /참고 자료/.test(String(section?.title || '')))) cleaned.push({ title: '참고 자료', body: referencesBody });
+    // 모델에게는 참고 자료 절을 쓰지 말라고 일러 두었으므로, 거의 항상 여기서 붙는다. **실제 경로는 이쪽이다** —
+    // 위의 buildReferencesBody만 고쳤을 때 아무것도 바뀌지 않았던 이유가 이것이었다.
+    const refs = buildReferencesBody('', data.sources, { cards: data.sourceCards, textbook: input.textbookCitation || '' })
+      || [String(input.subject || '').trim(), '교과서 관련 단원'].filter(Boolean).join(' ');
+    if (!cleaned.some((section) => /참고 자료/.test(String(section?.title || '')))) cleaned.push({ title: '참고 자료', body: refs });
     const extra = stage === STAGE.FINAL
       ? { figures: buildFigures(parsed?.figures, stats), figuresAfterSection: '탐구 결과', dataSummary: stats }
       : { comparisonTable: buildSourceCardTable(data.sourceCards) || sanitizeComparisonTable(parsed?.comparisonTable), comparisonTableAfterSection: '자료 비교 정리' };
