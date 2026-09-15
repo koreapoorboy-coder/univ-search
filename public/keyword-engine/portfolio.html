@@ -197,6 +197,7 @@
       else bits.push("보고서 <b>횟수 제한 없음</b>");
       if (pass.expiresAt) bits.push(esc(String(pass.expiresAt).slice(0, 10)) + "까지");
       var trouble = pass.ok ? "" : ({
+        NO_GRANT: "아직 보고서를 만들 수 있는 권한이 없어요. 결제한 곳에 이 코드를 알려 주세요.",
         NO_USES: "횟수를 모두 썼어요. 학원에 문의해 주세요.",
         EXPIRED: "이용 기간이 끝났어요. 학원에 문의해 주세요.",
         DISABLED: "지금은 쓸 수 없는 코드예요. 학원에 문의해 주세요."

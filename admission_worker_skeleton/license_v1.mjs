@@ -150,8 +150,17 @@ export function checkEntitlement(student, now = new Date()) {
   // 무제한은 -1이고 0은 '남은 횟수 없음'이다. 처음에는 0을 무제한으로 뒀는데, 그러면 관리자가 횟수를 빼서
   // 0으로 만든 학생이 무제한이 되어 버렸다 — 막으려는 조작이 정반대로 동작했다.
   if (max >= 0 && used >= max) {
+    // 한 번도 못 받은 학생에게 '0회를 모두 썼어요'라고 하면 틀린 말이다. 쓴 적이 없으면 아직 못 받은 것이다.
+    const never = max === 0 && used === 0;
     // 막힌 학생에게도 언제까지인지는 보여 준다. 충전하면 바로 쓸 수 있는지 판단할 재료다.
-    return { ok: false, reason: 'NO_USES', error: `보고서 ${max}회를 모두 썼어요. 학원에 문의해 주세요.`, remaining: 0, maxUses: max, used, expiresAt: expires || '' };
+    return {
+      ok: false,
+      reason: never ? 'NO_GRANT' : 'NO_USES',
+      error: never
+        ? '아직 보고서를 만들 수 있는 권한이 없어요. 결제한 곳에 내 학생 코드를 알려 주면 열립니다.'
+        : `보고서 ${max}회를 모두 썼어요. 학원에 문의해 주세요.`,
+      remaining: 0, maxUses: max, used, expiresAt: expires || '',
+    };
   }
   return { ok: true, remaining: max > 0 ? max - used : null, maxUses: max, used, expiresAt: expires || '' };
 }

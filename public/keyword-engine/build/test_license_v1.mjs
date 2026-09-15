@@ -136,6 +136,13 @@ function makeDb() {
   check(checkEntitlement({ max_uses: UNLIMITED, used_count: 999, enabled: 1 }, now).ok === true, "L5 -1은 무제한이다");
   check(checkEntitlement({ max_uses: UNLIMITED, used_count: 999, enabled: 1 }, now).remaining === null, "L5 무제한은 남은 수가 숫자가 아니다");
   check(checkEntitlement({ max_uses: 0, used_count: 0, enabled: 1 }, now).ok === false, "L5 0회는 무제한이 아니라 남은 횟수가 없는 것이다");
+  // 한 번도 못 받은 학생에게 "0회를 모두 썼어요"는 틀린 말이다.
+  check(checkEntitlement({ max_uses: 0, used_count: 0, enabled: 1 }, now).reason === "NO_GRANT",
+    "L5 쓴 적이 없으면 다 쓴 것이 아니라 아직 못 받은 것이다");
+  check(checkEntitlement({ max_uses: 0, used_count: 0, enabled: 1 }, now).error.includes("아직 보고서를 만들 수 있는 권한이 없어요"),
+    "L5 그리고 무엇을 하면 열리는지 알려 준다");
+  check(checkEntitlement({ max_uses: 0, used_count: 3, enabled: 1 }, now).reason === "NO_USES",
+    "L5 쓰고 나서 0이 된 학생은 다 쓴 것이다 — 관리자가 회수한 경우");
   const spent = checkEntitlement({ max_uses: 5, used_count: 5, enabled: 1 }, now);
   check(spent.ok === false && spent.reason === "NO_USES" && spent.error.includes("5회를 모두 썼어요"), "L5 다 쓰면 막고 몇 회였는지 말한다", spent.error);
   const gone = checkEntitlement({ max_uses: 10, used_count: 0, enabled: 1, expires_at: "2026-09-01T00:00:00Z" }, now);
