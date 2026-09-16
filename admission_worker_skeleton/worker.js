@@ -386,8 +386,46 @@ export default {
         // task is the upgrade; everything else — no major, 계열 only, a major we hold nothing for, a curriculum
         // that does not reach this concept — falls back to the concept's own 종단 축.
         input.majorPath = resolveMajorPath(input, seedPack.majorCurriculumIndex);
+        // **이 보고서가 선 개념.** 책과 '다음에 해 볼 것'이 같은 자리를 가리켜야 한다.
+        //
+        // 세 가지가 다 어긋날 수 있어서 차례를 정해 두었다. 실제 화면으로 돌려 보고 하나씩 찾은 것들이다.
+        //   · 학생이 고른 개념 — 그런데 화면이 selectedConcept 로 **과목 이름**('화학')을 보낸다.
+        //     빈칸이 아니어서 대비책이 안 걸렸고, 과목 이름은 점수에서 빠져 책이 0권이 됐다.
+        //   · 과제 문구 — 과목의 개념 목록과 맞춰 본다. 겹치는 낱말이 없으면 안 고른다.
+        //   · 축(careerAxes) — 이 탐구가 **앞으로 갈 곳**이라 과제가 선 자리와 다르다. 화학 과제에
+        //     통합사회1 축이 잡히고, 커피 추출 보고서에 '화학량론 해석 축'이 잡혔다. 그래서 마지막이다.
+        const namedConcept = String(input.selectedConcept || '').replace(/\s+/g, '') === String(input.subject || '').replace(/\s+/g, '')
+          ? '' : input.selectedConcept;
+        const guessedConcept = inferConcept(
+          input.subject,
+          [input.taskTitle, input.taskDescription, input.selectedKeyword, input.keyword].filter(Boolean).join(' '),
+          seedPack.axisIndex,
+        );
+        const careerAxis = pickAxis(input.careerAxes, seedPack.axisIndex, input.subject);
+        const careerConcept = careerAxis?.axisId ? (seedPack.axisIndex?.axes || {})[careerAxis.axisId]?.concept : '';
+        const reportConcept = namedConcept || guessedConcept || careerConcept;
+        // 이 개념의 축이 있으면 그것을 쓴다. 없으면 진로 축으로 물러선다.
+        const reportAxis = axisForConcept(seedPack.axisIndex, input.subject, reportConcept) || careerAxis;
+
+        input.reportConcept = reportConcept;
         // 참고 자료에 "화학 교과서 관련 단원"이라고 뭉뚱그리던 것을, 우리가 아는 과목·단원으로 정확히 적는다.
-        input.textbookCitation = textbookCitation(input, seedPack.axisIndex);
+        // 개념은 위에서 정한 것을 쓴다 — selectedConcept 만 보면 과목 이름('화학')이 단원으로 찍힌다.
+        input.textbookCitation = textbookCitation({ ...input, selectedConcept: reportConcept }, seedPack.axisIndex);
+
+        // **참고 자료에 붙일 공개 자료.** 개념에 맞는 공공데이터를 미리 받아 둔다.
+        //
+        // 학생이 본 자료가 아니므로 '여기서 얻은 것'은 안 적고 무엇인지와 주소만 적는다. 선생님이 물으면
+        // 학생이 열어 확인할 수 있다. 못 받아 와도 보고서는 그대로 나간다.
+        input.referenceDatasets = [];
+        if (input.reportStage !== STAGE.DRAFT) {
+          try {
+            input.referenceDatasets = await findPublicData(
+              { concept: reportConcept }, seedPack.publicDataTerms, env.PUBLIC_DATA_KEY, { limit: 3 },
+            );
+          } catch (error) {
+            console.error('reference datasets failed:', error?.message || error);
+          }
+        }
         // 모든 보고서는 학생 코드를 지나간다. 코드 없이 만들 수 있으면 이용권은 세어 봐야 소용이 없다.
         if (env.DB) {
           if (!input.studentCode) {
@@ -480,27 +518,6 @@ export default {
         // 이미 있는 길을 탄다: 자료 카드 → 프롬프트 → 이론적 배경과 참고 자료.
         //
         // 여기서도 AI에게는 안 간다. **학생이 고른 책만** 2단계에서 프롬프트에 들어간다.
-        // **이 보고서가 선 개념.** 책과 '다음에 해 볼 것'이 같은 자리를 가리켜야 한다.
-        //
-        // 세 가지가 다 어긋날 수 있어서 차례를 정해 두었다. 실제 화면으로 돌려 보고 하나씩 찾은 것들이다.
-        //   · 학생이 고른 개념 — 그런데 화면이 selectedConcept 로 **과목 이름**('화학')을 보낸다.
-        //     빈칸이 아니어서 대비책이 안 걸렸고, 과목 이름은 점수에서 빠져 책이 0권이 됐다.
-        //   · 과제 문구 — 과목의 개념 목록과 맞춰 본다. 겹치는 낱말이 없으면 안 고른다.
-        //   · 축(careerAxes) — 이 탐구가 **앞으로 갈 곳**이라 과제가 선 자리와 다르다. 화학 과제에
-        //     통합사회1 축이 잡히고, 커피 추출 보고서에 '화학량론 해석 축'이 잡혔다. 그래서 마지막이다.
-        const namedConcept = String(input.selectedConcept || '').replace(/\s+/g, '') === String(input.subject || '').replace(/\s+/g, '')
-          ? '' : input.selectedConcept;
-        const guessedConcept = inferConcept(
-          input.subject,
-          [input.taskTitle, input.taskDescription, input.selectedKeyword, input.keyword].filter(Boolean).join(' '),
-          seedPack.axisIndex,
-        );
-        const careerAxis = pickAxis(input.careerAxes, seedPack.axisIndex, input.subject);
-        const careerConcept = careerAxis?.axisId ? (seedPack.axisIndex?.axes || {})[careerAxis.axisId]?.concept : '';
-        const reportConcept = namedConcept || guessedConcept || careerConcept;
-        // 이 개념의 축이 있으면 그것을 쓴다. 없으면 진로 축으로 물러선다.
-        const reportAxis = axisForConcept(seedPack.axisIndex, input.subject, reportConcept) || careerAxis;
-
         let bookChoices = [];
         if (input.reportStage === STAGE.DRAFT) {
           try {
@@ -535,8 +552,9 @@ export default {
               keyword: input.selectedKeyword || input.keyword, axisTitle: axis?.title,
               // 개념에 흔한 말('탐구'·'비교')로는 못 걸리게 한다. 축 인덱스에서 바로 센다.
             }, 2, buildWordCounts(bookList), buildConceptCounts(seedPack.axisIndex));
+            // 여기도 개념 자리에 과목 이름('화학')이 와서 자료가 0건이었다. 보고서가 선 개념을 쓴다.
             const datasets = await findPublicData(
-              { concept: input.selectedConcept }, seedPack.publicDataTerms, env.PUBLIC_DATA_KEY, { limit: 2 },
+              { concept: reportConcept }, seedPack.publicDataTerms, env.PUBLIC_DATA_KEY, { limit: 2 },
             );
             nextStep = buildNextStep({ axis, axisIndex: seedPack.axisIndex, books: found, datasets });
           } catch (error) {

@@ -55,8 +55,23 @@ export function sourceLine(card) {
   return took ? head + ' — ' + took : head;
 }
 
-// 참고 자료 절의 몸통. 학생이 적은 것이 먼저고, 교과서는 마지막에 한 줄로 붙는다.
-export function referencesBody({ cards = [], textbook = '', fallbackBody = '' } = {}) {
+// 공개 자료 한 줄. **학생이 본 자료가 아니므로 '얻은 것'을 적지 않는다.**
+//
+// 개념에 맞는 공공데이터를 자동으로 붙인다. 다만 학생이 안 열어 본 자료를 "여기서 이걸 알았다"처럼
+// 쓰면 거짓이 된다. 그래서 무엇인지와 **어디서 볼 수 있는지**만 적는다. 선생님이 물어도 학생이
+// 주소를 열어 확인할 수 있다.
+export function dataLine(row) {
+  const title = clean(row?.title, 120);
+  if (!title) return '';
+  const org = clean(row?.org, 60);
+  const url = clean(row?.url, 200);
+  return `${title}${org ? ` (${org})` : ''}${url ? ` — ${url}` : ''}`;
+}
+
+// 참고 자료 절의 몸통.
+//
+// 차례는 **학생이 적은 것 → 공개 자료 → 교과서**다. 학생이 실제로 본 것이 앞이어야 한다.
+export function referencesBody({ cards = [], datasets = [], textbook = '', fallbackBody = '' } = {}) {
   const lines = [];
   for (const card of cards) {
     const line = sourceLine(card);
@@ -68,6 +83,11 @@ export function referencesBody({ cards = [], textbook = '', fallbackBody = '' } 
       const line = raw.trim();
       if (line && !/^(※|\(|\[)/.test(line)) lines.push(line);
     }
+  }
+  // 개념에 맞는 공개 자료. 학생이 적은 것 뒤, 교과서 앞이다.
+  for (const row of datasets) {
+    const line = dataLine(row);
+    if (line && !lines.includes(line)) lines.push(line);
   }
   if (textbook) {
     // 모델은 "화학 교과서 관련 단원"처럼 뭉뚱그린 줄을 쓴다. 우리가 정확한 단원을 아는데 그 줄을 남겨 두면,

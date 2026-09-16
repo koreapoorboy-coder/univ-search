@@ -6,6 +6,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import {
+  dataLine,
   normalizeSourceCards, referencesBody, sourceLine, textbookCitation, textbookName, wantsSourceCards,
 } from "../../../admission_worker_skeleton/references_v1.mjs";
 import { buildReferencesBody, finalizeStageOutput, normalizeStudentData, STAGE } from "../../../admission_worker_skeleton/report_stages_v1.mjs";
@@ -151,10 +152,40 @@ const axisIndex = { axes: {
   check(!/text\("miniExpSources"\)/.test(bridge), "F6 the old title-only textarea is gone");
 }
 
+// F8: **참고 자료에 공개 자료를 자동으로 붙인다.**
+//
+// 사용자가 물었다: "참고문헌에서 우리가 첨부하거나 할 수 있는 것들이 없어?" 책과 교과서 두 줄뿐이었다.
+// 개념에 맞는 공공데이터를 자동으로 붙이되, **학생이 본 자료가 아니므로 '얻은 것'은 안 적는다.**
+// 무엇인지와 주소만 적어 선생님이 물으면 학생이 열어 확인할 수 있게 한다.
+{
+  const rows = [
+    { title: "화학물질 배출 및 이동량 정보", org: "화학물질안전원", url: "https://www.data.go.kr/data/15048782/openapi.do" },
+    { title: "화학사고정보", org: "화학물질안전원", url: "https://www.data.go.kr/data/15048783/openapi.do" },
+  ];
+  const card = { title: "부엌의 화학자", type: "도서 · 라파엘 오몽", take: "온도가 녹는 정도를 바꾼다는 걸 알았다" };
+  const book = referencesBody({ cards: [card], datasets: rows, textbook: "화학Ⅰ 교과서 · 화학과 우리 생활 단원" });
+  const lines = book.split(String.fromCharCode(10));
+  check(lines.length === 4, "F8 학생 자료 + 공개 자료 둘 + 교과서", String(lines.length));
+  check(lines[0].includes("부엌의 화학자"), "F8 학생이 적은 것이 맨 앞이다");
+  check(lines[1].includes("data.go.kr"), "F8 공개 자료에는 주소가 함께 적힌다 — 열어 볼 수 있어야 한다");
+  check(!/—\s*여기서|얻은/.test(lines[1]), "F8 공개 자료에는 '얻은 것'을 안 적는다 — 학생이 본 자료가 아니다");
+  check(lines[3].includes("교과서"), "F8 교과서는 마지막이다");
+  check(dataLine({ title: "" }) === "", "F8 제목이 없으면 줄을 안 만든다");
+  check(dataLine({ title: "가", org: "나" }) === "가 (나)", "F8 주소가 없어도 적을 수 있다");
+  // 자료가 없으면 예전 그대로다.
+  check(referencesBody({ cards: [card], textbook: "화학Ⅰ 교과서 · 화학과 우리 생활 단원" }).split(String.fromCharCode(10)).length === 2,
+    "F8 공개 자료가 없으면 예전과 같다");
+  check(worker.includes("input.referenceDatasets = ["), "F8 워커가 보고서 만들기 전에 자료를 받아 둔다");
+  check(worker.indexOf("input.referenceDatasets") < worker.indexOf("callOpenAIWithRetry(prompt, env, input)"),
+    "F8 그래야 참고 자료 절이 쓸 수 있다");
+}
+
 // F7: 워커가 교과서 인용을 만들어 넘긴다.
 {
-  check(worker.includes("input.textbookCitation = textbookCitation(input, seedPack.axisIndex);"),
-    "F7 the worker builds the citation from the axis index it already loaded");
+  // 개념은 위에서 정한 것(reportConcept)을 쓴다. selectedConcept 만 보면 화면이 보내는 과목 이름
+  // ('화학')이 단원으로 찍혀 "화학Ⅰ 교과서 · 화학 단원"이라는 아무 말도 아닌 줄이 나왔다.
+  check(worker.includes("textbookCitation({ ...input, selectedConcept: reportConcept }, seedPack.axisIndex)"),
+    "F7 the worker builds the citation from the concept it resolved");
   check(worker.indexOf("input.textbookCitation") < worker.indexOf("callOpenAIWithRetry(prompt, env, input)"),
     "F7 before the report is made, so the section can use it");
 }
