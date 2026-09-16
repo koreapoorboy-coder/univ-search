@@ -159,8 +159,8 @@ const axisIndex = { axes: {
 // 무엇인지와 주소만 적어 선생님이 물으면 학생이 열어 확인할 수 있게 한다.
 {
   const rows = [
-    { title: "화학물질 배출 및 이동량 정보", org: "화학물질안전원", url: "https://www.data.go.kr/data/15048782/openapi.do" },
-    { title: "화학사고정보", org: "화학물질안전원", url: "https://www.data.go.kr/data/15048783/openapi.do" },
+    { title: "화학물질 배출 및 이동량 정보", org: "화학물질안전원", id: "15048782" },
+    { title: "화학사고정보", org: "화학물질안전원", id: "15048783" },
   ];
   const card = { title: "부엌의 화학자", type: "도서 · 라파엘 오몽", take: "온도가 녹는 정도를 바꾼다는 걸 알았다" };
   const book = referencesBody({ cards: [card], datasets: rows, textbook: "화학Ⅰ 교과서 · 화학과 우리 생활 단원" });
@@ -172,6 +172,9 @@ const axisIndex = { axes: {
   check(lines[3].includes("교과서"), "F8 교과서는 마지막이다");
   check(dataLine({ title: "" }) === "", "F8 제목이 없으면 줄을 안 만든다");
   check(dataLine({ title: "가", org: "나" }) === "가 (나)", "F8 주소가 없어도 적을 수 있다");
+  // 공공데이터는 url 이 아니라 자료 번호로 온다. 번호로 주소를 만들어야 학생이 열어 볼 수 있다.
+  check(dataLine({ title: "가", org: "나", id: "15048782" }).includes("data.go.kr/data/15048782"),
+    "F8 자료 번호로 주소를 만든다", dataLine({ title: "가", org: "나", id: "15048782" }));
   // 자료가 없으면 예전 그대로다.
   check(referencesBody({ cards: [card], textbook: "화학Ⅰ 교과서 · 화학과 우리 생활 단원" }).split(String.fromCharCode(10)).length === 2,
     "F8 공개 자료가 없으면 예전과 같다");

@@ -11,6 +11,8 @@
 //   · 교과서 인용 — 우리가 이미 아는 과목·단원을 정확히 적는다. 지어내는 것이 아니라 꺼내는 것이다.
 //   · 학생이 적은 자료 — 제목·종류·핵심 내용·내 해석. '내 해석'은 안 읽었으면 못 쓴다.
 
+import { datasetUrl } from './public_data_v1.mjs';
+
 const clean = (value, max = 200) => String(value ?? '').trim().slice(0, max);
 
 // 과목 이름은 교과서 표지에 적힌 대로. '물리'가 아니라 '물리학Ⅰ'로 배우는 과목들이 있다.
@@ -64,7 +66,9 @@ export function dataLine(row) {
   const title = clean(row?.title, 120);
   if (!title) return '';
   const org = clean(row?.org, 60);
-  const url = clean(row?.url, 200);
+  // 주소는 자료 번호로 만든다. 공공데이터포털은 자료마다 번호로 주소가 정해져 있다.
+  // 이 줄이 없으면 학생이 어디서 봤다고 말할 수 없다 — 그게 이 자료를 붙이는 조건이다.
+  const url = clean(row?.url, 200) || (clean(row?.id, 40) ? datasetUrl(row.id) : '');
   return `${title}${org ? ` (${org})` : ''}${url ? ` — ${url}` : ''}`;
 }
 
