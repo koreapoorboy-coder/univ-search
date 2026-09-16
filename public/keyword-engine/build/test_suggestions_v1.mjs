@@ -4,11 +4,12 @@
 // 된다." 맞는 걱정이었고, 처음 잰 결과가 그대로였다 — 화학 반응식에 「국화와 칼」이 붙었다.
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { buildWordCounts, matchBooks, MIN_SCORE, scoreBook, wantsBooks } from "../../../admission_worker_skeleton/book_match_v1.mjs";
+import { buildConceptCounts, buildWordCounts, matchBooks, MIN_SCORE, scoreBook, wantsBooks } from "../../../admission_worker_skeleton/book_match_v1.mjs";
 import { datasetUrl, orgRank, pickRows, searchTerms, usable } from "../../../admission_worker_skeleton/public_data_v1.mjs";
 
 const books = JSON.parse(await readFile(new URL("../seed/engine-index/book_match_index.v1.json", import.meta.url), "utf8")).books;
 const terms = JSON.parse(await readFile(new URL("../seed/engine-index/public_data_terms.v1.json", import.meta.url), "utf8"));
+const axisIndex = JSON.parse(await readFile(new URL("../seed/engine-index/longitudinal_axis_index.v1.json", import.meta.url), "utf8"));
 const counts = buildWordCounts(books);
 let passed = 0;
 const check = (ok, label, detail = "") => { assert.equal(ok, true, `${label} -> ${detail}`); console.log(`PASS ${label}`); passed++; };
@@ -47,6 +48,45 @@ const check = (ok, label, detail = "") => { assert.equal(ok, true, `${label} -> 
   check(found.length > 0, "B4 지구과학 천체 단원에는 책이 있다", JSON.stringify(found.map((b) => b.title)));
   check(found.every((b) => b.why.length > 0), "B4 and every one of them names the word it matched on");
   check(found.some((b) => b.title.includes("코스모스")), "B4 코스모스가 나온다", JSON.stringify(found.map((b) => b.title)));
+}
+
+// B5: **개념에 흔한 말**로도 못 걸린다. 책에 흔한 말만 걸렀더니 이게 남아 있었다.
+//
+// 과학탐구실험2는 개념 여섯 개가 모두 "…탐구"로 끝난다. 그래서 「코스모스」가 '탐구' 한 낱말로 내진 설계와
+// 구조 안정성에도, 첨단 센서에도 붙었다. 「의사와 수의사가 만나다」는 '비교'로 기본량과 단위에 붙었다.
+// 세는 자리는 **그 과목 안**이다 — 전체에서 세면 '경제'가 여러 과목에 흔하다는 이유로 통합사회의 「넛지」까지
+// 떨어진다. 152개 개념을 전부 재서 정했다.
+{
+  const conceptCounts = buildConceptCounts(axisIndex);
+  // 실제 축에서 그대로 꺼내 쓴다 — 워커가 넘기는 값과 같아야 시험이 의미가 있다.
+  const axisFor = (concept) => Object.values(axisIndex.axes).find((one) => one.concept === concept);
+  const at = (subject, concept) => {
+    const axis = axisFor(concept);
+    return matchBooks(books, {
+      subject, concept, keyword: String(axis?.output || "").split(/[,、·]/)[0].trim(), axisTitle: axis?.title,
+    }, 3, counts, conceptCounts).map((b) => b.title);
+  };
+
+  const 탐구 = conceptCounts.get("과학탐구실험")?.get("탐구") || 0;
+  check(탐구 > 2, "B5 '탐구'는 과학탐구실험 개념 여러 곳에 나온다 — 어느 개념인지 못 가린다", String(탐구));
+  check(!at("과학탐구실험2", "내진 설계와 구조 안정성 탐구").includes("코스모스"),
+    "B5 그래서 「코스모스」가 내진 설계에 붙지 않는다");
+  check(!at("통합과학1", "기본량과 단위").includes("의사와 수의사가 만나다"),
+    "B5 '비교' 하나로 기본량과 단위에 붙지도 않는다");
+
+  // 과목 안에서 세기 때문에, 그 과목에서 뜻을 가리는 말은 그대로 산다.
+  check(at("통합사회2", "시장경제와 지속가능발전").includes("넛지"),
+    "B5 통합사회의 「넛지」는 남는다 — '경제'는 통합사회 안에서 개념을 가린다");
+  check(at("지구과학", "태풍과 악기상").includes("날씨가 바꾼 세계의 역사"),
+    "B5 태풍은 지구과학 안에서 한 개념만 가리키므로 그대로 걸린다");
+
+  // 이 규칙이 없으면 다시 붙는다.
+  const 내진 = axisFor("내진 설계와 구조 안정성 탐구");
+  const 규칙없이 = matchBooks(books, {
+    subject: "과학탐구실험2", concept: 내진.concept,
+    keyword: String(내진.output || "").split(/[,、·]/)[0].trim(), axisTitle: 내진.title,
+  }, 3, counts);
+  check(규칙없이.some((b) => b.title.includes("코스모스")), "B5 규칙을 빼면 「코스모스」가 되돌아온다 — 이 시험이 지키는 것");
 }
 
 // D1: 공공데이터는 **개념에 달린 말만** 쓴다. 과목으로 내려가면 한 과목의 모든 개념에 같은 자료가 붙는다.

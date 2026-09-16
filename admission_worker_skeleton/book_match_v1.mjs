@@ -24,6 +24,13 @@ export const MIN_SCORE = SUBJECT_POINT + 3;
 // 몇 권에 나오는 낱말까지 쳐 줄 것인가. 210권 중 20권을 넘으면 그 낱말은 아무것도 가리지 못한다.
 const COMMON = 20;
 const RARE = 5;
+// **책에 흔한 말**만 걸렀더니 **개념에 흔한 말**이 남았다. 「코스모스」가 '탐구' 하나로 내진 설계에,
+// 「의사와 수의사가 만나다」가 '비교' 하나로 기본량과 단위에 붙어 있었다.
+//
+// 세는 자리는 **그 과목 안**이다. 과목은 이미 걸렀으므로 물어야 할 것은 "이 과목의 어느 개념인가"뿐이다.
+// 전체에서 세면 '경제'가 여러 과목에 흔하다는 이유로 통합사회의 「넛지」까지 떨어진다 — 정작 통합사회
+// 안에서는 '경제'가 개념을 잘 가린다. 152개 개념을 다 재서 정한 값이다.
+const CONCEPT_SPREAD = 2;
 
 // 수학 계산 단원에는 책을 안 붙인다.
 //
@@ -59,6 +66,22 @@ export function buildWordCounts(books) {
   return counts;
 }
 
+// 과목마다, 낱말 하나가 그 과목의 개념 몇 곳에 나오는지 세어 둔다. 축 인덱스에서 그대로 나온다.
+export function buildConceptCounts(axisIndex) {
+  const bySubject = new Map();
+  const seen = new Set();
+  for (const axis of Object.values(axisIndex?.axes || {})) {
+    const key = `${axis.subject}::${axis.concept}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const at = bySubject.get(norm(axis.subject)) || new Map();
+    const bag = new Set([axis.concept, String(axis.output || '').split(/[,、·]/)[0], axis.title].flatMap(words));
+    for (const word of bag) at.set(word, (at.get(word) || 0) + 1);
+    bySubject.set(norm(axis.subject), at);
+  }
+  return bySubject;
+}
+
 // 드문 낱말일수록 크게 친다. 흔한 낱말은 0점 — 걸려도 아무 말을 안 한 것이다.
 function wordPoint(word, counts) {
   const seen = counts.get(word) || 0;
@@ -67,11 +90,12 @@ function wordPoint(word, counts) {
 }
 
 // 한 권을 이 보고서에 대 본다. 왜 걸렸는지를 함께 돌려준다 — 이유를 못 대는 추천은 억지와 구별되지 않는다.
-export function scoreBook(book, { subject = '', terms = [] } = {}, counts) {
+export function scoreBook(book, { subject = '', terms = [], conceptCounts = null } = {}, counts) {
   if (!bookSubjects(book).some((theirs) => subjectMatches(subject, theirs))) {
     return { score: 0, why: [], onSubject: false };
   }
   const theirWords = new Set(bookTags(book).flatMap(words));
+  const mySpread = conceptCounts ? conceptCounts.get(norm(subject)) : null;
   const why = [];
   let score = SUBJECT_POINT;
   const used = new Set();
@@ -79,6 +103,8 @@ export function scoreBook(book, { subject = '', terms = [] } = {}, counts) {
     for (const word of words(term)) {
       // 과목 이름과 같은 낱말은 안 친다. 이미 과목 문턱에서 셌고, 그 말로 걸린 추천은 아무 말도 안 한 것이다.
       if (used.has(word) || !theirWords.has(word) || norm(word) === norm(subject)) continue;
+      // 이 과목의 개념 여러 곳에 나오는 말로는 못 걸린다. 어느 개념인지를 못 가리키는 말이다.
+      if (mySpread && (mySpread.get(word) || 0) > CONCEPT_SPREAD) continue;
       const point = wordPoint(word, counts);
       if (!point) continue;
       used.add(word);
@@ -93,7 +119,7 @@ export function scoreBook(book, { subject = '', terms = [] } = {}, counts) {
 }
 
 // 이 보고서에 권할 책. 없으면 빈 배열이 정상이다.
-export function matchBooks(books, input = {}, limit = 3, counts = null) {
+export function matchBooks(books, input = {}, limit = 3, counts = null, conceptCounts = null) {
   const subject = clean(input.subject, 40);
   if (!wantsBooks(subject)) return [];
   const list = Array.isArray(books) ? books : Object.values(books || {});
@@ -106,7 +132,7 @@ export function matchBooks(books, input = {}, limit = 3, counts = null) {
   const scored = [];
   for (const book of list) {
     if (!clean(book?.title)) continue;
-    const { score, why } = scoreBook(book, { subject, terms }, table);
+    const { score, why } = scoreBook(book, { subject, terms, conceptCounts }, table);
     // 상대 순위가 아니라 절대 기준이다. 아무도 못 넘으면 아무도 안 나온다.
     if (score < MIN_SCORE) continue;
     scored.push({

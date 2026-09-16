@@ -9,7 +9,7 @@ import { majorFit } from './major_fit_v1.mjs';
 import { attachToStudent, saveReportOutput } from './report_archive_v1.mjs';
 import { adjustLicense, adjustStudent, checkEntitlement, claimSeat, emptyGrant, issueLicense, listLicenses, listStudents, loadLicense, releaseSeat, spendUse } from './license_v1.mjs';
 import { textbookCitation } from './references_v1.mjs';
-import { buildWordCounts, matchBooks } from './book_match_v1.mjs';
+import { buildConceptCounts, buildWordCounts, matchBooks } from './book_match_v1.mjs';
 import { findPublicData } from './public_data_v1.mjs';
 import { buildNextStep, pickAxis } from './next_step_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
@@ -483,7 +483,8 @@ export default {
             const found = matchBooks(bookList, {
               subject: input.subject, concept: input.selectedConcept,
               keyword: input.selectedKeyword || input.keyword, axisTitle: axis?.title,
-            }, 2, buildWordCounts(bookList));
+              // 개념에 흔한 말('탐구'·'비교')로는 못 걸리게 한다. 축 인덱스에서 바로 센다.
+            }, 2, buildWordCounts(bookList), buildConceptCounts(seedPack.axisIndex));
             const datasets = await findPublicData(
               { concept: input.selectedConcept }, seedPack.publicDataTerms, env.PUBLIC_DATA_KEY, { limit: 2 },
             );

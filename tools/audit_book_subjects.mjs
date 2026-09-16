@@ -114,8 +114,16 @@ for (const [subject, at] of [...report.entries()].sort((a, b) => (b[1].had - b[1
 if (process.argv.includes("--write")) {
   // 무엇을 뗐는지 남긴다. 원본은 git에 있으니 이 파일은 되돌리기용이 아니라,
   // 나중에 "이 책에 왜 화학이 없지"를 답하기 위한 것이다.
-  const record = [...report.entries()].map(([subject, at]) => ({ subject, had: at.had, kept: at.kept, dropped: at.dropped }));
-  await writeFile(here("../public/keyword-engine/seed/book-engine/removed_subject_tags.v1.json"), JSON.stringify({
+  // 쌓아 둔다. 덮어쓰면 앞서 뗀 것이 사라진다 — 「국화와 칼」의 화학이 어디로 갔는지 답할 수 없게 된다.
+  const recordPath = here("../public/keyword-engine/seed/book-engine/removed_subject_tags.v1.json");
+  const before = await readFile(recordPath, "utf8").then(JSON.parse).catch(() => ({ subjects: [] }));
+  const past = new Map((before.subjects || []).map((at) => [at.subject, at.dropped || []]));
+  const record = [...report.entries()].map(([subject, at]) => ({
+    subject, had: at.had, kept: at.kept,
+    dropped: [...new Set([...(past.get(subject) || []), ...at.dropped])],
+  }));
+  for (const [subject, dropped] of past) if (!report.has(subject)) record.push({ subject, had: 0, kept: 0, dropped });
+  await writeFile(recordPath, JSON.stringify({
     version: "removed-subject-tags-v1",
     removed_at: new Date().toISOString().slice(0, 10),
     why: "교육과정 어휘와 한 낱말도 닿지 않는 과목 태그를 뗐다. 「국화와 칼」에 화학이 붙어 화학 반응식 보고서에 추천된 것이 발단이다.",

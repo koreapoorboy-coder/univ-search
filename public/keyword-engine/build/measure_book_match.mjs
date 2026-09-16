@@ -4,7 +4,7 @@
 //
 // AI를 쓰지 않으므로 ₩0이다.
 import { readFile } from "node:fs/promises";
-import { buildWordCounts, matchBooks, MIN_SCORE } from "../../../admission_worker_skeleton/book_match_v1.mjs";
+import { buildConceptCounts, buildWordCounts, matchBooks, MIN_SCORE } from "../../../admission_worker_skeleton/book_match_v1.mjs";
 
 const books = JSON.parse(await readFile(new URL("../seed/engine-index/book_match_index.v1.json", import.meta.url), "utf8")).books;
 const axisIndex = JSON.parse(await readFile(new URL("../seed/engine-index/longitudinal_axis_index.v1.json", import.meta.url), "utf8"));
@@ -20,7 +20,8 @@ for (const [axisId, axis] of Object.entries(axisIndex.axes || {})) {
 }
 
 const counts = buildWordCounts(books);
-const rows = cases.map((one) => ({ ...one, found: matchBooks(books, one, 3, counts) }));
+const conceptCounts = buildConceptCounts(axisIndex);
+const rows = cases.map((one) => ({ ...one, found: matchBooks(books, one, 3, counts, conceptCounts) }));
 const withBooks = rows.filter((r) => r.found.length);
 const bySubject = new Map();
 for (const row of rows) {
