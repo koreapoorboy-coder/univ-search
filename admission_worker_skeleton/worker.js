@@ -9,7 +9,7 @@ import { majorFit } from './major_fit_v1.mjs';
 import { attachToStudent, saveReportOutput } from './report_archive_v1.mjs';
 import { adjustLicense, adjustStudent, checkEntitlement, claimSeat, emptyGrant, issueLicense, listLicenses, listStudents, loadLicense, releaseSeat, spendUse } from './license_v1.mjs';
 import { textbookCitation } from './references_v1.mjs';
-import { buildConceptCounts, buildWordCounts, matchBooks } from './book_match_v1.mjs';
+import { buildConceptCounts, buildMajorCounts, buildWordCounts, matchBooks } from './book_match_v1.mjs';
 import { findPublicData } from './public_data_v1.mjs';
 import { buildNextStep, pickAxis } from './next_step_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
@@ -472,6 +472,31 @@ export default {
           }
         }
 
+        // 설계서에 붙는 **참고 도서 후보**.
+        //
+        // 학교에서 구두로 "책을 읽고 수행평가에 첨부해라" 하는 경우가 있다. 그때 쓸 책이다. 학생은 책을 읽을
+        // 시간이 없으므로, 그 책이 무엇을 다루는지(points)를 같이 내려보낸다 — 우리가 정리해 둔 그 책의 실제
+        // 내용이지 지어낸 말이 아니다. 학생이 고르면 2단계 자료 카드의 '핵심 내용'이 되고, 거기서부터는
+        // 이미 있는 길을 탄다: 자료 카드 → 프롬프트 → 이론적 배경과 참고 자료.
+        //
+        // 여기서도 AI에게는 안 간다. **학생이 고른 책만** 2단계에서 프롬프트에 들어간다.
+        let bookChoices = [];
+        if (input.reportStage === STAGE.DRAFT) {
+          try {
+            const bookList = seedPack.bookMatchIndex?.books || [];
+            const axis = pickAxis(input.careerAxes, seedPack.axisIndex, input.subject);
+            bookChoices = matchBooks(bookList, {
+              subject: input.subject, concept: input.selectedConcept,
+              keyword: input.selectedKeyword || input.keyword, axisTitle: axis?.title,
+              // 진로는 순서만 바꾼다. 진로를 아직 안 정한 학생에게도 책은 나와야 한다.
+              major: input.major || input.track,
+            }, 3, buildWordCounts(bookList), buildConceptCounts(seedPack.axisIndex), buildMajorCounts(bookList));
+          } catch (error) {
+            // 책을 못 고르면 설계서는 그대로 나간다. 책은 있으면 좋은 것이지 없으면 안 되는 것이 아니다.
+            console.error('book choices failed:', error?.message || error);
+          }
+        }
+
         // 다음에 해 볼 것. **모델을 부른 뒤에** 만든다 — 프롬프트에 넣으면 보고서가 그쪽으로 휜다.
         // 설계서에는 안 붙인다: 보고서가 끝난 자리에서 '다음'을 말해야 숙제가 아니라 다음 걸음이 된다.
         let nextStep = null;
@@ -499,6 +524,7 @@ export default {
           ok: true,
           source,
           reportId,
+          bookChoices,
           nextStep,
           resolved: input,
           phase1Lineage: liveAuthority.phase1Lineage,

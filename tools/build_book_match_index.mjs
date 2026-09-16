@@ -26,6 +26,12 @@ const out = books
     core_keywords: list(book.core_keywords),
     fit_keywords: list(book.fit_keywords),
     broad_theme: clean(book.broad_theme, 40),
+    // 진로도 맞춘다. 학교에서 "책 읽고 첨부해라" 할 때 학생이 고를 책은 주제만이 아니라 가고 싶은 과도
+    // 가리켜야 한다. 240권 전부에 학과가 달려 있다.
+    majors: list([...(book.linked_majors || []), ...(book.related_majors || [])], 30).slice(0, 8),
+    // 이 책이 무엇을 다루는가. 학생이 읽을 시간이 없으므로 이것이 자료 카드의 '핵심 내용'이 된다.
+    // 지어낸 말이 아니라 우리가 정리해 둔 그 책의 내용이다.
+    points: list(book.book_content_points, 140).slice(0, 4),
   }));
 
 const path = here("../public/keyword-engine/seed/engine-index/book_match_index.v1.json");
@@ -33,7 +39,7 @@ await writeFile(path, JSON.stringify({
   version: "book-match-index-v1",
   built_at: new Date().toISOString().slice(0, 10),
   source: "seed/book-engine/mini_book_engine_books_starter.json",
-  note: "추천을 고를 때 보는 칸만 남긴 것. book_content_points·starter_questions 같은 긴 칸은 뺐다.",
+  note: "추천을 고를 때 보는 칸과, 보고서에 넣을 때 쓰는 칸(학과·내용 조각)만 남긴 것.",
   books: out,
 }, null, 0), "utf8");
 

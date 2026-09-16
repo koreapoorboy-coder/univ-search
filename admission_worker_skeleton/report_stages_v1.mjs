@@ -606,9 +606,46 @@ function studentVoice(data) {
   return { reason: data.reason, observations: data.observations, reflection: data.reflection, sources: data.sources };
 }
 
+// 학생이 고른 참고 도서. 자료 카드 중에 종류가 '도서'인 것이다.
+//
+// 학교에서 구두로 "책을 읽고 첨부해라" 하는 수행평가가 있다. 학생은 책을 읽을 시간이 없으므로, 우리가
+// 정리해 둔 그 책의 내용이 카드의 핵심 내용으로 들어온다. 그건 **그 책이 실제로 다루는 내용**이라
+// 인용은 사실이다. 다만 **읽은 소감은 학생만 쓸 수 있다** — 모델이 지어내면 그 순간 거짓이 된다.
+export function pickedBook(data) {
+  return (data?.sourceCards || []).find((card) => /도서|책/.test(String(card?.type || '')) && String(card?.title || '').trim()) || null;
+}
+
+// 카드의 종류 칸은 "도서 · 샘 킨"이다. 지은이만 떼어 낸다.
+const bookAuthor = (book) => String(book?.type || '').replace(/^\s*도서\s*[·|,]?\s*/, '').trim();
+
+export function bookRules(book) {
+  if (!book) return [];
+  return [
+    `- 학생이 참고 도서를 첨부했다: 「${book.title}」${bookAuthor(book) ? ` (${bookAuthor(book)})` : ''}.`,
+    '- 이 책은 **이론적 배경**에서 한두 문장으로 근거로 쓴다. 아래 [참고 도서]에 적힌 내용만 쓰고, 거기 없는 내용·줄거리·인물·문장은 지어내지 않는다.',
+    '- 책 이름은 「제목」(지은이) 형태로 **한 번만** 밝히고, 그 뒤로는 자연스럽게 이어 쓴다. 절 이름을 따로 만들지 않는다.',
+    '- "이 책을 읽고 느꼈다", "인상 깊었다"처럼 **읽은 경험이나 감상은 쓰지 않는다.** 학생이 직접 적은 줄이 있으면 그것만 쓴다.',
+    '- 책을 주제로 만들지 않는다. 이 보고서의 주제는 그대로이고, 책은 이론을 받쳐 주는 자료 하나다.',
+  ];
+}
+
+export function bookBlock(book) {
+  if (!book) return [];
+  return [
+    '',
+    '[참고 도서]',
+    JSON.stringify({
+      제목: book.title, 지은이: bookAuthor(book),
+      이_책이_다루는_내용: book.point || '',
+      학생이_적은_이어지는_점: book.take || '(학생이 적지 않음 — 지어내지 않는다)',
+    }, null, 2),
+  ];
+}
+
 export function stagePromptLines(stage, input) {
   const data = input.studentData || normalizeStudentData(null);
   const kind = input.collectionKind || COLLECTION.MEASUREMENT;
+  const book = pickedBook(data);
   if (stage === STAGE.DRAFT) {
     return [
       '[이번 단계: 1차 탐구 설계서]',
@@ -669,10 +706,12 @@ export function stagePromptLines(stage, input) {
       '- 느낀 점 절은 reflection 문장을 먼저 거의 그대로 쓰고, 이어서 활동 → 이해한 개념 → 참고한 자료 → 숫자로 드러난 것 → 한계 → 다음에 하고 싶은 것 순서로 이어 쓴다. 이 절은 담당 선생님이 학생의 활동을 파악하는 자리이므로, 무엇을 어떤 기준으로 했는지가 문장마다 드러나야 한다.',
       '- 느낀 점 절에서 성실함, 적극성, 협동심처럼 학생의 태도를 평가하는 말은 쓰지 않는다. 실제로 한 일(조건을 통제한 것, 반복 측정한 것, 자료를 비교한 것)만 쓰면 된다. 학생이 쓰지 않은 감정(힘들었다, 재미있었다 등)은 자동으로 삭제된다.',
       '- 참고 자료 절은 쓰지 않는다. 학생이 적은 sources로 자동으로 붙는다.',
+      ...bookRules(book),
       '- 결과가 가설과 다르면 억지로 맞추지 말고 다르게 나온 그대로 쓴다.',
       '- 흔들림은 반복 측정값의 최대와 최소의 차이다. 흔들림을 점수 범위와 비교해 판단한다(예: 0~3점에서 1점은 큰 흔들림이다). 흔들림이 큰 조건은 결과의 신뢰도가 낮다고 밝히고 원인을 추정한다.',
       '- 수준별비교의 흔들림보다큰차이인가가 아니오이면 그 차이는 반복 측정의 흔들림보다 작거나 같으므로 "확실한 차이라고 보기 어렵다"고 쓴다. 조건 간 평균 차이가 흔들림보다 작은 비교를 근거로 결론을 내리지 않는다.',
       '- 본문과 그림 제목·설명에는 입력 자료의 항목 이름(결과정리, 수준별비교 같은 이름이나 영어 이름)을 그대로 쓰지 말고 "반복 측정값의 흔들림", "평균의 차이"처럼 자연스러운 말로 풀어 쓴다. 그림 설명에는 그림에 실제로 그려진 것만 쓴다(오차 막대는 그려지지 않는다).',
+      ...bookBlock(book),
       '',
       '[학생 실험 데이터]',
       JSON.stringify({ 학생입력: { measurementName: data.measurementName, unit: data.unit, scaleGuide: data.scaleGuide, conditions: data.conditions, ...studentVoice(data) }, 결과정리: summaryForPrompt(stats) }, null, 2),
@@ -692,11 +731,13 @@ export function stagePromptLines(stage, input) {
       '- 자료가 같은 기준으로 나란히 비교될 때만 comparisonTable을 넣는다. 기준이 서로 다른 자료를 억지로 한 표에 넣지 않는다. 넣을 때는 columns 3~4개, rows 2~6개, 칸에는 짧은 말만 쓰고 숫자는 쓰지 않는다. 필요 없으면 표 없이 글로만 쓴다.',
       '- 입력에 근거 없는 숫자는 쓰지 않는다. 이를 어긴 문장은 자동으로 삭제된다.',
       '- 참고 자료 절은 쓰지 않는다. 학생이 적은 sources로 자동으로 붙는다.',
+      ...bookRules(book),
       '- recordDraft는 담당 선생님이 생활기록부를 쓸 때 참고하도록 이번 탐구를 정리한 문장 묶음이다. 학생이 제출하는 보고서 본문에는 들어가지 않는다.',
       '- recordDraft 문장은 4~6개, 한 문장 40~90자로 쓴다. 모두 3인칭 명사형으로 끝낸다(예: ~를 설계함, ~를 비교 분석함, ~를 확인함, ~로 해석함). 나는, 내가 같은 1인칭이나 ~했다 같은 종결은 쓰지 않는다.',
       '- recordDraft 순서는 ①무엇을 어떤 기준으로 했는지 ②이해한 교과 개념 ③참고한 자료에서 확인한 것 ④결과에서 드러난 것(숫자가 있으면 숫자와 함께) ⑤한계나 보완할 점 ⑥이어서 하고 싶은 탐구다. 한 문장에 한 가지만 담는다.',
       '- recordDraft에는 성실함, 적극성, 우수함처럼 학생을 평가하는 말을 쓰지 않는다. 평가는 선생님이 한다. 우리는 한 일과 알아낸 것만 적는다. 이를 어긴 문장은 자동으로 삭제된다.',
       '- recordDraft의 내용은 모두 위 보고서와 학생이 입력한 자료에 있는 것이어야 한다. 새 사실이나 새 숫자를 만들지 않는다.',
+      ...bookBlock(book),
       '',
       '[학생이 적은 내용]',
       JSON.stringify({ ...studentVoice(data), 자료카드: data.sourceCards }, null, 2),

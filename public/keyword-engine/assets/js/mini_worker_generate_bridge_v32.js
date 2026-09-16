@@ -2732,9 +2732,57 @@
       </section>`;
   }
 
-  function renderCollectionPanel(result){
-    if(result?.collectionKind === "reading") return result?.sourceTemplate ? renderSourceCardPanel(result.sourceTemplate) : "";
-    return result?.dataTemplate ? renderExperimentInputPanel(result.dataTemplate, result.collectionKind) : "";
+  // 참고 도서 고르기.
+  //
+  // 학교에서 구두로 "책을 읽고 수행평가에 첨부해라" 하는 경우가 있다. 그때 쓸 칸이다. 학생은 책을 읽을
+  // 시간이 없으므로 그 책이 무엇을 다루는지를 여기 펼쳐 놓는다 — 우리가 정리해 둔 그 책의 실제 내용이다.
+  // 고르면 자료 카드 한 장이 되어, 이미 있는 길을 탄다: 자료 카드 → 프롬프트 → 이론적 배경과 참고 자료.
+  function renderBookPick(books){
+    const list = Array.isArray(books) ? books.filter(b => b && b.title) : [];
+    if(!list.length) return "";
+    const one = (book, i) => `
+        <label class="mini-book">
+          <input type="radio" name="miniBookPick" value="${i}"
+            data-book-title="${escapeHtml(book.title)}"
+            data-book-author="${escapeHtml(book.author || "")}"
+            data-book-point="${escapeHtml((book.points || []).join(" "))}">
+          <span class="mini-book-t">${escapeHtml(book.title)}${book.author ? ` <i>${escapeHtml(book.author)}</i>` : ""}${
+            book.forMajor ? `<em>${escapeHtml(book.forMajor)}</em>` : ""}</span>
+          ${(book.points || []).length
+            ? `<ul class="mini-book-p">${book.points.map(one2 => `<li>${escapeHtml(one2)}</li>`).join("")}</ul>`
+            : `<p class="mini-book-p">${escapeHtml(book.summary || "")}</p>`}
+        </label>`;
+    return `
+      <div class="mini-book-pick">
+        <b>선생님이 책을 읽고 첨부하라고 하셨나요? <span>(선택)</span></b>
+        <p class="mini-book-why">고른 책은 <b>참고 자료</b>에 들어가고, 이론적 배경에서 근거로 쓰여요.
+          아래 내용은 <b>읽어 두세요</b> — 선생님이 무슨 책이냐고 물어보실 수 있어요.</p>
+        ${list.map(one).join("")}
+        <label class="mini-book-none"><input type="radio" name="miniBookPick" value="" checked> 책은 안 넣을래요</label>
+        <label class="mini-book-take">이 책에서 내 주제와 이어지는 점 <span>(선택, 한 줄)</span>
+          <textarea id="miniBookTake" rows="2"></textarea></label>
+      </div>`;
+  }
+
+  // 고른 책을 자료 카드 한 장으로 바꾼다. 핵심 내용은 우리 데이터, 마지막 한 줄은 학생이 쓴 것이다.
+  function collectBookCard(panel){
+    const picked = panel.querySelector('input[name="miniBookPick"]:checked');
+    const title = picked?.getAttribute("data-book-title") || "";
+    if(!title) return null;
+    const author = picked.getAttribute("data-book-author") || "";
+    return {
+      title,
+      // 참고 자료 절에 "사라진 스푼 (도서 · 샘 킨)"으로 찍힌다. 괄호가 겹치지 않게 가운뎃점으로 잇는다.
+      type: author ? `도서 · ${author}` : "도서",
+      point: picked.getAttribute("data-book-point") || "",
+      take: panel.querySelector("#miniBookTake")?.value.trim() || ""
+    };
+  }
+
+  function renderCollectionPanel(result, books){
+    const pick = renderBookPick(books);
+    if(result?.collectionKind === "reading") return result?.sourceTemplate ? pick + renderSourceCardPanel(result.sourceTemplate) : pick;
+    return result?.dataTemplate ? pick + renderExperimentInputPanel(result.dataTemplate, result.collectionKind) : pick;
   }
 
   // 실험·설문·자료 해석 보고서의 자료 카드. 읽기 보고서와 달리 핵심 내용은 묻지 않고 "얻은 것"만 묻는다 —
@@ -2835,7 +2883,8 @@
       observations: text("miniExpObservations"),
       reflection: text("miniExpReflection"),
       // 실험 보고서에서도 카드로 걷는다. 제목만 있고 얻은 것이 없으면 참고 자료로 치지 않는다.
-      sourceCards: collectRefCards(panel),
+      // 고른 책이 먼저다. 직접 적은 자료가 뒤에 붙는다.
+      sourceCards: [collectBookCard(panel), ...collectRefCards(panel)].filter(Boolean),
       sources: []
     };
   }
@@ -2866,7 +2915,9 @@
     let studentData;
     let measured;
     if(reading){
-      const sourceCards = collectSourceCards(panel);
+      // 고른 책도 자료 한 장이다. 읽기 보고서는 자료 카드가 본체이므로 개수에도 들어간다.
+      const bookCard = collectBookCard(panel);
+      const sourceCards = [bookCard, ...collectSourceCards(panel)].filter(Boolean);
       measured = sourceCards.length;
       if(measured < 2){
         errorBox.hidden = false;
@@ -4143,7 +4194,7 @@ ${result}`;
         <div class="mini-v43-grid">
           ${sectionHtml}
         </div>
-        ${stage === "experiment_draft" ? renderCollectionPanel(stageResult) : ""}
+        ${stage === "experiment_draft" ? renderCollectionPanel(stageResult, rawData?.bookChoices) : ""}
         ${renderNextStep(rawData?.nextStep)}
         ${renderRecordDraft(stageResult.recordDraft)}
       </section>
@@ -4435,6 +4486,26 @@ ${result}`;
     "        .mini-ref-block>b{display:block;font-size:14px;margin:0 0 4px}",
     "        .mini-ref-block>b span{font-weight:500;color:#667085}",
     "        .mini-ref-why{margin:0 0 12px;font-size:13px;color:#667085;line-height:1.6}",
+    "        .mini-book-pick{margin:16px 0 0;padding:14px 16px;border:1px dashed var(--mini-line,#e6eaf2);",
+    "          border-radius:var(--mini-r,14px);background:#fbfcff}",
+    "        .mini-book-pick>b{display:block;font-size:14px;margin:0 0 4px}",
+    "        .mini-book-pick>b span{font-weight:500;color:#667085}",
+    "        .mini-book-why{margin:0 0 12px;font-size:13px;color:#667085;line-height:1.6}",
+    "        .mini-book{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:start;",
+    "          border:1px solid var(--mini-line,#e6eaf2);background:#fff;border-radius:var(--mini-r-sm,10px);",
+    "          padding:12px 14px;margin:0 0 8px;cursor:pointer}",
+    "        .mini-book:has(input:checked){border-color:var(--mini-primary,#2458ff);box-shadow:0 0 0 2px rgba(36,88,255,.08)}",
+    "        .mini-book input{margin:3px 0 0}",
+    "        .mini-book-t{font-size:14.5px;font-weight:800;color:#1f2937;line-height:1.5}",
+    "        .mini-book-t i{font-style:normal;font-weight:600;color:#667085;font-size:13px}",
+    "        .mini-book-t em{font-style:normal;margin-left:8px;padding:1px 7px;border-radius:999px;font-size:11.5px;",
+    "          font-weight:700;background:#eef3ff;color:var(--mini-primary,#2458ff)}",
+    "        .mini-book-p{grid-column:2;margin:4px 0 0;padding-left:16px;font-size:13px;color:#4b5563;line-height:1.75}",
+    "        .mini-book-none{display:flex;align-items:center;gap:8px;font-size:13.5px;color:#667085;margin:2px 0 0}",
+    "        .mini-book-take{display:flex;flex-direction:column;gap:6px;margin:12px 0 0;font-size:13.5px;font-weight:800;color:#334155}",
+    "        .mini-book-take span{font-weight:600;color:var(--mini-muted,#667085)}",
+    "        .mini-book-take textarea{border:1px solid var(--mini-line,#e6eaf2);border-radius:var(--mini-r-sm,10px);",
+    "          padding:9px 10px;font:inherit;font-size:14px;line-height:1.6;resize:vertical;background:#fff}",
     "        .mini-card-slim{gap:8px;padding:12px 14px}",
     "        .mini-card{border:1px solid var(--mini-line,#e6eaf2);background:#fff;border-radius:var(--mini-r,14px);padding:14px 16px;display:grid;gap:10px}",
     "        .mini-card b{color:var(--mini-primary,#2458ff);font-size:13px}",

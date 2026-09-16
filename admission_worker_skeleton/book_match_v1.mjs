@@ -31,6 +31,11 @@ const RARE = 5;
 // 전체에서 세면 '경제'가 여러 과목에 흔하다는 이유로 통합사회의 「넛지」까지 떨어진다 — 정작 통합사회
 // 안에서는 '경제'가 개념을 잘 가린다. 152개 개념을 다 재서 정한 값이다.
 const CONCEPT_SPREAD = 2;
+// 진로는 **점수를 더할 뿐, 문턱이 아니다.** 주제가 맞는데 학과가 안 붙었다고 떨어뜨리면, 아직 진로를
+// 못 정한 학생에게는 아무것도 안 나온다. 그리고 흔한 학과로는 못 가린다 — '철학과'는 80권에, '사회학과'는
+// 74권에 붙어 있어서 그 말로 걸린 추천은 아무 말도 안 한 것과 같다(낱말에 쓰는 규칙과 같다).
+const MAJOR_POINT = 2;
+const COMMON_MAJOR = 40;
 
 // 수학 계산 단원에는 책을 안 붙인다.
 //
@@ -55,6 +60,32 @@ const bookTags = (book) => [
   ...(book?.connectable_concepts || []), ...(book?.core_keywords || []),
   ...(book?.fit_keywords || []), book?.broad_theme,
 ].filter(Boolean);
+
+const bookMajors = (book) => [
+  ...(book?.majors || []), ...(book?.linked_majors || []), ...(book?.related_majors || []),
+].filter(Boolean);
+
+// 학과가 몇 권에 붙어 있는지 세어 둔다. 낱말과 같은 이유다.
+export function buildMajorCounts(books) {
+  const counts = new Map();
+  for (const book of Array.isArray(books) ? books : Object.values(books || {})) {
+    for (const major of new Set(bookMajors(book).map(norm))) counts.set(major, (counts.get(major) || 0) + 1);
+  }
+  return counts;
+}
+
+// 이 책이 이 학생의 진로를 가리키는가. 가리키면 어느 학과로 가리키는지 돌려준다.
+export function majorHit(book, major, majorCounts) {
+  const want = norm(major);
+  if (!want || want.length < 2) return '';
+  for (const theirs of bookMajors(book)) {
+    const mine = norm(theirs);
+    if (!mine || mine.length < 2) continue;
+    if (majorCounts && (majorCounts.get(mine) || 0) > COMMON_MAJOR) continue;
+    if (mine === want || mine.startsWith(want) || want.startsWith(mine)) return clean(theirs, 30);
+  }
+  return '';
+}
 
 // 낱말이 몇 권에 나오는지 세어 둔다. 한 번 만들어 두고 계속 쓴다.
 export function buildWordCounts(books) {
@@ -90,7 +121,7 @@ function wordPoint(word, counts) {
 }
 
 // 한 권을 이 보고서에 대 본다. 왜 걸렸는지를 함께 돌려준다 — 이유를 못 대는 추천은 억지와 구별되지 않는다.
-export function scoreBook(book, { subject = '', terms = [], conceptCounts = null } = {}, counts) {
+export function scoreBook(book, { subject = '', terms = [], conceptCounts = null, major = '', majorCounts = null } = {}, counts) {
   if (!bookSubjects(book).some((theirs) => subjectMatches(subject, theirs))) {
     return { score: 0, why: [], onSubject: false };
   }
@@ -115,11 +146,14 @@ export function scoreBook(book, { subject = '', terms = [], conceptCounts = null
     }
     if (used.size >= 3) break;
   }
-  return { score, why, onSubject: true };
+  // 진로는 마지막에 더한다. 주제로 문턱을 넘은 책들 사이의 **순서**를 정하는 것이지, 넘게 해 주는 것이 아니다.
+  const forMajor = majorHit(book, major, majorCounts);
+  if (forMajor && score >= MIN_SCORE) score += MAJOR_POINT;
+  return { score, why, onSubject: true, forMajor };
 }
 
 // 이 보고서에 권할 책. 없으면 빈 배열이 정상이다.
-export function matchBooks(books, input = {}, limit = 3, counts = null, conceptCounts = null) {
+export function matchBooks(books, input = {}, limit = 3, counts = null, conceptCounts = null, majorCounts = null) {
   const subject = clean(input.subject, 40);
   if (!wantsBooks(subject)) return [];
   const list = Array.isArray(books) ? books : Object.values(books || {});
@@ -132,12 +166,16 @@ export function matchBooks(books, input = {}, limit = 3, counts = null, conceptC
   const scored = [];
   for (const book of list) {
     if (!clean(book?.title)) continue;
-    const { score, why } = scoreBook(book, { subject, terms, conceptCounts }, table);
+    const { score, why, forMajor } = scoreBook(book, {
+      subject, terms, conceptCounts, major: clean(input.major, 40), majorCounts,
+    }, table);
     // 상대 순위가 아니라 절대 기준이다. 아무도 못 넘으면 아무도 안 나온다.
     if (score < MIN_SCORE) continue;
     scored.push({
       title: clean(book.title, 120), author: clean(book.author, 60),
-      summary: clean(book.summary_short, 200), score, why,
+      summary: clean(book.summary_short, 200) || clean(book.summary, 200), score, why, forMajor,
+      // 학생이 읽을 시간이 없다. 이 책이 무엇을 다루는지를 화면과 자료 카드에 그대로 쓴다.
+      points: (book.points || book.book_content_points || []).map((one) => clean(one, 140)).filter(Boolean).slice(0, 4),
     });
   }
   scored.sort((a, b) => b.score - a.score || a.title.localeCompare(b.title, 'ko'));
