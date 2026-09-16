@@ -264,6 +264,34 @@ export function scoreBook(book, { subject = '', terms = [], conceptCounts = null
   return { score, why, onSubject: true, forMajor };
 }
 
+// 개념이 없을 때 **과제 문구에서 개념을 찾는다.**
+//
+// 실제 화면에는 학생이 교과 개념을 고르는 단계가 없다. selectedConcept 가 빈칸으로 오고, 축은
+// 다른 과목으로 잡힐 수 있다(화학 과제에 통합사회1·미적분1 축이 잡혔다). 그러면 책을 못 고른다.
+//
+// 그래서 그 과목의 개념 목록과 **과제 문구를 맞춰 본다**. 겹치는 낱말이 가장 많은 개념이 그 과제가
+// 선 자리다. 실제 수행평가 7131건에 붙여 보고 고른 방법이다.
+//
+// 겹치는 낱말이 하나도 없으면 고르지 않는다 — 아무 개념이나 집으면 아무 책이나 붙는다.
+export function inferConcept(subject, text, axisIndex) {
+  const want = norm(subject);
+  if (!want) return '';
+  const mine = new Set(words(text));
+  if (!mine.size) return '';
+  const seen = new Set();
+  let best = null;
+  for (const axis of Object.values(axisIndex?.axes || {})) {
+    if (norm(axis.subject) !== want) continue;
+    if (seen.has(axis.concept)) continue;
+    seen.add(axis.concept);
+    const bag = new Set([...words(axis.concept), ...words(axis.title), ...words(axis.output)]);
+    let hit = 0;
+    for (const word of mine) if (bag.has(word)) hit++;
+    if (hit && (!best || hit > best.hit)) best = { concept: axis.concept, hit };
+  }
+  return best ? best.concept : '';
+}
+
 // 이 개념에 **실제로 쓸 수 있는 문장**을 앞으로 보낸다.
 //
 // 여기가 보고서가 틀어지는 자리였다. 책은 개념으로 고르는데, 보고서에 넘기는 문장은 그냥 앞에서

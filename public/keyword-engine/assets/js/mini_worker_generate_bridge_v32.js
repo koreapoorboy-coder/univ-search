@@ -2790,6 +2790,11 @@
     };
   }
 
+  // 실험 보고서 단계에는 자료 수집 패널 위에 붙이고, 그 밖의 단계(글쓰기·논술형 등)에는 홀로 붙는다.
+  //
+  // 처음에는 이 칸을 자료 수집 패널 **안에만** 넣었다. 그런데 그 패널은 experiment_draft 에서만 그려진다.
+  // 실제 화면으로 "실생활 활용 사례 화학 탐구 글쓰기" 과제를 돌려 보니 글쓰기·논술형으로 잡혔고,
+  // 참고 도서 칸이 아예 안 나왔다. 학교가 책을 시키는 과제는 대개 글쓰기형이라 가장 필요한 자리였다.
   function renderCollectionPanel(result, books){
     const pick = renderBookPick(books);
     if(result?.collectionKind === "reading") return result?.sourceTemplate ? pick + renderSourceCardPanel(result.sourceTemplate) : pick;
@@ -4205,7 +4210,7 @@ ${result}`;
         <div class="mini-v43-grid">
           ${sectionHtml}
         </div>
-        ${stage === "experiment_draft" ? renderCollectionPanel(stageResult, rawData?.bookChoices) : ""}
+        ${stage === "experiment_draft" ? renderCollectionPanel(stageResult, rawData?.bookChoices) : renderBookPick(rawData?.bookChoices)}
         ${renderNextStep(rawData?.nextStep)}
         ${renderRecordDraft(stageResult.recordDraft)}
       </section>

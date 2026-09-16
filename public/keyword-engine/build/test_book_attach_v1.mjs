@@ -8,7 +8,7 @@
 // 모델이 지어내면 그 순간 거짓이 된다. 이 파일이 지키는 선이 거기다.
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { buildConceptCounts, buildMajorCounts, buildWordCounts, majorHit, matchBooks } from "../../../admission_worker_skeleton/book_match_v1.mjs";
+import { buildConceptCounts, buildMajorCounts, buildWordCounts, inferConcept, majorHit, matchBooks } from "../../../admission_worker_skeleton/book_match_v1.mjs";
 import { bookBlock, bookRules, pickedBook } from "../../../admission_worker_skeleton/report_stages_v1.mjs";
 import { referencesBody, sourceLine } from "../../../admission_worker_skeleton/references_v1.mjs";
 
@@ -178,6 +178,58 @@ const pick = (subject, concept, major) => {
   check(got.every((b) => b.points.length > 0), "A3d 후보는 모두 보여 줄 내용이 있다");
 }
 
+// A3e: **실제 화면으로 돌려 보고 찾은 버그 둘.**
+//
+// 코드만 읽어서는 안 보였다. "실생활 활용 사례 화학 탐구 글쓰기" 과제를 브라우저에서 끝까지
+// 돌려 보니 참고 도서 칸이 아예 안 나왔다. 까닭이 둘이었다.
+{
+  // 하나. 이 칸을 자료 수집 패널 **안에만** 넣었는데, 그 패널은 experiment_draft 에서만 그려진다.
+  // 학교가 책을 시키는 과제는 대개 글쓰기·논술형이라 가장 필요한 자리에서 빠져 있었다.
+  check(/stage === "experiment_draft" \? renderCollectionPanel\(stageResult, rawData\?\.bookChoices\) : renderBookPick\(rawData\?\.bookChoices\)/.test(bridge),
+    "A3e 자료 수집 패널이 없는 단계에서도 참고 도서 칸은 나온다");
+
+  // 둘. 이 흐름에는 학생이 교과 개념을 고르는 단계가 없다. selectedConcept 가 빈칸으로 와서
+  // 책이 한 권도 안 나왔다. 그럴 때는 우리가 이미 고른 축의 개념을 쓴다.
+  check(worker.includes("const axisConcept = axis?.axisId ?"),
+    "A3e 개념이 비면 축의 개념을 대신 쓴다");
+  check(/concept: chosen \|\|/.test(worker),
+    "A3e 학생이 고른 개념이 있으면 그것이 먼저다");
+
+  // 개념 없이도 책이 나오는지 실제로 재 본다.
+  const axis = axisFor("화학과 우리 생활");
+  const byAxis = matchBooks(books, {
+    subject: "화학", concept: axis.concept, axisTitle: axis.title,
+    keyword: String(axis.output || "").split(/[,、·]/)[0].trim(),
+  }, 6, counts, conceptCounts, majorCounts);
+  check(byAxis.length >= 3, "A3e 축의 개념만으로도 책이 나온다", String(byAxis.length));
+}
+
+// A3f: **개념이 없을 때 과제 문구에서 찾는다.**
+//
+// 실제 화면에는 학생이 교과 개념을 고르는 단계가 없다. 브라우저로 돌려 보니 selectedConcept 가
+// 빈칸이었고, 축은 화학 과제인데 통합사회1·미적분1로 잡혔다. 그래서 책이 한 권도 안 나왔다.
+{
+  const task = "화학 교과 학습 요소를 깊이 있게 탐색한 후 실생활 활용 사례 화학 탐구 글쓰기를 실시한다."
+    + " 생활 속에서 화학이 쓰이는 사례를 하나 골라 원리를 설명하고 보고서로 제출한다.";
+  check(inferConcept("화학", task, axisIndex) === "화학과 우리 생활",
+    "A3f 과제 문구에서 개념을 찾아낸다", inferConcept("화학", task, axisIndex));
+  // 아무 개념이나 집으면 아무 책이나 붙는다. 겹치는 낱말이 없으면 안 고른다.
+  check(inferConcept("화학", "zzz qqq", axisIndex) === "", "A3f 겹치는 낱말이 없으면 고르지 않는다");
+  check(inferConcept("", task, axisIndex) === "", "A3f 과목을 모르면 고를 수 없다");
+  check(inferConcept("화학", "", axisIndex) === "", "A3f 글이 없어도 마찬가지");
+  // 다른 과목의 개념을 집지 않는다.
+  check(inferConcept("지구과학", "태풍 경로와 악기상 재난 사례를 비교한다", axisIndex) === "태풍과 악기상",
+    "A3f 과목 안에서만 고른다", inferConcept("지구과학", "태풍 경로와 악기상 재난 사례를 비교한다", axisIndex));
+  check(worker.includes("concept: chosen || guessed || axisConcept"),
+    "A3f 학생이 고른 개념 → 과제 문구 → 축의 개념 차례로 쓴다");
+  check(/과제 문구가 축보다 먼저다/.test(worker),
+    "A3f 축은 앞으로 갈 곳이라 과제가 선 자리와 다르다 — 까닭을 적어 둔다");
+  // 그리고 **개념 자리에 과목 이름이 온다.** 화면이 selectedConcept 로 '화학'을 보냈다.
+  // 빈칸이 아니어서 대비책이 안 걸렸고, '화학'은 과목 이름이라 점수에서 빠져 책이 0권이 됐다.
+  check(/const chosen = String\(input\.selectedConcept \|\| ''\)[\s\S]{0,160}\? '' : input\.selectedConcept/.test(worker),
+    "A3f 개념 자리에 과목 이름이 오면 없는 것으로 친다");
+}
+
 // A4: 고른 책은 **자료 카드 한 장**이 된다. 거기서부터는 이미 있는 길을 탄다.
 {
   const card = { title: "사라진 스푼", type: "도서 · 샘 킨", point: "원소가 자리를 얻는 기준이 원자에 있다.", take: "주기율표를 읽는 법을 알았다" };
@@ -208,7 +260,7 @@ const pick = (subject, concept, major) => {
 // A6: 워커와 화면이 실제로 이어져 있는가.
 {
   check(worker.includes("bookChoices") && /bookChoices,\n/.test(worker), "A6 워커가 설계서 응답에 책 후보를 담는다");
-  check(/input\.reportStage === STAGE\.DRAFT[\s\S]{0,1200}buildMajorCounts/.test(worker),
+  check(/input\.reportStage === STAGE\.DRAFT[\s\S]{0,2600}buildMajorCounts/.test(worker),
     "A6 설계서 단계에서, 진로까지 넣어 고른다");
   check(/major: input\.major \|\| input\.track/.test(worker), "A6 학과가 없으면 계열이라도 쓴다");
   check(bridge.includes("renderBookPick") && bridge.includes("renderCollectionPanel(stageResult, rawData?.bookChoices)"),
