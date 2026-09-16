@@ -11,7 +11,7 @@ import { adjustLicense, adjustStudent, checkEntitlement, claimSeat, emptyGrant, 
 import { textbookCitation } from './references_v1.mjs';
 import { buildWordCounts, matchBooks } from './book_match_v1.mjs';
 import { findPublicData } from './public_data_v1.mjs';
-import { buildNextStep } from './next_step_v1.mjs';
+import { buildNextStep, pickAxis } from './next_step_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
 const SERVICE_NAME = 'admission-keyword-worker';
@@ -477,7 +477,8 @@ export default {
         let nextStep = null;
         if (input.reportStage !== STAGE.DRAFT && source === 'openai') {
           try {
-            const axis = (input.careerAxes || [])[0] || null;
+            // 같은 과목의 축만 쓴다. 지구과학 보고서에 국어 축이 붙어 "매체 해석 메모"가 나왔다.
+            const axis = pickAxis(input.careerAxes, seedPack.axisIndex, input.subject);
             const bookList = seedPack.bookMatchIndex?.books || [];
             const found = matchBooks(bookList, {
               subject: input.subject, concept: input.selectedConcept,

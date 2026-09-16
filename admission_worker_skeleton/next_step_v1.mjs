@@ -24,6 +24,22 @@ export function activitiesFrom(output) {
     .slice(0, 3);
 }
 
+// 이 보고서와 **같은 과목**의 축을 고른다.
+//
+// careerAxes는 이 탐구가 앞으로 어디로 가는지를 가리키므로 첫 번째가 다른 과목일 수 있다 — 실제로 지구과학
+// 반감기 보고서에 국어의 '비판 해석 확장 축'이 붙어서 "매체 해석 메모"를 하라고 나왔다. 교과서 인용에서 겪은
+// 것과 같은 일이다. 같은 과목의 축이 없으면 블록을 안 만든다.
+export function pickAxis(axes, axisIndex, subject) {
+  const want = clean(subject, 40).replace(/\s+/g, '').replace(/\d+$/, '');
+  if (!want) return null;
+  for (const axis of Array.isArray(axes) ? axes : [axes].filter(Boolean)) {
+    const full = axis?.axisId ? (axisIndex?.axes || {})[axis.axisId] : null;
+    const theirs = clean(full?.subject, 40).replace(/\s+/g, '').replace(/\d+$/, '');
+    if (theirs && theirs === want) return axis;
+  }
+  return null;
+}
+
 // 이 보고서 다음에 무엇을 할 수 있는가. 축이 없으면 아무것도 없다 — 지어내지 않는다.
 export function buildNextStep({ axis = null, axisIndex = null, books = [], datasets = [] } = {}) {
   const full = axis?.axisId ? (axisIndex?.axes || {})[axis.axisId] : null;

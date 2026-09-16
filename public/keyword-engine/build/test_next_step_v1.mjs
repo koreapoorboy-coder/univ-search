@@ -5,7 +5,7 @@
 // 자리로 옮겼다. 자료는 그 일을 하는 수단으로만 붙는다.
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { activitiesFrom, buildNextStep, nextStepNote } from "../../../admission_worker_skeleton/next_step_v1.mjs";
+import { activitiesFrom, buildNextStep, nextStepNote, pickAxis } from "../../../admission_worker_skeleton/next_step_v1.mjs";
 
 const here = (name) => new URL(name, import.meta.url);
 const axisIndex = JSON.parse(await readFile(here("../seed/engine-index/longitudinal_axis_index.v1.json"), "utf8"));
@@ -58,11 +58,28 @@ const anAxis = Object.keys(axisIndex.axes).find((id) => axisIndex.axes[id].subje
   check(many.nextSubjects.length <= 3, "N4 이어지는 과목도 셋까지");
 }
 
+// N2b: 축은 "앞으로 갈 곳"이라 다른 과목일 수 있다. 실제로 지구과학 반감기 보고서에 국어의
+// '비판 해석 확장 축'이 붙어 "매체 해석 메모"를 하라고 나왔다. 같은 과목의 축만 쓴다.
+{
+  const ko = Object.keys(axisIndex.axes).find((id) => /공통국어/.test(axisIndex.axes[id].subject));
+  const earth = Object.keys(axisIndex.axes).find((id) => axisIndex.axes[id].subject === "지구과학");
+  check(pickAxis([{ axisId: ko }, { axisId: earth }], axisIndex, "지구과학")?.axisId === earth,
+    "N2b 다른 과목 축이 앞에 있어도 같은 과목 축을 고른다");
+  check(pickAxis([{ axisId: ko }], axisIndex, "지구과학") === null,
+    "N2b 같은 과목 축이 없으면 고르지 않는다");
+  check(buildNextStep({ axis: pickAxis([{ axisId: ko }], axisIndex, "지구과학"), axisIndex }) === null,
+    "N2b 그러면 블록도 안 만든다 — 엉뚱한 과목의 할 일을 주느니 아무것도 안 준다");
+  check(pickAxis([{ axisId: earth }], axisIndex, "") === null, "N2b 과목을 모르면 고를 수 없다");
+  check(pickAxis(null, axisIndex, "지구과학") === null, "N2b 축이 없어도 마찬가지");
+}
+
 // N5: **모델을 부른 뒤에** 만든다. 프롬프트에 들어가면 보고서가 그쪽으로 휜다 — 이 기능의 전제다.
 {
   check(worker.indexOf("buildNextStep(") > worker.indexOf("callOpenAIWithRetry(prompt, env, input)"),
     "N5 the block is built after the model has already written the report");
   check(!/connectedBook[\s\S]{0,400}buildNextStep/.test(worker), "N5 and never joins the prompt payload");
+  check(worker.includes("pickAxis(input.careerAxes, seedPack.axisIndex, input.subject)"),
+    "N5 워커도 같은 과목 축만 쓴다");
   check(worker.includes("if (input.reportStage !== STAGE.DRAFT"),
     "N5 설계서에는 안 붙는다 — 보고서가 끝난 자리에서 말해야 숙제가 아니다");
 }
