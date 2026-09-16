@@ -17,9 +17,31 @@ const source = JSON.parse(await readFile(here("new_books_2026_09.json"), "utf8")
 const bookPath = here("../public/keyword-engine/seed/book-engine/mini_book_engine_books_starter.json");
 const raw = JSON.parse(await readFile(bookPath, "utf8"));
 
-const have = new Set(raw.map((book) => String(book.title || "").trim()));
+const have = new Map(raw.map((book) => [String(book.title || "").trim(), book]));
 const fresh = source.books.filter((one) => !have.has(one.title));
 const already = source.books.filter((one) => have.has(one.title));
+
+// 이미 들어간 책은 **건너뛰지 않고 고쳐 쓴다.** 이 파일이 우리가 넣은 책의 원본이기 때문이다.
+// 건너뛰게 두었더니 「스틱!」의 태그를 여기서 고쳐도 반영되지 않았다 — 원본과 실제가 갈라진다.
+const fixed = [];
+for (const one of already) {
+  const book = have.get(one.title);
+  if (book.added_at !== "2026-09-16") continue;   // 원래 있던 210권은 건드리지 않는다
+  const before = JSON.stringify([book.connectable_concepts, book.core_keywords, book.fit_keywords, book.linked_subjects]);
+  const after = JSON.stringify([one.concepts, one.core, one.fit, one.subjects]);
+  if (before === after) continue;
+  fixed.push(one.title);
+  if (process.argv.includes("--write")) {
+    book.connectable_concepts = one.concepts;
+    book.core_keywords = one.core;
+    book.fit_keywords = one.fit;
+    book.broad_theme = one.theme;
+    book.linked_subjects = one.subjects;
+    book.related_subjects_highschool = one.subjects;
+    book.book_content_points = one.points;
+    book.starter_questions = one.points;
+  }
+}
 
 let no = raw.reduce((max, book) => Math.max(max, Number(book.book_no) || 0), 0);
 const made = fresh.map((one) => {
@@ -55,9 +77,9 @@ const made = fresh.map((one) => {
   };
 });
 
-console.log(`넣을 책 ${made.length}권` + (already.length ? ` (이미 있는 ${already.length}권은 건너뜀)` : ""));
+console.log(`넣을 책 ${made.length}권` + (already.length ? ` · 이미 있는 ${already.length}권 (그중 ${fixed.length}권은 고쳐 씀)` : ""));
 for (const one of made) console.log(`  ${one.title} (${one.author}) — ${one.linked_subjects.join(", ")}`);
-if (already.length) console.log("\n이미 있는 제목: " + already.map((one) => one.title).join(", "));
+if (fixed.length) console.log("\n태그가 바뀌어 고쳐 쓴 책: " + fixed.join(", "));
 
 if (process.argv.includes("--write")) {
   await writeFile(bookPath, JSON.stringify([...raw, ...made], null, 2), "utf8");

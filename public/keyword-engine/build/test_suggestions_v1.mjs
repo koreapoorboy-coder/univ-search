@@ -89,6 +89,109 @@ const check = (ok, label, detail = "") => { assert.equal(ok, true, `${label} -> 
   check(규칙없이.some((b) => b.title.includes("코스모스")), "B5 규칙을 빼면 「코스모스」가 되돌아온다 — 이 시험이 지키는 것");
 }
 
+// B6: **무엇을 하는가**를 가리키는 말로는 못 걸린다.
+//
+// 실제 수행평가 1537건에 다 붙여 보고 찾았다. 남은 억지가 전부 이런 말로 걸려 있었다 —
+// 「페르마의 마지막 정리」가 '문제'로 정보의 알고리즘 설계에, 「닥터스 씽킹」이 '사례'로 선조들의
+// 과학 기술에, 「경영학 콘서트」가 '자료'로 인권 보장과 헌법에 붙었다.
+//
+// 두 갈래다. '사례'·'문제'는 **개념 이름에 있어도** 못 쓴다 — 이름에 있다고 주제가 되지 않는다.
+// '자료'·'분석'은 개념 이름에 있을 때만 쓴다 — 정보의 '자료와 정보의 분석'에서는 그게 주제다.
+{
+  const conceptCounts = buildConceptCounts(axisIndex);
+  const axisFor2 = (concept) => Object.values(axisIndex.axes).find((one) => one.concept === concept);
+  const at = (subject, concept) => {
+    const axis = axisFor2(concept);
+    return matchBooks(books, {
+      subject, concept, keyword: String(axis?.output || "").split(/[,、·]/)[0].trim(), axisTitle: axis?.title,
+    }, 6, counts, conceptCounts).map((b) => b.title);
+  };
+  check(!at("정보", "추상화와 문제 분해").includes("페르마의 마지막 정리"),
+    "B6 '문제'는 개념 이름에 있어도 못 쓴다 — 수학책이 알고리즘 설계에 붙었다");
+  check(!at("과학탐구실험1", "우리 선조들의 과학 기술 발전 사례 찾기").includes("닥터스 씽킹"),
+    "B6 '사례'도 마찬가지 — 진료 이야기가 선조들의 과학 기술에 붙었다");
+  check(!at("통합사회2", "인권 보장과 헌법").includes("경영학 콘서트"),
+    "B6 '자료'는 개념 이름에 없으면 못 쓴다");
+
+  // 여기서 막으면 안 되는 것들. 낱말마다 무엇이 사라지는지 하나씩 재고 정했다.
+  check(at("정보", "자료와 정보의 분석").includes("팩트풀니스"),
+    "B6 그래도 '자료와 정보의 분석'에는 「팩트풀니스」가 남는다 — 거기선 그게 주제다");
+  check(at("통합과학2", "산화와 환원").includes("세상은 온통 화학이야"),
+    "B6 '반응'은 안 막는다 — 막으면 산화와 환원이 빈다");
+  check(at("통합과학1", "생명 시스템").includes("생명의 도약"),
+    "B6 '현상'도 안 막는다 — 막으면 생명 시스템이 빈다");
+  check(at("과학탐구실험1", "과학사에서 동시 발견으로 이룬 과학 발전 추적하기").includes("부분과 전체"),
+    "B6 '과학사'도 안 막는다 — 과학사 단원에서는 그게 주제다");
+}
+
+// B7: **국어가 가장 어려운 자리다.** 개념 이름끼리 말이 겹친다.
+//
+// 국어 12개 개념을 전수로 펼쳐 보고 찾았다. 축 이름과 산출물에 '글쓰기'·'성찰'·'소통'·'문장'·'토론'이
+// 깔려 있어서, 아무 국어 책이나 아무 개념에 붙었다 — 「대통령의 글쓰기」가 교술 갈래에, 「마의 산」이
+// 교술 갈래에, 「철학적 탐구」가 화법 단원에, 「유시민의 글쓰기 특강」이 소설 구조 분석에.
+{
+  const conceptCounts = buildConceptCounts(axisIndex);
+  const axisFor3 = (concept) => Object.values(axisIndex.axes).find((one) => one.concept === concept);
+  const at = (subject, concept) => {
+    const axis = axisFor3(concept);
+    return matchBooks(books, {
+      subject, concept, keyword: String(axis?.output || "").split(/[,、·]/)[0].trim(), axisTitle: axis?.title,
+    }, 6, counts, conceptCounts).map((b) => b.title);
+  };
+  const 교술 = at("공통국어1", "교술 갈래와 성찰적 표현");
+  check(!교술.includes("대통령의 글쓰기") && !교술.includes("마의 산"),
+    "B7 '글쓰기'·'성찰'이 축 이름에 있다고 아무 책이나 교술 갈래에 붙지 않는다", JSON.stringify(교술));
+  check(!at("공통국어1", "서사·극 갈래와 이야기 구성").includes("유시민의 글쓰기 특강"),
+    "B7 '구성'은 개념 이름에 있어도 못 쓴다 — 글쓰기 책이 소설 구조 분석에 붙었다");
+  check(!at("공통국어1", "공동체 의사소통과 공감").includes("철학적 탐구"),
+    "B7 '소통' 하나로 비트겐슈타인이 화법 단원에 붙지 않는다");
+  check(!at("공통국어2", "과학 기술과 인간·미래 사회 성찰").includes("어떻게 읽을 것인가"),
+    "B7 '토론' 하나로 독서법 책이 기술 윤리 단원에 붙지 않는다");
+
+  // 막았어도 제자리는 지킨다. 개념 이름에 있을 때는 그대로 쓴다.
+  check(at("공통국어1", "사회적 쟁점 글쓰기와 문장 구성").includes("유시민의 글쓰기 특강"),
+    "B7 글쓰기가 주제인 개념에는 글쓰기 책이 그대로 있다");
+  check(at("공통국어1", "비판적 읽기와 토론").includes("어떻게 읽을 것인가"),
+    "B7 토론이 주제인 개념도 마찬가지");
+  check(at("공통국어2", "과학 기술과 인간·미래 사회 성찰").includes("마의 산"),
+    "B7 '성찰'이 개념 이름에 있는 곳에는 남는다");
+
+  // 그리고 빈 자리를 책으로 채웠다. 규칙으로 자르기만 하면 국어가 비어 버린다.
+  for (const [subject, concept, title] of [
+    ["공통국어1", "교술 갈래와 성찰적 표현", "월든"],
+    ["공통국어1", "음운 변동과 국어 규범", "한글의 탄생"],
+    ["공통국어1", "공동체 의사소통과 공감", "비폭력대화"],
+  ]) check(at(subject, concept).includes(title), `B7 ${concept} 에는 「${title}」이 들어갔다`, JSON.stringify(at(subject, concept)));
+}
+
+// B8: **실제 과제가 가장 많이 서는 자리**를 채웠다.
+//
+// 실제 수행평가 7131건에 다 붙여 보니, 책이 없는데 과제가 132건이나 서는 자리가 있었다 —
+// 화학 '화학과 우리 생활'이다. 걸림돌은 데이터였다: 「세상은 온통 화학이야」가 바로 그 책인데
+// 태그에 '일상'이라 적혀 있고 교육과정은 '생활'이라 쓴다. 같은 뜻인데 글자가 달라서 안 붙었다.
+{
+  const conceptCounts = buildConceptCounts(axisIndex);
+  const axisFor4 = (subject, concept) => Object.values(axisIndex.axes)
+    .find((one) => one.subject === subject && one.concept === concept);
+  const at = (subject, concept) => {
+    const axis = axisFor4(subject, concept);
+    return matchBooks(books, {
+      subject, concept, keyword: String(axis?.output || "").split(/[,、·]/)[0].trim(), axisTitle: axis?.title,
+    }, 6, counts, conceptCounts).map((b) => b.title);
+  };
+  const daily = at("화학", "화학과 우리 생활");
+  check(daily.length >= 3, "B8 화학과 우리 생활이 더 이상 비어 있지 않다", JSON.stringify(daily));
+  check(daily.includes("세상은 온통 화학이야"),
+    "B8 '일상'만 적혀 있던 책이 이제 걸린다 — 교육과정은 '생활'이라 쓴다");
+  check(daily.includes("역사를 바꾼 17가지 화학 이야기"), "B8 생활·산업 화학 책이 들어갔다");
+  check(at("화학", "탄소 화합물의 유용성").includes("탄소 문명"), "B8 탄소 단원도 채웠다");
+
+  // 채운다고 아무거나 넣지 않는다. 근거가 없으면 여전히 비워 둔다.
+  check(at("화학", "화학 반응에서의 동적 평형").length === 0,
+    "B8 동적 평형은 그대로 비워 둔다 — 맞는 책이 없으면 안 넣는다",
+    JSON.stringify(at("화학", "화학 반응에서의 동적 평형")));
+}
+
 // D1: 공공데이터는 **개념에 달린 말만** 쓴다. 과목으로 내려가면 한 과목의 모든 개념에 같은 자료가 붙는다.
 {
   check(!terms.bySubject, "D1 the subject-level fallback is gone — 화학의 모든 개념에 먹는샘물 수질검사가 붙었다");

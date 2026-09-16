@@ -59,11 +59,18 @@ const touches = (word, bag, subject) => {
 };
 
 const subjects = [...vocab.keys()];
-const subjectFor = (tag) => subjects.find((mine) => {
-  const a = norm(mine);
-  const b = norm(tag);
-  return a && b && b.length >= 2 && (a === b || a.startsWith(b) || b.startsWith(a));
-});
+// **정확히 같은 이름을 먼저 찾는다.**
+//
+// norm()이 끝의 숫자를 떼기 때문에 공통국어1과 공통국어2가 같은 이름이 된다. 그래서 「스틱!」의
+// 공통국어2 태그를 **공통국어1의 어휘로** 재고 떼어 버렸다 — '홍보'는 공통국어2에만 있는 말이다.
+// 과목마다 다루는 개념이 다르므로 1과 2를 섞으면 안 된다.
+const tight = (value) => String(value || '').replace(/\s+/g, '');
+const subjectFor = (tag) => subjects.find((mine) => tight(mine) === tight(tag))
+  || subjects.find((mine) => {
+    const a = norm(mine);
+    const b = norm(tag);
+    return a && b && b.length >= 2 && (a === b || a.startsWith(b) || b.startsWith(a));
+  });
 
 // 줄거리와 내용 요약은 안 본다. 긴 산문에는 '구조'·'변화'·'에너지' 같은 말이 우연히 들어 있어서,
 // 「국화와 칼」의 화학 태그가 살아남았다. 손으로 붙인 태그만 본다.

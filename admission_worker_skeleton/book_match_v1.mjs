@@ -37,6 +37,81 @@ const CONCEPT_SPREAD = 2;
 const MAJOR_POINT = 2;
 const COMMON_MAJOR = 40;
 
+// **무엇을 하는가**를 가리키는 말로는 못 걸린다. 단, **개념 이름에 든 말은 예외다.**
+//
+// 실제 수행평가 1537건에 다 붙여 보고 찾았다. 남은 억지가 전부 이런 말로 걸려 있었다 —
+// 「페르마의 마지막 정리」가 '문제·해결'로 정보의 알고리즘 설계에, 「아내를 모자로 착각한 남자」가
+// '반응'으로 면역과 백신에, 「닥터스 씽킹」이 '사례'로 선조들의 과학 기술에 붙었다.
+//
+// 이 말들은 과목마다 몇 개 개념에만 나와서 앞의 규칙을 다 통과한다. 그런데 이 개념이 **무엇에 대한
+// 것인지**는 하나도 안 가리킨다. 어느 탐구에나 있는 말이기 때문이다.
+//
+// 넓은 범주어도 같다. '물질'·'성질'·'구조'·'현상'은 과학 어느 단원에나 있다.
+//
+// 예외가 중요하다. 같은 '자료'·'분석'이라도 **개념 이름**에 들어 있으면 그게 주제다 — 정보의
+// '자료와 정보의 분석'에서 「팩트풀니스」가 떨어지면 안 된다. 그래서 개념 이름에서 온 말은 그대로 치고,
+// 축 이름과 산출물에서 온 말만 이 목록으로 거른다. 축과 산출물은 '무엇을 하는가'를 적은 자리다.
+// 아예 못 쓰는 말 — **공부하는 행위**를 가리킨다. 개념 이름에 들어 있어도 마찬가지다.
+// '우리 선조들의 과학 기술 발전 사례 찾기'의 '사례', '추상화와 문제 분해'의 '문제'가 그렇다.
+// 이름에 있다고 주제가 되지 않는다. 그 말로 「닥터스 씽킹」과 「페르마의 마지막 정리」가 붙었다.
+const NEVER_TOPIC = new Set([
+  '사례', '문제', '해결', '정리', '작성', '발표', '평가', '조사', '만들기', '활용', '적용',
+  '검증', '판단', '결론', '비교', '해석', '토의', '관찰', '보고서', '종류', '방식', '국어',
+  // 국어는 개념 이름끼리 말이 겹쳐서 가장 어려운 자리다. '구성'은 '서사·극 갈래와 이야기 구성'의
+  // 이름에 들어 있지만, 그 말로 「유시민의 글쓰기 특강」이 소설 구조 분석에 붙었다.
+  '구성',
+  // '성질'도 마찬가지다. '분자의 구조와 성질'(극성·결합각)에 주기율표 책 세 권이 그 말로 붙었다.
+  // 원소의 주기적 성질에는 '원소의·주기적'가 남으므로 손해가 없다.
+  '성질',
+  // 전수로 읽다가 더 나온 것들.
+  //   '작용' — 신약 개발 책 두 권이 '생태계의 물질 순환과 상호 작용'에 그 말로 붙었다
+  //   '전달' — 「소리의 과학」이 '신경 자극 전도와 전달'에 붙었다. 소리 전달과 신경 전달은 다르다
+  //   '증거' — 「신기관」이 '진화와 생물 다양성'에 붙었다. 진화의 증거를 다루는 책이 아니다
+  '작용', '전달', '증거',
+  // '발견' — 주기율표 책 둘이 '과학사에서 동시 발견으로 이룬 과학 발전 추적하기'에 그 말로 붙었다.
+  '발견',
+  // '발전' — 「사피엔스」가 통합과학2 '발전과 에너지원'(발전 방식 비교)에 그 말로 붙었다.
+  //          여기서 발전은 electricity generation 인데 책은 인류의 progress 를 말한다.
+  '발전',
+  // '관점' — '통합적 관점과 행복'(삶의 질)에 과학철학·역사학 책 셋이 그 말로 붙었다.
+  //          사회를 보는 관점과 학문의 관점은 다른 말이다.
+  '관점',
+]);
+
+// 개념 이름에 들어 있을 때만 쓸 수 있는 말. 그 자체가 공부 대상이 되기도 한다 —
+// 정보의 '자료와 정보의 분석'에서는 '자료'와 '분석'이 바로 주제다. 축 이름과 산출물에서 왔을 때는
+// '무엇을 하는가'를 적은 말이라 안 친다.
+const NOT_TOPIC = new Set([
+  '자료', '분석', '설계', '수집', '탐구', '언어', '이론', '지식',
+  // '반응'은 개념 이름에 있을 때만 쓴다. 산출물에 깔려 있어서 효소 책과 뇌 사례집이 '면역과 백신'에
+  // 붙었다 — 면역 반응은 효소 반응도 신경 반응도 아니다.
+  // '정보'도 같다. 「치과의사가 말하는 치과의사」가 '유전 정보 흐름'으로 유전자 단원에 붙었다.
+  '반응', '정보',
+  // '과학사'는 개념 이름에 있을 때만 쓴다. '우리 선조들의 과학 기술 발전 사례 찾기'(전통 기술)에
+  // 서양 과학사 책 세 권이 그 말로 붙었다. '과학사에서 동시 발견…' 단원에는 이름에 있으므로 남는다.
+  '과학사',
+  // '분자'는 개념 이름에 있을 때만. 통합과학1 '자연 세계의 시간과 공간'(크기·측정 한계) 산출물에
+  // "물 분자·수소 원자처럼"이 있어서 화학 교양서 네 권이 그 말로 붙었다.
+  '분자',
+  // '예측'은 개념 이름에 있을 때만. 통합과학2 '빅데이터 활용'과 통합과학1 '규칙성 발견과 주기율표'에
+  // 주기율표 책과 혼돈 이론 책이 그 말로 섞여 붙었다.
+  '예측',
+  // '충돌'은 개념 이름에 있을 때만. '인권 보장과 헌법' 산출물의 "기본권 충돌"로 「마의 산」이 붙었다.
+  '충돌',
+  // 국어 활동어. 축 이름과 산출물에 깔려 있어서 아무 국어 책이나 아무 개념에 붙는다 —
+  // 「대통령의 글쓰기」가 '글쓰기'로 교술 갈래에, 「마의 산」이 '성찰'로 교술 갈래에,
+  // 「철학적 탐구」가 '소통'으로 화법 단원에 붙었다. 개념 이름에 있을 때는 그대로 쓴다.
+  '글쓰기', '성찰', '소통', '문장', '토론',
+]);
+
+// 막지 **않은** 것들이 더 중요하다. 낱말마다 무엇이 사라지는지 하나씩 재고 정했다.
+//   · '반응'  — 막으면 「세상은 온통 화학이야」가 산화와 환원에서 떨어진다
+//   · '현상'  — 막으면 「생명의 도약」이 생명 시스템에서 떨어진다
+//   · '과학사' — 막으면 「부분과 전체」가 과학사 단원에서 떨어진다
+//   · '데이터' — 막으면 「팩트풀니스」가 자료와 정보의 분석에서 떨어진다. 재 보니 이 말로 걸린 것은
+//              둘뿐이고 둘 다 말이 됐다.
+// '구조'·'변화'·'시스템'은 여기 없다. 이미 책에 흔해서(21권) 0점이라 따로 막을 필요가 없다.
+
 // 수학 계산 단원에는 책을 안 붙인다.
 //
 // 개념 152개를 전부 재 본 결과다. 이차방정식·행렬·순열 같은 단원은 **주제가 없다**. 책 태그는 주제어
@@ -72,6 +147,23 @@ export function buildMajorCounts(books) {
     for (const major of new Set(bookMajors(book).map(norm))) counts.set(major, (counts.get(major) || 0) + 1);
   }
   return counts;
+}
+
+// 이 책이 **어느 쪽 책인가.** 흔한 학과는 뺀다 — 철학과 80권으로는 아무 방향도 안 가리킨다.
+//
+// 진로를 아직 안 정한 학생에게 이게 제일 쓸모 있다. 예전에는 진로를 적은 학생에게만 보여 줬는데,
+// 정작 필요한 쪽에 가려 놓은 꼴이었다.
+export function bookDirection(book, majorCounts, limit = 3) {
+  const out = [];
+  for (const theirs of bookMajors(book)) {
+    const mine = norm(theirs);
+    if (!mine || mine.length < 2) continue;
+    if (majorCounts && (majorCounts.get(mine) || 0) > COMMON_MAJOR) continue;
+    const name = clean(theirs, 30);
+    if (name && !out.includes(name)) out.push(name);
+    if (out.length >= limit) break;
+  }
+  return out;
 }
 
 // 이 책이 이 학생의 진로를 가리키는가. 가리키면 어느 학과로 가리키는지 돌려준다.
@@ -125,17 +217,37 @@ export function scoreBook(book, { subject = '', terms = [], conceptCounts = null
   if (!bookSubjects(book).some((theirs) => subjectMatches(subject, theirs))) {
     return { score: 0, why: [], onSubject: false };
   }
-  const theirWords = new Set(bookTags(book).flatMap(words));
+  // 우리가 넣은 책의 **연결 개념 이름**은 그 개념에만 쓴다.
+  //
+  // 개념 이름을 우리 체계 그대로 적어 두었기 때문에, 그 낱말이 이웃 개념으로 새면 순전한 잡음이다 —
+  // 「지구 이야기」에 적은 '지구 탄생과 시스템 진화'가 '진화' 한 낱말로 '별의 특성과 진화'까지
+  // 끌고 갔다. 광물과 판의 책이 별의 일생 보고서에 붙는 것이다.
+  // 옛 210권은 개념 체계가 달라(국어::서사와 인물 이해) 이 규칙을 적용하지 않는다.
+  const mine = norm(terms.find((one) => one && one.topic)?.text || '');
+  const tags = book?.own
+    ? [
+      ...(book.connectable_concepts || []).filter((one) => norm(one) === mine),
+      ...(book.core_keywords || []), ...(book.fit_keywords || []), book.broad_theme,
+    ].filter(Boolean)
+    : bookTags(book);
+  const theirWords = new Set(tags.flatMap(words));
   const mySpread = conceptCounts ? conceptCounts.get(norm(subject)) : null;
   const why = [];
   let score = SUBJECT_POINT;
   const used = new Set();
   for (const term of terms) {
-    for (const word of words(term)) {
+    // 옛 부름꼴도 받는다 — 시험과 도구가 문자열 배열을 그대로 넘긴다.
+    const text = typeof term === 'string' ? term : term.text;
+    const isTopic = typeof term === 'string' ? false : Boolean(term.topic);
+    for (const word of words(text)) {
       // 과목 이름과 같은 낱말은 안 친다. 이미 과목 문턱에서 셌고, 그 말로 걸린 추천은 아무 말도 안 한 것이다.
       if (used.has(word) || !theirWords.has(word) || norm(word) === norm(subject)) continue;
       // 이 과목의 개념 여러 곳에 나오는 말로는 못 걸린다. 어느 개념인지를 못 가리키는 말이다.
       if (mySpread && (mySpread.get(word) || 0) > CONCEPT_SPREAD) continue;
+      // 공부하는 행위를 가리키는 말은 개념 이름에 있어도 못 쓴다.
+      if (NEVER_TOPIC.has(word)) continue;
+      // 그 밖의 넓은 말은 **개념 이름에 있을 때만** 쓴다. 축과 산출물에서 온 것은 안 친다.
+      if (!isTopic && NOT_TOPIC.has(word)) continue;
       const point = wordPoint(word, counts);
       if (!point) continue;
       used.add(word);
@@ -152,6 +264,34 @@ export function scoreBook(book, { subject = '', terms = [], conceptCounts = null
   return { score, why, onSubject: true, forMajor };
 }
 
+// 이 개념에 **실제로 쓸 수 있는 문장**을 앞으로 보낸다.
+//
+// 여기가 보고서가 틀어지는 자리였다. 책은 개념으로 고르는데, 보고서에 넘기는 문장은 그냥 앞에서
+// 잘랐다 — 지구과학 '지구의 기후 변화'에 「대멸종 연대기」가 붙는 것은 맞는데, 넘어가는 문장은
+// "각 대멸종의 원인을 지층에 남은 화학 흔적으로 추적한다"였다. 좋은 책이 엉뚱한 문장을 들고 갔다.
+//
+// 낱말이 **같은지가 아니라 닿는지**를 본다 — 개념은 '효소와 대사 반응'이라 쓰고 책은 '효소가
+// 반응의 속도를…'이라 쓴다. 조사만 다르다.
+function sortPoints(points, terms) {
+  const aim = new Set();
+  for (const term of terms) {
+    const text = typeof term === 'string' ? term : term.text;
+    for (const word of words(text)) if (norm(word) !== '') aim.add(word);
+  }
+  const touches = (line) => words(line).some((word) => {
+    for (const one of aim) {
+      if (one.length < 2) continue;
+      if (word === one || word.includes(one) || one.includes(word)) return true;
+    }
+    return false;
+  });
+  const hit = [];
+  const rest = [];
+  for (const line of points) (touches(line) ? hit : rest).push(line);
+  // 닿는 문장이 하나도 없으면 원래 순서대로 둔다. 없는 것을 지어내지 않는다.
+  return { ordered: [...hit, ...rest], onConcept: hit.length };
+}
+
 // 이 보고서에 권할 책. 없으면 빈 배열이 정상이다.
 export function matchBooks(books, input = {}, limit = 3, counts = null, conceptCounts = null, majorCounts = null) {
   const subject = clean(input.subject, 40);
@@ -161,7 +301,12 @@ export function matchBooks(books, input = {}, limit = 3, counts = null, conceptC
   // 개념이 먼저다 — 이 보고서가 선 자리를 가장 좁게 가리킨다.
   // .map(clean) 은 쓰지 않는다 — map이 두 번째 인자로 인덱스를 넘겨서 글자 수 제한이 되어 버린다.
   // 이 실수를 이 저장소에서 세 번째로 했다.
-  const terms = [input.concept, input.keyword, input.axisTitle].map((value) => clean(value, 80)).filter(Boolean);
+  // 개념 이름은 **주제**고, 축 이름과 산출물은 **하는 일**이다. 둘을 갈라서 넘긴다.
+  const terms = [
+    { text: clean(input.concept, 80), topic: true },
+    { text: clean(input.keyword, 80) },
+    { text: clean(input.axisTitle, 80) },
+  ].filter((one) => one.text);
 
   const scored = [];
   for (const book of list) {
@@ -171,14 +316,21 @@ export function matchBooks(books, input = {}, limit = 3, counts = null, conceptC
     }, table);
     // 상대 순위가 아니라 절대 기준이다. 아무도 못 넘으면 아무도 안 나온다.
     if (score < MIN_SCORE) continue;
+    const pointsFor = sortPoints(book.points || book.book_content_points || [], terms);
     scored.push({
       title: clean(book.title, 120), author: clean(book.author, 60),
       summary: clean(book.summary_short, 200) || clean(book.summary, 200), score, why, forMajor,
+      // 진로를 안 적은 학생에게도 "이 책은 어느 쪽인지"는 보여 준다.
+      majors: bookDirection(book, majorCounts),
       // 학생이 읽을 시간이 없다. 이 책이 무엇을 다루는지를 화면과 자료 카드에 그대로 쓴다.
-      points: (book.points || book.book_content_points || []).map((one) => clean(one, 140)).filter(Boolean).slice(0, 4),
+      // **이 개념에 닿는 문장이 앞에 온다** — 자료 카드와 보고서가 그 순서를 그대로 쓰기 때문이다.
+      points: pointsFor.ordered.map((one) => clean(one, 140)).filter(Boolean).slice(0, 4),
+      // 이 개념에 닿는 문장이 몇 개인가. 0이면 책은 맞아도 인용할 문장이 없다는 뜻이다.
+      onConcept: pointsFor.onConcept,
     });
   }
-  scored.sort((a, b) => b.score - a.score || a.title.localeCompare(b.title, 'ko'));
+  // 점수가 같으면 **이 개념에 쓸 문장이 있는 책**이 앞이다. 학생이 위에서부터 고른다.
+  scored.sort((a, b) => b.score - a.score || b.onConcept - a.onConcept || a.title.localeCompare(b.title, 'ko'));
   return scored.slice(0, limit);
 }
 

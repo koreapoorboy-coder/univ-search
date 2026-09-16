@@ -15,9 +15,11 @@ import { referencesBody, sourceLine } from "../../../admission_worker_skeleton/r
 const here = (name) => new URL(name, import.meta.url);
 const books = JSON.parse(await readFile(here("../seed/engine-index/book_match_index.v1.json"), "utf8")).books;
 const axisIndex = JSON.parse(await readFile(here("../seed/engine-index/longitudinal_axis_index.v1.json"), "utf8"));
-const worker = await readFile(here("../../../admission_worker_skeleton/worker.js"), "utf8");
-const bridge = await readFile(here("../assets/js/mini_worker_generate_bridge_v32.js"), "utf8");
-const stages = await readFile(here("../../../admission_worker_skeleton/report_stages_v1.mjs"), "utf8");
+const lf = (text) => String(text).split("\r\n").join("\n");
+const worker = lf(await readFile(here("../../../admission_worker_skeleton/worker.js"), "utf8"));
+const bridge = lf(await readFile(here("../assets/js/mini_worker_generate_bridge_v32.js"), "utf8"));
+const stages = lf(await readFile(here("../../../admission_worker_skeleton/report_stages_v1.mjs"), "utf8"));
+// 이 저장소는 CRLF와 LF가 섞여 있다. 줄바꿈 때문에 시험이 깨지면 시험이 거짓말을 하는 것이다.
 const counts = buildWordCounts(books);
 const conceptCounts = buildConceptCounts(axisIndex);
 const majorCounts = buildMajorCounts(books);
@@ -30,7 +32,7 @@ const pick = (subject, concept, major) => {
   return matchBooks(books, {
     subject, concept, major,
     keyword: String(axis?.output || "").split(/[,、·]/)[0].trim(), axisTitle: axis?.title,
-  }, 3, counts, conceptCounts, majorCounts);
+  }, 6, counts, conceptCounts, majorCounts);
 };
 
 // A1: 진로는 **순서를 바꿀 뿐 문턱이 아니다.** 진로를 아직 안 정한 학생에게도 책은 나와야 한다.
@@ -43,6 +45,25 @@ const pick = (subject, concept, major) => {
   check(mine[0].score > none.find((b) => b.title === mine[0].title)?.score,
     "A1 그리고 점수가 올라가 앞으로 온다 — 문턱이 아니라 순서다");
   check(mine.length >= none.length, "A1 진로를 적었다고 책이 줄어들지는 않는다");
+}
+
+// A1b: **진로가 없는 학생**이 이 기능의 기본값이다. 고등학생 상당수가 아직 안 정했다.
+//
+// 처음에 나는 학과 배지를 진로를 적은 학생에게만 보여 주고 있었다 — 정작 길잡이가 필요한 쪽에
+// 가려 놓은 꼴이었다. 진로가 없으면 그 학과 목록이 **이 책이 이어지는 방향**이 된다.
+{
+  const none = pick("화학", "원소의 주기적 성질", "");
+  check(none.length >= 3, "A1b 진로가 없어도 책이 그대로 나온다", String(none.length));
+  check(none.every((b) => b.majors.length > 0), "A1b 그리고 책마다 어느 쪽 책인지 보여 준다",
+    JSON.stringify(none.map((b) => b.majors)));
+  check(none.every((b) => !b.forMajor), "A1b 다만 '네 진로와 맞다'고는 말하지 않는다 — 진로를 모른다");
+  check(none.every((b) => b.majors.every((m) => (majorCounts.get(m.replace(/\s+/g, "")) || 0) <= 40)),
+    "A1b 방향으로 쓰는 학과도 흔한 것은 뺀다 — 철학과로는 아무 방향도 안 가리킨다");
+  const mine = pick("화학", "원소의 주기적 성질", "화학공학과");
+  check(mine.every((b) => b.majors.length > 0) && mine.some((b) => b.majors.includes(b.forMajor)),
+    "A1b 진로를 적으면 그중 하나가 별표로 바뀔 뿐, 목록은 그대로다");
+  check(bridge.includes("이 책이 이어지는 방향"), "A1b 화면이 진로 없는 학생에게 그렇게 설명한다");
+  check(/mini-book-m em\.on/.test(bridge), "A1b 맞는 학과만 파랗고 나머지는 회색이다");
 }
 
 // A2: **흔한 학과로는 못 가린다.** '철학과'는 80권에, '사회학과'는 74권에 붙어 있다. 낱말과 같은 규칙이다.
@@ -62,6 +83,99 @@ const pick = (subject, concept, major) => {
   check(found.some((b) => b.points.length >= 2), "A3 그리고 비어 있지 않다",
     JSON.stringify(found.map((b) => b.points.length)));
   check(books.every((b) => !(b.points || []).some((one) => one.length > 140)), "A3 한 줄이 너무 길지 않다");
+}
+
+// A3b: **제목만 보고는 무슨 책인지 모른다.**
+//
+// 사용자가 화면을 보고 짚었다: "책을 봐도 이 책이 무슨 책인지 몰라." 맞는 말이었다 — 한 줄 소개가
+// 242권 전부에 있는데 화면이 그걸 안 쓰고 있었다. 지금은 **고르기 전에** 한 줄 소개가 보이고,
+// **고른 뒤에** 다루는 내용이 펼쳐진다. 여섯 권을 다 펼쳐 놓으면 아무도 안 읽는다.
+{
+  check(books.every((b) => (b.summary || "").length >= 10), "A3b 242권 모두 한 줄 소개가 있다");
+  const found = pick("화학", "원자의 구조", "화학공학과");
+  check(found.length > 3, "A3b 셋보다 많이 나온다 — 선택권이 너무 좁았다", String(found.length));
+  check(found.length <= 6, "A3b 다만 여섯을 넘지 않는다", String(found.length));
+  check(found.every((b) => b.summary), "A3b 후보마다 한 줄 소개가 딸려 온다");
+  check(bridge.includes('class="mini-book-s"'), "A3b 화면이 고르기 전에 그 소개를 보여 준다");
+  // 쉬운 말이어야 한다. 학생은 책을 안 읽으므로 이 한 줄이 아는 전부다.
+  const PROMO = /학과|연결성이 높다|확장하기 좋은|탐구로 확장|확장할 수 있는 도서|수행평가형/;
+  const onScreen = books.filter((b) => (b.points || []).length || b.summary);
+  check(!found.some((b) => PROMO.test(b.summary)),
+    "A3b 소개에 '○○학과와 연결성이 높다' 같은 우리 쪽 홍보문구가 없다",
+    JSON.stringify(found.filter((b) => PROMO.test(b.summary)).map((b) => b.title)));
+  check(found.every((b) => b.summary.length <= 60), "A3b 그리고 한 줄에 들어간다",
+    JSON.stringify(found.map((b) => b.summary.length)));
+  check(!found.some((b) => (b.points || []).some((one) => PROMO.test(one))),
+    "A3b 펼쳐지는 내용에도 홍보문구가 안 섞인다");
+  check(onScreen.length > 200, "A3b 그 걸러내기는 전체 책에 적용된다", String(onScreen.length));
+  check(/\.mini-book-d\{[^}]*display:none/.test(bridge), "A3b 다루는 내용은 처음엔 접혀 있다");
+  check(bridge.includes(".mini-book:has(input:checked) .mini-book-d{display:block}"),
+    "A3b 고르면 펼쳐진다");
+  check(bridge.includes("그 책에 무슨 내용이 있는지 펼쳐집니다"), "A3b 학생에게 그렇게 말해 준다");
+  // 한 권이 두 줄을 넘으면 여섯 권이 화면을 덮는다. 학과 배지는 제목 줄 오른쪽에 붙인다.
+  check(/\.mini-book-m\{display:inline-flex[^}]*margin-left:auto/.test(bridge),
+    "A3b 학과는 제목 줄 오른쪽에 붙어 줄을 더 차지하지 않는다");
+  check(/\.mini-book-m em\{[^}]*slice/.test(bridge) === false && bridge.includes("(book.majors || []).slice(0, 2)"),
+    "A3b 학과는 둘까지만 — 셋을 달면 제목이 밀린다");
+  check(/\.mini-book-take\{display:none\}/.test(bridge), "A3b 한 줄 쓰는 칸도 책을 골라야 나온다");
+  check(/\}, 6, buildWordCounts\(bookList\)/.test(worker), "A3b 워커도 여섯 권까지 내려보낸다");
+}
+
+// A3c: **책은 선택 사항이다.** 그러면 평소에는 자리를 차지하면 안 된다.
+//
+// 사용자가 짚었다: "책은 선택사항이잖아." 맞는 말이었다 — 선생님이 시키지 않은 대부분의 학생에게는
+// 필요 없는 칸인데 여섯 권을 늘 펼쳐 두면 설계서 화면이 그것에 덮인다. 평소에는 한 줄로 접어 둔다.
+{
+  check(/return `\s*<details class="mini-book-pick">/.test(bridge),
+    "A3c 평소에는 접혀 있다 — 한 줄만 보인다");
+  check(bridge.includes("선택 · 이 주제와 이어지는 책 ${list.length}권"),
+    "A3c 접힌 줄이 몇 권 있는지와 선택임을 말한다");
+  // "선생님이 첨부하라고 하셨나요?"는 묻는 형태라 하라는 말로 읽힌다. 그냥 이름만 단다.
+  check(/<summary>참고 도서/.test(bridge), "A3c 이름은 그냥 '참고 도서'다");
+  // 주석이 아니라 **화면에 찍히는 곳**만 본다. 규칙을 적어 둔 주석까지 걸리면 시험이 자기 말을 문다.
+  const summaryTag = bridge.slice(bridge.indexOf("<summary>"), bridge.indexOf("</summary>") + 10);
+  check(!/[?？]/.test(summaryTag), "A3c 접힌 줄이 물음표로 떠밀지 않는다", summaryTag);
+  check(!/선생님/.test(summaryTag), "A3c 선생님 이야기는 접힌 줄에 안 쓴다 — 시켰다는 전제가 된다", summaryTag);
+  check(bridge.includes("넣어도 되고 안 넣어도 돼요"), "A3c 안 넣어도 된다고 먼저 말한다");
+  check(!/<details class="mini-book-pick"[^>]*open/.test(bridge), "A3c 처음부터 펼쳐져 있지 않다");
+  check(bridge.includes('value="" checked'), "A3c 열어 봐도 기본은 '안 넣을래요'다");
+  check(/\.mini-book-pick>summary\{[^}]*cursor:pointer/.test(bridge), "A3c 누를 수 있게 보인다");
+  check(/\.mini-book-pick>summary::-webkit-details-marker\{display:none\}/.test(bridge),
+    "A3c 브라우저 기본 삼각형 대신 우리 표시를 쓴다");
+}
+
+// A3d: **이 개념에 쓸 문장이 앞으로 온다.**
+//
+// 붙을 수 있는 모든 경우 240가지를 전수로 재다가 찾았다. 책은 개념으로 고르는데 보고서에 넘기는
+// 문장은 그냥 앞에서 잘랐다 — 지구과학 '지구의 기후 변화'에 「대멸종 연대기」가 붙는 건 맞는데,
+// 넘어가는 문장은 "각 대멸종의 원인을 지층에 남은 화학 흔적으로 추적한다"였다. 좋은 책이 엉뚱한
+// 문장을 들고 갔다. 학생은 그걸 자료 카드에 담고, 모델은 그걸 이론적 배경에 인용한다.
+{
+  const axis = axisFor("지구의 기후 변화");
+  const got = matchBooks(books, {
+    subject: "지구과학", concept: axis.concept, axisTitle: axis.title,
+    keyword: String(axis.output || "").split(/[,、·]/)[0].trim(),
+  }, 6, counts, conceptCounts, majorCounts);
+  const climate = got.find((b) => b.title === "6도의 멸종");
+  check(/기온|해양|빙하|기후/.test(climate.points[0]),
+    "A3d 기후 개념에는 기후를 말하는 문장이 먼저 온다", climate.points[0]);
+  check(climate.onConcept >= 1, "A3d 그리고 몇 개가 닿는지를 함께 돌려준다", String(climate.onConcept));
+
+  // 점수가 같으면 쓸 문장이 있는 책이 앞이다. 학생은 위에서부터 고른다.
+  const same = got.filter((b) => b.score === got[0].score);
+  for (let i = 1; i < same.length; i++) {
+    check(same[i - 1].onConcept >= same[i].onConcept,
+      "A3d 점수가 같으면 쓸 문장이 많은 책이 앞이다",
+      JSON.stringify(same.map((b) => `${b.title}:${b.onConcept}`)));
+  }
+
+  // 없는 것을 지어내지 않는다. 닿는 문장이 하나도 없어도 원래 문장은 그대로 남는다.
+  //
+  // 「대멸종 연대기」가 이 자리에서 지층 문장을 들고 가던 것을 보고, 그 책의 내용 조각에 기후 문장을
+  // 더했다(고기후를 실제로 다루는 책이다). 그러니 이제는 0이 아니다 — 시험이 그 변화를 잡아냈다.
+  const empty = books.find((b) => (b.points || []).length && !b.points.some((one) => /기후|기온|해양/.test(one)));
+  check(Boolean(empty), "A3d 닿는 문장이 없는 책도 내용 조각은 그대로 갖고 있다");
+  check(got.every((b) => b.points.length > 0), "A3d 후보는 모두 보여 줄 내용이 있다");
 }
 
 // A4: 고른 책은 **자료 카드 한 장**이 된다. 거기서부터는 이미 있는 길을 탄다.
@@ -94,7 +208,7 @@ const pick = (subject, concept, major) => {
 // A6: 워커와 화면이 실제로 이어져 있는가.
 {
   check(worker.includes("bookChoices") && /bookChoices,\n/.test(worker), "A6 워커가 설계서 응답에 책 후보를 담는다");
-  check(/input\.reportStage === STAGE\.DRAFT[\s\S]{0,600}buildMajorCounts/.test(worker),
+  check(/input\.reportStage === STAGE\.DRAFT[\s\S]{0,1200}buildMajorCounts/.test(worker),
     "A6 설계서 단계에서, 진로까지 넣어 고른다");
   check(/major: input\.major \|\| input\.track/.test(worker), "A6 학과가 없으면 계열이라도 쓴다");
   check(bridge.includes("renderBookPick") && bridge.includes("renderCollectionPanel(stageResult, rawData?.bookChoices)"),
@@ -102,7 +216,7 @@ const pick = (subject, concept, major) => {
   check(/collectBookCard\(panel\), \.\.\.collectRefCards\(panel\)/.test(bridge),
     "A6 고른 책이 자료 카드 맨 앞에 붙는다");
   check(/const bookCard = collectBookCard\(panel\);/.test(bridge), "A6 읽기 보고서에서도 책을 센다");
-  check(bridge.includes("선생님이 책을 읽고 첨부하라고 하셨나요?"), "A6 학생이 왜 이 칸이 있는지 알 수 있다");
+  check(bridge.includes("고른 책은 <b>참고 자료</b>에 들어가고"), "A6 학생이 이 칸이 무엇에 쓰이는지 알 수 있다");
   check(bridge.includes("읽어 두세요"), "A6 그리고 내용은 읽어 두라고 말한다 — 선생님이 물어볼 수 있다");
   check(bridge.includes('value="" checked'), "A6 기본값은 '안 넣을래요'다 — 억지로 붙이지 않는다");
 }

@@ -2740,6 +2740,10 @@
   function renderBookPick(books){
     const list = Array.isArray(books) ? books.filter(b => b && b.title) : [];
     if(!list.length) return "";
+    // 한 권은 **두 줄**이다. 여섯 권을 셋째 줄까지 쓰면 화면이 너무 길어져 아무도 안 읽는다.
+    //   첫 줄: 제목 · 지은이 · 이어지는 학과
+    //   둘째 줄: 무슨 책인지 한 줄 (쉬운 말 33자 안팎)
+    // 다루는 내용은 **고른 뒤에** 펼쳐진다.
     const one = (book, i) => `
         <label class="mini-book">
           <input type="radio" name="miniBookPick" value="${i}"
@@ -2747,21 +2751,28 @@
             data-book-author="${escapeHtml(book.author || "")}"
             data-book-point="${escapeHtml((book.points || []).join(" "))}">
           <span class="mini-book-t">${escapeHtml(book.title)}${book.author ? ` <i>${escapeHtml(book.author)}</i>` : ""}${
-            book.forMajor ? `<em>${escapeHtml(book.forMajor)}</em>` : ""}</span>
-          ${(book.points || []).length
-            ? `<ul class="mini-book-p">${book.points.map(one2 => `<li>${escapeHtml(one2)}</li>`).join("")}</ul>`
-            : `<p class="mini-book-p">${escapeHtml(book.summary || "")}</p>`}
+            (book.majors || []).length ? `<span class="mini-book-m">${(book.majors || []).slice(0, 2).map(m =>
+              `<em${m === book.forMajor ? ` class="on"` : ""}>${escapeHtml(m)}</em>`).join("")}</span>` : ""}</span>
+          ${book.summary ? `<span class="mini-book-s">${escapeHtml(book.summary)}</span>` : ""}
+          ${(book.points || []).length ? `<span class="mini-book-d"><b>이 책에 이런 내용이 있어요</b>
+            <ul>${book.points.map(line => `<li>${escapeHtml(line)}</li>`).join("")}</ul></span>` : ""}
         </label>`;
+    // 책은 **선택 사항**이다. 두 가지를 지킨다.
+    //   · 평소에는 한 줄로 접어 둔다 — 여섯 권을 늘 펼쳐 두면 설계서 화면이 그것에 덮인다.
+    //   · 이름은 그냥 '참고 도서'다. "선생님이 첨부하라고 하셨나요?"라고 물으면 하라는 말로 읽힌다.
     return `
-      <div class="mini-book-pick">
-        <b>선생님이 책을 읽고 첨부하라고 하셨나요? <span>(선택)</span></b>
-        <p class="mini-book-why">고른 책은 <b>참고 자료</b>에 들어가고, 이론적 배경에서 근거로 쓰여요.
-          아래 내용은 <b>읽어 두세요</b> — 선생님이 무슨 책이냐고 물어보실 수 있어요.</p>
+      <details class="mini-book-pick">
+        <summary>참고 도서
+          <span>선택 · 이 주제와 이어지는 책 ${list.length}권</span></summary>
+        <p class="mini-book-why">넣어도 되고 안 넣어도 돼요. 고른 책은 <b>참고 자료</b>에 들어가고,
+          이론적 배경에서 근거로 쓰여요.
+          책을 누르면 <b>그 책에 무슨 내용이 있는지 펼쳐집니다</b> — 읽어 두세요, 선생님이 무슨 책이냐고
+          물어보실 수 있어요. 옆의 학과는 <b>이 책이 이어지는 방향</b>이에요.</p>
         ${list.map(one).join("")}
         <label class="mini-book-none"><input type="radio" name="miniBookPick" value="" checked> 책은 안 넣을래요</label>
         <label class="mini-book-take">이 책에서 내 주제와 이어지는 점 <span>(선택, 한 줄)</span>
           <textarea id="miniBookTake" rows="2"></textarea></label>
-      </div>`;
+      </details>`;
   }
 
   // 고른 책을 자료 카드 한 장으로 바꾼다. 핵심 내용은 우리 데이터, 마지막 한 줄은 학생이 쓴 것이다.
@@ -4486,23 +4497,42 @@ ${result}`;
     "        .mini-ref-block>b{display:block;font-size:14px;margin:0 0 4px}",
     "        .mini-ref-block>b span{font-weight:500;color:#667085}",
     "        .mini-ref-why{margin:0 0 12px;font-size:13px;color:#667085;line-height:1.6}",
-    "        .mini-book-pick{margin:16px 0 0;padding:14px 16px;border:1px dashed var(--mini-line,#e6eaf2);",
+    "        .mini-book-pick{margin:16px 0 0;padding:12px 16px;border:1px dashed var(--mini-line,#e6eaf2);",
     "          border-radius:var(--mini-r,14px);background:#fbfcff}",
-    "        .mini-book-pick>b{display:block;font-size:14px;margin:0 0 4px}",
-    "        .mini-book-pick>b span{font-weight:500;color:#667085}",
-    "        .mini-book-why{margin:0 0 12px;font-size:13px;color:#667085;line-height:1.6}",
-    "        .mini-book{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:start;",
+    "        .mini-book-pick[open]{padding-bottom:14px}",
+    "        .mini-book-pick>summary{font-size:14px;font-weight:700;color:#334155;cursor:pointer;",
+    "          list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:0 8px}",
+    "        .mini-book-pick>summary::-webkit-details-marker{display:none}",
+    "        .mini-book-pick>summary::before{content:\"+\";display:inline-block;width:17px;height:17px;",
+    "          line-height:16px;text-align:center;border-radius:5px;background:#e8eefc;",
+    "          color:var(--mini-primary,#2458ff);font-weight:800;font-size:13px}",
+    "        .mini-book-pick[open]>summary::before{content:\"-\"}",
+    "        .mini-book-pick>summary span{font-weight:600;color:#8a90a0;font-size:12.5px}",
+    "        .mini-book-pick[open]>summary{margin:0 0 10px}",
+    "        .mini-book-why{margin:0 0 10px;font-size:12.5px;color:#667085;line-height:1.6}",
+    "        .mini-book{display:grid;grid-template-columns:auto 1fr;gap:2px 9px;align-items:start;",
     "          border:1px solid var(--mini-line,#e6eaf2);background:#fff;border-radius:var(--mini-r-sm,10px);",
-    "          padding:12px 14px;margin:0 0 8px;cursor:pointer}",
+    "          padding:9px 12px;margin:0 0 6px;cursor:pointer}",
     "        .mini-book:has(input:checked){border-color:var(--mini-primary,#2458ff);box-shadow:0 0 0 2px rgba(36,88,255,.08)}",
     "        .mini-book input{margin:3px 0 0}",
-    "        .mini-book-t{font-size:14.5px;font-weight:800;color:#1f2937;line-height:1.5}",
-    "        .mini-book-t i{font-style:normal;font-weight:600;color:#667085;font-size:13px}",
-    "        .mini-book-t em{font-style:normal;margin-left:8px;padding:1px 7px;border-radius:999px;font-size:11.5px;",
-    "          font-weight:700;background:#eef3ff;color:var(--mini-primary,#2458ff)}",
-    "        .mini-book-p{grid-column:2;margin:4px 0 0;padding-left:16px;font-size:13px;color:#4b5563;line-height:1.75}",
+    "        .mini-book-t{font-size:14px;font-weight:800;color:#1f2937;line-height:1.45;",
+    "          display:flex;flex-wrap:wrap;align-items:baseline;gap:0 6px}",
+    "        .mini-book-t i{font-style:normal;font-weight:600;color:#667085;font-size:12.5px}",
+    "        .mini-book-s{grid-column:2;margin:1px 0 0;font-size:12.5px;color:#667085;line-height:1.55}",
+    "        .mini-book-d{grid-column:2;display:none;margin:8px 0 2px;padding:9px 11px;background:#f7f9ff;",
+    "          border-radius:var(--mini-r-sm,10px)}",
+    "        .mini-book:has(input:checked) .mini-book-d{display:block}",
+    "        .mini-book-d>b{display:block;font-size:12px;color:var(--mini-primary,#2458ff);margin:0 0 4px}",
+    "        .mini-book-d ul{margin:0;padding-left:16px;font-size:13px;color:#3a4252;line-height:1.75}",
+    "        .mini-book-take{display:none}",
+    "        .mini-book-pick:has(.mini-book input:checked) .mini-book-take{display:flex}",
+    "        .mini-book-m{display:inline-flex;flex-wrap:wrap;gap:4px;margin-left:auto}",
+    "        .mini-book-m em{font-style:normal;padding:0 7px;border-radius:999px;font-size:11px;font-weight:700;",
+    "          background:#f1f2f5;color:#8a90a0;line-height:1.7}",
+    "        .mini-book-m em.on{background:#eef3ff;color:var(--mini-primary,#2458ff)}",
     "        .mini-book-none{display:flex;align-items:center;gap:8px;font-size:13.5px;color:#667085;margin:2px 0 0}",
-    "        .mini-book-take{display:flex;flex-direction:column;gap:6px;margin:12px 0 0;font-size:13.5px;font-weight:800;color:#334155}",
+    "        .mini-book-pick:has(.mini-book input:checked) .mini-book-take{flex-direction:column;gap:6px;margin:12px 0 0;",
+    "          font-size:13.5px;font-weight:800;color:#334155}",
     "        .mini-book-take span{font-weight:600;color:var(--mini-muted,#667085)}",
     "        .mini-book-take textarea{border:1px solid var(--mini-line,#e6eaf2);border-radius:var(--mini-r-sm,10px);",
     "          padding:9px 10px;font:inherit;font-size:14px;line-height:1.6;resize:vertical;background:#fff}",

@@ -36,7 +36,7 @@ if (!axis) throw new Error(`개념을 못 찾았습니다: ${subject} / ${concep
 const found = matchBooks(books, {
   subject, concept, major,
   keyword: String(axis.output || "").split(/[,\u3001\u00b7]/)[0].trim(), axisTitle: axis.title,
-}, 3, buildWordCounts(books), buildConceptCounts(axisIndex), buildMajorCounts(books));
+}, 6, buildWordCounts(books), buildConceptCounts(axisIndex), buildMajorCounts(books));
 
 const path = out || `C:/Users/korea/Downloads/책_고르는_칸_미리보기.html`;
 await writeFile(path, `<!doctype html><meta charset=utf-8><title>책 고르는 칸</title><style>
