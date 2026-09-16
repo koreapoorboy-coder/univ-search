@@ -183,6 +183,21 @@ const axisIndex = { axes: {
   check(worker.includes("const datasets = (input.referenceDatasets || []).slice(0, 2)"),
     "F8 '다음에 해 볼 것'도 같은 것을 나눠 쓴다");
   check(worker.includes("timeoutMs: 12000"), "F8 처음 부르는 것이라 시간을 더 준다");
+
+  // **여기까지 와야 실제로 붙는다.** referencesBody 만 고치고 buildReferencesBody 를 빠뜨려서
+  // 실제 보고서에는 자료가 안 붙었다. 앞서 "buildReferencesBody만 고쳤을 때 아무것도 안 바뀌었다"고
+  // 적어 둔 것과 정확히 반대 방향의 같은 실수다. 끝에서부터 본다.
+  const whole = finalizeStageOutput(STAGE.FINAL, { sections: [{ title: "결론", body: "끝." }] }, {
+    subject: "화학", textbookCitation: "화학Ⅰ 교과서 · 화학과 우리 생활 단원",
+    referenceDatasets: rows,
+    studentData: normalizeStudentData({
+      sourceCards: [card],
+      conditions: [{ label: "가", values: ["1", "2"] }, { label: "나", values: ["3", "4"] }],
+    }),
+  });
+  const built = whole.parsed.sections.find((one) => /참고 자료/.test(one.title))?.body || "";
+  check(built.includes("data.go.kr"), "F8 최종 보고서의 참고 자료 절에 실제로 붙는다", built);
+  check(built.split(String.fromCharCode(10)).length === 4, "F8 학생 자료 + 공개 자료 둘 + 교과서", built);
 }
 
 // F7: 워커가 교과서 인용을 만들어 넘긴다.

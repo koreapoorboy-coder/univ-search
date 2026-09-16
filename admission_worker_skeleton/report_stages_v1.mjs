@@ -351,6 +351,9 @@ export function buildReferencesBody(body, sources, extra = {}) {
   const written = (sources || []).map((line) => String(line || '').trim()).filter(Boolean);
   return referencesBody({
     cards,
+    // 개념에 맞는 공개 자료를 자동으로 붙인다. 학생이 본 자료가 아니므로 '얻은 것'은 안 적고
+    // 무엇인지와 주소만 적는다 — 선생님이 물으면 학생이 열어 확인할 수 있다.
+    datasets: extra.datasets || [],
     textbook: extra.textbook || '',
     fallbackBody: written.length ? written.join('\n') : body,
   });
