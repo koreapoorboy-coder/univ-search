@@ -11,7 +11,7 @@ import { adjustLicense, adjustStudent, checkEntitlement, claimSeat, emptyGrant, 
 import { textbookCitation } from './references_v1.mjs';
 import { buildConceptCounts, buildMajorCounts, buildWordCounts, inferConcept, matchBooks } from './book_match_v1.mjs';
 import { findPublicData } from './public_data_v1.mjs';
-import { buildNextStep, pickAxis } from './next_step_v1.mjs';
+import { axisForConcept, buildNextStep, pickAxis } from './next_step_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
 const SERVICE_NAME = 'admission-keyword-worker';
@@ -480,34 +480,34 @@ export default {
         // 이미 있는 길을 탄다: 자료 카드 → 프롬프트 → 이론적 배경과 참고 자료.
         //
         // 여기서도 AI에게는 안 간다. **학생이 고른 책만** 2단계에서 프롬프트에 들어간다.
+        // **이 보고서가 선 개념.** 책과 '다음에 해 볼 것'이 같은 자리를 가리켜야 한다.
+        //
+        // 세 가지가 다 어긋날 수 있어서 차례를 정해 두었다. 실제 화면으로 돌려 보고 하나씩 찾은 것들이다.
+        //   · 학생이 고른 개념 — 그런데 화면이 selectedConcept 로 **과목 이름**('화학')을 보낸다.
+        //     빈칸이 아니어서 대비책이 안 걸렸고, 과목 이름은 점수에서 빠져 책이 0권이 됐다.
+        //   · 과제 문구 — 과목의 개념 목록과 맞춰 본다. 겹치는 낱말이 없으면 안 고른다.
+        //   · 축(careerAxes) — 이 탐구가 **앞으로 갈 곳**이라 과제가 선 자리와 다르다. 화학 과제에
+        //     통합사회1 축이 잡히고, 커피 추출 보고서에 '화학량론 해석 축'이 잡혔다. 그래서 마지막이다.
+        const namedConcept = String(input.selectedConcept || '').replace(/\s+/g, '') === String(input.subject || '').replace(/\s+/g, '')
+          ? '' : input.selectedConcept;
+        const guessedConcept = inferConcept(
+          input.subject,
+          [input.taskTitle, input.taskDescription, input.selectedKeyword, input.keyword].filter(Boolean).join(' '),
+          seedPack.axisIndex,
+        );
+        const careerAxis = pickAxis(input.careerAxes, seedPack.axisIndex, input.subject);
+        const careerConcept = careerAxis?.axisId ? (seedPack.axisIndex?.axes || {})[careerAxis.axisId]?.concept : '';
+        const reportConcept = namedConcept || guessedConcept || careerConcept;
+        // 이 개념의 축이 있으면 그것을 쓴다. 없으면 진로 축으로 물러선다.
+        const reportAxis = axisForConcept(seedPack.axisIndex, input.subject, reportConcept) || careerAxis;
+
         let bookChoices = [];
         if (input.reportStage === STAGE.DRAFT) {
           try {
             const bookList = seedPack.bookMatchIndex?.books || [];
-            const axis = pickAxis(input.careerAxes, seedPack.axisIndex, input.subject);
-            // **개념이 빈칸으로 오는 길이 있다.** 실제 화면으로 돌려 보니 학생이 교과 개념을 따로 고르는
-            // 단계가 없어서 selectedConcept 가 비었고, 그래서 책이 한 권도 안 나왔다. 그럴 때는 우리가
-            // 이미 고른 축의 개념을 쓴다 — 보고서를 만든 그 축이므로 같은 자리를 가리킨다.
-            const axisConcept = axis?.axisId ? (seedPack.axisIndex?.axes || {})[axis.axisId]?.concept : '';
-            // 축도 다른 과목으로 잡힐 수 있다 — 화학 과제에 통합사회1·미적분1 축이 잡히는 것을 봤다.
-            // 마지막으로 과제 문구에서 개념을 찾는다. 겹치는 낱말이 없으면 빈칸으로 두고 책도 안 나온다.
-            const guessed = inferConcept(
-              input.subject,
-              [input.taskTitle, input.taskDescription, input.selectedKeyword, input.keyword].filter(Boolean).join(' '),
-              seedPack.axisIndex,
-            );
-            // **개념 자리에 과목 이름이 온다.** 실제 화면이 selectedConcept 로 '화학'을 보냈다. 빈칸이
-            // 아니어서 아래 대비책이 안 걸렸고, '화학'은 과목 이름이라 점수에서 빠져 책이 0권이 됐다.
-            // 과목 이름과 같으면 없는 것으로 친다.
-            const chosen = String(input.selectedConcept || '').replace(/\s+/g, '') === String(input.subject || '').replace(/\s+/g, '')
-              ? '' : input.selectedConcept;
             bookChoices = matchBooks(bookList, {
-              // **과제 문구가 축보다 먼저다.** 축(careerAxes)은 이 탐구가 **앞으로 갈 곳**이라 과제가 선
-              // 자리와 다르다 — 화학 과제에 '화학량론 해석 축'이 잡혀 '물질의 양과 화학 반응식'으로
-              // 책이 한 권만 나왔다. 과제 문구로는 '화학과 우리 생활'이 제대로 잡힌다.
-              // (「다음에 해 볼 것」에서 지구과학 보고서에 국어 축이 붙었던 것과 같은 일이다.)
-              subject: input.subject, concept: chosen || guessed || axisConcept,
-              keyword: input.selectedKeyword || input.keyword, axisTitle: axis?.title,
+              subject: input.subject, concept: reportConcept,
+              keyword: input.selectedKeyword || input.keyword, axisTitle: reportAxis?.title,
               // 진로는 순서만 바꾼다. 진로를 아직 안 정한 학생에게도 책은 나와야 한다.
               major: input.major || input.track,
               // 셋은 너무 좁다 — 재 보니 기준을 넘는 책이 4권 넘는 개념이 25곳이고, 셋으로 자르면 57권을
@@ -525,8 +525,10 @@ export default {
         let nextStep = null;
         if (input.reportStage !== STAGE.DRAFT && source === 'openai') {
           try {
-            // 같은 과목의 축만 쓴다. 지구과학 보고서에 국어 축이 붙어 "매체 해석 메모"가 나왔다.
-            const axis = pickAxis(input.careerAxes, seedPack.axisIndex, input.subject);
+            // **이 보고서가 선 개념의 축**을 쓴다. 같은 과목이어도 다른 단원의 축이 잡히기 때문이다 —
+            // 커피 추출 보고서에 '화학량론 해석 축'이 잡혀 "몰비 계산, 반응식 계수 해석"을 하라고 나왔다.
+            // (지구과학 보고서에 국어 축이 붙어 "매체 해석 메모"가 나왔던 것의 같은 과목 판이다.)
+            const axis = reportAxis;
             const bookList = seedPack.bookMatchIndex?.books || [];
             const found = matchBooks(bookList, {
               subject: input.subject, concept: input.selectedConcept,

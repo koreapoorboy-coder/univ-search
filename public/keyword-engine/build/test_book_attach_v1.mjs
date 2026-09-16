@@ -10,6 +10,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { buildConceptCounts, buildMajorCounts, buildWordCounts, inferConcept, majorHit, matchBooks } from "../../../admission_worker_skeleton/book_match_v1.mjs";
 import { bookBlock, bookRules, pickedBook } from "../../../admission_worker_skeleton/report_stages_v1.mjs";
+import { axisForConcept } from "../../../admission_worker_skeleton/next_step_v1.mjs";
 import { referencesBody, sourceLine } from "../../../admission_worker_skeleton/references_v1.mjs";
 
 const here = (name) => new URL(name, import.meta.url);
@@ -190,9 +191,9 @@ const pick = (subject, concept, major) => {
 
   // 둘. 이 흐름에는 학생이 교과 개념을 고르는 단계가 없다. selectedConcept 가 빈칸으로 와서
   // 책이 한 권도 안 나왔다. 그럴 때는 우리가 이미 고른 축의 개념을 쓴다.
-  check(worker.includes("const axisConcept = axis?.axisId ?"),
+  check(worker.includes("const careerConcept = careerAxis?.axisId ?"),
     "A3e 개념이 비면 축의 개념을 대신 쓴다");
-  check(/concept: chosen \|\|/.test(worker),
+  check(/concept: reportConcept/.test(worker),
     "A3e 학생이 고른 개념이 있으면 그것이 먼저다");
 
   // 개념 없이도 책이 나오는지 실제로 재 본다.
@@ -220,14 +221,27 @@ const pick = (subject, concept, major) => {
   // 다른 과목의 개념을 집지 않는다.
   check(inferConcept("지구과학", "태풍 경로와 악기상 재난 사례를 비교한다", axisIndex) === "태풍과 악기상",
     "A3f 과목 안에서만 고른다", inferConcept("지구과학", "태풍 경로와 악기상 재난 사례를 비교한다", axisIndex));
-  check(worker.includes("concept: chosen || guessed || axisConcept"),
+  check(worker.includes("const reportConcept = namedConcept || guessedConcept || careerConcept"),
     "A3f 학생이 고른 개념 → 과제 문구 → 축의 개념 차례로 쓴다");
-  check(/과제 문구가 축보다 먼저다/.test(worker),
+  check(/이 탐구가 \*\*앞으로 갈 곳\*\*이라 과제가 선 자리와 다르다/.test(worker),
     "A3f 축은 앞으로 갈 곳이라 과제가 선 자리와 다르다 — 까닭을 적어 둔다");
   // 그리고 **개념 자리에 과목 이름이 온다.** 화면이 selectedConcept 로 '화학'을 보냈다.
   // 빈칸이 아니어서 대비책이 안 걸렸고, '화학'은 과목 이름이라 점수에서 빠져 책이 0권이 됐다.
-  check(/const chosen = String\(input\.selectedConcept \|\| ''\)[\s\S]{0,160}\? '' : input\.selectedConcept/.test(worker),
+  check(/const namedConcept = String\(input\.selectedConcept \|\| ''\)[\s\S]{0,160}\? '' : input\.selectedConcept/.test(worker),
     "A3f 개념 자리에 과목 이름이 오면 없는 것으로 친다");
+
+  // **책과 '다음에 해 볼 것'이 같은 자리를 가리켜야 한다.**
+  //
+  // 최종 보고서를 실제로 만들어 보니, 커피 추출 보고서에 '화학량론 해석 축'이 붙어 "몰비 계산,
+  // 반응식 계수 해석"을 하라고 나왔다. 책은 과제 문구로 고쳤는데 이쪽은 아직 축을 쓰고 있었다.
+  check(worker.includes("const reportAxis = axisForConcept(seedPack.axisIndex, input.subject, reportConcept) || careerAxis"),
+    "A3f 이 보고서가 선 개념의 축을 찾는다");
+  check(/const axis = reportAxis;/.test(worker),
+    "A3f '다음에 해 볼 것'도 그 축을 쓴다 — 책과 같은 자리다");
+  check(axisForConcept(axisIndex, "화학", "화학과 우리 생활")?.title === "생활 화학 적용 축",
+    "A3f 개념으로 축을 찾아낸다");
+  check(axisForConcept(axisIndex, "화학", "없는 개념") === null, "A3f 없는 개념이면 없다");
+  check(axisForConcept(axisIndex, "", "") === null, "A3f 빈값에도 터지지 않는다");
 }
 
 // A4: 고른 책은 **자료 카드 한 장**이 된다. 거기서부터는 이미 있는 길을 탄다.

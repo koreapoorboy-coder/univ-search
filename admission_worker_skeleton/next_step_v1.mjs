@@ -40,6 +40,24 @@ export function pickAxis(axes, axisIndex, subject) {
   return null;
 }
 
+// **이 개념의 축**을 찾는다.
+//
+// careerAxes 는 이 탐구가 앞으로 갈 곳이라, 같은 과목이어도 다른 단원의 축이 잡힌다 — 커피 추출
+// 보고서에 '화학량론 해석 축'이 잡혀 "몰비 계산, 반응식 계수 해석"을 하라고 나왔다. 보고서가 실제로
+// 선 개념의 축이 있으면 그것을 먼저 쓴다.
+export function axisForConcept(axisIndex, subject, concept) {
+  const tight = (value, max) => clean(value, max).replace(/\s+/g, '');
+  const wantSubject = tight(subject, 40).replace(/\d+$/, '');
+  const wantConcept = tight(concept, 80);
+  if (!wantSubject || !wantConcept) return null;
+  for (const [axisId, axis] of Object.entries(axisIndex?.axes || {})) {
+    if (tight(axis?.subject, 40).replace(/\d+$/, '') !== wantSubject) continue;
+    if (tight(axis?.concept, 80) !== wantConcept) continue;
+    return { axisId, title: axis.title };
+  }
+  return null;
+}
+
 // 이 보고서 다음에 무엇을 할 수 있는가. 축이 없으면 아무것도 없다 — 지어내지 않는다.
 export function buildNextStep({ axis = null, axisIndex = null, books = [], datasets = [] } = {}) {
   const full = axis?.axisId ? (axisIndex?.axes || {})[axis.axisId] : null;
