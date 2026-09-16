@@ -416,11 +416,15 @@ export default {
         //
         // 학생이 본 자료가 아니므로 '여기서 얻은 것'은 안 적고 무엇인지와 주소만 적는다. 선생님이 물으면
         // 학생이 열어 확인할 수 있다. 못 받아 와도 보고서는 그대로 나간다.
+        //
+        // **한 번만 받아서 참고 자료와 '다음에 해 볼 것'이 나눠 쓴다.** 두 번 부르면 첫 호출이 느려
+        // 6초를 넘길 때 참고 자료만 비는 일이 생긴다(실제로 그랬다). 처음 부르는 것이라 시간도 더 준다.
         input.referenceDatasets = [];
         if (input.reportStage !== STAGE.DRAFT) {
           try {
             input.referenceDatasets = await findPublicData(
-              { concept: reportConcept }, seedPack.publicDataTerms, env.PUBLIC_DATA_KEY, { limit: 3 },
+              { concept: reportConcept }, seedPack.publicDataTerms, env.PUBLIC_DATA_KEY,
+              { limit: 3, timeoutMs: 12000 },
             );
           } catch (error) {
             console.error('reference datasets failed:', error?.message || error);
@@ -552,10 +556,8 @@ export default {
               keyword: input.selectedKeyword || input.keyword, axisTitle: axis?.title,
               // 개념에 흔한 말('탐구'·'비교')로는 못 걸리게 한다. 축 인덱스에서 바로 센다.
             }, 2, buildWordCounts(bookList), buildConceptCounts(seedPack.axisIndex));
-            // 여기도 개념 자리에 과목 이름('화학')이 와서 자료가 0건이었다. 보고서가 선 개념을 쓴다.
-            const datasets = await findPublicData(
-              { concept: reportConcept }, seedPack.publicDataTerms, env.PUBLIC_DATA_KEY, { limit: 2 },
-            );
+            // 위에서 이미 받아 둔 것을 쓴다. 같은 개념이므로 두 번 부를 이유가 없다.
+            const datasets = (input.referenceDatasets || []).slice(0, 2);
             nextStep = buildNextStep({ axis, axisIndex: seedPack.axisIndex, books: found, datasets });
           } catch (error) {
             // 다음 걸음을 못 만들어도 보고서는 그대로 나간다.

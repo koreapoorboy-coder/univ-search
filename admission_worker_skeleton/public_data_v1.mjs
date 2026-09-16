@@ -69,7 +69,7 @@ export function datasetUrl(id) {
 }
 
 // 실제로 찾아본다. 키가 없거나 실패하면 빈 배열 — 자료를 못 찾아도 보고서는 그대로 나가야 한다.
-export async function findPublicData(input, terms, apiKey, { limit = 3, fetchImpl = fetch } = {}) {
+export async function findPublicData(input, terms, apiKey, { limit = 3, fetchImpl = fetch, timeoutMs = 6000 } = {}) {
   const key = clean(apiKey, 200);
   if (!key) return [];
   const queries = searchTerms(terms, input);
@@ -80,7 +80,7 @@ export async function findPublicData(input, terms, apiKey, { limit = 3, fetchImp
     const url = `${BASE}?page=1&perPage=20&cond%5Btitle%3A%3ALIKE%5D=${encodeURIComponent(query)}`
       + `&serviceKey=${encodeURIComponent(key)}`;
     try {
-      const res = await fetchImpl(url, { signal: AbortSignal.timeout(6000) });
+      const res = await fetchImpl(url, { signal: AbortSignal.timeout(timeoutMs) });
       if (!res.ok) continue;
       const body = await res.json();
       for (const row of body?.data || []) rows.push(row);

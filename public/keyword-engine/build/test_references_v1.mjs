@@ -178,6 +178,11 @@ const axisIndex = { axes: {
   check(worker.includes("input.referenceDatasets = ["), "F8 워커가 보고서 만들기 전에 자료를 받아 둔다");
   check(worker.indexOf("input.referenceDatasets") < worker.indexOf("callOpenAIWithRetry(prompt, env, input)"),
     "F8 그래야 참고 자료 절이 쓸 수 있다");
+  // 두 번 부르면 첫 호출이 느려 6초를 넘길 때 참고 자료만 비는 일이 생긴다. 한 번만 받아 나눠 쓴다.
+  check((worker.match(/findPublicData\(/g) || []).length === 1, "F8 공공데이터는 한 번만 받는다");
+  check(worker.includes("const datasets = (input.referenceDatasets || []).slice(0, 2)"),
+    "F8 '다음에 해 볼 것'도 같은 것을 나눠 쓴다");
+  check(worker.includes("timeoutMs: 12000"), "F8 처음 부르는 것이라 시간을 더 준다");
 }
 
 // F7: 워커가 교과서 인용을 만들어 넘긴다.
