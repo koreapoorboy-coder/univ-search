@@ -1,0 +1,52 @@
+// 다음에 해 볼 것.
+//
+// 처음에는 '읽을거리'를 주려고 했다. 사용자가 짚은 대로 그건 앞뒤가 안 맞는다 — 우리 제품은 **완성된 보고서를
+// 주는 것**이고, 학생이 하는 일은 자기 데이터를 넣고 다듬는 것이지 책을 읽는 게 아니다. 마감이 내일인 학생에게
+// 책 세 권을 권하면 화면만 복잡해진다.
+//
+// 그래서 주는 것을 바꿨다. **읽을거리가 아니라 할 일이다.**
+//
+// 보고서에는 이미 '후속 탐구'가 있고, 그건 "이 실험을 어떻게 더 정확히 다시 할까"를 답한다(컵 크기를 바꿔서,
+// 난수 발생기로 모의해서…). 여기서 주는 것은 다른 질문의 답이다: **"이 주제로 무엇을 더 만들까."**
+// 그 답은 이미 우리 축 데이터에 있다 — 축마다 output(만들 것)과 next(이어지는 과목)가 달려 있다.
+//
+// 자료는 그 일을 하는 **수단**으로만 붙는다. 자료가 앞에 서면 다시 읽을거리가 된다.
+
+const clean = (value, max = 120) => String(value ?? '').trim().slice(0, max);
+
+// 축의 output은 "수온·염분 비교표, 연직 분포 해석, 해양 환경 기초 보고서"처럼 쉼표로 이어져 있다.
+// 가운뎃점은 한 낱말 안에서도 쓰이므로(수온·염분) 쉼표로만 끊는다.
+export function activitiesFrom(output) {
+  return clean(output, 300)
+    .split(/[,،]/)
+    .map((one) => clean(one, 60))
+    .filter((one) => one.length >= 3)
+    .slice(0, 3);
+}
+
+// 이 보고서 다음에 무엇을 할 수 있는가. 축이 없으면 아무것도 없다 — 지어내지 않는다.
+export function buildNextStep({ axis = null, axisIndex = null, books = [], datasets = [] } = {}) {
+  const full = axis?.axisId ? (axisIndex?.axes || {})[axis.axisId] : null;
+  const title = clean(full?.title || axis?.title, 60);
+  const activities = activitiesFrom(full?.output);
+  // 할 일이 없으면 블록을 만들지 않는다. 자료만 남으면 그게 읽을거리 목록이다.
+  if (!title || !activities.length) return null;
+  return {
+    axisTitle: title,
+    why: clean(full?.why, 200),
+    activities,
+    nextSubjects: (full?.next || []).map((one) => clean(one, 30)).filter(Boolean).slice(0, 3),
+    // 자료는 수단이다. 없으면 없는 대로 두고, 할 일은 그대로 남는다.
+    books: books.slice(0, 2).map((book) => ({ title: book.title, author: book.author })),
+    datasets: datasets.slice(0, 2).map((row) => ({ title: row.title, org: row.org, id: row.id })),
+  };
+}
+
+// 학생이 읽을 한 줄. 지금 내라는 것이 아니라, 다음에 할 수 있는 것이라고 말한다.
+export function nextStepNote(step) {
+  if (!step) return '';
+  const has = step.books.length || step.datasets.length;
+  return has
+    ? '이 보고서는 여기서 끝나지만, 같은 축으로 한 걸음 더 갈 수 있어요. 아래 자료는 그때 쓰면 됩니다.'
+    : '이 보고서는 여기서 끝나지만, 같은 축으로 한 걸음 더 갈 수 있어요.';
+}

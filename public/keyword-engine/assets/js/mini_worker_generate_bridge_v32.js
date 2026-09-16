@@ -2693,6 +2693,33 @@
       </section>`;
   }
 
+  function renderNextStep(step){
+    if(!step || !Array.isArray(step.activities) || !step.activities.length) return "";
+    const acts = step.activities.map(one => `<li>${escapeHtml(one)}</li>`).join("");
+    const books = (step.books || []).map(book =>
+      `<li><b>${escapeHtml(book.title)}</b>${book.author ? " · " + escapeHtml(book.author) : ""}</li>`).join("");
+    const data = (step.datasets || []).map(row =>
+      `<li><a href="https://www.data.go.kr/data/${encodeURIComponent(row.id)}/openapi.do" target="_blank" rel="noopener">${escapeHtml(row.title)}</a>${row.org ? " · " + escapeHtml(row.org) : ""}</li>`).join("");
+    const material = (books || data)
+      ? `<div class="mini-next-material"><b>쓸 수 있는 자료</b><ul>${books}${data}</ul></div>`
+      : "";
+    const where = (step.nextSubjects || []).length
+      ? `<p class="mini-next-where">이어지는 과목 · ${step.nextSubjects.map(escapeHtml).join(" · ")}</p>`
+      : "";
+    return `
+      <section class="mini-next">
+        <div class="mini-next-head">
+          <h3>다음에 해 볼 것</h3>
+          <span>${escapeHtml(step.axisTitle || "")}</span>
+        </div>
+        <p class="mini-next-note">이 보고서는 여기서 끝나요. 같은 축으로 한 걸음 더 가고 싶을 때 쓰세요.</p>
+        ${step.why ? `<p class="mini-next-why">${escapeHtml(step.why)}</p>` : ""}
+        <ul class="mini-next-acts">${acts}</ul>
+        ${material}
+        ${where}
+      </section>`;
+  }
+
   function renderRecordDraft(lines){
     if(!Array.isArray(lines) || lines.length < 3) return "";
     return `
@@ -4117,6 +4144,7 @@ ${result}`;
           ${sectionHtml}
         </div>
         ${stage === "experiment_draft" ? renderCollectionPanel(stageResult) : ""}
+        ${renderNextStep(rawData?.nextStep)}
         ${renderRecordDraft(stageResult.recordDraft)}
       </section>
     `;
@@ -4387,6 +4415,21 @@ ${result}`;
     "        .mini-exp-table input::placeholder{color:#b6c0cf}",
     "        .mini-exp-error,.mini-upload-error{color:#b42318;font-weight:700;font-size:14px;margin:12px 0 0;padding:10px 12px;background:#fff4f3;border:1px solid #fcd9d4;border-radius:var(--mini-r-sm,10px)}",
     "",
+    "        .mini-next{margin:22px 0 0;padding:18px 20px;border:1px solid var(--mini-line,#e6eaf2);",
+    "          border-radius:var(--mini-r-lg,18px);background:linear-gradient(180deg,#fff,#f8fbff)}",
+    "        .mini-next-head{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline}",
+    "        .mini-next-head h3{margin:0;font-size:17px;letter-spacing:-.01em}",
+    "        .mini-next-head span{font-size:13px;font-weight:700;color:var(--mini-primary,#2458ff);",
+    "          background:var(--mini-primary-soft,#eaf0ff);border-radius:999px;padding:3px 10px}",
+    "        .mini-next-note{margin:8px 0 0;font-size:13px;color:#667085}",
+    "        .mini-next-why{margin:10px 0 0;font-size:14px;color:#3a4252;line-height:1.65}",
+    "        .mini-next-acts{margin:12px 0 0;padding-left:20px;font-size:14.5px;line-height:1.9}",
+    "        .mini-next-material{margin:14px 0 0;padding:12px 14px;background:#fff;",
+    "          border:1px solid var(--mini-line,#e6eaf2);border-radius:12px}",
+    "        .mini-next-material>b{display:block;font-size:13px;color:#667085;margin:0 0 6px}",
+    "        .mini-next-material ul{margin:0;padding-left:18px;font-size:13.5px;line-height:1.8}",
+    "        .mini-next-material a{color:var(--mini-primary,#2458ff);font-weight:700}",
+    "        .mini-next-where{margin:12px 0 0;font-size:13px;color:#667085}",
     "        .mini-card-grid{display:grid;gap:12px;margin:16px 0 0}",
     "        .mini-ref-block{margin:16px 0 0;padding:14px 16px;border:1px dashed var(--mini-line,#e6eaf2);border-radius:var(--mini-r,14px);background:#fbfcff}",
     "        .mini-ref-block>b{display:block;font-size:14px;margin:0 0 4px}",

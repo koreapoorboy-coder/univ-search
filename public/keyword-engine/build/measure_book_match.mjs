@@ -6,7 +6,7 @@
 import { readFile } from "node:fs/promises";
 import { buildWordCounts, matchBooks, MIN_SCORE } from "../../../admission_worker_skeleton/book_match_v1.mjs";
 
-const books = Object.values(JSON.parse(await readFile(new URL("../seed/book-engine/mini_book_engine_books_starter.json", import.meta.url), "utf8")));
+const books = JSON.parse(await readFile(new URL("../seed/engine-index/book_match_index.v1.json", import.meta.url), "utf8")).books;
 const axisIndex = JSON.parse(await readFile(new URL("../seed/engine-index/longitudinal_axis_index.v1.json", import.meta.url), "utf8"));
 
 // 진짜 과목·개념 쌍을 축 인덱스에서 꺼낸다. 162개 개념이 우리가 실제로 다루는 전부다.

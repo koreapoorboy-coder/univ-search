@@ -12,7 +12,7 @@ const keyFile = await readFile(keyPath, "utf8");
 const apiKey = (keyFile.match(/공공[^:]*:\s*(\S+)/) || [])[1] || "";
 if (!apiKey) { console.error("파일에서 공공데이터 키를 못 찾았습니다."); process.exit(1); }
 
-const terms = JSON.parse(await readFile(new URL("../data/public_data_terms.v1.json", import.meta.url), "utf8"));
+const terms = JSON.parse(await readFile(new URL("../seed/engine-index/public_data_terms.v1.json", import.meta.url), "utf8"));
 const axisIndex = JSON.parse(await readFile(new URL("../seed/engine-index/longitudinal_axis_index.v1.json", import.meta.url), "utf8"));
 
 const seen = new Set();

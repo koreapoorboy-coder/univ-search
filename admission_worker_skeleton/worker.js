@@ -9,6 +9,9 @@ import { majorFit } from './major_fit_v1.mjs';
 import { attachToStudent, saveReportOutput } from './report_archive_v1.mjs';
 import { adjustLicense, adjustStudent, checkEntitlement, claimSeat, emptyGrant, issueLicense, listLicenses, listStudents, loadLicense, releaseSeat, spendUse } from './license_v1.mjs';
 import { textbookCitation } from './references_v1.mjs';
+import { buildWordCounts, matchBooks } from './book_match_v1.mjs';
+import { findPublicData } from './public_data_v1.mjs';
+import { buildNextStep } from './next_step_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
 const SERVICE_NAME = 'admission-keyword-worker';
@@ -51,6 +54,8 @@ const SEED_FILES = {
   // Built by tools/build_major_curriculum_index.mjs: 33 majors' published curricula, already matched to the
   // 고교 개념 each course stands on.
   majorCurriculumIndex: 'engine-index/major_curriculum_index.v1.json',
+  bookMatchIndex: 'engine-index/book_match_index.v1.json',
+  publicDataTerms: 'engine-index/public_data_terms.v1.json',
 };
 
 // Execution authority is intentionally non-serializable. Audit hashes and
@@ -467,10 +472,32 @@ export default {
           }
         }
 
+        // 다음에 해 볼 것. **모델을 부른 뒤에** 만든다 — 프롬프트에 넣으면 보고서가 그쪽으로 휜다.
+        // 설계서에는 안 붙인다: 보고서가 끝난 자리에서 '다음'을 말해야 숙제가 아니라 다음 걸음이 된다.
+        let nextStep = null;
+        if (input.reportStage !== STAGE.DRAFT && source === 'openai') {
+          try {
+            const axis = (input.careerAxes || [])[0] || null;
+            const bookList = seedPack.bookMatchIndex?.books || [];
+            const found = matchBooks(bookList, {
+              subject: input.subject, concept: input.selectedConcept,
+              keyword: input.selectedKeyword || input.keyword, axisTitle: axis?.title,
+            }, 2, buildWordCounts(bookList));
+            const datasets = await findPublicData(
+              { concept: input.selectedConcept }, seedPack.publicDataTerms, env.PUBLIC_DATA_KEY, { limit: 2 },
+            );
+            nextStep = buildNextStep({ axis, axisIndex: seedPack.axisIndex, books: found, datasets });
+          } catch (error) {
+            // 다음 걸음을 못 만들어도 보고서는 그대로 나간다.
+            console.error('next step failed:', error?.message || error);
+          }
+        }
+
         return json({
           ok: true,
           source,
           reportId,
+          nextStep,
           resolved: input,
           phase1Lineage: liveAuthority.phase1Lineage,
           matchedCluster: seedMatch.matchedCluster,

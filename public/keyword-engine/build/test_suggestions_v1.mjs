@@ -7,8 +7,8 @@ import { readFile } from "node:fs/promises";
 import { buildWordCounts, matchBooks, MIN_SCORE, scoreBook, wantsBooks } from "../../../admission_worker_skeleton/book_match_v1.mjs";
 import { datasetUrl, orgRank, pickRows, searchTerms, usable } from "../../../admission_worker_skeleton/public_data_v1.mjs";
 
-const books = Object.values(JSON.parse(await readFile(new URL("../seed/book-engine/mini_book_engine_books_starter.json", import.meta.url), "utf8")));
-const terms = JSON.parse(await readFile(new URL("../data/public_data_terms.v1.json", import.meta.url), "utf8"));
+const books = JSON.parse(await readFile(new URL("../seed/engine-index/book_match_index.v1.json", import.meta.url), "utf8")).books;
+const terms = JSON.parse(await readFile(new URL("../seed/engine-index/public_data_terms.v1.json", import.meta.url), "utf8"));
 const counts = buildWordCounts(books);
 let passed = 0;
 const check = (ok, label, detail = "") => { assert.equal(ok, true, `${label} -> ${detail}`); console.log(`PASS ${label}`); passed++; };

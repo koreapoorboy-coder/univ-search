@@ -96,6 +96,17 @@ ${sections.map((sec, index) => `<section><h2>${index + 1}. ${esc(sec.key)}</h2>$
         <div class="mini-report-section-body">${para(s.text)}</div>
       </section>`).join("")}
     </div>
+    ${row.nextStep ? `<section class="mini-next">
+      <div class="mini-next-head"><h3>다음에 해 볼 것</h3><span>${esc(row.nextStep.axisTitle)}</span></div>
+      <p class="mini-next-note">이 보고서는 여기서 끝나요. 같은 축으로 한 걸음 더 가고 싶을 때 쓰세요.</p>
+      <p class="mini-next-why">${esc(row.nextStep.why)}</p>
+      <ul class="mini-next-acts">${row.nextStep.activities.map(a=>`<li>${esc(a)}</li>`).join("")}</ul>
+      ${(row.nextStep.books.length||row.nextStep.datasets.length) ? `<div class="mini-next-material"><b>쓸 수 있는 자료</b><ul>
+        ${row.nextStep.books.map(b=>`<li><b>${esc(b.title)}</b> · ${esc(b.author)}</li>`).join("")}
+        ${row.nextStep.datasets.map(d=>`<li><a href="https://www.data.go.kr/data/${esc(d.id)}/openapi.do">${esc(d.title)}</a> · ${esc(d.org)}</li>`).join("")}
+      </ul></div>` : ""}
+      <p class="mini-next-where">이어지는 과목 · ${row.nextStep.nextSubjects.join(" · ")}</p>
+    </section>` : ""}
     ${draft.length ? `<section class="mini-record">
       <div class="mini-record-head"><h3>생활기록부에 적을 문장</h3>
         <button type="button" class="secondary">복사</button></div>
