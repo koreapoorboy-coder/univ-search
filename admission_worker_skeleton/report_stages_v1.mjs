@@ -354,6 +354,8 @@ export function buildReferencesBody(body, sources, extra = {}) {
     // 개념에 맞는 공개 자료를 자동으로 붙인다. 학생이 본 자료가 아니므로 '얻은 것'은 안 적고
     // 무엇인지와 주소만 적는다 — 선생님이 물으면 학생이 열어 확인할 수 있다.
     datasets: extra.datasets || [],
+    // 개념에 맞는 KCI 논문. 원문이 열려 있고 주소가 있는 것만 온다.
+    papers: extra.papers || [],
     textbook: extra.textbook || '',
     fallbackBody: written.length ? written.join('\n') : body,
   });
@@ -855,7 +857,7 @@ export function finalizeStageOutput(stage, parsed, input) {
       const title = String(section?.title || '');
       if (/참고 자료/.test(title)) {
         return { ...section, body: buildReferencesBody(section?.body, data.sources, {
-          datasets: input.referenceDatasets || [],
+          datasets: input.referenceDatasets || [], papers: input.referencePapers || [],
           cards: data.sourceCards, textbook: input.textbookCitation || '',
         }) };
       }
@@ -871,7 +873,7 @@ export function finalizeStageOutput(stage, parsed, input) {
     });
     // 모델에게는 참고 자료 절을 쓰지 말라고 일러 두었으므로, 거의 항상 여기서 붙는다. **실제 경로는 이쪽이다** —
     // 위의 buildReferencesBody만 고쳤을 때 아무것도 바뀌지 않았던 이유가 이것이었다.
-    const refs = buildReferencesBody('', data.sources, { cards: data.sourceCards, datasets: input.referenceDatasets || [], textbook: input.textbookCitation || '' })
+    const refs = buildReferencesBody('', data.sources, { cards: data.sourceCards, datasets: input.referenceDatasets || [], papers: input.referencePapers || [], textbook: input.textbookCitation || '' })
       || [String(input.subject || '').trim(), '교과서 관련 단원'].filter(Boolean).join(' ');
     if (!cleaned.some((section) => /참고 자료/.test(String(section?.title || '')))) cleaned.push({ title: '참고 자료', body: refs });
     const extra = stage === STAGE.FINAL

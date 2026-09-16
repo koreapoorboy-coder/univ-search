@@ -11,6 +11,7 @@ import { adjustLicense, adjustStudent, checkEntitlement, claimSeat, emptyGrant, 
 import { textbookCitation } from './references_v1.mjs';
 import { buildConceptCounts, buildMajorCounts, buildWordCounts, inferConcept, matchBooks } from './book_match_v1.mjs';
 import { findPublicData } from './public_data_v1.mjs';
+import { findPapers } from './kci_v1.mjs';
 import { axisForConcept, buildNextStep, pickAxis } from './next_step_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
@@ -428,6 +429,16 @@ export default {
             );
           } catch (error) {
             console.error('reference datasets failed:', error?.message || error);
+          }
+        }
+        // 개념에 맞는 KCI 논문. **원문이 열려 있고 주소가 있는 것만** 온다(kci_v1.mjs).
+        // 키가 없으면 빈 배열이라 아무 일도 일어나지 않는다. 공공데이터와 나란히 부른다.
+        input.referencePapers = [];
+        if (input.reportStage !== STAGE.DRAFT) {
+          try {
+            input.referencePapers = await findPapers({ concept: reportConcept }, env.KCI_KEY, { limit: 2 });
+          } catch (error) {
+            console.error('reference papers failed:', error?.message || error);
           }
         }
         // 모든 보고서는 학생 코드를 지나간다. 코드 없이 만들 수 있으면 이용권은 세어 봐야 소용이 없다.

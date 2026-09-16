@@ -12,6 +12,7 @@
 //   · 학생이 적은 자료 — 제목·종류·핵심 내용·내 해석. '내 해석'은 안 읽었으면 못 쓴다.
 
 import { datasetUrl } from './public_data_v1.mjs';
+import { paperLine } from './kci_v1.mjs';
 
 const clean = (value, max = 200) => String(value ?? '').trim().slice(0, max);
 
@@ -74,8 +75,8 @@ export function dataLine(row) {
 
 // 참고 자료 절의 몸통.
 //
-// 차례는 **학생이 적은 것 → 공개 자료 → 교과서**다. 학생이 실제로 본 것이 앞이어야 한다.
-export function referencesBody({ cards = [], datasets = [], textbook = '', fallbackBody = '' } = {}) {
+// 차례는 **학생이 적은 것 → 논문 → 공개 자료 → 교과서**다. 학생이 실제로 본 것이 앞이어야 한다.
+export function referencesBody({ cards = [], papers = [], datasets = [], textbook = '', fallbackBody = '' } = {}) {
   const lines = [];
   for (const card of cards) {
     const line = sourceLine(card);
@@ -88,7 +89,13 @@ export function referencesBody({ cards = [], datasets = [], textbook = '', fallb
       if (line && !/^(※|\(|\[)/.test(line)) lines.push(line);
     }
   }
-  // 개념에 맞는 공개 자료. 학생이 적은 것 뒤, 교과서 앞이다.
+  // 개념에 맞는 논문. 학생이 적은 것 뒤, 공개 자료 앞이다 — 참고문헌으로는 논문이 가장 격이 높다.
+  // 여기 오는 논문은 원문이 열려 있고 주소가 있는 것뿐이다(kci_v1.mjs).
+  for (const row of papers) {
+    const line = paperLine(row);
+    if (line && !lines.includes(line)) lines.push(line);
+  }
+  // 개념에 맞는 공개 자료. 논문 뒤, 교과서 앞이다.
   for (const row of datasets) {
     const line = dataLine(row);
     if (line && !lines.includes(line)) lines.push(line);
