@@ -572,8 +572,17 @@ export default {
             }, 2, buildWordCounts(bookList), buildConceptCounts(seedPack.axisIndex));
             // 위에서 이미 받아 둔 것을 쓴다. 같은 개념이므로 두 번 부를 이유가 없다.
             const datasets = (input.referenceDatasets || []).slice(0, 2);
-            // 이 보고서가 선 개념으로 찾는다. 축이 아니라 개념이다 — 축은 다음에 갈 곳을 가리킨다.
-            const research = (seedPack.univResearchIndex?.concepts || {})[`${input.subject}::${reportConcept}`] || [];
+            // 개념 이름으로 찾는다. 그런데 **reportConcept 는 교육과정 단원 이름이 아닐 때가 있다.**
+            // 과제 글에서 뽑은 말이라 「유전 정보」처럼 나오고, 인덱스 키는 「유전자와 염색체」다.
+            // 실제 화면에서 이것 때문에 연구가 한 건도 안 붙었다. 교과서 줄은 축에서 단원을 가져와
+            // 제대로 나왔는데 연구만 빈 이유가 이것이었다. 그래서 축의 단원 이름으로 한 번 더 찾는다.
+            const axisConcept = reportAxis?.axisId ? (seedPack.axisIndex?.axes || {})[reportAxis.axisId]?.concept : '';
+            const researchIndex = seedPack.univResearchIndex?.concepts || {};
+            let research = [];
+            for (const name of [reportConcept, axisConcept].filter(Boolean)) {
+              const got = researchIndex[`${input.subject}::${name}`];
+              if (got && got.length) { research = got; break; }
+            }
             nextStep = buildNextStep({ axis, axisIndex: seedPack.axisIndex, books: found, datasets, research });
           } catch (error) {
             // 다음 걸음을 못 만들어도 보고서는 그대로 나간다.

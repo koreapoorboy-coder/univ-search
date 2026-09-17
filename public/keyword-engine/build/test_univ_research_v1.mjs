@@ -145,10 +145,17 @@ const best = (over = {}) => ({ title: "가", year: "2024", org: "서울대학교
 {
   check(worker.includes("univResearchIndex: 'engine-index/univ_research_index.v1.json'"), "H10 워커가 인덱스를 읽는다");
   check(worker.includes("seedPack.univResearchIndex?.concepts"), "H10 워커가 개념으로 찾는다");
-  check(/univResearchIndex\?\.concepts[^\n]*\$\{input\.subject\}::\$\{reportConcept\}/.test(worker),
-    "H10 **이 보고서가 선 개념**으로 찾는다 — 축으로 찾으면 다음에 갈 곳이 잡힌다");
+  check(/researchIndex\[`\$\{input\.subject\}::\$\{name\}`\]/.test(worker),
+    "H10 과목과 개념 이름을 키로 찾는다");
   check(worker.includes("buildNextStep({ axis, axisIndex: seedPack.axisIndex, books: found, datasets, research })"),
     "H10 다음 걸음에 넘겨준다");
+  // **실제 화면에서 이것 때문에 한 건도 안 붙었다.** reportConcept 는 과제 글에서 뽑은 말이라
+  // 「유전 정보」처럼 나오는데, 인덱스 키는 교육과정 단원 이름 「유전자와 염색체」다.
+  // 교과서 줄은 축에서 단원을 가져와 제대로 나왔는데 연구만 비어 있었다.
+  check(worker.includes("const axisConcept = reportAxis?.axisId"),
+    "H10 개념 이름으로 못 찾으면 축의 단원 이름으로 한 번 더 찾는다");
+  check(/for \(const name of \[reportConcept, axisConcept\]/.test(worker),
+    "H10 두 이름을 차례로 본다 — 개념이 먼저, 축이 나중");
   check(bridge.includes("mini-next-research"), "H10 화면에 그리는 자리가 있다");
   check(bridge.includes("대학에서는 이렇게 이어져요"), "H10 '읽을거리'가 아니라 '이어짐'으로 쓴다");
   check(bridge.includes("읽지 않아도 돼요"), "H10 안 읽어도 된다고 분명히 말한다");
