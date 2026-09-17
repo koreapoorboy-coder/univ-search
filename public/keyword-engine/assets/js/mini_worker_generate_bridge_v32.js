@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v271_univ_major
+// SCREEN_VERSION: v272_major_line
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v271-univ-major";
+  const VERSION = "mini-worker-generate-bridge-v272-major-line";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -4527,7 +4527,7 @@ ${result}`;
     "        .mini-next-research a{margin-left:6px;font-size:12.5px;color:var(--mini-primary,#2458ff);font-weight:700}",
     "        .mini-next-major{margin:4px 0 0;padding:6px 9px;background:#fff;border:1px solid var(--mini-line,#e6eaf2);",
     "          border-radius:8px;font-size:12.5px;color:#3a4252;line-height:1.6}",
-    "        .mini-next-major b{display:inline;font-weight:700;color:var(--mini-primary,#2458ff)}",
+    "        .mini-next-research li .mini-next-major b{display:inline;font-weight:700;color:var(--mini-primary,#2458ff)}",
     "        .mini-next-major span{display:block;color:#667085;font-size:12px;margin-top:2px}",
     "        .mini-next-research p{margin:6px 0 0;font-size:12.5px;color:#667085;line-height:1.6}",
     "        .mini-next-where{margin:12px 0 0;font-size:13px;color:#667085}",
