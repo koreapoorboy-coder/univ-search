@@ -17,7 +17,7 @@
 //   node tools/build_univ_research_index.mjs          — 무엇이 들어가는지만 보여 준다
 //   node tools/build_univ_research_index.mjs --write  — 실제로 만든다
 import { readFile, writeFile } from "node:fs/promises";
-import { buildSpread, pickResearch } from "../admission_worker_skeleton/univ_research_v1.mjs";
+import { buildSpread, pickMajor, pickResearch, schoolKey } from "../admission_worker_skeleton/univ_research_v1.mjs";
 
 const here = (name) => new URL(name, import.meta.url);
 const build = (name) => here(`../public/keyword-engine/build/${name}`);
@@ -47,10 +47,41 @@ for (const axis of Object.values(axisIndex.axes || {})) {
 const bestUrl = (id) => `https://www.ntis.go.kr/outcomes/tpopup/xtApplDtlInfoAction.do?cmd=best&techId=${id}&pageCode=TH_BEST_RST_DTL`;
 const projUrl = (id) => `https://www.ntis.go.kr/project/pjtInfo.do?pjtId=${id}&pageCode=TH_TOTAL_PJT_DTL`;
 
+// 대학알리미 학과 자료. 있으면 학과까지 붙이고, 없으면 연구만 붙인다.
+//   node tools/fetch_school_major.mjs --key-file <키파일>   로 먼저 받아 둔다.
+let bySchool = new Map();
+try {
+  const pack = JSON.parse(await readFile(build(".cache_school_major.json"), "utf8"));
+  const renames = new Map((JSON.parse(await readFile(here("./fix_school_names_2026_09.json"), "utf8")).renames || [])
+    .map((one) => [schoolKey(one.from), schoolKey(one.to)]));
+  // 학사 과정만 본다. 대학원·전문대는 고등학생이 갈 곳이 아니다.
+  for (const row of pack.rows) {
+    if (row.degree !== "학사") continue;
+    const key = schoolKey(row.school);
+    if (!bySchool.has(key)) bySchool.set(key, []);
+    bySchool.get(key).push(row);
+  }
+  // 이름이 바뀐 학교는 옛 이름으로도 찾을 수 있게 한다.
+  for (const [from, to] of renames) {
+    if (!bySchool.has(from) && bySchool.has(to)) bySchool.set(from, bySchool.get(to));
+  }
+  console.log(`학과 자료: ${pack.rows.length.toLocaleString()}건 가운데 학사 과정으로 ${bySchool.size.toLocaleString()}개 학교`);
+} catch (error) {
+  console.log("학과 자료가 없습니다. 연구만 붙입니다. (tools/fetch_school_major.mjs 로 먼저 받으세요)");
+}
+
+const majorDrops = new Map();
+for (const one of (JSON.parse(await readFile(here("./fix_univ_major_2026_09.json"), "utf8")).drops || [])) {
+  if (!majorDrops.has(one.concept)) majorDrops.set(one.concept, []);
+  majorDrops.get(one.concept).push(one);
+}
+
 const spread = buildSpread(axisIndex);
 const index = {};
 let filled = 0;
 let fromBest = 0;
+let withMajor = 0;
+let majorDropped = 0;
 for (const axis of rows) {
   const key = `${axis.subject}::${axis.concept}`;
   const pool = [
@@ -68,6 +99,16 @@ for (const axis of rows) {
   if (!picked.length) continue;
   filled += 1;
   if (picked[0].kind === "best") fromBest += 1;
+  // 연구가 나온 대학의 학과 가운데, 개설 교과목에 이 개념이 실제로 들어 있는 학과를 붙인다.
+  // 낱말 규칙으로 못 거른 것은 손으로 지운다(tools/fix_univ_major_2026_09.json).
+  const badMajors = majorDrops.get(key) || [];
+  for (const one of picked) {
+    const pool = (bySchool.get(schoolKey(one.org)) || [])
+      .filter((row) => !badMajors.some((drop) => String(row.major || "").replace(/\s+/g, "") === drop.major.replace(/\s+/g, "")));
+    if (pool.length !== (bySchool.get(schoolKey(one.org)) || []).length) majorDropped += 1;
+    const major = pickMajor(pool, { concept: axis.concept, subject: axis.subject, spread });
+    if (major) { one.major = major; withMajor += 1; }
+  }
   index[key] = picked;
 }
 

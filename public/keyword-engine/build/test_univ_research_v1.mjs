@@ -5,7 +5,8 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import {
-  buildSpread, isFresh, isUniv, onTopic, pickResearch, pointers, researchLine, researchNote, stem, touches, wantsResearch,
+  buildSpread, cleanCourse, courseTouches, groupFits, isFresh, isUniv, majorLine, onTopic,
+  pickMajor, pickResearch, pointers, researchLine, researchNote, schoolKey, stem, touches, wantsResearch,
 } from "../../../admission_worker_skeleton/univ_research_v1.mjs";
 import { buildNextStep } from "../../../admission_worker_skeleton/next_step_v1.mjs";
 
@@ -16,6 +17,7 @@ const bridge = lf(await readFile(here("../assets/js/mini_worker_generate_bridge_
 const index = JSON.parse(await readFile(here("../seed/engine-index/univ_research_index.v1.json"), "utf8"));
 const axisIndex = JSON.parse(await readFile(here("../seed/engine-index/longitudinal_axis_index.v1.json"), "utf8"));
 const fixes = JSON.parse(await readFile(here("../../../tools/fix_univ_research_2026_09.json"), "utf8"));
+const majorFixes = JSON.parse(await readFile(here("../../../tools/fix_univ_major_2026_09.json"), "utf8"));
 
 let passed = 0;
 const check = (ok, label, detail = "") => { assert.equal(ok, true, `${label} -> ${detail}`); console.log(`PASS ${label}`); passed++; };
@@ -160,6 +162,96 @@ const best = (over = {}) => ({ title: "가", year: "2024", org: "서울대학교
   check(bridge.includes("대학에서는 이렇게 이어져요"), "H10 '읽을거리'가 아니라 '이어짐'으로 쓴다");
   check(bridge.includes("읽지 않아도 돼요"), "H10 안 읽어도 된다고 분명히 말한다");
   check(bridge.includes(".mini-next-research{"), "H10 모양도 넣어 뒀다");
+}
+
+// ─── 학과 붙이기 ───────────────────────────────────────────────────────────
+
+// J1: 대학 이름 맞추기. 연구 기록과 대학알리미가 같은 학교를 다르게 적는다.
+{
+  check(schoolKey("충남대학교 산학협력단") === "충남대학교", "J1 산학협력단을 뗀다");
+  check(schoolKey("성균관대학교(자연과학캠퍼스)") === "성균관대학교", "J1 캠퍼스 괄호를 뗀다");
+  check(schoolKey("한양대학교에리카산학협력단") === "한양대학교", "J1 에리카산학협력단도 뗀다");
+  // 2024년에 국립대 이름이 바뀌었다. '국립'을 떼고 맞춰야 옛 기록과 이어진다.
+  check(schoolKey("국립공주대학교") === schoolKey("공주대학교"), "J1 '국립'이 붙어도 같은 학교로 본다");
+}
+
+// J2: 교과목 이름에는 쓰레기가 섞여 있다.
+{
+  check(cleanCourse("연구멘토링-내과학-이동기(MED7185)") === "",
+    "J2 '연구멘토링-내과학-이동기'는 과목이 아니다 — '이동기'의 '이동'이 「물질 이동」에 걸렸다");
+  check(cleanCourse("효소학(BIO201)") === "효소학", "J2 과목 코드를 뗀다");
+  check(cleanCourse("인간·사회·의료)") === "인간·사회·의료", "J2 짝 없이 남은 괄호도 뗀다");
+  check(cleanCourse("특강 I") === "" && cleanCourse("졸업논문") === "", "J2 껍데기 과목은 안 본다");
+}
+
+// J3: **교과목은 연구 제목보다 엄하게 본다.**
+{
+  const aim = new Set(["효소", "원자"]);
+  check(courseTouches("효소학", aim), "J3 '효소학'은 '효소'다 — 학문 이름을 만드는 접미사는 봐준다");
+  check(!courseTouches("원자력 계측제어 및 실험", aim), "J3 '원자력'은 '원자'가 아니다");
+  // 조사를 떼면 '원자로'가 '원자'가 된다. 교과목 이름은 문장이 아니라 조사를 떼면 안 된다.
+  check(!courseTouches("원자로 이론", aim), "J3 '원자로'도 '원자'가 아니다 — 교과목에서는 조사를 안 뗀다");
+  check(courseTouches("은하와 우주", new Set(["은하", "우주"])), "J3 그대로 들어 있으면 닿은 것");
+}
+
+// J4: 계열이 맞아야 한다. 낱말로는 절대 못 가르는 자리다.
+{
+  check(!groupFits("생명과학", "예ㆍ체능계열"),
+    "J4 「광합성과 세포 호흡」에 기악과가 붙었다 — 관악기 '호흡법'이었다");
+  check(groupFits("생명과학", "자연과학계열") && groupFits("화학", "공학계열"), "J4 과학은 자연·공학·의학");
+  check(groupFits("통합사회1", "인문ㆍ사회계열") && !groupFits("통합사회1", "공학계열"), "J4 사회는 인문·사회·교육");
+  check(groupFits("화학", ""), "J4 계열이 안 적힌 학과는 막지 않는다");
+}
+
+// J5: 학과 고르기.
+{
+  const majors = [
+    { major: "생명공학부", college: "자연과학대학", group: "자연과학계열", quota: 75,
+      courses: ["효소학", "미생물학", "졸업논문"], jobs: ["바이오의약품연구원", "생명공학연구원"] },
+    { major: "기악과", college: "음악대학", group: "예ㆍ체능계열", quota: 30, courses: ["효소학"], jobs: ["연주자"] },
+  ];
+  const got = pickMajor(majors, { concept: "효소와 대사 반응", subject: "생명과학" });
+  check(got?.name === "생명공학부", "J5 계열이 맞는 학과를 고른다", got?.name);
+  check(got.courses.length === 1 && got.courses[0] === "효소학",
+    "J5 **그 개념을 실제로 배우는 과목**만 보여 준다 — 학과 전체 커리큘럼이 아니다");
+  check(!got.courses.includes("졸업논문"), "J5 껍데기 과목은 빠진다");
+  check(pickMajor([{ major: "철학과", group: "인문ㆍ사회계열", courses: ["논리학"] }],
+    { concept: "효소와 대사 반응", subject: "생명과학" }) === null,
+    "J5 닿는 과목이 없으면 안 붙인다 — 학과 이름만 보고 짐작하는 것은 지어내기다");
+  // 과학탐구실험은 학교에서 하는 활동이지 학문 분야가 아니다.
+  check(pickMajor(majors, { concept: "생체 신호와 건강 데이터 탐구", subject: "과학탐구실험2" }) === null,
+    "J5 과학탐구실험에는 학과를 안 붙인다");
+  // 국어 개념에 외국어문학과가 줄줄이 올라왔다. 하나 지우면 다음 것이 올라와 규칙으로 막는다.
+  check(pickMajor([{ major: "불어불문학과", group: "인문ㆍ사회계열", courses: ["프랑스 문학사"] }],
+    { concept: "문학·독서와 주체적 수용", subject: "공통국어1" }) === null,
+    "J5 국어 개념에 외국어문학과는 안 붙인다");
+}
+
+// J6: 학과 한 줄과 인덱스.
+{
+  check(majorLine({ name: "생명공학부", courses: ["효소학", "미생물학"] }) === "생명공학부 — 효소학 · 미생물학",
+    "J6 학과와 배우는 과목을 한 줄로");
+  check(majorLine({}) === "" && majorLine(null) === "", "J6 학과가 없으면 줄이 없다");
+  const withMajor = [];
+  for (const list of Object.values(index.concepts)) for (const one of list) if (one.major) withMajor.push(one);
+  check(withMajor.length >= 15, "J6 인덱스에 학과가 붙어 있다", String(withMajor.length));
+  check(withMajor.every((one) => (one.major.courses || []).length >= 1),
+    "J6 학과마다 **실제로 배우는 과목**이 적혀 있다 — 없으면 붙일 이유가 없다");
+  // 손으로 지운 학과가 실제로 빠져 있어야 한다.
+  for (const drop of majorFixes.drops) {
+    const got = index.concepts[drop.concept] || [];
+    check(!got.some((one) => one.major?.name === drop.major), `J6 손으로 지운 학과가 빠져 있다 — ${drop.major}`, drop.concept);
+  }
+  check(majorFixes.drops.every((one) => String(one.why || "").length > 10), "J6 왜 지웠는지가 다 적혀 있다");
+}
+
+// J7: 화면과 다음 걸음까지 간다.
+{
+  check(/major: row\.major \?/.test(worker) === false, "J7 학과는 워커가 아니라 인덱스에서 온다");
+  check(bridge.includes("mini-next-major"), "J7 화면에 학과 자리가 있다");
+  check(bridge.includes("에서 배워요"), "J7 '이 학과를 가라'가 아니라 '거기서는 이걸 배운다'로 쓴다");
+  check(bridge.includes("졸업 후 —"), "J7 진출 직업도 보여 준다");
+  check(bridge.includes(".mini-next-major{"), "J7 모양도 넣어 뒀다");
 }
 
 console.log(`\n${passed} checks passed`);

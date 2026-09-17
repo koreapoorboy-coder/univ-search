@@ -77,6 +77,11 @@ export function buildNextStep({ axis = null, axisIndex = null, books = [], datas
     // 학생이 읽을 원문이 없으므로 참고문헌에는 안 들어간다.
     research: research.slice(0, 2).map((row) => ({
       title: row.title, org: row.org, lead: row.lead, year: row.year, url: row.url, kind: row.kind,
+      // 그 대학의 학과와, **그 학과에서 이 개념을 실제로 배우는 과목**. 없으면 안 붙는다.
+      major: row.major ? {
+        name: row.major.name, college: row.major.college,
+        courses: (row.major.courses || []).slice(0, 3), jobs: (row.major.jobs || []).slice(0, 2),
+      } : null,
     })),
   };
 }

@@ -34,6 +34,10 @@ export const NOT_POINTING = new Set([
   //   「미래와 지속 가능한 삶」   → "사막에서도 광합성 **가능한** 인공 잎"     ('가능한')
   //   「통합적 관점과 행복」      → "**통합적** 상황 인지 딥러닝"             ('통합적')
   '가능한', '가능', '지속', '통합적', '통합', '상호작용',
+  // 학과 교과목에 붙여 보고 더 나온 것. 어느 학과 교과목에나 들어 있다:
+  //   「과학 기술과 미래 사회」 → 건축토목공학부 "Eco City **기술**"
+  //   「지구 환경 변화와 인간 생활」 → 의학과 "**인간**·사회·의료"
+  '기술', '인간',
 ]);
 
 // 이 개념을 실제로 가리키는 말. 과목 이름과 넓은 말은 뺀다.
@@ -183,4 +187,130 @@ export function researchNote(found) {
   return found.some((one) => one.kind === 'best')
     ? '이 주제가 대학에서 어떻게 이어지는지예요. 정부가 뽑은 우수성과라 설명이 쉬운 편이에요.'
     : '이 주제가 대학에서 어떻게 이어지는지예요. 국가 연구과제 기록이라 말이 어려울 수 있어요.';
+}
+
+// ─── 학과 붙이기 ───────────────────────────────────────────────────────────
+//
+// 연구가 어느 대학에서 나왔는지는 안다. 학생이 진짜 알고 싶은 것은 그 다음이다 —
+// **"그럼 나는 어느 학과를 가야 하나."**
+//
+// 대학알리미가 학과마다 **실제 개설 교과목**을 준다. 그래서 지어내지 않고 고를 수 있다:
+// 그 대학의 학과 가운데, **개설 교과목에 이 개념이 실제로 들어 있는 학과**를 고른다.
+// 교과목에 안 보이면 안 붙인다 — 학과 이름만 보고 짐작하는 것은 지어내기다.
+
+// 연구 기록의 기관 이름과 대학알리미의 학교 이름을 맞춘다.
+//   "충남대학교 산학협력단"           → 충남대학교
+//   "성균관대학교(자연과학캠퍼스)"      → 성균관대학교
+//   "공주대학교"                     → 국립공주대학교   ('국립'이 붙는 쪽으로도 본다)
+export function schoolKey(name) {
+  return clean(name, 60)
+    .replace(/\s+/g, '')
+    .replace(/\(.*?\)/g, '')
+    .replace(/(글로컬산학협력단|에리카산학협력단|산학협력단)/g, '')
+    .replace(/^국립/, '');
+}
+
+// 교과목 이름에는 쓰레기가 많이 섞여 있다. 재 보고 알았다:
+//   "연구멘토링-내과학-이동기(MED7185)"  ← 교수 이름과 과목 코드가 붙어 있다.
+//                                        '이동기'의 '이동'이 「물질 이동」에 걸려 의학과가 붙었다.
+// 괄호 안 코드를 떼고, 내용이 없는 껍데기 과목은 아예 안 본다. 학생에게 보여 줄 것도 못 된다.
+const EMPTY_COURSE = /(연구멘토링|특강|세미나|논문지도|논문연구|현장실습|졸업논문|인턴십|캡스톤|자율연구|개별연구|독립연구)/;
+export function cleanCourse(name) {
+  // 괄호를 떼면 짝 없는 괄호가 남는 줄이 있다("인간·사회·의료)"). 남은 것도 지운다.
+  const bare = clean(name, 60).replace(/\([^)]*\)/g, '').replace(/[()[\]{}]/g, '').replace(/\s+/g, ' ').trim();
+  if (!bare || bare.length < 2) return '';
+  if (EMPTY_COURSE.test(bare)) return '';
+  return bare;
+}
+
+// **교과목은 연구 제목보다 엄하게 본다.**
+//
+// 연구 제목에는 접미사 한 글자까지 봐줬다(암석 ⊂ 암석권). 교과목에 그 규칙을 쓰니 이렇게 됐다:
+//   「원자의 구조」(화학) → "원자력 계측제어 및 실험" → 원자력및양자공학과
+// '원자'와 '원자력'은 다른 것이다. 그런데 '효소'와 '효소학'은 같은 것이다. 둘 다 한 글자 차이라
+// 길이로는 못 가른다. 그래서 **학문 이름을 만드는 접미사만** 봐준다 — 학·론·사·법.
+const FIELD_SUFFIX = /^(.+)(학|론|사|법)$/;
+// **교과목에서는 조사를 떼지 않는다.** 교과목 이름은 문장이 아니라 명사구라 조사가 거의 안 붙는다.
+// 떼었더니 "원자로 이론"의 '원자로'가 '원자'가 되어 「원자의 구조」에 원자력공학과가 붙었다.
+export function courseTouches(course, aim) {
+  for (const word of words(course)) {
+    if (aim.has(word)) return true;
+    const cut = FIELD_SUFFIX.exec(word);
+    if (cut && cut[1].length >= 2 && aim.has(cut[1])) return true;
+  }
+  return false;
+}
+
+// 과목과 학과 계열이 맞는가.
+//
+// 이게 없을 때 이렇게 붙었다:
+//   「광합성과 세포 호흡」(생명과학) → 서울대 **기악과(관악전공)** — "호흡법"
+// 관악기 부는 호흡이다. 낱말로는 절대 못 가른다. 계열로 막는 것이 맞다.
+const SCIENCE = /^(물리|화학|생명과학|지구과학|통합과학|과학탐구실험|세포와|물질과|역학과|전자기와|지구시스템|정보)/;
+const HUMANITY = /^(공통국어|통합사회)/;
+export function groupFits(subject, group) {
+  const name = clean(subject, 40);
+  const field = clean(group, 20).replace(/\s|ㆍ|·/g, '');
+  if (!field) return true;              // 계열이 안 적힌 학과는 막지 않는다
+  if (SCIENCE.test(name)) return /(자연과학|공학|의학)/.test(field);
+  if (HUMANITY.test(name)) return /(인문|사회|교육)/.test(field);
+  return true;
+}
+
+// 과학탐구실험에는 학과를 안 붙인다.
+//
+// 「갈릴레이의 경사면 실험」·「도량형의 역사 추적하기」는 **학교에서 하는 활동**이지 학문 분야가 아니다.
+// 억지로 붙이니 이렇게 됐다:
+//   「도량형의 역사 추적하기」 → 기초교육학부 "국제관계의 **역사**"
+//   「생체 신호와 건강 데이터」 → 미래모빌리티학과 "자율주행 **데이터** 처리"
+// 연구는 붙여도 되지만(주제는 있으니) 학과는 아니다.
+const NO_MAJOR = /^과학탐구실험/;
+
+// 국어 개념에는 외국어문학과를 붙이지 않는다.
+//
+// 「문학·독서와 주체적 수용」에 노어노문학과가 붙어서 지웠더니 불어불문학과가 올라왔다. 한 곳을
+// 지워도 같은 종류가 줄줄이 올라온다. 손으로 지울 일이 아니라 규칙으로 막을 일이다.
+const FOREIGN_LIT = /(영어|영문|불어|불문|노어|노문|중어|중문|일어|일문|독어|독문|서어|서문|아랍|러시아|프랑스|중국|일본|독일|이탈리아|스페인|포르투갈|베트남|태국|인도|몽골|터키|이란|국제어문)/;
+
+// 이 대학의 학과 가운데 이 개념에 닿는 것을 고른다. 닿는 것이 없으면 아무것도 안 준다.
+export function pickMajor(majors, { concept = '', subject = '', spread = null } = {}) {
+  if (NO_MAJOR.test(clean(subject, 40))) return null;
+  const aim = new Set(pointers(concept, subject));
+  if (!aim.size) return null;
+  const korean = /^공통국어/.test(clean(subject, 40));
+  const sharp = new Set(spread ? [...aim].filter((one) => (spread.get(one) || 1) < 3) : []);
+  let best = null;
+  for (const major of Array.isArray(majors) ? majors : []) {
+    if (!groupFits(subject, major.group)) continue;
+    if (korean && FOREIGN_LIT.test(String(major.major || ''))) continue;
+    const clean2 = (major.courses || []).map(cleanCourse).filter(Boolean);
+    const courses = [...new Set(clean2.filter((one) => courseTouches(one, aim)))];
+    if (!courses.length) continue;
+    // 흔한 말 하나로만 걸린 것은 버린다. 연구를 고를 때와 같은 규칙이다.
+    if (sharp.size && !courses.some((one) => courseTouches(one, sharp))) continue;
+    const score = courses.length;
+    if (!best || score > best.score || (score === best.score && (major.quota || 0) > (best.quota || 0))) {
+      best = {
+        name: clean(major.major, 60),
+        college: clean(major.college, 40),
+        group: clean(major.group, 20),
+        quota: major.quota || 0,
+        // **그 학과에서 이 개념을 실제로 배우는 과목**만 보여 준다. 학과의 전체 커리큘럼이 아니다.
+        courses: courses.slice(0, 4).map((one) => clean(one, 40)),
+        jobs: (major.jobs || []).slice(0, 3).map((one) => clean(one, 30)),
+        score,
+      };
+    }
+  }
+  if (!best) return null;
+  const { score, ...rest } = best;
+  return rest;
+}
+
+// 학과 한 줄. "이 학과를 가라"가 아니라 "거기서는 이걸 배운다"다.
+export function majorLine(major) {
+  const name = clean(major?.name, 60);
+  if (!name) return '';
+  const courses = (major.courses || []).slice(0, 3).join(' · ');
+  return courses ? `${name} — ${courses}` : name;
 }
