@@ -2700,6 +2700,14 @@
       `<li><b>${escapeHtml(book.title)}</b>${book.author ? " · " + escapeHtml(book.author) : ""}</li>`).join("");
     const data = (step.datasets || []).map(row =>
       `<li><a href="https://www.data.go.kr/data/${encodeURIComponent(row.id)}/openapi.do" target="_blank" rel="noopener">${escapeHtml(row.title)}</a>${row.org ? " · " + escapeHtml(row.org) : ""}</li>`).join("");
+    // 대학 연구는 '쓸 수 있는 자료'가 아니다. **이 주제가 어디로 이어지는지**다.
+    // 학생이 읽을 원문이 없으므로 "읽으세요"가 아니라 "여기로 이어집니다"로 쓴다.
+    const study = (step.research || []).map(one =>
+      `<li><b>${escapeHtml(one.title)}</b><span>${escapeHtml([one.org, one.lead].filter(Boolean).join(" · "))}${one.year ? " · " + escapeHtml(one.year) : ""}</span>${one.url ? ` <a href="${escapeHtml(one.url)}" target="_blank" rel="noopener">보기</a>` : ""}</li>`).join("");
+    const research = study
+      ? `<div class="mini-next-research"><b>대학에서는 이렇게 이어져요</b><ul>${study}</ul>
+         <p>연구 제목·대학·연구자는 국가 연구개발 기록 그대로예요. 읽지 않아도 돼요 — 진로를 물었을 때 쓰면 됩니다.</p></div>`
+      : "";
     const material = (books || data)
       ? `<div class="mini-next-material"><b>쓸 수 있는 자료</b><ul>${books}${data}</ul></div>`
       : "";
@@ -2716,6 +2724,7 @@
         ${step.why ? `<p class="mini-next-why">${escapeHtml(step.why)}</p>` : ""}
         <ul class="mini-next-acts">${acts}</ul>
         ${material}
+        ${research}
         ${where}
       </section>`;
   }
@@ -4496,6 +4505,15 @@ ${result}`;
     "        .mini-next-material>b{display:block;font-size:13px;color:#667085;margin:0 0 6px}",
     "        .mini-next-material ul{margin:0;padding-left:18px;font-size:13.5px;line-height:1.8}",
     "        .mini-next-material a{color:var(--mini-primary,#2458ff);font-weight:700}",
+    "        .mini-next-research{margin:14px 0 0;padding:12px 14px;background:#f7f9ff;",
+    "          border:1px solid var(--mini-line,#e6eaf2);border-radius:12px}",
+    "        .mini-next-research>b{display:block;font-size:13px;color:#667085;margin:0 0 6px}",
+    "        .mini-next-research ul{margin:0;padding:0;list-style:none;font-size:13.5px;line-height:1.7}",
+    "        .mini-next-research li{margin:0 0 8px}",
+    "        .mini-next-research li b{display:block;font-weight:700;color:#1f2733}",
+    "        .mini-next-research li span{font-size:12.5px;color:#667085}",
+    "        .mini-next-research a{margin-left:6px;font-size:12.5px;color:var(--mini-primary,#2458ff);font-weight:700}",
+    "        .mini-next-research p{margin:6px 0 0;font-size:12.5px;color:#667085;line-height:1.6}",
     "        .mini-next-where{margin:12px 0 0;font-size:13px;color:#667085}",
     "        .mini-card-grid{display:grid;gap:12px;margin:16px 0 0}",
     "        .mini-ref-block{margin:16px 0 0;padding:14px 16px;border:1px dashed var(--mini-line,#e6eaf2);border-radius:var(--mini-r,14px);background:#fbfcff}",

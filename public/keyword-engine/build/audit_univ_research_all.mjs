@@ -95,7 +95,7 @@ const touches = (word, aim) => {
     if (one.length < 2) continue;
     if (bare.startsWith(one) && bare.length <= one.length + 1) return true;
     // 반대쪽도 본다. 개념이 붙여 쓴 말일 때가 있다. 3차로 재 보고 더했다.
-    //   통합과학2 「생태계평형」      → "습지의 **평형성** 유지를 위한 …"      (생태계평형 ⊃ 평형)
+    //   통합과학2 「생태계평형」      → "습지의 **평형** 유지를 위한 …"        (생태계평형 ⊃ 평형)
     //   확률과 통계 「이항분포와 정규분포」 → "… 패턴 통계량의 **확률 분포**와 응용" (정규분포 ⊃ 분포)
     // 세 글자까지만 봐준다. 그리고 넓은 말이면 안 친다 — 그게 1차에서 아무 연구나 걸리게 한 원인이다.
     if (!NOT_POINTING.has(bare) && one.includes(bare) && one.length - bare.length <= 3) return true;

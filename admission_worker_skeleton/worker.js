@@ -57,6 +57,9 @@ const SEED_FILES = {
   majorCurriculumIndex: 'engine-index/major_curriculum_index.v1.json',
   bookMatchIndex: 'engine-index/book_match_index.v1.json',
   publicDataTerms: 'engine-index/public_data_terms.v1.json',
+  // Built by tools/build_univ_research_index.mjs: 개념마다 붙일 대학 연구 최대 2건.
+  // 참고문헌이 아니라 「다음에 해 볼 것」에 붙는다 — 학생이 읽을 원문이 아니기 때문이다.
+  univResearchIndex: 'engine-index/univ_research_index.v1.json',
 };
 
 // Execution authority is intentionally non-serializable. Audit hashes and
@@ -569,7 +572,9 @@ export default {
             }, 2, buildWordCounts(bookList), buildConceptCounts(seedPack.axisIndex));
             // 위에서 이미 받아 둔 것을 쓴다. 같은 개념이므로 두 번 부를 이유가 없다.
             const datasets = (input.referenceDatasets || []).slice(0, 2);
-            nextStep = buildNextStep({ axis, axisIndex: seedPack.axisIndex, books: found, datasets });
+            // 이 보고서가 선 개념으로 찾는다. 축이 아니라 개념이다 — 축은 다음에 갈 곳을 가리킨다.
+            const research = (seedPack.univResearchIndex?.concepts || {})[`${input.subject}::${reportConcept}`] || [];
+            nextStep = buildNextStep({ axis, axisIndex: seedPack.axisIndex, books: found, datasets, research });
           } catch (error) {
             // 다음 걸음을 못 만들어도 보고서는 그대로 나간다.
             console.error('next step failed:', error?.message || error);

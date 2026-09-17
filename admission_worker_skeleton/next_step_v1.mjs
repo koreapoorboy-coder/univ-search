@@ -59,7 +59,7 @@ export function axisForConcept(axisIndex, subject, concept) {
 }
 
 // 이 보고서 다음에 무엇을 할 수 있는가. 축이 없으면 아무것도 없다 — 지어내지 않는다.
-export function buildNextStep({ axis = null, axisIndex = null, books = [], datasets = [] } = {}) {
+export function buildNextStep({ axis = null, axisIndex = null, books = [], datasets = [], research = [] } = {}) {
   const full = axis?.axisId ? (axisIndex?.axes || {})[axis.axisId] : null;
   const title = clean(full?.title || axis?.title, 60);
   const activities = activitiesFrom(full?.output);
@@ -73,6 +73,11 @@ export function buildNextStep({ axis = null, axisIndex = null, books = [], datas
     // 자료는 수단이다. 없으면 없는 대로 두고, 할 일은 그대로 남는다.
     books: books.slice(0, 2).map((book) => ({ title: book.title, author: book.author })),
     datasets: datasets.slice(0, 2).map((row) => ({ title: row.title, org: row.org, id: row.id })),
+    // 대학 연구. 자료가 아니라 **이 주제가 어디로 이어지는지**다. 그래서 '쓸 수 있는 자료'와 따로 둔다.
+    // 학생이 읽을 원문이 없으므로 참고문헌에는 안 들어간다.
+    research: research.slice(0, 2).map((row) => ({
+      title: row.title, org: row.org, lead: row.lead, year: row.year, url: row.url, kind: row.kind,
+    })),
   };
 }
 
