@@ -9,11 +9,13 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { findPapers, indexPaperLine, paperLine, paperQueries, parsePapers, pickPapers } from "../../../admission_worker_skeleton/kci_v1.mjs";
+import { pickForTask, taskWords } from "../../../admission_worker_skeleton/univ_research_v1.mjs";
 import { referencesBody } from "../../../admission_worker_skeleton/references_v1.mjs";
 import { finalizeStageOutput, normalizeStudentData, STAGE } from "../../../admission_worker_skeleton/report_stages_v1.mjs";
 
 const worker = (await readFile(new URL("../../../admission_worker_skeleton/worker.js", import.meta.url), "utf8")).replace(/\r\n/g, "\n");
 const index = JSON.parse(await readFile(new URL("../seed/engine-index/kci_paper_index.v1.json", import.meta.url), "utf8"));
+const researchIndex = JSON.parse(await readFile(new URL("../seed/engine-index/univ_research_index.v1.json", import.meta.url), "utf8"));
 let passed = 0;
 const check = (ok, label, detail = "") => { assert.equal(ok, true, `${label} -> ${detail}`); console.log(`PASS ${label}`); passed++; };
 
@@ -209,4 +211,49 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
   check(index.license.includes("제한 없음"), "G9 이용허락을 적어 둔다");
 }
 
+
+// ─── 과제문으로 고른다 ─────────────────────────────────────────────────────
+//
+// **여기가 빠져 있었다.** 사용자가 짚어 줬다: "우리는 완성본이 아니라 학생이 넣어준 수행평가를
+// 분석해서 넘기는 형태여야 하는데, 지금은 답을 정하는 느낌이다."
+//
+// 실제로 그랬다. 책은 처음부터 과제문의 낱말로 골랐는데(matchBooks 의 keyword), 논문과 대학 연구는
+// `인덱스[과목::개념]` 으로 표를 찾기만 했다. 같은 개념이면 누구나 같은 것을 받았다.
+{
+  const list = [
+    { title: "온도가 효소 반응 속도에 미치는 영향" },
+    { title: "세제 속 효소의 얼룩 분해" },
+    { title: "pH와 효소 활성도" },
+  ];
+  check(pickForTask(list, "효소가 온도에 따라 반응 속도를 어떻게 바꾸는지 조사한다", 1)[0].title.includes("온도"),
+    "K1 온도를 다룬 과제에는 온도 논문");
+  check(pickForTask(list, "세제에 든 효소가 얼룩을 지우는 원리를 조사한다", 1)[0].title.includes("세제"),
+    "K1 세제를 다룬 과제에는 세제 논문 — **같은 개념인데 다른 것이 나온다**");
+  // 걸리는 것이 없으면 억지로 고르지 않는다. 인덱스 차례에는 '쉬운 글이 먼저'가 들어 있다.
+  check(pickForTask(list, "보고서를 작성한다", 1)[0].title.includes("온도"),
+    "K1 과제문에 걸리는 말이 없으면 인덱스 차례대로");
+  check(pickForTask(list, "", 2).length === 2 && pickForTask([], "무엇", 2).length === 0,
+    "K1 과제문이 없거나 후보가 없어도 터지지 않는다");
+  check(pickForTask([list[0]], "세제", 2).length === 1, "K1 후보가 적으면 있는 대로");
+
+  // 과제문에는 쓸모없는 말이 많다. '보고서'·'작성'·'분량' 으로는 아무것도 고르면 안 된다.
+  const noise = taskWords("탐구 보고서를 작성한다. 분량 A4 2장. 출처를 밝힐 것. 평가 기준: 자료를 정리했는가.");
+  check(!noise.has("보고서") && !noise.has("작성") && !noise.has("분량") && !noise.has("자료"),
+    "K1 과제문의 껍데기 말은 안 쓴다", [...noise].join("·"));
+  check(taskWords("효소가 온도에 따라 반응 속도를 바꾸는지").has("효소"), "K1 주제어는 남는다");
+}
+
+// K2: 인덱스는 **후보**를 담고, 고르는 일은 런타임이 한다.
+{
+  const wide = Object.values(researchIndex.concepts).some((list) => list.length > 2);
+  check(wide, "K2 대학 연구 인덱스가 개념당 2건을 넘는 후보를 담는다");
+  const wideKci = Object.values(index.concepts).some((list) => list.length > 2);
+  check(wideKci, "K2 논문 인덱스도 마찬가지");
+  check(worker.includes("pickForTask(got, taskText(input), 2)"),
+    "K2 워커가 과제문으로 고른다 — 개념만으로 표를 찾지 않는다");
+  check((worker.match(/pickForTask\(/g) || []).length === 2,
+    "K2 논문과 대학 연구 **둘 다** 과제문으로 고른다");
+  check(worker.includes("function taskText(input)") && /taskDescription/.test(worker),
+    "K2 과제문은 학생이 붙여넣은 안내문 전체다");
+}
 console.log(`\n${passed} checks passed`);

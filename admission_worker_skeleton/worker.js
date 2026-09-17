@@ -11,6 +11,7 @@ import { adjustLicense, adjustStudent, checkEntitlement, claimSeat, emptyGrant, 
 import { textbookCitation } from './references_v1.mjs';
 import { buildConceptCounts, buildMajorCounts, buildWordCounts, inferConcept, matchBooks } from './book_match_v1.mjs';
 import { findPublicData } from './public_data_v1.mjs';
+import { pickForTask } from './univ_research_v1.mjs';
 import { axisForConcept, buildNextStep, pickAxis } from './next_step_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
@@ -447,7 +448,9 @@ export default {
           const paperIndex = seedPack.kciPaperIndex?.concepts || {};
           for (const name of [reportConcept, axisConceptName(seedPack, reportAxis)].filter(Boolean)) {
             const got = paperIndex[`${input.subject}::${name}`];
-            if (got && got.length) { input.referencePapers = got; break; }
+            // **고르는 일은 학생 과제문이 한다.** 인덱스는 후보만 준다 — 개념만으로 고르면 같은
+            // 개념의 모든 학생이 같은 논문을 받는다. 책이 처음부터 하던 그대로다.
+            if (got && got.length) { input.referencePapers = pickForTask(got, taskText(input), 2); break; }
           }
         }
         // 모든 보고서는 학생 코드를 지나간다. 코드 없이 만들 수 있으면 이용권은 세어 봐야 소용이 없다.
@@ -587,7 +590,8 @@ export default {
             let research = [];
             for (const name of [reportConcept, axisConcept].filter(Boolean)) {
               const got = researchIndex[`${input.subject}::${name}`];
-              if (got && got.length) { research = got; break; }
+              // 논문과 같다. 후보 가운데 이 과제문에 가까운 것을 고른다.
+              if (got && got.length) { research = pickForTask(got, taskText(input), 2); break; }
             }
             nextStep = buildNextStep({ axis, axisIndex: seedPack.axisIndex, books: found, datasets, research });
           } catch (error) {
@@ -995,6 +999,13 @@ function isAdmin(request, env) {
   let diff = 0;
   for (let at = 0; at < key.length; at += 1) diff |= sent.charCodeAt(at) ^ key.charCodeAt(at);
   return diff === 0;
+}
+
+// 학생이 낸 수행평가 글. 자료를 고를 때 **이것을 본다** — 개념만 보면 같은 개념의 모든 학생이
+// 같은 자료를 받는다.
+function taskText(input) {
+  return [input?.taskTitle, input?.taskDescription, input?.selectedKeyword, input?.keyword]
+    .filter(Boolean).join(' ');
 }
 
 // 이 보고서가 선 축의 **단원 이름**. reportConcept 은 과제 글에서 뽑은 말이라 교육과정 단원

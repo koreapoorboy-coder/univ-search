@@ -314,3 +314,57 @@ export function majorLine(major) {
   const courses = (major.courses || []).slice(0, 3).join(' · ');
   return courses ? `${name} — ${courses}` : name;
 }
+
+// ─── 학생 과제문으로 고르기 ────────────────────────────────────────────────
+//
+// **여기가 빠져 있었다.** 사용자가 짚어 줬다.
+//
+// 책은 처음부터 학생 과제문의 낱말로 점수를 매겨 골랐다(matchBooks 의 keyword). 그런데 내가 새로
+// 만든 논문·대학 연구는 `인덱스[과목::개념]` 으로 표를 찾기만 했다. 그러면 「효소와 대사 반응」 과제가
+// 온도를 다루든 세제를 다루든 **같은 논문 2편**이 나온다. 그건 "이 개념엔 이게 정답"이라고 박아 둔 것이다.
+//
+// 우리 제품은 완성본을 파는 것이 아니라 **학생이 낸 수행평가를 읽고** 거기에 맞춰 주는 것이다.
+// 그래서 인덱스에는 후보를 넉넉히 담아 두고, **고르는 일은 과제문을 보고** 여기서 한다.
+//
+// 다만 **무엇이 존재하는지는 여전히 우리가 정한다.** 그것까지 AI에게 넘기면 없는 논문을 지어낸다 —
+// 이 저장소가 처음부터 막아 온 일이다. 정리하면:
+//   · 논문이 실제로 있는가        → 우리가 정한다 (국가 기록에서 가져온다)
+//   · 이 과제에 어느 것이 맞는가   → 과제문이 정한다
+const TASK_NOISE = new Set([
+  '보고서', '작성', '탐구', '수행', '평가', '기준', '제출', '분량', '자료', '조사', '정리', '분석',
+  '내용', '방법', '과정', '결과', '이상', '이하', '가지', '대해', '통해', '위해', '중심', '다음',
+  '학생', '선생', '수업', '활동', '주제', '단원', '과목', '학년', '학교', '출처', '참고',
+]);
+
+// 과제문에서 쓸 만한 낱말만 남긴다.
+export function taskWords(text) {
+  const kept = new Set();
+  for (const raw of String(text || '').split(/[^가-힣A-Za-z0-9]+/)) {
+    const word = stem(raw);
+    if (word.length < 2) continue;
+    if (TASK_NOISE.has(word) || NOT_POINTING.has(word)) continue;
+    kept.add(word);
+  }
+  return kept;
+}
+
+// 후보 가운데 이 과제문에 가장 가까운 것을 고른다.
+// 걸리는 것이 하나도 없으면 인덱스 차례대로 준다 — 억지로 고르지 않는다.
+export function pickForTask(list, text, limit = 2) {
+  const rows = Array.isArray(list) ? list : [];
+  if (rows.length <= limit) return rows.slice(0, limit);
+  const aim = taskWords(text);
+  if (!aim.size) return rows.slice(0, limit);
+  const scored = rows.map((row, at) => {
+    // 제목이 먼저다. 요약·키워드는 덤으로 센다.
+    const head = clean(row?.title, 200);
+    const rest = [clean(row?.summary, 200), clean(row?.keywords, 200), clean(row?.journal, 80)].filter(Boolean).join(' ');
+    const hit = [...aim].filter((word) => courseTouches(head, new Set([word]))).length;
+    const extra = [...aim].filter((word) => courseTouches(rest, new Set([word]))).length;
+    return { row, at, score: hit * 3 + extra };
+  });
+  if (!scored.some((one) => one.score > 0)) return rows.slice(0, limit);
+  // 점수가 같으면 인덱스 차례를 지킨다. 인덱스 차례에는 이미 '쉬운 글이 먼저'가 들어 있다.
+  scored.sort((a, b) => b.score - a.score || a.at - b.at);
+  return scored.slice(0, limit).map((one) => one.row);
+}

@@ -105,7 +105,9 @@ for (const axis of rows) {
     if (hit) handDropped += 1;
     return !hit;
   });
-  const picked = pickResearch(clean, { concept: axis.concept, subject: axis.subject, limit: 2, spread });
+  // **후보를 넉넉히 담는다.** 고르는 일은 런타임에 학생 과제문을 보고 한다(pickForTask).
+  // 2건만 담아 두면 같은 개념의 모든 학생이 같은 것을 받는다 — 그게 '답을 정해 두는' 일이다.
+  const picked = pickResearch(clean, { concept: axis.concept, subject: axis.subject, limit: 8, spread });
   if (!picked.length) continue;
   filled += 1;
   if (picked[0].kind === "best") fromBest += 1;

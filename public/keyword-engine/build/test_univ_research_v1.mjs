@@ -117,7 +117,10 @@ const best = (over = {}) => ({ title: "가", year: "2024", org: "서울대학교
   check(index.source.includes("NTIS") && index.license.includes("공공누리"), "H8 출처와 이용허락을 적어 둔다");
   const keys = Object.keys(index.concepts || {});
   check(keys.length >= 60, "H8 개념 60개 이상에 붙는다", String(keys.length));
-  check(keys.every((key) => (index.concepts[key] || []).length <= 2), "H8 한 개념에 많아야 2건");
+  // **인덱스는 후보를 담는다.** 그중 둘을 고르는 일은 학생 과제문을 보고 런타임에 한다.
+  // 2건만 담아 두면 같은 개념의 모든 학생이 같은 연구를 받는다 — 그게 '답을 정해 두는' 일이다.
+  check(keys.every((key) => (index.concepts[key] || []).length <= 8), "H8 한 개념에 많아야 8건");
+  check(keys.some((key) => (index.concepts[key] || []).length > 2), "H8 후보를 2건보다 넉넉히 담는다");
   check(keys.every((key) => index.concepts[key].every((one) => isUniv(one.org))), "H8 전부 대학 것이다");
   check(!keys.some((key) => /^(미적분|기하|공통수학|확률과 통계)/.test(key)), "H8 수학은 하나도 없다");
   // 손으로 지운 것이 실제로 빠져 있어야 한다. 하나라도 남아 있으면 고침 파일이 안 먹은 것이다.

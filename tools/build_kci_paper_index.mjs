@@ -154,9 +154,9 @@ for (const one of aims) {
     const key = paper.title.replace(/\s+/g, "");
     if (seenTitle.has(key)) continue;
     seenTitle.add(key);
-    const { score, keywords, ...rest } = paper;
+    const { score, ...rest } = paper;   // 키워드는 과제문 맞추기에 쓰므로 남긴다
     picked.push(rest);
-    if (picked.length >= 2) break;
+    if (picked.length >= 8) break;   // 고르는 일은 런타임에 과제문을 보고 한다
   }
   index[one.key] = picked;
   filled += 1;
