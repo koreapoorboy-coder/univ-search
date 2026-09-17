@@ -178,8 +178,11 @@ export async function findPapers(input, apiKey, { limit = 2, fetchImpl = fetch, 
 export function indexPaperLine(row) {
   const title = clean(row?.title, 200);
   if (!title) return '';
-  const names = [clean(row?.author, 40), clean(row?.with, 60)].filter(Boolean).join(', ');
-  const who = names.split(',').map((one) => one.trim()).filter(Boolean);
+  // 공동저자는 **세미콜론**으로 이어져 온다("박상혁;김현기;임지훈"). 쉼표만 자르면 통째로 나온다.
+  // 제1저자가 영문인 줄도 있다("Lee Hyeong-Seok") — 원본이 그러므로 바꾸지 않는다. 서지사항은
+  // 정확해야 하고, 실제 학술 인용도 제1저자를 그대로 쓴다.
+  const names = [clean(row?.author, 60), clean(row?.with, 120)].filter(Boolean).join(';');
+  const who = names.split(/[;,·]/).map((one) => one.trim()).filter(Boolean);
   const head = !who.length ? '' : who.length > 2 ? `${who[0]} 외` : who.join(' · ');
   const year = clean(row?.year, 4);
   const journal = clean(row?.journal, 80);

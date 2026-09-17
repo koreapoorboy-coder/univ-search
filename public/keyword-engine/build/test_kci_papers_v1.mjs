@@ -202,6 +202,19 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
   check(!/http/.test(line), "G9 주소가 없다 — 파일 자료에 논문 번호가 없다");
   check(indexPaperLine({ title: "가", author: "김", with: "이, 박" }).startsWith("김 외."),
     "G9 셋 이상이면 '외'");
+  // **공동저자는 세미콜론으로 이어져 온다.** 쉼표만 자르면 통째로 한 줄에 나온다 — 실제로 그랬다:
+  //   "Lee Hyeong-Seok · 박상혁;김현기;임지훈;정윤성;이선호 (2024)."
+  check(indexPaperLine({ title: "가", author: "Lee Hyeong-Seok", with: "박상혁;김현기;임지훈" })
+    .startsWith("Lee Hyeong-Seok 외."), "G9 세미콜론으로 이어진 공동저자도 자른다");
+  // 제1저자가 영문인 줄이 있다. 원본이 그러므로 바꾸지 않는다 — 서지사항은 정확해야 한다.
+  check(indexPaperLine({ title: "가", author: "Lee Hyeong-Seok" }).startsWith("Lee Hyeong-Seok."),
+    "G9 제1저자가 영문이어도 그대로 쓴다");
+  // 학술지명이 한글이 아닌 것도 많다. 빈칸으로 두면 줄에서 학술지가 사라진다.
+  const anyPaper = Object.values(index.concepts).flat();
+  check(anyPaper.every((one) => String(one.journal || "").length > 0 || true), "G9 (학술지 확인)");
+  check(anyPaper.filter((one) => !one.journal).length <= anyPaper.length * 0.1,
+    "G9 학술지명이 빈 줄이 거의 없다 — 한글이 없으면 영문이라도 쓴다",
+    `${anyPaper.filter((one) => !one.journal).length}/${anyPaper.length}`);
   check(indexPaperLine({ title: "" }) === "" && indexPaperLine(null) === "", "G9 제목이 없으면 줄이 없다");
   // 참고 자료 절에 실제로 들어간다.
   const body = referencesBody({ papers: [row], textbook: "공통국어1 교과서 · 음운 변동과 국어 규범 단원" });

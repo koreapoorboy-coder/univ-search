@@ -121,7 +121,10 @@ for await (const line of stream) {
     title: title.trim().slice(0, 200),
     author: get("저자").trim(),
     with: get("공동저자").trim(),
-    journal: korean(get("학술지명(국문)"), get("학술지명(외국어)")).trim(),
+    // 학술지명은 한글이 없는 것도 많다("Laboratory Medicine Online"). 없으면 있는 대로 쓴다 —
+    // 빈칸으로 두면 참고 자료 줄에 학술지가 사라진다. 실제로 그렇게 나갔다.
+    journal: (korean(get("학술지명(국문)"), get("학술지명(외국어)"))
+      || get("학술지명(국문)") || get("학술지명(외국어)")).trim(),
     year: get("발행년").trim(),
     volume: get("권").trim(), issue: get("호").trim(),
     from: get("시작페이지").trim(), to: get("끝페이지").trim(),
