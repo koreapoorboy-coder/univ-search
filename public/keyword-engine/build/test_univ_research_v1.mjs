@@ -154,7 +154,7 @@ const best = (over = {}) => ({ title: "가", year: "2024", org: "서울대학교
   // **실제 화면에서 이것 때문에 한 건도 안 붙었다.** reportConcept 는 과제 글에서 뽑은 말이라
   // 「유전 정보」처럼 나오는데, 인덱스 키는 교육과정 단원 이름 「유전자와 염색체」다.
   // 교과서 줄은 축에서 단원을 가져와 제대로 나왔는데 연구만 비어 있었다.
-  check(worker.includes("const axisConcept = reportAxis?.axisId"),
+  check(worker.includes("const axisConcept = axisConceptName(seedPack, reportAxis)"),
     "H10 개념 이름으로 못 찾으면 축의 단원 이름으로 한 번 더 찾는다");
   check(/for \(const name of \[reportConcept, axisConcept\]/.test(worker),
     "H10 두 이름을 차례로 본다 — 개념이 먼저, 축이 나중");

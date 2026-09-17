@@ -11,7 +11,6 @@ import { adjustLicense, adjustStudent, checkEntitlement, claimSeat, emptyGrant, 
 import { textbookCitation } from './references_v1.mjs';
 import { buildConceptCounts, buildMajorCounts, buildWordCounts, inferConcept, matchBooks } from './book_match_v1.mjs';
 import { findPublicData } from './public_data_v1.mjs';
-import { findPapers } from './kci_v1.mjs';
 import { axisForConcept, buildNextStep, pickAxis } from './next_step_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
@@ -60,6 +59,8 @@ const SEED_FILES = {
   // Built by tools/build_univ_research_index.mjs: 개념마다 붙일 대학 연구 최대 2건.
   // 참고문헌이 아니라 「다음에 해 볼 것」에 붙는다 — 학생이 읽을 원문이 아니기 때문이다.
   univResearchIndex: 'engine-index/univ_research_index.v1.json',
+  // Built by tools/build_kci_paper_index.mjs: 개념마다 KCI 논문 최대 2편. 참고 자료에 서지사항으로 붙는다.
+  kciPaperIndex: 'engine-index/kci_paper_index.v1.json',
 };
 
 // Execution authority is intentionally non-serializable. Audit hashes and
@@ -436,12 +437,17 @@ export default {
         }
         // 개념에 맞는 KCI 논문. **원문이 열려 있고 주소가 있는 것만** 온다(kci_v1.mjs).
         // 키가 없으면 빈 배열이라 아무 일도 일어나지 않는다. 공공데이터와 나란히 부른다.
+        // 개념에 맞는 KCI 논문. **인덱스에서 꺼낸다** — 보고서를 만들 때마다 남의 서버에 묻지 않는다.
+        //
+        // KCI 를 API 로 부르려 했다가 접었다. 공공데이터포털의 KCI API 넷은 검색이 없고 한 쪽에 10줄만
+        // 주고 30쪽에서 끊긴다(230만 건 중 300건). 대신 같은 자료의 파일(11만 편, 이용허락 제한 없음)로
+        // 인덱스를 만들어 둔다. 개념 이름이 단원 이름과 다를 때가 있어 축의 단원 이름으로도 찾는다.
         input.referencePapers = [];
         if (input.reportStage !== STAGE.DRAFT) {
-          try {
-            input.referencePapers = await findPapers({ concept: reportConcept }, env.KCI_KEY, { limit: 2 });
-          } catch (error) {
-            console.error('reference papers failed:', error?.message || error);
+          const paperIndex = seedPack.kciPaperIndex?.concepts || {};
+          for (const name of [reportConcept, axisConceptName(seedPack, reportAxis)].filter(Boolean)) {
+            const got = paperIndex[`${input.subject}::${name}`];
+            if (got && got.length) { input.referencePapers = got; break; }
           }
         }
         // 모든 보고서는 학생 코드를 지나간다. 코드 없이 만들 수 있으면 이용권은 세어 봐야 소용이 없다.
@@ -576,7 +582,7 @@ export default {
             // 과제 글에서 뽑은 말이라 「유전 정보」처럼 나오고, 인덱스 키는 「유전자와 염색체」다.
             // 실제 화면에서 이것 때문에 연구가 한 건도 안 붙었다. 교과서 줄은 축에서 단원을 가져와
             // 제대로 나왔는데 연구만 빈 이유가 이것이었다. 그래서 축의 단원 이름으로 한 번 더 찾는다.
-            const axisConcept = reportAxis?.axisId ? (seedPack.axisIndex?.axes || {})[reportAxis.axisId]?.concept : '';
+            const axisConcept = axisConceptName(seedPack, reportAxis);
             const researchIndex = seedPack.univResearchIndex?.concepts || {};
             let research = [];
             for (const name of [reportConcept, axisConcept].filter(Boolean)) {
@@ -989,6 +995,12 @@ function isAdmin(request, env) {
   let diff = 0;
   for (let at = 0; at < key.length; at += 1) diff |= sent.charCodeAt(at) ^ key.charCodeAt(at);
   return diff === 0;
+}
+
+// 이 보고서가 선 축의 **단원 이름**. reportConcept 은 과제 글에서 뽑은 말이라 교육과정 단원
+// 이름이 아닐 때가 있다(「유전 정보」 ↔ 「유전자와 염색체」). 인덱스 키는 단원 이름이다.
+function axisConceptName(seedPack, axis) {
+  return axis?.axisId ? (seedPack.axisIndex?.axes || {})[axis.axisId]?.concept || '' : '';
 }
 
 async function loadSeedFile(env, file) {

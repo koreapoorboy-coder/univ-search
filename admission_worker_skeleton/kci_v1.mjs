@@ -3,10 +3,18 @@
 // 앞서 정한 규칙이 이 파일의 이유다: 학생이 실제로 열어 보지 못한 자료는 참고 자료가 아니다. 유료 논문을
 // 찾아 적어 주는 것은 지어내는 일을 자동화하는 것과 같다. 그래서 논문을 붙이되 **조건을 건다.**
 //
-//   · KCI(한국연구재단)는 공공누리 '출처표시'다. 상업적 이용까지 열려 있다 — 우리가 써도 되는 자리다.
-//   · 응답에 orte-open-yn(원문공개여부)이 있다. **Y가 아닌 논문은 버린다.** 학생이 못 여는 논문은
-//     참고 자료가 아니라 장식이다. 이 한 줄이 이 파일에서 제일 중요한 규칙이다.
-//   · url이 없는 논문도 버린다. 주소가 없으면 학생이 "어디서 봤다"고 말할 수 없다.
+//   · 응답에 orte-open-yn(원문공개여부)이 있다. Y가 아닌 논문은 버린다.
+//   · url이 없는 논문도 버린다.
+//
+// **이 파일의 아래쪽(indexPaperLine)이 지금 실제로 쓰는 길이다.** 위의 API 부분은 키가 생길 때를
+// 위해 남겨 둔다. 그리고 위 규칙 가운데 하나는 **너무 엄했다** — 사용자가 짚어 줘서 고쳤다:
+// '원문(PDF)을 다 읽을 수 있나'와 '열어서 확인할 수 있나'는 다른 문제다. KCI 논문 쪽은 로그인 없이
+// **초록이 통째로 보인다**(다섯 편을 열어 확인했다). 고등학생 보고서에 필요한 것은 초록 수준이다.
+// 그러니 원문이 유료라고 버릴 일이 아니었다.
+//
+// 이용허락은 아직 확실하지 않다. KCI 포털 쪽 페이지는 이용허락범위 칸을 주석으로 감춰 두었고
+// 그 안의 문구는 '영리목적 사용불가'다. 공공데이터포털의 같은 자료는 '제한 없음'이다. 어긋난다.
+// 그래서 지금 쓰는 것은 **공공데이터포털 파일**(제한 없음)이고, KCI 포털 API 는 안 쓴다.
 //
 // 공공데이터와 같은 자리에 같은 방식으로 붙는다. AI에게 보내지 않고, '여기서 무엇을 얻었다'고 쓰지 않는다.
 // 무엇이 있고 어디서 볼 수 있는지만 적는다.
@@ -155,4 +163,29 @@ export async function findPapers(input, apiKey, { limit = 2, fetchImpl = fetch, 
     if (rows.length >= 40) break;
   }
   return pickPapers(rows, limit);
+}
+
+// ─── 인덱스에서 온 논문 ────────────────────────────────────────────────────
+//
+// **이제 실제로 쓰는 길은 이쪽이다.** 위의 findPapers 는 KCI 포털 OPEN API 용으로 남겨 둔다
+// (키가 생기면 초록과 원문공개여부까지 받을 수 있다). 지금은 키가 없고, 공공데이터포털의 KCI API
+// 넷은 검색이 없고 한 쪽에 10줄만 주고 30쪽에서 끊겨 못 쓴다.
+//
+// 그래서 같은 자료의 **파일**(한국연구재단 KCI논문정보, 11만 편, 이용허락 제한 없음)로 인덱스를
+// 만들어 두고 거기서 꺼낸다. 파일에는 논문 번호가 없어 **주소를 못 붙인다.** 그래도 참고 자료가 된다 —
+// KCI 논문 쪽은 로그인 없이 초록이 통째로 보이고, 학생이 제목으로 검색하면 찾는다. 실제 학술 인용도
+// 주소 없이 서지사항만 적는다. 그러니 **서지사항을 정확히** 적는 것이 이 함수의 일이다.
+export function indexPaperLine(row) {
+  const title = clean(row?.title, 200);
+  if (!title) return '';
+  const names = [clean(row?.author, 40), clean(row?.with, 60)].filter(Boolean).join(', ');
+  const who = names.split(',').map((one) => one.trim()).filter(Boolean);
+  const head = !who.length ? '' : who.length > 2 ? `${who[0]} 외` : who.join(' · ');
+  const year = clean(row?.year, 4);
+  const journal = clean(row?.journal, 80);
+  const volume = clean(row?.volume, 10);
+  const issue = clean(row?.issue, 10);
+  const pages = clean(row?.from, 10) && clean(row?.to, 10) ? `${row.from}-${row.to}` : '';
+  const where = [journal, volume ? `${volume}${issue ? `(${issue})` : ''}` : '', pages].filter(Boolean).join(', ');
+  return `${head ? `${head}${year ? ` (${year})` : ''}. ` : ''}${title}.${where ? ` ${where}.` : ''}`;
 }

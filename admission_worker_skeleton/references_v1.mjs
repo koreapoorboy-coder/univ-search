@@ -12,7 +12,7 @@
 //   · 학생이 적은 자료 — 제목·종류·핵심 내용·내 해석. '내 해석'은 안 읽었으면 못 쓴다.
 
 import { datasetUrl } from './public_data_v1.mjs';
-import { paperLine } from './kci_v1.mjs';
+import { indexPaperLine, paperLine } from './kci_v1.mjs';
 
 const clean = (value, max = 200) => String(value ?? '').trim().slice(0, max);
 
@@ -92,7 +92,8 @@ export function referencesBody({ cards = [], papers = [], datasets = [], textboo
   // 개념에 맞는 논문. 학생이 적은 것 뒤, 공개 자료 앞이다 — 참고문헌으로는 논문이 가장 격이 높다.
   // 여기 오는 논문은 원문이 열려 있고 주소가 있는 것뿐이다(kci_v1.mjs).
   for (const row of papers) {
-    const line = paperLine(row);
+    // 인덱스에서 온 줄에는 주소가 없고 저자 칸 이름이 다르다. 둘 다 받는다.
+    const line = row?.url ? paperLine(row) : indexPaperLine(row);
     if (line && !lines.includes(line)) lines.push(line);
   }
   // 개념에 맞는 공개 자료. 논문 뒤, 교과서 앞이다.

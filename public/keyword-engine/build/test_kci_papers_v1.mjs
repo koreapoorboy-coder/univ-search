@@ -8,11 +8,12 @@
 // 있으므로, **진짜 응답으로 잰 것이 아니다.** 키가 오면 한 번 재고 이 파일을 고쳐야 한다.
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { findPapers, paperLine, paperQueries, parsePapers, pickPapers } from "../../../admission_worker_skeleton/kci_v1.mjs";
+import { findPapers, indexPaperLine, paperLine, paperQueries, parsePapers, pickPapers } from "../../../admission_worker_skeleton/kci_v1.mjs";
 import { referencesBody } from "../../../admission_worker_skeleton/references_v1.mjs";
 import { finalizeStageOutput, normalizeStudentData, STAGE } from "../../../admission_worker_skeleton/report_stages_v1.mjs";
 
 const worker = (await readFile(new URL("../../../admission_worker_skeleton/worker.js", import.meta.url), "utf8")).replace(/\r\n/g, "\n");
+const index = JSON.parse(await readFile(new URL("../seed/engine-index/kci_paper_index.v1.json", import.meta.url), "utf8"));
 let passed = 0;
 const check = (ok, label, detail = "") => { assert.equal(ok, true, `${label} -> ${detail}`); console.log(`PASS ${label}`); passed++; };
 
@@ -174,17 +175,38 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
   check(built.includes("kci.go.kr"), "G7 주소까지 붙는다 — 학생이 열어 확인할 수 있다", built);
 }
 
-// G8: 워커가 보고서를 만들기 **전에** 논문을 받아 둔다. 키가 없으면 아무 일도 안 일어난다.
+// G8: 워커는 **인덱스에서** 논문을 꺼낸다. 남의 서버를 보고서 만드는 길에 끼우지 않는다.
 {
-  check(worker.includes("import { findPapers } from './kci_v1.mjs';"), "G8 워커가 이 모듈을 쓴다");
-  check(worker.includes("input.referencePapers = []"), "G8 못 받아 와도 빈 배열로 시작한다");
+  check(worker.includes("kciPaperIndex: 'engine-index/kci_paper_index.v1.json'"), "G8 워커가 논문 인덱스를 읽는다");
+  check(worker.includes("input.referencePapers = []"), "G8 못 찾아도 빈 배열로 시작한다");
   check(worker.indexOf("input.referencePapers") < worker.indexOf("callOpenAIWithRetry(prompt, env, input)"),
-    "G8 AI를 부르기 전에 받아 둔다 — 그래야 참고 자료 절이 쓸 수 있다");
-  check((worker.match(/findPapers\(/g) || []).length === 1, "G8 한 번만 부른다");
-  check(worker.includes("env.KCI_KEY"), "G8 키는 워커 비밀로만 들어간다 — 코드에 적지 않는다");
-  check(!/KCI_KEY\s*=\s*['"]/.test(worker), "G8 키가 코드에 박혀 있지 않다");
-  check(/reportStage !== STAGE\.DRAFT[\s\S]{0,200}findPapers/.test(worker),
-    "G8 1단계(설계서)에서는 안 부른다 — 그때는 아직 개념이 흔들린다");
+    "G8 AI를 부르기 전에 찾아 둔다 — 그래야 참고 자료 절이 쓸 수 있다");
+  check(!/findPapers\(/.test(worker),
+    "G8 KCI 를 보고서마다 부르지 않는다 — 공공데이터포털 KCI API 는 검색이 없고 한 쪽에 10줄만 준다");
+  check(/reportStage !== STAGE\.DRAFT[\s\S]{0,400}kciPaperIndex/.test(worker),
+    "G8 1단계(설계서)에서는 안 붙인다 — 그때는 아직 개념이 흔들린다");
+  // 개념 이름이 교육과정 단원 이름과 다를 때가 있다. 대학 연구에서 겪은 그대로다.
+  check(/for \(const name of \[reportConcept, axisConceptName\(seedPack, reportAxis\)\]/.test(worker),
+    "G8 개념 이름으로 못 찾으면 축의 단원 이름으로 한 번 더 찾는다");
+}
+
+// G9: 인덱스에서 온 줄. **주소가 없다.** 그래도 찾을 수 있게 서지사항을 정확히 적는다.
+{
+  const row = { title: "국어 폐쇄음의 음향적 특성과 음운 현상", author: "홍길동", with: "김철수",
+    journal: "한국어학", year: "2024", volume: "12", issue: "3", from: "1", to: "20" };
+  const line = indexPaperLine(row);
+  check(line === "홍길동 · 김철수 (2024). 국어 폐쇄음의 음향적 특성과 음운 현상. 한국어학, 12(3), 1-20.",
+    "G9 저자·연도·제목·학술지·권(호)·쪽", line);
+  check(!/http/.test(line), "G9 주소가 없다 — 파일 자료에 논문 번호가 없다");
+  check(indexPaperLine({ title: "가", author: "김", with: "이, 박" }).startsWith("김 외."),
+    "G9 셋 이상이면 '외'");
+  check(indexPaperLine({ title: "" }) === "" && indexPaperLine(null) === "", "G9 제목이 없으면 줄이 없다");
+  // 참고 자료 절에 실제로 들어간다.
+  const body = referencesBody({ papers: [row], textbook: "공통국어1 교과서 · 음운 변동과 국어 규범 단원" });
+  check(body.split(String.fromCharCode(10))[0].includes("한국어학"), "G9 참고 자료 첫 줄이 논문", body);
+  check(index.version === "kci-paper-index-v1" && Object.keys(index.concepts).length >= 20,
+    "G9 인덱스가 있고 개념 20개 이상에 붙는다", String(Object.keys(index.concepts || {}).length));
+  check(index.license.includes("제한 없음"), "G9 이용허락을 적어 둔다");
 }
 
 console.log(`\n${passed} checks passed`);
