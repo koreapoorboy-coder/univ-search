@@ -348,6 +348,26 @@ export function taskWords(text) {
   return kept;
 }
 
+// 과제문 낱말이 이 제목에 보이는가.
+//
+// **교과목 규칙(courseTouches)을 그대로 쓰면 안 된다.** 실제 화면에서 잡았다. 논문 제목은 교과목
+// 이름과 다르다 — 조사가 붙고 긴 복합어가 나온다:
+//   "ETV6-PDGFRB 유전자 **재배열을** 동반한 … 급성림프모구**백혈병** 1예"
+// 교과목 규칙은 조사를 안 떼므로 '재배열을' ≠ '재배열' 이고, 포함을 안 보므로
+// '급성림프모구백혈병' 에서 '백혈병' 을 못 찾는다. 그래서 논문이 한 건도 안 붙었다.
+//
+// 여기서는 조사를 떼고, **세 글자 이상이면 붙어 있는 말 안에서도 찾는다.** 두 글자는 정확히 맞춘다 —
+// 두 글자로 포함을 보면 아무 데나 걸린다('원자'가 '원자로'에). 그리고 이 함수는 **이미 개념으로
+// 걸러진 후보 안에서 순위를 매기는** 일이라, 조금 느슨해도 엉뚱한 주제가 끼어들지 않는다.
+// 두 글자 낱말에서는 **'로'를 떼지 않는다.** 그걸 떼면 '원자로'가 '원자'가 된다 — 교과목에서
+// 이미 겪은 일이다. 목적격·주격처럼 명백한 조사만 뗀다.
+const SHORT_JOSA = /(을|를|이|가|은|는|의|에|와|과|도|만)$/;
+function taskHit(text, word) {
+  const body = String(text || '');
+  if (word.length >= 3) return body.includes(word);
+  return words(body).some((one) => one === word || one.replace(SHORT_JOSA, '') === word);
+}
+
 // 후보 가운데 이 과제문에 가장 가까운 것을 고른다.
 //
 // **개념 낱말은 점수에서 뺀다.** 후보는 이미 개념으로 걸러져 왔으므로 전부 개념 낱말을 갖고 있다.
@@ -369,8 +389,8 @@ export function pickForTask(list, text, limit = 2, { skip = '', strict = false }
     // 제목이 먼저다. 요약·키워드는 덤으로 센다.
     const head = clean(row?.title, 200);
     const rest = [clean(row?.summary, 200), clean(row?.keywords, 200), clean(row?.journal, 80)].filter(Boolean).join(' ');
-    const hit = [...aim].filter((word) => courseTouches(head, new Set([word]))).length;
-    const extra = [...aim].filter((word) => courseTouches(rest, new Set([word]))).length;
+    const hit = [...aim].filter((word) => taskHit(head, word)).length;
+    const extra = [...aim].filter((word) => taskHit(rest, word)).length;
     return { row, at, score: hit * 3 + extra };
   });
   if (!scored.some((one) => one.score > 0)) return strict ? [] : rows.slice(0, limit);

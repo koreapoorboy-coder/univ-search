@@ -282,6 +282,20 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
     "L1 대학 연구는 개념 수준으로도 뜻이 있어 느슨하게 둔다 — 실험을 받치는 근거로는 안 쓴다");
 }
 
+// L1b: **논문 제목은 교과목 이름과 다르다.** 실제 화면에서 잡았다 — 논문이 한 건도 안 붙었다.
+{
+  const title = "ETV6-PDGFRB 유전자 재배열을 동반한 필라델피아 염색체 유사 급성림프모구백혈병 1예: 증례 보고";
+  const task = "염색체 재배열이 질환으로 이어지는 과정을 조사한다. 백혈병처럼 염색체 이상이 원인인 사례를 찾는다.";
+  const got = pickForTask([{ title }], task, 1, { skip: "유전자와 염색체", strict: true });
+  check(got.length === 1, "L1b 조사가 붙은 말(**재배열을**)과 붙여 쓴 말(급성림프모구**백혈병**)을 찾는다");
+  // 두 글자로 포함까지 보면 아무 데나 걸린다. 그건 막는다.
+  check(pickForTask([{ title: "원자로 이론과 냉각" }], "원자의 구조를 조사한다", 1, { skip: "", strict: true }).length === 0,
+    "L1b 두 글자는 정확히 맞춘다 — '원자'가 '원자로'에 걸리면 안 된다");
+  // 받칠 근거가 없으면 붙이지 않는다.
+  check(pickForTask([{ title }], "염색체 구조와 DNA가 유전 정보를 담는 방식", 1, { skip: "유전자와 염색체", strict: true }).length === 0,
+    "L1b 이 과제를 받칠 근거가 없으면 안 붙인다");
+}
+
 // L2: 워커가 자리마다 다르게 쓴다.
 {
   check(/referencePapers = pickForTask\(got, taskText\(input\), 2, \{ skip: name, strict: true \}\)/.test(worker),
