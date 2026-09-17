@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v272_major_line
+// SCREEN_VERSION: v273_kci_paper
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v272-major-line";
+  const VERSION = "mini-worker-generate-bridge-v273-kci-paper";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2653,7 +2653,7 @@
     const refBlock = withRefCards ? `
           <div class="mini-ref-block">
             <b>실제로 찾아본 자료 <span>(선택)</span></b>
-            <p class="mini-ref-why">안 적으면 참고 자료 절에 교과서 한 줄만 남아요. 읽은 게 있으면 적어 주세요 — <b>읽지 않은 자료는 적지 않아요.</b></p>
+            <p class="mini-ref-why">안 적어도 교과서·공공데이터·논문은 우리가 붙여요. 다만 <b>내가 읽은 것</b>이 맨 앞에 와야 해요 — 읽은 게 있으면 적어 주세요. <b>읽지 않은 자료는 적지 않아요.</b></p>
             ${[0, 1].map((i) => `
             <div class="mini-card mini-card-slim"><b>자료 ${i + 1}</b>
               <label>제목<input type="text" data-card-field="title" data-card-index="${i}"></label>

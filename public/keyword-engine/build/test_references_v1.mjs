@@ -146,7 +146,7 @@ const axisIndex = { axes: {
     "F6 the block asks what the student took away, not just the title");
   check(bridge.includes("읽지 않은 자료는 적지 않아요"),
     "F6 그리고 안 읽은 것을 적지 말라고 화면이 말한다 — 여기가 지어내기의 시작점이다");
-  check(bridge.includes("안 적으면 참고 자료 절에 교과서 한 줄만 남아요"),
+  check(bridge.includes("안 적어도 교과서·공공데이터·논문은 우리가 붙여요"),
     "F6 학생에게 안 적으면 어떻게 되는지 알려 준다 — 선택 칸은 이유를 말해야 채워진다");
   check(bridge.includes("function collectRefCards"), "F6 and they are collected");
   check(!/text\("miniExpSources"\)/.test(bridge), "F6 the old title-only textarea is gone");
