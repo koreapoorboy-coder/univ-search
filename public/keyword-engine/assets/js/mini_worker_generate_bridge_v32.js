@@ -1,3 +1,10 @@
+// SCREEN_VERSION: v270_univ_research
+//
+// **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
+// 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
+// 화면은 ?v=v269_major_pick 을 달고 옛 코드를 받아서, 「대학에서는 이렇게 이어져요」가
+// 안 나왔다. 배포도 검사도 다 통과한 뒤였다. 그래서 검사로 묶었다
+// (test_screen_cache_version_v1.mjs).
 /* mini_worker_generate_bridge_v32.js
  * 기존 Cloudflare Worker(/collect)는 유지하고,
  * 학생용 결과 생성(/generate)은 access-gateway의 /__mini/generate로 보낸다.
@@ -6,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v269-major-pick";
+  const VERSION = "mini-worker-generate-bridge-v270-univ-research";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
