@@ -51,16 +51,19 @@ const HANGUL = /[가-힣]/g;
 // 키워드도 국문/외국어가 뒤바뀐 줄이 있다. 그래서 **한글이 든 쪽을 고른다.**
 const korean = (...values) => values.find((one) => (String(one || "").match(HANGUL) || []).length >= 2) || "";
 
-// 과목과 논문의 주제분야가 맞는가. 학과 계열을 맞춘 것과 같은 까닭이다.
-const SCIENCE = /^(물리|화학|생명과학|지구과학|통합과학|과학탐구실험|세포와|물질과|역학과|전자기와|지구시스템|정보)/;
-const HUMANITY = /^(공통국어|통합사회)/;
+// **과목마다 볼 주제분야를 정해 둔다.** 이게 이 파일에서 제일 크게 달라진 자리다.
+//
+// 전에는 대분류(자연과학·의약학)까지만 봤다. 그래서 「산과 염기」에 한의학 "산과학"(産科學)이
+// 붙었다 — 대분류가 '의약학'이라 통과했고, 낱말로는 '산'과 '과학'이 맞았다.
+// KCI 주제분야는 772종의 계층이다. 「자연과학 > 화학」으로 좁히면 11만 편이 2,349편이 되고,
+// 산과학은 애초에 들어오지 않는다. **낱말 규칙이 떠안던 일을 분류가 대신한다.**
+const FIELD_MAP = JSON.parse(await readFile(here("./subject_field_map_2026_09.json"), "utf8")).subjects;
 function fieldFits(subject, field) {
-  const name = String(subject || "");
-  const area = String(field || "").split(">")[0].trim();
-  if (!area) return true;
-  if (SCIENCE.test(name)) return /(자연과학|공학|의약학|농수해양학|복합학)/.test(area);
-  if (HUMANITY.test(name)) return /(인문학|사회과학|복합학|예술체육학)/.test(area);
-  return true;
+  const allow = FIELD_MAP[String(subject || "")];
+  if (!allow) return false;                 // 사전에 없는 과목(수학)은 아예 안 붙인다
+  const area = String(field || "").trim();
+  if (!area) return false;                  // 분야가 없으면 가릴 수가 없다
+  return allow.some((one) => area.startsWith(one));
 }
 
 // 논문 제목에만 흔한 말. 개념 쪽에서 미리 빼 둔다.
@@ -135,12 +138,16 @@ for await (const line of stream) {
     if (!fieldFits(one.axis.subject, field)) continue;
     // 제목에 개념 낱말이 **둘 이상** 보여야 한다. 하나로는 11만 건에서 아무거나 걸린다.
     const inTitle = hits(title, one.aim);
-    if (inTitle.length < 2) continue;
+    const inKeyword = hits(keywords, one.aim);
+    // **키워드는 논문이 스스로 밝힌 주제어다**(99%에 있다). 제목보다 곧은 신호다.
+    // 분야로 이미 좁혔으므로, 제목에 둘 또는 '제목 하나 + 키워드 하나'면 받아들인다.
+    const both = new Set([...inTitle, ...inKeyword]);
+    if (inTitle.length < 2 && !(inTitle.length >= 1 && both.size >= 2)) continue;
     // 그중 하나는 이 개념만의 또렷한 말이어야 한다.
-    if (one.sharp.size && !inTitle.some((word) => one.sharp.has(word))) continue;
+    if (one.sharp.size && ![...both].some((word) => one.sharp.has(word))) continue;
     const bad = drops.get(one.key) || [];
     if (bad.some((head) => paper.title.replace(/\s+/g, "").startsWith(head))) { handDropped += 1; continue; }
-    const score = inTitle.length * 2 + (hits(keywords, one.aim).length ? 1 : 0);
+    const score = inTitle.length * 3 + inKeyword.length * 2;
     found.get(one.key).push({ ...paper, score });
   }
 }
