@@ -249,11 +249,58 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
   check(wide, "K2 대학 연구 인덱스가 개념당 2건을 넘는 후보를 담는다");
   const wideKci = Object.values(index.concepts).some((list) => list.length > 2);
   check(wideKci, "K2 논문 인덱스도 마찬가지");
-  check(worker.includes("pickForTask(got, taskText(input), 2)"),
+  check(/pickForTask\(got, taskText\(input\)/.test(worker),
     "K2 워커가 과제문으로 고른다 — 개념만으로 표를 찾지 않는다");
-  check((worker.match(/pickForTask\(/g) || []).length === 2,
-    "K2 논문과 대학 연구 **둘 다** 과제문으로 고른다");
+  check((worker.match(/pickForTask\(/g) || []).length === 3,
+    "K2 논문·대학 연구·공공데이터 **셋 다** 과제문으로 고른다");
   check(worker.includes("function taskText(input)") && /taskDescription/.test(worker),
     "K2 과제문은 학생이 붙여넣은 안내문 전체다");
+}
+
+// ─── 논문은 **받치는 것**이지 맞추는 것이 아니다 ───────────────────────────
+//
+// 사용자가 다시 짚었다: "논문을 넣는 까닭은 학생이 찾아서 깊이 들어간 느낌을 주고 **그 실험의
+// 정당성을 보장**하려는 것인데, 지금은 논문에 끼워 맞추는 느낌이다."
+//
+// 실제로 그랬다. 「효소가 **온도**에 따라…」 과제에 "바이오 전환 원천 **효소** 및 균주 개발"이
+// 붙었다. '효소'만 같고 온도와는 아무 상관이 없다. 까닭은 점수에 **개념 낱말이 섞여 있어서**다.
+// 후보는 이미 개념으로 걸러져 와서 전부 '효소'를 갖고 있다. 후보를 **가르는** 것은 과제문의 나머지다.
+{
+  const list = [
+    { title: "온도가 효소 반응 속도에 미치는 영향" },
+    { title: "바이오 전환 원천 효소 및 균주 개발" },
+  ];
+  const task = "효소가 온도에 따라 반응 속도를 어떻게 바꾸는지 조사한다";
+  const got = pickForTask(list, task, 1, { skip: "효소와 대사 반응" });
+  check(got[0].title.includes("온도"), "L1 개념 낱말을 빼고 **가르는 말**로 고른다", got[0].title);
+
+  // **받칠 근거가 없으면 안 붙인다.** 이게 '끼워 넣기'와 '받치기'를 가르는 자리다.
+  const only = [{ title: "바이오 전환 원천 효소 및 균주 개발" }];
+  check(pickForTask(only, task, 1, { skip: "효소와 대사 반응", strict: true }).length === 0,
+    "L1 논문은 받칠 근거가 없으면 붙이지 않는다");
+  check(pickForTask(only, task, 1, { skip: "효소와 대사 반응" }).length === 1,
+    "L1 대학 연구는 개념 수준으로도 뜻이 있어 느슨하게 둔다 — 실험을 받치는 근거로는 안 쓴다");
+}
+
+// L2: 워커가 자리마다 다르게 쓴다.
+{
+  check(/referencePapers = pickForTask\(got, taskText\(input\), 2, \{ skip: name, strict: true \}\)/.test(worker),
+    "L2 논문은 엄격하게 — 받칠 근거가 없으면 안 붙인다");
+  check(/research = pickForTask\(got, taskText\(input\), 2, \{ skip: name \}\)/.test(worker),
+    "L2 대학 연구는 느슨하게");
+  check(/referenceDatasets = pickForTask\(pool, taskText\(input\), 3, \{ skip: reportConcept \}\)/.test(worker),
+    "L2 공공데이터도 과제문으로 고른다 — 개념만으로 정하지 않는다");
+  check(/findPublicData\([\s\S]{0,200}limit: 8/.test(worker),
+    "L2 공공데이터도 넉넉히 받아 두고 고른다");
+}
+
+// L3: **AI는 이것들을 보지 않는다.** 보고서 본문이 논문 쪽으로 끌려가면 안 된다.
+{
+  const at = worker.indexOf("function buildPrompt(");
+  const body = worker.slice(at, worker.indexOf("\nfunction ", at + 50));
+  check(at > 0 && body.length > 500, "L3 프롬프트를 만드는 곳을 찾았다", String(body.length));
+  for (const name of ["referencePapers", "referenceDatasets", "papers", "datasets"]) {
+    check(!body.includes(name), `L3 프롬프트에 ${name} 가 안 들어간다 — 보고서는 학생 과제문과 학생 데이터로만 쓴다`);
+  }
 }
 console.log(`\n${passed} checks passed`);

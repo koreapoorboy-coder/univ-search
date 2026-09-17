@@ -349,12 +349,22 @@ export function taskWords(text) {
 }
 
 // 후보 가운데 이 과제문에 가장 가까운 것을 고른다.
-// 걸리는 것이 하나도 없으면 인덱스 차례대로 준다 — 억지로 고르지 않는다.
-export function pickForTask(list, text, limit = 2) {
+//
+// **개념 낱말은 점수에서 뺀다.** 후보는 이미 개념으로 걸러져 왔으므로 전부 개념 낱말을 갖고 있다.
+// 후보들을 **가르는** 것은 과제문의 나머지다 — 온도·세제·pH·플라스틱 같은 말.
+// 이걸 안 빼서 「효소가 온도에 따라…」 과제에 "바이오 전환 원천 효소 및 균주 개발"이 붙었다.
+// '효소'만 같고 온도와는 아무 상관이 없는 논문이었다.
+//
+// **strict 이면, 가르는 말에 아무것도 안 걸릴 때 빈 배열을 준다.**
+// 논문은 학생이 한 실험을 **받치는** 것이다. 주제어 하나 같다고 붙이면, 받치는 것이 아니라
+// 끼워 넣는 것이 된다. 받칠 근거가 없으면 안 붙이는 편이 낫다.
+export function pickForTask(list, text, limit = 2, { skip = '', strict = false } = {}) {
   const rows = Array.isArray(list) ? list : [];
-  if (rows.length <= limit) return rows.slice(0, limit);
-  const aim = taskWords(text);
-  if (!aim.size) return rows.slice(0, limit);
+  if (!rows.length) return [];
+  if (!strict && rows.length <= limit) return rows.slice(0, limit);
+  const skipWords = taskWords(skip);
+  const aim = new Set([...taskWords(text)].filter((word) => !skipWords.has(word)));
+  if (!aim.size) return strict ? [] : rows.slice(0, limit);
   const scored = rows.map((row, at) => {
     // 제목이 먼저다. 요약·키워드는 덤으로 센다.
     const head = clean(row?.title, 200);
@@ -363,7 +373,7 @@ export function pickForTask(list, text, limit = 2) {
     const extra = [...aim].filter((word) => courseTouches(rest, new Set([word]))).length;
     return { row, at, score: hit * 3 + extra };
   });
-  if (!scored.some((one) => one.score > 0)) return rows.slice(0, limit);
+  if (!scored.some((one) => one.score > 0)) return strict ? [] : rows.slice(0, limit);
   // 점수가 같으면 인덱스 차례를 지킨다. 인덱스 차례에는 이미 '쉬운 글이 먼저'가 들어 있다.
   scored.sort((a, b) => b.score - a.score || a.at - b.at);
   return scored.slice(0, limit).map((one) => one.row);

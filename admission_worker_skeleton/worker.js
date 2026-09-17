@@ -428,10 +428,14 @@ export default {
         input.referenceDatasets = [];
         if (input.reportStage !== STAGE.DRAFT) {
           try {
-            input.referenceDatasets = await findPublicData(
+            // 넉넉히 받아 두고 **고르는 일은 과제문이 한다.** 찾는 말은 개념으로 정할 수밖에 없다 —
+            // 공공데이터는 행정 용어로 이름이 붙어 있어 손으로 만든 사전을 쓴다(public_data_terms).
+            // 그러나 그중 어느 것을 보여 줄지는 학생 과제가 정해야 한다.
+            const pool = await findPublicData(
               { concept: reportConcept }, seedPack.publicDataTerms, env.PUBLIC_DATA_KEY,
-              { limit: 3, timeoutMs: 12000 },
+              { limit: 8, timeoutMs: 12000 },
             );
+            input.referenceDatasets = pickForTask(pool, taskText(input), 3, { skip: reportConcept });
           } catch (error) {
             console.error('reference datasets failed:', error?.message || error);
           }
@@ -450,7 +454,13 @@ export default {
             const got = paperIndex[`${input.subject}::${name}`];
             // **고르는 일은 학생 과제문이 한다.** 인덱스는 후보만 준다 — 개념만으로 고르면 같은
             // 개념의 모든 학생이 같은 논문을 받는다. 책이 처음부터 하던 그대로다.
-            if (got && got.length) { input.referencePapers = pickForTask(got, taskText(input), 2); break; }
+            // **논문은 엄격하게 고른다.** 논문을 넣는 까닭은 학생이 한 실험을 **받치기** 위해서다 —
+            // 주제어 하나 같다고 붙이면 받치는 것이 아니라 끼워 넣는 것이 된다. 받칠 근거가 없으면
+            // 안 붙인다. 개념 낱말은 후보가 다 갖고 있으므로 점수에서 뺀다.
+            if (got && got.length) {
+              input.referencePapers = pickForTask(got, taskText(input), 2, { skip: name, strict: true });
+              break;
+            }
           }
         }
         // 모든 보고서는 학생 코드를 지나간다. 코드 없이 만들 수 있으면 이용권은 세어 봐야 소용이 없다.
@@ -591,7 +601,9 @@ export default {
             for (const name of [reportConcept, axisConcept].filter(Boolean)) {
               const got = researchIndex[`${input.subject}::${name}`];
               // 논문과 같다. 후보 가운데 이 과제문에 가까운 것을 고른다.
-              if (got && got.length) { research = pickForTask(got, taskText(input), 2); break; }
+              // 대학 연구는 느슨해도 된다. "이 주제가 대학에서 어떻게 이어지는가"는 개념 수준으로도
+              // 뜻이 있기 때문이다. 논문과 달리 **실험을 받치는 근거로 쓰지 않는다.**
+              if (got && got.length) { research = pickForTask(got, taskText(input), 2, { skip: name }); break; }
             }
             nextStep = buildNextStep({ axis, axisIndex: seedPack.axisIndex, books: found, datasets, research });
           } catch (error) {
