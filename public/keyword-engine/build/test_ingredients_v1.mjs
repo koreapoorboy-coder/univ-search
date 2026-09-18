@@ -1,7 +1,7 @@
-// 주제 재료 — ingredients_v1.mjs. 보고서는 조합이다: 교과 단원 + 실제 연구(논문·대학 연구 소개).
+// 참고 연구 재료 — ingredients_v1.mjs. 보고서는 조합이다: 교과 개념 + 학생 데이터가 몸통, 실제 연구는 배경 지식.
 //
-// 사용자 결정(2026-09-18): 논문은 보고서 끝에 자동으로 붙는 목록이 아니라 **주제를 잡을 때의 재료**다.
-// AI가 설계서를 쓰며 실제로 쓴 재료만 참고 자료가 된다.
+// 사용자 결정(2026-09-18): 연구는 이름을 드러내지 않고 학생의 설명에 녹아들며, 출처는 참고 문헌에만 들어간다.
+// 따로 된 「교과 심화와 확장」 절도 없다(학교 양식에 없다). AI가 실제로 쓴 재료만 참고 문헌이 된다.
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { ingredientPromptLines, inspirationCitations, inspirationGuide, inspirationOf, normalizeInspiration, pickIngredients, usedIngredients }
@@ -61,10 +61,11 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
   const got = pickIngredients({ rows, table, units, taskText: task, subject: "생명과학", snu, random: () => 0.5 });
   const lines = ingredientPromptLines(got).join("\n");
   check(lines.includes("P1. 도시 녹지의 식물 군집 구조와 종 다양성") && lines.includes("키워드: 방형구, 중요치, 종 다양성"), "I3 제목과 키워드를 보낸다");
-  check(/보고서의 핵심이 아니다/.test(lines) && /「교과 심화와 확장」 절에서 쓴다/.test(lines),
-    "I3 재료는 핵심이 아니고 교과 심화와 확장에서만 — 몸통은 교과 개념과 학생 데이터(사용자 결정)");
-  check(/양극재/.test(lines) && /관심 계열·진로/.test(lines) && /대학 이름과 연구팀을 밝힌다/.test(lines) && /저자와 연도를 밝히고/.test(lines),
-    "I3 흐름: 교과 개념 → 실제 연구 → 진로, 출처(대학 이름·저자)가 본문에 보이게");
+  check(/보고서의 핵심이 아니다/.test(lines) && /배경 지식/.test(lines) && /따로 절을 만들지 않는다/.test(lines),
+    "I3 재료는 핵심이 아니고 배경 지식으로 녹인다, 따로 절 없음 — 몸통은 교과 개념과 학생 데이터(사용자 결정)");
+  check(/본문에 대학 이름·학부·연구팀·저자 이름·연도를 쓰지 않는다/.test(lines) && /출처는 참고 문헌에 자동으로 들어간다/.test(lines),
+    "I3 본문에 대학·저자 이름을 드러내지 않고, 출처는 참고 문헌에만");
+  check(/recordDraft ③/.test(lines) && /이름 없이/.test(lines), "I3 세특 초안에는 넓힌 방향을 이름 없이 한 문장으로");
   check(/반드시 usedIngredients에 넣는다/.test(lines) && /번호\(P1, R1\)는 본문에 쓰지 않는다/.test(lines), "I3 재료 내용을 썼으면 반드시 표시, 번호는 본문에 안 쓴다");
   const { scrubIngredientIds } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
   check(scrubIngredientIds("이산화탄소를 전환하는 연구(P2)가 있었다. R1에서도 다룬다. P파와 S파.") === "이산화탄소를 전환하는 연구가 있었다. 에서도 다룬다. P파와 S파.",
@@ -77,7 +78,7 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
   const cites = inspirationCitations(inspiration);
   check(cites.papers[0].journal === "학회지" && cites.papers[0].from === "3" && cites.web[0].url.includes("snu.ac.kr"), "I3 참고 자료 줄 모양으로 바뀐다");
   const guide = inspirationGuide(inspiration);
-  check(guide.mode === "inspiration" && guide.routeLabel === "교과 확장에 쓴 연구" && guide.papers.length === 2 && guide.papers[0].line.startsWith("김 (2023)."), "I3 최종 보고서 화면의 '교과 확장에 쓴 연구'");
+  check(guide.mode === "inspiration" && guide.routeLabel === "보고서가 참고한 연구" && guide.papers.length === 2 && guide.papers[0].line.startsWith("김 (2023)."), "I3 최종 보고서 화면의 '보고서가 참고한 연구'");
   check(inspirationGuide([]) === null, "I3 쓴 재료가 없으면 칸을 안 그린다");
 }
 
@@ -108,7 +109,7 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
     "I5 워커의 답 형식에서도 제목보다 앞 — AI는 칸 순서대로 쓴다");
   check(!("usedIngredients" in stageSchemaProperties(STAGE.DRAFT, input)), "I5 설계서(주제 잡기)에는 재료가 안 간다 — 교과 중심");
   const final = finalizeStageOutput(STAGE.FINAL, { reportTitle: "t", figures: [], usedIngredients: ["P2", "R1"],
-    sections: [{ title: "교과 심화와 확장", body: "군집 개념은 하천 수변 식생 연구로 이어진다." }] },
+    sections: [{ title: "결론", body: "군집 개념은 하천 수변 식생 연구로 이어진다." }] },
     { ...input, studentData: { measurementName: "m", unit: "종", conditions: [{ label: "화단", values: [7, 9] }, { label: "운동장", values: [3, 2] }], sourceCards: [], sources: [] },
       referencePapers: [{ title: "낱말로 짝지은 논문", journal: "x", year: "2020" }] });
   const finalRefs = final.parsed.sections.find((s) => s.title === "참고 자료")?.body || "";
@@ -117,10 +118,11 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
   check(final.extra.inspiration.length === 2, "I5 최종 보고서 결과에 쓴 재료가 실린다(화면의 '교과 확장에 쓴 연구')");
   // 비교 시험(2026-09-18): 「(이윤미 외, 2024)」의 2024를 지어낸 숫자로 보고 문장을 지웠다 — 연구가 본문에서 사라졌다.
   const cited = finalizeStageOutput(STAGE.FINAL, { reportTitle: "t", figures: [], usedIngredients: ["P2"],
-    sections: [{ title: "교과 심화와 확장", body: "관련 연구를 찾아보니 하천 수변 식생의 군집을 다룬 연구(이, 2022)가 있었다. 기온은 35도였다." }] },
+    sections: [{ title: "결론", body: "관련 연구를 찾아보니 하천 수변 식생의 군집을 다룬 연구(이, 2022)가 있었다. 기온은 35도였다." }] },
     { ...input, studentData: { measurementName: "m", unit: "종", conditions: [{ label: "화단", values: [7, 9] }, { label: "운동장", values: [3, 2] }], sourceCards: [], sources: [] } });
-  const ext = cited.parsed.sections.find((s) => s.title === "교과 심화와 확장").body;
-  check(ext.includes("(이, 2022)") && !ext.includes("35도"), "I5 재료의 연도는 남기고, 지어낸 숫자 문장은 여전히 지운다", ext);
+  const ext = cited.parsed.sections.find((s) => s.title === "결론").body;
+  check(ext.includes("하천 수변 식생") && !ext.includes("(이, 2022)") && !ext.includes("35도"),
+    "I5 인용 괄호(저자, 연도)는 본문에서 지우고 문장은 남긴다 — 출처는 참고 문헌에만. 지어낸 숫자 문장은 여전히 지운다", ext);
   const one = finalizeStageOutput(STAGE.COMPLETE, { reportTitle: "t", usedIngredients: ["P1"], sections: [{ title: "결론", body: "가" }] },
     { ...input, referencePapers: [{ title: "낱말로 짝지은 논문", journal: "x", year: "2020" }] }).parsed.sections;
   const refs = one.find((s) => s.title === "참고 자료")?.body || "";
@@ -145,7 +147,8 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
     "I6 워커가 확장을 쓰는 단계(설계서 말고)에서 재료를 고른다, 끄는 스위치가 있다");
   check(worker.includes("input.ingredients.research = (await aliveOnly(input.ingredients.research, { limit: 2 }))"), "I6 대학 글 재료는 보내기 전에 주소를 열어 본다");
   check(!bridge.includes("studentData.inspiration"), "I6 설계서에서 재료를 넘겨받지 않는다 — 최종 보고서가 직접 고른다");
-  check(bridge.includes('if(block.mode === "inspiration")') && bridge.includes("교과 확장에 쓴 연구"), "I6 사이트가 '교과 확장에 쓴 연구'를 그린다");
+  check(bridge.includes('if(block.mode === "inspiration")') && bridge.includes("보고서가 참고한 연구") && bridge.includes("본문에는 이름을 드러내지 않고 참고 자료에만"),
+    "I6 사이트가 '보고서가 참고한 연구'를 그리고, 본문에는 이름이 없다고 알려 준다");
 }
 
 console.log(`\n${passed} checks passed`);

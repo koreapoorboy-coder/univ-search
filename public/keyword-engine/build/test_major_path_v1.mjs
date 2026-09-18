@@ -54,7 +54,7 @@ check(/인용 가능한 사실이 아니다/.test(index.note), "P1 and says plai
 // P4: what the floor says. It has to be a real section, not an apology for having nothing.
 {
   const text = lines({ major: "", subject: "물리", selectedConcept: "물질의 전기적 특성" });
-  check(/교과 심화와 확장/.test(text), "P4 the section is named for the 교과, not the 계열");
+  check(/후속 탐구 — 결론 마지막 문단/.test(text), "P4 the follow-up is named for the 교과, not the 계열 — and lives in the conclusion (no separate section, 2026-09-18)");
   check(/진로를 맞히는 자리가 아니다/.test(text), "P4 and says outright that it is not a place to guess a career");
   check(/전기 신호 해석 축/.test(text), "P4 the 종단 축 we already matched is what it builds on");
   check(/무엇을 바꾸어 무엇을 볼지까지 구체적으로/.test(text), "P4 and it still has to propose something the student can do");
@@ -75,7 +75,7 @@ check(/인용 가능한 사실이 아니다/.test(index.note), "P1 and says plai
 // P6: nothing to build on is still a usable section, and bad input never throws.
 {
   const bare = majorPathPromptLines({ mode: "axis", reason: "NO_MAJOR" }, []).join("\n");
-  check(/교과 심화와 확장/.test(bare) && /이어서 할 수 있는 탐구/.test(bare), "P6 no axes either, and the section still asks for a next step", bare.slice(0, 40));
+  check(/후속 탐구/.test(bare) && /이어서 할 수 있는 탐구/.test(bare), "P6 no axes either, and the follow-up still asks for a next step", bare.slice(0, 40));
   check(resolveMajorPath(null, index).mode === "axis", "P6 no input at all falls to the floor");
   check(resolveMajorPath({ major: "전기전자공학부" }, null).mode === "axis", "P6 no index falls to the floor");
   check(curriculumPathPromptLines({ mode: "axis" }).length === 0, "P6 the upgrade writes nothing when it did not win");

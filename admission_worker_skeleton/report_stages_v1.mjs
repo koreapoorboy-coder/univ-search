@@ -297,8 +297,11 @@ const INTERNAL_NAME_FIXES = [
 ];
 
 // 교과 확장 재료의 번호(P2, R1)는 AI와 우리 사이의 표시다 — 본문에 「(P2)」가 그대로 나왔다(비교 시험 2026-09-18).
+// 본문의 인용 괄호 「(홍의정 외, 2024)」도 지운다 — 참고한 연구는 참고 문헌에만 적는다(사용자 결정 2026-09-18).
 export function scrubIngredientIds(text) {
-  return String(text || '').replace(/\s*\((?:[PR]\d(?:\s*[,·、]\s*)?)+\)/g, '').replace(/(^|[^A-Za-z0-9])[PR][1-9](?![0-9A-Za-z])/g, '$1').replace(/[ \t]{2,}/g, ' ');
+  return String(text || '').replace(/\s*\((?:[PR]\d(?:\s*[,·、]\s*)?)+\)/g, '').replace(/(^|[^A-Za-z0-9])[PR][1-9](?![0-9A-Za-z])/g, '$1')
+    .replace(/\s*\([가-힣A-Za-z·\s]{1,30}(?:외)?,\s*(?:19|20)\d{2}\)/g, '')
+    .replace(/[ \t]{2,}/g, ' ');
 }
 
 // 비교형 과제인가 — 비교표와 「자료 비교 정리」 절은 이런 과제에만 쓴다.
@@ -367,6 +370,9 @@ export function removeSelfPraise(body, studentText) {
   const text = String(studentText || '');
   return filterSentences(body, (sentence) => !SELF_PRAISE.test(sentence) || text.includes(sentence.trim().slice(0, 12)));
 }
+
+// 결론의 마지막 문단 — 후속 탐구. 따로 된 「교과 심화와 확장」 절 대신 여기가 이번 탐구가 어디로 더 깊어지는지 쓰는 자리다.
+const FOLLOW_UP = '마지막 문단은 후속 탐구다: 이번에 쓴 교과 개념과 방법이 어느 방향으로 더 깊어지는지, 실제로 해 볼 수 있는 다음 탐구 1개를 무엇을 바꾸어 무엇을 볼지까지 쓰고, 그 방향이 관심 계열과 어떻게 이어지는지 한 문장으로 닿는다. 학생의 데이터와 결론이 주인공이므로 이 문단은 짧게 쓴다. 따로 제목을 달지 않는다.';
 
 // 참고 자료 절의 이름. '참고'가 들어 있거나 '출처'로 **시작**할 때만이다 — 「자료 출처와 분석 기준」은 방법 절인데
 // '출처'가 들어 있다고 참고 자료로 보고 본문을 참고 자료 목록으로 덮어썼다(엔진 전수 검사 2026-09-18, 106건).
@@ -583,16 +589,17 @@ export function stageSections(stage, input) {
   const siteChose = (input?.targetStructure || []).filter(Boolean).length >= 4;
   if (shaped.length >= 4 && !siteChose) {
     const useSection = wantsUse && !shaped.some((section) => /활용|방안/.test(section)) ? ['활용 방안'] : [];
-    // The one-shot report closes with its sources; the two-stage flow closes with the sections our own
-    // pipeline needs (교과 심화와 확장 says where this competency goes next, 느낀 점 feeds the teacher's 세특).
+    // The one-shot report closes with its sources; the two-stage flow closes with 느낀 점 (it feeds the teacher's 세특).
+    // 「교과 심화와 확장」 절은 없앴다(사용자 결정 2026-09-18) — 학교 보고서 양식에는 그런 절이 없어 학생이 옮기다
+    // 버리게 된다. 그 내용은 결론(또는 양식의 고찰·제언·확장 절)의 마지막 문단, 후속 탐구로 들어간다.
     if (stage === STAGE.COMPLETE) {
       const closes = shaped.some((section) => REFERENCE_TITLE.test(section));
       return [...shaped, ...useSection, ...(closes ? [] : ['참고문헌'])];
     }
-    return [...shaped, ...useSection, '교과 심화와 확장', '느낀 점'];
+    return [...shaped, ...useSection, '느낀 점'];
   }
-  if (stage === STAGE.FINAL) return ['연구 질문', '이론적 배경', '탐구 방법', '탐구 결과', '결과 분석', '결론', ...(wantsUse ? ['활용 방안'] : []), '교과 심화와 확장', '느낀 점'];
-  if (stage === STAGE.LITERATURE) return ['연구 질문', '이론적 배경', '자료 조사 방법', wantsComparison(input) ? '자료 비교 정리' : '자료 분석과 해석', '결론', ...(wantsUse ? ['활용 방안'] : []), '교과 심화와 확장', '느낀 점'];
+  if (stage === STAGE.FINAL) return ['연구 질문', '이론적 배경', '탐구 방법', '탐구 결과', '결과 분석', '결론', ...(wantsUse ? ['활용 방안'] : []), '느낀 점'];
+  if (stage === STAGE.LITERATURE) return ['연구 질문', '이론적 배경', '자료 조사 방법', wantsComparison(input) ? '자료 비교 정리' : '자료 분석과 해석', '결론', ...(wantsUse ? ['활용 방안'] : []), '느낀 점'];
   return null;
 }
 
@@ -626,9 +633,10 @@ function stageSectionGuideBase(title, stage) {
   if (/결과 분석|자료 해석|패턴 해석|결과 해석/.test(text)) return '가설이 맞았는지 조건마다 판단한다. 수준별비교가 있으면 기준마다 어느 쪽이 몇 점 높았는지 그대로 쓰고, 가설대로 나온 조건과 반대로 나온 조건을 나누어 밝힌다. 두 값이 다르면 "비슷하다"고 쓰지 않는다. 가장 그럴듯한 설명 외에 다른 가능한 설명을 최소 1개 검토하고 데이터가 어느 쪽을 더 지지하는지 따진다. 반복 측정의 흔들림이 큰 조건은 신뢰도가 낮다고 밝히고 원인을 추정한다. 700~1000자';
   if (/오차|한계/.test(text)) return '이 탐구에서 확실하게 말할 수 있는 것과 없는 것을 나눈다. 측정이나 자료의 한계, 조건 수가 적어 생긴 제약을 구체적으로 쓰고, 그래서 결론을 어디까지만 말할 수 있는지 밝힌다. 300~500자';
   if (/결론/.test(text)) return stage === STAGE.FINAL
-    ? '연구 질문에 학생 데이터로 직접 답한다. 모든 조건에서 그렇지 않았다면 어느 조건에서 그랬는지까지 쓴다. 한계와 개선점을 쓰고, 이론 설명을 다시 반복하지 않는다. 300~500자'
-    : '연구 질문에 자료 조사 결과로 답하고, 실험으로 확인하지 못한 한계를 쓴다. 이론 설명을 다시 반복하지 않는다. 300~500자';
-  if (/교과 심화와 확장|계열 연계 탐구/.test(text)) return '이번 탐구에서 쓴 교과 개념과 방법이 어느 방향으로 더 깊어지는지 쓴다. 학생의 진로에서 출발하지 말고 이번에 한 것에서 출발한다. 이어서 실제로 해 볼 수 있는 심화 탐구 1~2개를 무엇을 바꾸어 무엇을 볼지까지 구체적으로 제안한다. 마지막 문단은 그 방향이 관심 계열·진로와 어떻게 이어지는지 한두 문장으로 닿는다. 확립된 개념만 쓰고 기업명·제품명·수치는 지어내지 않는다. 450~700자';
+    ? `연구 질문에 학생 데이터로 직접 답한다. 모든 조건에서 그렇지 않았다면 어느 조건에서 그랬는지까지 쓴다. 한계와 개선점을 쓰고, 이론 설명을 다시 반복하지 않는다. ${FOLLOW_UP} 450~700자`
+    : `연구 질문에 자료 조사 결과로 답하고, 실험으로 확인하지 못한 한계를 쓴다. 이론 설명을 다시 반복하지 않는다. ${FOLLOW_UP} 450~700자`;
+  // 학교 양식에 이미 확장·후속·제언·고찰 절이 있으면 후속 탐구는 그 절이 맡는다.
+  if (/교과 심화와 확장|계열 연계 탐구|확장|후속|제언|고찰/.test(text)) return `이번 탐구의 결과에서 출발해 ${FOLLOW_UP} 400~600자`;
   if (/활용 방안/.test(text)) return '탐구 결과를 근거로 실생활에서 쓸 수 있는 구체적인 방안 2~3개. 방안마다 어떤 결과에 근거했는지 밝힌다. 실험한 대상과 조건(재료, 얼룩 종류, 온도 등) 안에서만 말하고, 실험하지 않은 대상으로 넓히려면 추가 실험이 필요하다고 쓴다. 300~500자';
   if (/느낀 점/.test(text)) return '학생이 쓴 reflection 문장을 먼저 거의 그대로 쓰고(맞춤법만 다듬음), 이어서 이번 탐구를 다음 순서로 정리한다. ①내가 한 활동을 무엇을 어떤 기준으로 했는지 구체적으로 ②그래서 이해하게 된 교과 개념 ③참고한 자료에서 확인한 것(sources에 있는 것만) ④결과에서 드러난 것을 숫자와 함께 ⑤이 탐구의 한계 ⑥다음에 확인하고 싶은 것. 모두 학생의 말투(~했다)로 쓰고, 성실했다·적극적이었다처럼 태도를 스스로 칭찬하는 말은 쓰지 않는다. 한 것을 적으면 태도는 드러난다. 힘들었다, 재미있었다처럼 학생이 쓰지 않은 감정이나 경험은 새로 만들지 않는다. 400~700자';
   if (/참고 자료/.test(text)) return '학생이 적은 sources만 한 줄에 하나씩 쓴다. 다른 줄, 괄호 설명, ※ 문장을 덧붙이지 않는다. sources가 없으면 "통합과학1 교과서 효소 관련 단원"처럼 자료 종류만 적고, 단원명·기관명·사이트명을 지어내지 않는다.';

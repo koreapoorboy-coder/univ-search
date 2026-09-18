@@ -115,7 +115,7 @@ check(pickCrossSubject({ subject: "생명과학" }, null) === null, "C6 no index
   check(/실험 설계 안에서 한다/.test(lab), "C13 the crossing has to land inside the experiment design");
   check(/재는 항목/.test(lab) && /비교할 조건/.test(lab), "C13 it names the measurement and the conditions as the way in");
   check(/마지막 절에서 꺼내면 융합이 아니다/.test(lab), "C13 leaving it to the closing section is refused");
-  check(/교과 심화와 확장 절에서만/.test(lab), "C13 and the closing section is told it does not count");
+  check(/결론 마지막 문단\(후속 탐구\)에서만/.test(lab), "C13 and the closing follow-up paragraph is told it does not count");
   const reading = crossSubjectPromptLines(bridge, "experiment_draft", "reading").join("\n");
   check(/자료를 고르는 기준/.test(reading) && !/재는 항목/.test(reading), "C13 a reading task gets its own way in, not the lab one", reading.slice(0, 60));
   const plain = crossSubjectPromptLines(bridge, "experiment_draft").join("\n");

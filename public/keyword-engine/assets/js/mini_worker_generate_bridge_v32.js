@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v278_extension
+// SCREEN_VERSION: v279_background
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v278-extension";
+  const VERSION = "mini-worker-generate-bridge-v279-background";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2766,11 +2766,10 @@
     if(block.mode === "inspiration"){
       return `
       <details class="mini-book-pick mini-paper-guide" open>
-        <summary>교과 확장에 쓴 연구
-          <span>${list.length}편 · 이 교과 개념이 실제 연구에서 어디까지 이어지는지</span></summary>
-        <p class="mini-book-why">보고서의 「교과 심화와 확장」에서 이번 탐구의 개념이 실제 연구로 이어지는 방향을 보여 줄 때 쓴 자료예요.
-          발표나 면접에서 "더 찾아본 것이 있어?"라고 물으면 이 연구를 말하면 돼요. 제목으로 <b>초록</b>을 한 번 읽어 두세요.
-          참고 자료에도 들어가 있어요.</p>
+        <summary>보고서가 참고한 연구
+          <span>${list.length}편 · 참고 자료에 들어가 있어요</span></summary>
+        <p class="mini-book-why">보고서의 배경 설명과 후속 탐구를 쓸 때 참고한 실제 연구예요. 본문에는 이름을 드러내지 않고 참고 자료에만 적었어요.
+          발표나 면접에서 "더 찾아본 것이 있어?"라고 물으면 이 연구를 말하면 돼요. 제목으로 <b>초록</b>을 한 번 읽어 두세요.</p>
         <ul class="mini-paper-list">${list.map(paper => `
           <li class="mini-paper">
             <span class="mini-paper-t">${escapeHtml(paper.line)}</span>

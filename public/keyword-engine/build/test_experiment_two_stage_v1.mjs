@@ -121,7 +121,12 @@ const shallow = finalizeStageOutput(STAGE.DRAFT, { reportTitle: "t", sections: [
 check(shallow.extra.dataTemplate.trials === 3, "the data template asks for at least 3 repeats", String(shallow.extra.dataTemplate.trials));
 check(twoStats.rows.map(r => r.spread).join(",") === "0,1,1,0" && removeUnsupportedNumbers("효소 세제·뜨거운 물은 반복 측정 사이에 1점 차이가 났다.", allowedNumberSet(twoByTwo, twoStats)).removed === 0,
   "the spread between repeats is computed and may be written", twoStats.rows.map(r => r.spread).join(","));
-check(stageSections(STAGE.FINAL, { taskDescription: "" }).includes("교과 심화와 확장") && stageSections(STAGE.LITERATURE, { taskDescription: "" }).includes("교과 심화와 확장"), "the second stage closes with 교과 심화와 확장, not a 계열 section");
+// 2026-09-18 사용자 결정: 「교과 심화와 확장」 절은 없앤다 — 학교 양식에 없어 학생이 쓸 수 없다. 후속 탐구는 결론의 마지막 문단.
+check(!stageSections(STAGE.FINAL, { taskDescription: "" }).includes("교과 심화와 확장") && !stageSections(STAGE.LITERATURE, { taskDescription: "" }).includes("교과 심화와 확장")
+  && stageSections(STAGE.FINAL, { taskDescription: "" }).includes("결론"), "the second stage has no separate 교과 심화와 확장 section — the conclusion carries the next step");
+check(/마지막 문단은 후속 탐구다/.test(stageSectionGuide("결론", STAGE.FINAL, COLLECTION.MEASUREMENT)) && /따로 제목을 달지 않는다/.test(stageSectionGuide("결론", STAGE.FINAL, COLLECTION.MEASUREMENT)),
+  "the conclusion ends with a short follow-up paragraph");
+check(/후속 탐구다/.test(stageSectionGuide("고찰 및 제언", STAGE.FINAL, COLLECTION.MEASUREMENT)), "a school format's own 고찰·제언 section takes the follow-up instead");
 
 // Real depth test (2026-09-11, 세제 3 × 온도 2, 3 repeats): in hot water 효소 = 일반 = 1.33 but the summary said
 // "효소 1점 높음" (it compared against 물만), and a 0.34-point gap was treated as meaningful although every
