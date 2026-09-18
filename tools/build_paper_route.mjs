@@ -155,6 +155,15 @@ function distinctCount(title, bag) {
 }
 
 // ── 4. 과목 묶음 ───────────────────────────────────────────────────────
+// GPT 꼬리표(tools/classify_kci_papers.mjs). 논문이 **고교 어느 단원의 근거가 되는지**를 뜻으로 읽은 것이다.
+//   · 이어지는 단원이 없는 논문(교육학·간호 직무 등)은 묶음에서 뺀다
+//   · 있는 논문은 단원 번호와 난이도를 싣는다 — 보고서를 만들 때 **그 보고서의 단원과 같을 때만** 붙인다
+//   · 아직 꼬리표가 없는 논문은 그대로 둔다(낱말 규칙으로만 판단한다)
+let TAGS = {};
+try { TAGS = JSON.parse(await readFile(here("../public/keyword-engine/build/.cache_kci_tags.json"), "utf8")); } catch { TAGS = {}; }
+const LEVEL = { 쉬움: "e", 보통: "m", 어려움: "h" };
+let unlinked = 0;
+let tagged = 0;
 const shards = {};
 let handDropped = 0;
 for (const [subject, fields] of Object.entries(FIELD_MAP)) {
@@ -165,6 +174,8 @@ for (const [subject, fields] of Object.entries(FIELD_MAP)) {
     && !out.some((one) => paper.field.startsWith(one)));
   const rows = [];
   const seen = new Set();
+  const units = [];
+  const unitAt = (name) => { let at = units.indexOf(name); if (at < 0) { units.push(name); at = units.length - 1; } return at; };
   for (const paper of inField) {
     const key = paper.title.replace(/\s+/g, "");
     if (seen.has(key)) continue;
@@ -173,9 +184,13 @@ for (const [subject, fields] of Object.entries(FIELD_MAP)) {
     seen.add(key);
     // 마지막 칸: 중심 학문이면 1. 지도에 중심이 안 적힌 과목은 전부 1이다(route_core_why).
     const core = !CORE[subject] || CORE[subject].some((one) => paper.field.startsWith(one)) ? 1 : 0;
-    rows.push([paper.title, paper.who, paper.year, paper.journal, paper.volume, paper.issue, paper.pages, core]);
+    const tag = TAGS[key];
+    if (tag && !tag.concepts.length) { unlinked += 1; continue; }   // 이어지는 고교 단원이 없다
+    if (tag) tagged += 1;
+    rows.push([paper.title, paper.who, paper.year, paper.journal, paper.volume, paper.issue, paper.pages, core,
+      tag ? tag.concepts.map(unitAt) : null, tag ? LEVEL[tag.level] || "" : ""]);
   }
-  shards[subject] = { fields, inField: inField.length, rows, core: rows.filter((row) => row[7]).length };
+  shards[subject] = { fields, inField: inField.length, rows, units, core: rows.filter((row) => row[7]).length };
 }
 
 console.log("\n과목별 묶음:");
@@ -183,7 +198,7 @@ for (const [subject, one] of Object.entries(shards)) {
   const size = Buffer.byteLength(JSON.stringify(one.rows), "utf8");
   console.log(`  ${subject.padEnd(10)} 분야 ${String(one.inField).padStart(6)}편 → 묶음 ${String(one.rows.length).padStart(6)}편 (중심 학문 ${String(one.core).padStart(5)})  ${(size / 1e6).toFixed(2)}MB`);
 }
-console.log(`손으로 지운 것 ${handDropped}편`);
+console.log(`손으로 지운 것 ${handDropped}편 · GPT 꼬리표로 뺀 것(이어지는 단원 없음) ${unlinked}편 · 꼬리표 붙은 줄 ${tagged}`);
 
 if (process.argv.includes("--write")) {
   await mkdir(OUT_DIR, { recursive: true });
@@ -197,7 +212,8 @@ if (process.argv.includes("--write")) {
     await writeFile(file, JSON.stringify({
       version: "paper-route-v1", subject, ...meta,
       fields: one.fields,
-      note: "한 줄 = [제목, 저자, 연도, 학술지, 권, 호, 쪽, 중심 학문(1/0)]. 학생 글의 낱말 두 개가 제목에 함께 있어야 나온다(paper_route_v1.mjs).",
+      note: "한 줄 = [제목, 저자, 연도, 학술지, 권, 호, 쪽, 중심 학문(1/0), 단원 번호들(units 의 자리, 꼬리표가 없으면 null), 난이도(e/m/h)]. 학생 글의 낱말 두 개가 제목에 함께 있고, 꼬리표가 있으면 보고서의 단원과 같아야 나온다(paper_route_v1.mjs).",
+      units: one.units,
       rows: one.rows,
     }), "utf8");
   }

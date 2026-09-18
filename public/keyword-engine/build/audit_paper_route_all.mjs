@@ -7,6 +7,8 @@
 //   node public/keyword-engine/build/audit_paper_route_all.mjs [--seed N] [--show N]
 import { readFile } from "node:fs/promises";
 import { routePapers, routedPaperLine, shardFile } from "../../../admission_worker_skeleton/paper_route_v1.mjs";
+import { inferConcept } from "../../../admission_worker_skeleton/book_match_v1.mjs";
+const axisIndex = JSON.parse(await readFile(new URL("../seed/engine-index/longitudinal_axis_index.v1.json", import.meta.url), "utf8"));
 
 const here = (name) => new URL(name, import.meta.url);
 const arg = (name, fallback) => {
@@ -24,12 +26,13 @@ const ALIAS = { 통합과학: "통합과학1", 과학탐구실험: "과학탐구
 const shards = new Map();
 async function shardOf(subject) {
   if (shards.has(subject)) return shards.get(subject);
-  let rows = null;
+  let shard = null;
   try {
-    rows = JSON.parse(await readFile(here(`../seed/${shardFile(subject)}`), "utf8")).rows;
-  } catch { rows = null; }
-  shards.set(subject, rows);
-  return rows;
+    const body = JSON.parse(await readFile(here(`../seed/${shardFile(subject)}`), "utf8"));
+    shard = { rows: body.rows, units: body.units || [] };
+  } catch { shard = null; }
+  shards.set(subject, shard);
+  return shard;
 }
 
 const tasks = (await readFile(here("../data/assessment/records/assessment_tasks.v1.jsonl"), "utf8"))
@@ -43,11 +46,17 @@ let got = 0;
 for (const task of tasks) {
   const raw = tight(task.subject_standard);
   const subject = ALIAS[raw] || raw;
-  const rows = await shardOf(subject);
-  if (!rows) continue;
+  const shard = await shardOf(subject);
+  if (!shard) continue;
   tried += 1;
   const text = `${task.raw_task_title || ""} ${task.raw_task_desc || ""}`;
-  const { query, picked } = routePapers(rows, text, task.report_mode, { limit: 2, subject, anchor: task.raw_task_title || "" });
+  // 보고서의 단원 — 워커와 같게 과제 글에서 추정한다. 꼬리표가 붙은 논문은 이 단원과 같을 때만 나온다.
+  // 단원은 **하나**만 쓴다(워커와 같다). 후보를 셋으로 늘리면 넓은 단원(빅데이터 활용 등)이 끼어 붙는 비율은
+  // 3%→5%로 오르지만 정확도가 약 75%→65%로 되돌아갔다 — 화산 분포 과제에 택시 GPS 논문이 붙었다.
+  const unit = inferConcept(subject, text, axisIndex);
+  const units = unit ? [`${subject}::${unit}`] : [];
+  const { query, picked } = routePapers(shard.rows, text, task.report_mode, {
+    limit: 2, subject, anchor: task.raw_task_title || "", units, table: shard.units });
   const one = bySubject.get(subject) || { tried: 0, got: 0 };
   one.tried += 1;
   if (picked.length) { one.got += 1; got += 1; }

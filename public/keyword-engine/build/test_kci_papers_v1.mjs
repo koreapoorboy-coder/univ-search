@@ -266,7 +266,7 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
   check(wideKci, "K2 논문 인덱스도 마찬가지");
   check(/pickForTask\(got, taskText\(input\)/.test(worker),
     "K2 워커가 과제문으로 고른다 — 개념만으로 표를 찾지 않는다");
-  check((worker.match(/pickForTask\(/g) || []).length === 2 && /routePapers\(rows, taskText\(input\)/.test(worker),
+  check((worker.match(/pickForTask\(/g) || []).length === 2 && /routePapers\(shard\.rows, taskText\(input\)/.test(worker),
     "K2 논문·대학 연구·공공데이터 **셋 다** 과제문으로 고른다 (논문은 routePapers)");
   check(worker.includes("function taskText(input)") && /taskDescription/.test(worker),
     "K2 과제문은 학생이 붙여넣은 안내문 전체다");
@@ -313,7 +313,7 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
 
 // L2: 워커가 자리마다 다르게 쓴다.
 {
-  check(/routePapers\(rows, taskText\(input\), reportModeOf\(input\)/.test(worker),
+  check(/routePapers\(shard\.rows, taskText\(input\), reportModeOf\(input\)/.test(worker),
     "L2 논문은 수행평가 틀로 — 받칠 근거가 없으면 안 붙인다");
   check(/research = pickForTask\(got, taskText\(input\), 2, \{ skip: name \}\)/.test(worker),
     "L2 대학 연구는 느슨하게");

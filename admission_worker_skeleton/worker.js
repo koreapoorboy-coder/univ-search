@@ -469,11 +469,15 @@ export default {
         input.referencePapers = [];
         let paperGuide = null;
         try {
-          const rows = await loadPaperShard(env, input.subject);
-          if (rows) {
-            const { query, picked } = routePapers(rows, taskText(input), reportModeOf(input), {
+          const shard = await loadPaperShard(env, input.subject);
+          if (shard) {
+            // 보고서의 단원. GPT 꼬리표가 붙은 논문은 이 단원과 같을 때만 붙는다(paper_route_v1.mjs).
+            const units = [reportConcept, axisConceptName(seedPack, reportAxis)].filter(Boolean).map((name) => `${input.subject}::${name}`);
+            const { query, picked } = routePapers(shard.rows, taskText(input), reportModeOf(input), {
               limit: 2,
               subject: input.subject,
+              units,
+              table: shard.units,
               anchor: [input.selectedKeyword || input.keyword, input.taskTitle, reportConcept, axisConceptName(seedPack, reportAxis)]
                 .filter(Boolean).join(' '),
             });
@@ -1099,9 +1103,10 @@ async function loadPaperShard(env, subject) {
   if (paperShards.has(file)) return paperShards.get(file);
   const base = env.SEED_BASE_URL || DEFAULT_SEED_BASE;
   const res = await fetch(encodeURI(`${base}/${file}`), { cf: { cacheTtl: 300, cacheEverything: true } });
-  const rows = res.ok ? (await res.json())?.rows || null : null;
-  paperShards.set(file, rows);
-  return rows;
+  const body = res.ok ? await res.json() : null;
+  const shard = body?.rows ? { rows: body.rows, units: Array.isArray(body.units) ? body.units : [] } : null;
+  paperShards.set(file, shard);
+  return shard;
 }
 
 // 이 보고서가 선 축의 **단원 이름**. reportConcept 은 과제 글에서 뽑은 말이라 교육과정 단원

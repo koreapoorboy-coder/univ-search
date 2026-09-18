@@ -265,6 +265,11 @@ export function fitPaper(paper, query, sharp = null) {
   const center = query.center || [];
   const inCenter = hits.filter((one) => center.some((word) => one.includes(word) || word.includes(one)));
   if (!center.length || inCenter.length < Math.min(2, center.length)) return null;
+  // **GPT 꼬리표가 있으면, 이 보고서의 단원과 같을 때만.** 낱말은 맞아도 뜻이 다른 논문을 여기서 거른다 —
+  // 해수면 온도 보고서에 「학생들의 기후변화 개념 이해(교육학)」, 판 구조에 「비만 쥐의 지질 대사」.
+  // 보고서의 단원을 모르면(query.units 가 비면) 꼬리표로는 막지 않는다.
+  const tagged = Array.isArray(paper.units);
+  if (tagged && query.units?.length && !unitsMeet(paper.units, query.units)) return null;
   const has = (list) => list.find((word) => hits.some((one) => one.includes(word)));
   const change = has(query.slots?.change || []);
   const measure = has(query.slots?.measure || []);
@@ -272,8 +277,10 @@ export function fitPaper(paper, query, sharp = null) {
   // 정확도는 거의 그대로(65%→67%)인데 붙는 비율이 12%→8%로 떨어지고 화학·생명과학이 0~2%가 됐다.
   // 한글 제목 화학 논문 427편 가운데 '자연과학 > 화학'은 73편뿐이라서다. 그래서 순서만 바꾼다.
   const shaped = SHAPE[query.route]?.test(title) || false;
-  const score = hits.length * 3 + (change && measure ? 6 : change || measure ? 2 : 0) + (shaped ? 2 : 0) + (paper.core === 0 ? 0 : 2);
-  return { hits: hits.slice(0, 3), change: change || '', measure: measure || '', shaped, score };
+  const ease = { e: 2, m: 1 }[paper.level] || 0;   // 고등학생이 읽기 쉬운 논문이 앞
+  const score = hits.length * 3 + (change && measure ? 6 : change || measure ? 2 : 0) + (shaped ? 2 : 0) + (paper.core === 0 ? 0 : 2)
+    + (tagged && query.units?.length ? 3 : 0) + ease;
+  return { hits: hits.slice(0, 3), change: change || '', measure: measure || '', shaped, score, unit: tagged };
 }
 
 // 받침이 있으면 '과·을', 없으면 '와·를'. 한글이 아니면(DNA, pH) 받침 없는 쪽으로 읽는다.
@@ -300,23 +307,35 @@ export function guideLine(fit, route) {
   return `제목으로 보아 ${pair}를 함께 다룬 연구예요. 초록에서 그 원리를 어떤 대상으로 설명했는지 확인해, 내 설명을 받치는 근거로 쓰세요.`;
 }
 
-// 과목 묶음 한 줄: [제목, 저자(「A」·「A · B」·「A 외」), 연도, 학술지, 권, 호, 쪽, 중심 학문(1/0)]
-export function unpack(row) {
-  const [title, who, year, journal, volume, issue, pages, core] = row;
+// 단원이 같은가. 「과목::단원」이 같거나, 과목이 달라도 단원 이름이 같으면 같다(통합과학2 와 화학에 같은 단원이 있다).
+const unitName = (key) => String(key || '').split('::').pop().replace(/\s+/g, '');
+export function unitsMeet(paperUnits, reportUnits) {
+  const want = new Set(reportUnits.map((one) => String(one).replace(/\s+/g, '')));
+  const names = new Set(reportUnits.map(unitName));
+  return paperUnits.some((one) => want.has(String(one).replace(/\s+/g, '')) || names.has(unitName(one)));
+}
+
+// 과목 묶음 한 줄: [제목, 저자, 연도, 학술지, 권, 호, 쪽, 중심 학문(1/0), 단원 번호들(없으면 null), 난이도(e/m/h)]
+// table 은 묶음의 units(단원 이름 목록)다 — 줄마다 이름을 다시 적지 않으려고 번호로 싣는다.
+export function unpack(row, table = []) {
+  const [title, who, year, journal, volume, issue, pages, core, unitIdx, level] = row;
   return {
     title: clean(title, 240), who: clean(who, 80), year: clean(year, 4), journal: clean(journal, 80),
     volume: clean(volume, 10), issue: clean(issue, 10), pages: clean(pages, 20),
     core: core === 0 ? 0 : 1,
+    units: Array.isArray(unitIdx) ? unitIdx.map((at) => table[at]).filter(Boolean) : null,
+    level: clean(level, 1),
   };
 }
 
 // 한데 모은 것. rows 는 과목 논문 묶음이다.
 // 같은 첫 저자의 같은 해 논문은 한 편만 — 한 연구실의 연작이 두 칸을 다 차지하지 않게.
 export const SHARP_SHARE = 0.02;   // 과목 논문의 2% 이하에 나오는 말이 '드문 말'이다
-export function routePapers(rows, text, mode, { limit = 2, common = [], subject = '', anchor = '' } = {}) {
+export function routePapers(rows, text, mode, { limit = 2, common = [], subject = '', anchor = '', units = [], table = [] } = {}) {
   const query = paperQuery(text, mode, { common, subject, anchor });
+  query.units = (Array.isArray(units) ? units : []).filter(Boolean);
   if (query.words.length < 2) return { query, picked: [] };
-  const papers = (Array.isArray(rows) ? rows : []).map((row) => (Array.isArray(row) ? unpack(row) : row));
+  const papers = (Array.isArray(rows) ? rows : []).map((row) => (Array.isArray(row) ? unpack(row, table) : row));
   const views = papers.map((paper) => titleView(clean(paper.title, 240)));
   // 이 과목 안에서 낱말마다 몇 편에 나오는가
   const cap = Math.max(20, Math.round(papers.length * SHARP_SHARE));

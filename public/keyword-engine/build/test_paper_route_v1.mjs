@@ -7,7 +7,7 @@ import assert from "node:assert/strict";
 import { readFile, stat } from "node:fs/promises";
 import {
   citationRow, fitPaper, FRAME, guideBlock, guideLine, josa, paperQuery, routeOf, routePapers, routedPaperLine,
-  shardFile, TASK_FRAME, taskSlots, unpack,
+  shardFile, TASK_FRAME, taskSlots, unitsMeet, unpack,
 } from "../../../admission_worker_skeleton/paper_route_v1.mjs";
 import { indexPaperLine } from "../../../admission_worker_skeleton/kci_v1.mjs";
 
@@ -136,7 +136,7 @@ const row = (title, core = 1) => [title, "김 외", "2024", "학회지", "3", "2
     check(size < 2.6e6, `P9 ${subject} 묶음이 2.6MB 아래 — 보고서마다 읽는다`, String(size));
     const shard = JSON.parse(await readFile(file, "utf8"));
     total += shard.rows.length;
-    check(shard.license.includes("제한 없음") && shard.rows.every((one) => one.length === 8),
+    check(shard.license.includes("제한 없음") && shard.rows.every((one) => one.length === 8 || one.length === 10),
       `P9 ${subject}: 이용허락과 한 줄 8칸`);
     const heads = drops.map((one) => one.title.replace(/\s+/g, ""));
     check(!shard.rows.some((one) => heads.some((head) => String(one[0]).replace(/\s+/g, "").startsWith(head))),
@@ -151,13 +151,34 @@ const row = (title, core = 1) => [title, "김 외", "2024", "학회지", "3", "2
     real.picked.map((one) => one.title).join(" / "));
 }
 
+// P12: GPT 꼬리표 — 논문이 **이 보고서의 단원과 같을 때만**. (tools/classify_kci_papers.mjs)
+{
+  const table = ["생명과학::물질대사와 건강", "지구과학::판 구조와 암석 변화", "화학::산화와 환원"];
+  const rows = [
+    ["중강도 운동을 실시한 비만 쥐에서 정향 투여가 지질과 근육 대사에 미치는 영향", "김", "2024", "j", "1", "1", "1-2", 1, [0], "m"],
+    ["판 경계에서 일어나는 지진과 화산 활동의 지질학적 해석", "이", "2024", "j", "1", "1", "1-2", 1, [1], "e"],
+  ];
+  const text = "판의 경계에서 일어나는 지진과 화산 활동의 지질 현상 탐구";
+  const got = routePapers(rows, text, "개념해석형", { subject: "지구과학", anchor: "지진 화산 지질", units: ["지구과학::판 구조와 암석 변화"], table }).picked.map((one) => one.title);
+  check(got.length === 1 && got[0].startsWith("판 경계"), "P12 판 구조 보고서에 '지질'이 같은 비만 쥐 논문은 안 붙는다 — 꼬리표의 단원이 다르다", got.join(" / "));
+  const noUnit = routePapers(rows, text, "개념해석형", { subject: "지구과학", anchor: "지진 화산 지질", units: [], table }).picked.length;
+  check(noUnit >= 1, "P12 보고서의 단원을 모르면 꼬리표로 막지 않는다(낱말 규칙만)");
+  check(unitsMeet(["화학::산화와 환원"], ["통합과학2::산화와 환원"]) && !unitsMeet(["생명과학::물질대사와 건강"], ["지구과학::판 구조와 암석 변화"]),
+    "P12 과목이 달라도 단원 이름이 같으면 같은 단원이다");
+  const easy = routePapers([["판 경계 지진 화산 연구 A", "가", "2024", "j", "", "", "", 1, [1], "h"], ["판 경계 지진 화산 연구 B", "나", "2023", "j", "", "", "", 1, [1], "e"]],
+    text, "개념해석형", { subject: "지구과학", anchor: "지진 화산", units: ["지구과학::판 구조와 암석 변화"], table }).picked.map((one) => one.title);
+  check(easy[0].endsWith("B"), "P12 같은 증거면 고등학생이 읽기 쉬운 논문이 앞", easy.join(" / "));
+  check(/units,\s*table: shard\.units,/.test(worker) && worker.includes("const units = [reportConcept, axisConceptName(seedPack, reportAxis)]"),
+    "P12 워커가 보고서의 단원과 묶음의 단원 목록을 넘긴다");
+}
+
 // P10: 워커 — 설계서엔 안내서, 최종 보고서엔 참고 자료. AI에게는 안 간다.
 {
   check(worker.includes("import { citationRow, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';"), "P10 워커가 새 길을 쓴다");
   check(/if \(input\.reportStage === STAGE\.DRAFT\) paperGuide = guideBlock\(query, picked\);\s*else input\.referencePapers = picked\.map\(citationRow\);/.test(worker),
     "P10 설계서에는 안내서, 최종 보고서에는 참고 자료 줄");
   check(/bookChoices,\s*paperGuide,/.test(worker), "P10 응답에 paperGuide 가 실린다");
-  check(worker.indexOf("routePapers(rows") < worker.indexOf("callOpenAIWithRetry(prompt, env, input)"),
+  check(worker.indexOf("routePapers(shard.rows") > 0 && worker.indexOf("routePapers(shard.rows") < worker.indexOf("callOpenAIWithRetry(prompt, env, input)"),
     "P10 AI를 부르기 전에 찾는다 — 참고 자료 절이 쓸 수 있게");
   const at = worker.indexOf("function buildPrompt(");
   const body = worker.slice(at, worker.indexOf("\nfunction ", at + 50));
