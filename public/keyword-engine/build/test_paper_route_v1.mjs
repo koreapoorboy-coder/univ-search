@@ -174,7 +174,7 @@ const row = (title, core = 1) => [title, "김 외", "2024", "학회지", "3", "2
 
 // P10: 워커 — 설계서엔 안내서, 최종 보고서엔 참고 자료. AI에게는 안 간다.
 {
-  check(worker.includes("import { citationRow, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';"), "P10 워커가 새 길을 쓴다");
+  check(worker.includes("import { citationRow, contentWords, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';"), "P10 워커가 새 길을 쓴다");
   check(/if \(input\.reportStage === STAGE\.DRAFT\) paperGuide = guideBlock\(query, picked\);\s*else input\.referencePapers = picked\.map\(citationRow\);/.test(worker),
     "P10 설계서에는 안내서, 최종 보고서에는 참고 자료 줄");
   check(/bookChoices,\s*paperGuide,/.test(worker), "P10 응답에 paperGuide 가 실린다");

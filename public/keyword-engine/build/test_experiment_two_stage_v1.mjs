@@ -184,6 +184,10 @@ check(kindOf("관심 있는 사회 문제를 정해 주제 탐구 보고서를 �
 check(kindOf("주제에 대한 자신의 주장을 담은 논술문을 쓰시오") === COLLECTION.NONE, "an essay task collects nothing", kindOf("주제에 대한 자신의 주장을 담은 논술문을 쓰시오"));
 check(kindOf("탐구 보고서를 쓰시오", "과학") === COLLECTION.MEASUREMENT, "a science subject still means an experiment");
 
+// 야외 조사(방형구·개체 수)는 측정이다 — 운영 테스트에서 '조사'라는 말 때문에 문헌으로 잡혔다.
+check(kindOf("방형구법을 활용한 식물 군집 조사 보고서 / 방형구를 설치해 식물 종류와 개체 수를 조사하고 중요치를 구해 비교한다") === COLLECTION.MEASUREMENT,
+  "a quadrat field survey is a measurement, not a literature review");
+check(kindOf("식물의 군집 조사 방법을 통해 우점종을 결정하기(논술형 문제)") === COLLECTION.NONE, "the same words in an essay task stay an essay");
 const readingInput = { collectionKind: COLLECTION.READING };
 check(Object.keys(stageSchemaProperties(STAGE.DRAFT, readingInput)).join(",") === "caseTag,sourceTemplate" && stageOutputKeys(STAGE.DRAFT, readingInput).includes("sourceTemplate"),
   "a reading draft asks for a source plan, not a number table", Object.keys(stageSchemaProperties(STAGE.DRAFT, readingInput)).join(","));

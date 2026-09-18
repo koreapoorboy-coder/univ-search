@@ -38,6 +38,10 @@ export function resolveCollectionKind(input) {
   // Graded as an essay answer: the student looks at something, but there is no table to fill in.
   if (/논술형 ?문제|논술형 ?평가|서·?논술형|논술형으로 ?해결|논술 ?문항/.test(text)) return COLLECTION.NONE;
   if (/통계|지표|빅데이터|공공 ?데이터|데이터를 ?수집|데이터를 ?분석|데이터 ?시각화|자료 ?해석|그래프 ?분석|추이|수치 ?자료|관측 ?자료/.test(text)) return COLLECTION.DATASET;
+  // 야외 조사도 직접 재는 일이다. 「방형구를 설치해 개체 수를 조사」가 '조사'라는 말 때문에 문헌 조사로
+  // 잡혀, 자료 5개를 읽으라는 설계서가 나왔다(운영 테스트 2026-09-18). 논술형·공개 자료 판정 **뒤에** 둔다 —
+  // 수행평가 7,131건 가운데 이 말이 든 12건에서 바뀌는 것은 문헌으로 잡히던 2건뿐이다.
+  if (/방형구|개체 ?수를|야외 ?조사|현장 ?조사|채집|표본 ?조사|식생 ?조사|군집 ?조사/.test(text)) return COLLECTION.MEASUREMENT;
   if (/관찰하여|관찰한|관측하여|관측한/.test(text)) return COLLECTION.MEASUREMENT;
   // Running a program and recording what it outputs is the same kind of work as measuring.
   if (/알고리즘|프로그래밍|프로그램을 ?작성|코드를 ?작성|구현하여|구현한|테스트 ?결과|오류를 ?수정|디버깅/.test(text)) return COLLECTION.MEASUREMENT;

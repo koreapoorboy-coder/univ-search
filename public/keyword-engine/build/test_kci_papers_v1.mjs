@@ -264,7 +264,7 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
   check(wide, "K2 대학 연구 인덱스가 개념당 2건을 넘는 후보를 담는다");
   const wideKci = Object.values(index.concepts).some((list) => list.length > 2);
   check(wideKci, "K2 논문 인덱스도 마찬가지");
-  check(/pickForTask\(got, taskText\(input\)/.test(worker),
+  check(/pickForTask\(got, contentWords\(taskText\(input\)\)/.test(worker),
     "K2 워커가 과제문으로 고른다 — 개념만으로 표를 찾지 않는다");
   check((worker.match(/pickForTask\(/g) || []).length === 2 && /routePapers\(shard\.rows, taskText\(input\)/.test(worker),
     "K2 논문·대학 연구·공공데이터 **셋 다** 과제문으로 고른다 (논문은 routePapers)");
@@ -315,9 +315,9 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
 {
   check(/routePapers\(shard\.rows, taskText\(input\), reportModeOf\(input\)/.test(worker),
     "L2 논문은 수행평가 틀로 — 받칠 근거가 없으면 안 붙인다");
-  check(/research = pickForTask\(got, taskText\(input\), 2, \{ skip: name \}\)/.test(worker),
+  check(/research = pickForTask\(got, contentWords\(taskText\(input\)\), 2, \{ skip: name \}\)/.test(worker),
     "L2 대학 연구는 느슨하게");
-  check(/referenceDatasets = pickForTask\(pool, taskText\(input\), 3, \{ skip: reportConcept, strict: true \}\)/.test(worker),
+  check(/referenceDatasets = pickForTask\(pool, contentWords\(taskText\(input\)\), 3, \{ skip: reportConcept, strict: true \}\)/.test(worker),
     "L2 공공데이터도 과제문으로, **엄격하게** 고른다 — 사과 갈변 보고서에 대기오염 자료가 붙었다");
   check(/findPublicData\([\s\S]{0,200}limit: 8/.test(worker),
     "L2 공공데이터도 넉넉히 받아 두고 고른다");

@@ -82,6 +82,20 @@ const answer = (status) => async () => ({ status, body: { cancel: async () => {}
   check(refs.includes("(접속일: 2026.09.18)"), "U4 최종 보고서의 참고 자료 절에 실제로 붙는다 — 끝에서부터 본다", refs);
 }
 
+// U7: 운영 테스트(생명과학 방형구)에서 나온 두 가지.
+{
+  const kombucha = post({ title: "발효식품 콤부차 유래 미생물 Symbiotics을 활용한 대사친화적 반추가축 메탄저감제 개발" });
+  const task = "방형구법을 활용한 식물 군집 조사 보고서 / 방형구를 설치해 식물 종류와 개체 수를 조사하고 중요치를 구해 비교한다";
+  check(pickUnivWeb([kombucha], task, { strict: true }).length === 0, "U7 틀 말 하나('활용한')로는 참고 자료에 안 붙는다 — 콤부차 메탄저감제");
+  const paper = { title: "가야산국립공원 곤충 다양성과 조사방법 간 군집 비교: 34기 자연자원조사를 중심으로", author: "홍의정", with: "가;나", year: "2024", journal: "국립공원연구지" };
+  const lines = referencesBody({
+    cards: [{ title: "가야산국립공원 곤충 다양성과 조사방법 간 군집 비교", type: "논문", take: "방법을 똑같이 맞춰야 한다" }],
+    papers: [paper],
+  }).split(String.fromCharCode(10));
+  check(lines.length === 1 && lines[0].startsWith("홍의정 외 (2024).") && lines[0].endsWith("— 방법을 똑같이 맞춰야 한다"),
+    "U7 학생이 적은 논문과 우리가 붙인 논문이 같으면 서지사항 한 줄로 합친다", lines.join(" | "));
+}
+
 // U5: 인덱스 — 공개 파일에는 제목·학부 교수팀·날짜·주소·꼬리표만.
 {
   const all = Object.values(index.concepts).flat();

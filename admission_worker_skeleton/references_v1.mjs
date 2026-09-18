@@ -79,8 +79,24 @@ export function dataLine(row) {
 // 차례는 **학생이 적은 것 → 논문 → 공개 자료 → 교과서**다. 학생이 실제로 본 것이 앞이어야 한다.
 export function referencesBody({ cards = [], papers = [], web = [], datasets = [], textbook = '', fallbackBody = '' } = {}) {
   const lines = [];
+  // 학생이 자료 카드에 적은 것이 우리가 붙이는 논문과 **같은 논문**이면 한 줄로 합친다 — 운영 테스트에서
+  // 같은 논문이 카드 줄과 서지사항 줄로 두 번 나왔다. 서지사항을 쓰고, 학생이 얻은 것을 뒤에 붙인다.
+  const bare = (value) => String(value || '').replace(/[\s\p{P}\p{S}]/gu, '');
+  const used = new Set();
+  const sameAs = (card) => papers.find((row) => {
+    const a = bare(card?.title);
+    const b = bare(row?.title);
+    return a.length >= 8 && b && (b.startsWith(a) || a.startsWith(b));
+  });
   for (const card of cards) {
-    const line = sourceLine(card);
+    const paper = sameAs(card);
+    let line = sourceLine(card);
+    if (paper) {
+      used.add(paper);
+      const cite = paper?.url ? paperLine(paper) : indexPaperLine(paper);
+      const took = clean(card?.take, 200) || clean(card?.point, 200);
+      line = cite ? (took ? `${cite} — ${took}` : cite) : line;
+    }
     if (line && !lines.includes(line)) lines.push(line);
   }
   if (!lines.length) {
@@ -93,6 +109,7 @@ export function referencesBody({ cards = [], papers = [], web = [], datasets = [
   // 개념에 맞는 논문. 학생이 적은 것 뒤, 공개 자료 앞이다 — 참고문헌으로는 논문이 가장 격이 높다.
   // 여기 오는 논문은 원문이 열려 있고 주소가 있는 것뿐이다(kci_v1.mjs).
   for (const row of papers) {
+    if (used.has(row)) continue;   // 학생 카드 자리에서 이미 적었다
     // 인덱스에서 온 줄에는 주소가 없고 저자 칸 이름이 다르다. 둘 다 받는다.
     const line = row?.url ? paperLine(row) : indexPaperLine(row);
     if (line && !lines.includes(line)) lines.push(line);

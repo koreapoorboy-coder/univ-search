@@ -12,7 +12,7 @@ import { textbookCitation } from './references_v1.mjs';
 import { buildConceptCounts, buildMajorCounts, buildWordCounts, inferConcept, matchBooks } from './book_match_v1.mjs';
 import { findPublicData } from './public_data_v1.mjs';
 import { pickForTask } from './univ_research_v1.mjs';
-import { citationRow, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';
+import { citationRow, contentWords, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';
 import { accessDate, aliveOnly, asResearch, pickUnivWeb } from './univ_web_v1.mjs';
 import { cleanKeyword, seedFitsTask } from './seed_fit_v1.mjs';
 import { axisForConcept, buildNextStep, pickAxis } from './next_step_v1.mjs';
@@ -450,7 +450,7 @@ export default {
             // **엄격하게** 고른다(strict). 실제 보고서로 돌려 보니 「사과 갈변」 보고서의 참고 자료에 「대기오염
             // 측정자료」·「먹는샘물 수질검사」가 붙었다 — 과제문 낱말이 하나도 안 맞으면 개념 사전 차례대로 셋을
             // 붙이던 탓이다. 참고 자료는 보고서 내용을 받쳐야 한다. 안 맞으면 안 붙인다(논문·대학 글과 같다).
-            input.referenceDatasets = pickForTask(pool, taskText(input), 3, { skip: reportConcept, strict: true });
+            input.referenceDatasets = pickForTask(pool, contentWords(taskText(input)), 3, { skip: reportConcept, strict: true });
           } catch (error) {
             console.error('reference datasets failed:', error?.message || error);
           }
@@ -654,7 +654,7 @@ export default {
               // 논문과 같다. 후보 가운데 이 과제문에 가까운 것을 고른다.
               // 대학 연구는 느슨해도 된다. "이 주제가 대학에서 어떻게 이어지는가"는 개념 수준으로도
               // 뜻이 있기 때문이다. 논문과 달리 **실험을 받치는 근거로 쓰지 않는다.**
-              if (got && got.length) { research = pickForTask(got, taskText(input), 2, { skip: name }); break; }
+              if (got && got.length) { research = pickForTask(got, contentWords(taskText(input)), 2, { skip: name }); break; }
             }
             // 서울대 연구성과가 있으면 **앞에** 세운다 — 최신이고 고등학생이 읽을 수 있는 글이다.
             // 참고 자료와 겹치는 글은 빼고, 여기서도 주소가 열리는 것만.
