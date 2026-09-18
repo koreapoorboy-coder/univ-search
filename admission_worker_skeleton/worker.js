@@ -416,7 +416,13 @@ export default {
         const careerConcept = careerAxis?.axisId ? (seedPack.axisIndex?.axes || {})[careerAxis.axisId]?.concept : '';
         const reportConcept = namedConcept || guessedConcept || careerConcept;
         // 이 개념의 축이 있으면 그것을 쓴다. 없으면 진로 축으로 물러선다.
-        const reportAxis = axisForConcept(seedPack.axisIndex, input.subject, reportConcept) || careerAxis;
+        // 화면이 보낸 개념 이름이 단원 이름과 다를 때가 있다 — 운영 사이트 테스트(2026-09-18)에서 화면은
+        // 「지구 온난화」를 보냈고 단원 이름은 「지구의 기후 변화」였다. 축을 못 찾아 「다음에 해 볼 것」과
+        // 서울대 글이 통째로 빠졌다. 그때는 개념 + 과제 글로 단원을 한 번 더 추정한다.
+        const reportAxis = axisForConcept(seedPack.axisIndex, input.subject, reportConcept)
+          || axisForConcept(seedPack.axisIndex, input.subject,
+            inferConcept(input.subject, [reportConcept, taskText(input)].join(' '), seedPack.axisIndex))
+          || careerAxis;
 
         input.reportConcept = reportConcept;
         // 참고 자료에 "화학 교과서 관련 단원"이라고 뭉뚱그리던 것을, 우리가 아는 과목·단원으로 정확히 적는다.

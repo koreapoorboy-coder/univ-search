@@ -76,7 +76,8 @@ const bare = (word) => {
 // 동사·어미로 끝나는 말은 찾는 말이 아니다. 과제문에는 "측정하여", "찾는다", "수행하기"가 많고,
 // 논문 제목에는 거의 없다. 있어도 뜻을 가리키지 못한다.
 const VERB_TAIL = /(하여|하고|한다|하기|하는|하며|해서|했다|는다|된다|되는|되어|시켜|시킨|따른|따라|위한|통한|대한|같은|이다|있는|없는|찾는|하자|해보|보기|한다면)$/;
-export const isVerb = (word) => VERB_TAIL.test(String(word || ''));
+// '~하'로 끝나는 세 글자 넘는 말도 동사 조각이다 — 운영 테스트에서 「초래하」가 중심 낱말에 들어갔다.
+export const isVerb = (word) => VERB_TAIL.test(String(word || '')) || /^[가-힣]{2,}하$/.test(String(word || ''));
 const TOKEN = '([가-힣A-Za-z0-9]{2,12})';
 const FOLLOW = new RegExp(`${TOKEN}\\s*에\\s*따른\\s*${TOKEN}(?:\\s+${TOKEN})?`, 'g');
 const ALTER = new RegExp(`${TOKEN}\\s*(?:을|를)\\s*(?:달리|다르게|바꾸|바꿔|변화시|조절)`, 'g');

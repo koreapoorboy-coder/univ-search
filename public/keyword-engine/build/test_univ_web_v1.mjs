@@ -55,6 +55,8 @@ const answer = (status) => async () => ({ status, body: { cancel: async () => {}
     "U3 「다음에 해 볼 것」에는 들어간다 — 이 단원이 대학에서 어떻게 이어지는지 보여 주는 자리");
   const mrna = post();
   check(pickUnivWeb([battery, mrna], "mRNA 백신의 원리와 세포", { strict: true })[0]?.id === "175802", "U3 과제 낱말이 제목에 걸리면 참고 자료가 된다");
+  const got = pickUnivWeb([battery, mrna, post({ id: "9", title: "전혀 다른 글" })], "mRNA 백신의 원리와 세포", { strict: true, limit: 3 });
+  check(got.length === 1, "U3 엄격하면 맞은 것만 — 0점짜리로 개수를 채우지 않는다", got.map((one) => one.title).join(" / "));
   const r = asResearch(mrna);
   check(r.org === "서울대학교" && r.lead === "화학생물공학부 서상우 교수팀" && r.year === "2026" && r.url.startsWith("https://"),
     "U3 「다음에 해 볼 것」 칸 모양으로 바뀐다");

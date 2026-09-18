@@ -51,6 +51,8 @@ const row = (title, core = 1) => [title, "김 외", "2024", "학회지", "3", "2
   check(q.words.includes("기체") && q.words.includes("압력"), "P3 내용 말은 남는다", q.words.join("·"));
   check(q.center.join("·") === "기체·압력", "P3 중심은 과제 제목·키워드에서 온다", q.center.join("·"));
   check(q.need === 2, "P3 제목에 **함께** 있어야 하는 수는 둘");
+  const live = paperQuery("기후변화가 초래하는 영향을 해석하는 보고서", "자료해석형", { subject: "지구과학", anchor: "기후변화가 초래하는 원전 냉각 위기" });
+  check(!live.center.includes("초래하") && !live.words.includes("초래하"), "P3 '~하'로 끝나는 동사 조각(초래하)은 중심이 못 된다 — 운영 테스트에서 나온 것", live.center.join("·"));
   check(FRAME.has("연구") && FRAME.has("미치는") && !FRAME.has("인공지능") && !FRAME.has("소설"),
     "P3 논문 제목의 틀 말은 빼되 흔한 주제어(인공지능·소설)는 남긴다");
   check(TASK_FRAME.has("포트폴리오") && TASK_FRAME.has("수행평가") && !TASK_FRAME.has("기후") && !TASK_FRAME.has("데이터"),
@@ -161,6 +163,8 @@ const row = (title, core = 1) => [title, "김 외", "2024", "학회지", "3", "2
   const body = worker.slice(at, worker.indexOf("\nfunction ", at + 50));
   check(!/paperGuide|referencePapers|routePapers/.test(body), "P10 프롬프트에는 논문이 안 들어간다 — 보고서가 논문에 맞춰 휘면 끼워 맞추기다");
   check(/paper route failed/.test(worker), "P10 못 찾아도 보고서는 나간다");
+  check(/axisForConcept\(seedPack\.axisIndex, input\.subject,\s*inferConcept\(input\.subject, \[reportConcept, taskText\(input\)\]\.join\(' '\), seedPack\.axisIndex\)\)/.test(worker),
+    "P10 개념 이름이 단원 이름과 다르면(지구 온난화 ↔ 지구의 기후 변화) 과제 글로 단원을 다시 추정한다 — 운영 테스트에서 나온 것");
 }
 
 // P11: 화면 — 참고 도서 바로 위, 접힌 칸, 고르는 칸이 아니다.

@@ -234,8 +234,8 @@ const pick = (subject, concept, major) => {
   //
   // 최종 보고서를 실제로 만들어 보니, 커피 추출 보고서에 '화학량론 해석 축'이 붙어 "몰비 계산,
   // 반응식 계수 해석"을 하라고 나왔다. 책은 과제 문구로 고쳤는데 이쪽은 아직 축을 쓰고 있었다.
-  check(worker.includes("const reportAxis = axisForConcept(seedPack.axisIndex, input.subject, reportConcept) || careerAxis"),
-    "A3f 이 보고서가 선 개념의 축을 찾는다");
+  check(/const reportAxis = axisForConcept\(seedPack\.axisIndex, input\.subject, reportConcept\)\s*\|\| axisForConcept\([\s\S]{0,160}inferConcept\([\s\S]{0,120}\)\)\s*\|\| careerAxis;/.test(worker),
+    "A3f 이 보고서가 선 개념의 축을 찾는다 — 이름이 어긋나면 과제 글로 한 번 더(지구 온난화 ↔ 지구의 기후 변화)");
   check(/const axis = reportAxis;/.test(worker),
     "A3f '다음에 해 볼 것'도 그 축을 쓴다 — 책과 같은 자리다");
   check(axisForConcept(axisIndex, "화학", "화학과 우리 생활")?.title === "생활 화학 적용 축",

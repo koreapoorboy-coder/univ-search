@@ -396,5 +396,8 @@ export function pickForTask(list, text, limit = 2, { skip = '', strict = false }
   if (!scored.some((one) => one.score > 0)) return strict ? [] : rows.slice(0, limit);
   // 점수가 같으면 인덱스 차례를 지킨다. 인덱스 차례에는 이미 '쉬운 글이 먼저'가 들어 있다.
   scored.sort((a, b) => b.score - a.score || a.at - b.at);
-  return scored.slice(0, limit).map((one) => one.row);
+  // strict 이면 **맞은 것만** 준다. 하나라도 맞으면 나머지(0점)로 개수를 채우던 탓에, 기후 변화 과제에
+  // 「자동차 온실가스 지문」이, 공공데이터 셋 가운데 둘이 무관하게 딸려 올 수 있었다(2026-09-18 발견).
+  const kept = strict ? scored.filter((one) => one.score > 0) : scored;
+  return kept.slice(0, limit).map((one) => one.row);
 }
