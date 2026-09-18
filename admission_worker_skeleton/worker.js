@@ -14,6 +14,7 @@ import { findPublicData } from './public_data_v1.mjs';
 import { pickForTask } from './univ_research_v1.mjs';
 import { citationRow, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';
 import { accessDate, aliveOnly, asResearch, pickUnivWeb } from './univ_web_v1.mjs';
+import { cleanKeyword, seedFitsTask } from './seed_fit_v1.mjs';
 import { axisForConcept, buildNextStep, pickAxis } from './next_step_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
@@ -696,8 +697,14 @@ export default {
 function resolveInput(payload) {
   const selection = payload?.mini_payload?.selectionPayload || {};
   const reportContext = payload?.reportGenerationContext || payload?.mini_payload?.reportGenerationContext || {};
+  // 키워드 자리에 **참고 사례의 블로그 제목**이 오면 받지 않는다(seed_fit_v1.mjs). 운영 테스트에서
+  // 「[원자력/지구 과학] … 세특 보고서 추천」이 들어와 해수면 온도 보고서가 원전 냉각 보고서가 됐다.
+  // 빈칸이 되면 개념 → 과목으로 물러선다(keyword 는 필수 입력이다).
+  const concept = String(payload?.selectedConcept || selection.selectedConcept || '').trim();
+  const subject = String(payload?.subject || selection.subject || '').trim();
+  const keywordOf = (...values) => values.map(cleanKeyword).find(Boolean) || '';
   return {
-    keyword: String(payload?.keyword || '').trim(),
+    keyword: keywordOf(payload?.keyword, payload?.selectedKeyword, selection.selectedKeyword) || concept || subject,
     grade: String(payload?.grade || '').trim(),
     track: String(payload?.track || '').trim(),
     major: String(payload?.major || '').trim(),
@@ -708,7 +715,7 @@ function resolveInput(payload) {
     subjectGroup: String(payload?.subjectGroup || '').trim(),
     taskDescription: String(payload?.taskDescription || '').trim().slice(0, 6000),
     selectedConcept: String(payload?.selectedConcept || selection.selectedConcept || '').trim(),
-    selectedKeyword: String(payload?.selectedKeyword || selection.selectedKeyword || payload?.keyword || '').trim(),
+    selectedKeyword: keywordOf(payload?.selectedKeyword, selection.selectedKeyword, payload?.keyword) || concept,
     selectedFollowupAxis: String(payload?.selectedFollowupAxis || selection.selectedFollowupAxis || '').trim(),
     selectedBookTitle: String(payload?.selectedBookTitle || '').trim(),
     useBookInReport: payload?.useBookInReport === true,
@@ -775,7 +782,12 @@ function buildAssessmentContext(input) {
   const cross = connection.cross_axis || connection.crossAxis || {};
   const record = cross.taskMatch?.record || {};
   const constraints = cross.constraints || {};
-  const seed = cross.seedMatch?.seed || {};
+  // **사례가 과제와 맞을 때만** 사례 내용을 넣는다. 맞지 않는 사례(과제와 겹치는 낱말 40% 미만)는
+  // 보고서를 끌고 간다 — 해수면 온도 과제에 원전 냉각 사례(25%)의 심화 주제가 들어가 주제가 바뀌었다.
+  const rawSeed = cross.seedMatch?.seed || {};
+  const seedLabel = [rawSeed.label, rawSeed.topic?.baseTopic].filter(Boolean).join(' ');
+  // 사례 이름이 없으면(예전 화면이 보낸 요청) 따질 수가 없으므로 예전처럼 넣는다. 이름이 있을 때만 거른다.
+  const seed = !seedLabel || seedFitsTask(seedLabel, taskText(input)) ? rawSeed : {};
   const levels = seed.topic?.levels || {};
   const keep = (value) => typeof value === 'string' && value.trim() !== '';
   const strings = (value, limit) => toArray(value).filter(keep).map((value) => value.trim()).slice(0, limit);

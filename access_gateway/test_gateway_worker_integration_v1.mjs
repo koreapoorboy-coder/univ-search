@@ -196,8 +196,10 @@ const check = (ok, label) => { assert.equal(ok, true, label); console.log(`PASS 
   const res = await worker.fetch(new Request(WORKER_GENERATE_URL, { method: "POST", body: JSON.stringify({ ...basePayload, keyword: "", selectedKeyword: "", track: "", career: "", major: "" }) }), workerEnv);
   const body = await res.json();
   check(res.status === 400, "I4b a missing choice is a 400, not a server error", String(res.status));
-  check(body.code === "MISSING_INPUT" && /키워드/.test(body.error) && !/Missing required input/.test(body.error),
-    "I4b the student is told in Korean which choice is missing", body.error);
+  // Since 2026-09-18 an empty keyword falls back to the concept, then the subject (seed_fit_v1.mjs): the site used
+  // to fill it with a seed's blog title. So only the track is missing here — still named in Korean.
+  check(body.code === "MISSING_INPUT" && /진로 계열/.test(body.error) && !/키워드/.test(body.error) && !/Missing required input/.test(body.error),
+    "I4b the student is told in Korean which choice is missing (keyword now falls back to concept/subject)", body.error);
 }
 
 // I4c — 논술·창작 tasks keep the one-shot report, but not when the student has already filled a table. Throwing

@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v274_paper_route
+// SCREEN_VERSION: v275_seed_keyword
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v274-paper-route";
+  const VERSION = "mini-worker-generate-bridge-v275-seed-keyword";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -3133,7 +3133,8 @@ ${taskHtml}${sectionHtml}
       major: cleanReportPhrase(firstNonEmpty(s.department, s.major, req?.major, req?.career, ""), ""),
       careerForFollowupOnly: !majorPolicy.explicitCareerTask,
       concept: cleanReportPhrase(firstNonEmpty(s.selectedConcept, req?.selectedConcept, (cross?.topic?.subjectConcepts || [])[0], "선택 교과 개념"), "선택 교과 개념"),
-      keyword: cleanReportPhrase(firstNonEmpty(s.selectedKeyword, s.selectedRecommendedKeyword, req?.keyword, seed.sourceTitle, "선택 키워드"), "선택 키워드"),
+      // 참고 사례의 제목(sourceTitle)은 블로그 글 제목일 때가 있어 키워드로 쓰지 않는다(2026-09-18).
+      keyword: cleanReportPhrase(firstNonEmpty(s.selectedKeyword, s.selectedRecommendedKeyword, req?.keyword, s.selectedConcept, "선택 키워드"), "선택 키워드"),
       axis: cleanReportPhrase(compactAxis(firstNonEmpty(s.selectedFollowupAxis, req?.selectedFollowupAxis, "")), ""),
       mode: cleanReportPhrase(firstNonEmpty(ctx.reportMode, req?.reportMode, route.recommendedMethod, taskRecord.methodAxis?.[0], "수행평가 방식"), "수행평가 방식"),
       view: cleanReportPhrase(firstNonEmpty(ctx.reportView, req?.reportView, (route.rubricFocus || [])[0], taskRecord.rubricAxis?.[0], "평가 관점"), "평가 관점"),

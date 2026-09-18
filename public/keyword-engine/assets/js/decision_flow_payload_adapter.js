@@ -19,7 +19,12 @@
     const method = first(connection?.interpreter?.methodAxes, connection?.assessment_route?.recommendedMethod || "보고서작성형");
     const output = first(connection?.interpreter?.outputAxes, connection?.assessment_route?.recommendedOutput || "탐구보고서");
     const selectedConcept = read("selectedConcept") || first(cross?.topic?.subjectConcepts, read("subject"));
-    const selectedKeyword = read("keyword") || cross?.seedMatch?.seed?.sourceTitle || cross?.topic?.generatedTitle || selectedConcept;
+    // 학생 키워드가 비면 **과제에서 뽑은 개념**을 쓴다. 참고 사례의 제목(sourceTitle·selectionKeywordBasis)은
+    // 블로그 글 제목일 때가 있어 쓰지 않는다 — 운영 테스트(2026-09-18)에서 「[원자력/지구 과학] … 세특 보고서
+    // 추천」이 키워드로 들어가 해수면 온도 보고서가 원전 냉각 보고서가 됐다.
+    const taskConcepts = (Array.isArray(cross?.topic?.subjectConcepts) ? cross.topic.subjectConcepts : [])
+      .map(text).filter(Boolean).slice(0, 3).join(" · ");
+    const selectedKeyword = read("keyword") || taskConcepts || selectedConcept;
     const category = read("career");
     const bookTitle = state.bookMode === "useBook" ? text(state.bookTitle || read("selectedBookTitle")) : "";
     const autoAxis = `${categoryLabel(category)} 교과 확장 축`;
