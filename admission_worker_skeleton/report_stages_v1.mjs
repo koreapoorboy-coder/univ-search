@@ -404,13 +404,21 @@ function sanitizeSourceTemplate(raw) {
   };
 }
 
+export function singleMeasure(name) {
+  const text = String(name || '').trim();
+  const cut = text.match(/^(.+?(?:수|율|도|점수|길이|시간|질량|무게|높이|양|농도|속도|거리|넓이|부피|개수|횟수))\s*(?:와|과|및|,|·|\/|그리고)\s*\S/);
+  return cut ? cut[1].trim() : text;
+}
+
 function sanitizeDataTemplate(raw, kind) {
   const conditions = [...new Set((Array.isArray(raw?.conditions) ? raw.conditions : []).map((label) => clip(label, 60)).filter(Boolean))].slice(0, MAX_CONDITIONS);
   // Repeating makes sense only for a measurement: a student cannot ask the same class the same question three
   // times, and a published figure for one year has one value.
   const trials = kind === COLLECTION.MEASUREMENT ? Math.min(MAX_TRIALS, Math.max(3, Math.round(Number(raw?.trials) || 3))) : 1;
   return {
-    measurementName: clip(raw?.measurementName, 40) || '측정값',
+    // 한 칸에는 값 하나 — 「종별 개체 수와 피복 점수」처럼 두 값을 한 칸에 담은 이름은 앞의 값만 남긴다(운영 테스트 2026-09-18:
+    // 학생은 종수를 적었는데 표 제목이 「개체 수와 피복 점수 결과」로 나왔다).
+    measurementName: singleMeasure(clip(raw?.measurementName, 40)) || '측정값',
     unit: clip(raw?.unit, 20),
     scaleGuide: clip(raw?.scaleGuide, 200),
     conditions: conditions.length >= 2 ? conditions : ['조건 1', '조건 2'],
@@ -722,6 +730,7 @@ export function stagePromptLines(stage, input) {
            '- 위 목록과 겹치지 않는 사례를 고른다. 사례가 겹칠 수밖에 없으면 바꾸는 변인을, 그것도 겹치면 재는 방법을 다르게 한다. 목록에 없는 새 사례를 우선한다.',
            '- 단, 수행평가 안내문이 정해 둔 대상·장소·재료·방법은 바꾸지 않는다. 겹침은 그 안의 세부 조건과 재는 방법으로 피한다.', '']
         : []),
+      '- measurementName은 한 칸에 적을 **값 하나**의 이름이다. 두 가지 값(예: 개체 수와 피복 점수)을 한 칸에 담지 않는다. 여러 값을 재야 하면 연구 질문에 가장 중심이 되는 하나를 표에 두고, 나머지는 관찰 메모에 적게 한다.',
       `- dataTemplate은 학생이 채울 결과 표다. conditions는 표의 행이 될 조건 이름 2~8개(두 변인을 함께 바꾸면 "효소 세제 · 미지근한 물"처럼 "앞 변인 · 뒤 변인" 순서로 모든 조합), ${kind === COLLECTION.MEASUREMENT ? 'trials는 조건마다 반복 횟수(3~5)' : 'trials는 반드시 1'}, measurementName과 unit은 ${kind === COLLECTION.MEASUREMENT ? '측정 항목과 단위(점수면 "점")' : '적을 값의 이름과 단위'}, scaleGuide는 ${kind === COLLECTION.MEASUREMENT ? '점수 기준이나 측정 방법' : '값을 어디서 어떻게 옮겨 적는지'} 한 문장이다.`,
     ];
   }

@@ -66,6 +66,8 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
   check(/본문에 대학 이름·학부·연구팀·저자 이름·연도를 쓰지 않는다/.test(lines) && /출처는 참고 문헌에 자동으로 들어간다/.test(lines),
     "I3 본문에 대학·저자 이름을 드러내지 않고, 출처는 참고 문헌에만");
   check(/recordDraft ③/.test(lines) && /이름 없이/.test(lines), "I3 세특 초안에는 넓힌 방향을 이름 없이 한 문장으로");
+  // 운영 테스트(2026-09-18): 세특 초안에 「~라는 점을 확인함」 — 제목만 보았는데 읽은 것처럼 보였다.
+  check(/"확인함"/.test(lines) && /학생은 제목만 보았다/.test(lines) && /탐구를 확장함/.test(lines), "I3 참고 연구는 '확인함'이 아니라 '찾아봄·확장함'으로");
   check(/반드시 usedIngredients에 넣는다/.test(lines) && /번호\(P1, R1\)는 본문에 쓰지 않는다/.test(lines), "I3 재료 내용을 썼으면 반드시 표시, 번호는 본문에 안 쓴다");
   const { scrubIngredientIds } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
   check(scrubIngredientIds("이산화탄소를 전환하는 연구(P2)가 있었다. R1에서도 다룬다. P파와 S파.") === "이산화탄소를 전환하는 연구가 있었다. 에서도 다룬다. P파와 S파.",

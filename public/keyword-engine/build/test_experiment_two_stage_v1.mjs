@@ -496,3 +496,15 @@ check(bridgeSource.includes("function renderRecordDraft") && bridgeSource.includ
 }
 
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
+
+// 운영 테스트(2026-09-18): 설계서가 한 칸에 「종별 개체 수와 피복 점수」를 적게 해 표 제목이 학생이 적은 값(종수)과 어긋났다.
+{
+  const { singleMeasure } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  check(singleMeasure("종별 개체 수와 피복 점수") === "종별 개체 수" && singleMeasure("반응 시간 및 온도") === "반응 시간",
+    "a template name holding two values keeps only the first");
+  check(["얼룩 제거 정도", "거품 높이", "방형구당 종수", "생존율"].every((one) => singleMeasure(one) === one), "a single-value name is left alone");
+  const twoInOne = finalizeStageOutput(STAGE.DRAFT, { reportTitle: "t", sections: [], dataTemplate: { measurementName: "종별 개체 수와 피복 점수", unit: "", scaleGuide: "", conditions: ["화단", "운동장"], trials: 5 } }, { studentData: data });
+  check(twoInOne.extra.dataTemplate.measurementName === "종별 개체 수", "the draft template is cut to one value per cell", twoInOne.extra.dataTemplate.measurementName);
+  check(stagePromptLines(STAGE.DRAFT, { collectionKind: COLLECTION.MEASUREMENT, studentData: data }).some((line) => /한 칸에 적을 \*\*값 하나\*\*/.test(line)),
+    "the draft prompt says one value per cell");
+}
