@@ -363,6 +363,14 @@ export function removeInventedFeelings(body, studentText) {
   return filterSentences(body, (sentence) => !invented.some((word) => sentence.includes(word)));
 }
 
+// 학생이 입력하지 않은 **행동**도 지어낸 것이다 — 운영 테스트(2026-09-19)에서 느낀 점에 「교과서 단원을 다시 읽으며
+// 보완했다」가 나왔다. 학생은 그런 말을 쓴 적이 없다. 읽기·찾기·여쭙기 같은 행동은 학생이 쓴 글에 있을 때만 남긴다.
+const INVENTED_ACTION = /다시 ?읽|찾아 ?읽|읽으며 ?보완|복습하며|여쭈|여쭤|물어보|검색해 ?보|찾아보았|찾아봤|조사해 ?보았|도움을 받/;
+export function removeInventedActions(body, studentText) {
+  const text = String(studentText || '');
+  return filterSentences(body, (sentence) => !INVENTED_ACTION.test(sentence) || INVENTED_ACTION.test(text));
+}
+
 // 느낀 점 is what the teacher reads when they write 세특, so a sentence that praises the student — 성실하게
 // 참여했다, 적극적으로 협동하였다 — is the one thing that must not be in it: the judgement is the teacher's to
 // make. The prompt forbids it and the 생기부 draft strips it, but the section itself never did.
@@ -646,7 +654,7 @@ function stageSectionGuideBase(title, stage) {
   // 학교 양식에 이미 확장·후속·제언·고찰 절이 있으면 후속 탐구는 그 절이 맡는다.
   if (/교과 심화와 확장|계열 연계 탐구|확장|후속|제언|고찰/.test(text)) return `이번 탐구의 결과에서 출발해 ${FOLLOW_UP} 400~600자`;
   if (/활용 방안/.test(text)) return '탐구 결과를 근거로 실생활에서 쓸 수 있는 구체적인 방안 2~3개. 방안마다 어떤 결과에 근거했는지 밝힌다. 실험한 대상과 조건(재료, 얼룩 종류, 온도 등) 안에서만 말하고, 실험하지 않은 대상으로 넓히려면 추가 실험이 필요하다고 쓴다. 300~500자';
-  if (/느낀 점/.test(text)) return '학생이 쓴 reflection 문장을 먼저 거의 그대로 쓰고(맞춤법만 다듬음), 이어서 이번 탐구를 다음 순서로 정리한다. ①내가 한 활동을 무엇을 어떤 기준으로 했는지 구체적으로 ②그래서 이해하게 된 교과 개념 ③참고한 자료에서 확인한 것(sources에 있는 것만) ④결과에서 드러난 것을 숫자와 함께 ⑤이 탐구의 한계 ⑥다음에 확인하고 싶은 것. 모두 학생의 말투(~했다)로 쓰고, 성실했다·적극적이었다처럼 태도를 스스로 칭찬하는 말은 쓰지 않는다. 한 것을 적으면 태도는 드러난다. 힘들었다, 재미있었다처럼 학생이 쓰지 않은 감정이나 경험은 새로 만들지 않는다. 400~700자';
+  if (/느낀 점/.test(text)) return '학생이 입력하지 않은 행동(교과서를 다시 읽었다, 자료를 찾아 읽었다, 선생님께 여쭈었다 등)을 새로 만들지 않는다. 학생이 쓴 reflection 문장을 먼저 거의 그대로 쓰고(맞춤법만 다듬음), 이어서 이번 탐구를 다음 순서로 정리한다. ①내가 한 활동을 무엇을 어떤 기준으로 했는지 구체적으로 ②그래서 이해하게 된 교과 개념 ③참고한 자료에서 확인한 것(sources에 있는 것만) ④결과에서 드러난 것을 숫자와 함께 ⑤이 탐구의 한계 ⑥다음에 확인하고 싶은 것. 모두 학생의 말투(~했다)로 쓰고, 성실했다·적극적이었다처럼 태도를 스스로 칭찬하는 말은 쓰지 않는다. 한 것을 적으면 태도는 드러난다. 힘들었다, 재미있었다처럼 학생이 쓰지 않은 감정이나 경험은 새로 만들지 않는다. 400~700자';
   if (/참고 자료/.test(text)) return '학생이 적은 sources만 한 줄에 하나씩 쓴다. 다른 줄, 괄호 설명, ※ 문장을 덧붙이지 않는다. sources가 없으면 "통합과학1 교과서 효소 관련 단원"처럼 자료 종류만 적고, 단원명·기관명·사이트명을 지어내지 않는다.';
   if (/자료 조사 방법/.test(text)) return '어떤 종류의 자료(교과서, 과학 기사 등)를 어떤 기준으로 골라 비교했는지. 실험을 한 것처럼 쓰지 않는다. 300~450자';
   if (/자료 비교 정리/.test(text)) return '자료에서 설명하는 경향을 비교 기준에 따라 정리한다. 표가 있을 때만 표 1과 연결하고, 표가 없으면 글로만 비교한다. 숫자를 지어내지 않는다. 500~700자';
@@ -935,8 +943,9 @@ export function finalizeStageOutput(stage, parsed, input) {
       if (/느낀 점/.test(title)) {
         const feelings = removeInventedFeelings(numbers.body, studentText);
         const praise = removeSelfPraise(feelings.body, studentText);
-        removedFeelings += feelings.removed + praise.removed;
-        return { ...section, body: praise.body };
+        const actions = removeInventedActions(praise.body, studentText);
+        removedFeelings += feelings.removed + praise.removed + actions.removed;
+        return { ...section, body: actions.body };
       }
       return { ...section, body: numbers.body };
     });

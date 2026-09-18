@@ -1124,6 +1124,11 @@ function taskText(input) {
 }
 
 // 이 과제의 틀(수행평가 유형). 화면이 보낸 것을 쓰고, 없으면 보고서 구조 이름으로 물러선다.
+// "생명과학Ⅰ 교과서 · 생태계의 물질 순환과 상호 작용 단원" → "생태계의 물질 순환과 상호 작용"
+function textbookUnitOf(citation) {
+  return String(citation || '').match(/·\s*(.+?)\s*단원\s*$/)?.[1] || '';
+}
+
 function reportModeOf(input) {
   const method = input?.performanceAssessment?.method || {};
   return method.reportMode || input?.reportShape?.structure || '';
@@ -1330,6 +1335,11 @@ function buildPrompt(input, seedMatch, env) {
     }, null, 2),
     '',
     '[작성 지침]',
+    // 운영 테스트(2026-09-19): 결론은 「진화와 생물 다양성」 단원을 말하는데 참고 자료의 교과서 줄은 「생태계의 물질 순환과
+    // 상호 작용」 단원이었다. 본문이 단원을 이름으로 부를 때는 참고 자료와 같은 이름을 쓴다.
+    ...(textbookUnitOf(input.textbookCitation)
+      ? [`- 교과서 단원을 이름으로 가리킬 때는 「${textbookUnitOf(input.textbookCitation)}」 단원으로 쓴다(참고 자료에 이 단원이 적힌다). 다른 단원 이름을 붙이지 않는다.`]
+      : []),
     ...titleRules(input.collectionKind, stage),
     '- assessmentContext.rubricFocus는 채점 요소다. 이 단어들을 보고서의 주제나 핵심 개념으로 쓰지 않는다.',
     '- assessmentContext.cautions는 틀리기 쉬운 부분이다. 문장을 그대로 옮기지 말고 내용으로 지킨다.',

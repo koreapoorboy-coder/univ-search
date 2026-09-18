@@ -508,3 +508,18 @@ console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
   check(stagePromptLines(STAGE.DRAFT, { collectionKind: COLLECTION.MEASUREMENT, studentData: data }).some((line) => /한 칸에 적을 \*\*값 하나\*\*/.test(line)),
     "the draft prompt says one value per cell");
 }
+
+// 운영 테스트(2026-09-19): 느낀 점에 학생이 입력하지 않은 행동(「교과서 단원을 다시 읽으며 보완했다」)이 나왔고,
+// 결론이 부른 단원 이름이 참고 자료의 교과서 단원과 달랐다.
+{
+  const { removeInventedActions } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  const cut = removeInventedActions("군집 개념을 적용했다. 개념 정리는 교과서 단원을 다시 읽으며 보완했다. 평균은 8.5였다.", "직접 세어 보니 차이가 보였다.");
+  check(cut.removed === 1 && !cut.body.includes("다시 읽") && cut.body.includes("평균은 8.5"), "an action the student never wrote is removed from 느낀 점", cut.body);
+  const kept = removeInventedActions("교과서를 다시 읽어 보니 이해가 됐다.", "교과서를 다시 읽어 보니 이해가 됐다.");
+  check(kept.removed === 0, "the same action is kept when the student wrote it");
+  const fin = finalizeStageOutput(STAGE.FINAL, { reportTitle: "t", figures: [], sections: [{ title: "느낀 점", body: "직접 세어 보았다. 자료를 찾아 읽으며 개념을 보완했다." }] }, { studentData: data, taskDescription: "" });
+  check(!fin.parsed.sections[0].body.includes("찾아 읽"), "the final report runs the filter on 느낀 점", fin.parsed.sections[0].body);
+  const workerSource = await readFile(new URL("../../../admission_worker_skeleton/worker.js", import.meta.url), "utf8");
+  check(workerSource.includes("교과서 단원을 이름으로 가리킬 때는") && workerSource.includes("function textbookUnitOf(citation)"),
+    "the prompt pins the unit name to the one in the textbook reference line");
+}
