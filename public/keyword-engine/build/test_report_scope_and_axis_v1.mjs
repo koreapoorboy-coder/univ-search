@@ -40,7 +40,13 @@ check(scopeOf("배드민턴 경기에 참여하여 규칙을 지킨다").scope =
 // The site and the Worker have to agree, or a student is turned away in one place and charged in the other.
 const bridge = await readFile(new URL("../assets/js/mini_worker_generate_bridge_v32.js", import.meta.url), "utf8");
 const scopeSource = await readFile(new URL("../../../admission_worker_skeleton/report_scope_v1.mjs", import.meta.url), "utf8");
-const shared = "연주|가창|합창|독창(?!적|성)|중주|시연|실기|경기(?! ?침체| ?회복| ?불황| ?호황| ?변동| ?순환| ?지표| ?동향| ?전망)|리그전|타격|송구|드리블";
+// 엔진 전수 검사(2026-09-18)에서 나온 두 가지: 천문학의 「연주 운동」을 악기 연주로 봤고, 채점표 속 「수업 참여」 한 줄이
+// 진로 탐구 프로젝트를 막았다. 수업 참여·태도는 이제 과제 제목에서만 본다.
+check(isReportTask({ taskDescription: "좌표계 탐구하기 / 지평 좌표계와 적도 좌표계로 별의 일주 운동과 연주 운동을 설명하기" }), "연주 운동 is astronomy, not a performance");
+check(isReportTask({ taskDescription: "진로 탐구 프로젝트 / 인공지능의 발전과 나의 진로를 조사한다. 채점: 수업 참여 태도 2점" }), "a 수업 참여 line in the rubric does not turn a project away");
+check(scopeOf("수업 참여도 / 매 수업시간 관찰").scope === SCOPE.PARTICIPATION, "a task titled 수업 참여도 is still participation");
+check(bridge.includes("pattern.test(at === 2 ? head : text)") && scopeSource.includes("rule.scope === SCOPE.PARTICIPATION ? head : text"), "the site and the Worker both read participation from the title only");
+const shared = "연주(?! ?운동| ?시차)|가창|합창|독창(?!적|성)|중주|시연|실기|경기(?! ?침체| ?회복| ?불황| ?호황| ?변동| ?순환| ?지표| ?동향| ?전망)|리그전|타격|송구|드리블";
 check(bridge.includes(shared) && scopeSource.includes(shared), "the site turns away exactly what the Worker would");
 check(bridge.includes("reportScopeProblem(req)") && bridge.includes("이 과제는 보고서 과제가 아닌 것 같아요"),
   "the site says so before any request is made, so nothing is charged");

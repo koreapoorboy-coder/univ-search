@@ -54,8 +54,11 @@ const answer = (status) => async () => ({ status, body: { cancel: async () => {}
   check(pickUnivWeb([battery], task, { skip: "산화와 환원" }).length === 1,
     "U3 「다음에 해 볼 것」에는 들어간다 — 이 단원이 대학에서 어떻게 이어지는지 보여 주는 자리");
   const mrna = post();
-  check(pickUnivWeb([battery, mrna], "mRNA 백신의 원리와 세포", { strict: true })[0]?.id === "175802", "U3 과제 낱말이 제목에 걸리면 참고 자료가 된다");
-  const got = pickUnivWeb([battery, mrna, post({ id: "9", title: "전혀 다른 글" })], "mRNA 백신의 원리와 세포", { strict: true, limit: 3 });
+  check(pickUnivWeb([battery, mrna], "mRNA 구조를 바꾼 세포공장 생산성 비교", { strict: true })[0]?.id === "175802", "U3 과제 낱말(둘 이상)이 제목에 걸리면 참고 자료가 된다");
+  // 한 낱말만 겹치면 안 붙는다 — 엔진 전수 검사(2026-09-18)에서 서울대 글 166건 가운데 132건이 흔한 말 하나(시간·회로·세포)로 붙었다.
+  check(pickUnivWeb([mrna], "mRNA 백신의 원리", { strict: true }).length === 0, "U3 과제 낱말 하나만 겹친 글은 참고 자료가 아니다");
+  check(pickUnivWeb([mrna], "mRNA 백신의 원리").length === 1, "U3 「다음에 해 볼 것」(느슨)에는 하나로도 된다");
+  const got = pickUnivWeb([battery, mrna, post({ id: "9", title: "전혀 다른 글" })], "mRNA 구조를 바꾼 세포공장 생산성 비교", { strict: true, limit: 3 });
   check(got.length === 1, "U3 엄격하면 맞은 것만 — 0점짜리로 개수를 채우지 않는다", got.map((one) => one.title).join(" / "));
   const r = asResearch(mrna);
   check(r.org === "서울대학교" && r.lead === "화학생물공학부 서상우 교수팀" && r.year === "2026" && r.url.startsWith("https://"),
@@ -94,6 +97,30 @@ const answer = (status) => async () => ({ status, body: { cancel: async () => {}
   }).split(String.fromCharCode(10));
   check(lines.length === 1 && lines[0].startsWith("홍의정 외 (2024).") && lines[0].endsWith("— 방법을 똑같이 맞춰야 한다"),
     "U7 학생이 적은 논문과 우리가 붙인 논문이 같으면 서지사항 한 줄로 합친다", lines.join(" | "));
+}
+
+// U9: 한 번에 끝나는 보고서도 참고 자료를 **우리가 확인한 것**으로 — 엔진 전수 검사(2026-09-18)에서 503건 가운데
+// 484건이 참고 자료 없이 끝났고, 있어도 모델이 「문학 이론 개론서」처럼 자료 종류만 적었다.
+{
+  const paper = { title: "해수면 온도의 지역 간 상호작용 분석", author: "김", year: "2024", journal: "한국해양학회지" };
+  const base = { reportTitle: "t", sections: [{ title: "반론 검토", body: "가" }, { title: "결론", body: "나" }] };
+  const noRef = finalizeStageOutput(STAGE.COMPLETE, base, { subject: "지구과학", referencePapers: [paper], textbookCitation: "지구과학 교과서 · 지구의 기후 변화 단원" }).parsed.sections;
+  check(noRef.length === 3 && noRef[2].title === "참고 자료" && noRef[2].body.includes("한국해양학회지") && noRef[2].body.includes("교과서"),
+    "U9 참고 자료 절이 없는 구성이면 끝에 붙인다 — 논문과 교과서 줄", JSON.stringify(noRef[2]));
+  const withRef = finalizeStageOutput(STAGE.COMPLETE, { reportTitle: "t", sections: [{ title: "결론", body: "나" },
+    { title: "참고문헌 및 후속 탐구", body: "참고 자료 종류\n- 문학 이론 개론서\n후속 탐구 제안\n- 다른 작품과 비교한다." }] },
+    { subject: "공통국어1", textbookCitation: "공통국어1 교과서 · 서사 단원" }).parsed.sections;
+  check(withRef[1].body.startsWith("공통국어1 교과서") && !withRef[1].body.includes("개론서") && withRef[1].body.includes("다른 작품과 비교한다"),
+    "U9 모델이 쓴 자료 종류는 확인된 자료로 바꾸고, 후속 탐구 제안은 남긴다", withRef[1].body);
+  // 「자료 출처와 분석 기준」은 방법 절이다 — '출처'가 들어 있다고 본문을 덮어쓰면 안 된다(전수 검사에서 106건).
+  const method = finalizeStageOutput(STAGE.COMPLETE, { reportTitle: "t", sections: [{ title: "자료 출처와 분석 기준", body: "통계청 자료를 연도별로 본다." }, { title: "결론", body: "나" }] },
+    { subject: "통합사회1", textbookCitation: "통합사회1 교과서 · 가 단원" }).parsed.sections;
+  check(method[0].body === "통계청 자료를 연도별로 본다." && method[2]?.title === "참고 자료",
+    "U9 이름에 '출처'가 들어 있어도 방법 절은 그대로 두고, 참고 자료는 따로 붙인다", JSON.stringify(method));
+  const empty = finalizeStageOutput(STAGE.COMPLETE, base, { subject: "영어" }).parsed.sections;
+  check(empty[2]?.body === "영어 교과서 관련 단원", "U9 확인된 자료가 없으면 두 단계 보고서처럼 과목 교과서 줄", JSON.stringify(empty[2]));
+  const legacy = finalizeStageOutput(STAGE.COMPLETE, { reportTitle: "t", report: "1. 결론\n본문" }, { subject: "영어", textbookCitation: "x" }).parsed;
+  check(!(legacy.sections || []).length, "U9 절 없이 글 하나로 온 답에는 절을 만들지 않는다 — 본문이 사라진다");
 }
 
 // U5: 인덱스 — 공개 파일에는 제목·학부 교수팀·날짜·주소·꼬리표만.

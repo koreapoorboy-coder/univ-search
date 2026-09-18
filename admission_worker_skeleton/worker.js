@@ -450,7 +450,7 @@ export default {
             // **엄격하게** 고른다(strict). 실제 보고서로 돌려 보니 「사과 갈변」 보고서의 참고 자료에 「대기오염
             // 측정자료」·「먹는샘물 수질검사」가 붙었다 — 과제문 낱말이 하나도 안 맞으면 개념 사전 차례대로 셋을
             // 붙이던 탓이다. 참고 자료는 보고서 내용을 받쳐야 한다. 안 맞으면 안 붙인다(논문·대학 글과 같다).
-            input.referenceDatasets = pickForTask(pool, contentWords(taskText(input), input.subject), 3, { skip: reportConcept, strict: true });
+            input.referenceDatasets = pickForTask(pool, contentWords(taskText(input), input.subject), 3, { skip: reportConcept, strict: true, need: 2 });
           } catch (error) {
             console.error('reference datasets failed:', error?.message || error);
           }

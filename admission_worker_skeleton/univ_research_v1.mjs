@@ -378,7 +378,15 @@ export function taskHit(text, word) {
 // **strict 이면, 가르는 말에 아무것도 안 걸릴 때 빈 배열을 준다.**
 // 논문은 학생이 한 실험을 **받치는** 것이다. 주제어 하나 같다고 붙이면, 받치는 것이 아니라
 // 끼워 넣는 것이 된다. 받칠 근거가 없으면 안 붙이는 편이 낫다.
-export function pickForTask(list, text, limit = 2, { skip = '', strict = false } = {}) {
+//
+// **need** — strict 일 때 제목에 **함께** 보여야 하는 과제 낱말 수. 참고 자료(서울대 글·공공데이터)는 2다.
+// 흔한 말 하나로 붙은 것이 대부분 엉뚱했다: 「시간」→ 소프트젤 액추에이터, 「회로」→ 액체금속 인터페이스,
+// 「세포」→ 식물 잎 상처 회복(엔진 전수 검사 2026-09-18, 서울대 글 166건 가운데 132건이 한 낱말). 논문과 같은 규칙이다.
+// 한쪽이 다른 쪽을 품으면('방형구' ⊂ '방형구법') 하나로 센다.
+//
+// 공공데이터 제목은 「기관_자료명」이다. **기관 이름은 빼고** 맞춘다 — 「기후에너지환경부_화학물질…」의
+// '에너지'·'환경'이 화학 공정 과제에 걸렸다.
+export function pickForTask(list, text, limit = 2, { skip = '', strict = false, need = 1 } = {}) {
   const rows = Array.isArray(list) ? list : [];
   if (!rows.length) return [];
   if (!strict && rows.length <= limit) return rows.slice(0, limit);
@@ -387,17 +395,19 @@ export function pickForTask(list, text, limit = 2, { skip = '', strict = false }
   if (!aim.size) return strict ? [] : rows.slice(0, limit);
   const scored = rows.map((row, at) => {
     // 제목이 먼저다. 요약·키워드는 덤으로 센다.
-    const head = clean(row?.title, 200);
+    const head = clean(row?.title, 200).replace(/^[^_]{2,40}_/, '');
     const rest = [clean(row?.summary, 200), clean(row?.keywords, 200), clean(row?.journal, 80)].filter(Boolean).join(' ');
-    const hit = [...aim].filter((word) => taskHit(head, word)).length;
+    const seen = [...aim].filter((word) => taskHit(head, word));
+    const hit = seen.length;
+    const distinct = seen.filter((word) => !seen.some((other) => other !== word && other.includes(word))).length;
     const extra = [...aim].filter((word) => taskHit(rest, word)).length;
-    return { row, at, score: hit * 3 + extra };
+    return { row, at, score: hit * 3 + extra, distinct };
   });
   if (!scored.some((one) => one.score > 0)) return strict ? [] : rows.slice(0, limit);
   // 점수가 같으면 인덱스 차례를 지킨다. 인덱스 차례에는 이미 '쉬운 글이 먼저'가 들어 있다.
   scored.sort((a, b) => b.score - a.score || a.at - b.at);
   // strict 이면 **맞은 것만** 준다. 하나라도 맞으면 나머지(0점)로 개수를 채우던 탓에, 기후 변화 과제에
   // 「자동차 온실가스 지문」이, 공공데이터 셋 가운데 둘이 무관하게 딸려 올 수 있었다(2026-09-18 발견).
-  const kept = strict ? scored.filter((one) => one.score > 0) : scored;
+  const kept = strict ? scored.filter((one) => one.score > 0 && one.distinct >= need) : scored;
   return kept.slice(0, limit).map((one) => one.row);
 }

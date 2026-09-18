@@ -40,6 +40,11 @@ const REPORT = [
   "6. 참고문헌 및 후속 탐구", "통합과학1 교과서 효소 관련 단원",
 ].join("\n");
 
+// 한 번에 끝나는 보고서의 참고 자료 절은 엔진이 **확인한 자료**(교과서 단원·논문)로 바꿔 넣는다(엔진 전수 검사 2026-09-18).
+// 그래서 참고문헌 절 앞까지는 모델이 쓴 그대로이고, 참고문헌 절에는 교과서 줄이 있어야 한다.
+const sameReport = (report) => String(report || "").split("\n\n6. ")[0] === REPORT.split("\n\n6. ")[0]
+  && /6\. 참고문헌 및 후속 탐구\n[^\n]*교과서/.test(String(report || ""));
+
 // The same report as the model's sectioned answer ({title, body} per section).
 const REPORT_SECTIONS = REPORT.split(/\n\n(?=\d+\. )/).map(block => {
   const [head, ...rest] = block.split("\n");
@@ -155,7 +160,7 @@ const check = (ok, label) => { assert.equal(ok, true, label); console.log(`PASS 
   const kv = makeKv();
   openaiMode = "report"; openaiCalls.length = 0;
   const res = await viaGateway(basePayload, kv); const body = await res.json();
-  check(res.status === 200 && body.ok === true && body.source === "openai" && body.result?.report === REPORT, "I1 gateway → Worker → AI returns the completed report");
+  check(res.status === 200 && body.ok === true && body.source === "openai" && sameReport(body.result?.report), "I1 gateway → Worker → AI returns the completed report");
   check(body.gateway?.counted === true && uses(kv) === 1, "I1 completed report counts exactly one use");
   const prompt = openaiCalls[0]?.input || "";
   // Level policy (2026-09-11): 고1 writes at 고2~고3 depth and gets the topic-matched example pattern (RPT-030) as a
@@ -228,7 +233,7 @@ const check = (ok, label) => { assert.equal(ok, true, label); console.log(`PASS 
   openaiMode = "report";
   const res = await worker.fetch(new Request(WORKER_GENERATE_URL, { method: "POST", body: JSON.stringify(basePayload) }), workerEnv);
   const body = await res.json();
-  check(res.status === 200 && body.source === "openai" && body.result?.report === REPORT, "I5 direct Worker path returns the same completed report");
+  check(res.status === 200 && body.source === "openai" && sameReport(body.result?.report), "I5 direct Worker path returns the same completed report");
 }
 
 // I6 — 고2 elective (화학) keeps the advanced example pattern, analysis method included.

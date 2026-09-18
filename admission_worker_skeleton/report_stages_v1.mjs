@@ -348,6 +348,10 @@ export function removeSelfPraise(body, studentText) {
   return filterSentences(body, (sentence) => !SELF_PRAISE.test(sentence) || text.includes(sentence.trim().slice(0, 12)));
 }
 
+// 참고 자료 절의 이름. '참고'가 들어 있거나 '출처'로 **시작**할 때만이다 — 「자료 출처와 분석 기준」은 방법 절인데
+// '출처'가 들어 있다고 참고 자료로 보고 본문을 참고 자료 목록으로 덮어썼다(엔진 전수 검사 2026-09-18, 106건).
+export const REFERENCE_TITLE = /참고|^\s*출처/;
+
 // 참고 자료는 학생이 적은 것이 먼저고, 교과서 한 줄이 마지막에 붙는다. 만드는 규칙은 references_v1에 있다.
 // 카드가 있으면 카드가 이긴다 — 제목만 적힌 줄보다 "무엇을 얻었는지"가 적힌 카드가 참고 자료답다.
 export function buildReferencesBody(body, sources, extra = {}) {
@@ -562,7 +566,7 @@ export function stageSections(stage, input) {
     // The one-shot report closes with its sources; the two-stage flow closes with the sections our own
     // pipeline needs (교과 심화와 확장 says where this competency goes next, 느낀 점 feeds the teacher's 세특).
     if (stage === STAGE.COMPLETE) {
-      const closes = shaped.some((section) => /참고|출처/.test(section));
+      const closes = shaped.some((section) => REFERENCE_TITLE.test(section));
       return [...shaped, ...useSection, ...(closes ? [] : ['참고문헌'])];
     }
     return [...shaped, ...useSection, '교과 심화와 확장', '느낀 점'];
@@ -892,7 +896,19 @@ export function finalizeStageOutput(stage, parsed, input) {
   // The one-shot report has no student data to check numbers against, but the two filters that need no data were
   // never run on it: our own field names (카드, dataTemplate, gap) and sentences that praise the student.
   let removedPraise = 0;
+  // 한 번에 끝나는 보고서의 참고 자료도 **우리가 확인한 것**으로 채운다. 전에는 모델이 쓴 그대로 나갔다 —
+  // 모델에게는 논문을 보내지 않으므로 「국어 교과서의 현대소설 단원」, 「문학 이론 개론서」처럼 자료 **종류**만
+  // 적혔고, 이미 골라 둔 논문·교과서 단원은 빠졌다(엔진 전수 검사 2026-09-18). 모델이 쓴 후속 탐구 제안은 남긴다.
+  const verified = buildReferencesBody('', [], {
+    datasets: input.referenceDatasets || [], papers: input.referencePapers || [], web: input.referenceWeb || [],
+    textbook: input.textbookCitation || '',
+  });
   const oneShot = sections.map((section) => {
+    const title = String(section?.title || '');
+    if (verified && REFERENCE_TITLE.test(title)) {
+      const follow = String(section?.body || '').match(/후속 ?탐구[^\n]*\n([\s\S]+)/)?.[1]?.trim() || '';
+      return { ...section, body: follow && /후속/.test(title) ? `${verified}\n\n후속 탐구 제안\n${scrubInternalNames(follow)}` : verified };
+    }
     const body = scrubInternalNames(section?.body);
     if (!/느낀 점|소감|성찰/.test(String(section?.title || ''))) return { ...section, body };
     // The student wrote nothing here, so any feeling in it was invented by the model.
@@ -901,5 +917,11 @@ export function finalizeStageOutput(stage, parsed, input) {
     removedPraise += praise.removed + feelings.removed;
     return { ...section, body: praise.body };
   });
+  // 사이트가 고른 구성(「반론 검토 / 재반박 / 결론」 등)에는 참고 자료 절이 없을 때가 많다 — 전수 검사에서 한 번에
+  // 끝나는 보고서 503건 가운데 484건이 참고 자료 없이 끝났다. 확인된 자료가 있으면 끝에 붙인다.
+  // 절이 없는 답(보고서 글 하나로 온 옛 모양)에는 붙이지 않는다 — 붙이면 참고 자료 절 하나만 남아 본문이 통째로 사라진다.
+  // 확인된 자료가 하나도 없으면(단원을 못 정한 과제) 두 단계 보고서와 같게 과목 교과서 줄 하나를 둔다.
+  const closing = verified || [String(input.subject || '').trim(), '교과서 관련 단원'].filter(Boolean).join(' ');
+  if (oneShot.length && !oneShot.some((section) => REFERENCE_TITLE.test(String(section?.title || '')))) oneShot.push({ title: '참고 자료', body: closing });
   return { parsed: { ...parsed, sections: oneShot }, extra: { removedFeelingSentences: removedPraise } };
 }

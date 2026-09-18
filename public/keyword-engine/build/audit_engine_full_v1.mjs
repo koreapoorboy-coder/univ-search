@@ -1,0 +1,351 @@
+// 엔진 전수 검사 — 실제 수행평가 전부를 **운영 엔진 코드 그대로** 돌린다. GPT 만 가짜 답으로 바꾼다(₩0).
+//
+// 운영 사이트 테스트는 한 번에 ₩230 이고 한 과제만 본다. 그런데 오류 대부분은 GPT 가 아니라 우리 규칙에서
+// 났다(2026-09-18: 과목 이름 「생명과학」이 「농업생명과학대학」에 걸림, 블로그 제목이 키워드로 들어감,
+// 현장 조사를 읽기 과제로 봄, 같은 논문 두 번). 규칙은 돈이 안 드니 **모든 과제**로 돌려 본다.
+//
+//   1. 사이트의 과제 해석기(assessment_keyword_bridge_helper.js)로 학생 화면과 같은 값을 만든다
+//   2. worker.js 로 설계서를 만든다 — 가짜 GPT 는 요청에 딸린 JSON 스키마대로 답한다
+//   3. 같은 과제로 최종 보고서를 만든다(숫자 과제는 숫자, 읽기 과제는 자료 카드)
+//   4. 규칙으로 걸러 낸다 — 글자만 겹친 참고 자료, 중복 줄, 블로그 제목, 빈 단원 …
+//
+//   node public/keyword-engine/build/audit_engine_full_v1.mjs --part 0 --parts 6 --out <폴더>
+//   (공공데이터를 보려면 PUBLIC_DATA_KEY 환경 변수. 없으면 공공데이터 칸은 비어 있다)
+//
+// 학교 이름은 결과에 남기지 않는다. 과제 번호(source_id 순번)로만 적는다.
+import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { createRequire } from "node:module";
+import vm from "node:vm";
+import path from "node:path";
+
+const ROOT = "C:/Users/korea/univ-search";
+const SITE = `${ROOT}/public/keyword-engine`;
+const arg = (name, fallback) => { const at = process.argv.indexOf(name); return at > 0 ? process.argv[at + 1] : fallback; };
+const PART = Number(arg("--part", "0"));
+const PARTS = Number(arg("--parts", "1"));
+const LIMIT = Number(arg("--limit", "0"));
+const OUT = arg("--out", `${SITE}/build/.audit_engine_full`);
+const CAREER = arg("--career", "natural");
+await mkdir(OUT, { recursive: true });
+await mkdir(`${OUT}/cache`, { recursive: true });
+
+// ── 과목: 기록의 과목 이름 → 사이트에서 고를 수 있는 32과목 ─────────────────────────────
+const SITE_SUBJECTS = {
+  공통국어1: "국어", 공통국어2: "국어", 영어: "영어", 한국사: "사회", 공통수학1: "수학", 공통수학2: "수학", 대수: "수학",
+  "확률과 통계": "수학", 미적분1: "수학", 기하: "수학", 통합사회1: "사회", 통합사회2: "사회", 통합과학1: "과학", 통합과학2: "과학",
+  과학탐구실험1: "과학", 과학탐구실험2: "과학", "융합과학 탐구": "과학", "과학과제 연구": "과학", 물리: "과학", 화학: "과학",
+  "화학 반응의 세계": "과학", 생명과학: "과학", "생물의 유전": "과학", 지구과학: "과학", "역학과 에너지": "과학",
+  "전자기와 양자": "과학", "물질과 에너지": "과학", "세포와 물질대사": "과학", 지구시스템과학: "과학", 정보: "정보",
+  "데이터 과학": "정보", "인공지능 기초": "정보",
+};
+const tight = (s) => String(s || "").replace(/\s+/g, "").replace(/\(.*?\)/g, "");
+function siteSubject(raw) {
+  const s = tight(raw);
+  const exact = Object.keys(SITE_SUBJECTS).find((one) => tight(one) === s);
+  if (exact) return exact;
+  const rules = [
+    [/^통합과학2$/, "통합과학2"], [/^통합과학/, "통합과학1"], [/^과학탐구실험2/, "과학탐구실험2"], [/^과학탐구실험/, "과학탐구실험1"],
+    [/^통합사회2/, "통합사회2"], [/^통합사회/, "통합사회1"], [/^공통국어2/, "공통국어2"], [/^공통국어/, "공통국어1"],
+    [/^공통수학2/, "공통수학2"], [/^공통수학/, "공통수학1"], [/^(공통)?영어(Ⅰ|I|1)?$/, "영어"], [/^한국사/, "한국사"],
+    [/^(수학(Ⅰ|I|1)|대수)$/, "대수"], [/^확률과통계/, "확률과 통계"], [/^미적분(Ⅰ|I|1)?$/, "미적분1"], [/^기하/, "기하"],
+    [/^융합과학/, "융합과학 탐구"], [/^과학과제/, "과학과제 연구"], [/^화학반응의세계/, "화학 반응의 세계"],
+    [/^(고급|일반|AP)?물리(학)?(Ⅰ|Ⅱ|I|II|1|2)?$/, "물리"], [/^(고급|일반|AP)?화학(Ⅰ|Ⅱ|I|II|1|2)?$/, "화학"],
+    [/^(고급|일반)?생명과학(Ⅰ|Ⅱ|I|II|1|2)?$/, "생명과학"], [/^(고급|일반)?지구과학(Ⅰ|Ⅱ|I|II|1|2)?$/, "지구과학"],
+    [/^(정보|정보과학|프로그래밍)$/, "정보"], [/^데이터과학/, "데이터 과학"], [/^인공지능(기초)?$/, "인공지능 기초"],
+  ];
+  for (const [re, name] of rules) if (re.test(s)) return name;
+  return "";
+}
+
+// ── 과제 ──────────────────────────────────────────────────────────────────────────────
+const all = readFileSync(`${SITE}/data/assessment/records/assessment_tasks.v1.jsonl`, "utf8").split(/\r?\n/)
+  .filter(Boolean).map((line) => { try { return JSON.parse(line); } catch { return null; } }).filter(Boolean);
+let tasks = all.map((task, at) => ({ at, task, subject: siteSubject(task.subject_standard || task.subject_raw) }))
+  .filter((one) => one.subject && String(one.task.raw_task_desc || one.task.raw_task_title || "").trim());
+const skipped = all.length - tasks.length;
+tasks = tasks.filter((_, i) => i % PARTS === PART);
+if (LIMIT) tasks = tasks.slice(0, LIMIT);
+
+// ── 사이트 과제 해석기 ────────────────────────────────────────────────────────────────
+function siteRuntime() {
+  const s = { console: { log() {}, warn() {}, error() {}, info() {} }, setTimeout, clearTimeout, crypto: globalThis.crypto, Date };
+  s.window = s; s.globalThis = s; s.localStorage = { getItem() { return null; }, setItem() {}, removeItem() {} };
+  s.fetch = async (u) => {
+    const file = path.join(SITE, String(u).replace(/^\.\//, "").replace(/\?.*$/, ""));
+    try { const t = readFileSync(file, "utf8"); return { ok: true, status: 200, json: async () => JSON.parse(t), text: async () => t }; }
+    catch (e) { return { ok: false, status: 404, json: async () => { throw e; }, text: async () => "" }; }
+  };
+  vm.createContext(s);
+  for (const rel of ["assets/js/subject_alias.js", "assets/js/title_composer_v2.js", "assets/assessment_keyword_bridge_helper.js"]) {
+    vm.runInContext(readFileSync(path.join(SITE, rel), "utf8"), s, { filename: rel });
+  }
+  return s;
+}
+const UNIT_SUBJECTS = new Set(Object.values(JSON.parse(readFileSync(`${SITE}/seed/engine-index/longitudinal_axis_index.v1.json`, "utf8")).axes || {}).map((axis) => axis.subject));
+const rt = siteRuntime();
+await rt.AssessmentKeywordBridge.ready();
+const intake = createRequire(import.meta.url)(`${SITE}/assets/js/simple_live_intake_v1.js`);
+
+// ── 바깥 호출 ─────────────────────────────────────────────────────────────────────────
+const SEED = "http://seed.local";
+const realFetch = globalThis.fetch;
+const seedCache = new Map();
+const outbound = new Map();
+let lastPrompt = "";
+let publicCalls = 0;
+const sectionTitles = (prompt) => {
+  // 번호 목록이 여럿일 수 있다(사례 목록 등). 절 목록은 가장 긴 목록이다.
+  const lines = String(prompt).split("\n");
+  let best = [];
+  let run = [];
+  for (const line of lines) {
+    const m = line.match(/^ {2}(\d+)\. ([^:\n]{1,30}):/);
+    if (m && Number(m[1]) === run.length + 1) run.push(m[2].trim());
+    else { if (run.length > best.length) best = run; run = m && Number(m[1]) === 1 ? [m[2].trim()] : []; }
+  }
+  return run.length > best.length ? run : best;
+};
+function fake(schema, key = "") {
+  if (!schema || typeof schema !== "object") return "";
+  if (Array.isArray(schema.enum)) return schema.enum[0];
+  if (schema.anyOf) return fake(schema.anyOf.find((one) => one.type !== "null") || schema.anyOf[0], key);
+  const type = Array.isArray(schema.type) ? schema.type.find((t) => t !== "null") : schema.type;
+  if (type === "object") {
+    const out = {};
+    for (const [name, sub] of Object.entries(schema.properties || {})) out[name] = fake(sub, name);
+    return out;
+  }
+  if (type === "array") {
+    const n = Math.min(Math.max(schema.minItems || 1, key === "conditions" ? 2 : 1), schema.maxItems || 9);
+    return Array.from({ length: n }, (_, i) => (schema.items?.type === "string" && key === "conditions" ? `조건 ${"ABCDEFGH"[i]}` : fake(schema.items, key)));
+  }
+  if (type === "integer" || type === "number") {
+    const want = key === "trials" ? 3 : key === "cardCount" ? 3 : 2;
+    return Math.min(Math.max(want, schema.minimum ?? want), schema.maximum ?? want);
+  }
+  if (type === "boolean") return false;
+  const text = "검사용 문장입니다.";
+  return text.repeat(Math.max(1, Math.ceil((schema.minLength || 0) / text.length)));
+}
+globalThis.fetch = async (input, init) => {
+  const url = typeof input === "string" ? input : input.url;
+  if (url.startsWith(SEED)) {
+    const file = decodeURIComponent(url.slice(SEED.length + 1));
+    if (!seedCache.has(file)) {
+      try { seedCache.set(file, readFileSync(`${SITE}/seed/${file}`)); } catch { seedCache.set(file, null); }
+    }
+    const body = seedCache.get(file);
+    return body ? new Response(body, { headers: { "Content-Type": "application/json" } }) : new Response("", { status: 404 });
+  }
+  if (url === "https://api.openai.com/v1/responses") {
+    const body = JSON.parse(init?.body || (await input.text()));
+    lastPrompt = typeof body.input === "string" ? body.input : JSON.stringify(body.input);
+    const out = fake(body.text?.format?.schema);
+    const titles = sectionTitles(lastPrompt);
+    if (titles.length) out.sections = titles.map((title) => ({ title, body: `${title} 검사용 본문입니다.` }));
+    out.reportTitle = "전수 검사용 보고서 제목입니다";
+    const text = JSON.stringify(out);
+    return new Response(JSON.stringify({ status: "completed", model: "gpt-5", output: [{ type: "message", content: [{ type: "output_text", text }] }], usage: { input_tokens: 0, output_tokens: 0 } }), { status: 200 });
+  }
+  if (/^https:\/\/www\.snu\.ac\.kr\//.test(url)) return new Response("", { status: 200 });
+  if (/api\.odcloud\.kr|data\.go\.kr/.test(url)) {
+    const file = `${OUT}/cache/${createHash("sha1").update(url.replace(/serviceKey=[^&]+/, "")).digest("hex")}.json`;
+    if (existsSync(file)) return new Response(readFileSync(file), { status: 200, headers: { "Content-Type": "application/json" } });
+    publicCalls += 1;
+    const res = await realFetch(url, init);
+    const text = await res.text();
+    if (res.ok) writeFileSync(file, text);
+    return new Response(text, { status: res.status, headers: { "Content-Type": "application/json" } });
+  }
+  const host = (() => { try { return new URL(url).host; } catch { return url.slice(0, 40); } })();
+  outbound.set(host, (outbound.get(host) || 0) + 1);
+  return new Response("", { status: 404 });
+};
+
+// ── 운영 엔진 코드 ────────────────────────────────────────────────────────────────────
+const TEMP = `${ROOT}/admission_worker_skeleton/.worker_audit_${PART}.mjs`;
+await copyFile(`${ROOT}/admission_worker_skeleton/worker.js`, TEMP);
+let worker;
+try { worker = (await import(`file:///${TEMP}`)).default; } finally { await rm(TEMP, { force: true }); }
+const { contentWords } = await import(`file:///${ROOT}/admission_worker_skeleton/paper_route_v1.mjs`);
+const env = { OPENAI_API_KEY: "audit-stub", OPENAI_MODEL: "gpt-5", ENGINE_MODE: "production", ALLOW_STUB: "false",
+  SEED_BASE_URL: SEED, PUBLIC_DATA_KEY: process.env.PUBLIC_DATA_KEY || "" };
+const quiet = { log: console.log, error: console.error, warn: console.warn };
+const engineLog = [];
+console.error = (...a) => engineLog.push(a.map(String).join(" ").slice(0, 200));
+console.warn = () => {};
+
+async function generate(payload) {
+  lastPrompt = "";
+  const res = await worker.fetch(new Request("http://localhost/generate", {
+    method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload),
+  }), env, { waitUntil() {} });
+  return { status: res.status, data: await res.json().catch(() => ({})), prompt: lastPrompt };
+}
+
+// ── 규칙 검사 ─────────────────────────────────────────────────────────────────────────
+const HANGUL = /[가-힣]/;
+// 과제 낱말이 제목의 **긴 낱말 한가운데**에 걸렸는가 — '생명과학' ⊂ '농업생명과학대학'.
+// 낱말 앞쪽에 붙은 것('방형구' ⊂ '방형구법')은 같은 말로 본다.
+function hitsIn(title, words) {
+  const t = String(title || "");
+  const out = [];
+  for (const w of words) {
+    if (w.length < 2) continue;
+    let at = t.indexOf(w);
+    if (at < 0) continue;
+    let inner = true;
+    while (at >= 0) {
+      const before = at > 0 ? t[at - 1] : " ";
+      if (!HANGUL.test(before)) { inner = false; break; }
+      at = t.indexOf(w, at + 1);
+    }
+    out.push({ word: w, inner });
+  }
+  return out;
+}
+const BLOG = /세특|보고서 ?추천|일반고|자사고|특목고|^\s*\[[^\]]+\]/;
+const norm = (s) => String(s || "").replace(/\s+/g, "").replace(/[^\p{L}\p{N}]/gu, "");
+
+function checkRefs(body) {
+  const lines = String(body || "").split(/\n+/).map((l) => l.trim()).filter(Boolean);
+  const issues = [];
+  const seen = new Map();
+  for (const line of lines) {
+    const key = norm(line).slice(0, 40);
+    if (seen.has(key)) issues.push({ kind: "참고자료_같은줄", line: line.slice(0, 120) });
+    seen.set(key, line);
+  }
+  // 논문 제목이 두 줄에 나오는가(카드 줄과 논문 줄)
+  const titles = lines.map((l) => (l.match(/\(\d{4}\)\. ([^.]{8,}?)\./) || [])[1]).filter(Boolean).map(norm);
+  const dup = titles.filter((t, i) => titles.indexOf(t) !== i);
+  if (dup.length) issues.push({ kind: "참고자료_같은제목", line: dup[0].slice(0, 60) });
+  return { lines, issues };
+}
+
+const rows = [];
+const started = Date.now();
+for (const [n, { at, task, subject }] of tasks.entries()) {
+  const id = `T${String(at).padStart(4, "0")}`;
+  const taskText = [task.raw_task_title, task.raw_task_desc].filter(Boolean).join(" / ").slice(0, 1500);
+  const grade = `고${String(task.grade || "").match(/[123]/)?.[0] || 2}`;   // "1,2,3" 처럼 여러 학년이면 첫 학년
+  const group = SITE_SUBJECTS[subject];
+  // 과제 글 안에 학교 이름이 섞여 있을 때가 있다(「2026학년도 ○○고 교수학습 및 평가 운영 계획」). 결과에는 지운다.
+  const school = String(task.school_name || "").trim();
+  const scrub = (text) => (school ? String(text).split(school).join("○○고").split(school.replace(/등학교$/, "")).join("○○") : String(text));
+  const row = { id, subject, raw: task.subject_standard, grade, task: scrub(taskText.slice(0, 300)), issues: [] };
+  const flag = (kind, detail = "") => row.issues.push({ kind, detail: String(detail).slice(0, 200) });
+  try {
+    // 1. 사이트 해석
+    const conn = await rt.AssessmentKeywordBridge.resolve({ subject, taskDescription: taskText, career: CAREER, taskName: "",
+      assessmentDescription: "", selectedConcept: "", selectedKeyword: "", derivedKeywords: [] });
+    const cross = conn?.cross_axis || {};
+    const concepts = (cross.topic?.subjectConcepts || []).map(String).filter(Boolean);
+    const taskConcepts = concepts.slice(0, 3).join(" · ");
+    const selectedConcept = concepts[0] || subject;
+    const selectedKeyword = taskConcepts || selectedConcept;
+    const reportMode = conn?.assessment_route?.recommendedReportMode || "연구보고서형";
+    const structure = cross.structure || { id: "structure_research_report", sections: [] };
+    row.site = { concepts, reportMode, structure: structure.id, blocked: Boolean(conn?.reportTarget === false || conn?.blocked) };
+    if (row.site.blocked) flag("사이트가_보고서아님으로_막음");
+    if (!concepts.length) flag("사이트_개념없음");
+    if (BLOG.test(selectedKeyword)) flag("키워드_블로그제목", selectedKeyword);
+
+    const base = {
+      schoolName: "테스트고등학교", grade, subject, subjectGroup: group, taskDescription: taskText,
+      career: CAREER, track: CAREER, major: "", keyword: selectedKeyword, selectedKeyword, selectedConcept,
+      structureId: structure.id, targetStructure: structure.sections || [],
+      performance_assessment: { assessmentKeywordConnection: conn, method: { reportMode },
+        content: { concept: selectedConcept, keyword: selectedKeyword } },
+      liveInputCandidate: intake.buildCandidateFromValues({ school: "테스트고등학교", grade, subject, subject_group: group,
+        task_description: taskText, selected_subject: subject, selected_subject_group: group }),
+    };
+
+    // 2. 설계서
+    const d = await generate({ ...base, reportStage: "experiment_draft" });
+    row.draft = { status: d.status, ok: d.data.ok, source: d.data.source, error: d.data.error || d.data.message || "" };
+    if (d.status === 422) { row.scope = d.data.scope; flag("엔진이_보고서아님", d.data.scope); rows.push(row); continue; }
+    if (!d.data.ok) { flag("설계서_실패", `${d.status} ${d.data.error || ""}`); rows.push(row); continue; }
+    if (d.data.source !== "openai") flag("설계서_GPT단계_실패(검사용)", d.data.result?.diagnostic || d.data.source);
+    const r = d.data.resolved || {};
+    row.kind = r.collectionKind;
+    row.stage = r.reportStage;
+    row.keyword = r.keyword;
+    row.concept = r.reportConcept;
+    // 과목에 단원 자료가 아예 없으면(영어·한국사 등) 규칙 탓이 아니라 자료가 비어 있는 것이다. 따로 센다.
+    if (!r.reportConcept) flag(UNIT_SUBJECTS.has(subject) ? "단원_못정함" : "과목에_단원자료없음");
+    if (BLOG.test(r.keyword || "")) flag("엔진키워드_블로그제목", r.keyword);
+    // 「세특 문구가 …」는 엔진의 피할 것 안내라 블로그 말이 아니다. 블로그 제목에만 나오는 말만 본다.
+    if (/보고서 ?추천|자사고|특목고|일반고/.test(d.prompt)) flag("프롬프트에_블로그말", (d.prompt.match(/.{0,30}(보고서 ?추천|자사고|특목고|일반고).{0,30}/) || [""])[0]);
+    const words = contentWords(taskText, subject).split(" ").filter(Boolean);
+    row.words = words.slice(0, 20);
+    const guide = d.data.paperGuide;
+    row.papers = (guide?.papers || guide?.items || []).map((p) => p.title || p.line || JSON.stringify(p).slice(0, 120));
+    row.books = (d.data.bookChoices || []).map((b) => b.title);
+
+    // 3. 최종 보고서
+    let f = null;
+    if (r.reportStage === "experiment_draft") {
+      const reading = r.collectionKind === "reading";
+      const studentData = reading
+        ? { sourceCards: [1, 2, 3].map((i) => ({ title: `검사 자료 ${i}`, type: "기사", point: "검사용 핵심 내용", take: "검사용 해석" })) }
+        : { measurementName: "값", unit: "", conditions: [{ label: "조건 A", values: [3, 4, 5] }, { label: "조건 B", values: [6, 7, 9] }],
+            sourceCards: [{ title: "검사 자료 1", type: "기사", point: "", take: "검사용" }] };
+      f = await generate({ ...base, reportStage: reading ? "literature" : "experiment_final", studentData });
+    } else {
+      f = d;   // 한 번에 끝나는 과제(complete)
+    }
+    row.final = { status: f.status, ok: f.data.ok, source: f.data.source };
+    if (!f.data.ok) { flag("최종_실패", `${f.status} ${f.data.error || ""}`); rows.push(row); continue; }
+    if (f.data.source !== "openai") flag("최종_GPT단계_실패(검사용)", f.data.result?.diagnostic || f.data.source);
+    const fr = f.data.resolved || {};
+    const web = (fr.referenceWeb || []).map((w) => w.title);
+    const data = (fr.referenceDatasets || []).map((x) => x.title);
+    const papers = (fr.referencePapers || []).map((p) => p.title || p[0] || "");
+    row.web = web; row.datasets = data; row.refPapers = papers;
+    for (const title of web) {
+      const h = hitsIn(title, words);
+      row.webHits = h;
+      if (!h.length) flag("서울대글_과제낱말없음", title);
+      else if (h.every((x) => x.inner)) flag("서울대글_글자만겹침", `${title} ← ${h.map((x) => x.word).join(",")}`);
+      else if (h.filter((x) => !x.inner).length === 1) flag("서울대글_한낱말만", `${title} ← ${h.filter((x) => !x.inner)[0].word}`);
+    }
+    for (const title of data) {
+      const h = hitsIn(title, words);
+      if (!h.length) flag("공공데이터_과제낱말없음", title);
+      else if (h.every((x) => x.inner)) flag("공공데이터_글자만겹침", `${title} ← ${h.map((x) => x.word).join(",")}`);
+    }
+    const next = f.data.nextStep;
+    row.research = (next?.research || []).map((x) => x.title);
+    for (const title of row.research) {
+      const h = hitsIn(title, words);
+      if (h.length && h.every((x) => x.inner)) flag("다음걸음연구_글자만겹침", `${title} ← ${h.map((x) => x.word).join(",")}`);
+    }
+    // 엔진은 절을 「1. 제목\n본문」 글 하나(report)로 합쳐 보낸다.
+    const parts = String(f.data.result?.report || "").split(/\n\n(?=\d+\. )/).map((one) => {
+      const m = one.match(/^\d+\. ([^\n]*)\n?([\s\S]*)$/);
+      return m ? { title: m[1].trim(), body: m[2] } : null;
+    }).filter(Boolean);
+    row.sections = parts.map((s) => s.title);
+    const refSec = parts.find((s) => /참고 ?(자료|문헌)/.test(s.title));
+    if (!refSec) flag("참고자료절_없음");
+    else {
+      const { lines, issues } = checkRefs(refSec.body);
+      row.refs = lines.map((l) => l.slice(0, 160));
+      for (const one of issues) flag(one.kind, one.line);
+      const tb = lines.find((l) => /교과서/.test(l));
+      if (tb && !tb.includes(subject.replace(/\d$/, "").replace(/ .*/, "")) && !/통합|과학탐구|융합|과제/.test(subject)) flag("교과서줄_과목다름", tb);
+      if (!lines.length) flag("참고자료_빈칸");
+    }
+  } catch (error) {
+    flag("검사중_예외", error?.stack?.split("\n").slice(0, 2).join(" ") || error);
+  }
+  rows.push(row);
+  if ((n + 1) % 100 === 0) quiet.log(`part ${PART}: ${n + 1}/${tasks.length} · ${Math.round((Date.now() - started) / 1000)}초`);
+}
+
+await writeFile(`${OUT}/rows_${PART}.json`, JSON.stringify({ part: PART, parts: PARTS, skipped, publicCalls,
+  outbound: Object.fromEntries(outbound), engineLog: engineLog.slice(0, 200), rows }), "utf8");
+quiet.log(`part ${PART} 끝: ${rows.length}건 · ${Math.round((Date.now() - started) / 1000)}초 · 공공데이터 새 호출 ${publicCalls}`);

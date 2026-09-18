@@ -12,12 +12,13 @@ export const SCOPE = Object.freeze({ REPORT: 'report', PERFORMANCE: 'performance
 // performance attached, and those are common.
 const WRITTEN = /보고서|논술|논설|서평|비평문|감상문|평론|에세이|글로 ?쓰|글쓰기|작성하여 ?제출|정리하여 ?제출|탐구 ?결과를 ?정리|기록지|활동지|학습지|소감문|성찰문|설명문|해설문|기록문|보고문|계획서|제안서|설명서|분석하여 ?쓰/;
 
+// 연주 운동·연주 시차는 천문학 말이다(별의 1년 주기 운동) — 「좌표계 탐구하기」 과제가 악기 연주로 막혔다(2026-09-18).
 // 독창적·독창성 is "original", not a solo voice, and it sits in almost every 평가 루브릭; 경기 침체 is the
 // economy, not a match. Both were pulling real report tasks out of scope.
 const OUT_OF_SCOPE = [
   {
     scope: SCOPE.PERFORMANCE,
-    test: /연주|가창|합창|독창(?!적|성)|중주|시연|실기|경기(?! ?침체| ?회복| ?불황| ?호황| ?변동| ?순환| ?지표| ?동향| ?전망)|리그전|타격|송구|드리블|스파이크|스매시|리시브|숏서비스|언더서비스|서브를 ?넣|서비스 ?실시|슛하기|패스하기|스트로크|영법|수영하기|달리기|체조|무용|안무|연기|발표회|공연/,
+    test: /연주(?! ?운동| ?시차)|가창|합창|독창(?!적|성)|중주|시연|실기|경기(?! ?침체| ?회복| ?불황| ?호황| ?변동| ?순환| ?지표| ?동향| ?전망)|리그전|타격|송구|드리블|스파이크|스매시|리시브|숏서비스|언더서비스|서브를 ?넣|서비스 ?실시|슛하기|패스하기|스트로크|영법|수영하기|달리기|체조|무용|안무|연기|발표회|공연/,
     reason: '몸으로 하는 수행(연주·경기·실기)을 평가하는 과제로 보여요.',
   },
   {
@@ -36,7 +37,10 @@ export function resolveReportScope(input) {
   const text = [input?.taskDescription, input?.taskName, input?.taskType].filter(Boolean).join(' ');
   if (!text.trim()) return { scope: SCOPE.REPORT, reason: '' };
   if (WRITTEN.test(text)) return { scope: SCOPE.REPORT, reason: '' };
-  const hit = OUT_OF_SCOPE.find((rule) => rule.test.test(text));
+  // 수업 참여·태도 평가는 **과제 제목**에서만 본다. 채점표 안의 「수업 참여」 한 줄로 진로 탐구 프로젝트가 막혔다
+  // (엔진 전수 검사 2026-09-18). 제목이 「수업 참여도」인 과제는 그대로 막힌다.
+  const head = String(input?.taskName || String(input?.taskDescription || '').split(/\r?\n| \/ /)[0] || '');
+  const hit = OUT_OF_SCOPE.find((rule) => rule.test.test(rule.scope === SCOPE.PARTICIPATION ? head : text));
   if (!hit) return { scope: SCOPE.REPORT, reason: '' };
   return {
     scope: hit.scope,

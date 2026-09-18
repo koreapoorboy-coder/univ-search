@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v275_seed_keyword
+// SCREEN_VERSION: v276_scope_title
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v275-seed-keyword";
+  const VERSION = "mini-worker-generate-bridge-v276-scope-title";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -4373,7 +4373,7 @@ ${result}`;
   // being charged for a page they cannot hand in.
   const SCOPE_WRITTEN = /보고서|논술|논설|서평|비평문|감상문|평론|에세이|글로 ?쓰|글쓰기|작성하여 ?제출|정리하여 ?제출|탐구 ?결과를 ?정리|기록지|활동지|학습지|소감문|성찰문|설명문|해설문|기록문|보고문|계획서|제안서|설명서|분석하여 ?쓰/;
   const SCOPE_OUT = [
-    [/연주|가창|합창|독창(?!적|성)|중주|시연|실기|경기(?! ?침체| ?회복| ?불황| ?호황| ?변동| ?순환| ?지표| ?동향| ?전망)|리그전|타격|송구|드리블|스파이크|스매시|리시브|숏서비스|언더서비스|서브를 ?넣|서비스 ?실시|슛하기|패스하기|스트로크|영법|수영하기|달리기|체조|무용|안무|연기|발표회|공연/, "몸으로 하는 수행(연주·경기·실기)을 평가하는 과제로 보여요."],
+    [/연주(?! ?운동| ?시차)|가창|합창|독창(?!적|성)|중주|시연|실기|경기(?! ?침체| ?회복| ?불황| ?호황| ?변동| ?순환| ?지표| ?동향| ?전망)|리그전|타격|송구|드리블|스파이크|스매시|리시브|숏서비스|언더서비스|서브를 ?넣|서비스 ?실시|슛하기|패스하기|스트로크|영법|수영하기|달리기|체조|무용|안무|연기|발표회|공연/, "몸으로 하는 수행(연주·경기·실기)을 평가하는 과제로 보여요."],
     [/그림을 ?그리|그리기 ?과정|형태묘사|드로잉|스케치|채색|조소|판화|도예|작품을 ?제작|작품 ?만들|포스터를 ?만들|영상을 ?제작|사진을 ?촬영|디자인하여 ?제작/, "작품을 만들어 내는 과제로 보여요."],
     [/학습 ?참여도|수업 ?참여|참여 ?태도|출석|성실도 ?평가|태도 ?평가|과제 ?제출 ?여부/, "수업 참여나 태도를 보는 평가로 보여요."],
   ];
@@ -4381,7 +4381,9 @@ ${result}`;
   function reportScopeProblem(req){
     const text = [req?.taskDescription, req?.taskName, req?.taskType].filter(Boolean).join(" ");
     if(!text.trim() || SCOPE_WRITTEN.test(text)) return "";
-    const hit = SCOPE_OUT.find(([pattern]) => pattern.test(text));
+    // 수업 참여·태도는 과제 제목에서만 본다(엔진과 같다) — 채점표 속 「수업 참여」 한 줄로 프로젝트가 막혔다.
+    const head = String(req?.taskName || String(req?.taskDescription || "").split(/\r?\n| \/ /)[0] || "");
+    const hit = SCOPE_OUT.find(([pattern], at) => pattern.test(at === 2 ? head : text));
     if(!hit) return "";
     return `${hit[1]} 이 프로그램은 글로 내는 보고서를 만들어요. 안내문에 보고서나 감상문을 쓰라는 부분이 있으면 그 문장까지 함께 붙여 넣어 주세요.`;
   }

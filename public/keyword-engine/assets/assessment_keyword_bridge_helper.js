@@ -412,8 +412,18 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.9.0-model-h-runtime";
     };
   }
 
+  // 실기·참여도 같은 말은 **과제 제목(첫 줄)** 에서만 본다. 안내문 전체에서 찾았더니 채점 기준표의 「실험 참여도 2점」,
+  // 평가 방법 칸의 「실기」 한 번에 실험 보고서·논술 과제가 통째로 막혔다 — 엔진 전수 검사(2026-09-18)에서 사이트가
+  // 막은 85건 가운데 대부분이 「항원항체반응과 혈액형 판정」, 「삼투 현상 관찰」 같은 보고서 과제였다.
+  // 제목에 없는 경우는 엔진(report_scope_v1)이 과제 전체를 보고 다시 가린다.
+  function taskHead(payload){
+    const name = String(effectiveTaskName(payload) || "").trim();
+    const first = String(payload?.taskDescription || "").split(/\r?\n| \/ /)[0] || "";
+    return (name || first).slice(0, 80).toLowerCase();
+  }
+
   function detectNonReportTask(payload, taskMatch){
-    const text = rawTaskText(payload);
+    const text = taskHead(payload);
     const matchedTerm = NON_REPORT_TERMS.find(term => text.includes(term)) || "";
     const reasons = taskMatch?.reasons || [];
     const strongRecordMatch = Number(taskMatch?.score || 0) >= 50
