@@ -56,7 +56,7 @@ const draftOut = finalizeStageOutput(STAGE.DRAFT, { reportTitle: "t", sections: 
 check(draftOut.extra.dataTemplate.conditions.join(",") === "A,B" && draftOut.extra.dataTemplate.trials === 5, "the data template is cleaned (unique conditions, at most 5 trials)", JSON.stringify(draftOut.extra.dataTemplate));
 
 const finalOut = finalizeStageOutput(STAGE.FINAL, { reportTitle: "t", sections: [{ title: "탐구 결과", body: "표 1을 보면 평균은 2.67점이었다. 문헌에서는 60도에서 변성된다." }], figures: [] }, { studentData: data, taskDescription: "효소 탐구보고서" });
-check(finalOut.parsed.sections[0].body === "표 1을 보면 평균은 2.67점이었다." && finalOut.extra.removedNumberSentences === 1 && finalOut.extra.figures.length === 2, "final output: invented number removed, default table and chart added", finalOut.parsed.sections[0].body);
+check(finalOut.parsed.sections[0].body === "표 1을 보면 평균은 2.67점이었다." && finalOut.extra.removedNumberSentences === 1 && finalOut.extra.figures.length === 1 && finalOut.extra.figures[0].kind === "table", "final output: invented number removed, the raw table added — no chart the model did not ask for", finalOut.parsed.sections[0].body);
 
 const litOut = finalizeStageOutput(STAGE.LITERATURE, { reportTitle: "t", sections: [], comparisonTable: { title: "비교", columns: ["조건", "경향"], rows: [["미지근한 물", "잘 작용"], ["뜨거운 물", "40% 감소"]] } }, { studentData: normalizeStudentData(empty) });
 check(litOut.extra.comparisonTable === null, "a literature table with a number is dropped (nothing backs it)");
@@ -182,7 +182,8 @@ check(kindOf("우리 반 학생들의 미디어 이용 습관을 설문으로 �
 check(kindOf("최근 10년 청년 고용 통계 자료를 해석해 보고서를 작성하시오") === COLLECTION.DATASET, "a statistics task collects published figures", kindOf("최근 10년 청년 고용 통계 자료를 해석해 보고서를 작성하시오"));
 check(kindOf("관심 있는 사회 문제를 정해 주제 탐구 보고서를 작성하시오") === COLLECTION.READING, "a research task collects source cards", kindOf("관심 있는 사회 문제를 정해 주제 탐구 보고서를 작성하시오"));
 check(kindOf("주제에 대한 자신의 주장을 담은 논술문을 쓰시오") === COLLECTION.NONE, "an essay task collects nothing", kindOf("주제에 대한 자신의 주장을 담은 논술문을 쓰시오"));
-check(kindOf("탐구 보고서를 쓰시오", "과학") === COLLECTION.MEASUREMENT, "a science subject still means an experiment");
+// 2026-09-18: 과학 과목이라는 것만으로 실험이 되지 않는다 — 과제 글에 재는 일이 드러나야 한다(test_collection_kind_v1).
+check(kindOf("탐구 보고서를 쓰시오", "과학") === COLLECTION.READING, "a science subject alone no longer means an experiment");
 
 // 야외 조사(방형구·개체 수)는 측정이다 — 운영 테스트에서 '조사'라는 말 때문에 문헌으로 잡혔다.
 check(kindOf("방형구법을 활용한 식물 군집 조사 보고서 / 방형구를 설치해 식물 종류와 개체 수를 조사하고 중요치를 구해 비교한다") === COLLECTION.MEASUREMENT,
@@ -228,9 +229,16 @@ const cardTable = buildSourceCardTable(cards);
 check(cardTable.columns.join("|") === "자료|종류|핵심 내용|내 해석" && cardTable.rows.length === 2 && cardTable.rows[0][1] === "신문 기사",
   "the student cards become the first table of the report", JSON.stringify(cardTable.rows[0]));
 check(buildSourceCardTable([cards[0]]) === null, "one card is not enough for a table");
-const readingFinal = finalizeStageOutput(STAGE.LITERATURE, { reportTitle: "t", sections: [{ title: "자료 비교 정리", body: "카드를 비교한다." }] }, { studentData: normalizeStudentData({ sourceCards: cards, sources: [] }) });
+// 비교형 과제일 때만 카드로 표를 만든다(2026-09-18) — 논술·비평·성찰 과제에도 표가 붙던 것을 고쳤다.
+const readingFinal = finalizeStageOutput(STAGE.LITERATURE, { reportTitle: "t", sections: [{ title: "자료 비교 정리", body: "카드를 비교한다." }] },
+  { taskDescription: "청소년 노동 문제를 다룬 자료를 비교해 보고서를 쓴다", studentData: normalizeStudentData({ sourceCards: cards, sources: [] }) });
 check(readingFinal.extra.comparisonTable.rows.length === 2 && readingFinal.extra.comparisonTable.title === "내가 조사한 자료 정리",
-  "the literature report builds its table from the cards the student typed", JSON.stringify(readingFinal.extra.comparisonTable.columns));
+  "a comparison task builds its table from the cards the student typed", JSON.stringify(readingFinal.extra.comparisonTable.columns));
+const argueFinal = finalizeStageOutput(STAGE.LITERATURE, { reportTitle: "t", sections: [{ title: "자료 분석과 해석", body: "근거를 세운다." }] },
+  { taskDescription: "청소년 노동 문제에 대한 자신의 주장을 세우는 보고서", studentData: normalizeStudentData({ sourceCards: cards, sources: [] }) });
+check(argueFinal.extra.comparisonTable === null, "a task that does not compare gets no table unless the model chose one");
+check(stageSections(STAGE.LITERATURE, { taskDescription: "자신의 주장을 세우는 보고서" }).includes("자료 분석과 해석")
+  && stageSections(STAGE.LITERATURE, { taskDescription: "두 자료를 비교하는 보고서" }).includes("자료 비교 정리"), "the section is named for what the task asks");
 check(normalizeStudentData({ sourceCards: [{ title: "제목만", type: "", point: "", take: "" }] }).sourceCards.length === 0, "a card with no key content is dropped");
 
 const readingGuide = stageSectionGuide("탐구 방법", STAGE.DRAFT, COLLECTION.READING);
@@ -273,8 +281,13 @@ check(buildFigures([{ kind: "bar", metric: "mean", conditionOrder: [], title: "�
   "a chart the model asked for is dropped when there is nothing to show");
 const threeRows = computeStats(normalizeStudentData({ measurementName: "거품 높이", unit: "mm", conditions: [
   { label: "가", values: ["3"] }, { label: "나", values: ["8"] }, { label: "다", values: ["5"] }] }));
-check(buildFigures([], threeRows).some((f) => f.kind !== "table"), "three conditions still get a chart");
-check(buildFigures([], threeWay).some((f) => f.kind.startsWith("grouped_")), "a two-variable grid still gets a grouped chart");
+// 2026-09-18: 그래프는 AI가 고를 때만 — 조건이 셋이어도 저절로 붙지 않는다(모든 보고서가 표 + 그래프 모양이 됐다).
+check(buildFigures([], threeRows).every((f) => f.kind === "table"), "three conditions get no chart unless the model chose one");
+check(buildFigures([{ kind: "bar", metric: "mean", conditionOrder: [], title: "평균 비교", caption: "" }], threeRows).some((f) => f.kind === "bar"),
+  "three conditions keep a chart the model chose");
+check(buildFigures([], threeWay).every((f) => f.kind === "table"), "a two-variable grid gets no chart unless the model chose one");
+check(buildFigures([{ kind: "bar", metric: "mean", conditionOrder: [], title: "조합 비교", caption: "" }], threeWay).some((f) => f.kind.startsWith("grouped_")),
+  "a chart the model chose over a two-variable grid is drawn grouped");
 check(stageSchemaProperties(STAGE.FINAL).figures.minItems === 0, "the model may return no figures at all");
 check(stageSectionGuide("탐구 결과", STAGE.FINAL, COLLECTION.MEASUREMENT).includes("그림이 있을 때만"),
   "the result section may not point at a chart that was not drawn");

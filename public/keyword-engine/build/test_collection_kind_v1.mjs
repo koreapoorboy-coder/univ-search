@@ -40,7 +40,17 @@ is("주어진 문제를 해결하기 위한 알고리즘을 작성하고 오류�
 is("공공 데이터 포털에서 주제를 골라 데이터를 분석해 시각화하시오.", COLLECTION.DATASET, "public data is a dataset even when code is involved");
 
 // When the wording says nothing at all.
-is("탐구 보고서를 작성하시오.", COLLECTION.MEASUREMENT, "a science task with no other clue is treated as an experiment", { subjectGroup: "과학" });
+// 2026-09-18: 과학 과목이라도 과제 글에 단서가 없으면 실험으로 단정하지 않는다 — 「독서 및 글쓰기」, 「자유주제발표」까지
+// 숫자 표를 채우는 과제가 됐다(전수 검사 384건). 가장 적게 요구하는 읽기 보고서로 둔다.
+is("탐구 보고서를 작성하시오.", COLLECTION.READING, "a science task with no other clue is no longer assumed to be an experiment", { subjectGroup: "과학" });
+is("독서 및 글쓰기 / 책의 내용을 적절하게 요약했는가?", COLLECTION.READING, "독서 및 글쓰기 in 지구과학 is not a measurement", { subjectGroup: "과학" });
+is("뉴턴 운동 법칙 탐구하기 / 물체의 시간에 따른 속도 변화를 통해 운동을 분석", COLLECTION.MEASUREMENT, "a quantity changing with another is measured even without the word 실험", { subjectGroup: "과학" });
+is("힘과 가속도의 관계 탐구", COLLECTION.MEASUREMENT, "A와 B의 관계 in science is measured", { subjectGroup: "과학" });
+is("저항의 연결 / 저항의 직렬연결과 병렬연결에서 전류, 전위차, 전력을 비교할 수 있다.", COLLECTION.MEASUREMENT, "a series/parallel circuit task is measured", { subjectGroup: "과학" });
+is("스펙트럼 관찰 / 스펙트럼 관찰 후 보고서를 작성하여 제출", COLLECTION.MEASUREMENT, "관찰 후 보고서 is an observation record", { subjectGroup: "과학" });
+is("우리 학교 바이오 블리츠", COLLECTION.MEASUREMENT, "a school bioblitz counts species", { subjectGroup: "과학" });
+is("기온 변화에 따른 생활 양식의 차이", COLLECTION.READING, "the same wording outside science is not a measurement", { subjectGroup: "사회" });
+is("효소 탐구 보고서", COLLECTION.READING, "the site's guessed report mode no longer makes it an experiment", { subjectGroup: "과학", reportMode: "실험분석형" });
 is("보고서를 작성하시오.", COLLECTION.READING, "anything else with no clue asks the least of the student", { subjectGroup: "국어" });
 
 // The evaluator is part of the contract: the number has to stay checkable.

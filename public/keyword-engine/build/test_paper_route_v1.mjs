@@ -176,11 +176,11 @@ const row = (title, core = 1) => [title, "김 외", "2024", "학회지", "3", "2
 // P10: 워커 — 설계서엔 안내서, 최종 보고서엔 참고 자료. AI에게는 안 간다.
 {
   check(worker.includes("import { citationRow, contentWords, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';"), "P10 워커가 새 길을 쓴다");
-  // 2026-09-18 사용자 결정: 논문은 주제 재료다(ingredients_v1). 낱말 규칙은 재료 없이 온 최종 보고서의 대비책으로만 남는다.
+  // 2026-09-18 사용자 결정: 논문은 교과 확장 재료다(ingredients_v1). 낱말 규칙은 재료를 꺼 두었을 때의 대비책으로만 남는다.
   check(/input\.referencePapers = picked\.map\(citationRow\);/.test(worker) && worker.includes("paperGuide = inspirationGuide(result?.inspiration)"),
-    "P10 설계서에는 AI가 참고한 연구, 최종 보고서에는 그 연구(없으면 예전 낱말 규칙)");
-  check(worker.includes("...(stage === STAGE.DRAFT || stage === STAGE.COMPLETE ? ingredientPromptLines(input.ingredients) : [])"),
-    "P10 재료는 주제를 잡는 단계(설계서·한 번에 끝나는 보고서)에만 AI에게 간다 — 최종 보고서의 숫자와 결과는 학생 데이터만");
+    "P10 최종 보고서에는 AI가 확장에 쓴 연구(재료를 꺼 두면 예전 낱말 규칙)");
+  check(worker.includes("...(stage !== STAGE.DRAFT ? ingredientPromptLines(input.ingredients) : [])"),
+    "P10 재료는 확장을 쓰는 단계에만 AI에게 간다 — 설계서(주제 잡기)는 교과 중심");
   check(/bookChoices,\s*paperGuide,/.test(worker), "P10 응답에 paperGuide 가 실린다");
   check(worker.indexOf("routePapers(shard.rows") > 0 && worker.indexOf("routePapers(shard.rows") < worker.indexOf("callOpenAIWithRetry(prompt, env, input)"),
     "P10 AI를 부르기 전에 찾는다 — 참고 자료 절이 쓸 수 있게");

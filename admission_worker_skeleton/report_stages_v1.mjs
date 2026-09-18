@@ -1,4 +1,4 @@
-import { INGREDIENT_SCHEMA, inspirationCitations, inspirationOf, usedIngredients } from './ingredients_v1.mjs';
+import { ingredientSchema, inspirationCitations, inspirationOf, usedIngredients } from './ingredients_v1.mjs';
 import { normalizeSourceCards, referencesBody } from './references_v1.mjs';
 // Two-stage experiment report.
 // Stage 1 (experiment_draft): a design report plus a data template the student fills in after doing the experiment.
@@ -29,7 +29,10 @@ export const COLLECTION = Object.freeze({ MEASUREMENT: 'measurement', SURVEY: 's
 export function resolveCollectionKind(input) {
   // Only what the assignment itself says. The subject name used to be in here, so 과학탐구실험 or 생명과학실험
   // made every task a measurement no matter what it asked for — a 통계 자료 분석 in 과학탐구실험 came out as one.
-  const text = [input?.taskDescription, input?.taskName, input?.taskType, input?.reportMode].filter(Boolean).join(' ');
+  // 과제 글만 본다. 사이트가 추정한 보고서 유형(reportMode, 예: '실험분석형')을 섞으면 '실험'이라는 말이 과제 글에 없어도
+  // 실험 과제가 됐다 — 엔진 전수 검사(2026-09-18)에서 숫자 과제 988건 중 384건이 과제 글에 실험·측정·데이터라는 말이 없었다.
+  const text = [input?.taskDescription, input?.taskName, input?.taskType].filter(Boolean).join(' ');
+  const science = String(input?.subjectGroup || '').trim() === '과학';
 
   // Order matters, and it is the order a teacher would read the sentence in. What the student is asked to go out
   // and get comes first: "화학 반응을 관찰한 뒤 논술형 문제를 해결한다" is an experiment that ends in writing, not a
@@ -44,6 +47,10 @@ export function resolveCollectionKind(input) {
   // 수행평가 7,131건 가운데 이 말이 든 12건에서 바뀌는 것은 문헌으로 잡히던 2건뿐이다.
   if (/방형구|개체 ?수를|야외 ?조사|현장 ?조사|채집|표본 ?조사|식생 ?조사|군집 ?조사/.test(text)) return COLLECTION.MEASUREMENT;
   if (/관찰하여|관찰한|관측하여|관측한/.test(text)) return COLLECTION.MEASUREMENT;
+  // '실험'이라는 말은 없어도 **양을 바꾸며 재는** 과제다: 「시간에 따른 속도 변화를 통해 운동을 분석」, 「힘과 가속도의 관계」.
+  if (science && /에 ?따른 ?[가-힣A-Za-z]{1,10} ?(변화|차이)|(사이|간)의 관계|비례|반비례|[가-힣]{1,6}(과|와) [가-힣]{1,6}의 관계/.test(text)) return COLLECTION.MEASUREMENT;
+  // 관찰하고 기록하는 과제, 회로를 꾸며 전류·전압을 재는 과제, 학교 생물 조사(바이오 블리츠) — 전수 검사에서 빠질 뻔한 것들
+  if (science && /관찰 ?후|관찰하고|관찰 ?활동|바이오 ?블리츠|직렬|병렬|회로를 ?(구성|꾸미|만들)/.test(text)) return COLLECTION.MEASUREMENT;
   // Running a program and recording what it outputs is the same kind of work as measuring.
   if (/알고리즘|프로그래밍|프로그램을 ?작성|코드를 ?작성|구현하여|구현한|테스트 ?결과|오류를 ?수정|디버깅/.test(text)) return COLLECTION.MEASUREMENT;
   if (/데이터|자료를 ?분석/.test(text)) return COLLECTION.DATASET;
@@ -59,9 +66,10 @@ export function resolveCollectionKind(input) {
   // comes from count here.
   if (/조사|문헌|자료를 ?찾|사례를 ?찾|주제 ?탐구|자료를 ?모아/.test(text)) return COLLECTION.READING;
 
-  // Nothing in the wording says either way. A science task is far more often a measurement than anything else;
-  // everywhere else, reading is the safe assumption because it asks least of the student.
-  return String(input?.subjectGroup || '').trim() === '과학' ? COLLECTION.MEASUREMENT : COLLECTION.READING;
+  // 과제 글이 아무것도 말하지 않는다. 예전에는 과학 과목이면 실험으로 보았다 — 그러면 「독서 및 글쓰기」, 「자유주제발표」,
+  // 「과학 도서 표지 디자인」까지 숫자 표를 채우는 과제가 됐다(2026-09-18). 학생도 모르는 것을 물을 수 없으니(사용자 결정)
+  // 가장 적게 요구하는 쪽 — 자료를 읽고 쓰는 보고서 — 으로 둔다.
+  return COLLECTION.READING;
 }
 
 
@@ -208,7 +216,8 @@ export function buildFigures(specs, stats) {
   // for is dropped.
   const chartHelps = Boolean(grid) || stats.rows.length >= 3;
   const kept = chartHelps ? valid : valid.filter((spec) => spec.kind === 'table');
-  if (chartHelps && !kept.some((spec) => spec.kind !== 'table')) kept.push({ kind: grid ? 'grouped_bar' : 'bar', metric: 'mean', title: `조건별 평균 ${name}` });
+  // 그래프는 **AI가 고를 때만** 넣는다. 예전에는 조건이 셋 이상이면 AI가 안 골라도 막대그래프를 붙였다 — 모든 보고서가
+  // 표 + 그래프 모양이 됐다(사용자 지적 2026-09-18). 보고서마다 그래프가 필요한 것은 아니다.
   const counters = { table: 0, chart: 0 };
   // The raw-data table comes first, then the charts drawn from it.
   const ordered = kept.slice(0, 4).sort((a, b) => (a.kind === 'table' ? 0 : 1) - (b.kind === 'table' ? 0 : 1));
@@ -286,6 +295,16 @@ const INTERNAL_NAME_FIXES = [
   [/(기사|신문|보고서|교과서|논문|기관|통계|영상|도서)\s*카드/g, '$1'],
   [/카드별/g, '자료별'], [/카드들/g, '자료들'], [/카드(?!뉴스)/g, '자료'],
 ];
+
+// 교과 확장 재료의 번호(P2, R1)는 AI와 우리 사이의 표시다 — 본문에 「(P2)」가 그대로 나왔다(비교 시험 2026-09-18).
+export function scrubIngredientIds(text) {
+  return String(text || '').replace(/\s*\((?:[PR]\d(?:\s*[,·、]\s*)?)+\)/g, '').replace(/(^|[^A-Za-z0-9])[PR][1-9](?![0-9A-Za-z])/g, '$1').replace(/[ \t]{2,}/g, ' ');
+}
+
+// 비교형 과제인가 — 비교표와 「자료 비교 정리」 절은 이런 과제에만 쓴다.
+export function wantsComparison(input) {
+  return /비교|대조|견주|차이점|공통점/.test([input?.taskDescription, input?.taskName].filter(Boolean).join(' '));
+}
 
 export function scrubInternalNames(text) {
   return INTERNAL_NAME_FIXES.reduce((out, [pattern, replacement]) => out.replace(pattern, replacement), String(text || ''))
@@ -573,7 +592,7 @@ export function stageSections(stage, input) {
     return [...shaped, ...useSection, '교과 심화와 확장', '느낀 점'];
   }
   if (stage === STAGE.FINAL) return ['연구 질문', '이론적 배경', '탐구 방법', '탐구 결과', '결과 분석', '결론', ...(wantsUse ? ['활용 방안'] : []), '교과 심화와 확장', '느낀 점'];
-  if (stage === STAGE.LITERATURE) return ['연구 질문', '이론적 배경', '자료 조사 방법', '자료 비교 정리', '결론', ...(wantsUse ? ['활용 방안'] : []), '교과 심화와 확장', '느낀 점'];
+  if (stage === STAGE.LITERATURE) return ['연구 질문', '이론적 배경', '자료 조사 방법', wantsComparison(input) ? '자료 비교 정리' : '자료 분석과 해석', '결론', ...(wantsUse ? ['활용 방안'] : []), '교과 심화와 확장', '느낀 점'];
   return null;
 }
 
@@ -609,12 +628,13 @@ function stageSectionGuideBase(title, stage) {
   if (/결론/.test(text)) return stage === STAGE.FINAL
     ? '연구 질문에 학생 데이터로 직접 답한다. 모든 조건에서 그렇지 않았다면 어느 조건에서 그랬는지까지 쓴다. 한계와 개선점을 쓰고, 이론 설명을 다시 반복하지 않는다. 300~500자'
     : '연구 질문에 자료 조사 결과로 답하고, 실험으로 확인하지 못한 한계를 쓴다. 이론 설명을 다시 반복하지 않는다. 300~500자';
-  if (/교과 심화와 확장|계열 연계 탐구/.test(text)) return '이번 탐구에서 쓴 교과 개념과 방법이 어느 방향으로 더 깊어지는지 쓴다. 학생의 진로에서 출발하지 말고 이번에 한 것에서 출발한다. 이어서 실제로 해 볼 수 있는 심화 탐구 1~2개를 무엇을 바꾸어 무엇을 볼지까지 구체적으로 제안한다. 확립된 개념만 쓰고 기업명·제품명·수치는 지어내지 않는다. 400~600자';
+  if (/교과 심화와 확장|계열 연계 탐구/.test(text)) return '이번 탐구에서 쓴 교과 개념과 방법이 어느 방향으로 더 깊어지는지 쓴다. 학생의 진로에서 출발하지 말고 이번에 한 것에서 출발한다. 이어서 실제로 해 볼 수 있는 심화 탐구 1~2개를 무엇을 바꾸어 무엇을 볼지까지 구체적으로 제안한다. 마지막 문단은 그 방향이 관심 계열·진로와 어떻게 이어지는지 한두 문장으로 닿는다. 확립된 개념만 쓰고 기업명·제품명·수치는 지어내지 않는다. 450~700자';
   if (/활용 방안/.test(text)) return '탐구 결과를 근거로 실생활에서 쓸 수 있는 구체적인 방안 2~3개. 방안마다 어떤 결과에 근거했는지 밝힌다. 실험한 대상과 조건(재료, 얼룩 종류, 온도 등) 안에서만 말하고, 실험하지 않은 대상으로 넓히려면 추가 실험이 필요하다고 쓴다. 300~500자';
   if (/느낀 점/.test(text)) return '학생이 쓴 reflection 문장을 먼저 거의 그대로 쓰고(맞춤법만 다듬음), 이어서 이번 탐구를 다음 순서로 정리한다. ①내가 한 활동을 무엇을 어떤 기준으로 했는지 구체적으로 ②그래서 이해하게 된 교과 개념 ③참고한 자료에서 확인한 것(sources에 있는 것만) ④결과에서 드러난 것을 숫자와 함께 ⑤이 탐구의 한계 ⑥다음에 확인하고 싶은 것. 모두 학생의 말투(~했다)로 쓰고, 성실했다·적극적이었다처럼 태도를 스스로 칭찬하는 말은 쓰지 않는다. 한 것을 적으면 태도는 드러난다. 힘들었다, 재미있었다처럼 학생이 쓰지 않은 감정이나 경험은 새로 만들지 않는다. 400~700자';
   if (/참고 자료/.test(text)) return '학생이 적은 sources만 한 줄에 하나씩 쓴다. 다른 줄, 괄호 설명, ※ 문장을 덧붙이지 않는다. sources가 없으면 "통합과학1 교과서 효소 관련 단원"처럼 자료 종류만 적고, 단원명·기관명·사이트명을 지어내지 않는다.';
   if (/자료 조사 방법/.test(text)) return '어떤 종류의 자료(교과서, 과학 기사 등)를 어떤 기준으로 골라 비교했는지. 실험을 한 것처럼 쓰지 않는다. 300~450자';
   if (/자료 비교 정리/.test(text)) return '자료에서 설명하는 경향을 비교 기준에 따라 정리한다. 표가 있을 때만 표 1과 연결하고, 표가 없으면 글로만 비교한다. 숫자를 지어내지 않는다. 500~700자';
+  if (/자료 분석과 해석/.test(text)) return '자료 카드에서 얻은 근거로 연구 질문에 대한 답을 세운다. 자료끼리 어떻게 뒷받침하거나 부딪히는지 글로 따진다. 표를 만들지 않는다. 숫자를 지어내지 않는다. 500~700자';
   return '';
 }
 
@@ -704,7 +724,7 @@ export function stagePromptLines(stage, input) {
       '- 학생이 1차 설계서대로 실험하고 결과를 입력했다. 아래 [학생 실험 데이터]의 학생입력과 결과정리가 학생의 실제 결과다.',
       '- 보고서의 모든 숫자는 학생입력, 결과정리, 1차 설계서에 있는 숫자여야 한다. 새 숫자, 다른 실험이나 문헌의 수치를 만들지 않는다. 이를 어긴 문장은 자동으로 삭제된다.',
       '- 결과정리의 평균, 첫조건과의차이, 첫조건대비변화율(%), 평균이높은순서, 평균이같은조건은 새로 계산하지 말고 그대로 쓴다.',
-      '- 표 1은 항상 만들어진다. 그래프는 조건이 셋 이상이거나 두 변인 조합일 때만 붙으므로, 그런 경우가 아니면 본문에서 그림을 가리키지 않는다.',
+      '- 표 1(학생이 잰 값)은 항상 만들어진다. 그래프는 figures에 고른 경우에만 붙는다. 그래프를 고르지 않았으면 본문에서 그림을 가리키지 않는다.',
       '- 점수의 뜻은 scaleGuide를 따른다. 점수가 무엇을 뜻하는지 헷갈리게 쓰지 않는다.',
       '- 결과 분석과 결론은 조건마다 비교한다. 수준별비교가 있으면 기준마다 가장높은쪽이 두번째보다 몇 점(차이) 높았는지 그대로 쓴다. 두 값이 다르면 "비슷하다", "큰 차이가 없다"처럼 흐리게 쓰지 않는다. 가설과 반대로 나온 조건은 그대로 밝힌다. "같은 조건에서 항상", "모든 조건에서" 같은 말은 모든 조건에서 그랬을 때만 쓴다.',
       ...(stats.trials <= 1
@@ -712,7 +732,7 @@ export function stagePromptLines(stage, input) {
         : []),
       '- 평균이같은조건은 평균이 같은 조건 묶음이다. 서로 다른 조건의 평균이 같은 것은 우연일 수 있으므로 이를 근거로 해석하지 않는다.',
       '- 활용 방안은 실험한 대상과 조건 안에서만 말한다. 실험하지 않은 재료나 얼룩 종류로 넓히려면 추가 실험이 필요하다고 쓴다.',
-      '- figures에는 이 데이터를 보여줄 표나 그래프를 고른다. 표는 코드가 항상 만들므로 넣지 않아도 된다. 그래프는 보여 줄 모양이 있을 때만 고르고(조건이 셋 이상이거나 두 변인 조합), 조건이 둘뿐이면 그래프를 고르지 않는다. 억지로 채우지 말고 필요 없으면 빈 배열로 둔다. 최대 3개다. 숫자는 넣지 말고 kind(table, bar, line, grouped_bar, grouped_line), metric(raw, mean, diff_from_first, percent_from_first), conditionOrder(보여줄 조건 이름과 순서), title, caption만 쓴다. 조건이 "앞 변인 · 뒤 변인" 조합이면 grouped_bar나 grouped_line으로 앞 변인을 색으로 나누고 뒤 변인을 가로축에 놓는다. 뒤 변인이 순서 있는 값(온도, 시간 등)이면 grouped_line이 알맞다. 숫자는 학생 데이터로 코드가 채운다.',
+      '- figures에는 이 데이터를 보여줄 표나 그래프를 고른다. 표는 코드가 항상 만들므로 넣지 않아도 된다. 그래프는 표보다 한눈에 더 잘 보이는 모양(순서 있는 값의 경향, 두 변인이 엇갈리는 모양)이 있을 때만 고르고, 표로 충분하면 고르지 않는다. 조건이 둘뿐이면 그래프를 고르지 않는다. 억지로 채우지 말고 필요 없으면 빈 배열로 둔다. 최대 3개다. 숫자는 넣지 말고 kind(table, bar, line, grouped_bar, grouped_line), metric(raw, mean, diff_from_first, percent_from_first), conditionOrder(보여줄 조건 이름과 순서), title, caption만 쓴다. 조건이 "앞 변인 · 뒤 변인" 조합이면 grouped_bar나 grouped_line으로 앞 변인을 색으로 나누고 뒤 변인을 가로축에 놓는다. 뒤 변인이 순서 있는 값(온도, 시간 등)이면 grouped_line이 알맞다. 숫자는 학생 데이터로 코드가 채운다.',
       '- 본문에서 표와 그래프는 종류별로 나온 순서대로 "표 1", "그림 1"처럼 가리킨다.',
       '- reason, observations는 학생의 목소리다. 뜻과 표현을 최대한 살려 해당 절에 녹이고 맞춤법만 다듬는다.',
       '- recordDraft는 담당 선생님이 생활기록부를 쓸 때 참고하도록 이번 탐구를 정리한 문장 묶음이다. 학생이 제출하는 보고서 본문에는 들어가지 않는다.',
@@ -819,7 +839,9 @@ const STAGE_SCHEMA = {
 export function stageSchemaProperties(stage, input = {}) {
   const base = baseSchemaProperties(stage, input);
   const sent = (input.ingredients?.papers || []).length + (input.ingredients?.research || []).length;
-  return sent && (stage === STAGE.DRAFT || stage === STAGE.COMPLETE) ? { ...base, ...INGREDIENT_SCHEMA } : base;
+  // 재료는 확장을 쓰는 단계(최종·문헌·한 번에 끝나는 보고서)에만 간다 — 설계서에는 안 간다.
+  // 칸을 **앞에** 둔다 — 긴 답의 맨 끝에 둔 칸에서 AI가 헤맸다(ingredients_v1 의 ingredientSchema).
+  return sent && stage !== STAGE.DRAFT ? { ...ingredientSchema(input.ingredients), ...base } : base;
 }
 
 function baseSchemaProperties(stage, input = {}) {
@@ -858,18 +880,28 @@ export function finalizeStageOutput(stage, parsed, input) {
       return {
         parsed: { ...parsed, sections: scrubbed },
         extra: { collectionKind: kind, sourceTemplate, combination: { caseTag: clip(parsed?.caseTag, 40), variableTag: '', measureTag: clip(sourceTemplate.whatToFind, 40) },
-          inspiration: inspirationOf(usedIngredients(parsed, input.ingredients)) },
+ },
       };
     }
     const dataTemplate = sanitizeDataTemplate(parsed?.dataTemplate, kind);
-    return { parsed: { ...parsed, sections: scrubbed }, extra: { collectionKind: kind, dataTemplate, combination: describeCombination(dataTemplate, parsed?.caseTag),
-      inspiration: inspirationOf(usedIngredients(parsed, input.ingredients)) } };
+    return { parsed: { ...parsed, sections: scrubbed }, extra: { collectionKind: kind, dataTemplate, combination: describeCombination(dataTemplate, parsed?.caseTag) } };
   }
   if (stage === STAGE.FINAL || stage === STAGE.LITERATURE) {
     const data = input.studentData || normalizeStudentData(null);
     const stats = stage === STAGE.FINAL ? computeStats(data) : null;
+    // 교과 확장 재료를 보냈으면(ingredients_v1) **AI가 실제로 쓴 재료**가 참고 자료의 논문·대학 글이다.
+    const used = input.ingredients ? usedIngredients(parsed, input.ingredients) : null;
+    const usedRefs = used ? inspirationCitations(inspirationOf(used)) : null;
+    const refPapers = usedRefs ? usedRefs.papers : (input.referencePapers || []);
+    const refWeb = used ? used.research : (input.referenceWeb || []);
     const allowed = allowedNumberSet(data, stats);
     String(input.taskDescription || '').match(/\d+(?:\.\d+)?/g)?.forEach((number) => allowed.add(canonicalNumber(number)));
+    // 교과 확장 재료의 서지 숫자(연도·권·호·쪽)는 지어낸 숫자가 아니다. 이것을 막았더니 「(이윤미 외, 2024)」가 든 문장이
+    // 통째로 지워져 연구가 본문에서 사라졌다(비교 시험 2026-09-18).
+    for (const one of [...(input.ingredients?.papers || []), ...(input.ingredients?.research || [])]) {
+      [one.year, one.volume, one.issue, ...String(one.pages || '').split('-'), String(one.date || '').slice(0, 4)]
+        .filter((value) => /^\d+$/.test(String(value || ''))).forEach((value) => allowed.add(canonicalNumber(value)));
+    }
     const studentText = [data.reason, data.observations, data.reflection].join(' ');
     let removed = 0;
     let removedFeelings = 0;
@@ -877,11 +909,11 @@ export function finalizeStageOutput(stage, parsed, input) {
       const title = String(section?.title || '');
       if (/참고 자료/.test(title)) {
         return { ...section, body: buildReferencesBody(section?.body, data.sources, {
-          datasets: input.referenceDatasets || [], papers: input.referencePapers || [], web: input.referenceWeb || [],
+          datasets: input.referenceDatasets || [], papers: refPapers, web: refWeb,
           cards: data.sourceCards, textbook: input.textbookCitation || '',
         }) };
       }
-      const numbers = removeUnsupportedNumbers(scrubInternalNames(section?.body), allowed);
+      const numbers = removeUnsupportedNumbers(scrubInternalNames(input.ingredients ? scrubIngredientIds(section?.body) : section?.body), allowed);
       removed += numbers.removed;
       if (/느낀 점/.test(title)) {
         const feelings = removeInventedFeelings(numbers.body, studentText);
@@ -893,14 +925,19 @@ export function finalizeStageOutput(stage, parsed, input) {
     });
     // 모델에게는 참고 자료 절을 쓰지 말라고 일러 두었으므로, 거의 항상 여기서 붙는다. **실제 경로는 이쪽이다** —
     // 위의 buildReferencesBody만 고쳤을 때 아무것도 바뀌지 않았던 이유가 이것이었다.
-    const refs = buildReferencesBody('', data.sources, { cards: data.sourceCards, datasets: input.referenceDatasets || [], papers: input.referencePapers || [], web: input.referenceWeb || [], textbook: input.textbookCitation || '' })
+    const refs = buildReferencesBody('', data.sources, { cards: data.sourceCards, datasets: input.referenceDatasets || [], papers: refPapers, web: refWeb, textbook: input.textbookCitation || '' })
       || [String(input.subject || '').trim(), '교과서 관련 단원'].filter(Boolean).join(' ');
     if (!cleaned.some((section) => /참고 자료/.test(String(section?.title || '')))) cleaned.push({ title: '참고 자료', body: refs });
     const extra = stage === STAGE.FINAL
       ? { figures: buildFigures(parsed?.figures, stats), figuresAfterSection: '탐구 결과', dataSummary: stats }
-      : { comparisonTable: buildSourceCardTable(data.sourceCards) || sanitizeComparisonTable(parsed?.comparisonTable), comparisonTableAfterSection: '자료 비교 정리' };
+      // 비교표는 **비교형 과제이거나 AI가 비교할 수 있다고 표를 고른 때만**. 예전에는 자료 카드가 둘 이상이면 AI 판단과
+      // 상관없이 표를 만들었다 — 논술·비평·성찰 과제에도 「내가 조사한 자료 정리」 표가 붙었다(2026-09-18).
+      : { comparisonTable: wantsComparison(input) || sanitizeComparisonTable(parsed?.comparisonTable)
+            ? buildSourceCardTable(data.sourceCards) || sanitizeComparisonTable(parsed?.comparisonTable) : null,
+          comparisonTableAfterSection: '자료 비교 정리' };
     const recordDraft = buildRecordDraft(parsed?.recordDraft, allowed);
-    return { parsed: { ...parsed, sections: cleaned }, extra: { ...extra, recordDraft, removedNumberSentences: removed, removedFeelingSentences: removedFeelings } };
+    return { parsed: { ...parsed, sections: cleaned }, extra: { ...extra, recordDraft, removedNumberSentences: removed, removedFeelingSentences: removedFeelings,
+      ...(used ? { inspiration: inspirationOf(used) } : {}) } };
   }
   // The one-shot report has no student data to check numbers against, but the two filters that need no data were
   // never run on it: our own field names (카드, dataTemplate, gap) and sentences that praise the student.
@@ -923,7 +960,7 @@ export function finalizeStageOutput(stage, parsed, input) {
       const follow = String(section?.body || '').match(/후속 ?탐구[^\n]*\n([\s\S]+)/)?.[1]?.trim() || '';
       return { ...section, body: follow && /후속/.test(title) ? `${verified}\n\n후속 탐구 제안\n${scrubInternalNames(follow)}` : verified };
     }
-    const body = scrubInternalNames(section?.body);
+    const body = scrubInternalNames(input.ingredients ? scrubIngredientIds(section?.body) : section?.body);
     if (!/느낀 점|소감|성찰/.test(String(section?.title || ''))) return { ...section, body };
     // The student wrote nothing here, so any feeling in it was invented by the model.
     const feelings = removeInventedFeelings(body, '');

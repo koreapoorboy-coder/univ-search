@@ -124,7 +124,8 @@ const makeKv = () => {
 };
 const uses = kv => Number(kv.store.get("access:test-0508:uses") || 0);
 
-const TASK = "효소가 실생활에 쓰이는 현상을 찾아 활용 방안을 통한 탐구보고서 작성하기";
+// 과제 글에 '실험'이 있어야 실험 설계서가 된다(2026-09-18) — 예전에는 과학 과목이면 단서가 없어도 실험으로 보았다.
+const TASK = "효소가 실생활에 쓰이는 현상을 찾아 온도를 바꾸며 실험하고 활용 방안을 담은 탐구보고서 작성하기";
 const SECTIONS = ["연구 질문", "이론적 배경 및 자료 검토", "탐구 방법", "탐구 결과 및 분석", "결론", "참고문헌 및 후속 탐구"];
 const candidate = browserIntake.buildCandidateFromValues({
   school: "테스트고등학교", grade: "고1", subject: "통합과학1", subject_group: "과학", task_description: TASK,

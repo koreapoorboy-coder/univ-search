@@ -61,7 +61,15 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
   const got = pickIngredients({ rows, table, units, taskText: task, subject: "생명과학", snu, random: () => 0.5 });
   const lines = ingredientPromptLines(got).join("\n");
   check(lines.includes("P1. 도시 녹지의 식물 군집 구조와 종 다양성") && lines.includes("키워드: 방형구, 중요치, 종 다양성"), "I3 제목과 키워드를 보낸다");
-  check(/결과·수치·결론을 아는 것처럼 쓰지 않는다/.test(lines) && /대상·장소·방법은 그대로/.test(lines), "I3 결과를 아는 척하지 말 것, 과제가 정한 것은 그대로");
+  check(/보고서의 핵심이 아니다/.test(lines) && /「교과 심화와 확장」 절에서 쓴다/.test(lines),
+    "I3 재료는 핵심이 아니고 교과 심화와 확장에서만 — 몸통은 교과 개념과 학생 데이터(사용자 결정)");
+  check(/양극재/.test(lines) && /관심 계열·진로/.test(lines) && /대학 이름과 연구팀을 밝힌다/.test(lines) && /저자와 연도를 밝히고/.test(lines),
+    "I3 흐름: 교과 개념 → 실제 연구 → 진로, 출처(대학 이름·저자)가 본문에 보이게");
+  check(/반드시 usedIngredients에 넣는다/.test(lines) && /번호\(P1, R1\)는 본문에 쓰지 않는다/.test(lines), "I3 재료 내용을 썼으면 반드시 표시, 번호는 본문에 안 쓴다");
+  const { scrubIngredientIds } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  check(scrubIngredientIds("이산화탄소를 전환하는 연구(P2)가 있었다. R1에서도 다룬다. P파와 S파.") === "이산화탄소를 전환하는 연구가 있었다. 에서도 다룬다. P파와 S파.",
+    "I3 본문에 남은 재료 번호는 지운다 — P파 같은 말은 그대로", scrubIngredientIds("이산화탄소를 전환하는 연구(P2)가 있었다. R1에서도 다룬다. P파와 S파."));
+  check(/제목으로 알 수 있는 주제까지만/.test(lines) && /읽고 알게 된 내용처럼 쓰지 않는다/.test(lines), "I3 결과를 아는 척하지 말 것");
   check(ingredientPromptLines({ papers: [], research: [] }).length === 0, "I3 재료가 없으면 칸도 없다");
   const used = usedIngredients({ usedIngredients: ["P1", "R1", "P9", "x"] }, got);
   check(used.papers.length === 1 && used.research.length === 1, "I3 보내지 않은 번호(P9)는 버린다 — 지어낸 번호를 인용으로 만들지 않는다");
@@ -69,7 +77,7 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
   const cites = inspirationCitations(inspiration);
   check(cites.papers[0].journal === "학회지" && cites.papers[0].from === "3" && cites.web[0].url.includes("snu.ac.kr"), "I3 참고 자료 줄 모양으로 바뀐다");
   const guide = inspirationGuide(inspiration);
-  check(guide.mode === "inspiration" && guide.papers.length === 2 && guide.papers[0].line.startsWith("김 (2023)."), "I3 설계서 화면의 '이 설계가 참고한 연구'");
+  check(guide.mode === "inspiration" && guide.routeLabel === "교과 확장에 쓴 연구" && guide.papers.length === 2 && guide.papers[0].line.startsWith("김 (2023)."), "I3 최종 보고서 화면의 '교과 확장에 쓴 연구'");
   check(inspirationGuide([]) === null, "I3 쓴 재료가 없으면 칸을 안 그린다");
 }
 
@@ -89,12 +97,30 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
 {
   const got = pickIngredients({ rows, table, units, taskText: task, subject: "생명과학", snu, random: () => 0.5 });
   const input = { collectionKind: COLLECTION.MEASUREMENT, ingredients: got, subject: "생명과학", textbookCitation: "생명과학 교과서 · 생태계 단원" };
-  check("usedIngredients" in stageSchemaProperties(STAGE.DRAFT, input), "I5 재료를 보냈으면 답에 usedIngredients 칸");
-  check(!("usedIngredients" in stageSchemaProperties(STAGE.DRAFT, { collectionKind: COLLECTION.MEASUREMENT })), "I5 안 보냈으면 칸도 없다");
-  check(!("usedIngredients" in stageSchemaProperties(STAGE.FINAL, input)), "I5 최종 보고서에는 재료를 안 보낸다");
-  const draft = finalizeStageOutput(STAGE.DRAFT, { reportTitle: "t", sections: [{ title: "연구 질문", body: "?" }], usedIngredients: ["P2"],
-    dataTemplate: { conditions: ["화단", "운동장"], trials: 3, measurementName: "종수", unit: "종", scaleGuide: "센다" } }, input);
-  check(draft.extra.inspiration.length === 1 && draft.extra.inspiration[0].title === "하천 수변 식생의 군집 분석", "I5 설계서 결과에 쓴 재료가 실린다");
+  check("usedIngredients" in stageSchemaProperties(STAGE.FINAL, input) && "usedIngredients" in stageSchemaProperties(STAGE.COMPLETE, input),
+    "I5 재료를 보냈으면 최종·한 번에 끝나는 보고서의 답에 usedIngredients 칸");
+  check(!("usedIngredients" in stageSchemaProperties(STAGE.FINAL, { collectionKind: COLLECTION.MEASUREMENT })), "I5 안 보냈으면 칸도 없다");
+  // 비교 시험(2026-09-18): 아무 글자나 되는 칸을 긴 답 끝에 두었더니 AI가 빈 줄을 끝없이 찍다 5건 중 3건이 실패했다.
+  const props = stageSchemaProperties(STAGE.FINAL, input);
+  check(JSON.stringify(props.usedIngredients.items.enum) === JSON.stringify(["P1", "P2", "P3", "R1", "R2"].filter((id) => [...got.papers, ...got.research].some((one) => one.id === id)))
+    && Object.keys(props)[0] === "usedIngredients", "I5 보낸 번호만 고를 수 있고(enum), 칸이 맨 앞", JSON.stringify(props.usedIngredients));
+  check(worker.includes("...(stageProperties.usedIngredients ? { usedIngredients: stageProperties.usedIngredients } : {}),\n              reportTitle:"),
+    "I5 워커의 답 형식에서도 제목보다 앞 — AI는 칸 순서대로 쓴다");
+  check(!("usedIngredients" in stageSchemaProperties(STAGE.DRAFT, input)), "I5 설계서(주제 잡기)에는 재료가 안 간다 — 교과 중심");
+  const final = finalizeStageOutput(STAGE.FINAL, { reportTitle: "t", figures: [], usedIngredients: ["P2", "R1"],
+    sections: [{ title: "교과 심화와 확장", body: "군집 개념은 하천 수변 식생 연구로 이어진다." }] },
+    { ...input, studentData: { measurementName: "m", unit: "종", conditions: [{ label: "화단", values: [7, 9] }, { label: "운동장", values: [3, 2] }], sourceCards: [], sources: [] },
+      referencePapers: [{ title: "낱말로 짝지은 논문", journal: "x", year: "2020" }] });
+  const finalRefs = final.parsed.sections.find((s) => s.title === "참고 자료")?.body || "";
+  check(finalRefs.includes("하천 수변 식생의 군집 분석") && finalRefs.includes("숲 토양 미생물") && !finalRefs.includes("낱말로 짝지은"),
+    "I5 최종 보고서 참고 자료는 AI가 확장에 쓴 재료 — 낱말로 짝지은 논문은 안 쓴다", finalRefs);
+  check(final.extra.inspiration.length === 2, "I5 최종 보고서 결과에 쓴 재료가 실린다(화면의 '교과 확장에 쓴 연구')");
+  // 비교 시험(2026-09-18): 「(이윤미 외, 2024)」의 2024를 지어낸 숫자로 보고 문장을 지웠다 — 연구가 본문에서 사라졌다.
+  const cited = finalizeStageOutput(STAGE.FINAL, { reportTitle: "t", figures: [], usedIngredients: ["P2"],
+    sections: [{ title: "교과 심화와 확장", body: "관련 연구를 찾아보니 하천 수변 식생의 군집을 다룬 연구(이, 2022)가 있었다. 기온은 35도였다." }] },
+    { ...input, studentData: { measurementName: "m", unit: "종", conditions: [{ label: "화단", values: [7, 9] }, { label: "운동장", values: [3, 2] }], sourceCards: [], sources: [] } });
+  const ext = cited.parsed.sections.find((s) => s.title === "교과 심화와 확장").body;
+  check(ext.includes("(이, 2022)") && !ext.includes("35도"), "I5 재료의 연도는 남기고, 지어낸 숫자 문장은 여전히 지운다", ext);
   const one = finalizeStageOutput(STAGE.COMPLETE, { reportTitle: "t", usedIngredients: ["P1"], sections: [{ title: "결론", body: "가" }] },
     { ...input, referencePapers: [{ title: "낱말로 짝지은 논문", journal: "x", year: "2020" }] }).parsed.sections;
   const refs = one.find((s) => s.title === "참고 자료")?.body || "";
@@ -115,11 +141,11 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
 
 // I6: 워커와 사이트
 {
-  check(worker.includes("input.ingredients = pickIngredients({"), "I6 워커가 설계서·한 번에 끝나는 보고서에서 재료를 고른다");
+  check(worker.includes("input.ingredients = pickIngredients({") && worker.includes("if (input.reportStage !== STAGE.DRAFT && String(env.INGREDIENTS || '').toLowerCase() !== 'off') {"),
+    "I6 워커가 확장을 쓰는 단계(설계서 말고)에서 재료를 고른다, 끄는 스위치가 있다");
   check(worker.includes("input.ingredients.research = (await aliveOnly(input.ingredients.research, { limit: 2 }))"), "I6 대학 글 재료는 보내기 전에 주소를 열어 본다");
-  check(worker.includes("inspiration: normalizeInspiration(payload?.studentData?.inspiration)"), "I6 최종 보고서 요청의 재료를 다시 다듬어 받는다");
-  check(bridge.includes("studentData.inspiration = Array.isArray(draft.result?.inspiration)"), "I6 사이트가 설계서의 재료를 최종 보고서 요청에 돌려보낸다");
-  check(bridge.includes('if(block.mode === "inspiration")') && bridge.includes("이 설계가 참고한 연구"), "I6 사이트가 '이 설계가 참고한 연구'를 그린다");
+  check(!bridge.includes("studentData.inspiration"), "I6 설계서에서 재료를 넘겨받지 않는다 — 최종 보고서가 직접 고른다");
+  check(bridge.includes('if(block.mode === "inspiration")') && bridge.includes("교과 확장에 쓴 연구"), "I6 사이트가 '교과 확장에 쓴 연구'를 그린다");
 }
 
 console.log(`\n${passed} checks passed`);

@@ -15,7 +15,7 @@ import { pickForTask } from './univ_research_v1.mjs';
 import { citationRow, contentWords, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';
 import { accessDate, aliveOnly, asResearch, pickUnivWeb } from './univ_web_v1.mjs';
 import { cleanKeyword, seedFitsTask } from './seed_fit_v1.mjs';
-import { ingredientPromptLines, inspirationCitations, inspirationGuide, normalizeInspiration, pickIngredients } from './ingredients_v1.mjs';
+import { ingredientPromptLines, inspirationGuide, pickIngredients } from './ingredients_v1.mjs';
 import { axisForConcept, buildNextStep, pickAxis } from './next_step_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
@@ -472,12 +472,13 @@ export default {
         let paperGuide = null;
         const reportUnits = [reportConcept, axisConceptName(seedPack, reportAxis)].filter(Boolean).map((name) => `${input.subject}::${name}`);
         const finalStage = input.reportStage !== STAGE.DRAFT && input.reportStage !== STAGE.COMPLETE;
-        // **주제 재료** (ingredients_v1.mjs, 사용자 결정 2026-09-18). 설계서와 한 번에 끝나는 보고서는 AI가
-        // 이 단원의 실제 연구(논문·대학 연구 소개)를 보고 주제와 설계를 **조합**한다. AI가 쓴 것만 참고 자료가 된다.
+        // **교과 확장 재료** (ingredients_v1.mjs, 사용자 결정 2026-09-18). 몸통은 교과 + 학생 데이터이고, 실제 연구
+        // (논문·대학 연구 소개)는 「교과 심화와 확장」에서 이 개념이 어디까지 이어지는지 보여 준다. 그래서 확장을 쓰는
+        // 단계(최종 보고서·한 번에 끝나는 보고서)에만 보낸다 — 설계서(주제 잡기)에는 안 보낸다. AI가 쓴 것만 참고 자료가 된다.
         // 대학 글은 보내기 전에 주소를 열어 본다 — 쓰이면 인용이 되기 때문이다.
         // env.INGREDIENTS = 'off' 이면 재료 없이 예전처럼 쓴다 — 비교 시험용이자, 운영에서 문제가 생기면 다시 배포하지
         // 않고 끄는 스위치다.
-        if (!finalStage && String(env.INGREDIENTS || '').toLowerCase() !== 'off') {
+        if (input.reportStage !== STAGE.DRAFT && String(env.INGREDIENTS || '').toLowerCase() !== 'off') {
           try {
             const shard = await loadPaperShard(env, input.subject);
             const snuConcepts = seedPack.snuResearchIndex?.concepts || {};
@@ -493,11 +494,9 @@ export default {
             input.ingredients = null;
           }
         }
-        // 최종 보고서: 설계서가 참고한 재료가 참고 자료다. 재료 없이 만든 예전 설계서로 온 것만 예전처럼 낱말 규칙으로 고른다.
-        const carried = inspirationCitations(input.inspiration);
-        if (finalStage && carried.papers.length) input.referencePapers = carried.papers;
+        // 재료를 못 골랐거나 꺼 두었을 때(INGREDIENTS=off)만 예전처럼 낱말 규칙으로 참고 논문을 고른다.
         try {
-          const shard = finalStage && !input.inspiration.length ? await loadPaperShard(env, input.subject) : null;
+          const shard = finalStage && !input.ingredients ? await loadPaperShard(env, input.subject) : null;
           if (shard) {
             // 보고서의 단원. GPT 꼬리표가 붙은 논문은 이 단원과 같을 때만 붙는다(paper_route_v1.mjs).
             const units = [reportConcept, axisConceptName(seedPack, reportAxis)].filter(Boolean).map((name) => `${input.subject}::${name}`);
@@ -535,7 +534,7 @@ export default {
               if (!list || !list.length) continue;
               univWebPool = pickUnivWeb(list, taskText(input), { limit: 3, skip: name, subject: input.subject });   // 다음 걸음용(느슨)
               // 참고 자료의 대학 글은 이제 재료에서 온다(설계서가 쓴 것). 재료 없이 온 최종 보고서만 예전 규칙.
-              if (finalStage && !input.inspiration.length) {
+              if (finalStage && !input.ingredients) {
                 const ranked = pickUnivWeb(list, taskText(input), { limit: 3, skip: name, strict: true, subject: input.subject });
                 const accessed = accessDate();
                 input.referenceWeb = (await aliveOnly(ranked, { limit: 1 })).map((row) => ({ ...row, org: '서울대학교', accessed }));
@@ -545,14 +544,6 @@ export default {
           } catch (error) {
             // 대학 글을 못 붙여도 보고서는 그대로 나간다.
             console.error('univ web failed:', error?.message || error);
-          }
-          if (finalStage && carried.web.length) {
-            try {
-              const accessed = accessDate();
-              input.referenceWeb = (await aliveOnly(carried.web, { limit: 2 })).map((row) => ({ ...row, org: '서울대학교', accessed }));
-            } catch (error) {
-              console.error('carried web failed:', error?.message || error);
-            }
           }
         }
         // 모든 보고서는 학생 코드를 지나간다. 코드 없이 만들 수 있으면 이용권은 세어 봐야 소용이 없다.
@@ -709,8 +700,8 @@ export default {
           }
         }
 
-        // 설계서 화면의 "이 설계가 참고한 연구" — AI가 실제로 쓴 재료만.
-        if (input.reportStage === STAGE.DRAFT) paperGuide = inspirationGuide(result?.inspiration);
+        // 최종 보고서 화면의 "교과 확장에 쓴 연구" — AI가 실제로 쓴 재료만.
+        if (input.reportStage !== STAGE.DRAFT) paperGuide = inspirationGuide(result?.inspiration);
         return json({
           ok: true,
           source,
@@ -774,8 +765,6 @@ function resolveInput(payload) {
       : (reportContext.performanceAssessment || {}),
     reportStage: resolveReportStage(payload),
     studentData: normalizeStudentData(payload?.studentData),
-    // 설계서가 실제로 참고한 재료(ingredients_v1). 최종 보고서의 참고 자료가 된다.
-    inspiration: normalizeInspiration(payload?.studentData?.inspiration),
     // 학생 코드가 있으면 만든 보고서가 그 학생의 3년 기록에 쌓인다. 없으면 예전처럼 만들고 끝난다.
     studentCode: String(payload?.studentCode || '').trim().toLowerCase(),
   };
@@ -1357,7 +1346,7 @@ function buildPrompt(input, seedMatch, env) {
     ...shapePromptLines(input.reportShape),
     ...crossSubjectPromptLines(input.crossSubject, stage, input.collectionKind),
     ...majorPathPromptLines(input.majorPath, input.careerAxes),
-    ...(stage === STAGE.DRAFT || stage === STAGE.COMPLETE ? ingredientPromptLines(input.ingredients) : []),
+    ...(stage !== STAGE.DRAFT ? ingredientPromptLines(input.ingredients) : []),
     '',
     '[깊이 기준]',
     '- 원리는 구체적인 물질과 반응 수준까지 설명한다. 예: 어떤 효소가 어떤 결합을 끊는지, 대상(얼룩, 음식 등)이 어떤 성분으로 되어 있는지, 조건이 효소와 대상 각각에 어떤 영향을 주는지.',
@@ -1411,6 +1400,8 @@ async function callOpenAI(prompt, env, input = {}) {
             additionalProperties: false,
             required: ['reportTitle', 'sections'].concat(Object.keys(stageProperties)),
             properties: {
+              // 쓸 재료를 **맨 먼저** 고르게 한다(ingredients_v1). 긴 답의 끝에 둔 칸에서 AI가 빈 줄을 끝없이 찍었다.
+              ...(stageProperties.usedIngredients ? { usedIngredients: stageProperties.usedIngredients } : {}),
               reportTitle: { type: 'string', minLength: 8 },
               sections: {
                 type: 'array',

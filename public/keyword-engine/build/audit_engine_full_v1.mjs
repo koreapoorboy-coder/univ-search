@@ -283,11 +283,8 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
     if (/보고서 ?추천|자사고|특목고|일반고/.test(d.prompt)) flag("프롬프트에_블로그말", (d.prompt.match(/.{0,30}(보고서 ?추천|자사고|특목고|일반고).{0,30}/) || [""])[0]);
     const words = contentWords(taskText, subject).split(" ").filter(Boolean);
     row.words = words.slice(0, 20);
-    // 주제 재료(ingredients_v1) — 몇 개를 AI에게 보냈고, 설계서 결과에 무엇이 실렸나
-    row.ingredients = { papers: (d.prompt.match(/^ {2}P\d\. /gm) || []).length, research: (d.prompt.match(/^ {2}R\d\. /gm) || []).length };
-    row.inspiration = (d.data.result?.inspiration || []).map((one) => one.title);
-    if (!row.ingredients.papers && !row.ingredients.research) flag(UNIT_SUBJECTS.has(subject) && r.reportConcept ? "재료_없음" : "재료_없음(단원모름)");
-    else if (!row.inspiration.length) flag("재료를_썼는데_결과에_없음");
+    // 설계서(주제 잡기)에는 재료가 가지 않는다 — 교과 중심(사용자 결정 2026-09-18)
+    if (r.reportStage === "experiment_draft" && /^ {2}[PR]\d\. /m.test(d.prompt)) flag("설계서에_재료가_감");
     const guide = d.data.paperGuide;
     row.papers = (guide?.papers || guide?.items || []).map((p) => p.title || p.line || JSON.stringify(p).slice(0, 120));
     row.books = (d.data.bookChoices || []).map((b) => b.title);
@@ -300,11 +297,15 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
         ? { sourceCards: [1, 2, 3].map((i) => ({ title: `검사 자료 ${i}`, type: "기사", point: "검사용 핵심 내용", take: "검사용 해석" })) }
         : { measurementName: "값", unit: "", conditions: [{ label: "조건 A", values: [3, 4, 5] }, { label: "조건 B", values: [6, 7, 9] }],
             sourceCards: [{ title: "검사 자료 1", type: "기사", point: "", take: "검사용" }] };
-      studentData.inspiration = d.data.result?.inspiration || [];   // 사이트가 돌려보내는 것과 같다
       f = await generate({ ...base, reportStage: reading ? "literature" : "experiment_final", studentData });
     } else {
       f = d;   // 한 번에 끝나는 과제(complete)
     }
+    // 교과 확장 재료(ingredients_v1) — 확장을 쓰는 단계에서 몇 개를 AI에게 보냈고, 결과에 무엇이 실렸나
+    row.ingredients = { papers: (f.prompt.match(/^ {2}P\d\. /gm) || []).length, research: (f.prompt.match(/^ {2}R\d\. /gm) || []).length };
+    row.inspiration = (f.data.result?.inspiration || []).map((one) => one.title);
+    if (!row.ingredients.papers && !row.ingredients.research) flag(UNIT_SUBJECTS.has(subject) && r.reportConcept ? "재료_없음" : "재료_없음(단원모름)");
+    else if (f.data.ok && !row.inspiration.length) flag("재료를_썼는데_결과에_없음");
     row.final = { status: f.status, ok: f.data.ok, source: f.data.source };
     if (!f.data.ok) { flag("최종_실패", `${f.status} ${f.data.error || ""}`); rows.push(row); continue; }
     if (f.data.source !== "openai") flag("최종_GPT단계_실패(검사용)", f.data.result?.diagnostic || f.data.source);
@@ -350,7 +351,7 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
       if (tb && !tb.includes(subject.replace(/\d$/, "").replace(/ .*/, "")) && !/통합|과학탐구|융합|과제/.test(subject)) flag("교과서줄_과목다름", tb);
       if (!lines.length) flag("참고자료_빈칸");
       // 설계서가 쓴 재료(또는 한 번에 끝나는 보고서가 쓴 재료)는 참고 자료에 있어야 한다
-      const usedTitles = r.reportStage === "experiment_draft" ? row.inspiration : (f.data.result?.inspiration || []).map((one) => one.title);
+      const usedTitles = row.inspiration;
       for (const title of usedTitles || []) {
         if (!lines.some((line) => line.includes(String(title).slice(0, 20)))) flag("쓴재료가_참고자료에_없음", title);
       }
