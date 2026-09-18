@@ -356,6 +356,8 @@ export function buildReferencesBody(body, sources, extra = {}) {
     datasets: extra.datasets || [],
     // 개념에 맞는 KCI 논문. 원문이 열려 있고 주소가 있는 것만 온다.
     papers: extra.papers || [],
+    // 대학 연구 소개 글. 넣기 직전에 주소가 열리는 것을 확인했고 접속일이 붙어 있다.
+    web: extra.web || [],
     textbook: extra.textbook || '',
     fallbackBody: written.length ? written.join('\n') : body,
   });
@@ -857,7 +859,7 @@ export function finalizeStageOutput(stage, parsed, input) {
       const title = String(section?.title || '');
       if (/참고 자료/.test(title)) {
         return { ...section, body: buildReferencesBody(section?.body, data.sources, {
-          datasets: input.referenceDatasets || [], papers: input.referencePapers || [],
+          datasets: input.referenceDatasets || [], papers: input.referencePapers || [], web: input.referenceWeb || [],
           cards: data.sourceCards, textbook: input.textbookCitation || '',
         }) };
       }
@@ -873,7 +875,7 @@ export function finalizeStageOutput(stage, parsed, input) {
     });
     // 모델에게는 참고 자료 절을 쓰지 말라고 일러 두었으므로, 거의 항상 여기서 붙는다. **실제 경로는 이쪽이다** —
     // 위의 buildReferencesBody만 고쳤을 때 아무것도 바뀌지 않았던 이유가 이것이었다.
-    const refs = buildReferencesBody('', data.sources, { cards: data.sourceCards, datasets: input.referenceDatasets || [], papers: input.referencePapers || [], textbook: input.textbookCitation || '' })
+    const refs = buildReferencesBody('', data.sources, { cards: data.sourceCards, datasets: input.referenceDatasets || [], papers: input.referencePapers || [], web: input.referenceWeb || [], textbook: input.textbookCitation || '' })
       || [String(input.subject || '').trim(), '교과서 관련 단원'].filter(Boolean).join(' ');
     if (!cleaned.some((section) => /참고 자료/.test(String(section?.title || '')))) cleaned.push({ title: '참고 자료', body: refs });
     const extra = stage === STAGE.FINAL

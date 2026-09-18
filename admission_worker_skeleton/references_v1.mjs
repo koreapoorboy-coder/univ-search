@@ -13,6 +13,7 @@
 
 import { datasetUrl } from './public_data_v1.mjs';
 import { indexPaperLine, paperLine } from './kci_v1.mjs';
+import { webLine } from './univ_web_v1.mjs';
 
 const clean = (value, max = 200) => String(value ?? '').trim().slice(0, max);
 
@@ -76,7 +77,7 @@ export function dataLine(row) {
 // 참고 자료 절의 몸통.
 //
 // 차례는 **학생이 적은 것 → 논문 → 공개 자료 → 교과서**다. 학생이 실제로 본 것이 앞이어야 한다.
-export function referencesBody({ cards = [], papers = [], datasets = [], textbook = '', fallbackBody = '' } = {}) {
+export function referencesBody({ cards = [], papers = [], web = [], datasets = [], textbook = '', fallbackBody = '' } = {}) {
   const lines = [];
   for (const card of cards) {
     const line = sourceLine(card);
@@ -94,6 +95,12 @@ export function referencesBody({ cards = [], papers = [], datasets = [], textboo
   for (const row of papers) {
     // 인덱스에서 온 줄에는 주소가 없고 저자 칸 이름이 다르다. 둘 다 받는다.
     const line = row?.url ? paperLine(row) : indexPaperLine(row);
+    if (line && !lines.includes(line)) lines.push(line);
+  }
+  // 대학 연구 소개 글(웹 자료). 논문 뒤, 공개 자료 앞. 넣기 직전에 주소가 열리는 것을 확인했고
+  // 접속일이 붙어 있다(univ_web_v1.mjs).
+  for (const row of web) {
+    const line = webLine(row);
     if (line && !lines.includes(line)) lines.push(line);
   }
   // 개념에 맞는 공개 자료. 논문 뒤, 교과서 앞이다.

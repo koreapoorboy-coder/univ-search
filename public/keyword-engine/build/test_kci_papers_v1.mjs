@@ -317,8 +317,8 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
     "L2 논문은 수행평가 틀로 — 받칠 근거가 없으면 안 붙인다");
   check(/research = pickForTask\(got, taskText\(input\), 2, \{ skip: name \}\)/.test(worker),
     "L2 대학 연구는 느슨하게");
-  check(/referenceDatasets = pickForTask\(pool, taskText\(input\), 3, \{ skip: reportConcept \}\)/.test(worker),
-    "L2 공공데이터도 과제문으로 고른다 — 개념만으로 정하지 않는다");
+  check(/referenceDatasets = pickForTask\(pool, taskText\(input\), 3, \{ skip: reportConcept, strict: true \}\)/.test(worker),
+    "L2 공공데이터도 과제문으로, **엄격하게** 고른다 — 사과 갈변 보고서에 대기오염 자료가 붙었다");
   check(/findPublicData\([\s\S]{0,200}limit: 8/.test(worker),
     "L2 공공데이터도 넉넉히 받아 두고 고른다");
 }

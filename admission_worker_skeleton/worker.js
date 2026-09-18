@@ -13,6 +13,7 @@ import { buildConceptCounts, buildMajorCounts, buildWordCounts, inferConcept, ma
 import { findPublicData } from './public_data_v1.mjs';
 import { pickForTask } from './univ_research_v1.mjs';
 import { citationRow, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';
+import { accessDate, aliveOnly, asResearch, pickUnivWeb } from './univ_web_v1.mjs';
 import { axisForConcept, buildNextStep, pickAxis } from './next_step_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
@@ -61,6 +62,9 @@ const SEED_FILES = {
   // Built by tools/build_univ_research_index.mjs: 개념마다 붙일 대학 연구 최대 2건.
   // 참고문헌이 아니라 「다음에 해 볼 것」에 붙는다 — 학생이 읽을 원문이 아니기 때문이다.
   univResearchIndex: 'engine-index/univ_research_index.v1.json',
+  // Built by tools/build_snu_research_index.mjs: 서울대 연구성과를 GPT 가 뜻으로 읽어 개념에 이어 둔 것.
+  // 참고 자료에 웹 자료로 붙는다(univ_web_v1.mjs). 달마다 tools/sync_snu_highlights.mjs 로 정리한다.
+  snuResearchIndex: 'engine-index/snu_research_index.v1.json',
   // 논문은 여기서 읽지 않는다. 과목 묶음(paper-route/<과목>.v1.json)을 그 과목 보고서일 때만 읽는다
   // — loadPaperShard. 묶음이 커서(최대 2.4MB) 모든 요청에 다 싣지 않는다.
 };
@@ -436,7 +440,10 @@ export default {
               { concept: reportConcept }, seedPack.publicDataTerms, env.PUBLIC_DATA_KEY,
               { limit: 8, timeoutMs: 12000 },
             );
-            input.referenceDatasets = pickForTask(pool, taskText(input), 3, { skip: reportConcept });
+            // **엄격하게** 고른다(strict). 실제 보고서로 돌려 보니 「사과 갈변」 보고서의 참고 자료에 「대기오염
+            // 측정자료」·「먹는샘물 수질검사」가 붙었다 — 과제문 낱말이 하나도 안 맞으면 개념 사전 차례대로 셋을
+            // 붙이던 탓이다. 참고 자료는 보고서 내용을 받쳐야 한다. 안 맞으면 안 붙인다(논문·대학 글과 같다).
+            input.referenceDatasets = pickForTask(pool, taskText(input), 3, { skip: reportConcept, strict: true });
           } catch (error) {
             console.error('reference datasets failed:', error?.message || error);
           }
@@ -469,6 +476,32 @@ export default {
         } catch (error) {
           // 논문을 못 찾아도 보고서는 그대로 나간다.
           console.error('paper route failed:', error?.message || error);
+        }
+        // **대학 연구 소개 글 — 참고 자료의 웹 자료.** (univ_web_v1.mjs)
+        //
+        // 서울대 연구성과를 GPT 가 **뜻으로** 읽어 개념에 이어 두었다(낱말로 찾으면 「수열의 극한」에
+        // 수소 촉매가 걸렸다). 참고 자료에는 **과제문 낱말이 제목에 걸린 글만** 넣는다(strict) — 개념만 보면
+        // 「사과 갈변」 보고서에 배터리 기사가 들어간다. 그리고 **넣기 직전에 주소를 열어 본다.**
+        // 열리지 않으면 넣지 않는다. 접속일을 붙인다 — 제출 뒤에 글이 사라져도 인용은 올바르다.
+        // 최종 보고서에만 붙는다(설계서의 참고 자료는 아직 비어 있다). AI에게는 안 보낸다.
+        input.referenceWeb = [];
+        let univWebPool = [];
+        if (input.reportStage !== STAGE.DRAFT) {
+          try {
+            const webIndex = seedPack.snuResearchIndex?.concepts || {};
+            for (const name of [reportConcept, axisConceptName(seedPack, reportAxis)].filter(Boolean)) {
+              const list = webIndex[`${input.subject}::${name}`];
+              if (!list || !list.length) continue;
+              univWebPool = pickUnivWeb(list, taskText(input), { limit: 3, skip: name });   // 다음 걸음용(느슨)
+              const ranked = pickUnivWeb(list, taskText(input), { limit: 3, skip: name, strict: true });
+              const accessed = accessDate();
+              input.referenceWeb = (await aliveOnly(ranked, { limit: 1 })).map((row) => ({ ...row, org: '서울대학교', accessed }));
+              break;
+            }
+          } catch (error) {
+            // 대학 글을 못 붙여도 보고서는 그대로 나간다.
+            console.error('univ web failed:', error?.message || error);
+          }
         }
         // 모든 보고서는 학생 코드를 지나간다. 코드 없이 만들 수 있으면 이용권은 세어 봐야 소용이 없다.
         if (env.DB) {
@@ -612,6 +645,11 @@ export default {
               // 뜻이 있기 때문이다. 논문과 달리 **실험을 받치는 근거로 쓰지 않는다.**
               if (got && got.length) { research = pickForTask(got, taskText(input), 2, { skip: name }); break; }
             }
+            // 서울대 연구성과가 있으면 **앞에** 세운다 — 최신이고 고등학생이 읽을 수 있는 글이다.
+            // 참고 자료와 겹치는 글은 빼고, 여기서도 주소가 열리는 것만.
+            const cited = new Set((input.referenceWeb || []).map((row) => row.url));
+            const fresh = (await aliveOnly(univWebPool.filter((row) => !cited.has(row.url)), { limit: 2 })).map(asResearch);
+            research = [...fresh, ...research].slice(0, 2);
             nextStep = buildNextStep({ axis, axisIndex: seedPack.axisIndex, books: found, datasets, research });
           } catch (error) {
             // 다음 걸음을 못 만들어도 보고서는 그대로 나간다.
