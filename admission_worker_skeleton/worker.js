@@ -15,6 +15,7 @@ import { pickForTask } from './univ_research_v1.mjs';
 import { citationRow, contentWords, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';
 import { accessDate, aliveOnly, asResearch, pickUnivWeb } from './univ_web_v1.mjs';
 import { cleanKeyword, seedFitsTask } from './seed_fit_v1.mjs';
+import { ingredientPromptLines, inspirationCitations, inspirationGuide, normalizeInspiration, pickIngredients } from './ingredients_v1.mjs';
 import { axisForConcept, buildNextStep, pickAxis } from './next_step_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
@@ -467,9 +468,36 @@ export default {
         // 설계서에는 안내서(paperGuide)로, 최종 보고서에는 참고 자료 줄로 붙는다. 같은 입력이면 같은 논문이다.
         // **AI에게는 안 보낸다** — 보고서가 논문에 맞춰 휘면 끼워 맞추기가 된다.
         input.referencePapers = [];
+        input.ingredients = null;
         let paperGuide = null;
+        const reportUnits = [reportConcept, axisConceptName(seedPack, reportAxis)].filter(Boolean).map((name) => `${input.subject}::${name}`);
+        const finalStage = input.reportStage !== STAGE.DRAFT && input.reportStage !== STAGE.COMPLETE;
+        // **주제 재료** (ingredients_v1.mjs, 사용자 결정 2026-09-18). 설계서와 한 번에 끝나는 보고서는 AI가
+        // 이 단원의 실제 연구(논문·대학 연구 소개)를 보고 주제와 설계를 **조합**한다. AI가 쓴 것만 참고 자료가 된다.
+        // 대학 글은 보내기 전에 주소를 열어 본다 — 쓰이면 인용이 되기 때문이다.
+        // env.INGREDIENTS = 'off' 이면 재료 없이 예전처럼 쓴다 — 비교 시험용이자, 운영에서 문제가 생기면 다시 배포하지
+        // 않고 끄는 스위치다.
+        if (!finalStage && String(env.INGREDIENTS || '').toLowerCase() !== 'off') {
+          try {
+            const shard = await loadPaperShard(env, input.subject);
+            const snuConcepts = seedPack.snuResearchIndex?.concepts || {};
+            input.ingredients = pickIngredients({
+              rows: shard?.rows || [], table: shard?.units || [], units: reportUnits,
+              taskText: taskText(input), subject: input.subject, snu: reportUnits.flatMap((key) => snuConcepts[key] || []),
+            });
+            const accessed = accessDate();
+            input.ingredients.research = (await aliveOnly(input.ingredients.research, { limit: 2 }))
+              .map((row) => ({ ...row, org: '서울대학교', accessed }));
+          } catch (error) {
+            console.error('ingredients failed:', error?.message || error);
+            input.ingredients = null;
+          }
+        }
+        // 최종 보고서: 설계서가 참고한 재료가 참고 자료다. 재료 없이 만든 예전 설계서로 온 것만 예전처럼 낱말 규칙으로 고른다.
+        const carried = inspirationCitations(input.inspiration);
+        if (finalStage && carried.papers.length) input.referencePapers = carried.papers;
         try {
-          const shard = await loadPaperShard(env, input.subject);
+          const shard = finalStage && !input.inspiration.length ? await loadPaperShard(env, input.subject) : null;
           if (shard) {
             // 보고서의 단원. GPT 꼬리표가 붙은 논문은 이 단원과 같을 때만 붙는다(paper_route_v1.mjs).
             const units = [reportConcept, axisConceptName(seedPack, reportAxis)].filter(Boolean).map((name) => `${input.subject}::${name}`);
@@ -484,8 +512,7 @@ export default {
               anchor: [input.selectedKeyword || input.keyword, input.taskTitle, reportConcept, axisConceptName(seedPack, reportAxis)]
                 .filter(Boolean).join(' '),
             });
-            if (input.reportStage === STAGE.DRAFT) paperGuide = guideBlock(query, picked);
-            else input.referencePapers = picked.map(citationRow);
+            input.referencePapers = picked.map(citationRow);
           }
         } catch (error) {
           // 논문을 못 찾아도 보고서는 그대로 나간다.
@@ -507,14 +534,25 @@ export default {
               const list = webIndex[`${input.subject}::${name}`];
               if (!list || !list.length) continue;
               univWebPool = pickUnivWeb(list, taskText(input), { limit: 3, skip: name, subject: input.subject });   // 다음 걸음용(느슨)
-              const ranked = pickUnivWeb(list, taskText(input), { limit: 3, skip: name, strict: true, subject: input.subject });
-              const accessed = accessDate();
-              input.referenceWeb = (await aliveOnly(ranked, { limit: 1 })).map((row) => ({ ...row, org: '서울대학교', accessed }));
+              // 참고 자료의 대학 글은 이제 재료에서 온다(설계서가 쓴 것). 재료 없이 온 최종 보고서만 예전 규칙.
+              if (finalStage && !input.inspiration.length) {
+                const ranked = pickUnivWeb(list, taskText(input), { limit: 3, skip: name, strict: true, subject: input.subject });
+                const accessed = accessDate();
+                input.referenceWeb = (await aliveOnly(ranked, { limit: 1 })).map((row) => ({ ...row, org: '서울대학교', accessed }));
+              }
               break;
             }
           } catch (error) {
             // 대학 글을 못 붙여도 보고서는 그대로 나간다.
             console.error('univ web failed:', error?.message || error);
+          }
+          if (finalStage && carried.web.length) {
+            try {
+              const accessed = accessDate();
+              input.referenceWeb = (await aliveOnly(carried.web, { limit: 2 })).map((row) => ({ ...row, org: '서울대학교', accessed }));
+            } catch (error) {
+              console.error('carried web failed:', error?.message || error);
+            }
           }
         }
         // 모든 보고서는 학생 코드를 지나간다. 코드 없이 만들 수 있으면 이용권은 세어 봐야 소용이 없다.
@@ -671,6 +709,8 @@ export default {
           }
         }
 
+        // 설계서 화면의 "이 설계가 참고한 연구" — AI가 실제로 쓴 재료만.
+        if (input.reportStage === STAGE.DRAFT) paperGuide = inspirationGuide(result?.inspiration);
         return json({
           ok: true,
           source,
@@ -734,6 +774,8 @@ function resolveInput(payload) {
       : (reportContext.performanceAssessment || {}),
     reportStage: resolveReportStage(payload),
     studentData: normalizeStudentData(payload?.studentData),
+    // 설계서가 실제로 참고한 재료(ingredients_v1). 최종 보고서의 참고 자료가 된다.
+    inspiration: normalizeInspiration(payload?.studentData?.inspiration),
     // 학생 코드가 있으면 만든 보고서가 그 학생의 3년 기록에 쌓인다. 없으면 예전처럼 만들고 끝난다.
     studentCode: String(payload?.studentCode || '').trim().toLowerCase(),
   };
@@ -849,7 +891,8 @@ function buildStageResult(stage, parsed, input) {
   const { parsed: finalized, extra } = finalizeStageOutput(stage, parsed, input);
   const studentText = [input.studentData?.reason, input.studentData?.observations, input.studentData?.reflection].join(' ');
   const assembled = assembleReport(finalized, { keepExperience: stage !== STAGE.DRAFT && /경험|본 적/.test(studentText) });
-  if (stage === STAGE.COMPLETE) return assembled;
+  // 한 번에 끝나는 보고서도 AI가 쓴 주제 재료를 함께 돌려준다(참고 자료에는 이미 들어가 있다).
+  if (stage === STAGE.COMPLETE) return extra?.inspiration?.length ? { ...assembled, inspiration: extra.inspiration } : assembled;
   return {
     ...assembled,
     reportStage: stage,
@@ -1314,6 +1357,7 @@ function buildPrompt(input, seedMatch, env) {
     ...shapePromptLines(input.reportShape),
     ...crossSubjectPromptLines(input.crossSubject, stage, input.collectionKind),
     ...majorPathPromptLines(input.majorPath, input.careerAxes),
+    ...(stage === STAGE.DRAFT || stage === STAGE.COMPLETE ? ingredientPromptLines(input.ingredients) : []),
     '',
     '[깊이 기준]',
     '- 원리는 구체적인 물질과 반응 수준까지 설명한다. 예: 어떤 효소가 어떤 결합을 끊는지, 대상(얼룩, 음식 등)이 어떤 성분으로 되어 있는지, 조건이 효소와 대상 각각에 어떤 영향을 주는지.',

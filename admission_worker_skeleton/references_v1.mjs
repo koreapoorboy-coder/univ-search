@@ -128,9 +128,11 @@ export function referencesBody({ cards = [], papers = [], web = [], datasets = [
   if (textbook) {
     // 모델은 "화학 교과서 관련 단원"처럼 뭉뚱그린 줄을 쓴다. 우리가 정확한 단원을 아는데 그 줄을 남겨 두면,
     // 아는 것을 두고 모르는 척한 줄이 보고서에 남는다. 뭉뚱그린 줄은 우리 줄로 갈아 끼운다.
-    const vague = /교과서/;
+    // 서지 줄(「저자 (연도). 제목.」)은 제목에 '교과서'가 들어 있어도 논문이다 — 「…통합사회 교과서의 행복 개념
+    // 분석」이 뭉뚱그린 교과서 줄로 보여 지워졌다(엔진 전수 검사 2026-09-18).
+    const vague = (line) => /교과서/.test(line) && !line.includes('·') && !/\(\d{4}\)\./.test(line);
     const precise = lines.findIndex((line) => line === textbook);
-    const kept = lines.filter((line) => !vague.test(line) || line.includes('·'));
+    const kept = lines.filter((line) => !vague(line));
     if (precise < 0) kept.push(textbook);
     return kept.join('\n');
   }

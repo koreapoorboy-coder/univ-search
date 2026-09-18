@@ -83,6 +83,8 @@ const papers = [];
       journal: (korean(get("학술지명(국문)"), get("학술지명(외국어)")) || get("학술지명(국문)") || get("학술지명(외국어)")).trim(),
       volume: get("권").trim(), issue: get("호").trim(), pages: from && to ? `${from}-${to}` : "",
       field: get("주제분야").trim(),
+      // 주제 재료로 GPT 에 보낸다(설계서 단계). 제목만으로는 무엇을 바꾸고 재는지 안 보일 때가 많다.
+      keywords: (get("키워드(국문)") || "").split(/[,;]/).map((one) => one.trim()).filter(Boolean).slice(0, 4).join(", ").slice(0, 50),
     });
   }
 }
@@ -188,7 +190,7 @@ for (const [subject, fields] of Object.entries(FIELD_MAP)) {
     if (tag && !tag.concepts.length) { unlinked += 1; continue; }   // 이어지는 고교 단원이 없다
     if (tag) tagged += 1;
     rows.push([paper.title, paper.who, paper.year, paper.journal, paper.volume, paper.issue, paper.pages, core,
-      tag ? tag.concepts.map(unitAt) : null, tag ? LEVEL[tag.level] || "" : ""]);
+      tag ? tag.concepts.map(unitAt) : null, tag ? LEVEL[tag.level] || "" : "", paper.keywords || ""]);
   }
   shards[subject] = { fields, inField: inField.length, rows, units, core: rows.filter((row) => row[7]).length };
 }

@@ -143,6 +143,8 @@ globalThis.fetch = async (input, init) => {
     const body = JSON.parse(init?.body || (await input.text()));
     lastPrompt = typeof body.input === "string" ? body.input : JSON.stringify(body.input);
     const out = fake(body.text?.format?.schema);
+    // 재료를 받았으면 첫 재료를 '썼다'고 답한다 — 설계서 → 최종 보고서 참고 자료까지 이어지는지 보려고.
+    if ("usedIngredients" in out) out.usedIngredients = (lastPrompt.match(/^ {2}([PR]\d)\. /m) || [])[1] ? [lastPrompt.match(/^ {2}([PR]\d)\. /m)[1]] : [];
     const titles = sectionTitles(lastPrompt);
     if (titles.length) out.sections = titles.map((title) => ({ title, body: `${title} 검사용 본문입니다.` }));
     out.reportTitle = "전수 검사용 보고서 제목입니다";
@@ -281,6 +283,11 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
     if (/보고서 ?추천|자사고|특목고|일반고/.test(d.prompt)) flag("프롬프트에_블로그말", (d.prompt.match(/.{0,30}(보고서 ?추천|자사고|특목고|일반고).{0,30}/) || [""])[0]);
     const words = contentWords(taskText, subject).split(" ").filter(Boolean);
     row.words = words.slice(0, 20);
+    // 주제 재료(ingredients_v1) — 몇 개를 AI에게 보냈고, 설계서 결과에 무엇이 실렸나
+    row.ingredients = { papers: (d.prompt.match(/^ {2}P\d\. /gm) || []).length, research: (d.prompt.match(/^ {2}R\d\. /gm) || []).length };
+    row.inspiration = (d.data.result?.inspiration || []).map((one) => one.title);
+    if (!row.ingredients.papers && !row.ingredients.research) flag(UNIT_SUBJECTS.has(subject) && r.reportConcept ? "재료_없음" : "재료_없음(단원모름)");
+    else if (!row.inspiration.length) flag("재료를_썼는데_결과에_없음");
     const guide = d.data.paperGuide;
     row.papers = (guide?.papers || guide?.items || []).map((p) => p.title || p.line || JSON.stringify(p).slice(0, 120));
     row.books = (d.data.bookChoices || []).map((b) => b.title);
@@ -293,6 +300,7 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
         ? { sourceCards: [1, 2, 3].map((i) => ({ title: `검사 자료 ${i}`, type: "기사", point: "검사용 핵심 내용", take: "검사용 해석" })) }
         : { measurementName: "값", unit: "", conditions: [{ label: "조건 A", values: [3, 4, 5] }, { label: "조건 B", values: [6, 7, 9] }],
             sourceCards: [{ title: "검사 자료 1", type: "기사", point: "", take: "검사용" }] };
+      studentData.inspiration = d.data.result?.inspiration || [];   // 사이트가 돌려보내는 것과 같다
       f = await generate({ ...base, reportStage: reading ? "literature" : "experiment_final", studentData });
     } else {
       f = d;   // 한 번에 끝나는 과제(complete)
@@ -305,7 +313,10 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
     const data = (fr.referenceDatasets || []).map((x) => x.title);
     const papers = (fr.referencePapers || []).map((p) => p.title || p[0] || "");
     row.web = web; row.datasets = data; row.refPapers = papers;
+    // AI가 재료로 쓴 대학 글은 뜻으로 고른 것이다 — 낱말 겹침 검사는 예전 규칙(재료 없이 고른 것)에만.
+    const usedSet = new Set([...(row.inspiration || []), ...((f.data.result?.inspiration || []).map((one) => one.title))]);
     for (const title of web) {
+      if (usedSet.has(title)) continue;
       const h = hitsIn(title, words);
       row.webHits = h;
       if (!h.length) flag("서울대글_과제낱말없음", title);
@@ -338,6 +349,11 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
       const tb = lines.find((l) => /교과서/.test(l));
       if (tb && !tb.includes(subject.replace(/\d$/, "").replace(/ .*/, "")) && !/통합|과학탐구|융합|과제/.test(subject)) flag("교과서줄_과목다름", tb);
       if (!lines.length) flag("참고자료_빈칸");
+      // 설계서가 쓴 재료(또는 한 번에 끝나는 보고서가 쓴 재료)는 참고 자료에 있어야 한다
+      const usedTitles = r.reportStage === "experiment_draft" ? row.inspiration : (f.data.result?.inspiration || []).map((one) => one.title);
+      for (const title of usedTitles || []) {
+        if (!lines.some((line) => line.includes(String(title).slice(0, 20)))) flag("쓴재료가_참고자료에_없음", title);
+      }
     }
   } catch (error) {
     flag("검사중_예외", error?.stack?.split("\n").slice(0, 2).join(" ") || error);

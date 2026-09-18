@@ -340,13 +340,14 @@ export function unitsMeet(paperUnits, reportUnits) {
 // 과목 묶음 한 줄: [제목, 저자, 연도, 학술지, 권, 호, 쪽, 중심 학문(1/0), 단원 번호들(없으면 null), 난이도(e/m/h)]
 // table 은 묶음의 units(단원 이름 목록)다 — 줄마다 이름을 다시 적지 않으려고 번호로 싣는다.
 export function unpack(row, table = []) {
-  const [title, who, year, journal, volume, issue, pages, core, unitIdx, level] = row;
+  const [title, who, year, journal, volume, issue, pages, core, unitIdx, level, keywords] = row;
   return {
     title: clean(title, 240), who: clean(who, 80), year: clean(year, 4), journal: clean(journal, 80),
     volume: clean(volume, 10), issue: clean(issue, 10), pages: clean(pages, 20),
     core: core === 0 ? 0 : 1,
     units: Array.isArray(unitIdx) ? unitIdx.map((at) => table[at]).filter(Boolean) : null,
     level: clean(level, 1),
+    keywords: clean(keywords, 80),
   };
 }
 

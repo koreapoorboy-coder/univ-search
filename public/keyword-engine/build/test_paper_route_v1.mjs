@@ -133,11 +133,12 @@ const row = (title, core = 1) => [title, "김 외", "2024", "학회지", "3", "2
   for (const subject of subjects) {
     const file = here(`../seed/${shardFile(subject)}`);
     const size = (await stat(file)).size;
-    check(size < 2.6e6, `P9 ${subject} 묶음이 2.6MB 아래 — 보고서마다 읽는다`, String(size));
+    // 2.6MB → 2.8MB (2026-09-18): 주제 재료로 AI에게 보낼 키워드 칸(4개·50자)이 붙었다. 워커가 한 번 읽고 들고 있다.
+    check(size < 2.8e6, `P9 ${subject} 묶음이 2.8MB 아래 — 보고서마다 읽는다`, String(size));
     const shard = JSON.parse(await readFile(file, "utf8"));
     total += shard.rows.length;
-    check(shard.license.includes("제한 없음") && shard.rows.every((one) => one.length === 8 || one.length === 10),
-      `P9 ${subject}: 이용허락과 한 줄 8칸`);
+    check(shard.license.includes("제한 없음") && shard.rows.every((one) => one.length === 8 || one.length === 10 || one.length === 11),
+      `P9 ${subject}: 이용허락과 한 줄 8칸(꼬리표 +2, 키워드 +1)`);
     const heads = drops.map((one) => one.title.replace(/\s+/g, ""));
     check(!shard.rows.some((one) => heads.some((head) => String(one[0]).replace(/\s+/g, "").startsWith(head))),
       `P9 ${subject}: 손으로 지운 논문이 다시 들어오지 않았다`);
@@ -175,8 +176,11 @@ const row = (title, core = 1) => [title, "김 외", "2024", "학회지", "3", "2
 // P10: 워커 — 설계서엔 안내서, 최종 보고서엔 참고 자료. AI에게는 안 간다.
 {
   check(worker.includes("import { citationRow, contentWords, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';"), "P10 워커가 새 길을 쓴다");
-  check(/if \(input\.reportStage === STAGE\.DRAFT\) paperGuide = guideBlock\(query, picked\);\s*else input\.referencePapers = picked\.map\(citationRow\);/.test(worker),
-    "P10 설계서에는 안내서, 최종 보고서에는 참고 자료 줄");
+  // 2026-09-18 사용자 결정: 논문은 주제 재료다(ingredients_v1). 낱말 규칙은 재료 없이 온 최종 보고서의 대비책으로만 남는다.
+  check(/input\.referencePapers = picked\.map\(citationRow\);/.test(worker) && worker.includes("paperGuide = inspirationGuide(result?.inspiration)"),
+    "P10 설계서에는 AI가 참고한 연구, 최종 보고서에는 그 연구(없으면 예전 낱말 규칙)");
+  check(worker.includes("...(stage === STAGE.DRAFT || stage === STAGE.COMPLETE ? ingredientPromptLines(input.ingredients) : [])"),
+    "P10 재료는 주제를 잡는 단계(설계서·한 번에 끝나는 보고서)에만 AI에게 간다 — 최종 보고서의 숫자와 결과는 학생 데이터만");
   check(/bookChoices,\s*paperGuide,/.test(worker), "P10 응답에 paperGuide 가 실린다");
   check(worker.indexOf("routePapers(shard.rows") > 0 && worker.indexOf("routePapers(shard.rows") < worker.indexOf("callOpenAIWithRetry(prompt, env, input)"),
     "P10 AI를 부르기 전에 찾는다 — 참고 자료 절이 쓸 수 있게");

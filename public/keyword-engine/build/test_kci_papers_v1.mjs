@@ -187,8 +187,12 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
     "G8 AI를 부르기 전에 찾아 둔다 — 그래야 참고 자료 절이 쓸 수 있다");
   check(!/findPapers\(/.test(worker),
     "G8 KCI 를 보고서마다 부르지 않는다 — 공공데이터포털 KCI API 는 검색이 없고 한 쪽에 10줄만 준다");
-  check(/reportStage === STAGE\.DRAFT\) paperGuide = guideBlock[\s\S]{0,80}else input\.referencePapers = picked\.map\(citationRow\)/.test(worker),
-    "G8 설계서에는 안내서로, 최종 보고서에는 참고 자료 줄로 — 같은 입력이면 같은 논문");
+  // 2026-09-18 사용자 결정: 논문은 **주제 재료**다(ingredients_v1). 설계서는 AI가 실제로 쓴 재료를 보여 주고,
+  // 최종 보고서는 그 재료를 참고 자료로 쓴다. 낱말 규칙(routePapers)은 재료 없이 만든 예전 설계서로 온 최종 보고서만.
+  check(worker.includes("paperGuide = inspirationGuide(result?.inspiration)") && worker.includes("if (finalStage && carried.papers.length) input.referencePapers = carried.papers;"),
+    "G8 설계서에는 참고한 연구로, 최종 보고서에는 그 연구가 참고 자료로");
+  check(/const shard = finalStage && !input\.inspiration\.length \? await loadPaperShard/.test(worker),
+    "G8 낱말 규칙은 재료 없이 온 최종 보고서에만");
   // 개념 이름이 교육과정 단원 이름과 다를 때가 있다. 대학 연구에서 겪은 그대로다.
   check(/anchor: \[input\.selectedKeyword \|\| input\.keyword, input\.taskTitle, reportConcept, axisConceptName\(seedPack, reportAxis\)\]/.test(worker),
     "G8 중심 칸은 학생 키워드·과제 제목·개념·축의 단원 이름에서 온다");

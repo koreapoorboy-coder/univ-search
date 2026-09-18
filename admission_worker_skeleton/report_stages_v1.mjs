@@ -1,3 +1,4 @@
+import { INGREDIENT_SCHEMA, inspirationCitations, inspirationOf, usedIngredients } from './ingredients_v1.mjs';
 import { normalizeSourceCards, referencesBody } from './references_v1.mjs';
 // Two-stage experiment report.
 // Stage 1 (experiment_draft): a design report plus a data template the student fills in after doing the experiment.
@@ -816,6 +817,12 @@ const STAGE_SCHEMA = {
 };
 
 export function stageSchemaProperties(stage, input = {}) {
+  const base = baseSchemaProperties(stage, input);
+  const sent = (input.ingredients?.papers || []).length + (input.ingredients?.research || []).length;
+  return sent && (stage === STAGE.DRAFT || stage === STAGE.COMPLETE) ? { ...base, ...INGREDIENT_SCHEMA } : base;
+}
+
+function baseSchemaProperties(stage, input = {}) {
   if (stage === STAGE.DRAFT && input.collectionKind === COLLECTION.READING) {
     return {
       caseTag: { type: 'string' },
@@ -850,11 +857,13 @@ export function finalizeStageOutput(stage, parsed, input) {
       const sourceTemplate = sanitizeSourceTemplate(parsed?.sourceTemplate);
       return {
         parsed: { ...parsed, sections: scrubbed },
-        extra: { collectionKind: kind, sourceTemplate, combination: { caseTag: clip(parsed?.caseTag, 40), variableTag: '', measureTag: clip(sourceTemplate.whatToFind, 40) } },
+        extra: { collectionKind: kind, sourceTemplate, combination: { caseTag: clip(parsed?.caseTag, 40), variableTag: '', measureTag: clip(sourceTemplate.whatToFind, 40) },
+          inspiration: inspirationOf(usedIngredients(parsed, input.ingredients)) },
       };
     }
     const dataTemplate = sanitizeDataTemplate(parsed?.dataTemplate, kind);
-    return { parsed: { ...parsed, sections: scrubbed }, extra: { collectionKind: kind, dataTemplate, combination: describeCombination(dataTemplate, parsed?.caseTag) } };
+    return { parsed: { ...parsed, sections: scrubbed }, extra: { collectionKind: kind, dataTemplate, combination: describeCombination(dataTemplate, parsed?.caseTag),
+      inspiration: inspirationOf(usedIngredients(parsed, input.ingredients)) } };
   }
   if (stage === STAGE.FINAL || stage === STAGE.LITERATURE) {
     const data = input.studentData || normalizeStudentData(null);
@@ -899,8 +908,13 @@ export function finalizeStageOutput(stage, parsed, input) {
   // 한 번에 끝나는 보고서의 참고 자료도 **우리가 확인한 것**으로 채운다. 전에는 모델이 쓴 그대로 나갔다 —
   // 모델에게는 논문을 보내지 않으므로 「국어 교과서의 현대소설 단원」, 「문학 이론 개론서」처럼 자료 **종류**만
   // 적혔고, 이미 골라 둔 논문·교과서 단원은 빠졌다(엔진 전수 검사 2026-09-18). 모델이 쓴 후속 탐구 제안은 남긴다.
+  // 재료를 보냈으면(ingredients_v1) **AI가 실제로 쓴 재료**가 참고 자료다. 낱말로 짝지은 논문은 쓰지 않는다.
+  const used = input.ingredients ? usedIngredients(parsed, input.ingredients) : null;
+  const usedRefs = used ? inspirationCitations(inspirationOf(used)) : null;
   const verified = buildReferencesBody('', [], {
-    datasets: input.referenceDatasets || [], papers: input.referencePapers || [], web: input.referenceWeb || [],
+    datasets: input.referenceDatasets || [],
+    papers: usedRefs ? usedRefs.papers : (input.referencePapers || []),
+    web: usedRefs ? used.research : (input.referenceWeb || []),
     textbook: input.textbookCitation || '',
   });
   const oneShot = sections.map((section) => {
@@ -923,5 +937,5 @@ export function finalizeStageOutput(stage, parsed, input) {
   // 확인된 자료가 하나도 없으면(단원을 못 정한 과제) 두 단계 보고서와 같게 과목 교과서 줄 하나를 둔다.
   const closing = verified || [String(input.subject || '').trim(), '교과서 관련 단원'].filter(Boolean).join(' ');
   if (oneShot.length && !oneShot.some((section) => REFERENCE_TITLE.test(String(section?.title || '')))) oneShot.push({ title: '참고 자료', body: closing });
-  return { parsed: { ...parsed, sections: oneShot }, extra: { removedFeelingSentences: removedPraise } };
+  return { parsed: { ...parsed, sections: oneShot }, extra: { removedFeelingSentences: removedPraise, ...(used ? { inspiration: inspirationOf(used) } : {}) } };
 }
