@@ -362,7 +362,7 @@ export function taskWords(text) {
 // 두 글자 낱말에서는 **'로'를 떼지 않는다.** 그걸 떼면 '원자로'가 '원자'가 된다 — 교과목에서
 // 이미 겪은 일이다. 목적격·주격처럼 명백한 조사만 뗀다.
 const SHORT_JOSA = /(을|를|이|가|은|는|의|에|와|과|도|만)$/;
-function taskHit(text, word) {
+export function taskHit(text, word) {
   const body = String(text || '');
   if (word.length >= 3) return body.includes(word);
   return words(body).some((one) => one === word || one.replace(SHORT_JOSA, '') === word);

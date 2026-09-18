@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v273_kci_paper
+// SCREEN_VERSION: v274_paper_route
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v273-kci-paper";
+  const VERSION = "mini-worker-generate-bridge-v274-paper-route";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2753,6 +2753,32 @@
       </section>`;
   }
 
+  // 논문 길잡이.
+  //
+  // 학생이 낸 과제의 틀(바꾸고 재기 / 주장 / 설명)과 중심 칸으로 찾은 논문이다. **답이 아니라 표지판**이다 —
+  // 이 논문을 어느 칸에 쓰라고 한 줄씩 적는다. 고르는 칸이 아니다: 논문은 AI에게 가지 않고, 최종 보고서의
+  // 참고 자료에 서지사항으로만 붙는다. 우리는 제목만 알므로 "초록에서 확인하라"고 쓴다.
+  function renderPaperGuide(block){
+    const list = Array.isArray(block?.papers) ? block.papers.filter(one => one && one.line) : [];
+    if(!list.length) return "";
+    const center = (block.center || []).filter(Boolean);
+    const one = (paper) => `
+        <li class="mini-paper">
+          <span class="mini-paper-t">${escapeHtml(paper.line)}</span>
+          ${paper.guide ? `<span class="mini-paper-g">${escapeHtml(paper.guide)}</span>` : ""}
+        </li>`;
+    return `
+      <details class="mini-book-pick mini-paper-guide">
+        <summary>논문 길잡이
+          <span>내 탐구를 받쳐 줄 논문 ${list.length}편 · ${escapeHtml(block.routeLabel || "")}</span></summary>
+        <p class="mini-book-why">내 과제의 중심${center.length ? `(<b>${center.map(escapeHtml).join(" · ")}</b>)` : ""}을
+          제목에 함께 가진 논문이에요. 조건·측정 방법·근거를 정할 때 <b>초록</b>을 확인해 보세요.
+          <b>KCI(kci.go.kr)</b>에서 제목으로 찾으면 로그인 없이 초록을 읽을 수 있어요.
+          최종 보고서의 참고 자료에 서지사항이 들어가요.</p>
+        <ul class="mini-paper-list">${list.map(one).join("")}</ul>
+      </details>`;
+  }
+
   // 참고 도서 고르기.
   //
   // 학교에서 구두로 "책을 읽고 수행평가에 첨부해라" 하는 경우가 있다. 그때 쓸 칸이다. 학생은 책을 읽을
@@ -4231,6 +4257,7 @@ ${result}`;
         <div class="mini-v43-grid">
           ${sectionHtml}
         </div>
+        ${renderPaperGuide(rawData?.paperGuide)}
         ${stage === "experiment_draft" ? renderCollectionPanel(stageResult, rawData?.bookChoices) : renderBookPick(rawData?.bookChoices)}
         ${renderNextStep(rawData?.nextStep)}
         ${renderRecordDraft(stageResult.recordDraft)}
@@ -4549,6 +4576,12 @@ ${result}`;
     "        .mini-book-pick>summary span{font-weight:600;color:#8a90a0;font-size:12.5px}",
     "        .mini-book-pick[open]>summary{margin:0 0 10px}",
     "        .mini-book-why{margin:0 0 10px;font-size:12.5px;color:#667085;line-height:1.6}",
+    "        .mini-paper-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}",
+    "        .mini-paper{display:grid;gap:4px;border:1px solid var(--mini-line,#e6eaf2);background:#fff;",
+    "          border-radius:var(--mini-r-sm,10px);padding:9px 12px}",
+    "        .mini-paper-t{font-size:13.5px;font-weight:700;color:#1f2937;line-height:1.5;overflow-wrap:anywhere}",
+    "        .mini-paper-g{font-size:12.5px;color:#475467;line-height:1.6;padding:6px 9px;background:#f7f9ff;",
+    "          border-radius:8px}",
     "        .mini-book{display:grid;grid-template-columns:auto 1fr;gap:2px 9px;align-items:start;",
     "          border:1px solid var(--mini-line,#e6eaf2);background:#fff;border-radius:var(--mini-r-sm,10px);",
     "          padding:9px 12px;margin:0 0 6px;cursor:pointer}",

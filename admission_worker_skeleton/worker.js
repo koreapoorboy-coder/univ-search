@@ -12,6 +12,7 @@ import { textbookCitation } from './references_v1.mjs';
 import { buildConceptCounts, buildMajorCounts, buildWordCounts, inferConcept, matchBooks } from './book_match_v1.mjs';
 import { findPublicData } from './public_data_v1.mjs';
 import { pickForTask } from './univ_research_v1.mjs';
+import { citationRow, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';
 import { axisForConcept, buildNextStep, pickAxis } from './next_step_v1.mjs';
 import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
 
@@ -60,8 +61,8 @@ const SEED_FILES = {
   // Built by tools/build_univ_research_index.mjs: 개념마다 붙일 대학 연구 최대 2건.
   // 참고문헌이 아니라 「다음에 해 볼 것」에 붙는다 — 학생이 읽을 원문이 아니기 때문이다.
   univResearchIndex: 'engine-index/univ_research_index.v1.json',
-  // Built by tools/build_kci_paper_index.mjs: 개념마다 KCI 논문 최대 2편. 참고 자료에 서지사항으로 붙는다.
-  kciPaperIndex: 'engine-index/kci_paper_index.v1.json',
+  // 논문은 여기서 읽지 않는다. 과목 묶음(paper-route/<과목>.v1.json)을 그 과목 보고서일 때만 읽는다
+  // — loadPaperShard. 묶음이 커서(최대 2.4MB) 모든 요청에 다 싣지 않는다.
 };
 
 // Execution authority is intentionally non-serializable. Audit hashes and
@@ -440,28 +441,34 @@ export default {
             console.error('reference datasets failed:', error?.message || error);
           }
         }
-        // 개념에 맞는 KCI 논문. **원문이 열려 있고 주소가 있는 것만** 온다(kci_v1.mjs).
-        // 키가 없으면 빈 배열이라 아무 일도 일어나지 않는다. 공공데이터와 나란히 부른다.
-        // 개념에 맞는 KCI 논문. **인덱스에서 꺼낸다** — 보고서를 만들 때마다 남의 서버에 묻지 않는다.
+        // **논문 — 학생이 낸 길 위의 표지판.** (paper_route_v1.mjs)
         //
-        // KCI 를 API 로 부르려 했다가 접었다. 공공데이터포털의 KCI API 넷은 검색이 없고 한 쪽에 10줄만
-        // 주고 30쪽에서 끊긴다(230만 건 중 300건). 대신 같은 자료의 파일(11만 편, 이용허락 제한 없음)로
-        // 인덱스를 만들어 둔다. 개념 이름이 단원 이름과 다를 때가 있어 축의 단원 이름으로도 찾는다.
+        // 전에는 개념 이름으로 미리 골라 둔 논문(개념 32개, 평균 3.6편)에서 꺼냈다. 낱말 하나로 찾으니
+        // 「급수」에 피아노 급수가 붙었다. 이제는 **수행평가의 틀**로 검색 명령을 짓는다:
+        //   ① 틀   — 이 과제가 어떤 길인가(바꾸고 재기 / 주장 / 설명)
+        //   ② 칸   — 학생 글에서 바꾸는 것·재는 것
+        //   ③ 명령 — 학생 글의 낱말 **둘이 제목에 함께**, 그중 하나는 과목 안에서도 드문 말
+        //   ④ 판단 — **중심 칸**(과제 제목·학생 키워드·단원 개념)을 채우지 못하면 안 붙인다
+        //   ⑤ 안내 — 이 논문을 어느 칸에 쓰라고 한 줄
+        // 설계서에는 안내서(paperGuide)로, 최종 보고서에는 참고 자료 줄로 붙는다. 같은 입력이면 같은 논문이다.
+        // **AI에게는 안 보낸다** — 보고서가 논문에 맞춰 휘면 끼워 맞추기가 된다.
         input.referencePapers = [];
-        if (input.reportStage !== STAGE.DRAFT) {
-          const paperIndex = seedPack.kciPaperIndex?.concepts || {};
-          for (const name of [reportConcept, axisConceptName(seedPack, reportAxis)].filter(Boolean)) {
-            const got = paperIndex[`${input.subject}::${name}`];
-            // **고르는 일은 학생 과제문이 한다.** 인덱스는 후보만 준다 — 개념만으로 고르면 같은
-            // 개념의 모든 학생이 같은 논문을 받는다. 책이 처음부터 하던 그대로다.
-            // **논문은 엄격하게 고른다.** 논문을 넣는 까닭은 학생이 한 실험을 **받치기** 위해서다 —
-            // 주제어 하나 같다고 붙이면 받치는 것이 아니라 끼워 넣는 것이 된다. 받칠 근거가 없으면
-            // 안 붙인다. 개념 낱말은 후보가 다 갖고 있으므로 점수에서 뺀다.
-            if (got && got.length) {
-              input.referencePapers = pickForTask(got, taskText(input), 2, { skip: name, strict: true });
-              break;
-            }
+        let paperGuide = null;
+        try {
+          const rows = await loadPaperShard(env, input.subject);
+          if (rows) {
+            const { query, picked } = routePapers(rows, taskText(input), reportModeOf(input), {
+              limit: 2,
+              subject: input.subject,
+              anchor: [input.selectedKeyword || input.keyword, input.taskTitle, reportConcept, axisConceptName(seedPack, reportAxis)]
+                .filter(Boolean).join(' '),
+            });
+            if (input.reportStage === STAGE.DRAFT) paperGuide = guideBlock(query, picked);
+            else input.referencePapers = picked.map(citationRow);
           }
+        } catch (error) {
+          // 논문을 못 찾아도 보고서는 그대로 나간다.
+          console.error('paper route failed:', error?.message || error);
         }
         // 모든 보고서는 학생 코드를 지나간다. 코드 없이 만들 수 있으면 이용권은 세어 봐야 소용이 없다.
         if (env.DB) {
@@ -617,6 +624,7 @@ export default {
           source,
           reportId,
           bookChoices,
+          paperGuide,
           nextStep,
           resolved: input,
           phase1Lineage: liveAuthority.phase1Lineage,
@@ -1018,6 +1026,26 @@ function isAdmin(request, env) {
 function taskText(input) {
   return [input?.taskTitle, input?.taskDescription, input?.selectedKeyword, input?.keyword]
     .filter(Boolean).join(' ');
+}
+
+// 이 과제의 틀(수행평가 유형). 화면이 보낸 것을 쓰고, 없으면 보고서 구조 이름으로 물러선다.
+function reportModeOf(input) {
+  const method = input?.performanceAssessment?.method || {};
+  return method.reportMode || input?.reportShape?.structure || '';
+}
+
+// 과목 논문 묶음. 과목이 묶음에 없으면(수학·영어·예체능) null — 논문을 안 붙인다.
+// 같은 워커 안에서는 한 번 읽은 것을 다시 쓴다. Cloudflare 캐시도 5분 쥔다.
+const paperShards = new Map();
+async function loadPaperShard(env, subject) {
+  const file = shardFile(subject);
+  if (!file) return null;
+  if (paperShards.has(file)) return paperShards.get(file);
+  const base = env.SEED_BASE_URL || DEFAULT_SEED_BASE;
+  const res = await fetch(encodeURI(`${base}/${file}`), { cf: { cacheTtl: 300, cacheEverything: true } });
+  const rows = res.ok ? (await res.json())?.rows || null : null;
+  paperShards.set(file, rows);
+  return rows;
 }
 
 // 이 보고서가 선 축의 **단원 이름**. reportConcept 은 과제 글에서 뽑은 말이라 교육과정 단원

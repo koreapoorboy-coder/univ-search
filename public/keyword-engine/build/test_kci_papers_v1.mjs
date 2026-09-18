@@ -177,19 +177,21 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
   check(built.includes("kci.go.kr"), "G7 주소까지 붙는다 — 학생이 열어 확인할 수 있다", built);
 }
 
-// G8: 워커는 **인덱스에서** 논문을 꺼낸다. 남의 서버를 보고서 만드는 길에 끼우지 않는다.
+// G8: 워커는 **우리 파일에서** 논문을 꺼낸다. 남의 서버를 보고서 만드는 길에 끼우지 않는다.
+// (2026-09-18: 개념 인덱스 대신 과목 묶음 + 수행평가 틀로 찾는다 — test_paper_route_v1.mjs 가 자세히 본다.)
 {
-  check(worker.includes("kciPaperIndex: 'engine-index/kci_paper_index.v1.json'"), "G8 워커가 논문 인덱스를 읽는다");
+  check(worker.includes("loadPaperShard(env, input.subject)"), "G8 워커가 과목 논문 묶음을 읽는다");
+  check(!worker.includes("kciPaperIndex:"), "G8 옛 개념 인덱스는 더 안 싣는다 — 모든 요청에 63KB를 쓸 이유가 없다");
   check(worker.includes("input.referencePapers = []"), "G8 못 찾아도 빈 배열로 시작한다");
   check(worker.indexOf("input.referencePapers") < worker.indexOf("callOpenAIWithRetry(prompt, env, input)"),
     "G8 AI를 부르기 전에 찾아 둔다 — 그래야 참고 자료 절이 쓸 수 있다");
   check(!/findPapers\(/.test(worker),
     "G8 KCI 를 보고서마다 부르지 않는다 — 공공데이터포털 KCI API 는 검색이 없고 한 쪽에 10줄만 준다");
-  check(/reportStage !== STAGE\.DRAFT[\s\S]{0,400}kciPaperIndex/.test(worker),
-    "G8 1단계(설계서)에서는 안 붙인다 — 그때는 아직 개념이 흔들린다");
+  check(/reportStage === STAGE\.DRAFT\) paperGuide = guideBlock[\s\S]{0,80}else input\.referencePapers = picked\.map\(citationRow\)/.test(worker),
+    "G8 설계서에는 안내서로, 최종 보고서에는 참고 자료 줄로 — 같은 입력이면 같은 논문");
   // 개념 이름이 교육과정 단원 이름과 다를 때가 있다. 대학 연구에서 겪은 그대로다.
-  check(/for \(const name of \[reportConcept, axisConceptName\(seedPack, reportAxis\)\]/.test(worker),
-    "G8 개념 이름으로 못 찾으면 축의 단원 이름으로 한 번 더 찾는다");
+  check(/anchor: \[input\.selectedKeyword \|\| input\.keyword, input\.taskTitle, reportConcept, axisConceptName\(seedPack, reportAxis\)\]/.test(worker),
+    "G8 중심 칸은 학생 키워드·과제 제목·개념·축의 단원 이름에서 온다");
 }
 
 // G9: 인덱스에서 온 줄. **주소가 없다.** 그래도 찾을 수 있게 서지사항을 정확히 적는다.
@@ -264,8 +266,8 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
   check(wideKci, "K2 논문 인덱스도 마찬가지");
   check(/pickForTask\(got, taskText\(input\)/.test(worker),
     "K2 워커가 과제문으로 고른다 — 개념만으로 표를 찾지 않는다");
-  check((worker.match(/pickForTask\(/g) || []).length === 3,
-    "K2 논문·대학 연구·공공데이터 **셋 다** 과제문으로 고른다");
+  check((worker.match(/pickForTask\(/g) || []).length === 2 && /routePapers\(rows, taskText\(input\)/.test(worker),
+    "K2 논문·대학 연구·공공데이터 **셋 다** 과제문으로 고른다 (논문은 routePapers)");
   check(worker.includes("function taskText(input)") && /taskDescription/.test(worker),
     "K2 과제문은 학생이 붙여넣은 안내문 전체다");
 }
@@ -311,8 +313,8 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
 
 // L2: 워커가 자리마다 다르게 쓴다.
 {
-  check(/referencePapers = pickForTask\(got, taskText\(input\), 2, \{ skip: name, strict: true \}\)/.test(worker),
-    "L2 논문은 엄격하게 — 받칠 근거가 없으면 안 붙인다");
+  check(/routePapers\(rows, taskText\(input\), reportModeOf\(input\)/.test(worker),
+    "L2 논문은 수행평가 틀로 — 받칠 근거가 없으면 안 붙인다");
   check(/research = pickForTask\(got, taskText\(input\), 2, \{ skip: name \}\)/.test(worker),
     "L2 대학 연구는 느슨하게");
   check(/referenceDatasets = pickForTask\(pool, taskText\(input\), 3, \{ skip: reportConcept \}\)/.test(worker),
