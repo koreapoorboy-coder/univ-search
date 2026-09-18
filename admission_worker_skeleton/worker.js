@@ -450,7 +450,7 @@ export default {
             // **엄격하게** 고른다(strict). 실제 보고서로 돌려 보니 「사과 갈변」 보고서의 참고 자료에 「대기오염
             // 측정자료」·「먹는샘물 수질검사」가 붙었다 — 과제문 낱말이 하나도 안 맞으면 개념 사전 차례대로 셋을
             // 붙이던 탓이다. 참고 자료는 보고서 내용을 받쳐야 한다. 안 맞으면 안 붙인다(논문·대학 글과 같다).
-            input.referenceDatasets = pickForTask(pool, contentWords(taskText(input)), 3, { skip: reportConcept, strict: true });
+            input.referenceDatasets = pickForTask(pool, contentWords(taskText(input), input.subject), 3, { skip: reportConcept, strict: true });
           } catch (error) {
             console.error('reference datasets failed:', error?.message || error);
           }
@@ -473,7 +473,10 @@ export default {
           if (shard) {
             // 보고서의 단원. GPT 꼬리표가 붙은 논문은 이 단원과 같을 때만 붙는다(paper_route_v1.mjs).
             const units = [reportConcept, axisConceptName(seedPack, reportAxis)].filter(Boolean).map((name) => `${input.subject}::${name}`);
-            const { query, picked } = routePapers(shard.rows, taskText(input), reportModeOf(input), {
+            // 숫자를 재는 과제는 '바꾸고 재는 탐구'다. 유형 이름이 「비교분석형」이어도 그렇다 — 방형구 과제에
+            // 「원리로 설명하는 탐구」 안내가 붙었다(운영 테스트 2026-09-18).
+            const paperMode = input.collectionKind === COLLECTION.MEASUREMENT ? '실험분석형' : reportModeOf(input);
+            const { query, picked } = routePapers(shard.rows, taskText(input), paperMode, {
               limit: 2,
               subject: input.subject,
               units,
@@ -503,8 +506,8 @@ export default {
             for (const name of [reportConcept, axisConceptName(seedPack, reportAxis)].filter(Boolean)) {
               const list = webIndex[`${input.subject}::${name}`];
               if (!list || !list.length) continue;
-              univWebPool = pickUnivWeb(list, taskText(input), { limit: 3, skip: name });   // 다음 걸음용(느슨)
-              const ranked = pickUnivWeb(list, taskText(input), { limit: 3, skip: name, strict: true });
+              univWebPool = pickUnivWeb(list, taskText(input), { limit: 3, skip: name, subject: input.subject });   // 다음 걸음용(느슨)
+              const ranked = pickUnivWeb(list, taskText(input), { limit: 3, skip: name, strict: true, subject: input.subject });
               const accessed = accessDate();
               input.referenceWeb = (await aliveOnly(ranked, { limit: 1 })).map((row) => ({ ...row, org: '서울대학교', accessed }));
               break;
@@ -654,7 +657,7 @@ export default {
               // 논문과 같다. 후보 가운데 이 과제문에 가까운 것을 고른다.
               // 대학 연구는 느슨해도 된다. "이 주제가 대학에서 어떻게 이어지는가"는 개념 수준으로도
               // 뜻이 있기 때문이다. 논문과 달리 **실험을 받치는 근거로 쓰지 않는다.**
-              if (got && got.length) { research = pickForTask(got, contentWords(taskText(input)), 2, { skip: name }); break; }
+              if (got && got.length) { research = pickForTask(got, contentWords(taskText(input), input.subject), 2, { skip: name }); break; }
             }
             // 서울대 연구성과가 있으면 **앞에** 세운다 — 최신이고 고등학생이 읽을 수 있는 글이다.
             // 참고 자료와 겹치는 글은 빼고, 여기서도 주소가 열리는 것만.
@@ -1250,6 +1253,9 @@ function buildPrompt(input, seedMatch, env) {
     '전문 용어와 영어 표현을 과시하듯 나열하지 말고 꼭 필요한 용어만 먼저 쉬운 말로 설명한다.',
     '실생활 사례는 여러 개를 얕게 나열하지 말고 연구 질문에 맞는 대표 사례 하나를 선택하여 처음부터 결론까지 유지한다.',
     '사례는 누구나 가장 먼저 떠올리는 것(예: 세탁 세제)을 기본값으로 삼지 않는다. 같은 안내문을 받은 다른 학생과 겹치기 쉬우므로, careerTrack과 subject, selectedConcept에 자연스럽게 이어지는 사례를 고르고 대상과 조건까지 구체적으로 좁힌다.',
+    // 과제가 정한 것은 바꾸지 않는다. 「학교 화단과 운동장 가장자리」 과제의 설계서가 「옥상 텃밭·북측 포장 틈새」로
+    // 바꿨다(운영 테스트 2026-09-18). 학생은 선생님이 정한 장소에서 조사해야 한다.
+    '단, 수행평가 안내문이 대상·장소·재료·방법을 정해 두었으면(예: "학교 화단과 운동장 가장자리", "방형구법") 그것을 바꾸거나 다른 것으로 대신하지 않는다. 다른 학생과 겹치지 않게 하는 것은 그 안에서 세부 조건(구역, 시기, 측정 항목, 비교 기준)으로 한다.',
     '개인 경험, 관찰, 실험 수행을 입력에서 확인할 수 없으면 학생이 실제로 했다고 꾸며 쓰지 않는다.',
     ...(hasStudentVoice ? [] : ['입력에는 학생의 개인 경험이 없으므로, "나는 평소에 ~해 본 경험이 있다"처럼 학생 개인의 경험·습관을 쓰지 않는다. 주제를 고른 이유는 "수업에서 ~를 배우며 궁금해졌다", "일상에서 흔히 쓰이는 ~"처럼 일반적인 궁금증으로만 쓴다.']),
     '같은 문장이나 수행평가 문구를 여러 절에 반복하지 않는다.',

@@ -686,7 +686,8 @@ export function stagePromptLines(stage, input) {
       ...((input.recentCombinations || []).length
         ? ['', '[같은 학교에서 이 과제로 이미 만든 탐구 (사례 | 바꾼 것 | 잰 것)]',
            ...input.recentCombinations.map((line, index) => `  ${index + 1}. ${line}`),
-           '- 위 목록과 겹치지 않는 사례를 고른다. 사례가 겹칠 수밖에 없으면 바꾸는 변인을, 그것도 겹치면 재는 방법을 다르게 한다. 목록에 없는 새 사례를 우선한다.', '']
+           '- 위 목록과 겹치지 않는 사례를 고른다. 사례가 겹칠 수밖에 없으면 바꾸는 변인을, 그것도 겹치면 재는 방법을 다르게 한다. 목록에 없는 새 사례를 우선한다.',
+           '- 단, 수행평가 안내문이 정해 둔 대상·장소·재료·방법은 바꾸지 않는다. 겹침은 그 안의 세부 조건과 재는 방법으로 피한다.', '']
         : []),
       `- dataTemplate은 학생이 채울 결과 표다. conditions는 표의 행이 될 조건 이름 2~8개(두 변인을 함께 바꾸면 "효소 세제 · 미지근한 물"처럼 "앞 변인 · 뒤 변인" 순서로 모든 조합), ${kind === COLLECTION.MEASUREMENT ? 'trials는 조건마다 반복 횟수(3~5)' : 'trials는 반드시 1'}, measurementName과 unit은 ${kind === COLLECTION.MEASUREMENT ? '측정 항목과 단위(점수면 "점")' : '적을 값의 이름과 단위'}, scaleGuide는 ${kind === COLLECTION.MEASUREMENT ? '점수 기준이나 측정 방법' : '값을 어디서 어떻게 옮겨 적는지'} 한 문장이다.`,
     ];

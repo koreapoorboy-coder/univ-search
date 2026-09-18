@@ -235,8 +235,10 @@ const seen = (view, word) => (word.length >= 3 ? view.title.includes(word) : vie
 // 과제 글에서 **내용 말만** 남긴다(틀 말·평가 틀 말·과목 이름·동사를 뺀다). 논문 말고 다른 자료(서울대 글·
 // 공공데이터·대학 연구)를 고를 때도 같은 거름망을 쓴다 — 운영 테스트에서 식물 군집 보고서의 참고 자료에
 // 「콤부차 미생물을 **활용한** 메탄저감제」가 붙었다. 과제의 「방형구법을 **활용한**」과 겹친 것이다.
-export function contentWords(text) {
-  return paperQuery(text, '').words.join(' ');
+// 과목 이름도 뺀다. 「생명과학」이 남으면 「농업**생명과학**대학 … 반추위 메탄」 기사에 걸린다
+// (운영 테스트 2026-09-18, 방형구 과제). 글자만 같고 뜻은 과제와 아무 상관이 없다.
+export function contentWords(text, subject = '') {
+  return paperQuery(text, '', { subject }).words.join(' ');
 }
 
 // 제목에 보이는 낱말들. 하나가 다른 하나를 품으면 **하나로 센다** — '화학반응'과 '화학'이 둘 다

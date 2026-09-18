@@ -111,12 +111,22 @@ const answer = (status) => async () => ({ status, body: { cancel: async () => {}
 // U6: 워커 — 참고 자료는 엄격, 다음 걸음은 느슨. 둘 다 주소를 연다. AI에게는 안 간다.
 {
   check(worker.includes("snuResearchIndex: 'engine-index/snu_research_index.v1.json'"), "U6 워커가 서울대 인덱스를 싣는다");
-  check(/pickUnivWeb\(list, taskText\(input\), \{ limit: 3, skip: name, strict: true \}\)/.test(worker), "U6 참고 자료는 strict");
+  check(/pickUnivWeb\(list, taskText\(input\), \{ limit: 3, skip: name, strict: true, subject: input\.subject \}\)/.test(worker), "U6 참고 자료는 strict");
   check(/aliveOnly\(ranked, \{ limit: 1 \}\)/.test(worker) && /aliveOnly\(univWebPool/.test(worker), "U6 참고 자료와 다음 걸음 둘 다 주소를 열어 본다");
   check(/accessed/.test(worker) && worker.includes("accessDate()"), "U6 접속일을 붙인다");
   const at = worker.indexOf("function buildPrompt(");
   const body = worker.slice(at, worker.indexOf("\nfunction ", at + 50));
   check(!/referenceWeb|snuResearch|univWeb/.test(body), "U6 프롬프트에는 안 들어간다");
+}
+
+// U8: 과목 이름은 과제 낱말이 아니다 — 운영 테스트(2026-09-18) 방형구 과제에 「농업생명과학대학 … 반추위 메탄」이 붙었다.
+{
+  const TASK = "[생명과학 수행평가] 방형구법을 활용한 식물 군집 조사 보고서 / 학교 화단과 운동장 가장자리에 방형구를 설치해 식물 종류와 개체 수를 조사하고, 밀도·빈도·피도로 중요치를 구해 두 장소의 군집 구조와 종 다양성을 비교한다.";
+  const list = [{ title: "농업생명과학대학 김영훈 교수팀, 프로바이오틱스와 바이오차의 혼합 급여에 따른 반추위 메탄저감 가능성 제시", url: "https://www.snu.ac.kr/x" }];
+  check(pickUnivWeb(list, TASK, { strict: true, subject: "생명과학" }).length === 0, "U8 과목 이름(생명과학)이 대학 이름에 걸려 붙지 않는다");
+  check(worker.includes("contentWords(taskText(input), input.subject)") && worker.includes("skip: name, subject: input.subject })"), "U8 워커가 과목을 넘긴다");
+  check(worker.includes("대상·장소·재료·방법을 정해 두었으면"), "U8 과제가 정한 장소·대상은 바꾸지 않는다고 AI에게 말한다");
+  check(worker.includes("input.collectionKind === COLLECTION.MEASUREMENT ? '실험분석형'"), "U8 숫자를 재는 과제는 논문 안내도 '바꾸고 재는 탐구'");
 }
 
 console.log(`\n${passed} checks passed`);

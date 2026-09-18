@@ -24,8 +24,8 @@ const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 // 받쳐야** 하므로 그건 끼워 맞추기다.
 //   · strict  (참고 자료)            — 과제문 낱말이 제목에 걸린 글만. 없으면 안 붙인다
 //   · 느슨하게 (다음에 해 볼 것)      — 개념만 맞아도 된다. "이 단원이 대학에서 지금 이렇게 이어진다"를 보여 주는 자리다
-export function pickUnivWeb(list, text, { limit = 3, skip = '', strict = false } = {}) {
-  return pickForTask(Array.isArray(list) ? list : [], contentWords(text), limit, { skip, strict });
+export function pickUnivWeb(list, text, { limit = 3, skip = '', strict = false, subject = '' } = {}) {
+  return pickForTask(Array.isArray(list) ? list : [], contentWords(text, subject), limit, { skip, strict });
 }
 
 // 「다음에 해 볼 것 → 대학에서는 이렇게 이어져요」 칸의 모양(next_step_v1 의 research)으로.
