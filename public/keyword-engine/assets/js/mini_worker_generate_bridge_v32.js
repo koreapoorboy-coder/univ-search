@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v280_typed_cells
+// SCREEN_VERSION: v281_reference_inputs
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v280-typed-cells";
+  const VERSION = "mini-worker-generate-bridge-v281-reference-inputs";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2907,6 +2907,15 @@
     ];
   }
 
+  // 결과와 견줄 기준값(식초 병의 표시 산도, 이론값 같은 것). 안내문이 그런 비교를 요구할 때만 설계서가 칸을 준다.
+  // 운영 테스트(2026-09-19): 「표시된 산도와 비교한다」 과제에서 적을 곳이 없어 보고서가 비교를 못 했다.
+  function renderReferenceInputs(template){
+    const list = Array.isArray(template?.referenceInputs) ? template.referenceInputs.filter(one => one?.label).slice(0, 3) : [];
+    if(!list.length) return "";
+    const rows = list.map((one, i) => `<label class="mini-exp-ref"><span>${escapeHtml(one.label)}${one.unit ? ` (${escapeHtml(one.unit)})` : ""}</span><input type="text" inputmode="decimal" placeholder="숫자" data-ref="${i}" aria-label="${escapeHtml(one.label)}"></label>`).join("");
+    return `<div class="mini-exp-refs"><p class="mini-exp-measure"><b>비교할 기준값</b> 실험 밖에서 옮겨 적는 값이에요. 모르면 비워 두어도 돼요.</p>${rows}</div>`;
+  }
+
   function renderExperimentInputPanel(template, kind){
     const trials = Math.max(1, Math.min(5, Number(template?.trials) || 3));
     const conditions = Array.isArray(template?.conditions) ? template.conditions : [];
@@ -2926,6 +2935,7 @@
         ${template?.scaleGuide ? `<p class="mini-exp-measure"><b>어떻게 재나</b> ${escapeHtml(template.scaleGuide)}</p>` : ""}
         <div class="mini-v43-table-wrap"><table class="mini-v43-table mini-exp-table"><thead>${head}</thead><tbody>${rows}</tbody></table></div>
         <p class="mini-exp-hint">아직 못 한 칸은 비워 두어도 돼요. 표를 통째로 비우면 실험 없이 <b>모은 자료로 쓰는 보고서</b>로 만들어 드려요.</p>
+        ${renderReferenceInputs(template)}
         ${renderStudentFields(text[3], true)}
         <p class="mini-exp-note">적은 문장은 최종 보고서에 거의 그대로 들어가요. 표를 비워 두고 만들면 모은 자료로 쓰는 <b>문헌 탐구 보고서</b>로 만들어요. 최종 보고서를 만들 때 사용 횟수가 1회 차감되고, 만드는 데 2~3분 걸려요.</p>
         <p class="mini-exp-error" id="miniExpError" hidden></p>
@@ -2959,6 +2969,10 @@
       unit: template?.unit || "",
       scaleGuide: template?.scaleGuide || "",
       conditions,
+      references: (Array.isArray(template?.referenceInputs) ? template.referenceInputs : []).slice(0, 3).map((one, i) => ({
+        label: one?.label || "", unit: one?.unit || "",
+        value: panel.querySelector(`input[data-ref="${i}"]`)?.value.trim().replace(/,/g, "") || ""
+      })).filter(one => one.label && one.value),
       reason: text("miniExpReason"),
       observations: text("miniExpObservations"),
       reflection: text("miniExpReflection"),
@@ -4545,6 +4559,9 @@ ${result}`;
     "        .mini-exp-steps li::marker{color:var(--mini-primary,#2458ff);font-weight:800}",
     "        .mini-exp-measure{background:#fff;border:1px solid var(--mini-line,#e6eaf2);border-radius:var(--mini-r-sm,10px);padding:11px 14px;margin:0 0 14px;font-size:14px;line-height:1.7;color:#334155}",
     "        .mini-exp-measure b{color:var(--mini-primary,#2458ff);margin-right:6px}",
+    "        .mini-exp-refs{margin:0 0 14px}",
+    "        .mini-exp-ref{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 8px;font-size:14px;color:#334155}",
+    "        .mini-exp-ref input{flex:0 1 160px;min-width:0;padding:8px 10px;border:1px solid var(--mini-line,#e6eaf2);border-radius:8px;font-size:14px}",
     "        .mini-exp-hint{font-size:13.5px;color:var(--mini-muted,#667085);margin:10px 0 0;line-height:1.7}",
     "        .mini-exp-table thead th span{display:block;font-weight:600;font-size:12px;color:var(--mini-muted,#667085);margin-top:2px}",
     "        .mini-exp-table input::placeholder{color:#b6c0cf}",

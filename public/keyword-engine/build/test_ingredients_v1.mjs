@@ -107,7 +107,8 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
   const props = stageSchemaProperties(STAGE.FINAL, input);
   check(JSON.stringify(props.usedIngredients.items.enum) === JSON.stringify(["P1", "P2", "P3", "R1", "R2"].filter((id) => [...got.papers, ...got.research].some((one) => one.id === id)))
     && Object.keys(props)[0] === "usedIngredients", "I5 보낸 번호만 고를 수 있고(enum), 칸이 맨 앞", JSON.stringify(props.usedIngredients));
-  check(worker.includes("...(stageProperties.usedIngredients ? { usedIngredients: stageProperties.usedIngredients } : {}),\n              reportTitle:"),
+  check(worker.includes("...(stageProperties.usedIngredients ? { usedIngredients: stageProperties.usedIngredients } : {}),")
+    && worker.indexOf("usedIngredients: stageProperties.usedIngredients") < worker.indexOf("reportTitle: { type: 'string', minLength: 8 }"),
     "I5 워커의 답 형식에서도 제목보다 앞 — AI는 칸 순서대로 쓴다");
   check(!("usedIngredients" in stageSchemaProperties(STAGE.DRAFT, input)), "I5 설계서(주제 잡기)에는 재료가 안 간다 — 교과 중심");
   const final = finalizeStageOutput(STAGE.FINAL, { reportTitle: "t", figures: [], usedIngredients: ["P2", "R1"],

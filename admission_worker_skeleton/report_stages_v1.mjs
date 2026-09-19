@@ -1,5 +1,6 @@
 import { ingredientSchema, inspirationCitations, inspirationOf, usedIngredients } from './ingredients_v1.mjs';
 import { normalizeSourceCards, referencesBody } from './references_v1.mjs';
+import { CALCULATION_SCHEMA, calculationPromptLines, verifyCalculations } from './calc_check_v1.mjs';
 // Two-stage experiment report.
 // Stage 1 (experiment_draft): a design report plus a data template the student fills in after doing the experiment.
 // Stage 2 (experiment_final): the final report from the student's own numbers. The model chooses how to show the data
@@ -115,6 +116,9 @@ export function normalizeStudentData(raw) {
     unit: clip(src.unit, 20),
     scaleGuide: clip(src.scaleGuide, 200),
     conditions,
+    references: (Array.isArray(src.references) ? src.references : []).slice(0, 3)
+      .map((one) => ({ label: clip(one?.label, 40), unit: clip(one?.unit, 20), value: clip(one?.value, 20).replace(/,/g, '') }))
+      .filter((one) => one.label && Number.isFinite(toNumber(one.value))),
     reason: clip(src.reason, 600),
     observations: clip(src.observations, 1200),
     reflection: clip(src.reflection, 800),
@@ -368,6 +372,7 @@ export function allowedNumberSet(data, stats) {
   for (let count = 0; count <= 10; count += 1) allowed.add(String(count));
   (stats?.rows || []).forEach((row) => [...row.values, row.mean, row.min, row.max, row.spread, row.diff_from_first, row.percent_from_first].forEach(addValue));
   (stats?.comparisons || []).forEach((comparison) => addValue(comparison.gap));
+  (data.references || []).forEach((one) => addValue(toNumber(one.value)));
   const texts = [data.measurementName, data.unit, data.scaleGuide, data.reason, data.observations, data.reflection, data.draftReport, ...data.sources, ...data.conditions.flatMap((row) => [row.label, row.note])];
   texts.join(' ').match(/\d+(?:\.\d+)?/g)?.forEach((number) => allowed.add(canonicalNumber(number)));
   return allowed;
@@ -463,6 +468,9 @@ function sanitizeDataTemplate(raw, kind) {
     scaleGuide: clip(raw?.scaleGuide, 200),
     conditions: conditions.length >= 2 ? conditions : ['조건 1', '조건 2'],
     trials,
+    // 결과와 견줄 기준값(표시 산도·이론값) 칸. 학생이 실험 밖에서 옮겨 적는다(calc_check_v1).
+    referenceInputs: (Array.isArray(raw?.referenceInputs) ? raw.referenceInputs : [])
+      .map((one) => ({ label: clip(one?.label, 40), unit: clip(one?.unit, 20) })).filter((one) => one.label).slice(0, 3),
   };
 }
 
@@ -770,6 +778,7 @@ export function stagePromptLines(stage, input) {
            '- 위 목록과 겹치지 않는 사례를 고른다. 사례가 겹칠 수밖에 없으면 바꾸는 변인을, 그것도 겹치면 재는 방법을 다르게 한다. 목록에 없는 새 사례를 우선한다.',
            '- 단, 수행평가 안내문이 정해 둔 대상·장소·재료·방법은 바꾸지 않는다. 겹침은 그 안의 세부 조건과 재는 방법으로 피한다.', '']
         : []),
+      '- referenceInputs는 결과와 견줄 **기준값**을 학생이 적을 칸이다(식초 병에 표시된 산도, 이론값, 공식 기록값처럼 실험 밖에서 옮겨 적는 숫자). 안내문이 그런 값과 비교하라고 할 때만 label과 unit으로 1~3개 넣고, 아니면 빈 배열이다. 표의 조건으로 넣지 않는다.',
       '- measurementName은 한 칸에 적을 **값 하나**의 이름이다. 두 가지 값(예: 개체 수와 피복 점수)을 한 칸에 담지 않는다. 여러 값을 재야 하면 연구 질문에 가장 중심이 되는 하나를 표에 두고, 나머지는 관찰 메모에 적게 한다.',
       `- dataTemplate은 학생이 채울 결과 표다. conditions는 표의 행이 될 조건 이름 2~8개(두 변인을 함께 바꾸면 "효소 세제 · 미지근한 물"처럼 "앞 변인 · 뒤 변인" 순서로 모든 조합), ${kind === COLLECTION.MEASUREMENT ? 'trials는 조건마다 반복 횟수(3~5)' : 'trials는 반드시 1'}, measurementName과 unit은 ${kind === COLLECTION.MEASUREMENT ? '측정 항목과 단위(점수면 "점")' : '적을 값의 이름과 단위'}, scaleGuide는 ${kind === COLLECTION.MEASUREMENT ? '점수 기준이나 측정 방법' : '값을 어디서 어떻게 옮겨 적는지'} 한 문장이다.`,
     ];
@@ -781,6 +790,7 @@ export function stagePromptLines(stage, input) {
       '- 학생이 1차 설계서대로 실험하고 결과를 입력했다. 아래 [학생 실험 데이터]의 학생입력과 결과정리가 학생의 실제 결과다.',
       '- 보고서의 모든 숫자는 학생입력, 결과정리, 1차 설계서에 있는 숫자여야 한다. 새 숫자, 다른 실험이나 문헌의 수치를 만들지 않는다. 이를 어긴 문장은 자동으로 삭제된다.',
       '- 결과정리의 평균, 첫조건과의차이, 첫조건대비변화율(%), 평균이높은순서, 평균이같은조건은 새로 계산하지 말고 그대로 쓴다.',
+      ...calculationPromptLines(),
       '- 표 1(학생이 잰 값)은 항상 만들어진다. 그래프는 figures에 고른 경우에만 붙는다. 그래프를 고르지 않았으면 본문에서 그림을 가리키지 않는다.',
       '- 점수의 뜻은 scaleGuide를 따른다. 점수가 무엇을 뜻하는지 헷갈리게 쓰지 않는다.',
       '- 결과 분석과 결론은 조건마다 비교한다. 수준별비교가 있으면 기준마다 가장높은쪽이 두번째보다 몇 점(차이) 높았는지 그대로 쓴다. 두 값이 다르면 "비슷하다", "큰 차이가 없다"처럼 흐리게 쓰지 않는다. 가설과 반대로 나온 조건은 그대로 밝힌다. "같은 조건에서 항상", "모든 조건에서" 같은 말은 모든 조건에서 그랬을 때만 쓴다.',
@@ -808,7 +818,9 @@ export function stagePromptLines(stage, input) {
       ...bookBlock(book),
       '',
       '[학생 실험 데이터]',
-      JSON.stringify({ 학생입력: { measurementName: data.measurementName, unit: data.unit, scaleGuide: data.scaleGuide, conditions: data.conditions, ...studentVoice(data) }, 결과정리: summaryForPrompt(stats) }, null, 2),
+      JSON.stringify({ 학생입력: { measurementName: data.measurementName, unit: data.unit, scaleGuide: data.scaleGuide, conditions: data.conditions, ...studentVoice(data) },
+        ...((data.references || []).length ? { 기준값: data.references.map((one) => ({ 이름: one.label, 값: one.value, 단위: one.unit })) } : {}),
+        결과정리: summaryForPrompt(stats) }, null, 2),
       '',
       '[1차 탐구 설계서]',
       data.draftReport || '(없음)',
@@ -864,11 +876,15 @@ const STAGE_SCHEMA = {
     dataTemplate: {
       type: 'object',
       additionalProperties: false,
-      required: ['measurementName', 'unit', 'scaleGuide', 'conditions', 'trials'],
-      properties: { measurementName: STRING, unit: STRING, scaleGuide: STRING, conditions: { type: 'array', minItems: 2, maxItems: MAX_CONDITIONS, items: STRING }, trials: { type: 'integer', minimum: 3, maximum: MAX_TRIALS } },
+      required: ['measurementName', 'unit', 'scaleGuide', 'conditions', 'trials', 'referenceInputs'],
+      properties: {
+        measurementName: STRING, unit: STRING, scaleGuide: STRING, conditions: { type: 'array', minItems: 2, maxItems: MAX_CONDITIONS, items: STRING }, trials: { type: 'integer', minimum: 3, maximum: MAX_TRIALS },
+        referenceInputs: { type: 'array', minItems: 0, maxItems: 3, items: { type: 'object', additionalProperties: false, required: ['label', 'unit'], properties: { label: STRING, unit: STRING } } },
+      },
     },
   },
   [STAGE.FINAL]: {
+    calculations: CALCULATION_SCHEMA,
     recordDraft: { type: 'array', minItems: 3, maxItems: 6, items: STRING },
     figures: {
       type: 'array',
@@ -959,6 +975,9 @@ export function finalizeStageOutput(stage, parsed, input) {
       [one.year, one.volume, one.issue, ...String(one.pages || '').split('-'), String(one.date || '').slice(0, 4)]
         .filter((value) => /^\d+$/.test(String(value || ''))).forEach((value) => allowed.add(canonicalNumber(value)));
     }
+    // AI가 적은 계산을 코드가 다시 해 보고, 맞는 계산의 답만 본문에 쓸 수 있는 숫자로 더한다(calc_check_v1).
+    const calculation = verifyCalculations(parsed?.calculations, allowed);
+    calculation.allowed.forEach((number) => allowed.add(number));
     const studentText = [data.reason, data.observations, data.reflection].join(' ');
     let removed = 0;
     let removedFeelings = 0;
@@ -995,6 +1014,7 @@ export function finalizeStageOutput(stage, parsed, input) {
           comparisonTableAfterSection: '자료 비교 정리' };
     const recordDraft = buildRecordDraft(parsed?.recordDraft, allowed);
     return { parsed: { ...parsed, sections: cleaned }, extra: { ...extra, recordDraft, removedNumberSentences: removed, removedFeelingSentences: removedFeelings,
+      ...(calculation.verified.length || calculation.rejected.length ? { calculations: calculation.verified, rejectedCalculations: calculation.rejected } : {}),
       ...(used ? { inspiration: inspirationOf(used) } : {}) } };
   }
   // The one-shot report has no student data to check numbers against, but the two filters that need no data were

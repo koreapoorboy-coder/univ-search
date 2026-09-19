@@ -1420,6 +1420,8 @@ async function callOpenAI(prompt, env, input = {}) {
             properties: {
               // 쓸 재료를 **맨 먼저** 고르게 한다(ingredients_v1). 긴 답의 끝에 둔 칸에서 AI가 빈 줄을 끝없이 찍었다.
               ...(stageProperties.usedIngredients ? { usedIngredients: stageProperties.usedIngredients } : {}),
+              // 계산도 본문보다 먼저 — 식을 세운 뒤에 그 답으로 본문을 쓴다(calc_check_v1).
+              ...(stageProperties.calculations ? { calculations: stageProperties.calculations } : {}),
               reportTitle: { type: 'string', minLength: 8 },
               sections: {
                 type: 'array',

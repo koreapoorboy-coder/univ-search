@@ -62,7 +62,7 @@ const litOut = finalizeStageOutput(STAGE.LITERATURE, { reportTitle: "t", section
 check(litOut.extra.comparisonTable === null, "a literature table with a number is dropped (nothing backs it)");
 
 check(stageSections(STAGE.FINAL, { taskDescription: "활용 방안을 통한 탐구보고서" }).includes("활용 방안") && !stageSections(STAGE.FINAL, { taskDescription: "탐구보고서" }).includes("활용 방안"), "활용 방안 section appears only when the task asks for it");
-check(Object.keys(stageSchemaProperties(STAGE.DRAFT)).join() === "caseTag,dataTemplate" && Object.keys(stageSchemaProperties(STAGE.FINAL)).join() === "recordDraft,figures", "each stage asks the model for its own extra output");
+check(Object.keys(stageSchemaProperties(STAGE.DRAFT)).join() === "caseTag,dataTemplate" && Object.keys(stageSchemaProperties(STAGE.FINAL)).join() === "calculations,recordDraft,figures", "each stage asks the model for its own extra output");
 
 // Real test 2026-09-11: 세제 2 × 온도 3 conditions. Charts over the whole grid are grouped (세제 = colours,
 // 온도 = x-axis), ties are reported, 참고 자료 is the student's own list, and invented feelings are removed.
