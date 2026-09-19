@@ -10,6 +10,11 @@
 
 const MAX_CALCULATIONS = 12;
 const UNIT_FACTORS = ['1', '10', '100', '1000', '1000000'];
+// 교과서에 늘 나오는 상수. AI가 constants에 밝히지 않고 써도 지어낸 숫자가 아니다. 운영 테스트 17: 아세트산 몰질량 60.05를
+// 밝히지 않아 산도 계산과 그 뒤가 모두 떨어졌다. 몰질량(아세트산·NaOH·HCl·물·CO2·NaCl·포도당·H2SO4·CaCO3),
+// 중력가속도, 물의 비열, 기체 상수, 표준 상태 기체 1몰 부피.
+const TEXTBOOK_CONSTANTS = ['60.05', '60.1', '60', '40', '40.00', '36.46', '36.5', '18', '18.02', '18.0', '44', '44.01', '58.44', '58.5',
+  '180', '180.16', '98', '98.08', '100.09', '9.8', '9.81', '4.18', '4.184', '4.2', '0.082', '0.0821', '8.31', '8.314', '22.4'];
 const clip = (value, max) => String(value ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
 const canonical = (value) => String(Number(value));
 
@@ -107,7 +112,7 @@ export function verifyCalculations(list, allowed) {
     const result = clip(raw?.result, 20).replace(/,/g, '');
     // 단위 바꾸기(mL→L ÷1000, 백분율 ×100)의 10의 거듭제곱은 출처를 따지지 않는다. 운영 테스트 12(2026-09-19): 맞게 계산한
     // 몰 농도·산도·오차율이 「÷ 1000」 때문에 모두 떨어졌다.
-    const known = new Set([...extended, ...UNIT_FACTORS, ...constants.map((one) => canonical(one.value))]);
+    const known = new Set([...extended, ...UNIT_FACTORS, ...TEXTBOOK_CONSTANTS.map(canonical), ...constants.map((one) => canonical(one.value))]);
     const numbers = expression.replace(/,/g, '').match(/\d+(?:\.\d+)?/g) || [];
     // 단위를 미리 바꿔 적은 숫자(35.93 mL → 0.03593 L, 5 mL → 0.005 L)도 아는 숫자다. 운영 테스트 14에서 맞는 산도 계산이
     // 이것 때문에 떨어졌다. 아는 숫자에 10의 거듭제곱을 곱하거나 나눈 값인지 본다.

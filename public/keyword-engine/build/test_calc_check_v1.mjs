@@ -64,8 +64,11 @@ const units = verifyCalculations([
   { what: "앞에서 밝힌 몰질량을 다시 쓴 산도", constants: [], expression: "0.72 × 60.05 ÷ 10", result: "4.32", unit: "%" },
 ], allowed);
 check(units.verified.length === 4, "C3b 단위 바꾸기는 통과하고, 앞에서 밝힌 상수는 뒤에서 다시 쓸 수 있다", JSON.stringify(units.rejected));
-const unnamed = verifyCalculations([{ what: "몰질량을 밝히지 않은 산도", constants: [], expression: "0.72 × 60.05 ÷ 10", result: "4.32", unit: "%" }], allowed);
-check(unnamed.rejected[0]?.why === "식에 출처 없는 숫자", "C3b 이름 없는 상수는 여전히 떨어진다", JSON.stringify(unnamed));
+const unnamed = verifyCalculations([{ what: "밝히지 않은 낯선 상수", constants: [], expression: "0.72 × 61.3 ÷ 10", result: "4.414", unit: "%" }], allowed);
+check(unnamed.rejected[0]?.why === "식에 출처 없는 숫자", "C3b 이름 없는 낯선 상수는 여전히 떨어진다", JSON.stringify(unnamed));
+// 운영 테스트 17: 아세트산 몰질량(60.05)을 constants에 안 적어 산도 계산이 떨어졌다 — 교과서 상수는 알아본다
+check(verifyCalculations([{ what: "산도", constants: [], expression: "0.7165 × 60.05 × 0.1", result: "4.3026", unit: "%" }], new Set([...allowed, "0.7165"])).verified.length === 1,
+  "C3b 교과서 상수(아세트산 몰질량)는 밝히지 않아도 알아본다");
 
 // C3c 단위를 미리 바꿔 적은 숫자(운영 테스트 14의 실제 식)
 const shifted = verifyCalculations([
