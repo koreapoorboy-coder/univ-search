@@ -119,6 +119,21 @@ check(absolute.verified.length === 2, "C3d 앞 답의 절댓값을 그대로 쓴
   check(felt.body === "주기를 계산했다. 다음에는 큰각을 재고 싶다.", "C7 느낀 점에서 지어낸 '찾아보며'를 지운다", felt.body);
 }
 
+// C8 운영 테스트 24(생명과학 카탈레이스): 꺾은선에 대조군이 이어짐, 다른 과목에 단원을 붙인 문장
+{
+  const { buildFigures, removeCrossSubjectUnitClaims } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  const enzyme = normalizeStudentData({ measurementName: "거품 높이", unit: "mm", conditions: [
+    { label: "용액 온도 5 °C", values: ["8", "7", "9"] }, { label: "용액 온도 40 °C", values: ["31", "29", "32"] },
+    { label: "용액 온도 60 °C", values: ["9", "8", "10"] }, { label: "끓여 식힌 감자즙 25 °C", values: ["1", "0", "1"] }] });
+  const line = buildFigures([{ kind: "line", metric: "mean", conditionOrder: [], title: "온도 조건별 거품 높이 평균", caption: "" }], computeStats(enzyme)).find((one) => one.kind === "line");
+  check(line.labels.length === 3 && !line.labels.some((label) => /끓여/.test(label)), "C8 꺾은선에서 대조군을 뺀다(표에는 남는다)", JSON.stringify(line.labels));
+  const bar = buildFigures([{ kind: "bar", metric: "mean", conditionOrder: [], title: "온도 조건별 거품 높이 평균", caption: "" }], computeStats(enzyme)).find((one) => one.kind === "bar");
+  check(bar.labels.length === 4, "C8 막대그래프는 대조군을 그대로 둔다");
+  const claim = removeCrossSubjectUnitClaims("평균이 가장 컸다. 이번 탐구는 고등학교 생명과학과 통합과학의 「물질대사와 에너지」 단원 역량이 깊어지는 출발점이 된다. 화학 반응의 속도도 달라진다.", "생명과학");
+  check(claim.body === "평균이 가장 컸다. 화학 반응의 속도도 달라진다.", "C8 다른 과목에 단원을 붙인 문장만 지운다", claim.body);
+  check(removeCrossSubjectUnitClaims("수업에서 배운 「물질대사와 에너지」 단원을 적용했다.", "생명과학").body.includes("단원을 적용했다"), "C8 제 과목 단원 문장은 둔다");
+}
+
 // C4b 값을 구하라는 과제나 기준값이 있으면 계산이 하나는 있어야 한다(운영 테스트 11: 칸을 비우고 본문에 바로 적었다)
 check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "식초 속 아세트산의 함량을 적정하여 구하고 표시된 산도와 비교한다" }).calculations.minItems === 1, "C4b 값을 구하라는 과제는 계산 칸을 비울 수 없다");
 check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "탐구보고서", studentData: data }).calculations.minItems === 1, "C4b 기준값을 적었으면 계산 칸을 비울 수 없다");

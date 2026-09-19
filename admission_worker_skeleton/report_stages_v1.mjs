@@ -240,7 +240,8 @@ function asRowNumber(value, row) {
   return places > 0 && Number.isFinite(value) && Math.round(value * 10 ** places) / 10 ** places === value ? value.toFixed(places) : value;
 }
 
-const CALCULATED_WORDS = /²|\^2|제곱|기울기|회귀|추정한|계산한|계산해|중력가속도|g ?=|T ?²/;
+const CONTROL_ROW = /대조|블랭크|공시험|끓여|끓인|변성|효소 ?없음|무처리|증류수만/;
+const CALCULATED_WORDS =/²|\^2|제곱|기울기|회귀|추정한|계산한|계산해|중력가속도|g ?=|T ?²/;
 // 잰 값의 이름 가운데 한 낱말이라도 들어 있고, 계산값을 가리키는 말이 없으면 그려진 것을 말하는 글이다.
 export function describesPlotted(text, measurementName) {
   const value = String(text || '');
@@ -306,9 +307,13 @@ export function buildFigures(specs, stats) {
           ...(chartMetric === 'mean' ? { valueLabels: grid.seconds.map((second) => String(asRowNumber(grid.find(first, second).mean, grid.find(first, second)))) } : {}) })),
       };
     }
+    // 꺾은선은 가로축이 순서 있는 값(온도·길이)이라 대조군·블랭크를 한 줄에 이으면 안 된다. 운영 테스트 24: 5~60 °C 다음에
+    // 「끓여 식힌 감자즙」이 이어져 60 °C 뒤에 더 떨어지는 것처럼 보였다. 대조군은 표에만 남긴다.
+    const lineRows = kind === 'line' ? rows.filter((row) => !CONTROL_ROW.test(row.label)) : rows;
+    const plottedRows = lineRows.length >= 2 ? lineRows : rows;
     // 막대 위 숫자도 표와 같은 자릿수로(36.0이 그래프에서 「36」으로 보였다 — 운영 테스트 2026-09-19).
-    return { ...base, kind, labels: rows.map((row) => row.label), values: rows.map((row) => row[chartMetric]),
-      ...(chartMetric === 'mean' ? { valueLabels: rows.map((row) => String(asRowNumber(row.mean, row))) } : {}) };
+    return { ...base, kind, labels: plottedRows.map((row) => row.label), values: plottedRows.map((row) => row[chartMetric]),
+      ...(chartMetric === 'mean' ? { valueLabels: plottedRows.map((row) => String(asRowNumber(row.mean, row))) } : {}) };
   });
 }
 
@@ -410,6 +415,18 @@ function filterSentences(body, keep) {
     return ok;
   }).join('').trimEnd()).join('\n').replace(/\n{3,}/g, '\n\n').trim();
   return { body: kept, removed, dropped };
+}
+
+// 단원 이름(「…」 단원)을 다른 과목에 붙인 문장은 지운다. 운영 테스트 24: 「고등학교 생명과학과 통합과학의 「물질대사와
+// 에너지」 단원」 — 통합과학에는 그런 단원이 없다. 과목 이름 뒤에 과·와·의·가운뎃점이 붙은 경우만 본다(「화학 반응」은 건드리지 않는다).
+const SCHOOL_SUBJECTS = ['통합과학', '통합사회', '과학탐구실험', '물리학', '물리', '화학', '생명과학', '지구과학', '공통수학', '대수', '미적분', '확률과 통계', '기하', '정보'];
+export function removeCrossSubjectUnitClaims(body, subject) {
+  const own = String(subject || '').replace(/\s+/g, '');
+  return filterSentences(body, (sentence) => {
+    if (!/「[^」]+」\s*단원/.test(sentence)) return true;
+    return !SCHOOL_SUBJECTS.some((name) => !own.startsWith(name.replace(/\s+/g, '')) && !name.replace(/\s+/g, '').startsWith(own)
+      && new RegExp(`${name}[ⅠⅡ12]?\\s*(과|와|의|·)`).test(sentence));
+  });
 }
 
 export function removeUnsupportedNumbers(body, allowed) {
@@ -1032,7 +1049,8 @@ export function finalizeStageOutput(stage, parsed, input) {
           cards: data.sourceCards, textbook: input.textbookCitation || '',
         }) };
       }
-      const numbers = removeUnsupportedNumbers(tidyCalculatedNumbers(scrubInternalNames(input.ingredients ? scrubIngredientIds(section?.body) : section?.body), calculation.verified), allowed);
+      const cleanedNumbers = removeUnsupportedNumbers(tidyCalculatedNumbers(scrubInternalNames(input.ingredients ? scrubIngredientIds(section?.body) : section?.body), calculation.verified), allowed);
+      const numbers = { ...cleanedNumbers, body: removeCrossSubjectUnitClaims(cleanedNumbers.body, input.subject).body };
       removed += numbers.removed;
       // 무엇이 지워졌는지 남긴다(학생 화면에는 안 보인다). 운영 테스트에서 지워진 문장을 볼 수 없어 원인을 짐작만 했다.
       droppedSamples.push(...numbers.dropped.map((sentence) => clip(sentence, 140)));
