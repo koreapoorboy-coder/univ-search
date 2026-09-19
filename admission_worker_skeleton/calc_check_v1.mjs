@@ -109,10 +109,15 @@ export function verifyCalculations(list, allowed) {
     // 몰 농도·산도·오차율이 「÷ 1000」 때문에 모두 떨어졌다.
     const known = new Set([...extended, ...UNIT_FACTORS, ...constants.map((one) => canonical(one.value))]);
     const numbers = expression.replace(/,/g, '').match(/\d+(?:\.\d+)?/g) || [];
+    // 단위를 미리 바꿔 적은 숫자(35.93 mL → 0.03593 L, 5 mL → 0.005 L)도 아는 숫자다. 운영 테스트 14에서 맞는 산도 계산이
+    // 이것 때문에 떨어졌다. 아는 숫자에 10의 거듭제곱을 곱하거나 나눈 값인지 본다.
+    const knownOrShifted = (number) => known.has(canonical(number))
+      || [1, 2, 3, 4, 5, 6].some((power) => known.has(canonical(Number((Number(number) * 10 ** power).toPrecision(12))))
+        || known.has(canonical(Number((Number(number) / 10 ** power).toPrecision(12)))));
     const computed = evaluateExpression(expression);
     const why = !/^-?\d+(?:\.\d+)?$/.test(result) ? '답이 숫자가 아님'
       : computed === null ? '식을 읽을 수 없음'
-        : !numbers.every((number) => known.has(canonical(number))) ? '식에 출처 없는 숫자'
+        : !numbers.every(knownOrShifted) ? '식에 출처 없는 숫자'
           : !sameResult(computed, result) ? '답이 식과 다름' : '';
     if (why) { rejected.push({ what: clip(raw?.what, 60), expression, result, why }); continue; }
     constants.forEach((one) => extended.add(canonical(one.value)));
@@ -127,6 +132,7 @@ export function calculationPromptLines() {
   return [
     '- 안내문이 구하라고 한 값(농도·산도·속력·효율·오차율 등)을 학생 숫자로 계산할 수 있으면, 본문을 쓰기 전에 calculations에 식으로 먼저 계산한다. 계산이 필요 없으면 빈 배열이다.',
     '- calculations의 expression은 숫자와 + - × ÷ ( )만 쓴 한 줄 식이다(단위·글자 없이). 식의 숫자는 학생입력·결과정리·기준값·안내문·1차 설계서의 숫자, 앞 계산의 result, 또는 constants에 이름과 함께 적은 교과서 상수(몰질량 등)만 쓴다. result는 식의 값을 알맞은 자릿수로 반올림한 숫자다.',
+    '- 한 계산에는 **한 단계만** 담는다. 예: ① 몰 농도(M) = 0.1 × 36.0 ÷ 5 → 0.72, ② 산도(%) = 0.72 × 60.05 ÷ 10 → 4.32, ③ 오차율(%) = (4.5 - 4.32) ÷ 4.5 × 100 → 4. 단위 바꾸기를 한 식에 여러 번 섞으면 자릿수가 틀리기 쉽다. 앞 단계의 result를 다음 식에 그대로 쓴다.',
     '- 코드가 식을 다시 계산해 맞는 계산의 result만 본문에 쓸 수 있다. 본문에는 계산 과정(무엇을 무엇으로 나눴는지)과 result를 함께 쓴다.',
     '- **calculations에 없는 계산 결과를 본문에 쓰면 그 문장은 통째로 지워진다.** 농도, 산도, 비율, 오차율처럼 본문에 쓸 계산값은 하나도 빠짐없이 calculations에 먼저 넣는다. 비율(예: 72.1 ÷ 36.0)도 계산이다.',
     '- 기준값이 있으면 계산한 값과 나란히 놓고 차이와 오차율(%)을 calculations로 계산해 비교한다. 비교하라는 안내문인데 기준값이 비어 있으면, 계산한 값까지 쓰고 "기준값을 옮겨 적으면 바로 비교할 수 있다"를 한계에 쓴다.',

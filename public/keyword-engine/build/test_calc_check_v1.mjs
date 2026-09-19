@@ -67,6 +67,18 @@ check(units.verified.length === 4, "C3b 단위 바꾸기는 통과하고, 앞에
 const unnamed = verifyCalculations([{ what: "몰질량을 밝히지 않은 산도", constants: [], expression: "0.72 × 60.05 ÷ 10", result: "4.32", unit: "%" }], allowed);
 check(unnamed.rejected[0]?.why === "식에 출처 없는 숫자", "C3b 이름 없는 상수는 여전히 떨어진다", JSON.stringify(unnamed));
 
+// C3c 단위를 미리 바꿔 적은 숫자(운영 테스트 14의 실제 식)
+const shifted = verifyCalculations([
+  { what: "5 mL 시료의 산도", constants: [{ name: "아세트산 몰질량", value: "60.05" }], expression: "0.1*0.036/0.005*60.05/10", result: "4.324", unit: "%" },
+  { what: "표기와의 차이", constants: [], expression: "4.324-4.5", result: "-0.176", unit: "%" },
+  { what: "오차율", constants: [], expression: "(0.176/4.5)*100", result: "3.911", unit: "%" },
+], allowed);
+check(shifted.verified.length === 3, "C3c mL→L로 바꿔 적은 숫자와 앞 계산의 답(절댓값)을 쓴 식은 통과한다", JSON.stringify(shifted.rejected));
+check(verifyCalculations([{ what: "x", constants: [], expression: "0.1*0.0377/0.005", result: "0.754", unit: "M" }], allowed).rejected.length === 1, "C3c 아는 숫자와 자릿수만 다른 게 아닌 숫자는 여전히 떨어진다");
+// 운영 테스트 14의 실제 식: 답(4.315)은 맞는데 식은 4315가 된다 — 식이 틀렸으니 떨어뜨린다
+check(verifyCalculations([{ what: "산도", constants: [{ name: "몰질량", value: "60.05" }], expression: "0.1*0.036*60.05/0.005*100", result: "4.324", unit: "%" }], allowed).rejected[0]?.why === "답이 식과 다름",
+  "C3c 식과 답의 자릿수가 어긋나면(단위 바꾸기 실수) 떨어진다");
+
 // C4b 값을 구하라는 과제나 기준값이 있으면 계산이 하나는 있어야 한다(운영 테스트 11: 칸을 비우고 본문에 바로 적었다)
 check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "식초 속 아세트산의 함량을 적정하여 구하고 표시된 산도와 비교한다" }).calculations.minItems === 1, "C4b 값을 구하라는 과제는 계산 칸을 비울 수 없다");
 check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "탐구보고서", studentData: data }).calculations.minItems === 1, "C4b 기준값을 적었으면 계산 칸을 비울 수 없다");
