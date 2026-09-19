@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v282_chart_labels
+// SCREEN_VERSION: v283_full_title
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v282-chart-labels";
+  const VERSION = "mini-worker-generate-bridge-v283-full-title";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -1092,7 +1092,8 @@
       || req?.mini_payload?.reportGenerationContext?.performanceAssessment?.assessmentKeywordConnection
       || {};
     const cross = connection.cross_axis || connection.crossAxis || req?.reportGenerationContext?.assessmentSeedCrossAxis || {};
-    const workerTitle = cleanReportPhrase(rawData?.result?.reportTitle || rawData?.reportTitle || rawData?.data?.reportTitle, "");
+    // 엔진 제목은 70자에서 자르지 않는다 — 「주제목 — 부제」(최대 80자)의 끝(「…계산한 비교」)이 잘려 나갔다(운영 테스트 2026-09-19).
+    const workerTitle = cleanUiText(rawData?.result?.reportTitle || rawData?.reportTitle || rawData?.data?.reportTitle || "").replace(/\s+/g, " ").trim().slice(0, 120);
     if(workerTitle) return workerTitle;
     const exactTitle = cleanReportPhrase(cross?.topic?.generatedTitle || connection?.student_output?.one_line_pick, "");
     if(exactTitle) return exactTitle;

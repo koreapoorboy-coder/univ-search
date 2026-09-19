@@ -126,10 +126,14 @@ export function verifyCalculations(list, allowed) {
           : !sameResult(computed, result) ? '답이 식과 다름' : '';
     if (why) { rejected.push({ what: clip(raw?.what, 60), expression, result, why }); continue; }
     constants.forEach((one) => extended.add(canonical(one.value)));
+    // 검산을 통과한 식의 숫자(36.0 mL를 리터로 바꾼 0.0360 등)도 본문에 쓸 수 있다. 운영 테스트 19: 본문에 식을 풀어 쓴
+    // 「0.1×0.0360=0.00360 mol」 문장이 0.0360 때문에 지워졌다.
+    numbers.forEach((number) => extended.add(canonical(number)));
     addRounded(extended, computed);
     // 뒤 계산은 앞 답의 **절댓값**을 그대로 쓰기도 한다(차이 -0.2079… → 상대오차 0.2079… ÷ 4.5). 운영 테스트 16.
     [computed, Math.abs(computed), Number(result), Math.abs(Number(result))].forEach((value) => extended.add(canonical(value)));
-    verified.push({ what: clip(raw?.what, 60), constants, expression, result, unit: clip(raw?.unit, 20) });
+    // 단위에 답 형식 조각이 붙어 오기도 했다(「%p},{」, 운영 테스트 19).
+    verified.push({ what: clip(raw?.what, 60), constants, expression, result, unit: clip(String(raw?.unit ?? '').split(/["{}[\],]/)[0], 20) });
   }
   return { allowed: extended, verified, rejected };
 }

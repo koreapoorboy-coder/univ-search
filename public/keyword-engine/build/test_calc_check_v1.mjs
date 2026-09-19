@@ -89,6 +89,21 @@ const absolute = verifyCalculations([
 ], new Set([...allowed, "4.29207375"]));
 check(absolute.verified.length === 2, "C3d 앞 답의 절댓값을 그대로 쓴 식은 통과한다", JSON.stringify(absolute.rejected));
 
+// C3e 운영 테스트 19의 실제 문장: 본문에 식을 풀어 쓰면 식의 숫자(0.0360)도 쓸 수 있어야 한다. 지어낸 숫자는 여전히 지운다.
+{
+  const inline = finalizeStageOutput(STAGE.FINAL, {
+    sections: [{ title: "5. 결과 분석", body: "5 mL 조건은 0.1×0.0360=0.00360 mol, 질량은 0.00360×60.05=0.216 g, 산도는 0.216/5×100=4.32%가 된다. 흔들림은 8~12방울 규모로 보인다." }],
+    calculations: [
+      { what: "몰수", constants: [], expression: "0.1 * 0.0360", result: "0.00360", unit: "mol" },
+      { what: "질량", constants: [], expression: "0.00360 * 60.05", result: "0.216", unit: "g" },
+      { what: "산도", constants: [], expression: "0.216 / 5 * 100", result: "4.32", unit: "%p},{" },
+    ], figures: [], recordDraft: [],
+  }, { studentData: data, taskDescription: "0.1 M 수산화나트륨으로 적정하여 산도를 구한다", subject: "화학" });
+  check(inline.parsed.sections[0].body.startsWith("5 mL 조건은 0.1×0.0360=0.00360 mol") && !inline.parsed.sections[0].body.includes("방울 규모"),
+    "C3e 식을 풀어 쓴 문장은 남고, 지어낸 숫자 문장은 지운다", inline.parsed.sections[0].body);
+  check(inline.extra.calculations[2].unit === "%p", "C3e 단위에 붙은 형식 조각은 떼어 낸다", inline.extra.calculations[2].unit);
+}
+
 // C4b 값을 구하라는 과제나 기준값이 있으면 계산이 하나는 있어야 한다(운영 테스트 11: 칸을 비우고 본문에 바로 적었다)
 check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "식초 속 아세트산의 함량을 적정하여 구하고 표시된 산도와 비교한다" }).calculations.minItems === 1, "C4b 값을 구하라는 과제는 계산 칸을 비울 수 없다");
 check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "탐구보고서", studentData: data }).calculations.minItems === 1, "C4b 기준값을 적었으면 계산 칸을 비울 수 없다");
