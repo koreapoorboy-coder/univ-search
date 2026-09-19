@@ -56,6 +56,17 @@ const draft = finalizeStageOutput(STAGE.DRAFT, { sections: [], dataTemplate: { m
   referenceInputs: [{ label: "식초 병에 표시된 산도", unit: "%" }] } }, { collectionKind: "measurement" });
 check(draft.extra.dataTemplate.referenceInputs[0].label === "식초 병에 표시된 산도", "C4 기준값 칸이 화면까지 간다");
 
+// C3b 단위 바꾸기 숫자(÷1000, ×100)는 출처를 따지지 않는다 — 운영 테스트 12에서 맞는 계산이 이것 때문에 모두 떨어졌다
+const units = verifyCalculations([
+  { what: "몰 농도", constants: [], expression: "(0.1 × (36.0 ÷ 1000)) ÷ (5 ÷ 1000)", result: "0.72", unit: "M" },
+  { what: "산도", constants: [{ name: "아세트산 몰질량", value: "60.05" }], expression: "((0.1 × (36.0 ÷ 1000)) ÷ (5 ÷ 1000) × 60.05) ÷ 10", result: "4.3236", unit: "%" },
+  { what: "상대 오차", constants: [{ name: "아세트산 몰질량", value: "60.05" }], expression: "((((0.1 × (36.0 ÷ 1000)) ÷ (5 ÷ 1000) × 60.05) ÷ 10) - 4.5) ÷ 4.5 × 100", result: "-3.92", unit: "%" },
+  { what: "앞에서 밝힌 몰질량을 다시 쓴 산도", constants: [], expression: "0.72 × 60.05 ÷ 10", result: "4.32", unit: "%" },
+], allowed);
+check(units.verified.length === 4, "C3b 단위 바꾸기는 통과하고, 앞에서 밝힌 상수는 뒤에서 다시 쓸 수 있다", JSON.stringify(units.rejected));
+const unnamed = verifyCalculations([{ what: "몰질량을 밝히지 않은 산도", constants: [], expression: "0.72 × 60.05 ÷ 10", result: "4.32", unit: "%" }], allowed);
+check(unnamed.rejected[0]?.why === "식에 출처 없는 숫자", "C3b 이름 없는 상수는 여전히 떨어진다", JSON.stringify(unnamed));
+
 // C4b 값을 구하라는 과제나 기준값이 있으면 계산이 하나는 있어야 한다(운영 테스트 11: 칸을 비우고 본문에 바로 적었다)
 check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "식초 속 아세트산의 함량을 적정하여 구하고 표시된 산도와 비교한다" }).calculations.minItems === 1, "C4b 값을 구하라는 과제는 계산 칸을 비울 수 없다");
 check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "탐구보고서", studentData: data }).calculations.minItems === 1, "C4b 기준값을 적었으면 계산 칸을 비울 수 없다");

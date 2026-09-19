@@ -9,6 +9,7 @@
 // 앞 계산의 답은 뒤 계산의 식에 쓸 수 있다(몰 농도 → 질량 백분율 → 표시값과의 오차).
 
 const MAX_CALCULATIONS = 6;
+const UNIT_FACTORS = ['1', '10', '100', '1000', '1000000'];
 const clip = (value, max) => String(value ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
 const canonical = (value) => String(Number(value));
 
@@ -104,7 +105,9 @@ export function verifyCalculations(list, allowed) {
       .filter((one) => one.name && /^-?\d+(?:\.\d+)?$/.test(one.value));
     const expression = clip(raw?.expression, 200);
     const result = clip(raw?.result, 20).replace(/,/g, '');
-    const known = new Set([...extended, ...constants.map((one) => canonical(one.value))]);
+    // 단위 바꾸기(mL→L ÷1000, 백분율 ×100)의 10의 거듭제곱은 출처를 따지지 않는다. 운영 테스트 12(2026-09-19): 맞게 계산한
+    // 몰 농도·산도·오차율이 「÷ 1000」 때문에 모두 떨어졌다.
+    const known = new Set([...extended, ...UNIT_FACTORS, ...constants.map((one) => canonical(one.value))]);
     const numbers = expression.replace(/,/g, '').match(/\d+(?:\.\d+)?/g) || [];
     const computed = evaluateExpression(expression);
     const why = !/^-?\d+(?:\.\d+)?$/.test(result) ? '답이 숫자가 아님'
