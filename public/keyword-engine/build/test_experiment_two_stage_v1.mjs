@@ -393,35 +393,26 @@ check(bridgeSource.includes("function renderRecordDraft") && bridgeSource.includ
   check(already.filter((section) => section === "결론").length === 1, "a shape that already concludes is left alone", already.join("/"));
 }
 
-// 제목은 「주제목 — 부제」다(사용자 지적 2026-09-19: 예전 규칙의 45~90자 명사구 제목은 "내용을 뽑아 넣은 느낌, 제목 느낌이
-// 아예 안 난다"). 주제목은 제목답게 짧게, 생활기록부에 필요한 것(대상·한 일·규모·알아낸 것)은 부제가 맡는다.
+// 제목은 주제가 드러나는 보고서 제목이다(사용자 지적 2026-09-19 두 번: 45~90자 요약 한 줄도, 「물음 — 횟수·조건을 늘어놓은
+// 부제」도 풀어 쓴 느낌이라 주제 느낌이 안 난다). 규모·조건값·결과 숫자는 제목에서 빠진다.
 {
   const lines = titleRules(COLLECTION.MEASUREMENT).join("\n");
-  check(/주제목과 부제를 " — "/.test(lines), "the title is a main title and a subtitle joined by a dash");
-  check(/주제목\(8~28자\)/.test(lines) && /부제\(20~50자\)/.test(lines) && /35~80자/.test(lines), "each part has its own length");
-  check(/본문을 요약한 문장이 아니다/.test(lines), "a title is not a summary of the body");
-  check(/주제목에는 방법, 반복 횟수, 조건 수, 과목 이름을 넣지 않는다/.test(lines), "the main title carries no method or counts");
-  check(/수행평가 안내문 문장을 잘라 붙이지 않는다/.test(lines) && /"~에 대한 탐구"/.test(lines), "and no cut-and-paste or empty shapes");
-  check(/생활기록부에 옮겨 적는 부분/.test(lines), "the subtitle is what the teacher copies");
-  check(/학생이 직접 무엇을 했나/.test(lines) && /조건을 몇 개 두고 몇 번 반복해 쟀는지/.test(lines), "the subtitle keeps what was done and the scale");
-  check(/지어내지 않는다/.test(lines), "and the scale may not be invented");
-  check(/규모를 뭉뚱그린 말에 붙이지 않는다/.test(lines) && /숫자는 제목 전체에 많아야 두 개다/.test(lines), "vague counts and number piles are still refused");
-  check(/가운뎃점\(·\)은 한 번까지만/.test(lines) && /BOD → 생물학적 산소 요구량/.test(lines), "separators are capped and abbreviations spelled out");
-  check(/세제는 온도를 탈까 — /.test(lines), "an experiment gets an experiment example in the new shape");
-  check(/부제만 있고 주제목이 없어 요약 문장처럼 읽힌다/.test(lines), "the old shape is shown as the bad example");
-  check(/잠이 1교시를 바꿀까 — 같은 학년 62명/.test(titleRules(COLLECTION.SURVEY).join("\n")), "a survey gets a survey example");
-  check(/몇 명에게 물었는지/.test(titleRules(COLLECTION.SURVEY).join("\n")), "a survey's scale is how many people");
-  check(/원자력 발전 찬반 신문 기사 네 편/.test(titleRules(COLLECTION.READING).join("\n")), "a reading task gets its own");
-  check(/자료를 몇 편 읽었는지/.test(titleRules(COLLECTION.READING).join("\n")), "a reading task's scale is how many sources");
-  check(/손 소독 의무화 찬반 칼럼 세 편/.test(titleRules(COLLECTION.NONE).join("\n")), "and a 논술 task gets its own");
+  check(/주제가 드러나는 보고서 제목/.test(lines) && /소논문의 제목처럼/.test(lines), "the title is a topic, like a real report title");
+  check(/절차를 풀어 쓴 문장이 아니다/.test(lines), "not a summary of the procedure");
+  check(/교과 개념어를 하나 이상 넣는다/.test(lines), "it names a subject concept");
+  check(/15~40자/.test(lines) && /하나의 명사구/.test(lines), "short, one noun phrase");
+  check(/규모 숫자/.test(lines) && /실험 조건 값/.test(lines) && /결과 숫자/.test(lines), "no counts, condition values or result numbers");
+  check(/물음표/.test(lines) && /부제/.test(lines), "no question and no subtitle");
+  check(/"~에 대한 고찰"/.test(lines), "no empty shapes");
+  check(/물 온도에 따른 효소 세제의 얼룩 제거 효과 비교/.test(lines), "an experiment gets a topic-style example");
+  check(/진자는 길이에 얼마나 민감할까 — /.test(lines), "the title the user rejected is the bad example");
+  check(!/단진자|식초|적정/.test(lines), "the good examples do not hand the live-test tasks their titles");
+  check(/고등학생의 수면 시간과 1교시 수업 집중도의 관계 분석/.test(titleRules(COLLECTION.SURVEY).join("\n")), "a survey gets a survey example");
+  check(/원자력 발전 찬반 기사의 근거 제시 방식 비교/.test(titleRules(COLLECTION.READING).join("\n")), "a reading task gets its own");
+  check(/손 소독 의무화 찬반 칼럼의 논증 타당성 평가/.test(titleRules(COLLECTION.NONE).join("\n")), "and a 논술 task gets its own");
   const final = titleRules(COLLECTION.MEASUREMENT, STAGE.FINAL).join("\n");
-  check(/알아낸 것을 부제에 명사구로 담는다/.test(final), "the finished report puts the finding in the subtitle");
-  check(/주제목 자체에 결과 숫자를 넣지 않는다/.test(final), "but not numbers in the main title");
-  check(/양조식초 두 가지 희석을 페놀프탈레인으로 3회 적정해/.test(final), "the title the user rejected is the bad example");
-  check(/차이가 반복 측정의 흔들림보다 작을 때/.test(final) && /확인하지 않은 것을 확인했다고 쓰지 않는다/.test(final), "no finding is claimed that the data does not show");
-  check(/1차 설계서의 제목을 그대로 쓰지 않는다/.test(final), "and the draft's subtitle is rewritten");
-  check(!/알아낸 것을 부제에/.test(lines), "the 설계서, which has no data yet, may not claim a finding");
-  check(!/식초 병의 산도는/.test(final), "the examples do not hand the vinegar test its own title");
+  check(/결과는 제목에 넣지 않는다/.test(final), "the finished report keeps results out of the title");
+  check(/그대로 써도 된다/.test(final), "and may keep the draft's title when it still fits");
 }
 
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);

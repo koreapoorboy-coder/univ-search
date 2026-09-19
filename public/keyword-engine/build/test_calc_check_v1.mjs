@@ -104,6 +104,21 @@ check(absolute.verified.length === 2, "C3d 앞 답의 절댓값을 그대로 쓴
   check(inline.extra.calculations[2].unit === "%p", "C3e 단위에 붙은 형식 조각은 떼어 낸다", inline.extra.calculations[2].unit);
 }
 
+// C7 운영 테스트 21(단진자): 10회 진동 시간 평균을 그린 그래프에 「T²와 실 길이의 관계」 제목과 T² 설명이 붙었다.
+{
+  const { buildFigures, describesPlotted, removeInventedActions } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  const pend = normalizeStudentData({ measurementName: "10회 진동 시간", unit: "s", conditions: [
+    { label: "실 길이 0.40 m", values: ["12.72", "12.65", "12.70"] }, { label: "실 길이 0.60 m", values: ["15.58", "15.51", "15.60"] }, { label: "실 길이 0.80 m", values: ["17.98", "17.90", "18.01"] }] });
+  const line = buildFigures([{ kind: "line", metric: "mean", conditionOrder: [], title: "T²와 실 길이의 관계", caption: "네 조건에서 주기 제곱 T²를 계산해 길이 L에 대한 직선 경향을 확인한 그래프" }], computeStats(pend)).find((one) => one.kind === "line");
+  check(line.title === "조건별 10회 진동 시간 평균" && line.caption === "", "C7 그려지지 않은 계산값을 말하는 그래프 제목·설명은 바꾸거나 뺀다", JSON.stringify([line.title, line.caption]));
+  const ok = buildFigures([{ kind: "line", metric: "mean", conditionOrder: [], title: "실 길이에 따른 10회 진동 시간", caption: "길이가 길수록 진동 시간이 늘어난다" }], computeStats(pend)).find((one) => one.kind === "line");
+  check(ok.title === "실 길이에 따른 10회 진동 시간" && ok.caption.length > 0, "C7 잰 값을 말하는 제목·설명은 그대로 둔다");
+  check(!describesPlotted("g 추정값의 변화", "10회 진동 시간") && describesPlotted("각 조건의 평균 비교", "10회 진동 시간"), "C7 계산값은 거르고 평균 비교는 둔다");
+  // 느낀 점의 「관련 연구 자료를 찾아보며」 — 학생이 쓰지 않은 행동
+  const felt = removeInventedActions("주기를 계산했다. 관련 연구 자료를 찾아보며 제어 문제로 이어질 수 있음을 생각했다. 다음에는 큰각을 재고 싶다.", "반응 시간 때문에 10회를 한꺼번에 재는 이유를 알게 되었다.");
+  check(felt.body === "주기를 계산했다. 다음에는 큰각을 재고 싶다.", "C7 느낀 점에서 지어낸 '찾아보며'를 지운다", felt.body);
+}
+
 // C4b 값을 구하라는 과제나 기준값이 있으면 계산이 하나는 있어야 한다(운영 테스트 11: 칸을 비우고 본문에 바로 적었다)
 check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "식초 속 아세트산의 함량을 적정하여 구하고 표시된 산도와 비교한다" }).calculations.minItems === 1, "C4b 값을 구하라는 과제는 계산 칸을 비울 수 없다");
 check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "탐구보고서", studentData: data }).calculations.minItems === 1, "C4b 기준값을 적었으면 계산 칸을 비울 수 없다");
