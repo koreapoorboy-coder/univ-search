@@ -134,6 +134,18 @@ check(absolute.verified.length === 2, "C3d 앞 답의 절댓값을 그대로 쓴
   check(removeCrossSubjectUnitClaims("수업에서 배운 「물질대사와 에너지」 단원을 적용했다.", "생명과학").body.includes("단원을 적용했다"), "C8 제 과목 단원 문장은 둔다");
 }
 
+// C9 운영 테스트 25: 계획 문장의 새 조건 숫자는 남기고, 결과를 지어낸 숫자는 지운다(결론·느낀 점에서만)
+{
+  const { isPlanSentence, removeUnsupportedNumbers } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  check(isPlanSentence("35–45 °C를 2–3 °C 간격으로 촘촘히 측정해 정점을 더 정확히 찾겠다."), "C9 '~찾겠다'는 계획이다");
+  check(isPlanSentence("다음에는 35–45 °C를 더 촘촘히 나누고 산소 부피를 직접 측정하고 싶다."), "C9 '~하고 싶다'는 계획이다");
+  check(!isPlanSentence("50 °C에서는 거품이 7.2 cm로 가장 높았다."), "C9 결과를 말하는 문장은 계획이 아니다");
+  check(!isPlanSentence("45 °C에서 8 cm가 나왔으므로 더 재 보겠다."), "C9 결과 말이 섞이면 계획으로 보지 않는다");
+  const body = "40 °C에서 가장 컸다. 다른 식초는 5.1%였다. 다음에는 35–45 °C를 2–3 °C 간격으로 재 보겠다.";
+  check(removeUnsupportedNumbers(body, new Set(["40"]), { allowPlans: true }).body === "40 °C에서 가장 컸다. 다음에는 35–45 °C를 2–3 °C 간격으로 재 보겠다.", "C9 결론에서는 계획 문장이 남는다");
+  check(removeUnsupportedNumbers(body, new Set(["40"])).body === "40 °C에서 가장 컸다.", "C9 결과 절에서는 지금처럼 지운다");
+}
+
 // C4b 값을 구하라는 과제나 기준값이 있으면 계산이 하나는 있어야 한다(운영 테스트 11: 칸을 비우고 본문에 바로 적었다)
 check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "식초 속 아세트산의 함량을 적정하여 구하고 표시된 산도와 비교한다" }).calculations.minItems === 1, "C4b 값을 구하라는 과제는 계산 칸을 비울 수 없다");
 check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "탐구보고서", studentData: data }).calculations.minItems === 1, "C4b 기준값을 적었으면 계산 칸을 비울 수 없다");

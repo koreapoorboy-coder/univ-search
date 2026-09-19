@@ -429,8 +429,19 @@ export function removeCrossSubjectUnitClaims(body, subject) {
   });
 }
 
-export function removeUnsupportedNumbers(body, allowed) {
-  return filterSentences(body, (sentence) => (sentence.match(/\d+(?:\.\d+)?/g) || []).every((number) => allowed.has(canonicalNumber(number))));
+// 앞으로 할 일을 말하는 문장(「35~45 °C를 2~3 °C 간격으로 재겠다」)의 숫자는 결과를 지어낸 것이 아니라 다음 실험의 조건이다.
+// 운영 테스트 25: 이런 문장 4개가 지워져 결론의 후속 탐구가 한 문장만 남고 느낀 점의 「다음에는 ~」가 빠졌다.
+// 결과를 말하는 말(였다·나왔다·측정되었다·확인했다…)이 섞인 문장은 계획으로 보지 않는다.
+const PLAN_SENTENCE = /(겠다|겠습니다|하고 싶다|보고 싶다|싶다\.?$|제안한다|제안하고자|제안할 수 있다|계획이다|계획한다|예정이다|할 것이다|해 볼 것이다|필요가 있다|필요하다)\s*[.!]?\s*$/;
+const RESULT_WORDS = /(였다|였으|이었|나왔|나타났|측정되었|관찰되었|확인했|확인되었|기록되었|보였|얻었|컸다|컸으|작았|높았|낮았)/;
+export function isPlanSentence(sentence) {
+  const text = String(sentence || '').trim();
+  return PLAN_SENTENCE.test(text) && !RESULT_WORDS.test(text);
+}
+
+export function removeUnsupportedNumbers(body, allowed, { allowPlans = false } = {}) {
+  return filterSentences(body, (sentence) => (allowPlans && isPlanSentence(sentence))
+    || (sentence.match(/\d+(?:\.\d+)?/g) || []).every((number) => allowed.has(canonicalNumber(number))));
 }
 
 export function removeInventedFeelings(body, studentText) {
@@ -1049,7 +1060,8 @@ export function finalizeStageOutput(stage, parsed, input) {
           cards: data.sourceCards, textbook: input.textbookCitation || '',
         }) };
       }
-      const cleanedNumbers = removeUnsupportedNumbers(tidyCalculatedNumbers(scrubInternalNames(input.ingredients ? scrubIngredientIds(section?.body) : section?.body), calculation.verified), allowed);
+      const cleanedNumbers = removeUnsupportedNumbers(tidyCalculatedNumbers(scrubInternalNames(input.ingredients ? scrubIngredientIds(section?.body) : section?.body), calculation.verified), allowed,
+        { allowPlans: /결론|제언|후속|느낀 점|고찰|확장|성찰/.test(title) });
       const numbers = { ...cleanedNumbers, body: removeCrossSubjectUnitClaims(cleanedNumbers.body, input.subject).body };
       removed += numbers.removed;
       // 무엇이 지워졌는지 남긴다(학생 화면에는 안 보인다). 운영 테스트에서 지워진 문장을 볼 수 없어 원인을 짐작만 했다.
