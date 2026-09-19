@@ -102,4 +102,25 @@ const one = finalizeStageOutput(STAGE.DRAFT, { sections: [], dataTemplate: { mea
   conditions: ["식초 시료 5 mL", "unit"], referenceInputs: [] } }, { collectionKind: "measurement" });
 check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조(비교용)", "C5 진짜 조건 하나는 살린다", JSON.stringify(one.extra.dataTemplate.conditions));
 
+// C6 운영 테스트 18 뒤: 긴 소수(4.3236%)는 유효숫자 세 자리로, 지워진 문장은 남겨 둔다, 그래프 숫자도 학생 자릿수로
+{
+  const { shortNumber, tidyCalculatedNumbers } = await import("../../../admission_worker_skeleton/calc_check_v1.mjs");
+  check(shortNumber("4.3236") === "4.32" && shortNumber("43.236") === "43.24" && shortNumber("0.9951388889") === "0.995" && shortNumber("-0.1764") === "-0.176", "C6 긴 소수는 유효숫자 세 자리로");
+  check(shortNumber("4.32") === "4.32" && shortNumber("0.072") === "0.072", "C6 이미 짧은 수는 그대로");
+  const tidy = tidyCalculatedNumbers("산도는 4.3236%이고 차이는 -0.1764%p, 절대 차이 0.1764%p였다. 14.4 mL는 그대로.", [{ result: "4.3236" }, { result: "-0.1764" }]);
+  check(tidy === "산도는 4.32%이고 차이는 -0.176%p, 절대 차이 0.176%p였다. 14.4 mL는 그대로.", "C6 본문의 긴 계산값을 줄인다", tidy);
+  const long = finalizeStageOutput(STAGE.FINAL, {
+    sections: [{ title: "6. 결론", body: "산도는 4.3236%였다. 다른 식초는 5.1%였다." }],
+    calculations: [{ what: "몰 농도", constants: [], expression: "0.1 × 36 ÷ 5", result: "0.72", unit: "M" }, { what: "산도", constants: [], expression: "0.72 × 60.05 ÷ 10", result: "4.3236", unit: "%" }],
+    figures: [], recordDraft: ["적정 부피의 평균으로 식초의 산도 4.3236%를 구해 병에 표시된 값과 비교하여 차이를 확인함", "페놀프탈레인 종말점과 당량점의 차이를 중화 반응의 원리로 설명함", "블랭크 적정으로 지시약이 만드는 배경 부피를 확인하고 보정의 필요를 판단함"],
+  }, { studentData: data, taskDescription: "0.1 M 수산화나트륨으로 적정하여 산도를 구한다", subject: "화학" });
+  check(long.parsed.sections[0].body === "산도는 4.32%였다.", "C6 최종 단계 본문도 줄이고, 검산 못 한 문장은 지운다", long.parsed.sections[0].body);
+  check(long.extra.removedNumberSamples?.[0]?.includes("5.1%"), "C6 지운 문장을 결과에 남긴다(원인 확인용)", JSON.stringify(long.extra.removedNumberSamples));
+  check(long.extra.recordDraft.some((line) => line.includes("4.32%") && !line.includes("4.3236")), "C6 세특 초안도 같은 자릿수로", JSON.stringify(long.extra.recordDraft));
+  const { buildFigures } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  const chartData = normalizeStudentData({ measurementName: "부피", unit: "mL", conditions: [{ label: "a", values: ["36.0", "35.8", "36.2"] }, { label: "b", values: ["72.1", "71.8", "72.4"] }, { label: "c", values: ["0.05", "0.05", "0.10"] }] });
+  const chart = buildFigures([{ kind: "bar", metric: "mean", conditionOrder: [], title: "평균", caption: "" }], computeStats(chartData)).find((one) => one.kind === "bar");
+  check(chart?.valueLabels?.join("|") === "36.0|72.1|0.07", "C6 그래프 숫자도 학생이 쓴 자릿수로(36.0)", JSON.stringify(chart?.valueLabels));
+}
+
 console.log(`\n${passed} checks passed`);

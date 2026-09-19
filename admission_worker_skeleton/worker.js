@@ -1407,7 +1407,10 @@ async function callOpenAI(prompt, env, input = {}) {
     body: JSON.stringify({
       model,
       input: prompt,
-      ...(reasoningModel ? { reasoning: { effort: env.OPENAI_REASONING_EFFORT || 'medium' } } : { temperature: 0.4 }),
+      // 최종 보고서는 생각 단계를 한 칸 낮춘다. 계산 검산(calc_check_v1)을 붙인 뒤 생각이 1만~1.4만 토큰으로 늘어
+      // 4~5분이 걸렸다(운영 테스트 2026-09-19, 화면 안내는 2~3분). 계산은 코드가 다시 하므로 낮춰도 틀린 숫자는 걸러진다.
+      // 품질이 떨어지면 OPENAI_REASONING_EFFORT_FINAL=medium 으로 되돌린다.
+      ...(reasoningModel ? { reasoning: { effort: stage === STAGE.FINAL ? (env.OPENAI_REASONING_EFFORT_FINAL || 'low') : (env.OPENAI_REASONING_EFFORT || 'medium') } } : { temperature: 0.4 }),
       max_output_tokens: reasoningModel ? 20000 : 8000,
       text: {
         format: {

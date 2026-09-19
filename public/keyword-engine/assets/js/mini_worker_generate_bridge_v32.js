@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v281_reference_inputs
+// SCREEN_VERSION: v282_chart_labels
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v281-reference-inputs";
+  const VERSION = "mini-worker-generate-bridge-v282-chart-labels";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2557,8 +2557,10 @@
   // One series for a plain chart; one series per first variable (legend colours) for a grouped chart.
   function renderFigureChart(figure){
     const labels = Array.isArray(figure.labels) ? figure.labels : [];
-    const series = (Array.isArray(figure.series) && figure.series.length ? figure.series : [{ name: "", values: figure.values }])
-      .map(item => ({ name: String(item?.name || ""), values: (Array.isArray(item?.values) ? item.values : []).map(Number) }));
+    // valueLabels: 엔진이 학생이 쓴 자릿수로 적어 보낸 막대 위 숫자(「36.0」). 없으면 숫자를 그대로 쓴다.
+    const series = (Array.isArray(figure.series) && figure.series.length ? figure.series : [{ name: "", values: figure.values, valueLabels: figure.valueLabels }])
+      .map(item => ({ name: String(item?.name || ""), values: (Array.isArray(item?.values) ? item.values : []).map(Number),
+        valueLabels: Array.isArray(item?.valueLabels) ? item.valueLabels.map(String) : [] }));
     if(labels.length < 2 || series.some(item => item.values.length !== labels.length || item.values.some(value => !Number.isFinite(value)))) return "";
     const colors = ["#5b7cfa", "#f59e0b", "#10b981", "#ef4444"];
     const legend = series.length > 1;
@@ -2580,16 +2582,16 @@
     const axis = `<line x1="${left}" x2="${width - right}" y1="${y(0).toFixed(1)}" y2="${y(0).toFixed(1)}" stroke="#94a3b8"/>`;
     const isLine = /line$/.test(String(figure.kind || ""));
     const groupW = step * 0.7, barW = groupW / series.length;
-    const valueLabel = (x, value) => `<text x="${x.toFixed(1)}" y="${(Math.min(y(value), y(0)) - 7).toFixed(1)}" text-anchor="middle" font-size="${legend ? 11 : 12}" font-weight="700" fill="#1e3a8a">${escapeHtml(formatFigureNumber(value))}</text>`;
+    const valueLabel = (x, value, typed) => `<text x="${x.toFixed(1)}" y="${(Math.min(y(value), y(0)) - 7).toFixed(1)}" text-anchor="middle" font-size="${legend ? 11 : 12}" font-weight="700" fill="#1e3a8a">${escapeHtml(typed && Number(typed) === value ? typed : formatFigureNumber(value))}</text>`;
     const marks = series.map((item, s) => {
       const color = colors[s % colors.length];
       if(isLine){
         return `<polyline fill="none" stroke="${color}" stroke-width="2.5" points="${item.values.map((value, i) => `${centerX(i).toFixed(1)},${y(value).toFixed(1)}`).join(" ")}"/>`
-          + item.values.map((value, i) => `<circle cx="${centerX(i).toFixed(1)}" cy="${y(value).toFixed(1)}" r="4.5" fill="${color}"/>${valueLabel(centerX(i), value)}`).join("");
+          + item.values.map((value, i) => `<circle cx="${centerX(i).toFixed(1)}" cy="${y(value).toFixed(1)}" r="4.5" fill="${color}"/>${valueLabel(centerX(i), value, item.valueLabels[i])}`).join("");
       }
       return item.values.map((value, i) => {
         const x = centerX(i) - groupW / 2 + barW * s;
-        return `<rect x="${(x + barW * 0.08).toFixed(1)}" y="${Math.min(y(value), y(0)).toFixed(1)}" width="${(barW * 0.84).toFixed(1)}" height="${Math.max(1, Math.abs(y(value) - y(0))).toFixed(1)}" rx="3" fill="${color}"/>${valueLabel(x + barW / 2, value)}`;
+        return `<rect x="${(x + barW * 0.08).toFixed(1)}" y="${Math.min(y(value), y(0)).toFixed(1)}" width="${(barW * 0.84).toFixed(1)}" height="${Math.max(1, Math.abs(y(value) - y(0))).toFixed(1)}" rx="3" fill="${color}"/>${valueLabel(x + barW / 2, value, item.valueLabels[i])}`;
       }).join("");
     }).join("");
     const xLabels = labels.map((label, i) => `<text x="${centerX(i).toFixed(1)}" y="${height - bottom + 20}" text-anchor="middle" font-size="12" fill="#334155">${wrapChartLabel(label).map((line, n) => `<tspan x="${centerX(i).toFixed(1)}" dy="${n ? 15 : 0}">${escapeHtml(line)}</tspan>`).join("")}</text>`).join("");

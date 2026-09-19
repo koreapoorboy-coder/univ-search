@@ -1,6 +1,6 @@
 import { ingredientSchema, inspirationCitations, inspirationOf, usedIngredients } from './ingredients_v1.mjs';
 import { normalizeSourceCards, referencesBody } from './references_v1.mjs';
-import { CALCULATION_SCHEMA, calculationPromptLines, verifyCalculations } from './calc_check_v1.mjs';
+import { CALCULATION_SCHEMA, calculationPromptLines, tidyCalculatedNumbers, verifyCalculations } from './calc_check_v1.mjs';
 // Two-stage experiment report.
 // Stage 1 (experiment_draft): a design report plus a data template the student fills in after doing the experiment.
 // Stage 2 (experiment_final): the final report from the student's own numbers. The model chooses how to show the data
@@ -285,10 +285,13 @@ export function buildFigures(specs, stats) {
         ...base,
         kind: `grouped_${kind}`,
         labels: grid.seconds,
-        series: grid.firsts.map((first) => ({ name: first, values: grid.seconds.map((second) => grid.find(first, second)[chartMetric]) })),
+        series: grid.firsts.map((first) => ({ name: first, values: grid.seconds.map((second) => grid.find(first, second)[chartMetric]),
+          ...(chartMetric === 'mean' ? { valueLabels: grid.seconds.map((second) => String(asRowNumber(grid.find(first, second).mean, grid.find(first, second)))) } : {}) })),
       };
     }
-    return { ...base, kind, labels: rows.map((row) => row.label), values: rows.map((row) => row[chartMetric]) };
+    // 막대 위 숫자도 표와 같은 자릿수로(36.0이 그래프에서 「36」으로 보였다 — 운영 테스트 2026-09-19).
+    return { ...base, kind, labels: rows.map((row) => row.label), values: rows.map((row) => row[chartMetric]),
+      ...(chartMetric === 'mean' ? { valueLabels: rows.map((row) => String(asRowNumber(row.mean, row))) } : {}) };
   });
 }
 
@@ -383,12 +386,13 @@ const SENTENCE = /(?:[^.?!\n]|(?<=\d)\.(?=\d))+[.?!]*\s*/g;
 
 function filterSentences(body, keep) {
   let removed = 0;
+  const dropped = [];
   const kept = String(body || '').split('\n').map((line) => (line.match(SENTENCE) || []).filter((sentence) => {
     const ok = keep(sentence);
-    if (!ok) removed += 1;
+    if (!ok) { removed += 1; dropped.push(sentence.trim()); }
     return ok;
   }).join('').trimEnd()).join('\n').replace(/\n{3,}/g, '\n\n').trim();
-  return { body: kept, removed };
+  return { body: kept, removed, dropped };
 }
 
 export function removeUnsupportedNumbers(body, allowed) {
@@ -550,35 +554,32 @@ function withConclusion(sections) {
   return [...sections.slice(0, at), '결론', ...sections.slice(at)];
 }
 
-// The title is not a heading — it is the line that ends up in 생활기록부. Teachers copy it across and rarely
-// carry the body with it, so an 입학사정관 reads this one line and nothing else. It has to say what the student
-// handled, what they did with their own hands, and what they were trying to see.
+// 제목은 「주제목 — 부제」다. 예전 규칙은 생활기록부에 옮길 한 줄(45~90자 명사구)만 요구해서, 제목이 본문을 요약한
+// 문장처럼 나왔다 — 「양조식초 두 가지 희석을 페놀프탈레인으로 3회 적정해 … 확인한 비교 분석」(사용자 지적 2026-09-19:
+// "그냥 내용을 뽑아서 넣은 느낌, 제목 느낌이 아예 안 난다"). 주제목은 제목답게 짧게, 생활기록부에 필요한 것(무엇을·어떻게·
+// 얼마나·무엇을 알아냈나)은 부제가 맡는다.
 const TITLE_EXAMPLES = {
   [COLLECTION.MEASUREMENT]: [
-    '  나쁨: "효소의 작용에 대한 탐구" — 무엇을 재었는지, 무엇과 비교했는지 하나도 보이지 않는다.',
-    '  나쁨: "물 온도에 따른 얼룩 제거 비교" — 규모가 없다. 조건을 몇 개 두고 몇 번 쟀는지가 빠졌다.',
-    '  나쁨: "용액 3종·측정법 2종 6조건 전류 3회 측정에서 간접법 흔들림 감소 비교" — 뜻은 다 들어 있지만 묶음말과 가운뎃점이 많아 한 번에 읽히지 않는다.',
-    '  좋음: "증류수와 수돗물, 소금물 세 가지 용액에서 전류를 직접 재는 방법과 전압으로 계산하는 방법을 여섯 조건으로 3회씩 비교한 측정"',
-    '  좋음: "물 온도와 세제 종류를 네 조건으로 나누어 얼룩이 지워진 정도를 3회씩 반복해 잰 비교 측정"',
+    '  나쁨: "효소의 작용에 대한 탐구" — 주제목만 있고 무엇을 재었는지, 규모가 하나도 보이지 않는다.',
+    '  나쁨: "물 온도와 세제 종류를 네 조건으로 나누어 얼룩이 지워진 정도를 3회씩 반복해 잰 비교 측정" — 부제만 있고 주제목이 없어 요약 문장처럼 읽힌다.',
+    '  좋음: "세제는 온도를 탈까 — 물 온도와 세제 종류를 네 조건으로 나누어 얼룩 제거 정도를 3회씩 잰 비교 측정"',
+    '  좋음: "같은 전류, 다른 계산 — 증류수·수돗물·소금물에서 직접 잰 전류와 전압으로 구한 전류를 3회씩 견준 측정"',
   ],
   [COLLECTION.SURVEY]: [
     '  나쁨: "청소년 수면에 관한 연구" — 누구에게 무엇을 물었는지 없다.',
-    '  나쁨: "수면과 집중도 설문 분석" — 몇 명에게 물었는지가 빠졌다.',
-    '  좋음: "같은 학년 62명에게 취침 시각을 묻고 1교시 집중도 점수와 견주어 본 설문 분석"',
+    '  좋음: "잠이 1교시를 바꿀까 — 같은 학년 62명의 취침 시각과 1교시 집중도를 견준 설문 분석"',
   ],
   [COLLECTION.DATASET]: [
     '  나쁨: "고령화 문제 탐구" — 어떤 자료로 무엇을 견주었는지 없다.',
-    '  나쁨: "인구 통계로 본 고령화 비교" — 몇 년치인지, 어디를 견주었는지가 빠졌다.',
-    '  좋음: "최근 10년 다섯 시·군의 인구 통계를 모아 고령 인구 비율이 해마다 얼마나 빨리 늘었는지 지역끼리 견준 분석"',
+    '  좋음: "고령화는 어디서 더 빠를까 — 다섯 시·군의 최근 10년 인구 통계로 고령 인구 비율의 증가 속도를 견준 분석"',
   ],
   [COLLECTION.READING]: [
     '  나쁨: "원자력 발전에 대한 고찰" — 무엇을 읽고 무엇을 따졌는지 없다.',
-    '  나쁨: "기사를 비교한 원자력 찬반 분석" — 몇 편을 읽었는지가 빠졌다.',
-    '  좋음: "원자력 발전을 다룬 찬반 신문 기사 네 편을 읽고 각 글이 근거를 숫자로 드는지 사례로 드는지 견준 비교 분석"',
+    '  좋음: "숫자로 말할까, 사례로 말할까 — 원자력 발전 찬반 신문 기사 네 편이 근거를 드는 방식을 견준 비교 분석"',
   ],
   [COLLECTION.NONE]: [
     '  나쁨: "매체 언어의 이해" — 한 일이 없다.',
-    '  좋음: "급식실 손 소독 의무화를 다룬 찬반 칼럼 세 편이 어떤 조건과 범위를 밝히는지 따져 본 논증 타당성 평가"',
+    '  좋음: "의무화는 어디까지 정당한가 — 손 소독 의무화 찬반 칼럼 세 편이 밝힌 조건과 범위를 따져 본 논증 평가"',
   ],
 };
 
@@ -594,46 +595,27 @@ export function titleRules(kind = COLLECTION.MEASUREMENT, stage = STAGE.COMPLETE
   const second = stage === STAGE.FINAL || stage === STAGE.LITERATURE;
   return [
     '',
-    '[reportTitle — 생활기록부에 그대로 옮겨 적히는 한 줄]',
-    '- 담당 선생님은 이 제목을 생활기록부에 거의 그대로 옮긴다. 대학 입학사정관은 보고서 본문을 보지 못하고 이 한 줄만 읽는다.',
-    '- 그러므로 제목만 읽고도 다음 세 가지가 보여야 한다.',
+    '[reportTitle — 「주제목 — 부제」]',
+    '- reportTitle은 주제목과 부제를 " — "(앞뒤 띄어 쓴 긴 줄표)로 잇는다. 제목은 보고서의 얼굴이다. 본문을 요약한 문장이 아니다.',
+    '- 주제목(8~28자): 이 탐구가 무엇을 묻는지, 무엇이 흥미로운지를 한눈에 보여 주는 짧은 말이다. 물음("우리 동네 하천은 얼마나 깨끗할까")이나 대비("같은 전류, 다른 계산")처럼 읽고 싶어지게 쓴다.',
+    '  주제목에는 방법, 반복 횟수, 조건 수, 과목 이름을 넣지 않는다. 수행평가 안내문 문장을 잘라 붙이지 않는다. "~에 대한 탐구", "~의 이해" 같은 빈말로 쓰지 않는다. 과장하거나 본문에 없는 내용을 약속하지 않는다.',
+    '- 부제(20~50자): 담당 선생님이 생활기록부에 옮겨 적는 부분이다. 부제만 읽고도 다음 세 가지가 보여야 한다.',
     '  ① 무엇을 다루었나 — 막연한 분야 이름이 아니라 구체적인 대상이나 상황',
-    '  ② 학생이 직접 무엇을 했나 — 측정·집계·설문·수집·비교·분석·설계·검증·평가 중 실제로 한 일을 낱말로 넣는다',
-    '  ③ 무엇을 보려 했나 — 어떤 차이나 영향을 확인하려 했는지',
-    `- 여기에 규모를 반드시 넣는다: ${SIZE_WORD[kind] || SIZE_WORD[COLLECTION.MEASUREMENT]}. 규모가 없으면 한 번 해 본 것인지 제대로 한 것인지 읽는 사람이 알 수 없다.`,
-    '- 규모는 실제로 한 만큼만 쓴다. 설계서의 계획과 학생이 채운 자료에 없는 숫자를 지어내지 않는다.',
-    '- 규모를 뭉뚱그린 말에 붙이지 않는다. "자료 5편", "문헌 4개", "사례 3건"은 읽는 사람이 그게 무엇인지 알 수 없다. 무엇인지 먼저 밝히고 세어 준다.',
-    '  나쁨: 자료 5편 / 문헌 4개 / 사례 3건 / 데이터 2종',
-    '  좋음: 신문 기사 4편 / 관광 안내서와 학술 논문 5편 / 교과서 단원 2곳 / 지역 인구 통계 10년치 / 같은 학년 62명 / 물 온도 4조건',
-    '- 자료의 종류는 학생이 실제로 읽거나 모은 것에서 가져온다. 기관 이름, 신문 이름, 출판사 이름은 학생이 적은 것이 아니면 제목에 넣지 않는다.',
-    '- 종류가 여럿이면 대표로 두세 가지만 적는다. "신문·교과서·기관 자료·잡지·단행본 5편"처럼 다 나열하면 제목이 목록이 된다. "신문 기사와 학술 자료 5편"이면 충분하다.',
-    '- 숫자는 제목에 많아야 두 개다. 규모를 나타내는 숫자 하나에 필요하면 기간 하나까지. 숫자가 셋 넘게 들어가면 읽는 사람이 무엇이 중요한지 알 수 없다.',
-    '- 소리 내어 읽어 자연스러운 우리말이어야 한다. 조사를 빼고 명사만 이어 붙이거나 "~를 위한 ~ 규명" 같은 딱딱한 말투로 쓰지 않는다.',
-    '- 위첨자나 아래첨자가 있어야 제대로 보이는 화학식은 제목에서 일반 이름으로 바꾼다(예: 구리 착이온, 아세트산). 물, 소금물, 이산화탄소처럼 익숙한 이름은 그대로 쓴다.',
-    '- 길이는 공백 포함 45~90자를 기준으로 한다. 30자 아래로 짧아졌으면 규모나 조건, 알아낸 것 중 무엇인가가 빠진 것이다. 90자를 넘으면 한 탐구에 여러 가지를 담으려 한 것이니 탐구를 좁힌다.',
-    '- 제목은 처음부터 끝까지 하나의 명사구다. 끝을 ~비교, ~분석, ~측정, ~설계, ~평가로 맺는다.',
-    '- 쉼표로 명사구 두 개를 나란히 붙이지 않는다. "A를 측정, B를 확인"은 제목이 아니라 요약 문장이다. 선생님은 생활기록부에 "\'제목\'을 수행하여 ~"처럼 쓰기 때문에, 제목 안에 문장이 들어 있으면 문장이 겹쳐 읽기 어려워진다. 다만 "~하여", "~어", "~은"처럼 이어 주는 말로 자연스럽게 잇는 것은 괜찮다.',
-    '- 짧게 줄이려고 뜻을 깎지 않는다. 이 한 줄이 읽는 사람이 보는 전부이므로, 길어지더라도 한 번에 이해되는 쪽이 낫다.',
-    '- 묶음말로 압축하지 않는다. "측정법 2종"이 아니라 "직접 재는 방법과 전압으로 계산하는 방법"이라고 풀어 쓴다. "용액 3종"이 아니라 "증류수·수돗물·소금물 세 가지 용액"이라고 쓴다.',
-    '- 가운뎃점(·)은 한 제목에 한 번까지만 쓴다. 그 이상은 "~과 ~", "~에서 ~"처럼 우리말로 잇는다. 가운뎃점이 셋 넘게 들어간 제목은 이미 읽기 어려워진 것이다.',
-    '- 조사를 넣어 말이 되게 쓴다. 명사만 이어 붙이면 담당 선생님도 입학사정관도 한 번에 이해하지 못한다.',
-    '- 다 쓴 뒤 소리 내어 읽어 본다. 한 번에 뜻이 들어오지 않으면 풀어서 다시 쓴다.',
-    '- 쓰지 않는다: 쉼표로 이은 두 토막, 콜론(:)과 부제, 물음표, 과목 이름, "~에 대한 고찰", "~의 이해", "~ 연구"처럼 한 일이 드러나지 않는 말, 수행평가 안내문을 잘라 붙인 문장.',
-    '- 약어는 풀어 쓴다. OUV, BOD, KNN처럼 그 분야 사람만 아는 말은 제목에서 우리말로 바꾼다(탁월한 보편적 가치, 생물학적 산소 요구량 등).',
-    '- 원소 기호를 이어 붙인 이름도 우리말로 바꾼다. Cu–Cl은 구리–염화, NaCl은 염화나트륨으로 쓴다. 널리 쓰이는 단위(°C, mL, %)와 물·소금물·이산화탄소·산소처럼 누구나 아는 이름은 그대로 둔다.',
-    '- 두 과목을 제목에 억지로 다 넣지 않는다. 실제로 한 일 안에 다른 과목의 방법이 들어 있으면 그 방법을 적는 것만으로 드러난다.',
+    '  ② 학생이 직접 무엇을 했나 — 측정·집계·설문·수집·비교·분석·설계·검증·평가 중 실제로 한 일',
+    `  ③ 규모 — ${SIZE_WORD[kind] || SIZE_WORD[COLLECTION.MEASUREMENT]}. 실제로 한 만큼만 쓰고 지어내지 않는다.`,
+    '- 부제는 하나의 명사구로, 끝을 ~비교, ~분석, ~측정, ~설계, ~평가로 맺는다. 쉼표로 두 토막을 붙이지 않는다. 조사를 넣어 말이 되게 쓴다.',
+    '- 규모를 뭉뚱그린 말에 붙이지 않는다. "자료 5편", "사례 3건"이 아니라 "신문 기사 4편", "같은 학년 62명", "물 온도 4조건"처럼 무엇인지 밝히고 센다.',
+    '- 숫자는 제목 전체에 많아야 두 개다. 가운뎃점(·)은 한 번까지만 쓴다. 묶음말("용액 3종")로 압축하지 않는다.',
+    '- 약어와 원소 기호는 우리말로 푼다(BOD → 생물학적 산소 요구량, NaCl → 염화나트륨). 위첨자·아래첨자가 필요한 화학식은 일반 이름으로 쓴다(아세트산). 물·이산화탄소, °C·mL·% 는 그대로 둔다.',
+    '- 전체 길이는 공백 포함 35~80자. 다 쓴 뒤 소리 내어 읽어 본다. 주제목은 제목처럼, 부제는 한 일처럼 들려야 한다.',
     ...(second
-      ? ['- 이번에는 학생의 자료가 있다. 결과정리를 보고 조건에 따라 값이 한 방향으로 뚜렷하게 움직였으면, 알아낸 방향까지 제목에 담는다. 무엇을 했는지에 더해 무엇을 알아냈는지가 보이는 제목이 생활기록부에서 훨씬 강하다.',
-        '- 방향은 쉼표 뒤에 문장으로 붙이지 말고, 명사구 안에 넣는다. "증가", "감소", "차이", "~에 따른 ~ 증가"처럼 명사로 바꾸어 담는다.',
-        '- 명사구로 쓰라는 규칙 때문에 알아낸 것을 빼지 않는다. 둘은 함께 지킬 수 있고, 아래 예처럼 쓰면 된다.',
-        '  나쁨: "진자 충돌 6조건 3회 측정, 각도가 클수록 보존도 증가 확인" — 쉼표로 명사구 둘을 붙여 놓아 제목이 아니다.',
-        '  나쁨: "염화농도·온도 6조건 구리 착이온 녹색 성분 3회 측정 비교" — 값이 뚜렷하게 올라갔는데 알아낸 것이 빠졌다.',
-        '  좋음: "질량비와 각도를 여섯 조건으로 나눈 진자 충돌을 3회씩 재어 각도가 클수록 운동량 보존도가 커짐을 확인한 측정"',
-        '  좋음: "염화 이온 농도와 온도를 여섯 조건으로 바꾸며 구리 착이온의 녹색 성분을 3회씩 재어 농도와 온도가 높을수록 커짐을 확인한 측정"',
-        '  좋음: "고령화 정도가 다른 두 군의 심정지 구급출동 비율을 네 개 연도에 걸쳐 견주어 해마다 늘어남을 확인한 비교"',
-        '  좋음: "수원 화성을 다룬 관광 안내서와 학술 논문 다섯 편에서 발행 주체에 따라 인물 서술이 어떻게 갈리는지 견준 비교"',
-        '- 다만 다음 경우에는 방향을 쓰지 않고 "비교"나 "분석"으로 끝낸다: 조건마다 방향이 엇갈릴 때, 조건 간 차이가 반복 측정의 흔들림보다 작을 때, 값이 하나뿐이라 비교가 안 될 때. 확인하지 않은 것을 확인했다고 쓰지 않는다.',
-        '- 1차 설계서의 제목을 그대로 쓰지 않는다. 같은 탐구를 가리키되, 실제로 한 규모와 확인한 것이 드러나게 고쳐 쓴다.']
+      ? ['- 이번에는 학생의 자료가 있다. 값이 한 방향으로 뚜렷하게 움직였거나 기준값과 분명히 달랐으면, 알아낸 것을 부제에 명사구로 담는다("~보다 낮음을 확인한 비교", "~할수록 커짐을 확인한 측정").',
+        '- 주제목이 물음이면 부제가 그 답을 슬쩍 보여 줘도 좋다. 다만 주제목 자체에 결과 숫자를 넣지 않는다.',
+        '  나쁨: "양조식초 두 가지 희석을 페놀프탈레인으로 3회 적정해 평균 환산 산도가 표시 4.5%보다 낮음을 확인한 비교 분석" — 부제만 있다. 본문을 뽑아 붙인 요약이지 제목이 아니다.',
+        '  좋음: "표시 중량은 믿을 만할까 — 과자 다섯 종의 실제 무게를 3회씩 재어 표시값보다 가벼움을 확인한 비교"',
+        '  좋음: "각도가 클수록 덜 잃는다 — 질량비와 각도를 여섯 조건으로 나눈 진자 충돌을 3회씩 재어 운동량 보존을 견준 측정"',
+        '- 다음 경우에는 알아낸 방향을 쓰지 않고 "비교"나 "분석"으로 끝낸다: 조건마다 방향이 엇갈릴 때, 차이가 반복 측정의 흔들림보다 작을 때, 값이 하나뿐일 때. 확인하지 않은 것을 확인했다고 쓰지 않는다.',
+        '- 1차 설계서의 제목을 그대로 쓰지 않는다. 주제목은 이어 써도 되지만, 부제는 실제로 한 규모와 알아낸 것이 드러나게 고쳐 쓴다.']
       : []),
     ...(TITLE_EXAMPLES[kind] || TITLE_EXAMPLES[COLLECTION.MEASUREMENT]),
   ];
@@ -1014,6 +996,7 @@ export function finalizeStageOutput(stage, parsed, input) {
     const studentText = [data.reason, data.observations, data.reflection].join(' ');
     let removed = 0;
     let removedFeelings = 0;
+    const droppedSamples = [];
     const cleaned = sections.map((section) => {
       const title = String(section?.title || '');
       if (/참고 자료/.test(title)) {
@@ -1022,8 +1005,10 @@ export function finalizeStageOutput(stage, parsed, input) {
           cards: data.sourceCards, textbook: input.textbookCitation || '',
         }) };
       }
-      const numbers = removeUnsupportedNumbers(scrubInternalNames(input.ingredients ? scrubIngredientIds(section?.body) : section?.body), allowed);
+      const numbers = removeUnsupportedNumbers(tidyCalculatedNumbers(scrubInternalNames(input.ingredients ? scrubIngredientIds(section?.body) : section?.body), calculation.verified), allowed);
       removed += numbers.removed;
+      // 무엇이 지워졌는지 남긴다(학생 화면에는 안 보인다). 운영 테스트에서 지워진 문장을 볼 수 없어 원인을 짐작만 했다.
+      droppedSamples.push(...numbers.dropped.map((sentence) => clip(sentence, 140)));
       if (/느낀 점/.test(title)) {
         const feelings = removeInventedFeelings(numbers.body, studentText);
         const praise = removeSelfPraise(feelings.body, studentText);
@@ -1045,9 +1030,10 @@ export function finalizeStageOutput(stage, parsed, input) {
       : { comparisonTable: wantsComparison(input) || sanitizeComparisonTable(parsed?.comparisonTable)
             ? buildSourceCardTable(data.sourceCards) || sanitizeComparisonTable(parsed?.comparisonTable) : null,
           comparisonTableAfterSection: '자료 비교 정리' };
-    const recordDraft = buildRecordDraft(parsed?.recordDraft, allowed);
+    const recordDraft = buildRecordDraft((Array.isArray(parsed?.recordDraft) ? parsed.recordDraft : []).map((line) => tidyCalculatedNumbers(line, calculation.verified)), allowed);
     return { parsed: { ...parsed, sections: cleaned }, extra: { ...extra, recordDraft, removedNumberSentences: removed, removedFeelingSentences: removedFeelings,
       ...(calculation.verified.length || calculation.rejected.length ? { calculations: calculation.verified, rejectedCalculations: calculation.rejected } : {}),
+      ...(droppedSamples.length ? { removedNumberSamples: droppedSamples.slice(0, 8) } : {}),
       ...(used ? { inspiration: inspirationOf(used) } : {}) } };
   }
   // The one-shot report has no student data to check numbers against, but the two filters that need no data were

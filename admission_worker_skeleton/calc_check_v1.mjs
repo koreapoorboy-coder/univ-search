@@ -134,10 +134,34 @@ export function verifyCalculations(list, allowed) {
   return { allowed: extended, verified, rejected };
 }
 
+// 검산을 통과한 답이 본문에 「4.3236%」처럼 자릿수가 길게 나오면 유효숫자 세 자리로 줄인다(4.32%). 운영 테스트 18:
+// 측정값은 0.05 mL 눈금인데 산도를 소수 넷째 자리까지 적었다.
+export function shortNumber(text) {
+  const value = Number(text);
+  const decimals = (String(text).split('.')[1] || '').length;
+  // 소수 셋째 자리 이상이면서 유효숫자가 넷 이상인 것만 줄인다(0.00144·14.33·0.0392 는 그대로).
+  const significant = String(text).replace(/^-/, '').replace('.', '').replace(/^0+/, '').length;
+  if (!Number.isFinite(value) || decimals < 3 || significant <= 3) return String(text);
+  return Math.abs(value) >= 1 ? String(Number(value.toFixed(2)).toFixed(2)) : String(Number(value.toPrecision(3)));
+}
+
+export function tidyCalculatedNumbers(body, verified) {
+  let out = String(body || '');
+  for (const one of Array.isArray(verified) ? verified : []) {
+    for (const raw of [one.result, String(Math.abs(Number(one.result)))]) {
+      const short = shortNumber(raw);
+      if (short === raw) continue;
+      const pattern = new RegExp(`(?<![\\d.])${raw.replace(/[.]/g, '\\.')}(?!\\d)`, 'g');
+      out = out.replace(pattern, short);
+    }
+  }
+  return out;
+}
+
 export function calculationPromptLines() {
   return [
     '- 안내문이 구하라고 한 값(농도·산도·속력·효율·오차율 등)을 학생 숫자로 계산할 수 있으면, 본문을 쓰기 전에 calculations에 식으로 먼저 계산한다. 계산이 필요 없으면 빈 배열이다.',
-    '- calculations의 expression은 숫자와 + - × ÷ ( )만 쓴 한 줄 식이다(단위·글자 없이). 식의 숫자는 학생입력·결과정리·기준값·안내문·1차 설계서의 숫자, 앞 계산의 result, 또는 constants에 이름과 함께 적은 교과서 상수(몰질량 등)만 쓴다. result는 식의 값을 알맞은 자릿수로 반올림한 숫자다.',
+    '- calculations의 expression은 숫자와 + - × ÷ ( )만 쓴 한 줄 식이다(단위·글자 없이). 식의 숫자는 학생입력·결과정리·기준값·안내문·1차 설계서의 숫자, 앞 계산의 result, 또는 constants에 이름과 함께 적은 교과서 상수(몰질량 등)만 쓴다. result는 식의 값을 유효숫자 세 자리로 반올림한 숫자다(예: 4.3236 → 4.32, 0.17640 → 0.176). 측정값이 0.05 mL 눈금인데 답을 소수 넷째 자리까지 적는 것은 정밀도를 부풀리는 것이다.',
     '- 한 계산에는 **한 단계만** 담는다. 예: ① 몰 농도(M) = 0.1 × 36.0 ÷ 5 → 0.72, ② 산도(%) = 0.72 × 60.05 ÷ 10 → 4.32, ③ 오차율(%) = (4.5 - 4.32) ÷ 4.5 × 100 → 4. 단위 바꾸기를 한 식에 여러 번 섞으면 자릿수가 틀리기 쉽다. 앞 단계의 result를 다음 식에 그대로 쓴다. 단, 리터로 바꾸기·블랭크 빼기 같은 작은 손질만 따로 떼어 칸을 쓰지 않는다 — 칸은 최대 12개이고, **안내문이 구하라고 한 값과 기준값 비교가 먼저**다.',
     '- 코드가 식을 다시 계산해 맞는 계산의 result만 본문에 쓸 수 있다. 본문에는 계산 과정(무엇을 무엇으로 나눴는지)과 result를 함께 쓴다.',
     '- **calculations에 없는 계산 결과를 본문에 쓰면 그 문장은 통째로 지워진다.** 농도, 산도, 비율, 오차율처럼 본문에 쓸 계산값은 하나도 빠짐없이 calculations에 먼저 넣는다. 비율(예: 72.1 ÷ 36.0)도 계산이다.',
