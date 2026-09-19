@@ -572,7 +572,9 @@ function sanitizeDataTemplate(raw, kind) {
   // 답 형식 조각이 조건 이름에 새어 든 것은 버린다. 운영 테스트(2026-09-19): 조건을 하나밖에 못 찾은 AI가 두 번째 칸을
   // 「referenceInputs':[{」「label'」 같은 조각으로 채웠다.
   // 조각 앞의 진짜 이름(「식초 시료 1:10 희석'],…」 → 「식초 시료 1:10 희석」)은 살린다.
-  const conditions = [...new Set((Array.isArray(raw?.conditions) ? raw.conditions : []).map((label) => clip(String(label ?? '').split(/['"[\]{}]/)[0], 60))
+  // 운영 테스트 30: 조건을 8개보다 많이 만들고 싶던 AI가 한 칸에 「인접 지역 · 2022년」「광역 중심지 · 2013년」…을 뭉쳐 넣었다.
+  // 낫표·겹낫표도 경계로 보고 첫 조건만 남긴다.
+  const conditions = [...new Set((Array.isArray(raw?.conditions) ? raw.conditions : []).map((label) => clip(String(label ?? '').split(/['"[\]{}「」『』]/).map((piece) => piece.trim()).find(Boolean) || '', 60))
     .filter((label) => label && !/:\s*$|^(label|unit|trials|referenceInputs|conditions|measurementName)$/i.test(label)))].slice(0, MAX_CONDITIONS);
   // Repeating makes sense only for a measurement: a student cannot ask the same class the same question three
   // times, and a published figure for one year has one value.
@@ -880,7 +882,7 @@ export function stagePromptLines(stage, input) {
         : []),
       '- referenceInputs는 결과와 견줄 **기준값**을 학생이 적을 칸이다(식초 병에 표시된 산도, 이론값, 공식 기록값처럼 실험 밖에서 옮겨 적는 숫자). 안내문이 그런 값과 비교하라고 할 때만 label과 unit으로 1~3개 넣고, 아니면 빈 배열이다. 표의 조건으로 넣지 않는다.',
       '- measurementName은 학생이 **기구에서 직접 읽는 값**(부피·질량·시간·온도·길이·개수 등)이다. 농도·백분율·속력처럼 읽은 값으로 계산해서 얻는 값은 표에 적게 하지 않는다 — 최종 보고서가 학생이 읽은 값으로 계산하고 코드가 검산한다.',
-      '- conditions는 서로 다른 조건 2개 이상이다. 시료가 하나뿐인 실험이면 시료의 양을 두 가지로 하거나 블랭크(대조)를 조건으로 넣는다. 조건 이름에는 따옴표·괄호 기호·콜론 같은 형식 기호를 쓰지 않는다.',
+      '- conditions는 서로 다른 조건 2개 이상이다. 시료가 하나뿐인 실험이면 시료의 양을 두 가지로 하거나 블랭크(대조)를 조건으로 넣는다. 조건 이름에는 따옴표·괄호 기호·콜론 같은 형식 기호를 쓰지 않는다. 조건은 모두 8개까지이고, 한 칸에는 조건 하나만 쓴다 — 더 많이 비교하고 싶으면 비교 대상이나 시점을 줄인다.',
       // 운영 테스트 23: 「차가운 상태」「따뜻한 상태」처럼 값 없는 조건 이름 — 보고서가 최적 온도를 숫자로 말하지 못했다.
       '- 조건 이름에는 실제 값을 넣는다(예: "물 온도 25 °C", "실 길이 0.40 m", "5배 희석"). "차가운 상태", "따뜻한 상태"처럼 값 없는 말만 쓰지 않는다.',
       // 운영 테스트 29(통합사회 인구 통계): 「우리 지역 2014년」처럼 써서 지역별로 나눠 견줄 수 없었고, 비율 과제인데 인구 수만 받았다.
