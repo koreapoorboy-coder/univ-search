@@ -1250,13 +1250,26 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.9.0-model-h-runtime";
     return (forms || []).flatMap(form => findRawRanges(rawText, form));
   }
 
+  // 다른 낱말 속에 든 개념어는 그 개념이 아니다. 운영 테스트(2026-09-19): 「수산화나트륨」 속 '산화'로
+  // 중화 적정 과제가 산화 환원 단원으로 잡혔다. 이산화탄소·일산화탄소도 같은 함정이다.
+  const EMBEDDED_NOT_CONCEPT = {
+    "산화": /(수|이|일|삼|과|사)$/,
+    "염기": null
+  };
+  function embeddedInOtherWord(rawText, term, start, end){
+    const rule = EMBEDDED_NOT_CONCEPT[normalize(term)];
+    if(rule) return rule.test(String(rawText).slice(Math.max(0, start - 1), start));
+    if(normalize(term) === "염기") return /^(서열|쌍)/.test(String(rawText).slice(end, end + 2));
+    return false;
+  }
+
   function countRawConceptHits(rawText, rawTerm, ranges){
     const term = String(rawTerm || "").trim();
     if(normalize(term).length < 2) return 0;
     let hits = 0;
     for(const [start, end] of findRawRanges(rawText, term)){
       const insideName = ranges.some(([nameStart, nameEnd]) => start >= nameStart && end <= nameEnd);
-      if(!insideName) hits += 1;
+      if(!insideName && !embeddedInOtherWord(rawText, term, start, end)) hits += 1;
     }
     return hits;
   }

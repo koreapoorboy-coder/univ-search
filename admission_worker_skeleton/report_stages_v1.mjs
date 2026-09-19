@@ -104,6 +104,9 @@ export function normalizeStudentData(raw) {
     .map((row) => ({
       label: clip(row?.label, 60),
       values: (Array.isArray(row?.values) ? row.values : []).slice(0, MAX_TRIALS).map(toNumber).filter(Number.isFinite),
+      // 학생이 쓴 글자 그대로(「36.0」). 표의 측정값 칸은 이것을 보여 준다 — 숫자로 바꾸면 36이 된다.
+      typed: (Array.isArray(row?.values) ? row.values : []).slice(0, MAX_TRIALS)
+        .filter((value) => Number.isFinite(toNumber(value))).map((value) => String(value).trim().replace(/,/g, '')),
       note: clip(row?.note, 300),
     }))
     .filter((row) => row.label);
@@ -148,6 +151,7 @@ export function computeStats(data) {
   const rows = data.conditions.filter((row) => row.values.length).map((row) => ({
     label: row.label,
     values: row.values,
+    typed: Array.isArray(row.typed) && row.typed.length === row.values.length ? row.typed : [],
     note: row.note,
     mean: round(row.values.reduce((sum, value) => sum + value, 0) / row.values.length),
     min: Math.min(...row.values),
@@ -216,9 +220,20 @@ export function splitFactors(rows) {
 
 // The model picks kind, metric, order and wording; every number comes from computeStats.
 // 학생이 적은 자릿수대로(6.0 → "6.0"). 값이 없으면 빈칸.
-function asTyped(value, decimals) {
+// 칸마다 학생이 쓴 글자를 그대로 쓴다 — 가장 긴 자릿수로 맞추면 0.05가 있는 표에서 36.0이 「36.00」이 됐다.
+function asTyped(value, decimals, typed) {
   if (value === undefined || value === null || value === '') return '';
+  if (typeof typed === 'string' && /^-?\d+\.\d+$/.test(typed)) return typed;
+  if (typeof typed === 'string' && /^-?\d+$/.test(typed)) return value;
   return decimals > 0 && Number.isFinite(value) ? value.toFixed(decimals) : value;
+}
+// 평균·흔들림은 그 줄에서 학생이 쓴 가장 긴 자릿수로 맞춘다(36.0·35.8·36.2의 평균은 「36.0」).
+function rowDecimals(row) {
+  return Math.max(0, ...(row.typed || []).map((one) => (String(one).split('.')[1] || '').length));
+}
+function asRowNumber(value, row) {
+  const places = Math.min(rowDecimals(row), 2);
+  return places > 0 && Number.isFinite(value) && Math.round(value * 10 ** places) / 10 ** places === value ? value.toFixed(places) : value;
 }
 
 export function buildFigures(specs, stats) {
@@ -249,10 +264,10 @@ export function buildFigures(specs, stats) {
       if (metric === 'raw') {
         // One value per cell: the repeat columns, the mean of a single number and its wobble would all say the same thing.
         if (stats.trials <= 1) {
-          return { ...figure, columns: ['조건', `${name}${stats.unit ? ` (${stats.unit})` : ''}`], rows: rows.map((row) => [row.label, asTyped(row.values[0], stats.decimals)]) };
+          return { ...figure, columns: ['조건', `${name}${stats.unit ? ` (${stats.unit})` : ''}`], rows: rows.map((row) => [row.label, asTyped(row.values[0], stats.decimals, row.typed?.[0])]) };
         }
         const trials = Array.from({ length: stats.trials }, (_, index) => `${index + 1}회`);
-        return { ...figure, columns: ['조건', ...trials, '평균', '흔들림'], rows: rows.map((row) => [row.label, ...trials.map((_, index) => asTyped(row.values[index], stats.decimals)), row.mean, row.spread]) };
+        return { ...figure, columns: ['조건', ...trials, '평균', '흔들림'], rows: rows.map((row) => [row.label, ...trials.map((_, index) => asTyped(row.values[index], stats.decimals, row.typed?.[index])), asRowNumber(row.mean, row), asRowNumber(row.spread, row)]) };
       }
       return { ...figure, columns: ['조건', `${METRIC_LABEL[metric]}${unit ? ` (${unit})` : ''}`], rows: rows.map((row) => [row.label, row[metric]]) };
     }

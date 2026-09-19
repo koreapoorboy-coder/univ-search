@@ -416,7 +416,15 @@ export default {
         );
         const careerAxis = pickAxis(input.careerAxes, seedPack.axisIndex, input.subject);
         const careerConcept = careerAxis?.axisId ? (seedPack.axisIndex?.axes || {})[careerAxis.axisId]?.concept : '';
-        const reportConcept = namedConcept || guessedConcept || careerConcept;
+        // 화면이 보낸 개념이 **단원 이름이 아니면**(「페놀프탈레인」·「산화」 같은 낱말) 과제 문구로 찾은 단원이 먼저다.
+        // 운영 테스트(2026-09-19): 화면이 「산화」를 보내 중화 적정 보고서의 참고 자료가 「산화 환원 반응 단원」이 됐다.
+        const isUnitName = (name) => Object.values(seedPack.axisIndex?.axes || {})
+          .some((axis) => axis.concept === name && String(axis.subject || '').replace(/\s+/g, '') === String(input.subject || '').replace(/\s+/g, ''));
+        // 화면이 보낸 키워드 목록(「중화 적정 · 산 염기와 중화 반응」) 안에 단원 이름이 있으면 그것이 다음이다 — 전수 검사에서
+        // 둘이 다를 때 화면 쪽이 대체로 맞았다(H-R도 과제: 화면 「별의 특성과 진화」, 추정 「지층과 지질시대」).
+        const listedUnit = [input.selectedKeyword, input.keyword].flatMap((one) => String(one || '').split(/\s*[·,]\s*/))
+          .map((one) => one.trim()).find((one) => one && isUnitName(one)) || '';
+        const reportConcept = (namedConcept && isUnitName(namedConcept) ? namedConcept : '') || listedUnit || guessedConcept || namedConcept || careerConcept;
         // 이 개념의 축이 있으면 그것을 쓴다. 없으면 진로 축으로 물러선다.
         // 화면이 보낸 개념 이름이 단원 이름과 다를 때가 있다 — 운영 사이트 테스트(2026-09-18)에서 화면은
         // 「지구 온난화」를 보냈고 단원 이름은 「지구의 기후 변화」였다. 축을 못 찾아 「다음에 해 볼 것」과

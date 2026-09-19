@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v279_background
+// SCREEN_VERSION: v280_typed_cells
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v279-background";
+  const VERSION = "mini-worker-generate-bridge-v280-typed-cells";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2531,6 +2531,8 @@
   // out of the student's own data; no figure value comes from the model's text.
   function formatFigureNumber(value){
     if(value === "" || value === null || value === undefined) return "";
+    // 엔진이 글자로 보낸 값(「36.0」)은 학생이 쓴 자릿수 그대로 둔다 — 숫자로 바꾸면 36이 됐다(운영 테스트 2026-09-19).
+    if(typeof value === "string" && /^-?\d+\.\d{1,4}$/.test(value.trim())) return value.trim();
     const number = Number(value);
     return typeof value === "number" || (String(value).trim() && Number.isFinite(number)) ? String(Math.round(number * 100) / 100) : String(value);
   }
