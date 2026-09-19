@@ -79,6 +79,13 @@ check(verifyCalculations([{ what: "x", constants: [], expression: "0.1*0.0377/0.
 check(verifyCalculations([{ what: "산도", constants: [{ name: "몰질량", value: "60.05" }], expression: "0.1*0.036*60.05/0.005*100", result: "4.324", unit: "%" }], allowed).rejected[0]?.why === "답이 식과 다름",
   "C3c 식과 답의 자릿수가 어긋나면(단위 바꾸기 실수) 떨어진다");
 
+// C3d 앞 답의 절댓값을 반올림 없이 그대로 쓴다(운영 테스트 16의 실제 식)
+const absolute = verifyCalculations([
+  { what: "차이", constants: [], expression: "4.29207375 - 4.5", result: "-0.20792625", unit: "%p" },
+  { what: "상대오차", constants: [], expression: "0.20792625 / 4.5 * 100", result: "4.620583333333333", unit: "%" },
+], new Set([...allowed, "4.29207375"]));
+check(absolute.verified.length === 2, "C3d 앞 답의 절댓값을 그대로 쓴 식은 통과한다", JSON.stringify(absolute.rejected));
+
 // C4b 값을 구하라는 과제나 기준값이 있으면 계산이 하나는 있어야 한다(운영 테스트 11: 칸을 비우고 본문에 바로 적었다)
 check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "식초 속 아세트산의 함량을 적정하여 구하고 표시된 산도와 비교한다" }).calculations.minItems === 1, "C4b 값을 구하라는 과제는 계산 칸을 비울 수 없다");
 check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "탐구보고서", studentData: data }).calculations.minItems === 1, "C4b 기준값을 적었으면 계산 칸을 비울 수 없다");

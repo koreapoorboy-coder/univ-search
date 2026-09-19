@@ -122,7 +122,8 @@ export function verifyCalculations(list, allowed) {
     if (why) { rejected.push({ what: clip(raw?.what, 60), expression, result, why }); continue; }
     constants.forEach((one) => extended.add(canonical(one.value)));
     addRounded(extended, computed);
-    extended.add(canonical(result));
+    // 뒤 계산은 앞 답의 **절댓값**을 그대로 쓰기도 한다(차이 -0.2079… → 상대오차 0.2079… ÷ 4.5). 운영 테스트 16.
+    [computed, Math.abs(computed), Number(result), Math.abs(Number(result))].forEach((value) => extended.add(canonical(value)));
     verified.push({ what: clip(raw?.what, 60), constants, expression, result, unit: clip(raw?.unit, 20) });
   }
   return { allowed: extended, verified, rejected };
