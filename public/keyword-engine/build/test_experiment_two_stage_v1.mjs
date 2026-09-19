@@ -415,6 +415,9 @@ check(bridgeSource.includes("function renderRecordDraft") && bridgeSource.includ
   const final = titleRules(COLLECTION.MEASUREMENT, STAGE.FINAL).join("\n");
   check(/결과는 제목에 넣지 않는다/.test(final), "the finished report keeps results out of the title");
   check(/그대로 써도 된다/.test(final), "and may keep the draft's title when it still fits");
+  check(/설계서 제목보다 덜 구체적으로 만들지 않는다/.test(final), "a rewrite may not blur the draft's purpose (운영 테스트 23)");
+  const draftRules = stagePromptLines(STAGE.DRAFT, { collectionKind: COLLECTION.MEASUREMENT, studentData: data }).join("\n");
+  check(/조건 이름에는 실제 값을 넣는다/.test(draftRules), "draft conditions carry real values, not 「따뜻한 상태」");
 }
 
 console.log(`PASS experiment two-stage report: ${passed}/${passed}`);

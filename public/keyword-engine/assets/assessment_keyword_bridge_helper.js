@@ -1260,6 +1260,8 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.9.0-model-h-runtime";
     const rule = EMBEDDED_NOT_CONCEPT[normalize(term)];
     if(rule) return rule.test(String(rawText).slice(Math.max(0, start - 1), start));
     if(normalize(term) === "염기") return /^(서열|쌍)/.test(String(rawText).slice(end, end + 2));
+    // 「거품이 발생한」의 발생은 생물의 발생(배아 발생)이 아니다. 운영 테스트(2026-09-19): 효소 실험이 「생식과 생명의 연속성」으로 갔다.
+    if(normalize(term) === "발생") return /^\s?(한|하|되|된|량|률|시키|했|할|함|하는|되는)/.test(String(rawText).slice(end, end + 3));
     return false;
   }
 
