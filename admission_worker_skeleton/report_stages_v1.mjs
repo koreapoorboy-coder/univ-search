@@ -180,7 +180,35 @@ export function computeStats(data) {
     ranking: [...rows].sort((a, b) => b.mean - a.mean).map((row) => ({ label: row.label, mean: row.mean })),
     sameMean: [...byMean.values()].filter((labels) => labels.length > 1),
     comparisons: gridComparisons(rows),
+    frequency: frequencySummary(data, rows),
   };
+}
+
+// 도수분포표(계급별 인원수)면 집단마다 계급값으로 평균·표준편차를 **코드가** 구한다. 운영 테스트 28: AI에게 맡기자 평균을
+// 211÷32=6.59 대신 6.49로, 표준편차 자리에 분산(0.74)을 적었다 — 검산이 떨어뜨려 보고서에 숫자가 하나도 남지 않았다.
+// 계급은 조건 이름의 마지막 토막에 있는 「5~6시간」 같은 닫힌 구간이고, 그 앞 토막(「스마트폰 0~3시간」)이 집단이다.
+const RANGE = /(\d+(?:\.\d+)?)\s*[~∼\-–]\s*(\d+(?:\.\d+)?)/;
+export function frequencySummary(data, rows) {
+  const counts = /명|도수|응답|인원|개수|건/.test(`${data.unit || ''} ${data.measurementName || ''}`);
+  if (!counts || !rows.length || rows.some((row) => row.values.length !== 1)) return [];
+  const groups = new Map();
+  for (const row of rows) {
+    const pieces = String(row.label).split(/\s*·\s*/);
+    const match = pieces[pieces.length - 1].match(RANGE);
+    if (!match) return [];
+    const key = pieces.slice(0, -1).join(' · ');
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push({ mid: (Number(match[1]) + Number(match[2])) / 2, count: row.values[0] });
+  }
+  const out = [];
+  for (const [group, classes] of groups) {
+    const n = classes.reduce((sum, one) => sum + one.count, 0);
+    if (classes.length < 2 || n <= 0) continue;
+    const mean = classes.reduce((sum, one) => sum + one.mid * one.count, 0) / n;
+    const variance = classes.reduce((sum, one) => sum + (one.mid - mean) ** 2 * one.count, 0) / n;
+    out.push({ group: group || '전체', n, mean: round(mean), variance: round(variance), sd: round(Math.sqrt(variance)) });
+  }
+  return out;
 }
 
 // For a two-variable grid: at each level of the second variable (e.g. each water temperature), which level of the
@@ -332,6 +360,9 @@ export function summaryForPrompt(stats) {
     [single ? '값이높은순서' : '평균이높은순서']: stats.ranking.map((item) => `${item.label} (${item.mean})`),
     [single ? '값이같은조건' : '평균이같은조건']: stats.sameMean,
     수준별비교: (stats.comparisons || []).map((item) => ({ 기준: item.at, 가장높은쪽: item.higher, 두번째: item.runnerUp, 차이: item.gap, 흔들림보다큰차이인가: item.clearDifference === null ? '반복이 없어 알 수 없음' : (item.clearDifference ? '예' : '아니오') })),
+    ...((stats.frequency || []).length
+      ? { 도수분포요약: stats.frequency.map((one) => ({ 집단: one.group, 전체도수: one.n, '평균(계급값)': one.mean, '분산(계급값)': one.variance, '표준편차(계급값)': one.sd })) }
+      : {}),
   };
 }
 
@@ -397,6 +428,7 @@ export function allowedNumberSet(data, stats) {
   for (let count = 0; count <= 10; count += 1) allowed.add(String(count));
   (stats?.rows || []).forEach((row) => [...row.values, row.mean, row.min, row.max, row.spread, row.diff_from_first, row.percent_from_first].forEach(addValue));
   (stats?.comparisons || []).forEach((comparison) => addValue(comparison.gap));
+  (stats?.frequency || []).forEach((one) => [one.n, one.mean, one.variance, one.sd].forEach(addValue));
   (data.references || []).forEach((one) => addValue(toNumber(one.value)));
   const texts = [data.measurementName, data.unit, data.scaleGuide, data.reason, data.observations, data.reflection, data.draftReport, ...data.sources, ...data.conditions.flatMap((row) => [row.label, row.note])];
   texts.join(' ').match(/\d+(?:\.\d+)?/g)?.forEach((number) => allowed.add(canonicalNumber(number)));
@@ -986,7 +1018,10 @@ export function calculationTaskLines(input = {}, data = {}) {
     '- 결과 분석에는 계산 과정과 답을 한 문단으로 보여 주고, 결론에는 구한 값과 (기준값이 있으면) 비교 결과를 숫자로 쓴다.',
     // 운영 테스트 27(확률과 통계 설문): 표가 구간별 인원수뿐이라 「원자료가 없어 평균·표준편차를 구할 수 없다」로 끝났다.
     ...(/평균|표준편차|분산/.test(String(input.taskDescription || '')) && /명|도수|응답/.test(`${data.unit || ''} ${data.measurementName || ''}`)
-      ? ['- 표가 계급(구간)별 인원수인 도수분포표이면, 교과서의 도수분포표 방법으로 평균과 표준편차를 calculations로 구한다: 계급값 = 계급의 가운데 값, 평균 = (계급값 × 도수)의 합 ÷ 전체 도수, 표준편차 = √((계급값 − 평균)² × 도수의 합 ÷ 전체 도수). 두 변수의 관계를 보는 과제면 집단(예: 스마트폰 사용 구간)마다 따로 구해 견준다. 식에는 √(…)와 ^2를 쓸 수 있다. "원자료가 없어 구할 수 없다"로 끝내지 않는다.']
+      ? [(computeStats(data).frequency || []).length
+        // 운영 테스트 28: AI가 평균(6.59→6.49)과 표준편차(분산을 적음)를 틀려 검산에 모두 떨어졌다. 코드가 구한 값을 준다.
+        ? '- 결과정리의 도수분포요약에 코드가 계급값(계급의 가운데 값)으로 구한 집단별 평균·분산·표준편차가 있다. 이 값을 그대로 쓰고 다시 계산하지 않는다. 결과 분석에는 구하는 방법(평균 = (계급값 × 도수)의 합 ÷ 전체 도수, 표준편차 = √분산)을 한 문장으로 밝히고, 집단끼리 평균과 표준편차를 견준다. calculations에는 집단 간 평균의 차이처럼 이 값을 이용한 비교만 넣는다.'
+        : '- 표가 계급(구간)별 인원수인 도수분포표이면, 교과서의 도수분포표 방법으로 평균과 표준편차를 calculations로 구한다: 계급값 = 계급의 가운데 값, 평균 = (계급값 × 도수)의 합 ÷ 전체 도수, 표준편차 = √((계급값 − 평균)² × 도수의 합 ÷ 전체 도수). 두 변수의 관계를 보는 과제면 집단(예: 스마트폰 사용 구간)마다 따로 구해 견준다. 식에는 √(…)와 ^2를 쓸 수 있다. "원자료가 없어 구할 수 없다"로 끝내지 않는다.']
       : []),
   ];
 }

@@ -164,9 +164,28 @@ check(absolute.verified.length === 2, "C3d 앞 답의 절댓값을 그대로 쓴
   const task = "우리 학년 학생들을 대상으로 스마트폰 사용 시간과 수면 시간을 설문 조사하고 평균과 표준편차를 구한다.";
   check(lines(STAGE.DRAFT, { collectionKind: K.SURVEY, taskDescription: task }).some((line) => /도수분포표/.test(line) && /닫힌 계급/.test(line)), "C10 평균·표준편차 과제의 설계서는 닫힌 계급의 도수분포표");
   check(!lines(STAGE.DRAFT, { collectionKind: K.MEASUREMENT, taskDescription: task }).some((line) => /닫힌 계급/.test(line)), "C10 측정 실험에는 붙지 않는다");
-  check(lines(STAGE.FINAL, { collectionKind: K.SURVEY, taskDescription: task, studentData: survey }).some((line) => /계급값 = 계급의 가운데 값/.test(line)), "C10 최종 보고서는 계급값으로 평균·표준편차를 구한다");
+  check(lines(STAGE.FINAL, { collectionKind: K.SURVEY, taskDescription: task, studentData: survey }).some((line) => /계급값/.test(line) && /표준편차/.test(line)), "C10 최종 보고서는 계급값으로 평균·표준편차를 구한다");
   const out = finalizeStageOutput(STAGE.FINAL, { reportTitle: "테스트고2 스마트폰 사용별 수면 분포", sections: [], calculations: [], figures: [], recordDraft: [] }, { studentData: survey, schoolName: "테스트고등학교", taskDescription: task });
   check(out.parsed.reportTitle === "스마트폰 사용별 수면 분포", "C10 최종 제목에서 학교 이름이 빠진다", out.parsed.reportTitle);
+}
+
+// C11 운영 테스트 28: 도수분포표의 집단별 평균·표준편차는 코드가 구한다(AI가 6.59를 6.49로, 표준편차 자리에 분산을 적었다)
+{
+  const { stagePromptLines: lines, summaryForPrompt, COLLECTION: K } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  const freq = normalizeStudentData({ measurementName: "응답 수", unit: "명", conditions: [
+    { label: "스마트폰 0~3시간 · 수면 5~6시간", values: ["2"] }, { label: "스마트폰 0~3시간 · 수면 6~7시간", values: ["8"] },
+    { label: "스마트폰 0~3시간 · 수면 7~8시간", values: ["12"] }, { label: "스마트폰 0~3시간 · 수면 8~9시간", values: ["6"] },
+    { label: "스마트폰 3~6시간 · 수면 5~6시간", values: ["9"] }, { label: "스마트폰 3~6시간 · 수면 6~7시간", values: ["13"] },
+    { label: "스마트폰 3~6시간 · 수면 7~8시간", values: ["8"] }, { label: "스마트폰 3~6시간 · 수면 8~9시간", values: ["2"] }] });
+  const fs = computeStats(freq).frequency;
+  check(fs.length === 2 && fs[0].group === "스마트폰 0~3시간" && fs[0].n === 28 && fs[0].mean === 7.29 && fs[0].sd === 0.86 && fs[1].mean === 6.59 && fs[1].sd === 0.88,
+    "C11 집단별 평균·표준편차를 계급값으로 구한다", JSON.stringify(fs));
+  check(JSON.stringify(summaryForPrompt(computeStats(freq))).includes("표준편차(계급값)"), "C11 AI에게 도수분포요약을 넘긴다");
+  const fAllowed = allowedNumberSet(freq, computeStats(freq));
+  check(fAllowed.has("7.29") && fAllowed.has("6.59") && fAllowed.has("0.88"), "C11 코드가 구한 값은 본문에 쓸 수 있다");
+  const task = "스마트폰 사용 시간과 수면 시간을 설문 조사하고 평균과 표준편차를 구한다.";
+  check(lines(STAGE.FINAL, { collectionKind: K.SURVEY, taskDescription: task, studentData: freq }).some((line) => /그대로 쓰고 다시 계산하지 않는다/.test(line)), "C11 AI는 그 값을 그대로 쓴다");
+  check(computeStats(normalizeStudentData({ measurementName: "거품 높이", unit: "mm", conditions: [{ label: "10 °C", values: ["8", "7", "9"] }, { label: "40 °C", values: ["31", "29", "32"] }] })).frequency.length === 0, "C11 측정 실험에는 붙지 않는다");
 }
 
 // C4b 값을 구하라는 과제나 기준값이 있으면 계산이 하나는 있어야 한다(운영 테스트 11: 칸을 비우고 본문에 바로 적었다)
