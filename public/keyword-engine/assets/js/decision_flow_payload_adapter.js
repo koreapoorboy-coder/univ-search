@@ -7,7 +7,7 @@
   function text(v){ return String(v == null ? "" : v).trim(); }
   function read(id){ return text($(id)?.value); }
   function first(arr, fallback=""){ return Array.isArray(arr) && arr.length ? arr[0] : fallback; }
-  function categoryLabel(id){ return ({engineering:"공학계열",natural:"자연과학계열",medical:"의약·보건계열"})[id] || id; }
+  function categoryLabel(id){ return ({engineering:"공학계열",natural:"자연과학계열",medical:"의약·보건계열",social:"사회계열",humanities:"인문계열"})[id] || id; }
 
   function build(){
     const state = global.__DECISION_FLOW_STATE__ || {};

@@ -188,6 +188,22 @@ check(absolute.verified.length === 2, "C3d 앞 답의 절댓값을 그대로 쓴
   check(computeStats(normalizeStudentData({ measurementName: "거품 높이", unit: "mm", conditions: [{ label: "10 °C", values: ["8", "7", "9"] }, { label: "40 °C", values: ["31", "29", "32"] }] })).frequency.length === 0, "C11 측정 실험에는 붙지 않는다");
 }
 
+// C12 운영 테스트 29(통합사회 인구 통계): 천 단위 쉼표, 집단별 기준, 비율 과제
+{
+  const { numbersIn, removeUnsupportedNumbers, stagePromptLines: lines, summaryForPrompt, COLLECTION: K } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  check(numbersIn("38,500명에서 57,600명으로, 0.72 M, 1,234.5").join("|") === "38500|57600|0.72|1234.5", "C12 천 단위 쉼표는 한 숫자다");
+  check(removeUnsupportedNumbers("우리 지역은 2014년 38,500명에서 2023년 57,600명으로 늘었다.", new Set(["2014", "2023", "38500", "57600"])).removed === 0, "C12 쉼표 숫자 문장을 지우지 않는다");
+  const pop = normalizeStudentData({ measurementName: "65세 이상 인구 수", unit: "명", conditions: [["우리 지역 2014년", "38500"], ["우리 지역 2023년", "57600"], ["비교 지역 2014년", "21300"], ["비교 지역 2023년", "27900"]].map(([label, value]) => ({ label, values: [value] })) });
+  const rows = summaryForPrompt(computeStats(pop)).조건별결과;
+  check(rows[3].집단 === "비교 지역" && rows[3].같은집단첫조건과의차이 === 6600 && rows[3].같은집단첫조건대비변화율 === 31, "C12 집단마다 자기 첫 조건과 견준다", JSON.stringify(rows[3]));
+  check(allowedNumberSet(pop, computeStats(pop)).has("6600"), "C12 집단 기준 차이는 본문에 쓸 수 있다");
+  const task = "통계청 자료를 활용하여 우리 지역의 최근 10년간 고령 인구 비율 변화를 조사하고 다른 지역과 비교한다.";
+  const draftLines = lines(STAGE.DRAFT, { collectionKind: K.DATASET, taskDescription: task }).join("\n");
+  check(/비율 자체/.test(draftLines) && /"우리 지역 · 2014년"/.test(draftLines), "C12 비율 과제의 설계서는 비율을 받고, 두 기준 조건은 가운뎃점으로 나눈다");
+  check(stageSchemaProperties(STAGE.FINAL, { taskDescription: task }).calculations.minItems === 1, "C12 비율 과제는 계산 칸을 비울 수 없다");
+  check(lines(STAGE.FINAL, { collectionKind: K.DATASET, taskDescription: task, studentData: pop }).some((line) => /같은집단첫조건과의차이/.test(line)), "C12 최종 보고서는 집단별 기준으로 견준다");
+}
+
 // C4b 값을 구하라는 과제나 기준값이 있으면 계산이 하나는 있어야 한다(운영 테스트 11: 칸을 비우고 본문에 바로 적었다)
 check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "식초 속 아세트산의 함량을 적정하여 구하고 표시된 산도와 비교한다" }).calculations.minItems === 1, "C4b 값을 구하라는 과제는 계산 칸을 비울 수 없다");
 check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "탐구보고서", studentData: data }).calculations.minItems === 1, "C4b 기준값을 적었으면 계산 칸을 비울 수 없다");

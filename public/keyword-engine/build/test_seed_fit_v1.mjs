@@ -60,7 +60,7 @@ const NUCLEAR = "기후변화로 인한 해수 온도 상승이 원전 냉각수
   check(Boolean(line) && !/sourceTitle|selectionKeywordBasis|legacyGeneratedTitle/.test(line), "S4 사이트가 사례 제목을 키워드로 쓰지 않는다", line);
   check(/taskConcepts/.test(line) && adapter.includes("cross?.topic?.subjectConcepts"), "S4 대신 과제에서 뽑은 개념을 쓴다");
   check(!/keyword: cleanReportPhrase\(firstNonEmpty\([^)]*seed\.sourceTitle/.test(bridge), "S4 화면의 키워드 대비책에도 사례 제목이 없다");
-  check(html.includes("decision_flow_payload_adapter.js?v=v2_task_keyword"), "S4 어댑터 캐시 표식을 올렸다 — 안 올리면 학생 브라우저가 옛 파일을 쓴다");
+  check(html.includes("decision_flow_payload_adapter.js?v=v3_social_humanities"), "S4 어댑터 캐시 표식을 올렸다 — 안 올리면 학생 브라우저가 옛 파일을 쓴다");
 }
 
 console.log(`\n${passed} checks passed`);

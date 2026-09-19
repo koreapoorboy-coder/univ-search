@@ -188,6 +188,8 @@
           <button type="button" data-category="engineering" data-label="공학계열">공학계열</button>
           <button type="button" data-category="natural" data-label="자연과학계열">자연과학계열</button>
           <button type="button" data-category="medical" data-label="의약·보건계열">의약·보건계열</button>
+          <button type="button" data-category="social" data-label="사회계열">사회계열</button>
+          <button type="button" data-category="humanities" data-label="인문계열">인문계열</button>
         </div>
       </section>
 
@@ -282,12 +284,16 @@
     const FIELD_BY_CATEGORY = {
       engineering: "공학계열",
       natural: "자연계열",
-      medical: "의약계열"
+      medical: "의약계열",
+      social: "사회계열",
+      humanities: "인문계열"
     };
     const FIELD_LABEL_BY_CATEGORY = {
       engineering: "공학계열",
       natural: "자연과학계열",
-      medical: "의약·보건계열"
+      medical: "의약·보건계열",
+      social: "사회계열",
+      humanities: "인문계열"
     };
     const esc = value => String(value || "").replace(/[&<>"']/g, char => ({
       "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
@@ -450,7 +456,7 @@
   </script>
   <script src="assets/assessment_keyword_bridge_helper.js?v=v35_balsaeng"></script>
   <script src="assets/keyword_engine.js?v=v42_required_input_hotfix"></script>
-  <script src="assets/js/decision_flow_payload_adapter.js?v=v2_task_keyword"></script>
+  <script src="assets/js/decision_flow_payload_adapter.js?v=v3_social_humanities"></script>
   <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v283_full_title"></script>
 <script>
 // 한 번 넣은 학생 코드는 이 기기가 기억한다. 가입 화면·기록 화면과 같은 자리를 쓴다.

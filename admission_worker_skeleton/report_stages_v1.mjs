@@ -167,6 +167,25 @@ export function computeStats(data) {
     row.diff_from_first = round(row.mean - base);
     row.percent_from_first = base ? round(((row.mean - base) / Math.abs(base)) * 100, 1) : null;
   });
+  // 집단이 둘 이상이면(「우리 지역 · 2014년」「비교 지역 · 2014년」) 집단마다 자기 첫 조건을 기준으로도 잰다. 운영 테스트 29:
+  // 모든 조건을 「우리 지역 2014년」 하나와만 견줘, 비교 지역의 증가폭을 자기 2014년 기준으로 볼 수 없었다.
+  const groupOf = (label) => {
+    const text = String(label || '');
+    if (text.includes('·')) return text.split(/\s*·\s*/)[0];
+    return text.replace(/\s*\S*\d\S*\s*$/, '').trim();
+  };
+  const groups = new Map();
+  rows.forEach((row) => { const key = groupOf(row.label); if (key) groups.set(key, [...(groups.get(key) || []), row]); });
+  if (groups.size >= 2 && [...groups.values()].some((list) => list.length >= 2)) {
+    for (const list of groups.values()) {
+      const first = list[0].mean;
+      list.forEach((row) => {
+        row.group = groupOf(row.label);
+        row.diff_from_group_first = round(row.mean - first);
+        row.percent_from_group_first = first ? round(((row.mean - first) / Math.abs(first)) * 100, 1) : null;
+      });
+    }
+  }
   // Ranking and ties are given to the model so it compares condition by condition instead of generalising.
   const byMean = new Map();
   rows.forEach((row) => byMean.set(row.mean, [...(byMean.get(row.mean) || []), row.label]));
@@ -354,9 +373,10 @@ export function summaryForPrompt(stats) {
     단위: stats.unit,
     점수기준: stats.scaleGuide,
     반복횟수: stats.trials,
-    조건별결과: stats.rows.map((row) => (single
+    조건별결과: stats.rows.map((row) => ({ ...(single
       ? { 조건: row.label, 값: row.mean, 첫조건과의차이: row.diff_from_first, 첫조건대비변화율: row.percent_from_first, 관찰메모: row.note }
-      : { 조건: row.label, 측정값: row.values, 평균: row.mean, 흔들림: row.spread, 첫조건과의차이: row.diff_from_first, 첫조건대비변화율: row.percent_from_first, 관찰메모: row.note })),
+      : { 조건: row.label, 측정값: row.values, 평균: row.mean, 흔들림: row.spread, 첫조건과의차이: row.diff_from_first, 첫조건대비변화율: row.percent_from_first, 관찰메모: row.note }),
+      ...(row.group !== undefined ? { 집단: row.group, 같은집단첫조건과의차이: row.diff_from_group_first, 같은집단첫조건대비변화율: row.percent_from_group_first } : {}) })),
     [single ? '값이높은순서' : '평균이높은순서']: stats.ranking.map((item) => `${item.label} (${item.mean})`),
     [single ? '값이같은조건' : '평균이같은조건']: stats.sameMean,
     수준별비교: (stats.comparisons || []).map((item) => ({ 기준: item.at, 가장높은쪽: item.higher, 두번째: item.runnerUp, 차이: item.gap, 흔들림보다큰차이인가: item.clearDifference === null ? '반복이 없어 알 수 없음' : (item.clearDifference ? '예' : '아니오') })),
@@ -412,7 +432,12 @@ function cleanCaption(text) {
   return filterSentences(scrubInternalNames(text), (sentence) => !/에러|오차\s*막대|error/i.test(sentence)).body;
 }
 
-const canonicalNumber = (text) => String(Number(text));
+const canonicalNumber = (text) => String(Number(String(text).replace(/,/g, '')));
+// 글 속 숫자. 천 단위 쉼표(38,500)는 한 숫자다. 운영 테스트 29(통합사회 인구 통계): 「38,500명」을 38과 500으로 잘라 읽어
+// 500을 모르는 숫자로 보고 탐구 결과 문장 8개를 지웠다.
+export function numbersIn(text) {
+  return (String(text || '').match(/\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?/g) || []).map((number) => number.replace(/,/g, ''));
+}
 
 // Numbers the report may use: student values and their computed summaries (0–2 decimals, signed or not),
 // numbers the student or the approved draft wrote, and small counts such as step numbers.
@@ -426,12 +451,12 @@ export function allowedNumberSet(data, stats) {
     });
   };
   for (let count = 0; count <= 10; count += 1) allowed.add(String(count));
-  (stats?.rows || []).forEach((row) => [...row.values, row.mean, row.min, row.max, row.spread, row.diff_from_first, row.percent_from_first].forEach(addValue));
+  (stats?.rows || []).forEach((row) => [...row.values, row.mean, row.min, row.max, row.spread, row.diff_from_first, row.percent_from_first, row.diff_from_group_first, row.percent_from_group_first].forEach(addValue));
   (stats?.comparisons || []).forEach((comparison) => addValue(comparison.gap));
   (stats?.frequency || []).forEach((one) => [one.n, one.mean, one.variance, one.sd].forEach(addValue));
   (data.references || []).forEach((one) => addValue(toNumber(one.value)));
   const texts = [data.measurementName, data.unit, data.scaleGuide, data.reason, data.observations, data.reflection, data.draftReport, ...data.sources, ...data.conditions.flatMap((row) => [row.label, row.note])];
-  texts.join(' ').match(/\d+(?:\.\d+)?/g)?.forEach((number) => allowed.add(canonicalNumber(number)));
+  numbersIn(texts.join(' ')).forEach((number) => allowed.add(canonicalNumber(number)));
   // 도수분포표의 계급값(「수면 5~6시간」 → 5.5)도 쓸 수 있는 숫자다(운영 테스트 27: 평균·표준편차를 계급값으로 구한다).
   data.conditions.forEach((row) => {
     for (const match of String(row.label || '').matchAll(/(\d+(?:\.\d+)?)\s*[~∼\-–]\s*(\d+(?:\.\d+)?)/g)) {
@@ -479,7 +504,7 @@ export function isPlanSentence(sentence) {
 
 export function removeUnsupportedNumbers(body, allowed, { allowPlans = false } = {}) {
   return filterSentences(body, (sentence) => (allowPlans && isPlanSentence(sentence))
-    || (sentence.match(/\d+(?:\.\d+)?/g) || []).every((number) => allowed.has(canonicalNumber(number))));
+    || numbersIn(sentence).every((number) => allowed.has(canonicalNumber(number))));
 }
 
 export function removeInventedFeelings(body, studentText) {
@@ -858,6 +883,11 @@ export function stagePromptLines(stage, input) {
       '- conditions는 서로 다른 조건 2개 이상이다. 시료가 하나뿐인 실험이면 시료의 양을 두 가지로 하거나 블랭크(대조)를 조건으로 넣는다. 조건 이름에는 따옴표·괄호 기호·콜론 같은 형식 기호를 쓰지 않는다.',
       // 운영 테스트 23: 「차가운 상태」「따뜻한 상태」처럼 값 없는 조건 이름 — 보고서가 최적 온도를 숫자로 말하지 못했다.
       '- 조건 이름에는 실제 값을 넣는다(예: "물 온도 25 °C", "실 길이 0.40 m", "5배 희석"). "차가운 상태", "따뜻한 상태"처럼 값 없는 말만 쓰지 않는다.',
+      // 운영 테스트 29(통합사회 인구 통계): 「우리 지역 2014년」처럼 써서 지역별로 나눠 견줄 수 없었고, 비율 과제인데 인구 수만 받았다.
+      '- 조건이 두 가지 기준(예: 지역과 연도, 집단과 시기)으로 나뉘면 반드시 "우리 지역 · 2014년"처럼 앞 기준과 뒤 기준을 가운뎃점( · )으로 나눠 쓴다. 그래야 집단마다 따로 견줄 수 있다.',
+      ...(/비율|비중|점유율|퍼센트/.test(String(input.taskDescription || '')) && kind !== COLLECTION.MEASUREMENT
+        ? ['- 안내문이 비율·비중을 조사하라고 한다. measurementName은 그 **비율 자체**(예: "고령 인구 비율", 단위 %)로 한다. 통계 사이트에는 비율이 이미 있는 경우가 많으니 그 값을 옮겨 적게 하고, scaleGuide에 어느 표의 어느 항목인지 적는다. 인원수만 받으면 보고서가 비율을 말할 수 없다.']
+        : []),
       // 운영 테스트 27(확률과 통계 설문): 「6시간 이상·미만」 교차표만 만들어 평균·표준편차를 구할 수 없었다.
       ...(/평균|표준편차|분산/.test(String(input.taskDescription || '')) && kind !== COLLECTION.MEASUREMENT
         ? ['- 안내문이 평균·표준편차·분산을 구하라고 한다. 표는 **도수분포표**로 만든다: conditions는 평균을 구할 값의 **닫힌 계급**(예: "수면 5~6시간", "수면 6~7시간")이고, 칸에는 그 계급의 인원수를 적는다. "6시간 이상", "6시간 미만"처럼 열린 계급은 쓰지 않는다 — 맨 끝 계급도 "8~9시간"처럼 닫는다. 계급 폭은 같게 한다. 두 변수의 관계도 보라는 과제면 다른 변수를 두 집단으로 나누어 계급 앞에 붙인다(예: "스마트폰 3시간 미만 · 수면 6~7시간"). 조건은 모두 8개 이하다.']
@@ -875,6 +905,10 @@ export function stagePromptLines(stage, input) {
       '- 결과정리의 평균, 첫조건과의차이, 첫조건대비변화율(%), 평균이높은순서, 평균이같은조건은 새로 계산하지 말고 그대로 쓴다. 이것들은 calculations에 다시 넣지 않는다.',
       ...calculationPromptLines(),
       ...calculationTaskLines(input, data),
+      // 운영 테스트 29: 비교 지역을 「우리 지역 2014년」과만 견줬다.
+      ...(computeStats(data).rows.some((row) => row.group !== undefined)
+        ? ['- 결과정리의 조건별결과에 집단과 같은집단첫조건과의차이·같은집단첫조건대비변화율이 있다. 집단(예: 지역)마다 자기 첫 조건을 기준으로 얼마나 변했는지 견주고, 집단끼리의 비교는 이 변화량과 변화율로 한다. 서로 다른 집단의 값을 첫조건과의차이 하나로 섞어 말하지 않는다.']
+        : []),
       '- 표 1(학생이 잰 값)은 항상 만들어진다. 그래프는 figures에 고른 경우에만 붙는다. 그래프를 고르지 않았으면 본문에서 그림을 가리키지 않는다.',
       '- 점수의 뜻은 scaleGuide를 따른다. 점수가 무엇을 뜻하는지 헷갈리게 쓰지 않는다.',
       '- 결과 분석과 결론은 조건마다 비교한다. 수준별비교가 있으면 기준마다 가장높은쪽이 두번째보다 몇 점(차이) 높았는지 그대로 쓴다. 두 값이 다르면 "비슷하다", "큰 차이가 없다"처럼 흐리게 쓰지 않는다. 가설과 반대로 나온 조건은 그대로 밝힌다. "같은 조건에서 항상", "모든 조건에서" 같은 말은 모든 조건에서 그랬을 때만 쓴다.',
@@ -998,7 +1032,7 @@ const STAGE_SCHEMA = {
 // 본문에 산도를 바로 적어, 그 문장 12개가 지어낸 숫자로 모두 지워졌다.
 export function needsCalculation(input = {}) {
   return (input.studentData?.references || []).length > 0
-    || /구하|구한다|계산|농도|산도|함량|속력|가속도|효율|오차율|밀도|비열|몰질량|분자량|수득률|백분율|표준편차|분산|평균을/.test(String(input.taskDescription || ''));
+    || /구하|구한다|계산|농도|산도|함량|속력|가속도|효율|오차율|밀도|비열|몰질량|분자량|수득률|백분율|표준편차|분산|평균을|비율|비중|증가율|변화율|퍼센트|점유율/.test(String(input.taskDescription || ''));
 }
 
 // 안내문이 구하라고 한 값을 **이름을 짚어** 알려 준다. 운영 테스트 13: 계산 칸을 채우라고만 했더니 평균·비율처럼 이미 있는
@@ -1104,7 +1138,7 @@ export function finalizeStageOutput(stage, rawParsed, input) {
     const refPapers = usedRefs ? usedRefs.papers : (input.referencePapers || []);
     const refWeb = used ? used.research : (input.referenceWeb || []);
     const allowed = allowedNumberSet(data, stats);
-    String(input.taskDescription || '').match(/\d+(?:\.\d+)?/g)?.forEach((number) => allowed.add(canonicalNumber(number)));
+    numbersIn(input.taskDescription).forEach((number) => allowed.add(canonicalNumber(number)));
     // 교과 확장 재료의 서지 숫자(연도·권·호·쪽)는 지어낸 숫자가 아니다. 이것을 막았더니 「(이윤미 외, 2024)」가 든 문장이
     // 통째로 지워져 연구가 본문에서 사라졌다(비교 시험 2026-09-18).
     for (const one of [...(input.ingredients?.papers || []), ...(input.ingredients?.research || [])]) {
