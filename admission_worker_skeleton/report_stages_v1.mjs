@@ -916,8 +916,17 @@ const STAGE_SCHEMA = {
   },
 };
 
+// 안내문이 값을 구하라고 하거나 학생이 기준값을 적었으면 계산이 하나는 있어야 한다. 운영 테스트 11(2026-09-19): 칸을 비워 두고
+// 본문에 산도를 바로 적어, 그 문장 12개가 지어낸 숫자로 모두 지워졌다.
+export function needsCalculation(input = {}) {
+  return (input.studentData?.references || []).length > 0
+    || /구하|구한다|계산|농도|산도|함량|속력|가속도|효율|오차율|밀도|비열|몰질량|분자량|수득률|백분율/.test(String(input.taskDescription || ''));
+}
+
 export function stageSchemaProperties(stage, input = {}) {
-  const base = baseSchemaProperties(stage, input);
+  const base = stage === STAGE.FINAL && needsCalculation(input)
+    ? { ...baseSchemaProperties(stage, input), calculations: { ...CALCULATION_SCHEMA, minItems: 1 } }
+    : baseSchemaProperties(stage, input);
   const sent = (input.ingredients?.papers || []).length + (input.ingredients?.research || []).length;
   // 재료는 확장을 쓰는 단계(최종·문헌·한 번에 끝나는 보고서)에만 간다 — 설계서에는 안 간다.
   // 칸을 **앞에** 둔다 — 긴 답의 맨 끝에 둔 칸에서 AI가 헤맸다(ingredients_v1 의 ingredientSchema).

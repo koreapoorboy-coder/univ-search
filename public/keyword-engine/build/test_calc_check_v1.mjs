@@ -56,6 +56,11 @@ const draft = finalizeStageOutput(STAGE.DRAFT, { sections: [], dataTemplate: { m
   referenceInputs: [{ label: "식초 병에 표시된 산도", unit: "%" }] } }, { collectionKind: "measurement" });
 check(draft.extra.dataTemplate.referenceInputs[0].label === "식초 병에 표시된 산도", "C4 기준값 칸이 화면까지 간다");
 
+// C4b 값을 구하라는 과제나 기준값이 있으면 계산이 하나는 있어야 한다(운영 테스트 11: 칸을 비우고 본문에 바로 적었다)
+check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "식초 속 아세트산의 함량을 적정하여 구하고 표시된 산도와 비교한다" }).calculations.minItems === 1, "C4b 값을 구하라는 과제는 계산 칸을 비울 수 없다");
+check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "탐구보고서", studentData: data }).calculations.minItems === 1, "C4b 기준값을 적었으면 계산 칸을 비울 수 없다");
+check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "효소 탐구보고서" }).calculations.minItems === 0, "C4b 그 밖에는 비워도 된다");
+
 // C5 운영 테스트 10: 조건을 하나밖에 못 찾은 AI가 두 번째 칸을 답 형식 조각으로 채웠다.
 const leaked = finalizeStageOutput(STAGE.DRAFT, { sections: [], dataTemplate: { measurementName: "부피", unit: "mL", scaleGuide: "", trials: 3,
   conditions: ["식초 시료 1:10 희석'],'trials':3,", "referenceInputs':[{", "label'", "unit"], referenceInputs: [] } }, { collectionKind: "measurement" });
