@@ -795,9 +795,10 @@ export function stagePromptLines(stage, input) {
     return [
       '[이번 단계: 2차 최종 보고서, 학생 실험 데이터 반영]',
       '- 학생이 1차 설계서대로 실험하고 결과를 입력했다. 아래 [학생 실험 데이터]의 학생입력과 결과정리가 학생의 실제 결과다.',
-      '- 보고서의 모든 숫자는 학생입력, 결과정리, 1차 설계서에 있는 숫자여야 한다. 새 숫자, 다른 실험이나 문헌의 수치를 만들지 않는다. 이를 어긴 문장은 자동으로 삭제된다.',
-      '- 결과정리의 평균, 첫조건과의차이, 첫조건대비변화율(%), 평균이높은순서, 평균이같은조건은 새로 계산하지 말고 그대로 쓴다.',
+      '- 보고서의 모든 숫자는 학생입력, 기준값, 결과정리, 1차 설계서에 있는 숫자이거나 **calculations에서 검산을 통과한 계산 결과**여야 한다. 그 밖의 새 숫자, 다른 실험이나 문헌의 수치를 만들지 않는다. 이를 어긴 문장은 자동으로 삭제된다.',
+      '- 결과정리의 평균, 첫조건과의차이, 첫조건대비변화율(%), 평균이높은순서, 평균이같은조건은 새로 계산하지 말고 그대로 쓴다. 이것들은 calculations에 다시 넣지 않는다.',
       ...calculationPromptLines(),
+      ...calculationTaskLines(input, data),
       '- 표 1(학생이 잰 값)은 항상 만들어진다. 그래프는 figures에 고른 경우에만 붙는다. 그래프를 고르지 않았으면 본문에서 그림을 가리키지 않는다.',
       '- 점수의 뜻은 scaleGuide를 따른다. 점수가 무엇을 뜻하는지 헷갈리게 쓰지 않는다.',
       '- 결과 분석과 결론은 조건마다 비교한다. 수준별비교가 있으면 기준마다 가장높은쪽이 두번째보다 몇 점(차이) 높았는지 그대로 쓴다. 두 값이 다르면 "비슷하다", "큰 차이가 없다"처럼 흐리게 쓰지 않는다. 가설과 반대로 나온 조건은 그대로 밝힌다. "같은 조건에서 항상", "모든 조건에서" 같은 말은 모든 조건에서 그랬을 때만 쓴다.',
@@ -921,6 +922,22 @@ const STAGE_SCHEMA = {
 export function needsCalculation(input = {}) {
   return (input.studentData?.references || []).length > 0
     || /구하|구한다|계산|농도|산도|함량|속력|가속도|효율|오차율|밀도|비열|몰질량|분자량|수득률|백분율/.test(String(input.taskDescription || ''));
+}
+
+// 안내문이 구하라고 한 값을 **이름을 짚어** 알려 준다. 운영 테스트 13: 계산 칸을 채우라고만 했더니 평균·비율처럼 이미 있는
+// 값만 넣고, 정작 안내문이 구하라고 한 산도는 끝내 계산하지 않았다.
+export function calculationTaskLines(input = {}, data = {}) {
+  if (!needsCalculation({ ...input, studentData: data })) return [];
+  const asks = String(input.taskDescription || '').split(/(?<=[.!?다])\s+|\n/)
+    .filter((sentence) => /구하|계산|비교|함량|농도|산도/.test(sentence)).map((sentence) => sentence.trim()).filter(Boolean).slice(0, 2);
+  const refs = (data.references || []).map((one) => `${one.label} ${one.value}${one.unit}`);
+  return [
+    '[계산 과제]',
+    ...(asks.length ? [`- 안내문이 구하라고 한 것: 「${asks.join(' ')}」`] : []),
+    '- calculations의 첫 항목은 바로 그 값(예: 농도·산도·함량)을 학생이 잰 평균으로 구하는 계산이다. 몰질량 같은 교과서 상수는 constants에 이름과 값을 적고 쓴다.',
+    ...(refs.length ? [`- 학생이 적은 기준값: ${refs.join(', ')}. 구한 값과 이 기준값의 차이, 오차율(%)도 calculations로 계산하고 결과 분석과 결론에 쓴다.`] : []),
+    '- 결과 분석에는 계산 과정과 답을 한 문단으로 보여 주고, 결론에는 구한 값과 (기준값이 있으면) 비교 결과를 숫자로 쓴다.',
+  ];
 }
 
 export function stageSchemaProperties(stage, input = {}) {
