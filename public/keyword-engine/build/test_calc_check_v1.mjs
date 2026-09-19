@@ -56,4 +56,12 @@ const draft = finalizeStageOutput(STAGE.DRAFT, { sections: [], dataTemplate: { m
   referenceInputs: [{ label: "식초 병에 표시된 산도", unit: "%" }] } }, { collectionKind: "measurement" });
 check(draft.extra.dataTemplate.referenceInputs[0].label === "식초 병에 표시된 산도", "C4 기준값 칸이 화면까지 간다");
 
+// C5 운영 테스트 10: 조건을 하나밖에 못 찾은 AI가 두 번째 칸을 답 형식 조각으로 채웠다.
+const leaked = finalizeStageOutput(STAGE.DRAFT, { sections: [], dataTemplate: { measurementName: "부피", unit: "mL", scaleGuide: "", trials: 3,
+  conditions: ["식초 시료 1:10 희석'],'trials':3,", "referenceInputs':[{", "label'", "unit"], referenceInputs: [] } }, { collectionKind: "measurement" });
+check(leaked.extra.dataTemplate.conditions.join("|") === "식초 시료 1:10 희석|대조(비교용)", "C5 답 형식 조각은 조건 이름이 되지 않고, 앞의 진짜 이름은 살린다", JSON.stringify(leaked.extra.dataTemplate.conditions));
+const one = finalizeStageOutput(STAGE.DRAFT, { sections: [], dataTemplate: { measurementName: "부피", unit: "mL", scaleGuide: "", trials: 3,
+  conditions: ["식초 시료 5 mL", "unit"], referenceInputs: [] } }, { collectionKind: "measurement" });
+check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조(비교용)", "C5 진짜 조건 하나는 살린다", JSON.stringify(one.extra.dataTemplate.conditions));
+
 console.log(`\n${passed} checks passed`);

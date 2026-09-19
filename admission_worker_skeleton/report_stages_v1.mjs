@@ -456,7 +456,11 @@ export function singleMeasure(name) {
 }
 
 function sanitizeDataTemplate(raw, kind) {
-  const conditions = [...new Set((Array.isArray(raw?.conditions) ? raw.conditions : []).map((label) => clip(label, 60)).filter(Boolean))].slice(0, MAX_CONDITIONS);
+  // 답 형식 조각이 조건 이름에 새어 든 것은 버린다. 운영 테스트(2026-09-19): 조건을 하나밖에 못 찾은 AI가 두 번째 칸을
+  // 「referenceInputs':[{」「label'」 같은 조각으로 채웠다.
+  // 조각 앞의 진짜 이름(「식초 시료 1:10 희석'],…」 → 「식초 시료 1:10 희석」)은 살린다.
+  const conditions = [...new Set((Array.isArray(raw?.conditions) ? raw.conditions : []).map((label) => clip(String(label ?? '').split(/['"[\]{}]/)[0], 60))
+    .filter((label) => label && !/:\s*$|^(label|unit|trials|referenceInputs|conditions|measurementName)$/i.test(label)))].slice(0, MAX_CONDITIONS);
   // Repeating makes sense only for a measurement: a student cannot ask the same class the same question three
   // times, and a published figure for one year has one value.
   const trials = kind === COLLECTION.MEASUREMENT ? Math.min(MAX_TRIALS, Math.max(3, Math.round(Number(raw?.trials) || 3))) : 1;
@@ -466,7 +470,8 @@ function sanitizeDataTemplate(raw, kind) {
     measurementName: singleMeasure(clip(raw?.measurementName, 40)) || '측정값',
     unit: clip(raw?.unit, 20),
     scaleGuide: clip(raw?.scaleGuide, 200),
-    conditions: conditions.length >= 2 ? conditions : ['조건 1', '조건 2'],
+    // 하나만 남으면 그 조건은 살리고 대조 칸을 붙인다(예전에는 「조건 1·조건 2」로 바꿔 진짜 조건까지 잃었다).
+    conditions: conditions.length >= 2 ? conditions : conditions.length === 1 ? [conditions[0], '대조(비교용)'] : ['조건 1', '조건 2'],
     trials,
     // 결과와 견줄 기준값(표시 산도·이론값) 칸. 학생이 실험 밖에서 옮겨 적는다(calc_check_v1).
     referenceInputs: (Array.isArray(raw?.referenceInputs) ? raw.referenceInputs : [])
@@ -779,6 +784,8 @@ export function stagePromptLines(stage, input) {
            '- 단, 수행평가 안내문이 정해 둔 대상·장소·재료·방법은 바꾸지 않는다. 겹침은 그 안의 세부 조건과 재는 방법으로 피한다.', '']
         : []),
       '- referenceInputs는 결과와 견줄 **기준값**을 학생이 적을 칸이다(식초 병에 표시된 산도, 이론값, 공식 기록값처럼 실험 밖에서 옮겨 적는 숫자). 안내문이 그런 값과 비교하라고 할 때만 label과 unit으로 1~3개 넣고, 아니면 빈 배열이다. 표의 조건으로 넣지 않는다.',
+      '- measurementName은 학생이 **기구에서 직접 읽는 값**(부피·질량·시간·온도·길이·개수 등)이다. 농도·백분율·속력처럼 읽은 값으로 계산해서 얻는 값은 표에 적게 하지 않는다 — 최종 보고서가 학생이 읽은 값으로 계산하고 코드가 검산한다.',
+      '- conditions는 서로 다른 조건 2개 이상이다. 시료가 하나뿐인 실험이면 시료의 양을 두 가지로 하거나 블랭크(대조)를 조건으로 넣는다. 조건 이름에는 따옴표·괄호 기호·콜론 같은 형식 기호를 쓰지 않는다.',
       '- measurementName은 한 칸에 적을 **값 하나**의 이름이다. 두 가지 값(예: 개체 수와 피복 점수)을 한 칸에 담지 않는다. 여러 값을 재야 하면 연구 질문에 가장 중심이 되는 하나를 표에 두고, 나머지는 관찰 메모에 적게 한다.',
       `- dataTemplate은 학생이 채울 결과 표다. conditions는 표의 행이 될 조건 이름 2~8개(두 변인을 함께 바꾸면 "효소 세제 · 미지근한 물"처럼 "앞 변인 · 뒤 변인" 순서로 모든 조합), ${kind === COLLECTION.MEASUREMENT ? 'trials는 조건마다 반복 횟수(3~5)' : 'trials는 반드시 1'}, measurementName과 unit은 ${kind === COLLECTION.MEASUREMENT ? '측정 항목과 단위(점수면 "점")' : '적을 값의 이름과 단위'}, scaleGuide는 ${kind === COLLECTION.MEASUREMENT ? '점수 기준이나 측정 방법' : '값을 어디서 어떻게 옮겨 적는지'} 한 문장이다.`,
     ];
