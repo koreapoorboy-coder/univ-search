@@ -146,6 +146,29 @@ check(absolute.verified.length === 2, "C3d 앞 답의 절댓값을 그대로 쓴
   check(removeUnsupportedNumbers(body, new Set(["40"])).body === "40 °C에서 가장 컸다.", "C9 결과 절에서는 지금처럼 지운다");
 }
 
+// C10 운영 테스트 27(확률과 통계 설문): 도수분포표로 평균·표준편차, 제목의 학교 이름
+{
+  const { stripSchoolName, stagePromptLines: lines, COLLECTION: K } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  check(evaluateExpression("√((5.5-6.6)^2*4 + (6.5-6.6)^2*10) ") !== null && Math.abs(evaluateExpression("sqrt(9)") - 3) < 1e-9 && evaluateExpression("3²") === 9, "C10 제곱근과 제곱을 계산한다");
+  const survey = normalizeStudentData({ measurementName: "응답 수", unit: "명", conditions: [
+    { label: "수면 5~6시간", values: ["4"] }, { label: "수면 6~7시간", values: ["10"] }, { label: "수면 7~8시간", values: ["6"] }] });
+  const sAllowed = allowedNumberSet(survey, computeStats(survey));
+  check(sAllowed.has("5.5") && sAllowed.has("6.5") && sAllowed.has("7.5"), "C10 계급값(구간 가운데 값)은 아는 숫자다");
+  const mean = verifyCalculations([
+    { what: "평균", constants: [], expression: "(5.5*4 + 6.5*10 + 7.5*6) / 20", result: "6.6", unit: "시간" },
+    { what: "표준편차", constants: [], expression: "√(((5.5-6.6)^2*4 + (6.5-6.6)^2*10 + (7.5-6.6)^2*6) / 20)", result: "0.70", unit: "시간" },
+  ], sAllowed);
+  check(mean.verified.length === 2, "C10 도수분포표의 평균과 표준편차를 검산한다", JSON.stringify(mean.rejected));
+  check(stripSchoolName("테스트고2 스마트폰 사용별 수면 분포·표준편차 해석", "테스트고등학교") === "스마트폰 사용별 수면 분포·표준편차 해석", "C10 제목에서 학교 이름과 학년을 뺀다");
+  check(stripSchoolName("실 길이에 따른 단진자 주기 측정", "테스트고등학교") === "실 길이에 따른 단진자 주기 측정", "C10 학교 이름이 없으면 그대로");
+  const task = "우리 학년 학생들을 대상으로 스마트폰 사용 시간과 수면 시간을 설문 조사하고 평균과 표준편차를 구한다.";
+  check(lines(STAGE.DRAFT, { collectionKind: K.SURVEY, taskDescription: task }).some((line) => /도수분포표/.test(line) && /닫힌 계급/.test(line)), "C10 평균·표준편차 과제의 설계서는 닫힌 계급의 도수분포표");
+  check(!lines(STAGE.DRAFT, { collectionKind: K.MEASUREMENT, taskDescription: task }).some((line) => /닫힌 계급/.test(line)), "C10 측정 실험에는 붙지 않는다");
+  check(lines(STAGE.FINAL, { collectionKind: K.SURVEY, taskDescription: task, studentData: survey }).some((line) => /계급값 = 계급의 가운데 값/.test(line)), "C10 최종 보고서는 계급값으로 평균·표준편차를 구한다");
+  const out = finalizeStageOutput(STAGE.FINAL, { reportTitle: "테스트고2 스마트폰 사용별 수면 분포", sections: [], calculations: [], figures: [], recordDraft: [] }, { studentData: survey, schoolName: "테스트고등학교", taskDescription: task });
+  check(out.parsed.reportTitle === "스마트폰 사용별 수면 분포", "C10 최종 제목에서 학교 이름이 빠진다", out.parsed.reportTitle);
+}
+
 // C4b 값을 구하라는 과제나 기준값이 있으면 계산이 하나는 있어야 한다(운영 테스트 11: 칸을 비우고 본문에 바로 적었다)
 check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "식초 속 아세트산의 함량을 적정하여 구하고 표시된 산도와 비교한다" }).calculations.minItems === 1, "C4b 값을 구하라는 과제는 계산 칸을 비울 수 없다");
 check(stageSchemaProperties(STAGE.FINAL, { taskDescription: "탐구보고서", studentData: data }).calculations.minItems === 1, "C4b 기준값을 적었으면 계산 칸을 비울 수 없다");

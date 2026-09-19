@@ -43,19 +43,28 @@ export const CALCULATION_SCHEMA = {
 
 // 숫자와 + - × ÷ * / ( ) 만 읽는다. 그 밖의 글자가 있으면 계산하지 않는다.
 export function evaluateExpression(text) {
-  const source = String(text || '').replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-').replace(/,/g, '');
-  if (!/^[\d.\s+\-*/()]+$/.test(source)) return null;
-  const tokens = source.match(/\d+(?:\.\d+)?|[+\-*/()]/g) || [];
+  // 표준편차에는 제곱근과 제곱이 필요하다(운영 테스트 27: 도수분포표의 표준편차). √(…)·sqrt(…)·^2·² 를 읽는다.
+  const source = String(text || '').replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-').replace(/,/g, '')
+    .replace(/²/g, '^2').replace(/sqrt/gi, '√');
+  if (!/^[\d.\s+\-*/()√^]+$/.test(source)) return null;
+  const tokens = source.match(/\d+(?:\.\d+)?|[+\-*/()√^]/g) || [];
   let at = 0;
   const peek = () => tokens[at];
   const take = () => tokens[at++];
-  function primary() {
+  function atom() {
     const token = take();
     if (token === '(') { const value = sum(); if (take() !== ')') throw new Error('paren'); return value; }
-    if (token === '-') return -primary();
+    if (token === '-') return -power();
+    if (token === '√') { const value = power(); if (value < 0) throw new Error('sqrt'); return Math.sqrt(value); }
     if (token !== undefined && /^\d/.test(token)) return Number(token);
     throw new Error('token');
   }
+  function power() {
+    const base = atom();
+    if (peek() === '^') { take(); return base ** power(); }
+    return base;
+  }
+  const primary = power;
   function product() {
     let value = primary();
     while (peek() === '*' || peek() === '/') {

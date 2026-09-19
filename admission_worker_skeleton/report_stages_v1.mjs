@@ -400,6 +400,12 @@ export function allowedNumberSet(data, stats) {
   (data.references || []).forEach((one) => addValue(toNumber(one.value)));
   const texts = [data.measurementName, data.unit, data.scaleGuide, data.reason, data.observations, data.reflection, data.draftReport, ...data.sources, ...data.conditions.flatMap((row) => [row.label, row.note])];
   texts.join(' ').match(/\d+(?:\.\d+)?/g)?.forEach((number) => allowed.add(canonicalNumber(number)));
+  // 도수분포표의 계급값(「수면 5~6시간」 → 5.5)도 쓸 수 있는 숫자다(운영 테스트 27: 평균·표준편차를 계급값으로 구한다).
+  data.conditions.forEach((row) => {
+    for (const match of String(row.label || '').matchAll(/(\d+(?:\.\d+)?)\s*[~∼\-–]\s*(\d+(?:\.\d+)?)/g)) {
+      addValue((Number(match[1]) + Number(match[2])) / 2);
+    }
+  });
   return allowed;
 }
 
@@ -655,7 +661,7 @@ export function titleRules(kind = COLLECTION.MEASUREMENT, stage = STAGE.COMPLETE
     '  ③ 무엇을 알아냈나(목적) — 측정한 것과 그것으로 구하거나 확인하려 한 것(예: ~ 측정과 이를 이용한 ~ 추정, ~ 효과 비교, ~ 보존 확인).',
     '- 교과 개념어를 하나 이상 넣는다. 그래야 주제로 읽힌다.',
     '- 길이는 공백 포함 20~45자, 하나의 명사구다. 끝을 ~측정, ~분석, ~비교, ~탐구, ~평가, ~설계, ~추정, ~확인으로 맺는다.',
-    '- 넣지 않는다: 조건 수·반복 횟수·인원·편수 같은 규모 숫자, 실험 조건 값(0.40 m, 10배 희석, 30 °C), 결과 숫자, 물음표, 줄표(—)나 콜론(:)으로 붙인 부제, 과목 이름, 수행평가 안내문 문장, "~에 대한 고찰", "~의 이해", "~ 연구" 같은 빈말. 규모와 결과는 본문과 세특 초안이 따로 맡는다.',
+    '- 넣지 않는다: 조건 수·반복 횟수·인원·편수 같은 규모 숫자, 실험 조건 값(0.40 m, 10배 희석, 30 °C), 결과 숫자, 물음표, 줄표(—)나 콜론(:)으로 붙인 부제, 과목 이름, 학교 이름과 학년(예: ○○고2), 수행평가 안내문 문장, "~에 대한 고찰", "~의 이해", "~ 연구" 같은 빈말. 규모와 결과는 본문과 세특 초안이 따로 맡는다.',
     '- "~을 3회씩 재어 ~해 ~한 비교"처럼 한 일을 차례로 늘어놓지 않는다. 그것은 제목이 아니라 요약이다.',
     '- 조사를 넣어 자연스러운 우리말로 쓴다. 가운뎃점(·)은 한 번까지만 쓴다.',
     '- 약어와 원소 기호는 우리말로 푼다(BOD → 생물학적 산소 요구량, NaCl → 염화나트륨). 위첨자·아래첨자가 필요한 화학식은 일반 이름으로 쓴다(아세트산). 물·이산화탄소처럼 익숙한 이름은 그대로 둔다.',
@@ -820,6 +826,10 @@ export function stagePromptLines(stage, input) {
       '- conditions는 서로 다른 조건 2개 이상이다. 시료가 하나뿐인 실험이면 시료의 양을 두 가지로 하거나 블랭크(대조)를 조건으로 넣는다. 조건 이름에는 따옴표·괄호 기호·콜론 같은 형식 기호를 쓰지 않는다.',
       // 운영 테스트 23: 「차가운 상태」「따뜻한 상태」처럼 값 없는 조건 이름 — 보고서가 최적 온도를 숫자로 말하지 못했다.
       '- 조건 이름에는 실제 값을 넣는다(예: "물 온도 25 °C", "실 길이 0.40 m", "5배 희석"). "차가운 상태", "따뜻한 상태"처럼 값 없는 말만 쓰지 않는다.',
+      // 운영 테스트 27(확률과 통계 설문): 「6시간 이상·미만」 교차표만 만들어 평균·표준편차를 구할 수 없었다.
+      ...(/평균|표준편차|분산/.test(String(input.taskDescription || '')) && kind !== COLLECTION.MEASUREMENT
+        ? ['- 안내문이 평균·표준편차·분산을 구하라고 한다. 표는 **도수분포표**로 만든다: conditions는 평균을 구할 값의 **닫힌 계급**(예: "수면 5~6시간", "수면 6~7시간")이고, 칸에는 그 계급의 인원수를 적는다. "6시간 이상", "6시간 미만"처럼 열린 계급은 쓰지 않는다 — 맨 끝 계급도 "8~9시간"처럼 닫는다. 계급 폭은 같게 한다. 두 변수의 관계도 보라는 과제면 다른 변수를 두 집단으로 나누어 계급 앞에 붙인다(예: "스마트폰 3시간 미만 · 수면 6~7시간"). 조건은 모두 8개 이하다.']
+        : []),
       '- measurementName은 한 칸에 적을 **값 하나**의 이름이다. 두 가지 값(예: 개체 수와 피복 점수)을 한 칸에 담지 않는다. 여러 값을 재야 하면 연구 질문에 가장 중심이 되는 하나를 표에 두고, 나머지는 관찰 메모에 적게 한다.',
       `- dataTemplate은 학생이 채울 결과 표다. conditions는 표의 행이 될 조건 이름 2~8개(두 변인을 함께 바꾸면 "효소 세제 · 미지근한 물"처럼 "앞 변인 · 뒤 변인" 순서로 모든 조합), ${kind === COLLECTION.MEASUREMENT ? 'trials는 조건마다 반복 횟수(3~5)' : 'trials는 반드시 1'}, measurementName과 unit은 ${kind === COLLECTION.MEASUREMENT ? '측정 항목과 단위(점수면 "점")' : '적을 값의 이름과 단위'}, scaleGuide는 ${kind === COLLECTION.MEASUREMENT ? '점수 기준이나 측정 방법' : '값을 어디서 어떻게 옮겨 적는지'} 한 문장이다.`,
     ];
@@ -956,7 +966,7 @@ const STAGE_SCHEMA = {
 // 본문에 산도를 바로 적어, 그 문장 12개가 지어낸 숫자로 모두 지워졌다.
 export function needsCalculation(input = {}) {
   return (input.studentData?.references || []).length > 0
-    || /구하|구한다|계산|농도|산도|함량|속력|가속도|효율|오차율|밀도|비열|몰질량|분자량|수득률|백분율/.test(String(input.taskDescription || ''));
+    || /구하|구한다|계산|농도|산도|함량|속력|가속도|효율|오차율|밀도|비열|몰질량|분자량|수득률|백분율|표준편차|분산|평균을/.test(String(input.taskDescription || ''));
 }
 
 // 안내문이 구하라고 한 값을 **이름을 짚어** 알려 준다. 운영 테스트 13: 계산 칸을 채우라고만 했더니 평균·비율처럼 이미 있는
@@ -974,6 +984,10 @@ export function calculationTaskLines(input = {}, data = {}) {
     '- calculations의 첫 항목은 바로 그 값(예: 농도·산도·함량)을 학생이 잰 평균으로 구하는 계산이다. 몰질량 같은 교과서 상수는 constants에 이름과 값을 적고 쓴다.',
     ...(refs.length ? [`- 학생이 적은 기준값: ${refs.join(', ')}. 구한 값과 이 기준값의 차이, 오차율(%)도 calculations로 계산하고 결과 분석과 결론에 쓴다.`] : []),
     '- 결과 분석에는 계산 과정과 답을 한 문단으로 보여 주고, 결론에는 구한 값과 (기준값이 있으면) 비교 결과를 숫자로 쓴다.',
+    // 운영 테스트 27(확률과 통계 설문): 표가 구간별 인원수뿐이라 「원자료가 없어 평균·표준편차를 구할 수 없다」로 끝났다.
+    ...(/평균|표준편차|분산/.test(String(input.taskDescription || '')) && /명|도수|응답/.test(`${data.unit || ''} ${data.measurementName || ''}`)
+      ? ['- 표가 계급(구간)별 인원수인 도수분포표이면, 교과서의 도수분포표 방법으로 평균과 표준편차를 calculations로 구한다: 계급값 = 계급의 가운데 값, 평균 = (계급값 × 도수)의 합 ÷ 전체 도수, 표준편차 = √((계급값 − 평균)² × 도수의 합 ÷ 전체 도수). 두 변수의 관계를 보는 과제면 집단(예: 스마트폰 사용 구간)마다 따로 구해 견준다. 식에는 √(…)와 ^2를 쓸 수 있다. "원자료가 없어 구할 수 없다"로 끝내지 않는다.']
+      : []),
   ];
 }
 
@@ -1013,7 +1027,24 @@ function baseSchemaProperties(stage, input = {}) {
 }
 
 // Applies the stage rules to the model output before the sections are joined into one report.
-export function finalizeStageOutput(stage, parsed, input) {
+// 제목에서 학교 이름을 뺀다. 운영 테스트 27: 「테스트고2 스마트폰 사용별 수면 분포·표준편차 해석」 — 제목은 주제다.
+// 「○○고등학교」「○○고」와 뒤에 붙은 학년 숫자(2, 2학년)까지 지우고, 앞뒤 빈칸과 가운뎃점을 정리한다.
+export function stripSchoolName(title, schoolName) {
+  const full = String(schoolName || '').trim();
+  let out = String(title || '');
+  if (full) {
+    const short = full.replace(/등학교$/, '');
+    for (const name of [full, short].filter((one) => one.length >= 2)) {
+      out = out.split(name).map((piece, index) => (index === 0 ? piece : piece.replace(/^\s*(\d\s*학년|\d)?\s*(의|에서)?\s*/, ''))).join(' ');
+    }
+  }
+  return out.replace(/\s{2,}/g, ' ').replace(/^[\s·,]+|[\s·,]+$/g, '').trim();
+}
+
+export function finalizeStageOutput(stage, rawParsed, input) {
+  const parsed = rawParsed && typeof rawParsed === 'object' && rawParsed.reportTitle
+    ? { ...rawParsed, reportTitle: stripSchoolName(rawParsed.reportTitle, input?.schoolName) || rawParsed.reportTitle }
+    : rawParsed;
   const sections = Array.isArray(parsed?.sections) ? parsed.sections : [];
   if (stage === STAGE.DRAFT) {
     const scrubbed = sections.map((section) => ({ ...section, body: scrubInternalNames(section?.body) }));
