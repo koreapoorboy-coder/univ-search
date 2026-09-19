@@ -89,8 +89,17 @@ function toNumber(value) {
   return /^-?\d+(\.\d+)?$/.test(text) ? Number(text) : NaN;
 }
 
+// 학생이 적은 소수 자릿수. 「6.0」을 숫자로 바꾸면 6이 되어 표에 「6」으로 나왔다 — 같은 열의 6.1·6.2와 자릿수가
+// 어긋나 보인다(운영 테스트 2026-09-19). 표의 측정값 칸은 학생이 쓴 자릿수대로 보여 준다.
+function decimalsOf(value) {
+  const match = String(value ?? '').trim().replace(/,/g, '').match(/^-?\d+\.(\d+)$/);
+  return match ? Math.min(match[1].length, 4) : 0;
+}
+
 export function normalizeStudentData(raw) {
   const src = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {};
+  const decimals = Math.max(0, ...(Array.isArray(src.conditions) ? src.conditions : [])
+    .flatMap((row) => (Array.isArray(row?.values) ? row.values : []).map(decimalsOf)));
   const conditions = (Array.isArray(src.conditions) ? src.conditions : []).slice(0, MAX_CONDITIONS)
     .map((row) => ({
       label: clip(row?.label, 60),
@@ -114,6 +123,7 @@ export function normalizeStudentData(raw) {
       .filter((card) => card.title && (card.point || card.take)),
     draftTitle: clip(src.draftTitle, 80),
     draftReport: String(src.draftReport ?? '').trim().slice(0, 6000),
+    decimals,
   };
 }
 
@@ -156,6 +166,7 @@ export function computeStats(data) {
     measurementName: data.measurementName,
     unit: data.unit,
     scaleGuide: data.scaleGuide,
+    decimals: Number(data.decimals) || 0,
     trials: Math.max(0, ...rows.map((row) => row.values.length)),
     rows,
     ranking: [...rows].sort((a, b) => b.mean - a.mean).map((row) => ({ label: row.label, mean: row.mean })),
@@ -204,6 +215,12 @@ export function splitFactors(rows) {
 }
 
 // The model picks kind, metric, order and wording; every number comes from computeStats.
+// 학생이 적은 자릿수대로(6.0 → "6.0"). 값이 없으면 빈칸.
+function asTyped(value, decimals) {
+  if (value === undefined || value === null || value === '') return '';
+  return decimals > 0 && Number.isFinite(value) ? value.toFixed(decimals) : value;
+}
+
 export function buildFigures(specs, stats) {
   const valid = (Array.isArray(specs) ? specs : [])
     .filter((spec) => FIGURE_KINDS.includes(spec?.kind) && METRICS.includes(spec?.metric))
@@ -232,10 +249,10 @@ export function buildFigures(specs, stats) {
       if (metric === 'raw') {
         // One value per cell: the repeat columns, the mean of a single number and its wobble would all say the same thing.
         if (stats.trials <= 1) {
-          return { ...figure, columns: ['조건', `${name}${stats.unit ? ` (${stats.unit})` : ''}`], rows: rows.map((row) => [row.label, row.values[0] ?? '']) };
+          return { ...figure, columns: ['조건', `${name}${stats.unit ? ` (${stats.unit})` : ''}`], rows: rows.map((row) => [row.label, asTyped(row.values[0], stats.decimals)]) };
         }
         const trials = Array.from({ length: stats.trials }, (_, index) => `${index + 1}회`);
-        return { ...figure, columns: ['조건', ...trials, '평균', '흔들림'], rows: rows.map((row) => [row.label, ...trials.map((_, index) => row.values[index] ?? ''), row.mean, row.spread]) };
+        return { ...figure, columns: ['조건', ...trials, '평균', '흔들림'], rows: rows.map((row) => [row.label, ...trials.map((_, index) => asTyped(row.values[index], stats.decimals)), row.mean, row.spread]) };
       }
       return { ...figure, columns: ['조건', `${METRIC_LABEL[metric]}${unit ? ` (${unit})` : ''}`], rows: rows.map((row) => [row.label, row[metric]]) };
     }

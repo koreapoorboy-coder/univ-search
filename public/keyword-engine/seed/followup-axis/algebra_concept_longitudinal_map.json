@@ -985,6 +985,95 @@
           "student_output_hint": "조건 유지 검증표, 반례 점검표"
         }
       ]
+    },
+    {
+      "concept_name": "삼각함수",
+      "concept_key": "삼각함수",
+      "concept_label": "삼각함수·주기 현상",
+      "core_focus": "일반각과 호도법, 삼각함수의 뜻, 삼각함수 사이의 관계, 삼각함수의 그래프와 주기, 사인법칙, 코사인법칙",
+      "axes": [
+        {
+          "axis_id": "trig_periodic_model_axis",
+          "axis_title": "주기 현상 모델링 축",
+          "axis_short": "주기 모델",
+          "axis_domain": "math",
+          "priority": 1,
+          "next_subjects": [
+            "미적분1",
+            "물리",
+            "지구과학"
+          ],
+          "why": "삼각함수의 주기와 진폭으로 반복되는 현상을 표현하는 힘이 파동·교류·조석 같은 주기 현상 해석으로 이어진다.",
+          "student_output_hint": "주기 현상 그래프 맞추기, 진폭·주기 비교 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "삼각함수",
+                "사인",
+                "코사인",
+                "탄젠트",
+                "주기",
+                "진폭",
+                "호도법",
+                "라디안"
+              ],
+              "boost": 20,
+              "label": "키워드 직접 반영",
+              "short_label": "주기 현상",
+              "message": "선택한 키워드가 주기 현상에 직접 맞닿아 주기 현상 모델링 축을 강화합니다.",
+              "desc": "반복되는 현상을 삼각함수로 표현하는 방향입니다.",
+              "activity_examples": [
+                "기온·조석·소리의 주기를 삼각함수로 나타내기"
+              ]
+            },
+            {
+              "keywords": [
+                "파동",
+                "진동",
+                "조석",
+                "교류",
+                "회전 운동"
+              ],
+              "boost": 16,
+              "label": "키워드 반영",
+              "short_label": "파동과 진동",
+              "message": "선택한 키워드가 파동과 진동에 직접 맞닿아 주기 현상 모델링 축을 강화합니다.",
+              "desc": "파동과 진동을 삼각함수로 읽는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "trig_measurement_axis",
+          "axis_title": "삼각 측량·길이 측정 축",
+          "axis_short": "삼각 측량",
+          "axis_domain": "engineering",
+          "priority": 2,
+          "next_subjects": [
+            "기하",
+            "지구과학",
+            "건축공학"
+          ],
+          "why": "사인법칙과 코사인법칙으로 직접 잴 수 없는 거리와 높이를 구하는 힘이 측량과 공간 설계로 이어진다.",
+          "student_output_hint": "건물 높이·강폭 간접 측정 보고서, 측량 오차 분석",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "사인법칙",
+                "코사인법칙",
+                "삼각 측량",
+                "높이 측정",
+                "거리 측정",
+                "각도"
+              ],
+              "boost": 18,
+              "label": "키워드 직접 반영",
+              "short_label": "간접 측정",
+              "message": "선택한 키워드가 간접 측정에 직접 맞닿아 삼각 측량·길이 측정 축을 강화합니다.",
+              "desc": "삼각형의 관계로 거리와 높이를 구하는 방향입니다."
+            }
+          ]
+        }
+      ]
     }
   ],
   "concepts": [

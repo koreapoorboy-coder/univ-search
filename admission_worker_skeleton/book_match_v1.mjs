@@ -273,23 +273,70 @@ export function scoreBook(book, { subject = '', terms = [], conceptCounts = null
 // 선 자리다. 실제 수행평가 7131건에 붙여 보고 고른 방법이다.
 //
 // 겹치는 낱말이 하나도 없으면 고르지 않는다 — 아무 개념이나 집으면 아무 책이나 붙는다.
+// 운영 테스트(2026-09-19): 「식초의 아세트산을 적정해 산도와 비교」 과제가 「화학 반응과 열의 출입」·「물질의 양과
+// 화학 반응식」으로 잡혔다. 낱말이 글자 그대로 같아야만 맞았고(식초에 ≠ 식초, 적정하여 ≠ 적정), 과목 이름 '화학'이
+// 화학 단원 어디에나 걸렸으며, 단원마다 적어 둔 핵심 낱말(keyword_signals: 중화 적정·지시약…)은 보지 않았다.
+const UNIT_JOSA = /(으로|에서|에게|하여|하고|한다|했다|하는|하기|의|에|와|과|을|를|은|는|이|가|도|로)$/;
+// 조사를 떼면 한 글자만 남는 말(물의·빛의)은 버린다 — 한 글자로는 단원을 못 가르고 엉뚱한 단원에 걸렸다.
+const unitStem = (word) => { const cut = word.replace(UNIT_JOSA, ''); return cut.length >= 2 ? cut : (cut === word ? word : ''); };
+const unitWords = (text) => words(text).map(unitStem).filter(Boolean);
+// 어느 단원에나 붙는 말 — 이것으로는 단원을 가를 수 없다.
+const UNIT_NOISE = new Set(['수행평가', '보고서', '탐구', '실험', '작성', '활동', '평가', '비교', '분석', '정리', '조사', '이해', '설명', '관계',
+  '있는', '학습', '경우', '용어', '현상', '이용한', '주제', '결과', '사고력', '안전', '제작', '과정', '방법', '수행', '자유', '심화', '내용', '개념', '문제', '해결', '특성']);
+// 여러 단원에 두루 나오는 낱말(발표·자료·데이터·설계·해석…)도 단원을 못 가른다. 전수 검사(2026-09-19)에서
+// 「발표」 한 낱말로 「생명과학의 이해」가, 「데이터 분석」으로 「해수의 성질」이 잡혔다. 그래서 전체 단원 가운데
+// 몇 곳에 나오는지 세어, 너무 흔한 낱말은 빼고 드문 낱말일수록 무겁게 센다.
+const UNIT_COMMON = 10;
+// 드문 낱말 하나(약 4점)는 걸려야 단원을 정한다. 못 미치면 고르지 않는다.
+const UNIT_MIN = 4;
+const unitBagCache = new WeakMap();
+function unitBags(axisIndex) {
+  if (!axisIndex || typeof axisIndex !== 'object') return { bags: new Map(), spread: new Map(), total: 0 };
+  if (unitBagCache.has(axisIndex)) return unitBagCache.get(axisIndex);
+  const byAxis = new Map();
+  for (const [term, list] of Object.entries(axisIndex.keywords || {})) {
+    for (const entry of Array.isArray(list) ? list : []) {
+      const id = Array.isArray(entry) ? entry[0] : entry?.axis;
+      if (!id) continue;
+      if (!byAxis.has(id)) byAxis.set(id, new Set());
+      for (const word of unitWords(term)) byAxis.get(id).add(word);
+    }
+  }
+  const bags = new Map();   // 과목 → (단원 → 낱말들)
+  for (const [id, axis] of Object.entries(axisIndex.axes || {})) {
+    const subject = norm(axis.subject);
+    if (!bags.has(subject)) bags.set(subject, new Map());
+    const mine = bags.get(subject);
+    const bag = mine.get(axis.concept) || new Set();
+    // 단원 이름과 핵심 낱말만 넣는다. 축 제목·결과물 글(「…을 이용한 사례 해석 카드」)은 활동 말투라 엉뚱한 단원에 걸렸다.
+    for (const word of [...unitWords(axis.concept), ...(byAxis.get(id) || [])]) bag.add(word);
+    mine.set(axis.concept, bag);
+  }
+  const spread = new Map();
+  let total = 0;
+  for (const mine of bags.values()) for (const bag of mine.values()) { total++; for (const word of bag) spread.set(word, (spread.get(word) || 0) + 1); }
+  const out = { bags, spread, total };
+  unitBagCache.set(axisIndex, out);
+  return out;
+}
+
 export function inferConcept(subject, text, axisIndex) {
   const want = norm(subject);
   if (!want) return '';
-  const mine = new Set(words(text));
+  const own = new Set([want, want.replace(/\d+$/, ''), ...unitWords(subject)]);
+  const mine = new Set(unitWords(text).filter((word) => !own.has(word) && !UNIT_NOISE.has(word)));
   if (!mine.size) return '';
-  const seen = new Set();
+  const { bags, spread, total } = unitBags(axisIndex);
   let best = null;
-  for (const axis of Object.values(axisIndex?.axes || {})) {
-    if (norm(axis.subject) !== want) continue;
-    if (seen.has(axis.concept)) continue;
-    seen.add(axis.concept);
-    const bag = new Set([...words(axis.concept), ...words(axis.title), ...words(axis.output)]);
+  for (const [concept, bag] of bags.get(want) || []) {
     let hit = 0;
-    for (const word of mine) if (bag.has(word)) hit++;
-    if (hit && (!best || hit > best.hit)) best = { concept: axis.concept, hit };
+    for (const word of mine) {
+      const many = spread.get(word) || 0;
+      if (bag.has(word) && many <= UNIT_COMMON) hit += Math.log((total + 1) / many);
+    }
+    if (hit && (!best || hit > best.hit)) best = { concept, hit };
   }
-  return best ? best.concept : '';
+  return best && best.hit >= UNIT_MIN ? best.concept : '';
 }
 
 // 이 개념에 **실제로 쓸 수 있는 문장**을 앞으로 보낸다.

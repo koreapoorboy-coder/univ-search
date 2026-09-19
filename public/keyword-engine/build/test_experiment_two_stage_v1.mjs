@@ -523,3 +523,12 @@ console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
   check(workerSource.includes("교과서 단원을 이름으로 가리킬 때는") && workerSource.includes("function textbookUnitOf(citation)"),
     "the prompt pins the unit name to the one in the textbook reference line");
 }
+
+// 운영 테스트(2026-09-19, 화학 중화 적정): 학생이 적은 「6.0」이 표에 「6」으로 나왔다.
+{
+  const typed = normalizeStudentData({ measurementName: "산도", unit: "g/100 mL", conditions: [{ label: "보정 없음", values: ["6.3", "6.4", "6.2"] }, { label: "공백 보정", values: ["6.1", "6.1", "6.0"] }] });
+  const table = buildFigures([], computeStats(typed))[0];
+  check(typed.decimals === 1 && table.rows[1].slice(1, 4).join("|") === "6.1|6.1|6.0", "measured cells keep the decimals the student typed", JSON.stringify(table.rows[1]));
+  const whole = normalizeStudentData({ measurementName: "종수", conditions: [{ label: "화단", values: ["8", "10"] }, { label: "운동장", values: ["4", "3"] }] });
+  check(whole.decimals === 0 && buildFigures([], computeStats(whole))[0].rows[0][1] === 8, "whole numbers stay as they were");
+}

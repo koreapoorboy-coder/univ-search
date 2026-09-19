@@ -30,7 +30,9 @@ for (const file of readdirSync(axisDir).filter((name) => name.endsWith("_concept
   subjects += 1;
   for (const concept of map.concept_longitudinal_map || []) {
     concepts += 1;
-    for (const axis of concept.longitudinal_axes || []) {
+    // 대수 지도는 칸 이름이 `axes`다(다른 과목은 `longitudinal_axes`). 예전에는 이걸 못 읽어 대수 단원이
+    // 통째로 빠졌다 — 대수 과제의 단원·교과서 줄·다음 걸음이 모두 비었다(2026-09-19).
+    for (const axis of concept.longitudinal_axes || concept.axes || []) {
       const id = clip(axis.axis_id, 60);
       if (!id || axes[id]) continue;
       axes[id] = {
