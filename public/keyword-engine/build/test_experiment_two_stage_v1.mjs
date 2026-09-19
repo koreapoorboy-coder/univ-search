@@ -400,13 +400,15 @@ check(bridgeSource.includes("function renderRecordDraft") && bridgeSource.includ
   check(/주제가 드러나는 보고서 제목/.test(lines) && /소논문의 제목처럼/.test(lines), "the title is a topic, like a real report title");
   check(/절차를 풀어 쓴 문장이 아니다/.test(lines), "not a summary of the procedure");
   check(/교과 개념어를 하나 이상 넣는다/.test(lines), "it names a subject concept");
-  check(/15~40자/.test(lines) && /하나의 명사구/.test(lines), "short, one noun phrase");
+  check(/20~45자/.test(lines) && /하나의 명사구/.test(lines), "short, one noun phrase");
+  check(/이 보고서는 ~을 ~에 따라 ~해서 ~을 알아본 보고서다/.test(lines) && /무엇에 따라/.test(lines) && /무엇을 알아냈나/.test(lines), "specific enough to say what kind of report it is");
+  check(/실 길이에 따른 단진자 주기 측정과 이를 이용한 중력가속도 추정/.test(lines), "the vague-but-close title gets its specific version");
   check(/규모 숫자/.test(lines) && /실험 조건 값/.test(lines) && /결과 숫자/.test(lines), "no counts, condition values or result numbers");
   check(/물음표/.test(lines) && /부제/.test(lines), "no question and no subtitle");
   check(/"~에 대한 고찰"/.test(lines), "no empty shapes");
-  check(/물 온도에 따른 효소 세제의 얼룩 제거 효과 비교/.test(lines), "an experiment gets a topic-style example");
+  check(/물 온도에 따른 효소 세제의 달걀 얼룩 제거 효과 비교/.test(lines), "an experiment gets a topic-style example");
   check(/진자는 길이에 얼마나 민감할까 — /.test(lines), "the title the user rejected is the bad example");
-  check(!/단진자|식초|적정/.test(lines), "the good examples do not hand the live-test tasks their titles");
+  check(!/식초|적정|감자|카탈레이스/.test(lines), "the good examples do not hand the next live-test tasks their titles");
   check(/고등학생의 수면 시간과 1교시 수업 집중도의 관계 분석/.test(titleRules(COLLECTION.SURVEY).join("\n")), "a survey gets a survey example");
   check(/원자력 발전 찬반 기사의 근거 제시 방식 비교/.test(titleRules(COLLECTION.READING).join("\n")), "a reading task gets its own");
   check(/손 소독 의무화 찬반 칼럼의 논증 타당성 평가/.test(titleRules(COLLECTION.NONE).join("\n")), "and a 논술 task gets its own");
