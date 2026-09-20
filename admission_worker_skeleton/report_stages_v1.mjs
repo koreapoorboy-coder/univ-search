@@ -269,6 +269,21 @@ export function splitFactors(rows) {
   return { firsts, seconds, find };
 }
 
+// 그래프 가로축에 같은 말을 되풀이하지 않는다. 운영 테스트 32: 조건이 「우리 지역 · 2000년」…「우리 지역 · 2023년」으로
+// 집단이 하나뿐이라 x축 이름이 「우리 지역2000년」처럼 여섯 번 같은 말을 달았다. 모든 조건이 함께 가진 앞부분은
+// 떼고 그림 제목에 한 번만 남긴다(표는 조건 이름을 그대로 둔다 — 표는 자료 원본이다).
+export function trimSharedPrefix(labels) {
+  const parts = labels.map((label) => String(label).split(/\s*·\s*/));
+  if (parts.length < 2 || parts.some((part) => part.length < 2)) return { labels, shared: '' };
+  const shared = [];
+  for (let index = 0; index < parts[0].length - 1; index += 1) {
+    if (!parts.every((part) => part[index] === parts[0][index])) break;
+    shared.push(parts[0][index]);
+  }
+  if (!shared.length) return { labels, shared: '' };
+  return { labels: parts.map((part) => part.slice(shared.length).join(' · ')), shared: shared.join(' · ') };
+}
+
 // The model picks kind, metric, order and wording; every number comes from computeStats.
 // 학생이 적은 자릿수대로(6.0 → "6.0"). 값이 없으면 빈칸.
 // 칸마다 학생이 쓴 글자를 그대로 쓴다 — 가장 긴 자릿수로 맞추면 0.05가 있는 표에서 36.0이 「36.00」이 됐다.
@@ -359,7 +374,9 @@ export function buildFigures(specs, stats) {
     const lineRows = kind === 'line' ? rows.filter((row) => !CONTROL_ROW.test(row.label)) : rows;
     const plottedRows = lineRows.length >= 2 ? lineRows : rows;
     // 막대 위 숫자도 표와 같은 자릿수로(36.0이 그래프에서 「36」으로 보였다 — 운영 테스트 2026-09-19).
-    return { ...base, kind, labels: plottedRows.map((row) => row.label), values: plottedRows.map((row) => row[chartMetric]),
+    const trimmed = trimSharedPrefix(plottedRows.map((row) => row.label));
+    return { ...base, kind, labels: trimmed.labels, values: plottedRows.map((row) => row[chartMetric]),
+      ...(trimmed.shared && !base.title.includes(trimmed.shared) ? { title: `${trimmed.shared} ${base.title}` } : {}),
       ...(chartMetric === 'mean' ? { valueLabels: plottedRows.map((row) => String(asRowNumber(row.mean, row))) } : {}) };
   });
 }

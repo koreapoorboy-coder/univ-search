@@ -254,4 +254,21 @@ check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조
   check(roman.removed === 0, "C13 물리학Ⅰ처럼 숫자가 붙은 과목 이름도 실제 이름으로 본다", JSON.stringify(roman.dropped));
 }
 
+// C14 운영 테스트 32: 집단이 하나면 그래프 x축이 「우리 지역2000년」처럼 같은 말을 되풀이했다.
+{
+  const { buildFigures, trimSharedPrefix } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  const cut = trimSharedPrefix(["우리 지역 · 2000년", "우리 지역 · 2012년", "우리 지역 · 2023년"]);
+  check(cut.labels.join("|") === "2000년|2012년|2023년" && cut.shared === "우리 지역", "C14 모두 같은 앞부분은 축 이름에서 뺀다", JSON.stringify(cut));
+  check(trimSharedPrefix(["우리 지역 · 2000년", "전국 · 2000년"]).shared === "", "C14 집단이 둘이면 그대로 둔다");
+  check(trimSharedPrefix(["5 °C", "25 °C", "45 °C"]).shared === "", "C14 가운뎃점이 없는 조건은 그대로 둔다");
+  const years = ["2000년", "2012년", "2016년", "2023년"];
+  const oneGroup = normalizeStudentData({ measurementName: "고령 인구 비율", unit: "%", conditions: years.map((year, index) => ({ label: `우리 지역 · ${year}`, values: [String(9.8 + index * 4)] })) });
+  const drawn = buildFigures([{ kind: "line", metric: "mean", conditionOrder: [], title: "연도별 추세", caption: "" }], computeStats(oneGroup));
+  const chart = drawn.find((one) => one.kind === "line");
+  check(chart.labels.join("|") === years.join("|"), "C14 꺾은선 x축은 연도만 남는다", JSON.stringify(chart.labels));
+  check(chart.title.startsWith("우리 지역"), "C14 뗀 집단 이름은 그림 제목에 한 번 남는다", chart.title);
+  const table = drawn.find((one) => one.kind === "table");
+  check(table.rows[0][0] === "우리 지역 · 2000년", "C14 표의 조건 이름은 그대로 둔다", JSON.stringify(table.rows[0]));
+}
+
 console.log(`\n${passed} checks passed`);
