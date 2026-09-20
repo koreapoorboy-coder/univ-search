@@ -396,4 +396,14 @@ check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조
   check(wrong.rejected[0]?.why === "답이 식과 다름", "C22 정말 틀린 답은 여전히 떨어진다", JSON.stringify(wrong.rejected));
 }
 
+// C23 루프 2·17: 문장이 지워진 자리에 「이 일관성은 …」처럼 가리킬 말이 없는 문장이 홀로 남았다.
+{
+  const { removeUnsupportedNumbers } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  const ok = new Set(["2", "32", "22", "20", "68.8", "62.5"]);
+  const out = removeUnsupportedNumbers("가설 2는 예측과 비슷할 것이었다. 예측값은 13.75명이었다. 이 일관성은 두 형질이 얽혀 있지 않다는 해석을 지지한다. 표본은 32명이었다.", ok);
+  check(out.removed === 2 && !out.body.includes("이 일관성은") && out.body.includes("표본은 32명"), "C23 지운 문장을 가리키던 다음 문장도 함께 지운다", out.body);
+  const keep = removeUnsupportedNumbers("이 결과는 표본이 32명이라 생긴 것이다. 비율은 62.5%였다.", ok);
+  check(keep.removed === 0, "C23 앞 문장이 남아 있으면 그대로 둔다", keep.body);
+}
+
 console.log(`\n${passed} checks passed`);

@@ -506,14 +506,22 @@ export function allowedNumberSet(data, stats) {
 // A decimal point is not a sentence end.
 const SENTENCE = /(?:[^.?!\n]|(?<=\d)\.(?=\d))+[.?!]*\s*/g;
 
+// 앞 문장을 지우면 그것을 가리키던 다음 문장이 홀로 남는다 — 「이 일관성은, …을 지지한다」(루프 17),
+// 「이 역시 초기 과도기 영향으로 …」(루프 2). 가리킬 말이 사라진 문장은 함께 지운다.
+const ORPHAN_SENTENCE = /^\s*(?:이는|이것은|그것은|이 역시|그 역시|이러한|이런|그러한|그런|이를|이 점|여기서)\b|^\s*[이그]\s*[가-힣]{1,6}(?:은|는|이|가|도)\s/;
 function filterSentences(body, keep) {
   let removed = 0;
   const dropped = [];
-  const kept = String(body || '').split('\n').map((line) => (line.match(SENTENCE) || []).filter((sentence) => {
-    const ok = keep(sentence);
-    if (!ok) { removed += 1; dropped.push(sentence.trim()); }
-    return ok;
-  }).join('').trimEnd()).join('\n').replace(/\n{3,}/g, '\n\n').trim();
+  const kept = String(body || '').split('\n').map((line) => {
+    let prevRemoved = false;
+    return (line.match(SENTENCE) || []).filter((sentence) => {
+      const orphan = prevRemoved && ORPHAN_SENTENCE.test(sentence);
+      const ok = keep(sentence) && !orphan;
+      if (!ok) { removed += 1; dropped.push(sentence.trim()); }
+      prevRemoved = !ok;
+      return ok;
+    }).join('').trimEnd();
+  }).join('\n').replace(/\n{3,}/g, '\n\n').trim();
   return { body: kept, removed, dropped };
 }
 
