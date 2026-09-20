@@ -355,4 +355,14 @@ check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조
   check(notClasses.length === 0, "C19 계급이 아닌 조건은 도수분포로 보지 않는다", JSON.stringify(notClasses));
 }
 
+// C20 루프 8(공통수학2 집합): 사람 수에 소수점이 붙어 「15.0 + 17.0 − 8.00 = 24.0명」, 「0.000명」이 나왔다.
+{
+  const { tidyCalculatedNumbers: tidyCounts } = await import("../../../admission_worker_skeleton/calc_check_v1.mjs");
+  const fixed = tidyCounts("왼쪽은 15.0 + 17.0 − 8.00 = 24.0명이고 차이는 0.000명이다. 평균 4.25점과 3.5명은 그대로.",
+    [{ expression: "15.0 + 17.0 - 8.00", result: "24", unit: "명" }]);
+  check(fixed === "왼쪽은 15 + 17 − 8 = 24명이고 차이는 0명이다. 평균 4.25점과 3.5명은 그대로.", "C20 세는 값의 소수점 0은 지우고, 뜻이 있는 소수는 남긴다", fixed);
+  const other = tidyCounts("길이는 12.0 cm였다.", [{ expression: "12.0", result: "12", unit: "cm" }]);
+  check(other === "길이는 12.0 cm였다.", "C20 세는 단위가 아니면 건드리지 않는다", other);
+}
+
 console.log(`\n${passed} checks passed`);

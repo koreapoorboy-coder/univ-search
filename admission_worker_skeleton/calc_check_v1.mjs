@@ -210,6 +210,16 @@ export function shortNumber(text) {
 
 export function tidyCalculatedNumbers(body, verified) {
   let out = String(body || '');
+  // 세는 값에는 소수점을 붙이지 않는다. 루프 8(공통수학2 집합): 「15.0 + 17.0 − 8.00 = 24.0명」, 「0.000명」이 나왔다.
+  const COUNT_UNITS = '명|개|건|회|가지|권|마리|칸|번';
+  out = out.replace(new RegExp(`(?<![\\d.])(\\d+)\\.0+(?=\\s*(?:${COUNT_UNITS}))`, 'g'), '$1');
+  for (const one of Array.isArray(verified) ? verified : []) {
+    if (!new RegExp(`^(?:${COUNT_UNITS})$`).test(String(one.unit || '').trim())) continue;
+    // 그 계산의 식에 쓰인 수도 함께 정수로 돌린다(같은 문장에 「15.0 + 17.0」이 남지 않게).
+    for (const raw of String(one.expression || '').match(/\d+\.0+(?![\d])/g) || []) {
+      out = out.replace(new RegExp(`(?<![\\d.])${raw.replace('.', '\\.')}(?!\\d)`, 'g'), String(Number(raw)));
+    }
+  }
   // 소수를 버리고 적은 답은 본문에서도 제 값으로 되돌린다(「117 km」 → 「116.8 km」). **단위가 붙은 자리만**
   // 고친다 — 같은 숫자가 다른 뜻으로 쓰인 자리(「117명이 참여했다」)까지 바꾸면 안 된다.
   for (const one of Array.isArray(verified) ? verified : []) {
@@ -241,6 +251,7 @@ export function calculationPromptLines() {
     '- calculations에 넣은 값은 **하나도 빠짐없이 본문에 숫자로 적는다**(탐구 결과나 결과 분석에서 조건마다 「… = 0.49 m/s²」처럼). 「계산하면 커진다」·「환산하면 증가했다」처럼 값을 빼고 말하지 않는다 — 안내문이 구하라고 한 값이 보고서에 없으면 과제를 안 한 것이다.',
     '- **calculations에 없는 계산 결과를 본문에 쓰면 그 문장은 통째로 지워진다.** 농도, 산도, 비율, 오차율처럼 본문에 쓸 계산값은 하나도 빠짐없이 calculations에 먼저 넣는다. 비율(예: 72.1 ÷ 36.0)도 계산이다.',
     '- 조건마다 값을 구할 때 식에 쓰는 시간·길이·부피는 **결과정리에 있는 그 조건의 평균**이다. 한 회차 값이나 평균을 반올림한 값(평균 1.175를 1.17로)으로 대신하지 않는다 — 답이 달라진다.',
+    '- 사람 수·개수처럼 **세는 값**에는 소수점을 붙이지 않는다(15명, 0명 — 15.0명·0.000명이라고 쓰지 않는다).',
     '- 앞 계산의 답을 뒤 계산에 쓸 때는 **반올림하지 않은 값 그대로** 쓴다. 116.8을 117로 줄여 적으면 그 답도, 그 값을 쓴 다음 계산도 지워진다. result에도 소수를 버리지 않고 적고, 본문에도 같은 자릿수로 쓴다.',
     '- 기준값이 있으면 계산한 값과 나란히 놓고 차이와 오차율(%)을 calculations로 계산해 비교한다. 비교하라는 안내문인데 기준값이 비어 있으면, 계산한 값까지 쓰고 "기준값을 옮겨 적으면 바로 비교할 수 있다"를 한계에 쓴다.',
   ];
