@@ -347,7 +347,9 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
       const { lines, issues } = checkRefs(refSec.body);
       row.refs = lines.map((l) => l.slice(0, 160));
       for (const one of issues) flag(one.kind, one.line);
-      const tb = lines.find((l) => /교과서/.test(l));
+      // 서지 줄(「저자 (연도). 제목.」)은 제목에 「교과서」가 들어 있어도 논문이다 — references_v1 과 같은 기준으로 뺀다.
+      // 역사교육 논문을 넣자(2026-09-20) 「역사 교과서 서술 검토」 같은 제목 6건이 교과서 줄로 잡혔다.
+      const tb = lines.find((l) => /교과서/.test(l) && !/\(\d{4}\)\./.test(l));
       if (tb && !tb.includes(subject.replace(/\d$/, "").replace(/ .*/, "")) && !/통합|과학탐구|융합|과제/.test(subject)) flag("교과서줄_과목다름", tb);
       if (!lines.length) flag("참고자료_빈칸");
       // 설계서가 쓴 재료(또는 한 번에 끝나는 보고서가 쓴 재료)는 참고 자료에 있어야 한다
