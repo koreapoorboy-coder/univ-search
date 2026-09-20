@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v283_full_title
+// SCREEN_VERSION: v284_reference_use
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v283-full-title";
+  const VERSION = "mini-worker-generate-bridge-v284-reference-use";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2915,9 +2915,12 @@
   function renderReferenceInputs(template){
     const list = Array.isArray(template?.referenceInputs) ? template.referenceInputs.filter(one => one?.label).slice(0, 3) : [];
     if(!list.length) return "";
-    const rows = list.map((one, i) => `<label class="mini-exp-ref"><span>${escapeHtml(one.label)}${one.unit ? ` (${escapeHtml(one.unit)})` : ""}</span><input type="text" inputmode="decimal" placeholder="숫자" data-ref="${i}" aria-label="${escapeHtml(one.label)}"></label>`).join("");
-    return `<div class="mini-exp-refs"><p class="mini-exp-measure"><b>비교할 기준값</b> 실험 밖에서 옮겨 적는 값이에요. 모르면 비워 두어도 돼요.</p>${rows}</div>`;
+    // 이 값을 어디에 쓰는지 학생에게도 보여 준다 — 식에 넣는 값과 결과를 견줄 값은 쓰임이 다르다.
+    const useText = (use) => (String(use || "").trim() === "비교" ? "결과와 견줄 값" : "계산에 넣는 값");
+    const rows = list.map((one, i) => `<label class="mini-exp-ref"><span>${escapeHtml(one.label)}${one.unit ? ` (${escapeHtml(one.unit)})` : ""}<em class="mini-exp-ref-use">${escapeHtml(useText(one.use))}</em></span><input type="text" inputmode="decimal" placeholder="숫자" data-ref="${i}" aria-label="${escapeHtml(one.label)}" /></label>`).join("");
+    return `<div class="mini-exp-refs"><p class="mini-exp-measure"><b>실험 밖에서 옮겨 적는 값</b> 「계산에 넣는 값」은 식에 쓰고, 「결과와 견줄 값」은 내 결과와 견줘요. 모르면 비워 두어도 돼요.</p>${rows}</div>`;
   }
+
 
   function renderExperimentInputPanel(template, kind){
     const trials = Math.max(1, Math.min(5, Number(template?.trials) || 3));
@@ -2973,7 +2976,7 @@
       scaleGuide: template?.scaleGuide || "",
       conditions,
       references: (Array.isArray(template?.referenceInputs) ? template.referenceInputs : []).slice(0, 3).map((one, i) => ({
-        label: one?.label || "", unit: one?.unit || "",
+        label: one?.label || "", unit: one?.unit || "", use: one?.use || "",
         value: panel.querySelector(`input[data-ref="${i}"]`)?.value.trim().replace(/,/g, "") || ""
       })).filter(one => one.label && one.value),
       reason: text("miniExpReason"),
@@ -4567,6 +4570,7 @@ ${result}`;
     "        .mini-exp-ref input{flex:0 1 160px;min-width:0;padding:8px 10px;border:1px solid var(--mini-line,#e6eaf2);border-radius:8px;font-size:14px}",
     "        .mini-exp-hint{font-size:13.5px;color:var(--mini-muted,#667085);margin:10px 0 0;line-height:1.7}",
     "        .mini-exp-table thead th span{display:block;font-weight:600;font-size:12px;color:var(--mini-muted,#667085);margin-top:2px}",
+    "        .mini-exp-ref-use{display:block;font-style:normal;font-weight:600;font-size:12px;color:var(--mini-muted,#667085);margin-top:2px}",
     "        .mini-exp-table input::placeholder{color:#b6c0cf}",
     "        .mini-exp-error,.mini-upload-error{color:#b42318;font-weight:700;font-size:14px;margin:12px 0 0;padding:10px 12px;background:#fff4f3;border:1px solid #fcd9d4;border-radius:var(--mini-r-sm,10px)}",
     "",

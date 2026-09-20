@@ -104,6 +104,15 @@ function decimalsOf(value) {
   return match ? Math.min(match[1].length, 4) : 0;
 }
 
+// 기준값을 어디에 쓰는가. AI나 화면이 안 알려 주면 이름으로 가린다 — 「표시된 산도·이론값·공식 기록」은 견줄 값,
+// 「눈높이·실온·비열·길이·질량」처럼 식에 넣는 값은 계산용이다. 헷갈리면 계산용으로 둔다(뜻 없는 오차율을 막는다).
+const COMPARE_WORDS = /표시|이론|공식|기록값|규정|권장|기준치|허용|표준값|참값|알려진/;
+export function referenceUse(use, label) {
+  const given = String(use || '').trim();
+  if (given === '계산' || given === '비교') return given;
+  return COMPARE_WORDS.test(String(label || '')) ? '비교' : '계산';
+}
+
 export function normalizeStudentData(raw) {
   const src = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {};
   const decimals = Math.max(0, ...(Array.isArray(src.conditions) ? src.conditions : [])
@@ -125,7 +134,7 @@ export function normalizeStudentData(raw) {
     scaleGuide: clip(src.scaleGuide, 200),
     conditions,
     references: (Array.isArray(src.references) ? src.references : []).slice(0, 3)
-      .map((one) => ({ label: clip(one?.label, 40), unit: symbolUnit(clip(one?.unit, 20)), value: clip(one?.value, 20).replace(/,/g, '') }))
+      .map((one) => ({ label: clip(one?.label, 40), unit: symbolUnit(clip(one?.unit, 20)), value: clip(one?.value, 20).replace(/,/g, ''), use: referenceUse(one?.use, one?.label) }))
       .filter((one) => one.label && Number.isFinite(toNumber(one.value))),
     reason: clip(src.reason, 600),
     observations: clip(src.observations, 1200),
@@ -734,7 +743,7 @@ function sanitizeDataTemplate(raw, kind) {
     trials,
     // 결과와 견줄 기준값(표시 산도·이론값) 칸. 학생이 실험 밖에서 옮겨 적는다(calc_check_v1).
     referenceInputs: (Array.isArray(raw?.referenceInputs) ? raw.referenceInputs : [])
-      .map((one) => ({ label: clip(one?.label, 40), unit: symbolUnit(clip(one?.unit, 20)) })).filter((one) => one.label).slice(0, 3),
+      .map((one) => ({ label: clip(one?.label, 40), unit: symbolUnit(clip(one?.unit, 20)), use: referenceUse(one?.use, one?.label) })).filter((one) => one.label).slice(0, 3),
   };
 }
 
@@ -1025,7 +1034,7 @@ export function stagePromptLines(stage, input) {
            // 운영 테스트 23: 설계서를 다시 만들자 안내문의 「거품의 높이」를 「물 치환으로 모은 산소 부피」로 바꿨다.
            '- 안내문이 재라고 정해 둔 값(예: 거품의 높이, 10회 진동 시간)이 있으면 measurementName은 반드시 그 값이다. 겹침을 피하려고 재는 값을 바꾸지 않는다 — 조건의 값·개수, 대조군, 기록 방식으로 다르게 한다.', '']
         : []),
-      '- referenceInputs는 결과와 견줄 **기준값**을 학생이 적을 칸이다(식초 병에 표시된 산도, 이론값, 공식 기록값처럼 실험 밖에서 옮겨 적는 숫자). 안내문이 그런 값과 비교하라고 할 때만 label과 unit으로 1~3개 넣고, 아니면 빈 배열이다. 표의 조건으로 넣지 않는다. **탐구 방법이나 계산에 필요한 값(실온, 처음 값, 기준선, 표시값)은 반드시 여기에 칸을 만든다** — 표에도 없고 이 칸에도 없는 값은 학생이 적을 곳이 없어 그 계산과 문장이 통째로 사라진다.',
+      '- referenceInputs는 결과와 견줄 **기준값**을 학생이 적을 칸이다(식초 병에 표시된 산도, 이론값, 공식 기록값처럼 실험 밖에서 옮겨 적는 숫자). 안내문이 그런 값과 비교하라고 할 때만 label과 unit으로 1~3개 넣고, 아니면 빈 배열이다. 표의 조건으로 넣지 않는다. 칸마다 use를 정한다 — 식에 넣는 값(눈높이·실온·비열·구간 길이)은 "계산", 결과와 견주어 오차를 볼 값(표시된 산도, 이론값, 공식 기록)은 "비교"다. **탐구 방법이나 계산에 필요한 값(실온, 처음 값, 기준선, 표시값)은 반드시 여기에 칸을 만든다** — 표에도 없고 이 칸에도 없는 값은 학생이 적을 곳이 없어 그 계산과 문장이 통째로 사라진다.',
       '- measurementName은 학생이 **기구에서 직접 읽는 값**(부피·질량·시간·온도·길이·개수 등)이다. 농도·백분율·속력처럼 읽은 값으로 계산해서 얻는 값은 표에 적게 하지 않는다 — 최종 보고서가 학생이 읽은 값으로 계산하고 코드가 검산한다.',
       '- conditions는 서로 다른 조건 2개 이상이다. 시료가 하나뿐인 실험이면 시료의 양을 두 가지로 하거나 블랭크(대조)를 조건으로 넣는다. 조건 이름에는 따옴표·괄호 기호·콜론 같은 형식 기호를 쓰지 않는다. 조건은 모두 8개까지이고, 한 칸에는 조건 하나만 쓴다 — 더 많이 비교하고 싶으면 비교 대상이나 시점을 줄인다.',
       // 운영 테스트 23: 「차가운 상태」「따뜻한 상태」처럼 값 없는 조건 이름 — 보고서가 최적 온도를 숫자로 말하지 못했다.
@@ -1150,7 +1159,9 @@ const STAGE_SCHEMA = {
       required: ['measurementName', 'unit', 'scaleGuide', 'conditions', 'trials', 'referenceInputs'],
       properties: {
         measurementName: STRING, unit: STRING, scaleGuide: STRING, conditions: { type: 'array', minItems: 2, maxItems: MAX_CONDITIONS, items: STRING }, trials: { type: 'integer', minimum: 3, maximum: MAX_TRIALS },
-        referenceInputs: { type: 'array', minItems: 0, maxItems: 3, items: { type: 'object', additionalProperties: false, required: ['label', 'unit'], properties: { label: STRING, unit: STRING } } },
+        // use = 이 값을 어디에 쓰는가. 「계산」은 식에 넣는 값(눈높이·실온·비열), 「비교」는 결과와 견줄 값(표시된 산도, 이론값).
+        // 루프 5: 눈높이를 결과와 견주어 「오차율 800%」라는 뜻 없는 비교가 나왔다 — 화면도 이 칸을 보여 준다.
+        referenceInputs: { type: 'array', minItems: 0, maxItems: 3, items: { type: 'object', additionalProperties: false, required: ['label', 'unit', 'use'], properties: { label: STRING, unit: STRING, use: { type: 'string', enum: ['계산', '비교'] } } } },
       },
     },
   },
@@ -1193,14 +1204,14 @@ export function calculationTaskLines(input = {}, data = {}) {
   if (!needsCalculation({ ...input, studentData: data })) return [];
   const asks = String(input.taskDescription || '').split(/(?<=[.!?다])\s+|\n/)
     .filter((sentence) => /구하|계산|비교|함량|농도|산도/.test(sentence)).map((sentence) => sentence.trim()).filter(Boolean).slice(0, 2);
-  const refs = (data.references || []).map((one) => `${one.label} ${one.value}${one.unit}`);
+  const refs = (data.references || []).map((one) => `${one.label} ${one.value}${one.unit} [${one.use || '계산'}]`);
   return [
     '[계산 과제]',
     ...(asks.length ? [`- 안내문이 구하라고 한 것: 「${asks.join(' ')}」`] : []),
     // 운영 테스트 21(단진자): 조건 넷마다 T → T² → g 세 칸씩 12칸을 다 써서, 정작 g의 평균과 9.8과의 오차율은 계산하지 못했다.
     '- calculations는 이 순서로 채운다: ① 구하라는 값의 대표값(조건이 여럿이면 조건별 값을 한 식씩 구한 뒤 그 평균) ② 기준값과의 차이와 오차율 ③ 그 밖의 계산. 조건별 값은 조건마다 **한 식**으로 구한다(예: g = 39.48 × 0.40 ÷ (1.269 × 1.269)). 주기·제곱처럼 중간값을 조건마다 따로 칸에 넣지 않는다.',
     '- calculations의 첫 항목은 바로 그 값(예: 농도·산도·함량)을 학생이 잰 평균으로 구하는 계산이다. 몰질량 같은 교과서 상수는 constants에 이름과 값을 적고 쓴다.',
-    ...(refs.length ? [`- 학생이 적은 기준값: ${refs.join(', ')}. 이 값이 **결과와 견줄 값**(표시된 산도, 이론값, 공식 기록값)이면 구한 값과의 차이와 오차율(%)을 calculations로 계산해 결과 분석과 결론에 쓴다. 그러나 **계산에 쓰는 값**(눈높이, 실온, 처음 값, 지면 경사각처럼 식에 넣는 값)이면 차이와 오차율을 구하지 않는다 — 식에 그대로 넣어 쓴다. 뜻이 없는 비교(눈높이 대비 오차율 800%)는 쓰지 않는다.`] : []),
+    ...(refs.length ? [`- 학생이 적은 기준값: ${refs.join(', ')}. 「비교」라고 적힌 값만 구한 값과의 차이·오차율(%)을 calculations로 계산해 결과 분석과 결론에 쓴다. 「계산」이라고 적힌 값은 식에 그대로 넣어 쓰고, 그 값과의 차이나 오차율은 구하지 않는다 — 뜻이 없는 비교(눈높이 대비 오차율 800%)는 쓰지 않는다.`] : []),
     '- 결과 분석에는 계산 과정과 답을 한 문단으로 보여 주고, 결론에는 구한 값과 (기준값이 있으면) 비교 결과를 숫자로 쓴다.',
     // 운영 테스트 27(확률과 통계 설문): 표가 구간별 인원수뿐이라 「원자료가 없어 평균·표준편차를 구할 수 없다」로 끝났다.
     ...(/평균|표준편차|분산/.test(String(input.taskDescription || '')) && /명|도수|응답/.test(`${data.unit || ''} ${data.measurementName || ''}`)

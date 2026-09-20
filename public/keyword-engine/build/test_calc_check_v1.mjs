@@ -426,4 +426,19 @@ check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조
   check(!titled.parsed.sections[0].body.includes("테니스공"), "C24 본문의 준비물 종류도 흔한 말로 바뀐다", titled.parsed.sections[0].body);
 }
 
+// C25 기준값의 용도(계산/비교) — 루프 5의 「눈높이 대비 오차율 800%」를 화면·스키마 차원에서 막는다.
+{
+  const { referenceUse, calculationTaskLines } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  check(referenceUse("", "눈높이") === "계산" && referenceUse("", "물의 비열") === "계산", "C25 식에 넣는 값은 계산용으로 본다");
+  check(referenceUse("", "식초 병에 표시된 산도") === "비교" && referenceUse("", "이론값") === "비교", "C25 표시값·이론값은 견줄 값으로 본다");
+  check(referenceUse("비교", "눈높이") === "비교", "C25 화면이 정해 준 용도가 먼저다");
+  const draft = finalizeStageOutput(STAGE.DRAFT, { sections: [], dataTemplate: { measurementName: "고도각", unit: "도", scaleGuide: "", trials: 3,
+    conditions: ["10 m", "15 m"], referenceInputs: [{ label: "눈높이", unit: "m", use: "계산" }, { label: "표시된 산도", unit: "%", use: "비교" }] } }, { collectionKind: "measurement" });
+  check(draft.extra.dataTemplate.referenceInputs.map((one) => one.use).join("|") === "계산|비교", "C25 설계서 칸이 용도를 달고 화면으로 간다", JSON.stringify(draft.extra.dataTemplate.referenceInputs));
+  const data = normalizeStudentData({ measurementName: "고도각", unit: "도", conditions: [{ label: "10 m", values: ["50.2"] }],
+    references: [{ label: "눈높이", unit: "m", value: "1.50", use: "계산" }] });
+  const lines = calculationTaskLines({ taskDescription: "tan으로 높이를 구한다" }, data).join(" ");
+  check(lines.includes("[계산]") && lines.includes("오차율은 구하지 않는다"), "C25 계산용 기준값은 오차율을 구하지 않게 일러 준다", lines.slice(0, 120));
+}
+
 console.log(`\n${passed} checks passed`);
