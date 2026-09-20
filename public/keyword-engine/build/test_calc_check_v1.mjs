@@ -380,4 +380,20 @@ check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조
   check(draft.extra.dataTemplate.unit === "cm" && draft.extra.dataTemplate.referenceInputs[0].unit === "N", "C21 설계서 단계에서 바꿔 화면에도 기호로 나간다", JSON.stringify(draft.extra.dataTemplate.unit));
 }
 
+// C22 루프 10(화학 반응의 세계): 수득률 91.603%를 「91.7%」로 적었는데 허용 오차 안이라 통과했다 — 계산값으로 바로잡는다.
+{
+  const { tidyCalculatedNumbers: tidyFix } = await import("../../../admission_worker_skeleton/calc_check_v1.mjs");
+  const run = verifyCalculations([
+    { what: "수득률", constants: [], expression: "0.24 ÷ 0.262 × 100", result: "91.7", unit: "%" },
+    { what: "이론값", constants: [], expression: "0.50 × 44 ÷ 84", result: "0.262", unit: "g" },
+    { what: "딱 맞는 답", constants: [], expression: "2 × 3", result: "6", unit: "개" },
+  ], new Set(["0.24", "0.262", "100", "0.5", "44", "84", "2", "3"]));
+  check(run.verified.length === 3 && run.verified[0].result === "91.6" && run.verified[0].wrote === "91.7", "C22 조금 어긋난 답은 계산값으로 바로잡는다", JSON.stringify(run.verified[0]));
+  check(!run.verified[1].wrote && !run.verified[2].wrote, "C22 맞게 적은 답은 그대로 둔다", JSON.stringify([run.verified[1], run.verified[2]]));
+  const body = tidyFix("수득률은 0.24 ÷ 0.262 × 100 = 91.7%였다.", run.verified);
+  check(body === "수득률은 0.24 ÷ 0.262 × 100 = 91.6%였다.", "C22 본문의 값도 함께 바로잡는다", body);
+  const wrong = verifyCalculations([{ what: "틀린 답", constants: [], expression: "2 × 3", result: "9", unit: "개" }], new Set(["2", "3"]));
+  check(wrong.rejected[0]?.why === "답이 식과 다름", "C22 정말 틀린 답은 여전히 떨어진다", JSON.stringify(wrong.rejected));
+}
+
 console.log(`\n${passed} checks passed`);

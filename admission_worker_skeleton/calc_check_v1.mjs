@@ -176,11 +176,16 @@ export function verifyCalculations(list, allowed) {
     // 소수를 버리고 적은 답(116.8 → 「117」)은 버리지 않고 **고쳐서** 쓴다. 문장을 지우면 과제가 구하라고 한
     // 값이 보고서에서 통째로 사라진다(운영 테스트 36: 진앙 거리 네 개가 모두 빠졌다).
     const rounded = computed !== null && dropsDecimals(computed, result);
-    const answer = rounded ? String(Math.round(computed * 100) / 100) : result;
+    const coarse = rounded ? String(Math.round(computed * 100) / 100) : result;
     const why = !/^-?\d+(?:\.\d+)?$/.test(result) ? '답이 숫자가 아님'
       : computed === null ? '식을 읽을 수 없음'
         : !numbers.every(knownOrShifted) ? '식에 출처 없는 숫자'
-          : !sameResult(computed, answer) ? '답이 식과 다름' : '';
+          : !sameResult(computed, coarse) ? '답이 식과 다름' : '';
+    // 검산을 통과했어도 적어 둔 답이 계산값과 조금 다르면(0.24 ÷ 0.262 × 100 = 91.603을 「91.7」로 적음)
+    // **계산값 쪽으로 바로잡는다** — 허용 오차(1%) 안이라 통과하지만, 선생님이 다시 계산하면 어긋난다(루프 10).
+    const places = rounded ? 2 : Math.min((String(result).split('.')[1] || '').length, 6);
+    const answer = computed === null || Math.abs(Number(coarse) - computed) < 1e-12
+      ? coarse : String(Number(computed.toFixed(places)));
     if (why) { rejected.push({ what: clip(raw?.what, 60), expression, result, why }); continue; }
     constants.forEach((one) => { extended.add(canonical(one.value)); exact.add(canonical(one.value)); });
     // 검산을 통과한 식의 숫자(36.0 mL를 리터로 바꾼 0.0360 등)도 본문에 쓸 수 있다. 운영 테스트 19: 본문에 식을 풀어 쓴
@@ -192,7 +197,7 @@ export function verifyCalculations(list, allowed) {
     [computed, Math.abs(computed), Number(answer), Math.abs(Number(answer))].forEach((value) => { extended.add(canonical(value)); exact.add(canonical(value)); });
     // 단위에 답 형식 조각이 붙어 오기도 했다(「%p},{」, 운영 테스트 19).
     verified.push({ what: clip(raw?.what, 60), constants, expression, result: answer, unit: clip(String(raw?.unit ?? '').split(/["{}[\],]/)[0], 20),
-      ...(rounded ? { wrote: result } : {}) });
+      ...(answer !== result ? { wrote: result } : {}) });
   }
   return { allowed: extended, verified, rejected };
 }
