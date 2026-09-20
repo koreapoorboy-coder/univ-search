@@ -112,7 +112,8 @@ export function normalizeStudentData(raw) {
     }))
     .filter((row) => row.label);
   return {
-    measurementName: clip(src.measurementName, 40),
+    // 설계서 때 「도달 시각 초」로 저장된 이름도 최종 보고서에서 한 번 더 손본다(표 머리글이 「… 초 (초)」가 됐다).
+    measurementName: dropUnitFromName(clip(src.measurementName, 40), clip(src.unit, 20)),
     unit: clip(src.unit, 20),
     scaleGuide: clip(src.scaleGuide, 200),
     conditions,
@@ -640,6 +641,17 @@ export function singleMeasure(name) {
   return cut ? cut[1].trim() : text;
 }
 
+// 값 이름 뒤에 단위를 또 붙이면 표 머리글이 「도달 시각 초 (초)」가 된다(운영 테스트 36). 이름 끝에 붙은
+// 단위는 뗀다 — 단위는 머리글의 괄호 자리가 따로 있다. 이름이 단위 하나뿐이면(「초」, 단위 「초」) 그대로 둔다.
+export function dropUnitFromName(name, unit) {
+  const text = String(name || '').trim();
+  const mark = String(unit || '').trim();
+  if (!text || !mark) return text;
+  const quoted = mark.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const cut = text.replace(new RegExp(`[\\s(（\\[【]*${quoted}[)）\\]】]*$`), '').replace(/[\s(（[【]+$/, '').trim();
+  return cut.length >= 2 ? cut : text;
+}
+
 function sanitizeDataTemplate(raw, kind) {
   // 답 형식 조각이 조건 이름에 새어 든 것은 버린다. 운영 테스트(2026-09-19): 조건을 하나밖에 못 찾은 AI가 두 번째 칸을
   // 「referenceInputs':[{」「label'」 같은 조각으로 채웠다.
@@ -654,7 +666,7 @@ function sanitizeDataTemplate(raw, kind) {
   return {
     // 한 칸에는 값 하나 — 「종별 개체 수와 피복 점수」처럼 두 값을 한 칸에 담은 이름은 앞의 값만 남긴다(운영 테스트 2026-09-18:
     // 학생은 종수를 적었는데 표 제목이 「개체 수와 피복 점수 결과」로 나왔다).
-    measurementName: singleMeasure(clip(raw?.measurementName, 40)) || '측정값',
+    measurementName: dropUnitFromName(singleMeasure(clip(raw?.measurementName, 40)), clip(raw?.unit, 20)) || '측정값',
     unit: clip(raw?.unit, 20),
     scaleGuide: clip(raw?.scaleGuide, 200),
     // 하나만 남으면 그 조건은 살리고 대조 칸을 붙인다(예전에는 「조건 1·조건 2」로 바꿔 진짜 조건까지 잃었다).
@@ -966,6 +978,7 @@ export function stagePromptLines(stage, input) {
       ...(/평균|표준편차|분산/.test(String(input.taskDescription || '')) && kind !== COLLECTION.MEASUREMENT
         ? ['- 안내문이 평균·표준편차·분산을 구하라고 한다. 표는 **도수분포표**로 만든다: conditions는 평균을 구할 값의 **닫힌 계급**(예: "수면 5~6시간", "수면 6~7시간")이고, 칸에는 그 계급의 인원수를 적는다. "6시간 이상", "6시간 미만"처럼 열린 계급은 쓰지 않는다 — 맨 끝 계급도 "8~9시간"처럼 닫는다. 계급 폭은 같게 한다. 두 변수의 관계도 보라는 과제면 다른 변수를 두 집단으로 나누어 계급 앞에 붙인다(예: "스마트폰 3시간 미만 · 수면 6~7시간"). 조건은 모두 8개 이하다.']
         : []),
+      '- measurementName에는 단위를 넣지 않는다. 단위는 unit 칸에만 적는다 — 이름에 또 넣으면 표 머리글이 「도달 시각 초 (초)」가 된다.',
       '- measurementName은 한 칸에 적을 **값 하나**의 이름이다. 두 가지 값(예: 개체 수와 피복 점수)을 한 칸에 담지 않는다. 여러 값을 재야 하면 연구 질문에 가장 중심이 되는 하나를 표에 두고, 나머지는 관찰 메모에 적게 한다.',
       `- dataTemplate은 학생이 채울 결과 표다. conditions는 표의 행이 될 조건 이름 2~8개(두 변인을 함께 바꾸면 "효소 세제 · 미지근한 물"처럼 "앞 변인 · 뒤 변인" 순서로 모든 조합), ${kind === COLLECTION.MEASUREMENT ? 'trials는 조건마다 반복 횟수(3~5)' : 'trials는 반드시 1'}, measurementName과 unit은 ${kind === COLLECTION.MEASUREMENT ? '측정 항목과 단위(점수면 "점")' : '적을 값의 이름과 단위'}, scaleGuide는 ${kind === COLLECTION.MEASUREMENT ? '점수 기준이나 측정 방법' : '값을 어디서 어떻게 옮겨 적는지'} 한 문장이다.`,
     ];

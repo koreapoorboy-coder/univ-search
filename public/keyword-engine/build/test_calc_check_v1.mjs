@@ -295,4 +295,22 @@ check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조
   check(round.verified.length === 1, "C15 답이 정말 정수면 정수로 적는다", JSON.stringify(round.rejected));
 }
 
+// C16 운영 테스트 36: 표 머리글이 「도달 시각 초 (초)」로 나왔다 — 값 이름에 단위가 또 들어갔다.
+{
+  const { dropUnitFromName } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  check(dropUnitFromName("도달 시각 초", "초") === "도달 시각", "C16 이름 끝의 단위는 뗀다", dropUnitFromName("도달 시각 초", "초"));
+  check(dropUnitFromName("부피 (mL)", "mL") === "부피", "C16 괄호로 붙인 단위도 뗀다", dropUnitFromName("부피 (mL)", "mL"));
+  check(dropUnitFromName("초", "초") === "초", "C16 이름이 단위뿐이면 그대로 둔다");
+  check(dropUnitFromName("고령 인구 비율", "%") === "고령 인구 비율", "C16 단위가 없는 이름은 건드리지 않는다");
+  check(dropUnitFromName("S-P 시간", "초") === "S-P 시간", "C16 이름 안에 단위가 없으면 그대로");
+  const draft = finalizeStageOutput(STAGE.DRAFT, { sections: [], dataTemplate: { measurementName: "도달 시각 초", unit: "초", scaleGuide: "", trials: 3,
+    conditions: ["서울 관측소", "대전 관측소"], referenceInputs: [] } }, { collectionKind: "measurement" });
+  check(draft.extra.dataTemplate.measurementName === "도달 시각", "C16 설계서 단계에서 이름을 손본다", draft.extra.dataTemplate.measurementName);
+  const late = normalizeStudentData({ measurementName: "도달 시각 초", unit: "초", conditions: [{ label: "서울", values: ["6.0"] }] });
+  check(late.measurementName === "도달 시각", "C16 설계서에 이미 저장된 이름도 최종 단계에서 손본다", late.measurementName);
+  const { buildFigures: figs } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  const table = figs([], computeStats(late)).find((one) => one.kind === "table");
+  check(table.columns[1] === "도달 시각 (초)", "C16 표 머리글에 단위가 한 번만 나온다", JSON.stringify(table.columns));
+}
+
 console.log(`\n${passed} checks passed`);
