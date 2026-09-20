@@ -1,0 +1,560 @@
+{
+  "subject_name": "한국사",
+  "version": "v1-korean-history-units",
+  "policy": {
+    "priority_rule": [
+      "먼저 교과 개념별 종단 연결 후보를 제시한다",
+      "학과 입력 전에는 가능한 종단축 전체를 보여준다",
+      "학과 입력 후에는 축을 제거하지 않고 우선순위만 재정렬한다"
+    ]
+  },
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "고대 국가의 형성과 발전",
+      "concept_key": "고대 국가의 형성과 발전",
+      "concept_label": "삼국-가야-통일신라",
+      "core_focus": "삼국과 가야, 남북국의 성립과 통치 체제, 대외 관계를 사료로 읽는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "history_ancient_axis",
+          "axis_title": "고대사 해석 축",
+          "axis_short": "고대 국가",
+          "axis_domain": "history",
+          "priority": 1,
+          "next_subjects": [
+            "역사로 탐구하는 현대 세계",
+            "동아시아 역사 기행",
+            "세계사"
+          ],
+          "why": "고대 국가의 성립 과정을 사료로 읽는 힘이 이후 시대 비교의 기준이 된다.",
+          "student_output_hint": "연표 정리, 사료 비교표, 유물 조사 기록",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "삼국",
+                "고구려",
+                "백제",
+                "신라",
+                "가야",
+                "발해",
+                "통일신라",
+                "고대"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "고대 국가",
+              "message": "선택한 키워드가 고대 국가의 형성과 직접 맞닿아 이 축이 1순위로 강화됩니다.",
+              "desc": "성립·발전·대외 관계를 사료로 읽는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "고려의 통치 체제와 사회",
+      "concept_key": "고려의 통치 체제와 사회",
+      "concept_label": "고려-통치-대외 관계",
+      "core_focus": "고려의 정치 제도, 신분과 경제, 거란·몽골과의 관계를 살피는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "history_goryeo_axis",
+          "axis_title": "고려사 해석 축",
+          "axis_short": "고려",
+          "axis_domain": "history",
+          "priority": 1,
+          "next_subjects": [
+            "동아시아 역사 기행",
+            "세계사",
+            "역사로 탐구하는 현대 세계"
+          ],
+          "why": "제도와 대외 관계를 함께 보는 힘이 역사 변화의 원인을 설명하는 바탕이 된다.",
+          "student_output_hint": "제도 변화 연표, 사료 해석 기록",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "고려",
+                "무신",
+                "몽골",
+                "거란",
+                "팔만대장경",
+                "고려청자",
+                "귀족"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "고려",
+              "message": "선택한 키워드가 고려의 통치와 사회 변화와 직접 맞닿아 이 축이 1순위로 강화됩니다.",
+              "desc": "제도와 대외 관계로 변화를 설명하는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "조선의 건국과 통치 체제",
+      "concept_key": "조선의 건국과 통치 체제",
+      "concept_label": "조선 전기-제도-성리학",
+      "core_focus": "조선의 건국과 통치 제도, 성리학 질서와 신분제를 살피는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "history_joseon_early_axis",
+          "axis_title": "조선 전기 해석 축",
+          "axis_short": "조선 전기",
+          "axis_domain": "history",
+          "priority": 1,
+          "next_subjects": [
+            "동아시아 역사 기행",
+            "인문학과 윤리",
+            "세계사"
+          ],
+          "why": "제도와 사상을 함께 읽는 힘이 사회 구조를 설명하는 기초가 된다.",
+          "student_output_hint": "제도 정리표, 사료 해석 기록",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "조선",
+                "훈민정음",
+                "성리학",
+                "과거제",
+                "양반",
+                "세종",
+                "경국대전"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "조선 전기",
+              "message": "선택한 키워드가 조선의 건국과 통치 체제와 직접 맞닿아 이 축이 1순위로 강화됩니다.",
+              "desc": "제도와 사상으로 사회를 설명하는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "조선 후기 사회와 경제 변동",
+      "concept_key": "조선 후기 사회와 경제 변동",
+      "concept_label": "조선 후기-상업-실학",
+      "core_focus": "농업과 상업의 변화, 신분제 동요, 실학과 서민 문화를 살피는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "history_joseon_late_axis",
+          "axis_title": "조선 후기 변동 축",
+          "axis_short": "조선 후기",
+          "axis_domain": "history",
+          "priority": 1,
+          "next_subjects": [
+            "사회문제 탐구",
+            "경제",
+            "역사로 탐구하는 현대 세계"
+          ],
+          "why": "경제 변화가 신분과 문화를 어떻게 바꾸는지 읽는 힘이 사회 변동 분석으로 이어진다.",
+          "student_output_hint": "변화 원인 정리표, 사료·그림 비교",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "조선 후기",
+                "실학",
+                "상평통보",
+                "장시",
+                "서민 문화",
+                "판소리",
+                "신분제 동요",
+                "대동법"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "조선 후기",
+              "message": "선택한 키워드가 조선 후기의 사회·경제 변동과 직접 맞닿아 이 축이 1순위로 강화됩니다.",
+              "desc": "경제 변화와 사회 변화를 이어 보는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "개항과 근대 국가 수립 운동",
+      "concept_key": "개항과 근대 국가 수립 운동",
+      "concept_label": "개항-개혁-독립협회",
+      "core_focus": "개항 이후 근대 개혁과 국권 수호 운동의 흐름을 살피는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "history_modern_axis",
+          "axis_title": "근대 국가 수립 축",
+          "axis_short": "개항·근대",
+          "axis_domain": "history",
+          "priority": 1,
+          "next_subjects": [
+            "역사로 탐구하는 현대 세계",
+            "정치",
+            "국제 관계의 이해"
+          ],
+          "why": "개혁과 저항의 선택을 견주는 힘이 근현대사 판단의 기초가 된다.",
+          "student_output_hint": "개혁안 비교표, 인물·단체 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "개항",
+                "갑오개혁",
+                "동학",
+                "독립협회",
+                "대한제국",
+                "을사늑약",
+                "의병"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "개항·근대",
+              "message": "선택한 키워드가 개항과 근대 국가 수립 운동과 직접 맞닿아 이 축이 1순위로 강화됩니다.",
+              "desc": "개혁과 저항의 흐름을 견주는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "일제의 식민 지배와 민족 운동",
+      "concept_key": "일제의 식민 지배와 민족 운동",
+      "concept_label": "식민 지배-3·1운동-독립운동",
+      "core_focus": "식민 통치 방식의 변화와 국내외 민족 운동을 살피는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "history_colonial_axis",
+          "axis_title": "민족 운동 해석 축",
+          "axis_short": "일제 강점기",
+          "axis_domain": "history",
+          "priority": 1,
+          "next_subjects": [
+            "역사로 탐구하는 현대 세계",
+            "동아시아 역사 기행",
+            "인문학과 윤리"
+          ],
+          "why": "지배 방식과 저항 방식을 함께 읽는 힘이 현대사 이해로 이어진다.",
+          "student_output_hint": "시기별 통치 비교표, 인물·단체 조사 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "일제",
+                "강점기",
+                "3·1 운동",
+                "임시정부",
+                "독립운동",
+                "광복",
+                "친일",
+                "징용"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "일제 강점기",
+              "message": "선택한 키워드가 식민 지배와 민족 운동과 직접 맞닿아 이 축이 1순위로 강화됩니다.",
+              "desc": "통치 방식과 저항 방식을 함께 보는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "대한민국 정부 수립과 6·25 전쟁",
+      "concept_key": "대한민국 정부 수립과 6·25 전쟁",
+      "concept_label": "광복-분단-전쟁",
+      "core_focus": "광복 이후 정부 수립 과정과 분단, 6·25 전쟁의 전개와 영향을 살피는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "history_liberation_axis",
+          "axis_title": "광복과 분단 축",
+          "axis_short": "정부 수립",
+          "axis_domain": "history",
+          "priority": 1,
+          "next_subjects": [
+            "역사로 탐구하는 현대 세계",
+            "정치",
+            "국제 관계의 이해"
+          ],
+          "why": "분단의 형성을 국제 관계와 함께 읽는 힘이 통일 문제 이해로 이어진다.",
+          "student_output_hint": "사건 연표, 자료 비교표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "광복",
+                "정부 수립",
+                "분단",
+                "6·25",
+                "한국 전쟁",
+                "신탁 통치",
+                "휴전"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "정부 수립",
+              "message": "선택한 키워드가 정부 수립과 6·25 전쟁과 직접 맞닿아 이 축이 1순위로 강화됩니다.",
+              "desc": "국내 정치와 국제 관계를 함께 보는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "민주주의의 발전",
+      "concept_key": "민주주의의 발전",
+      "concept_label": "4·19-5·18-6월 민주 항쟁",
+      "core_focus": "독재와 저항, 민주화 운동을 거쳐 제도가 바뀌는 과정을 살피는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "history_democracy_axis",
+          "axis_title": "민주화 과정 축",
+          "axis_short": "민주주의",
+          "axis_domain": "history",
+          "priority": 1,
+          "next_subjects": [
+            "정치",
+            "법과 사회",
+            "사회문제 탐구"
+          ],
+          "why": "제도가 바뀌는 과정을 사료로 읽는 힘이 시민 참여의 뜻을 이해하게 한다.",
+          "student_output_hint": "사건 연표, 증언·자료 비교표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "4·19",
+                "5·18",
+                "6월 민주 항쟁",
+                "민주화",
+                "독재",
+                "개헌",
+                "시민 운동"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "민주화",
+              "message": "선택한 키워드가 민주주의의 발전 과정과 직접 맞닿아 이 축이 1순위로 강화됩니다.",
+              "desc": "사건과 제도 변화를 잇는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "경제 성장과 사회 변화",
+      "concept_key": "경제 성장과 사회 변화",
+      "concept_label": "산업화-도시화-노동",
+      "core_focus": "경제 개발과 산업화가 인구·도시·노동에 가져온 변화를 살피는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "history_growth_axis",
+          "axis_title": "산업화와 사회 변화 축",
+          "axis_short": "경제 성장",
+          "axis_domain": "history",
+          "priority": 1,
+          "next_subjects": [
+            "경제",
+            "사회와 문화",
+            "사회문제 탐구"
+          ],
+          "why": "경제 성장의 빛과 그늘을 함께 읽는 힘이 오늘의 사회 문제를 설명한다.",
+          "student_output_hint": "지표 변화표, 자료 해석 기록",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "경제 개발",
+                "산업화",
+                "도시화",
+                "새마을",
+                "노동",
+                "수출",
+                "경제 성장"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "경제 성장",
+              "message": "선택한 키워드가 경제 성장과 사회 변화와 직접 맞닿아 이 축이 1순위로 강화됩니다.",
+              "desc": "지표 변화와 생활 변화를 잇는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "평화 통일과 역사 갈등",
+      "concept_key": "평화 통일과 역사 갈등",
+      "concept_label": "남북 관계-역사 갈등",
+      "core_focus": "남북 관계의 변화와 동아시아 역사 갈등, 평화를 위한 과제를 살피는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "history_peace_axis",
+          "axis_title": "평화와 역사 갈등 축",
+          "axis_short": "평화 통일",
+          "axis_domain": "history",
+          "priority": 1,
+          "next_subjects": [
+            "국제 관계의 이해",
+            "동아시아 역사 기행",
+            "윤리문제 탐구"
+          ],
+          "why": "역사 갈등을 사료로 따지는 힘이 평화를 위한 대화의 바탕이 된다.",
+          "student_output_hint": "쟁점 비교표, 자료 근거 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "통일",
+                "남북",
+                "역사 갈등",
+                "독도",
+                "위안부",
+                "동북공정",
+                "평화"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "평화 통일",
+              "message": "선택한 키워드가 평화 통일과 역사 갈등과 직접 맞닿아 이 축이 1순위로 강화됩니다.",
+              "desc": "쟁점을 사료 근거로 따지는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "역사 탐구 방법과 사료 읽기",
+      "concept_key": "역사 탐구 방법과 사료 읽기",
+      "concept_label": "사료-사관-탐구 방법",
+      "core_focus": "사료를 찾아 읽고 사실과 해석을 가려 역사를 탐구하는 방법을 익히는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "history_method_axis",
+          "axis_title": "역사 탐구 방법 축",
+          "axis_short": "사료 읽기",
+          "axis_domain": "history",
+          "priority": 1,
+          "next_subjects": [
+            "역사로 탐구하는 현대 세계",
+            "사회문제 탐구",
+            "인문학과 윤리"
+          ],
+          "why": "사료를 근거로 따지는 힘이 모든 시대 탐구의 바탕이 된다.",
+          "student_output_hint": "사료 분석표, 탐구 계획서, 자료 출처 기록",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "사료",
+                "사관",
+                "자료 조사",
+                "자료조사",
+                "역사 탐구",
+                "주제 탐구",
+                "심화 탐구",
+                "사실과 해석",
+                "역사 해석",
+                "탐구 보고서",
+                "출처",
+                "교과서 분석",
+                "교과서 서술",
+                "서술의 한계",
+                "요약",
+                "분석하고"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "사료 읽기",
+              "message": "선택한 키워드가 사료 읽기와 탐구 방법과 직접 맞닿아 역사 탐구 방법 축이 1순위로 강화됩니다.",
+              "desc": "사료를 근거로 사실과 해석을 가려 읽는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "역사 인물과 사건의 평가",
+      "concept_key": "역사 인물과 사건의 평가",
+      "concept_label": "인물-사건-평가 기준",
+      "core_focus": "역사 인물과 사건을 기준을 세워 견주고 평가하는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "history_figure_axis",
+          "axis_title": "인물·사건 평가 축",
+          "axis_short": "인물 평가",
+          "axis_domain": "history",
+          "priority": 1,
+          "next_subjects": [
+            "역사로 탐구하는 현대 세계",
+            "윤리문제 탐구",
+            "정치"
+          ],
+          "why": "평가 기준을 세워 따지는 힘이 역사 논술과 토론으로 이어진다.",
+          "student_output_hint": "인물 비교표, 평가 기준표, 역사 신문",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "인물",
+                "인물 탐구",
+                "인물 비교",
+                "평가",
+                "공과",
+                "업적",
+                "역사 신문",
+                "역사신문",
+                "논쟁",
+                "다양한 평가",
+                "전근대사",
+                "근대사",
+                "근현대사",
+                "현대사"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "인물 평가",
+              "message": "선택한 키워드가 인물과 사건의 평가와 직접 맞닿아 인물·사건 평가 축이 1순위로 강화됩니다.",
+              "desc": "기준을 세워 인물과 사건을 견주는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "문화유산과 역사 기억",
+      "concept_key": "문화유산과 역사 기억",
+      "concept_label": "문화재-기억-계승",
+      "core_focus": "문화유산을 조사하고 기억하고 되살리는 방식을 살피는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "history_heritage_axis",
+          "axis_title": "문화유산과 기억 축",
+          "axis_short": "문화유산",
+          "axis_domain": "history",
+          "priority": 1,
+          "next_subjects": [
+            "동아시아 역사 기행",
+            "여행지리",
+            "윤리문제 탐구"
+          ],
+          "why": "유산을 어떻게 기억하고 되돌릴지 따지는 힘이 문화 정책과 국제 협력으로 이어진다.",
+          "student_output_hint": "문화재 조사 카드, 답사 기록, 제안서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "문화재",
+                "문화유산",
+                "유네스코",
+                "반환",
+                "답사",
+                "기념관",
+                "박물관",
+                "기억",
+                "계승",
+                "복원",
+                "유적",
+                "탐방",
+                "역사 여행",
+                "여행 안내서",
+                "유적지"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "문화유산",
+              "message": "선택한 키워드가 문화유산과 역사 기억과 직접 맞닿아 문화유산과 기억 축이 1순위로 강화됩니다.",
+              "desc": "유산의 보존·기억·반환을 따지는 방향입니다."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

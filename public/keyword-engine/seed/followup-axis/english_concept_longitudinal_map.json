@@ -1,0 +1,476 @@
+{
+  "subject_name": "영어",
+  "version": "v1-english-units",
+  "policy": {
+    "priority_rule": [
+      "먼저 교과 개념별 종단 연결 후보를 제시한다",
+      "학과 입력 전에는 가능한 종단축 전체를 보여준다",
+      "학과 입력 후에는 축을 제거하지 않고 우선순위만 재정렬한다"
+    ]
+  },
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "글의 주제와 요지 파악",
+      "concept_key": "글의 주제와 요지 파악",
+      "concept_label": "주제문-요지-제목",
+      "core_focus": "영어 글에서 주제문과 요지를 찾고 제목과 글의 흐름을 정리하는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "english_main_idea_axis",
+          "axis_title": "영어 읽기 해석 축",
+          "axis_short": "주제 파악",
+          "axis_domain": "english",
+          "priority": 1,
+          "next_subjects": [
+            "영어 독해와 작문",
+            "영미 문학 읽기",
+            "공통국어2"
+          ],
+          "why": "글의 요지를 정확히 잡는 힘이 긴 글 읽기와 비판적 독해의 출발점이 된다.",
+          "student_output_hint": "주제문 정리표, 문단별 요지 요약, 제목 비교",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "주제",
+                "요지",
+                "제목",
+                "main idea",
+                "topic sentence",
+                "요약"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "주제-요지",
+              "message": "선택한 키워드가 글의 주제와 요지 파악과 직접 맞닿아 읽기 해석 축이 1순위로 강화됩니다.",
+              "desc": "문단마다 요지를 뽑아 글 전체의 주제로 모으는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "english_summary_axis",
+          "axis_title": "요약·재진술 축",
+          "axis_short": "요약하기",
+          "axis_domain": "english",
+          "priority": 2,
+          "next_subjects": [
+            "영어 독해와 작문",
+            "심화 영어",
+            "독서와 작문"
+          ],
+          "why": "읽은 글을 자기 말로 줄여 쓰는 힘은 쓰기와 발표로 바로 이어진다.",
+          "student_output_hint": "영어 요약문, 재진술 비교표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "요약문",
+                "summary",
+                "paraphrase",
+                "재진술",
+                "줄여 쓰기"
+              ],
+              "boost": 18,
+              "label": "키워드 반영",
+              "short_label": "요약·재진술",
+              "message": "선택한 키워드가 요약과 재진술로 이어져 이 축을 보강합니다.",
+              "desc": "읽은 내용을 자기 문장으로 다시 쓰는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "세부 정보와 추론",
+      "concept_key": "세부 정보와 추론",
+      "concept_label": "세부 정보-추론-빈칸",
+      "core_focus": "글에 드러난 세부 정보를 찾고 드러나지 않은 내용을 근거로 추론하는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "english_inference_axis",
+          "axis_title": "근거 기반 추론 축",
+          "axis_short": "추론 읽기",
+          "axis_domain": "english",
+          "priority": 1,
+          "next_subjects": [
+            "영어 독해와 작문",
+            "심화 영어",
+            "영어 발표와 토론"
+          ],
+          "why": "본문 근거로 빈칸과 함축을 채우는 힘이 학술 영어 읽기의 핵심이 된다.",
+          "student_output_hint": "근거 표시 읽기 기록, 추론 문항 오답 분석",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "세부 정보",
+                "추론",
+                "빈칸",
+                "함축",
+                "inference",
+                "근거"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "추론-근거",
+              "message": "선택한 키워드가 근거 기반 추론과 직접 맞닿아 이 축이 1순위로 강화됩니다.",
+              "desc": "본문에서 근거를 찾아 추론을 검증하는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "english_error_analysis_axis",
+          "axis_title": "오답 분석 축",
+          "axis_short": "오답 분석",
+          "axis_domain": "english",
+          "priority": 2,
+          "next_subjects": [
+            "영어 독해와 작문",
+            "심화 영어"
+          ],
+          "why": "틀린 까닭을 유형으로 모으면 읽기 전략을 스스로 고칠 수 있다.",
+          "student_output_hint": "오답 유형 표, 다시 푼 기록",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "오답",
+                "오답률",
+                "정답률",
+                "문항 분석",
+                "정오"
+              ],
+              "boost": 18,
+              "label": "키워드 반영",
+              "short_label": "오답 유형",
+              "message": "선택한 키워드가 오답 분석으로 이어져 이 축을 보강합니다.",
+              "desc": "유형별로 실수를 모아 전략을 고치는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "문단 쓰기와 에세이 구성",
+      "concept_key": "문단 쓰기와 에세이 구성",
+      "concept_label": "문단-구성-에세이",
+      "core_focus": "주제문과 뒷받침 문장으로 문단을 쓰고 서론·본론·결론으로 글을 짜는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "english_writing_structure_axis",
+          "axis_title": "영어 쓰기 구성 축",
+          "axis_short": "글 구성",
+          "axis_domain": "english",
+          "priority": 1,
+          "next_subjects": [
+            "영어 독해와 작문",
+            "심화 영어",
+            "독서와 작문"
+          ],
+          "why": "문단 구조를 세우는 힘이 에세이와 보고서 쓰기로 그대로 이어진다.",
+          "student_output_hint": "개요표, 문단 초고와 고쳐 쓴 글 비교",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "에세이",
+                "문단",
+                "essay",
+                "paragraph",
+                "서론",
+                "본론",
+                "결론",
+                "개요"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "문단-구성",
+              "message": "선택한 키워드가 문단과 에세이 구성과 직접 맞닿아 이 축이 1순위로 강화됩니다.",
+              "desc": "주제문과 뒷받침 문장으로 글을 짜는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "english_peer_review_axis",
+          "axis_title": "고쳐 쓰기 축",
+          "axis_short": "고쳐 쓰기",
+          "axis_domain": "english",
+          "priority": 2,
+          "next_subjects": [
+            "영어 독해와 작문",
+            "공통국어2"
+          ],
+          "why": "친구 글을 읽고 고칠 곳을 찾는 일이 자기 글을 보는 눈을 만든다.",
+          "student_output_hint": "고쳐 쓰기 전후 비교, 점검표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "고쳐 쓰기",
+                "퇴고",
+                "피드백",
+                "peer review",
+                "첨삭"
+              ],
+              "boost": 18,
+              "label": "키워드 반영",
+              "short_label": "고쳐 쓰기",
+              "message": "선택한 키워드가 고쳐 쓰기로 이어져 이 축을 보강합니다.",
+              "desc": "점검표로 글을 다듬는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "발표와 토론",
+      "concept_key": "발표와 토론",
+      "concept_label": "발표-토론-설득",
+      "core_focus": "영어로 자기 생각을 말하고 근거를 들어 주장과 반론을 주고받는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "english_speaking_axis",
+          "axis_title": "영어 말하기 축",
+          "axis_short": "발표·토론",
+          "axis_domain": "english",
+          "priority": 1,
+          "next_subjects": [
+            "영어 발표와 토론",
+            "심화 영어",
+            "실생활 영어 회화"
+          ],
+          "why": "근거를 갖춰 말하는 힘이 면접과 학술 발표로 이어진다.",
+          "student_output_hint": "발표 대본, 토론 논거 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "발표",
+                "토론",
+                "presentation",
+                "debate",
+                "설득",
+                "주장",
+                "반론"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "발표-토론",
+              "message": "선택한 키워드가 발표와 토론과 직접 맞닿아 이 축이 1순위로 강화됩니다.",
+              "desc": "주장과 근거를 갖춰 말하는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "english_listening_axis",
+          "axis_title": "듣고 정리하기 축",
+          "axis_short": "듣기 정리",
+          "axis_domain": "english",
+          "priority": 2,
+          "next_subjects": [
+            "영어 발표와 토론",
+            "실생활 영어 회화"
+          ],
+          "why": "들은 내용을 구조로 적는 힘이 수업과 강연 이해로 이어진다.",
+          "student_output_hint": "듣기 노트, 핵심어 정리표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "듣기",
+                "listening",
+                "받아쓰기",
+                "강연",
+                "인터뷰"
+              ],
+              "boost": 18,
+              "label": "키워드 반영",
+              "short_label": "듣기 정리",
+              "message": "선택한 키워드가 듣고 정리하기로 이어져 이 축을 보강합니다.",
+              "desc": "들은 내용을 구조로 적는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "어휘와 어법",
+      "concept_key": "어휘와 어법",
+      "concept_label": "어휘-문장 구조",
+      "core_focus": "문장 구조와 어법, 어휘의 쓰임을 살펴 뜻을 정확히 읽고 쓰는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "english_grammar_axis",
+          "axis_title": "어법·문장 구조 축",
+          "axis_short": "어법",
+          "axis_domain": "english",
+          "priority": 1,
+          "next_subjects": [
+            "영어 독해와 작문",
+            "심화 영어"
+          ],
+          "why": "문장 구조를 아는 힘이 긴 문장 해석과 정확한 쓰기를 뒷받침한다.",
+          "student_output_hint": "문장 구조 분석표, 자주 틀리는 어법 모음",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "어법",
+                "문법",
+                "grammar",
+                "문장 구조",
+                "시제",
+                "관계대명사",
+                "어휘"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "어법-구조",
+              "message": "선택한 키워드가 어법과 문장 구조와 직접 맞닿아 이 축이 1순위로 강화됩니다.",
+              "desc": "구조를 나눠 뜻을 정확히 읽는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "english_vocab_axis",
+          "axis_title": "어휘 넓히기 축",
+          "axis_short": "어휘",
+          "axis_domain": "english",
+          "priority": 2,
+          "next_subjects": [
+            "영어 독해와 작문",
+            "영미 문학 읽기"
+          ],
+          "why": "주제별 어휘를 모으면 읽기 속도와 쓰기의 정확도가 함께 오른다.",
+          "student_output_hint": "주제별 어휘장, 연어 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "어휘장",
+                "연어",
+                "collocation",
+                "단어장",
+                "vocabulary"
+              ],
+              "boost": 18,
+              "label": "키워드 반영",
+              "short_label": "어휘 넓히기",
+              "message": "선택한 키워드가 어휘 학습으로 이어져 이 축을 보강합니다.",
+              "desc": "주제별로 어휘를 모아 쓰는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "영어권 문화 이해와 비교",
+      "concept_key": "영어권 문화 이해와 비교",
+      "concept_label": "문화 비교-상호 이해",
+      "core_focus": "영어권의 생활·관습·가치를 우리 문화와 견주어 이해하는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "english_culture_axis",
+          "axis_title": "문화 비교 축",
+          "axis_short": "문화 비교",
+          "axis_domain": "english",
+          "priority": 1,
+          "next_subjects": [
+            "영미 문학 읽기",
+            "세계시민과 지리",
+            "영어 발표와 토론"
+          ],
+          "why": "문화를 견주어 보는 힘이 국제 교류와 지역 이해로 이어진다.",
+          "student_output_hint": "문화 비교표, 사례 조사 카드",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "문화",
+                "culture",
+                "관습",
+                "영어권",
+                "비교",
+                "다문화"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "문화 비교",
+              "message": "선택한 키워드가 영어권 문화 비교와 직접 맞닿아 이 축이 1순위로 강화됩니다.",
+              "desc": "두 문화를 같은 기준으로 견주는 방향입니다."
+            }
+          ]
+        },
+        {
+          "axis_id": "english_media_axis",
+          "axis_title": "매체 읽기 축",
+          "axis_short": "매체 읽기",
+          "axis_domain": "english",
+          "priority": 2,
+          "next_subjects": [
+            "영어 독해와 작문",
+            "매체 의사소통"
+          ],
+          "why": "영어 기사와 영상의 출처와 관점을 따지는 힘이 정보 판단으로 이어진다.",
+          "student_output_hint": "기사 비교표, 출처 신뢰도 점검표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "기사",
+                "뉴스",
+                "article",
+                "광고",
+                "영상",
+                "매체",
+                "출처"
+              ],
+              "boost": 18,
+              "label": "키워드 반영",
+              "short_label": "매체 읽기",
+              "message": "선택한 키워드가 매체 읽기로 이어져 이 축을 보강합니다.",
+              "desc": "출처와 관점을 따져 읽는 방향입니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "영미 문학 읽기와 감상",
+      "concept_key": "영미 문학 읽기와 감상",
+      "concept_label": "원서-작품-감상",
+      "core_focus": "영어로 된 소설·시·희곡을 읽고 인물과 주제를 자기 말로 감상하는 개념",
+      "longitudinal_axes": [
+        {
+          "axis_id": "english_literature_axis",
+          "axis_title": "영미 문학 감상 축",
+          "axis_short": "문학 읽기",
+          "axis_domain": "english",
+          "priority": 1,
+          "next_subjects": [
+            "영미 문학 읽기",
+            "문학",
+            "심화 영어"
+          ],
+          "why": "원서를 끝까지 읽고 감상을 정리하는 힘이 인문 소양과 영어 독해력을 함께 키운다.",
+          "student_output_hint": "원서 독후 기록, 인물 관계도, 주제 문장 정리",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "영미 문학",
+                "원서",
+                "소설",
+                "시",
+                "희곡",
+                "작품",
+                "등장인물",
+                "인물",
+                "줄거리",
+                "주제",
+                "감상",
+                "독후",
+                "novel",
+                "literature",
+                "poem",
+                "원서 읽기"
+              ],
+              "boost": 22,
+              "label": "키워드 직접 반영",
+              "short_label": "문학 읽기",
+              "message": "선택한 키워드가 영미 문학 작품 읽기와 직접 맞닿아 문학 감상 축이 1순위로 강화됩니다.",
+              "desc": "작품의 인물과 주제를 자기 말로 정리하는 방향입니다."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
