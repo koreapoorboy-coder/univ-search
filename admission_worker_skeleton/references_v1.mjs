@@ -141,6 +141,9 @@ export function referencesBody({ cards = [], papers = [], web = [], datasets = [
     // 지진파와 지구 내부 단원 (교과서) — …를 읽었다」가 뭉뚱그린 줄로 보여 통째로 지워졌고, 느낀 점에는
     // 「참고 자료는 별도로 인용하지 않았고」라는 틀린 문장이 남았다.
     const mine = new Set(cards.map((card) => sourceLine(card)).filter(Boolean));
+    // 학생이 같은 교과서·단원을 이미 적었으면 우리 줄을 또 붙이지 않는다. 운영 테스트 38: 「물리학Ⅰ 교과서 힘과 운동
+    // 단원 (교과서) — …」 바로 밑에 「물리학Ⅰ 교과서 · 힘과 운동 단원」이 한 번 더 나왔다.
+    if ([...mine].some((line) => bare(line).includes(bare(textbook)))) return lines.filter((line) => mine.has(line) || !/교과서/.test(line) || line.includes('·') || /\(\d{4}\)\./.test(line)).join('\n');
     const vague = (line) => /교과서/.test(line) && !mine.has(line) && !line.includes('·') && !/\(\d{4}\)\./.test(line);
     const precise = lines.findIndex((line) => line === textbook);
     const kept = lines.filter((line) => !vague(line));

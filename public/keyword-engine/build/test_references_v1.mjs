@@ -239,4 +239,25 @@ const axisIndex = { axes: {
   check(removeNoSourceClaim("참고 자료는 별도로 인용하지 않았다.", false).removed === 0, "F9 정말 아무것도 안 적었으면 그대로 둔다");
 }
 
+const NL = String.fromCharCode(10);
+// F10 운영 테스트 38(물리 빗면): 학생이 적은 교과서 줄 바로 밑에 우리 교과서 줄이 한 번 더 나왔다.
+{
+  const same = referencesBody({
+    cards: [{ title: "물리학Ⅰ 교과서 힘과 운동 단원", type: "교과서", take: "등가속도 운동의 관계식을 확인했다" }],
+    textbook: "물리학Ⅰ 교과서 · 힘과 운동 단원",
+  });
+  check(same.split(NL).length === 1 && same.includes("관계식을 확인했다"), "F10 학생이 같은 교과서·단원을 적었으면 우리 줄은 붙이지 않는다", JSON.stringify(same));
+  const other = referencesBody({
+    cards: [{ title: "물리학Ⅰ 교과서 전기와 자기 단원", type: "교과서", take: "다른 단원을 읽었다" }],
+    textbook: "물리학Ⅰ 교과서 · 힘과 운동 단원",
+  });
+  check(other.split(NL).length === 2, "F10 단원이 다르면 둘 다 남는다", JSON.stringify(other));
+  const vague = referencesBody({
+    cards: [{ title: "물리학Ⅰ 교과서 힘과 운동 단원", type: "교과서", take: "관계식을 확인했다" }],
+    fallbackBody: "물리 교과서 관련 단원",
+    textbook: "물리학Ⅰ 교과서 · 힘과 운동 단원",
+  });
+  check(!/관련 단원/.test(vague), "F10 그래도 모델이 쓴 뭉뚱그린 줄은 남기지 않는다", JSON.stringify(vague));
+}
+
 console.log(`PASS references: ${passed}/${passed}`);
