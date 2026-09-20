@@ -59,4 +59,16 @@ check(evaluator.includes("function groundTruth") && evaluator.includes("raw_meth
   "the score is measured against the 평가방법 and 산출물 on real 평가계획, not against our own rules");
 check(evaluator.includes("자료해석형 tag cannot be used"), "the evaluator records why the corpus's own 자료해석형 tag is not the ground truth");
 
+// 루프 8(공통수학2 집합): 「우리 반 30명에게 물어 인원수를 적는다」가 문헌 탐구로 잡혀 자료 5개를 읽으라는 설계서가 나왔다.
+{
+  const ask = resolveCollectionKind({ taskDescription: "우리 반 30명에게 아침을 먹는지 물어 네 칸에 인원수(명)를 적는다", subjectGroup: "수학" });
+  check(ask === "survey", "사람에게 물어 인원수를 적는 과제는 설문이다", ask);
+  const hands = resolveCollectionKind({ taskDescription: "학급 전체가 손을 들게 하여 수를 센다", subjectGroup: "수학" });
+  check(hands === "survey", "거수도 설문이다", hands);
+  const handout = resolveCollectionKind({ taskDescription: "학생 30명에게 안내문을 나누어 주고 소감을 쓴다", subjectGroup: "국어" });
+  check(handout !== "survey", "묻는 말이 없으면 설문이 아니다", handout);
+  const field = resolveCollectionKind({ taskDescription: "방형구를 설치해 개체 수를 조사한다", subjectGroup: "과학" });
+  check(field === "measurement", "야외 조사는 그대로 직접 재는 과제다", field);
+}
+
 console.log(`PASS collection kind: ${passed}/${passed}`);

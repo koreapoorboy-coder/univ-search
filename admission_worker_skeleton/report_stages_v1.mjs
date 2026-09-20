@@ -39,6 +39,10 @@ export function resolveCollectionKind(input) {
   // and get comes first: "화학 반응을 관찰한 뒤 논술형 문제를 해결한다" is an experiment that ends in writing, not a
   // writing task. Only when nothing is being collected do the writing and performing words decide.
   if (/설문|인터뷰|여론 ?조사|응답자|만족도 ?조사/.test(text)) return COLLECTION.SURVEY;
+  // 「우리 반 30명에게 물어 인원수를 적는다」도 설문이다 — 루프 8(공통수학2 집합): '설문'이라는 말이 없어
+  // 문헌 탐구로 잡혀 자료 5개를 읽으라는 설계서가 나왔다. 사람에게 묻는 말이 있으면 설문으로 본다.
+  if (/(명|학생|친구|학급|반원|가족)에게/.test(text) && /물어|물었|물어보|여쭈|응답|답하게|답을 ?받|조사한다|조사하여/.test(text)) return COLLECTION.SURVEY;
+  if (/손을 ?들게|거수|투표하게 ?하여/.test(text)) return COLLECTION.SURVEY;
   if (/실험|측정|실습|재어|계측/.test(text)) return COLLECTION.MEASUREMENT;
   // Graded as an essay answer: the student looks at something, but there is no table to fill in.
   if (/논술형 ?문제|논술형 ?평가|서·?논술형|논술형으로 ?해결|논술 ?문항/.test(text)) return COLLECTION.NONE;
