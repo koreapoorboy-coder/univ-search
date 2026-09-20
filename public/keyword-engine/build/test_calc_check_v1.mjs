@@ -273,8 +273,11 @@ check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조
 
 // C15 운영 테스트 35(지구과학 진앙 거리): 116.8 km를 「117 km」로 적고, 그 117로 범위를 구해 65.6이 아닌 65.8이 되었다.
 {
+  const { tidyCalculatedNumbers } = await import("../../../admission_worker_skeleton/calc_check_v1.mjs");
   const one = verifyCalculations([{ what: "진앙 거리", constants: [], expression: "8 × 14.6", result: "117", unit: "km" }], new Set(["8", "14.6"]));
-  check(one.verified.length === 0 && /소수를 버림/.test(one.rejected[0].why), "C15 소수를 버린 답은 받지 않는다", JSON.stringify(one.rejected[0]));
+  check(one.verified.length === 1 && one.verified[0].result === "116.8" && one.verified[0].wrote === "117", "C15 소수를 버린 답은 지우지 않고 제 값으로 고친다", JSON.stringify(one.verified[0]));
+  const fixed = tidyCalculatedNumbers("서남부 관측소는 117 km였다. 117명이 참여했다.", one.verified);
+  check(fixed === "서남부 관측소는 116.8 km였다. 117명이 참여했다.", "C15 본문의 값도 단위가 붙은 자리만 고친다", fixed);
   const kept = verifyCalculations([{ what: "진앙 거리", constants: [], expression: "8 × 14.6", result: "116.8", unit: "km" }], new Set(["8", "14.6"]));
   check(kept.verified.length === 1, "C15 자릿수를 지킨 답은 그대로 통과한다", JSON.stringify(kept.rejected));
   const chained = verifyCalculations([

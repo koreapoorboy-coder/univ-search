@@ -101,7 +101,6 @@ const dropsDecimals = (computed, written) => {
 };
 
 function sameResult(computed, written) {
-  if (dropsDecimals(computed, written)) return false;
   const decimals = (String(written).split('.')[1] || '').length;
   const step = 10 ** -decimals;
   const value = Number(written);
@@ -143,11 +142,14 @@ export function verifyCalculations(list, allowed) {
       || [1, 2, 3, 4, 5, 6].some((power) => known.has(canonical(Number((Number(number) * 10 ** power).toPrecision(12))))
         || known.has(canonical(Number((Number(number) / 10 ** power).toPrecision(12)))));
     const computed = evaluateExpression(expression);
+    // 소수를 버리고 적은 답(116.8 → 「117」)은 버리지 않고 **고쳐서** 쓴다. 문장을 지우면 과제가 구하라고 한
+    // 값이 보고서에서 통째로 사라진다(운영 테스트 36: 진앙 거리 네 개가 모두 빠졌다).
+    const rounded = computed !== null && dropsDecimals(computed, result);
+    const answer = rounded ? String(Math.round(computed * 100) / 100) : result;
     const why = !/^-?\d+(?:\.\d+)?$/.test(result) ? '답이 숫자가 아님'
       : computed === null ? '식을 읽을 수 없음'
         : !numbers.every(knownOrShifted) ? '식에 출처 없는 숫자'
-          : dropsDecimals(computed, result) ? '답에서 소수를 버림(116.8을 117로 적음)'
-            : !sameResult(computed, result) ? '답이 식과 다름' : '';
+          : !sameResult(computed, answer) ? '답이 식과 다름' : '';
     if (why) { rejected.push({ what: clip(raw?.what, 60), expression, result, why }); continue; }
     constants.forEach((one) => { extended.add(canonical(one.value)); exact.add(canonical(one.value)); });
     // 검산을 통과한 식의 숫자(36.0 mL를 리터로 바꾼 0.0360 등)도 본문에 쓸 수 있다. 운영 테스트 19: 본문에 식을 풀어 쓴
@@ -156,9 +158,10 @@ export function verifyCalculations(list, allowed) {
     addRounded(extended, computed);
     addRounded(exact, computed, [1, 2, 3]);
     // 뒤 계산은 앞 답의 **절댓값**을 그대로 쓰기도 한다(차이 -0.2079… → 상대오차 0.2079… ÷ 4.5). 운영 테스트 16.
-    [computed, Math.abs(computed), Number(result), Math.abs(Number(result))].forEach((value) => { extended.add(canonical(value)); exact.add(canonical(value)); });
+    [computed, Math.abs(computed), Number(answer), Math.abs(Number(answer))].forEach((value) => { extended.add(canonical(value)); exact.add(canonical(value)); });
     // 단위에 답 형식 조각이 붙어 오기도 했다(「%p},{」, 운영 테스트 19).
-    verified.push({ what: clip(raw?.what, 60), constants, expression, result, unit: clip(String(raw?.unit ?? '').split(/["{}[\],]/)[0], 20) });
+    verified.push({ what: clip(raw?.what, 60), constants, expression, result: answer, unit: clip(String(raw?.unit ?? '').split(/["{}[\],]/)[0], 20),
+      ...(rounded ? { wrote: result } : {}) });
   }
   return { allowed: extended, verified, rejected };
 }
@@ -176,6 +179,17 @@ export function shortNumber(text) {
 
 export function tidyCalculatedNumbers(body, verified) {
   let out = String(body || '');
+  // 소수를 버리고 적은 답은 본문에서도 제 값으로 되돌린다(「117 km」 → 「116.8 km」). **단위가 붙은 자리만**
+  // 고친다 — 같은 숫자가 다른 뜻으로 쓰인 자리(「117명이 참여했다」)까지 바꾸면 안 된다.
+  for (const one of Array.isArray(verified) ? verified : []) {
+    const unit = String(one.unit || '').trim();
+    if (!one.wrote || one.wrote === one.result || !unit) continue;
+    const quoted = unit.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    for (const [from, to] of [[one.wrote, one.result], [String(Math.abs(Number(one.wrote))), String(Math.abs(Number(one.result)))]]) {
+      if (from === to) continue;
+      out = out.replace(new RegExp(`(?<![\\d.])${from.replace(/[.]/g, '\\.')}(?!\\d)(\\s*${quoted})`, 'g'), `${to}$1`);
+    }
+  }
   for (const one of Array.isArray(verified) ? verified : []) {
     for (const raw of [one.result, String(Math.abs(Number(one.result)))]) {
       const short = shortNumber(raw);
@@ -190,7 +204,7 @@ export function tidyCalculatedNumbers(body, verified) {
 export function calculationPromptLines() {
   return [
     '- 안내문이 구하라고 한 값(농도·산도·속력·효율·오차율 등)을 학생 숫자로 계산할 수 있으면, 본문을 쓰기 전에 calculations에 식으로 먼저 계산한다. 계산이 필요 없으면 빈 배열이다.',
-    '- calculations의 expression은 숫자와 + - × ÷ ( )만 쓴 한 줄 식이다(단위·글자 없이). 식의 숫자는 학생입력·결과정리·기준값·안내문·1차 설계서의 숫자, 앞 계산의 result, 또는 constants에 이름과 함께 적은 교과서 상수(몰질량 등)만 쓴다. result는 식의 값을 유효숫자 세 자리로 반올림한 숫자다(예: 4.3236 → 4.32, 0.17640 → 0.176). 측정값이 0.05 mL 눈금인데 답을 소수 넷째 자리까지 적는 것은 정밀도를 부풀리는 것이다.',
+    '- calculations의 expression은 숫자와 + - × ÷ ( )만 쓴 한 줄 식이다(단위·글자 없이). 식의 숫자는 학생입력·결과정리·기준값·안내문·1차 설계서의 숫자, 앞 계산의 result, 또는 constants에 이름과 함께 적은 교과서 상수(몰질량 등)만 쓴다. result는 식의 값을 반올림한 숫자다 — 10 이상이면 소수 첫째 자리까지(116.8), 10보다 작으면 유효숫자 세 자리까지(4.32, 0.176) 적고, 소수를 통째로 버리지 않는다(116.8을 117로 적지 않는다). 측정값이 0.05 mL 눈금인데 답을 소수 넷째 자리까지 적는 것은 정밀도를 부풀리는 것이다.',
     '- 한 계산에는 단위 바꾸기를 여러 번 섞지 않는다. 예: ① 몰 농도(M) = 0.1 × 36.0 ÷ 5 → 0.72, ② 산도(%) = 0.72 × 60.05 ÷ 10 → 4.32, ③ 오차율(%) = (4.5 - 4.32) ÷ 4.5 × 100 → 4. 단위 바꾸기를 한 식에 여러 번 섞으면 자릿수가 틀리기 쉽다. 앞 단계의 result를 다음 식에 그대로 쓴다. 단, 리터로 바꾸기·블랭크 빼기 같은 작은 손질만 따로 떼어 칸을 쓰지 않는다 — 칸은 최대 16개이고, **안내문이 구하라고 한 값과 기준값 비교가 먼저**다.',
     '- 코드가 식을 다시 계산해 맞는 계산의 result만 본문에 쓸 수 있다. 본문에는 계산 과정(무엇을 무엇으로 나눴는지)과 result를 함께 쓴다.',
     '- **calculations에 없는 계산 결과를 본문에 쓰면 그 문장은 통째로 지워진다.** 농도, 산도, 비율, 오차율처럼 본문에 쓸 계산값은 하나도 빠짐없이 calculations에 먼저 넣는다. 비율(예: 72.1 ÷ 36.0)도 계산이다.',
