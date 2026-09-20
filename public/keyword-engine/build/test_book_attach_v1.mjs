@@ -224,8 +224,16 @@ const pick = (subject, concept, major) => {
   // 다른 과목의 개념을 집지 않는다.
   check(inferConcept("지구과학", "태풍 경로와 악기상 재난 사례를 비교한다", axisIndex) === "태풍과 악기상",
     "A3f 과목 안에서만 고른다", inferConcept("지구과학", "태풍 경로와 악기상 재난 사례를 비교한다", axisIndex));
-  check(worker.includes("const reportConcept = (namedConcept && isUnitName(namedConcept) ? namedConcept : '') || listedUnit || guessedConcept || namedConcept || careerConcept"),
+  check(worker.includes("const fromTask = (namedConcept && isUnitName(namedConcept) ? namedConcept : '') || listedUnit || guessedConcept || namedConcept || careerConcept"),
     "A3f 학생이 고른 단원 → 화면 목록의 단원 → 과제 문구 → (단원 이름이 아닌) 고른 낱말 → 축의 개념 차례로 쓴다");
+  // 과제 글이 단원을 아예 안 말하는 과제가 전체의 23%다(전수 검사 567/2,473). 그때는 비워 두지 않고
+  // 우리가 정한다 — 학생에게 물으면 찍는다.
+  check(worker.includes("const chosen = fromTask ? { concept: fromTask, from: UNIT_SOURCE.TASK } : chooseUnit({"),
+    "A3f 과제 글이 단원을 안 말하면 우리가 정한다");
+  check(worker.includes("used: input.pastConcepts,"),
+    "A3f 그 학생이 이미 쓴 단원은 빼고 고른다");
+  check(worker.includes("input.unitSource = chosen.from;"),
+    "A3f 어느 길로 정했는지 남긴다");
   check(/이 탐구가 \*\*앞으로 갈 곳\*\*이라 과제가 선 자리와 다르다/.test(worker),
     "A3f 축은 앞으로 갈 곳이라 과제가 선 자리와 다르다 — 까닭을 적어 둔다");
   // 그리고 **개념 자리에 과목 이름이 온다.** 화면이 selectedConcept 로 '화학'을 보냈다.

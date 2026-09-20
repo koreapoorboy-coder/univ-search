@@ -15,6 +15,8 @@
 
 const clean = (value, max = 80) => String(value ?? '').trim().slice(0, max);
 const norm = (value) => clean(value, 40).replace(/\s+/g, '').replace(/\d+$/, '');
+// 끝 숫자를 남긴 이름. 「공통수학1」과 「공통수학2」는 다른 과목이다.
+const tightSubject = (value) => clean(value, 40).replace(/\s+/g, '');
 const words = (text) => String(text || '').split(/[^가-힣A-Za-z0-9]+/).filter((word) => word.length >= 2);
 
 const SUBJECT_POINT = 3;
@@ -303,8 +305,15 @@ function unitBags(axisIndex) {
     }
   }
   const bags = new Map();   // 과목 → (단원 → 낱말들)
+  // **끝 숫자를 남긴 이름으로 담는다.** norm 은 끝 숫자를 지우므로 「공통수학1」과 「공통수학2」가 한
+  // 덩어리가 됐고, 공통수학2 과제에 공통수학1 단원이 잡혔다(새 시험 U7 이 잡았다). 공통국어·통합과학·
+  // 통합사회·과학탐구실험도 같은 짝이다. 숫자를 지운 이름은 loose 에 따로 두어, 정확한 이름으로 못
+  // 찾을 때만 예전처럼 쓴다.
+  const loose = new Map();
   for (const [id, axis] of Object.entries(axisIndex.axes || {})) {
-    const subject = norm(axis.subject);
+    const subject = tightSubject(axis.subject);
+    if (!loose.has(norm(axis.subject))) loose.set(norm(axis.subject), new Set());
+    loose.get(norm(axis.subject)).add(subject);
     if (!bags.has(subject)) bags.set(subject, new Map());
     const mine = bags.get(subject);
     const bag = mine.get(axis.concept) || new Set();
@@ -315,7 +324,7 @@ function unitBags(axisIndex) {
   const spread = new Map();
   let total = 0;
   for (const mine of bags.values()) for (const bag of mine.values()) { total++; for (const word of bag) spread.set(word, (spread.get(word) || 0) + 1); }
-  const out = { bags, spread, total };
+  const out = { bags, spread, total, loose };
   unitBagCache.set(axisIndex, out);
   return out;
 }
@@ -326,9 +335,14 @@ export function inferConcept(subject, text, axisIndex) {
   const own = new Set([want, want.replace(/\d+$/, ''), ...unitWords(subject)]);
   const mine = new Set(unitWords(text).filter((word) => !own.has(word) && !UNIT_NOISE.has(word)));
   if (!mine.size) return '';
-  const { bags, spread, total } = unitBags(axisIndex);
+  const { bags, spread, total, loose } = unitBags(axisIndex);
+  // 정확한 과목 이름으로 먼저 찾는다. 없으면(「물리학Ⅰ」처럼 다르게 적힌 이름) 숫자를 뗀 이름으로 넓힌다.
+  const exact = tightSubject(subject);
+  const pool = bags.has(exact)
+    ? [...(bags.get(exact) || [])]
+    : [...(loose.get(want) || [])].flatMap((name) => [...(bags.get(name) || [])]);
   let best = null;
-  for (const [concept, bag] of bags.get(want) || []) {
+  for (const [concept, bag] of pool) {
     let hit = 0;
     for (const word of mine) {
       const many = spread.get(word) || 0;

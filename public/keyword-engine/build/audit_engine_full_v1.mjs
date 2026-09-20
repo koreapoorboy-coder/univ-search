@@ -28,36 +28,16 @@ const PARTS = Number(arg("--parts", "1"));
 const LIMIT = Number(arg("--limit", "0"));
 const OUT = arg("--out", `${SITE}/build/.audit_engine_full`);
 const CAREER = arg("--career", "natural");
+// 전공. 지금까지 검사는 이 칸을 비워 두고 돌렸다 — 즉 **생활기록부가 하나도 없는 학생**이 최악의
+// 경우였다. 실제 학생은 전공과 관심사를 적으므로, 과제 글이 단원을 안 말해도 진로 축으로 단원을
+// 정할 수 있다. 이 칸을 넣고 돌려 차이를 본다.
+const MAJOR = arg("--major", "");
+const INTEREST = arg("--interest", "");
 await mkdir(OUT, { recursive: true });
 await mkdir(`${OUT}/cache`, { recursive: true });
 
 // ── 과목: 기록의 과목 이름 → 사이트에서 고를 수 있는 32과목 ─────────────────────────────
-const SITE_SUBJECTS = {
-  공통국어1: "국어", 공통국어2: "국어", 영어: "영어", 한국사: "사회", 공통수학1: "수학", 공통수학2: "수학", 대수: "수학",
-  "확률과 통계": "수학", 미적분1: "수학", 기하: "수학", 통합사회1: "사회", 통합사회2: "사회", 통합과학1: "과학", 통합과학2: "과학",
-  과학탐구실험1: "과학", 과학탐구실험2: "과학", "융합과학 탐구": "과학", "과학과제 연구": "과학", 물리: "과학", 화학: "과학",
-  "화학 반응의 세계": "과학", 생명과학: "과학", "생물의 유전": "과학", 지구과학: "과학", "역학과 에너지": "과학",
-  "전자기와 양자": "과학", "물질과 에너지": "과학", "세포와 물질대사": "과학", 지구시스템과학: "과학", 정보: "정보",
-  "데이터 과학": "정보", "인공지능 기초": "정보",
-};
-const tight = (s) => String(s || "").replace(/\s+/g, "").replace(/\(.*?\)/g, "");
-function siteSubject(raw) {
-  const s = tight(raw);
-  const exact = Object.keys(SITE_SUBJECTS).find((one) => tight(one) === s);
-  if (exact) return exact;
-  const rules = [
-    [/^통합과학2$/, "통합과학2"], [/^통합과학/, "통합과학1"], [/^과학탐구실험2/, "과학탐구실험2"], [/^과학탐구실험/, "과학탐구실험1"],
-    [/^통합사회2/, "통합사회2"], [/^통합사회/, "통합사회1"], [/^공통국어2/, "공통국어2"], [/^공통국어/, "공통국어1"],
-    [/^공통수학2/, "공통수학2"], [/^공통수학/, "공통수학1"], [/^(공통)?영어(Ⅰ|I|1)?$/, "영어"], [/^한국사/, "한국사"],
-    [/^(수학(Ⅰ|I|1)|대수)$/, "대수"], [/^확률과통계/, "확률과 통계"], [/^미적분(Ⅰ|I|1)?$/, "미적분1"], [/^기하/, "기하"],
-    [/^융합과학/, "융합과학 탐구"], [/^과학과제/, "과학과제 연구"], [/^화학반응의세계/, "화학 반응의 세계"],
-    [/^(고급|일반|AP)?물리(학)?(Ⅰ|Ⅱ|I|II|1|2)?$/, "물리"], [/^(고급|일반|AP)?화학(Ⅰ|Ⅱ|I|II|1|2)?$/, "화학"],
-    [/^(고급|일반)?생명과학(Ⅰ|Ⅱ|I|II|1|2)?$/, "생명과학"], [/^(고급|일반)?지구과학(Ⅰ|Ⅱ|I|II|1|2)?$/, "지구과학"],
-    [/^(정보|정보과학|프로그래밍)$/, "정보"], [/^데이터과학/, "데이터 과학"], [/^인공지능(기초)?$/, "인공지능 기초"],
-  ];
-  for (const [re, name] of rules) if (re.test(s)) return name;
-  return "";
-}
+const { SITE_SUBJECTS, siteSubject } = await import(new URL("../../../tools/site_subject.mjs", import.meta.url));
 
 // ── 과제 ──────────────────────────────────────────────────────────────────────────────
 const all = readFileSync(`${SITE}/data/assessment/records/assessment_tasks.v1.jsonl`, "utf8").split(/\r?\n/)
@@ -257,7 +237,7 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
 
     const base = {
       schoolName: "테스트고등학교", grade, subject, subjectGroup: group, taskDescription: taskText,
-      career: CAREER, track: CAREER, major: "", keyword: selectedKeyword, selectedKeyword, selectedConcept,
+      career: CAREER, track: CAREER, major: MAJOR, interests: INTEREST ? [INTEREST] : [], keyword: selectedKeyword, selectedKeyword, selectedConcept,
       structureId: structure.id, targetStructure: structure.sections || [],
       performance_assessment: { assessmentKeywordConnection: conn, method: { reportMode },
         content: { concept: selectedConcept, keyword: selectedKeyword } },

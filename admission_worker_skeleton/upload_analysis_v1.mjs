@@ -90,23 +90,68 @@ export function analysisSchema() {
 // Which of the engine's 종단 축 this student's own work already sits on. The axes carry where each one leads
 // (next_subjects), why, and what a student produces along it — all of it from our own curriculum maps, so the
 // next report is proposed on ground we can point at instead of whatever the model thinks of.
-export function matchAxes(terms, index, limit = 4) {
+// 전공 이름을 축 낱말이 만날 수 있는 모양으로 쪼갠다.
+//
+// 축을 찾는 방법은 「글자가 들어 있나」다. 그런데 학생은 「기계」가 아니라 **「기계공학과」**라고 쓴다.
+// 축 낱말은 「기계 시스템」이라, 「기계공학과」 안에 「기계 시스템」이 없고 거꾸로도 없다 — 못 만난다.
+// 그래서 전공 이름의 꼬리를 떼어 짧게 만든 말도 같이 넣는다.
+//
+//   기계공학과 → 기계공학 → 기계          전기전자공학부 → 전기전자공학 → 전기전자
+//   간호학과   → 간호                      체육교육과     → 체육교육     → 체육
+//
+// 짧게 만들수록 뜻이 흐려지므로 **점수를 낮춰서** 넣는다(weight). 과제 글에서 찾은 낱말이 먼저이고,
+// 전공은 과제가 아무 말도 안 할 때 기댈 곳이다.
+// 꼬리는 두 번에 나눠 뗀다. 한 번에 「학과」를 떼면 「기계공학과」가 「기계공」이 된다 — 「공학」의
+// 「학」까지 먹기 때문이다. 먼저 학과를 가리키는 꼬리(과·부·전공)만 떼고, 그 다음에 분야 꼬리를 뗀다.
+//   기계공학과 → (과) 기계공학 → (공학) 기계        생명과학과 → 생명과학 → 생명
+//   간호학과   → (과) 간호학   → (학)   간호        사학과     → 사학     → (사는 너무 짧아 그대로)
+const MAJOR_TAIL = /(학전공|전공|계열|과|부)$/;
+const FIELD_TAIL = /(공학|과학|교육|디자인|경영|행정|정책|문학|학)$/;
+
+export function expandMajorTerms(name) {
+  const base = String(name || '').trim();
+  if (base.length < 2) return [];
+  const out = [{ term: base, weight: 0.6 }];
+  const stripped = base.replace(MAJOR_TAIL, '');
+  if (stripped.length >= 2 && stripped !== base) out.push({ term: stripped, weight: 0.5 });
+  const head = stripped.replace(FIELD_TAIL, '');
+  if (head.length >= 2 && head !== stripped) out.push({ term: head, weight: 0.4 });
+  const seen = new Set();
+  return out.filter((one) => !seen.has(one.term) && seen.add(one.term));
+}
+
+// subject 를 주면 **그 과목의 축만** 고른다. 과제 글이 주제를 안 말할 때, 학생의 전공으로 축을 찾되
+// 지금 쓰는 과목 안에서 찾아야 하기 때문이다 — 컴퓨터학과 학생의 정보 과제에 「전자기와 양자」 축을
+// 물려 주면 안 된다.
+// **끝 숫자는 지우지 않는다.** 「공통국어1」과 「공통국어2」는 다른 과목이고, 통합과학·통합사회·
+// 과학탐구실험도 마찬가지다. 지웠더니 공통국어1 과제에 공통국어2 단원이 붙었다.
+const plainSubject = (value) => String(value || '').replace(/\s+/g, '');
+
+export function matchAxes(terms, index, limit = 4, subject = '') {
   if (!index?.keywords || !index?.axes) return [];
-  const wanted = (Array.isArray(terms) ? terms : []).map((term) => String(term || '').trim()).filter((term) => term.length >= 2);
+  // 낱말은 글자만 줄 수도 있고 {term, weight} 로 줄 수도 있다. 점수를 낮춰 넣고 싶은 말(전공에서
+  // 쪼갠 짧은 말)을 위해서다. 글자만 주면 weight 는 1 이다.
+  const wanted = (Array.isArray(terms) ? terms : [])
+    .map((one) => (one && typeof one === 'object'
+      ? { term: String(one.term || '').trim(), weight: Number(one.weight) || 1 }
+      : { term: String(one || '').trim(), weight: 1 }))
+    .filter((one) => one.term.length >= 2);
   const scores = new Map();
-  for (const term of wanted) {
+  for (const { term, weight } of wanted) {
     for (const [keyword, hits] of Object.entries(index.keywords)) {
       // A repeated interest rarely matches a keyword exactly: 항공우주 meets 항공, 미세먼지 meets 미세먼지 농도.
       if (!term.includes(keyword) && !keyword.includes(term)) continue;
       const closeness = Math.min(term.length, keyword.length) / Math.max(term.length, keyword.length);
       for (const [axisId, boost] of hits) {
-        scores.set(axisId, (scores.get(axisId) || 0) + boost * closeness);
+        scores.set(axisId, (scores.get(axisId) || 0) + boost * closeness * weight);
       }
     }
   }
+  const want = plainSubject(subject);
   return [...scores.entries()]
     .map(([axisId, score]) => ({ ...index.axes[axisId], axisId, score: Math.round(score) }))
     .filter((axis) => axis.title)
+    .filter((axis) => !want || plainSubject(axis.subject) === want)
     .sort((a, b) => b.score - a.score || a.priority - b.priority)
     .slice(0, limit);
 }

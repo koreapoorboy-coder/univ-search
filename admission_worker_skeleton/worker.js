@@ -1,12 +1,13 @@
 import { acceptLiveInputCandidate, handleSimpleLiveIntakeRequest, parseStrictIJson } from './simple_live_intake_v1.mjs';
 import { COLLECTION, STAGE, finalizeStageOutput, hasStudentMeasurements, normalizeStudentData, titleRules, resolveCollectionKind, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
-import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, matchAxes, priorWorkPromptLines, sanitizeAnalysis, sharesGround } from './upload_analysis_v1.mjs';
+import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, matchAxes, priorWorkPromptLines, sanitizeAnalysis, sharesGround, expandMajorTerms } from './upload_analysis_v1.mjs';
 import { pickReportShape, shapePromptLines } from './report_shape_v1.mjs';
 import { crossSubjectPromptLines, pickCrossSubject } from './cross_subject_v1.mjs';
 import { majorPathPromptLines, resolveMajorPath } from './major_path_v1.mjs';
 import { countAttempts, gradeNow, issueStudentCode, loadPortfolio, loadStudent, parseStudentCode, resetAttempts, saveStudentReport, updateStudent } from './student_portfolio_v1.mjs';
 import { majorFit } from './major_fit_v1.mjs';
 import { attachToStudent, saveReportOutput } from './report_archive_v1.mjs';
+import { chooseUnit, UNIT_SOURCE } from './unit_fallback_v1.mjs';
 import { adjustLicense, adjustStudent, checkEntitlement, claimSeat, emptyGrant, issueLicense, listLicenses, listStudents, loadLicense, releaseSeat, spendUse } from './license_v1.mjs';
 import { textbookCitation } from './references_v1.mjs';
 import { buildConceptCounts, buildMajorCounts, buildWordCounts, inferConcept, matchBooks } from './book_match_v1.mjs';
@@ -59,6 +60,11 @@ const SEED_FILES = {
   // Built by tools/build_major_curriculum_index.mjs: 33 majors' published curricula, already matched to the
   // 고교 개념 each course stands on.
   majorCurriculumIndex: 'engine-index/major_curriculum_index.v1.json',
+  // tools/build_major_subject_concept_index.mjs: 전공 33개 × 과목 26개 → 단원. 과제 글이 단원을
+  // 말하지 않을 때만 쓴다(unit_fallback_v1.mjs).
+  majorSubjectConceptIndex: 'engine-index/major_subject_concept_index.v1.json',
+  // tools/build_subject_default_unit.mjs: 그 과목 수행평가에서 가장 자주 나온 단원. 마지막 자리다.
+  subjectDefaultUnit: 'engine-index/subject_default_unit.v1.json',
   bookMatchIndex: 'engine-index/book_match_index.v1.json',
   publicDataTerms: 'engine-index/public_data_terms.v1.json',
   // Built by tools/build_univ_research_index.mjs: 개념마다 붙일 대학 연구 최대 2건.
@@ -387,12 +393,32 @@ export default {
             console.error('recent case lookup failed:', error?.message || error);
           }
         }
+        // 학생 부호는 위에서 이미 막아 두었다(NO_CODE). 여기서 또 부호 유무로 갈라 쓰면, 예전에 구멍이었던
+        // 「부호가 있을 때만 확인한다」 모양이 다시 생긴다 — 빈 부호는 studentPastConcepts 가 알아서 튕긴다.
+        if (env.DB) {
+          // 이 학생이 이 과목에서 이미 쓴 단원. 단원을 우리가 골라야 할 때 같은 단원을 또 주지 않으려는 것이다.
+          // 못 읽어도 보고서는 그대로 나간다 — 힌트이지 문이 아니다.
+          try {
+            input.pastConcepts = await studentPastConcepts(env.DB, input);
+          } catch (error) {
+            console.error('past concept lookup failed:', error?.message || error);
+          }
+        }
 
         const seedPack = await loadSeedPack(env);
         // What shape this kind of task actually takes, from real 평가계획 rather than one fixed outline.
         input.reportShape = pickReportShape(input, seedPack.reportShapeIndex);
         // Where this concept leads next, from our own 종단 축 rather than the model's guess.
-        input.careerAxes = matchAxes([input.selectedKeyword, input.keyword, input.selectedConcept, input.subject, input.track], seedPack.axisIndex, 2);
+        // **전공과 관심사도 넣는다.** 예전에는 키워드·개념·과목·계열만 넣었다. 그런데 계열은 「자연」처럼
+        // 뭉뚱그린 말이라 축 낱말에 안 걸리고, 과제 글이 주제를 안 말하는 과제(「과제」, 「발표」,
+        // 「자유주제탐구」)에서는 걸릴 낱말이 아예 없어 축이 0개가 됐다 — 전수 검사 2,473건 중 567건.
+        // 학생이 적은 전공(「기계공학과」)과 관심사는 우리가 이미 받아 두고도 안 쓰던 단서다.
+        input.careerAxes = matchAxes([
+          input.selectedKeyword, input.keyword, input.selectedConcept, input.subject,
+          ...expandMajorTerms(input.major),
+          ...(Array.isArray(input.interests) ? input.interests : []).flatMap((one) => expandMajorTerms(one)),
+          input.track,
+        ], seedPack.axisIndex, 2);
         // 횡단 평가: which second subject this topic can really carry, named from our own bridge data.
         input.crossSubject = pickCrossSubject(input, seedPack.crossSubjectIndex);
         // Where this report reaches next. A named major with a published curriculum that actually touches this
@@ -424,7 +450,23 @@ export default {
         // 둘이 다를 때 화면 쪽이 대체로 맞았다(H-R도 과제: 화면 「별의 특성과 진화」, 추정 「지층과 지질시대」).
         const listedUnit = [input.selectedKeyword, input.keyword].flatMap((one) => String(one || '').split(/\s*[·,]\s*/))
           .map((one) => one.trim()).find((one) => one && isUnitName(one)) || '';
-        const reportConcept = (namedConcept && isUnitName(namedConcept) ? namedConcept : '') || listedUnit || guessedConcept || namedConcept || careerConcept;
+        const fromTask = (namedConcept && isUnitName(namedConcept) ? namedConcept : '') || listedUnit || guessedConcept || namedConcept || careerConcept;
+        // **과제 글이 단원을 말하지 않는 과제가 전체의 23%다**(전수 검사 2,473건 중 567건: 「과제」,
+        // 「발표」, 「자유주제탐구」). 지금까지는 여기서 단원을 비워 둔 채 보고서를 썼고, 단원을 모르니
+        // 논문도 책도 안 붙어 속이 빈 보고서가 나갔다 — 오류 화면이 안 떠서 문제로 보이지도 않았다.
+        // 학생에게 묻지 않는다. 학생은 단원 이름을 모른다. 우리가 이미 받아 둔 전공과 지난 보고서로 정한다.
+        const chosen = fromTask ? { concept: fromTask, from: UNIT_SOURCE.TASK } : chooseUnit({
+          subject: input.subject,
+          major: input.major,
+          interests: input.interests,
+          axisIndex: seedPack.axisIndex,
+          majorSubjectIndex: seedPack.majorSubjectConceptIndex,
+          defaultUnitIndex: seedPack.subjectDefaultUnit,
+          used: input.pastConcepts,
+        });
+        const reportConcept = chosen.concept;
+        // 어느 길로 정했는지 남긴다. 나중에 어느 길이 얼마나 쓰였는지 세어 보려는 것이다.
+        input.unitSource = chosen.from;
         // 이 개념의 축이 있으면 그것을 쓴다. 없으면 진로 축으로 물러선다.
         // 화면이 보낸 개념 이름이 단원 이름과 다를 때가 있다 — 운영 사이트 테스트(2026-09-18)에서 화면은
         // 「지구 온난화」를 보냈고 단원 이름은 「지구의 기후 변화」였다. 축을 못 찾아 「다음에 해 볼 것」과
@@ -1095,6 +1137,18 @@ async function recentReportCases(db, input) {
   return (rows?.results || [])
     .map((row) => [row.case_tag, row.variable_tag, row.measure_tag].filter(Boolean).join(' | '))
     .filter(Boolean);
+}
+
+// 같은 학생이 이 과목에서 이미 쓴 단원. 학생 부호로 찾는다 — 학교·과제가 아니라 **그 학생**이다.
+async function studentPastConcepts(db, input) {
+  const code = String(input.studentCode || '').trim().toLowerCase();
+  if (!code) return [];
+  const rows = await db.prepare(`
+    SELECT concept FROM report_outputs
+    WHERE student_code = ? AND subject = ? AND concept <> ''
+    ORDER BY id DESC LIMIT 20
+  `).bind(code, String(input.subject || '')).all();
+  return [...new Set((rows?.results || []).map((row) => String(row.concept || '').trim()).filter(Boolean))];
 }
 
 async function saveReportCase(db, input, combination) {
