@@ -103,9 +103,20 @@
     ["인문", ["국어국문학과", "영어영문학과", "사학과"]],
     ["예체능", ["산업디자인학과", "체육교육과"]],
   ];
+  // 고른 계열의 학과가 맨 위로 온다. 운영 테스트 30(통합사회): 사회계열을 골라도 공학계열 학과부터 나와 한참 내려야 했다.
+  const GROUP_BY_CATEGORY = { engineering: "공학", natural: "자연", medical: "의약·보건", social: "사회", humanities: "인문" };
+  function orderMajorGroups(){
+    const root = $("majorChoiceList");
+    const first = GROUP_BY_CATEGORY[state.category];
+    if(!root || !first) return;
+    const box = [...root.querySelectorAll(".major-group")].find(one => one.querySelector("h3")?.textContent === first);
+    const undecided = root.querySelector(".major-undecided");
+    if(box && undecided) root.insertBefore(box, undecided.nextSibling);
+  }
   function renderMajorChoices(){
     const root = $("majorChoiceList");
-    if(!root || root.dataset.ready === "1") return;
+    if(!root) return;
+    if(root.dataset.ready === "1"){ orderMajorGroups(); return; }
     root.dataset.ready = "1";
     const undecided = document.createElement("button");
     undecided.type = "button";
@@ -131,6 +142,7 @@
       box.appendChild(row);
       root.appendChild(box);
     }
+    orderMajorGroups();
     root.addEventListener("click", event => {
       const btn = event.target.closest("[data-major]");
       if(!btn) return;

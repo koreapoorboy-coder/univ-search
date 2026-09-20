@@ -338,16 +338,25 @@ window.__ASSESSMENT_KEYWORD_BRIDGE_HELPER_VERSION__ = "v2.9.0-model-h-runtime";
     return crossAxisData?.structures || {};
   }
 
+  // 실험을 가리키는 말. 이 말이 없는 과제(통계 자료 분석·정책 제안 등)에 실험 구조를 붙이면 화면이 「가설과 변인 설정」·
+  // 「실험 조건」을 보여 준다 — 운영 테스트 30(통합사회 인구 통계). 그때는 비슷한 기록의 구조보다 해석 결과를 믿는다.
+  const EXPERIMENT_WORDS = /실험|측정|적정|관찰|반응|시료|장치|재어|재고|용액|온도를/;
   function chooseStructureId(task, interpretation, payload){
     const override = readInterpretationOverride(payload);
     if(override?.structureId && structureCatalog()[override.structureId]) return override.structureId;
-    if(task?.structureId && structureCatalog()[task.structureId]) return task.structureId;
     const modes = interpretation?.rule?.report_mode || [];
+    let modeId = "";
     for(const mode of modes){
       const id = STRUCTURE_BY_REPORT_MODE[mode];
-      if(id && structureCatalog()[id]) return id;
+      if(id && structureCatalog()[id]){ modeId = id; break; }
     }
-    return "structure_research_report";
+    if(task?.structureId && structureCatalog()[task.structureId]){
+      const recordIsExperiment = /experiment/.test(task.structureId);
+      const textHasExperiment = EXPERIMENT_WORDS.test(rawTaskText(payload));
+      if(modeId && modeId !== task.structureId && recordIsExperiment && !textHasExperiment) return modeId;
+      return task.structureId;
+    }
+    return modeId || "structure_research_report";
   }
 
   function hasBookSignal(payload, outputAxes){
