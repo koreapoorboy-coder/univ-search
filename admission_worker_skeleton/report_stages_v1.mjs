@@ -588,6 +588,14 @@ export function removeInventedActions(body, studentText) {
 // 느낀 점 is what the teacher reads when they write 세특, so a sentence that praises the student — 성실하게
 // 참여했다, 적극적으로 협동하였다 — is the one thing that must not be in it: the judgement is the teacher's to
 // make. The prompt forbids it and the 생기부 draft strips it, but the section itself never did.
+// 학생이 참고 자료를 적었는데 「참고 자료는 별도로 인용하지 않았다」고 쓴 문장은 지운다. 운영 테스트 34:
+// 학생이 적은 자료 두 개가 참고 자료에서 빠지자 느낀 점에 이 문장이 들어갔다(자료는 그대로 있었다).
+const NO_SOURCE_CLAIM = /(참고\s*자료|참고\s*문헌|자료를|문헌을|인용)[^.]*(인용하지|적지|쓰지|밝히지|사용하지|참고하지)\s*(않았|못했|않고|않은)/;
+export function removeNoSourceClaim(body, hasSources) {
+  if (!hasSources) return { body: String(body || ''), removed: 0, dropped: [] };
+  return filterSentences(body, (sentence) => !NO_SOURCE_CLAIM.test(sentence));
+}
+
 export function removeSelfPraise(body, studentText) {
   const text = String(studentText || '');
   return filterSentences(body, (sentence) => !SELF_PRAISE.test(sentence) || text.includes(sentence.trim().slice(0, 12)));
@@ -1239,8 +1247,9 @@ export function finalizeStageOutput(stage, rawParsed, input) {
         const feelings = removeInventedFeelings(numbers.body, studentText);
         const praise = removeSelfPraise(feelings.body, studentText);
         const actions = removeInventedActions(praise.body, studentText);
-        removedFeelings += feelings.removed + praise.removed + actions.removed;
-        return { ...section, body: actions.body };
+        const sourceClaim = removeNoSourceClaim(actions.body, (data.sources || []).length > 0);
+        removedFeelings += feelings.removed + praise.removed + actions.removed + sourceClaim.removed;
+        return { ...section, body: sourceClaim.body };
       }
       return { ...section, body: numbers.body };
     });

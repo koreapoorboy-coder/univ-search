@@ -213,4 +213,30 @@ const axisIndex = { axes: {
     "F7 before the report is made, so the section can use it");
 }
 
+// F9 운영 테스트 34(지구과학 지진 과제): 참고 자료의 교과서 단원이 진로 축의 단원(해수)으로 찍혔고,
+// 학생이 적은 교과서 자료 한 줄이 통째로 사라졌다.
+{
+  const earth = { axes: {
+    ocean: { subject: "지구과학", concept: "해수의 성질" },
+    tectonic: { subject: "지구과학", concept: "판 구조와 암석 변화" },
+  } };
+  const own = textbookCitation({ subject: "지구과학", selectedConcept: "판 구조와 암석 변화", careerAxes: [{ axisId: "ocean" }] }, earth);
+  check(own === "지구과학Ⅰ 교과서 · 판 구조와 암석 변화 단원", "F9 보고서가 선 단원이 진로 축의 단원보다 먼저다", own);
+  const notUnit = textbookCitation({ subject: "지구과학", selectedConcept: "관측 자료", careerAxes: [{ axisId: "ocean" }] }, earth);
+  check(notUnit === "지구과학Ⅰ 교과서 · 해수의 성질 단원", "F9 단원 이름이 아니면 예전처럼 축의 단원으로 물러선다", notUnit);
+  const mine = referencesBody({
+    cards: [{ title: "지구과학 교과서 지진파와 지구 내부 단원", type: "교과서", take: "P파와 S파의 속도 차이로 진앙 거리를 구하는 방법을 읽었다" }],
+    textbook: "지구과학Ⅰ 교과서 · 판 구조와 암석 변화 단원",
+  });
+  check(mine.includes("진앙 거리를 구하는 방법을 읽었다"), "F9 학생이 적은 교과서 자료는 지우지 않는다", mine);
+  check(mine.split("\n").length === 2 && mine.endsWith("판 구조와 암석 변화 단원"), "F9 우리 교과서 줄은 그 뒤에 그대로 붙는다", JSON.stringify(mine));
+  const vague = referencesBody({ cards: [{ title: "기상청 지진 조회", type: "기관 자료", take: "도달 시각을 얻었다" }],
+    fallbackBody: "", textbook: "지구과학Ⅰ 교과서 · 판 구조와 암석 변화 단원" });
+  check(!/관련 단원/.test(vague), "F9 뭉뚱그린 교과서 줄은 여전히 갈아 끼운다", vague);
+  const { removeNoSourceClaim } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  const claim = removeNoSourceClaim("자료를 읽고 계산했다. 참고 자료는 별도로 인용하지 않았고, 공개 기록만으로 판독했다. 다음에는 두 번 읽고 싶다.", true);
+  check(claim.removed === 1 && !claim.body.includes("인용하지 않았"), "F9 자료를 적었는데 안 적었다고 쓴 문장은 지운다", claim.body);
+  check(removeNoSourceClaim("참고 자료는 별도로 인용하지 않았다.", false).removed === 0, "F9 정말 아무것도 안 적었으면 그대로 둔다");
+}
+
 console.log(`PASS references: ${passed}/${passed}`);

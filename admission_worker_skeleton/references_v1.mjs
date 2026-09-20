@@ -41,7 +41,14 @@ export function textbookCitation(input, axisIndex) {
   const fromAxis = axis?.axisId ? (axisIndex?.axes || {})[axis.axisId] : null;
   // 축의 단원은 축의 과목이 학생 과목과 같을 때만 쓴다. 다른 과목의 단원을 이 교과서 이름 뒤에 붙이면 거짓이다.
   const axisUnit = clean(fromAxis?.subject, 40) === ownSubject ? clean(fromAxis?.concept, 60) : '';
-  const unit = axisUnit || clean(input?.selectedConcept, 60);
+  // **이 보고서가 선 단원이 먼저다.** 축은 이 탐구가 앞으로 갈 곳이라 지금 단원과 다르다 — 운영 테스트 34(지구과학
+  // 지진 과제): 축이 해양이라 참고 자료에 「지구과학Ⅰ 교과서 · 해수의 성질 단원」이 붙었다(본문은 지진파 단원이라고
+  // 맞게 썼다). 워커가 이미 정한 단원(reportConcept)이 그 과목의 진짜 단원 이름이면 그것을 쓴다.
+  const plain = (value) => String(value || '').replace(/\s+/g, '');
+  const ownUnit = clean(input?.selectedConcept, 60);
+  const isUnitName = (name) => Boolean(name) && Object.values(axisIndex?.axes || {})
+    .some((one) => one.concept === name && plain(one.subject) === plain(ownSubject));
+  const unit = (isUnitName(ownUnit) ? ownUnit : '') || axisUnit || ownUnit;
   // 평가 기준 문장이 개념 칸에 들어오는 일이 있다. 문장은 단원 이름이 아니다.
   const looksLikeSentence = unit.length > 30 || /(하였는가|했는가|는가[.?]?|[다요][.]?)$/.test(unit);
   return unit && !looksLikeSentence ? `${subject} 교과서 · ${unit} 단원` : `${subject} 교과서`;
@@ -130,7 +137,11 @@ export function referencesBody({ cards = [], papers = [], web = [], datasets = [
     // 아는 것을 두고 모르는 척한 줄이 보고서에 남는다. 뭉뚱그린 줄은 우리 줄로 갈아 끼운다.
     // 서지 줄(「저자 (연도). 제목.」)은 제목에 '교과서'가 들어 있어도 논문이다 — 「…통합사회 교과서의 행복 개념
     // 분석」이 뭉뚱그린 교과서 줄로 보여 지워졌다(엔진 전수 검사 2026-09-18).
-    const vague = (line) => /교과서/.test(line) && !line.includes('·') && !/\(\d{4}\)\./.test(line);
+    // **학생이 적은 줄은 건드리지 않는다.** 운영 테스트 34(지구과학 지진 과제): 학생이 적은 「지구과학 교과서
+    // 지진파와 지구 내부 단원 (교과서) — …를 읽었다」가 뭉뚱그린 줄로 보여 통째로 지워졌고, 느낀 점에는
+    // 「참고 자료는 별도로 인용하지 않았고」라는 틀린 문장이 남았다.
+    const mine = new Set(cards.map((card) => sourceLine(card)).filter(Boolean));
+    const vague = (line) => /교과서/.test(line) && !mine.has(line) && !line.includes('·') && !/\(\d{4}\)\./.test(line);
     const precise = lines.findIndex((line) => line === textbook);
     const kept = lines.filter((line) => !vague(line));
     if (precise < 0) kept.push(textbook);
