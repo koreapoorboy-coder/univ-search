@@ -271,4 +271,25 @@ check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조
   check(table.rows[0][0] === "우리 지역 · 2000년", "C14 표의 조건 이름은 그대로 둔다", JSON.stringify(table.rows[0]));
 }
 
+// C15 운영 테스트 35(지구과학 진앙 거리): 116.8 km를 「117 km」로 적고, 그 117로 범위를 구해 65.6이 아닌 65.8이 되었다.
+{
+  const one = verifyCalculations([{ what: "진앙 거리", constants: [], expression: "8 × 14.6", result: "117", unit: "km" }], new Set(["8", "14.6"]));
+  check(one.verified.length === 0 && /소수를 버림/.test(one.rejected[0].why), "C15 소수를 버린 답은 받지 않는다", JSON.stringify(one.rejected[0]));
+  const kept = verifyCalculations([{ what: "진앙 거리", constants: [], expression: "8 × 14.6", result: "116.8", unit: "km" }], new Set(["8", "14.6"]));
+  check(kept.verified.length === 1, "C15 자릿수를 지킨 답은 그대로 통과한다", JSON.stringify(kept.rejected));
+  const chained = verifyCalculations([
+    { what: "진앙 거리", constants: [], expression: "8 × 14.6", result: "116.8", unit: "km" },
+    { what: "범위", constants: [], expression: "117 - 51.2", result: "65.8", unit: "km" },
+  ], new Set(["8", "14.6", "51.2"]));
+  check(chained.verified.length === 1 && /출처 없는 숫자/.test(chained.rejected[0].why), "C15 반올림한 값(117)은 다음 식에 못 쓴다", JSON.stringify(chained.rejected[0]));
+  const right = verifyCalculations([
+    { what: "진앙 거리", constants: [], expression: "8 × 14.6", result: "116.8", unit: "km" },
+    { what: "범위", constants: [], expression: "116.8 - 51.2", result: "65.6", unit: "km" },
+  ], new Set(["8", "14.6", "51.2"]));
+  check(right.verified.length === 2, "C15 정확한 값으로 이은 계산은 둘 다 통과한다", JSON.stringify(right.rejected));
+  check(right.allowed.has("117"), "C15 본문에서 「약 117 km」라고 어림해 말하는 것은 그대로 둔다");
+  const round = verifyCalculations([{ what: "학생 수", constants: [], expression: "120 ÷ 4", result: "30", unit: "명" }], new Set(["120", "4"]));
+  check(round.verified.length === 1, "C15 답이 정말 정수면 정수로 적는다", JSON.stringify(round.rejected));
+}
+
 console.log(`\n${passed} checks passed`);

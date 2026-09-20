@@ -92,7 +92,16 @@ export function evaluateExpression(text) {
 }
 
 // 답이 식의 값을 적은 자릿수로 반올림한 것인가. 유효숫자로 줄여 쓴 것(0.72 대신 0.7)도 1% 안이면 맞다고 본다.
+// 계산값에 소수가 있는데 답을 정수로 줄여 적으면, 그 답을 쓰는 다음 계산이 통째로 어긋난다. 운영 테스트 35(지구과학
+// 진앙 거리): 8 × 14.6 = 116.8 km를 「117 km」로 적고, 그 117로 범위를 구해 65.6이 아닌 「65.8 km」가 되었다.
+const dropsDecimals = (computed, written) => {
+  if ((String(written).split('.')[1] || '').length) return false;
+  const exact = Math.round(computed * 100) / 100;
+  return Math.abs(exact - Math.round(exact)) > 1e-9 && Math.abs(computed) < 1000;
+};
+
 function sameResult(computed, written) {
+  if (dropsDecimals(computed, written)) return false;
   const decimals = (String(written).split('.')[1] || '').length;
   const step = 10 ** -decimals;
   const value = Number(written);
@@ -100,9 +109,11 @@ function sameResult(computed, written) {
   return Math.abs(computed) > 0 && Math.abs(computed - value) / Math.abs(computed) <= 0.01;
 }
 
-const addRounded = (allowed, value) => {
+// digits 를 주면 그 자릿수만 더한다. 본문에는 반올림한 값(「약 117 km」)을 써도 되지만, **식에는** 반올림한
+// 값을 쓰면 안 된다 — 그래서 식에 쓸 수 있는 숫자 모음에는 소수를 버린 값을 넣지 않는다.
+const addRounded = (allowed, value, digitList = [0, 1, 2, 3]) => {
   if (!Number.isFinite(value)) return;
-  [0, 1, 2, 3].forEach((digits) => {
+  digitList.forEach((digits) => {
     const rounded = Math.round(value * 10 ** digits) / 10 ** digits;
     allowed.add(canonical(rounded));
     allowed.add(canonical(Math.abs(rounded)));
@@ -112,6 +123,8 @@ const addRounded = (allowed, value) => {
 // allowed 는 쓸 수 있는 숫자 모음이다(report_stages_v1 의 allowedNumberSet). 맞는 계산의 상수와 답을 더해 돌려준다.
 export function verifyCalculations(list, allowed) {
   const extended = new Set(allowed);
+  // 식에 쓸 수 있는 숫자 — 본문보다 좁다. 앞 계산의 답을 반올림한 값(116.8 → 117)은 여기에 넣지 않는다.
+  const exact = new Set(allowed);
   const verified = [];
   const rejected = [];
   for (const raw of (Array.isArray(list) ? list : []).slice(0, MAX_CALCULATIONS)) {
@@ -122,7 +135,7 @@ export function verifyCalculations(list, allowed) {
     const result = clip(raw?.result, 20).replace(/,/g, '');
     // 단위 바꾸기(mL→L ÷1000, 백분율 ×100)의 10의 거듭제곱은 출처를 따지지 않는다. 운영 테스트 12(2026-09-19): 맞게 계산한
     // 몰 농도·산도·오차율이 「÷ 1000」 때문에 모두 떨어졌다.
-    const known = new Set([...extended, ...UNIT_FACTORS, ...TEXTBOOK_CONSTANTS.map(canonical), ...constants.map((one) => canonical(one.value))]);
+    const known = new Set([...exact, ...UNIT_FACTORS, ...TEXTBOOK_CONSTANTS.map(canonical), ...constants.map((one) => canonical(one.value))]);
     const numbers = expression.replace(/,/g, '').match(/\d+(?:\.\d+)?/g) || [];
     // 단위를 미리 바꿔 적은 숫자(35.93 mL → 0.03593 L, 5 mL → 0.005 L)도 아는 숫자다. 운영 테스트 14에서 맞는 산도 계산이
     // 이것 때문에 떨어졌다. 아는 숫자에 10의 거듭제곱을 곱하거나 나눈 값인지 본다.
@@ -133,15 +146,17 @@ export function verifyCalculations(list, allowed) {
     const why = !/^-?\d+(?:\.\d+)?$/.test(result) ? '답이 숫자가 아님'
       : computed === null ? '식을 읽을 수 없음'
         : !numbers.every(knownOrShifted) ? '식에 출처 없는 숫자'
-          : !sameResult(computed, result) ? '답이 식과 다름' : '';
+          : dropsDecimals(computed, result) ? '답에서 소수를 버림(116.8을 117로 적음)'
+            : !sameResult(computed, result) ? '답이 식과 다름' : '';
     if (why) { rejected.push({ what: clip(raw?.what, 60), expression, result, why }); continue; }
-    constants.forEach((one) => extended.add(canonical(one.value)));
+    constants.forEach((one) => { extended.add(canonical(one.value)); exact.add(canonical(one.value)); });
     // 검산을 통과한 식의 숫자(36.0 mL를 리터로 바꾼 0.0360 등)도 본문에 쓸 수 있다. 운영 테스트 19: 본문에 식을 풀어 쓴
     // 「0.1×0.0360=0.00360 mol」 문장이 0.0360 때문에 지워졌다.
-    numbers.forEach((number) => extended.add(canonical(number)));
+    numbers.forEach((number) => { extended.add(canonical(number)); exact.add(canonical(number)); });
     addRounded(extended, computed);
+    addRounded(exact, computed, [1, 2, 3]);
     // 뒤 계산은 앞 답의 **절댓값**을 그대로 쓰기도 한다(차이 -0.2079… → 상대오차 0.2079… ÷ 4.5). 운영 테스트 16.
-    [computed, Math.abs(computed), Number(result), Math.abs(Number(result))].forEach((value) => extended.add(canonical(value)));
+    [computed, Math.abs(computed), Number(result), Math.abs(Number(result))].forEach((value) => { extended.add(canonical(value)); exact.add(canonical(value)); });
     // 단위에 답 형식 조각이 붙어 오기도 했다(「%p},{」, 운영 테스트 19).
     verified.push({ what: clip(raw?.what, 60), constants, expression, result, unit: clip(String(raw?.unit ?? '').split(/["{}[\],]/)[0], 20) });
   }
@@ -179,6 +194,7 @@ export function calculationPromptLines() {
     '- 한 계산에는 단위 바꾸기를 여러 번 섞지 않는다. 예: ① 몰 농도(M) = 0.1 × 36.0 ÷ 5 → 0.72, ② 산도(%) = 0.72 × 60.05 ÷ 10 → 4.32, ③ 오차율(%) = (4.5 - 4.32) ÷ 4.5 × 100 → 4. 단위 바꾸기를 한 식에 여러 번 섞으면 자릿수가 틀리기 쉽다. 앞 단계의 result를 다음 식에 그대로 쓴다. 단, 리터로 바꾸기·블랭크 빼기 같은 작은 손질만 따로 떼어 칸을 쓰지 않는다 — 칸은 최대 16개이고, **안내문이 구하라고 한 값과 기준값 비교가 먼저**다.',
     '- 코드가 식을 다시 계산해 맞는 계산의 result만 본문에 쓸 수 있다. 본문에는 계산 과정(무엇을 무엇으로 나눴는지)과 result를 함께 쓴다.',
     '- **calculations에 없는 계산 결과를 본문에 쓰면 그 문장은 통째로 지워진다.** 농도, 산도, 비율, 오차율처럼 본문에 쓸 계산값은 하나도 빠짐없이 calculations에 먼저 넣는다. 비율(예: 72.1 ÷ 36.0)도 계산이다.',
+    '- 앞 계산의 답을 뒤 계산에 쓸 때는 **반올림하지 않은 값 그대로** 쓴다. 116.8을 117로 줄여 적으면 그 답도, 그 값을 쓴 다음 계산도 지워진다. result에도 소수를 버리지 않고 적고, 본문에도 같은 자릿수로 쓴다.',
     '- 기준값이 있으면 계산한 값과 나란히 놓고 차이와 오차율(%)을 calculations로 계산해 비교한다. 비교하라는 안내문인데 기준값이 비어 있으면, 계산한 값까지 쓰고 "기준값을 옮겨 적으면 바로 비교할 수 있다"를 한계에 쓴다.',
   ];
 }

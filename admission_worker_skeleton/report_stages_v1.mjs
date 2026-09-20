@@ -1247,7 +1247,9 @@ export function finalizeStageOutput(stage, rawParsed, input) {
         const feelings = removeInventedFeelings(numbers.body, studentText);
         const praise = removeSelfPraise(feelings.body, studentText);
         const actions = removeInventedActions(praise.body, studentText);
-        const sourceClaim = removeNoSourceClaim(actions.body, (data.sources || []).length > 0);
+        // 실험 보고서의 학생 자료는 sourceCards 에 있다(sources 는 문헌 탐구 보고서 쪽이다). 운영 테스트 35에서
+        // sources 만 보다가 「참고 자료는 별도로 사용하지 않았고」가 그대로 남았다.
+        const sourceClaim = removeNoSourceClaim(actions.body, (data.sources || []).length + (data.sourceCards || []).length > 0);
         removedFeelings += feelings.removed + praise.removed + actions.removed + sourceClaim.removed;
         return { ...section, body: sourceClaim.body };
       }
