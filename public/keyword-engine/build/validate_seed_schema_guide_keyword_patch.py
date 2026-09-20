@@ -72,7 +72,10 @@ require('"지구과학"' in notice and "THIN_SEED" in notice, "지구과학 thin
 # Protected policies from Patches 1-4.
 require('category never filters the subject pool' in json.dumps(data.get("majorMatching") or {}, ensure_ascii=False), "major weighting policy regressed")
 require('<option value="확률과 통계"' in index and '<option value="확률과통계"' not in index, "확률과 통계 spacing regressed")
-require(re.search(r'<input\s+id="schoolName"\s+type="hidden"', index) is not None, "schoolName must remain hidden")
+# 2026-09-21: 학교 이름은 물어본다. 어느 학교에서 어떤 수행평가가 나오는지가 우리가 모으는
+# 자료의 핵심이고, 보고서 본문·과제 설명에서는 scrubForArchive 가 「○○학교」로 가린다.
+# 예전 규칙은 이 칸이 숨겨져 있어야 한다고 했는데, 화면은 오래전부터 보이는 필수 칸이었다.
+require('<input id="schoolName" type="text" required' in index, "schoolName must stay a visible required field")
 
 runtime_script = ROOT / "build/runtime_validate_guide_keyword_selection.js"
 require(runtime_script.is_file(), "runtime guide-keyword validator is missing")
