@@ -1,18 +1,21 @@
 (function(global){
   "use strict";
 
-  const VERSION = "subject-support-notice-v1.1.0";
+  const VERSION = "subject-support-notice-v1.2.0";
   const STORAGE_KEY = "ke.subjectSelectionLogs.v1";
-  const NOTICE_TEXT = "현재 과학·수학·정보 과목을 지원합니다.\n국어·영어 수행평가는 준비 중입니다.";
+  const NOTICE_TEXT = "현재 과학·수학·사회·영어·정보 과목을 지원합니다.\n국어 수행평가는 준비 중입니다.";
   const THIN_SEED_NOTICE = "이 과목의 전용 참고 사례는 현재 확충 중입니다.\n보유 범위에서 결과를 제공하지만, 다른 과목보다 주제 다양성이 낮을 수 있습니다.";
-  const PENDING_LANGUAGE = new Set(["공통국어1", "공통국어2", "영어"]);
-  const PENDING_NO_SEED = new Set(["한국사"]);
+  const PENDING_LANGUAGE = new Set(["공통국어1", "공통국어2"]);
   // 런타임 후보 30건 미만 과목. 기능은 정상 동작하며 안내만 표시한다.
   const THIN_SEED = new Set([
     "공통수학1", "공통수학2", "지구과학",
-    "통합사회1", "통합사회2", "지구시스템과학"
+    "통합사회1", "통합사회2", "지구시스템과학",
+    // 영어·한국사는 2026-09-20 에 단원 사전과 논문 묶음을 넣어 보고서가 만들어진다. 다만 이 과목 전용
+    // 런타임 후보(assessment_seed_cross_axis)는 아직 0건이라 「확충 중」 안내를 보여 준다 — 「준비 중」이
+    // 아니다. 되는 과목을 안 된다고 적어 두면 학생이 그냥 나간다.
+    "영어", "한국사"
   ]);
-  const HELD = new Set([...PENDING_LANGUAGE, ...PENDING_NO_SEED, ...THIN_SEED]);
+  const HELD = new Set([...PENDING_LANGUAGE, ...THIN_SEED]);
   const EXPECTED_COUNTS = {
     "공통국어1": 0,
     "공통국어2": 0,
@@ -49,7 +52,6 @@
   }
   function statusOf(subject){
     if(PENDING_LANGUAGE.has(subject)) return "pending_language_seed";
-    if(PENDING_NO_SEED.has(subject)) return "pending_no_seed";
     if(THIN_SEED.has(subject)) return "thin_seed_pool";
     return "supported";
   }
@@ -86,8 +88,6 @@
     let noticeText;
     if(THIN_SEED.has(subject)){
       noticeText = THIN_SEED_NOTICE;
-    }else if(PENDING_NO_SEED.has(subject)){
-      noticeText = "현재 과학·수학·정보 과목을 지원합니다.\n한국사 수행평가는 준비 중입니다.";
     }else{
       noticeText = NOTICE_TEXT;
     }

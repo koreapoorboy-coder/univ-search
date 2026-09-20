@@ -28,7 +28,7 @@ NEW_OPTIONS = {
     "생물의 유전",
 }
 HELD = {"공통국어1", "공통국어2", "영어", "공통수학1", "공통수학2", "지구과학"}
-NOTICE = "현재 과학·수학·정보 과목을 지원합니다.\n국어·영어 수행평가는 준비 중입니다."
+NOTICE = "현재 과학·수학·사회·영어·정보 과목을 지원합니다.\n국어 수행평가는 준비 중입니다."
 
 
 class PageParser(HTMLParser):
@@ -97,8 +97,8 @@ def main() -> int:
     support_text = support_js.read_text(encoding="utf-8")
     for subject in HELD:
         assert subject in support_text, subject
-    assert "현재 과학·수학·정보 과목을 지원합니다." in support_text
-    assert "국어·영어 수행평가는 준비 중입니다." in support_text
+    assert "현재 과학·수학·사회·영어·정보 과목을 지원합니다." in support_text
+    assert "국어 수행평가는 준비 중입니다." in support_text
     assert 'event_type: "subject_selection"' in support_text
 
     helper_text = helper_js.read_text(encoding="utf-8")

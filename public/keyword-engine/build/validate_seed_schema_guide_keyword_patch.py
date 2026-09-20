@@ -58,11 +58,15 @@ require("guideVocabularyBonus" in helper, "exact seed-vocabulary overlap bonus i
 
 index = (ROOT / "index.html").read_text(encoding="utf-8")
 require(index.count('<option value="한국사"') == 1, "한국사 option must exist exactly once")
-ready_start = index.find('<optgroup label="준비 중">')
+# 2026-09-21: 한국사는 단원 사전과 논문 묶음을 넣어 보고서가 만들어진다. 「준비 중」 칸에서 「사회」 칸으로
+# 옮겼고, 안내는 「준비 중」이 아니라 「참고 사례 확충 중」이다.
+social_start = index.find('<optgroup label="사회">')
+social_end = index.find('</optgroup>', social_start)
 korean_history = index.find('<option value="한국사"')
-require(ready_start >= 0 and korean_history > ready_start, "한국사 must be in the 준비 중 group")
+require(social_start >= 0 and social_start < korean_history < social_end, "한국사 must be in the 사회 group")
 notice = (ROOT / "assets/js/subject_support_notice.js").read_text(encoding="utf-8")
-require('PENDING_NO_SEED = new Set(["한국사"])' in notice, "한국사 pending/log status is missing")
+require('PENDING_NO_SEED' not in notice, "한국사 must no longer be a pending subject")
+require('"영어", "한국사"' in notice, "영어·한국사 thin-seed notice is missing")
 require('"지구과학"' in notice and "THIN_SEED" in notice, "지구과학 thin-seed notice must remain")
 
 # Protected policies from Patches 1-4.
