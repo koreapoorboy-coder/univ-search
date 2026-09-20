@@ -41,14 +41,24 @@ export const CALCULATION_SCHEMA = {
   },
 };
 
-// 숫자와 + - × ÷ * / ( ) 만 읽는다. 그 밖의 글자가 있으면 계산하지 않는다.
+// 숫자와 + - × ÷ * / ( ) √ ^ 와 log( ) ln( ) sin( ) cos( ) tan( ) 을 읽는다. 그 밖의 글자가 있으면 계산하지 않는다.
 export function evaluateExpression(text) {
   // 표준편차에는 제곱근과 제곱이 필요하다(운영 테스트 27: 도수분포표의 표준편차). √(…)·sqrt(…)·^2·² 를 읽는다.
+  // 로그와 삼각함수도 읽는다 — 대수의 「지수와 로그」, 기하·미적분의 「삼각함수」 과제는 이것 없이는 계산을 한 줄도
+  // 검산할 수 없어 값이 든 문장이 모두 지워진다(루프 2, 2026-09-20). 각도는 °를 붙인다: sin(30°).
   const source = String(text || '').replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-').replace(/,/g, '')
-    .replace(/²/g, '^2').replace(/sqrt/gi, '√');
-  if (!/^[\d.\s+\-*/()√^]+$/.test(source)) return null;
-  const tokens = source.match(/\d+(?:\.\d+)?|[+\-*/()√^]/g) || [];
+    .replace(/²/g, '^2').replace(/sqrt/gi, '√').replace(/log10/gi, 'log').replace(/log₁₀/g, 'log')
+    .replace(/\bLN\b/g, 'ln').replace(/deg\b/gi, '°').toLowerCase();
+  if (!/^[\d.\s+\-*/()√^°]*(?:(?:log|ln|sin|cos|tan)\s*\(|[\d.\s+\-*/()√^°])*$/.test(source)) return null;
+  if (/[a-z]/.test(source.replace(/log|ln|sin|cos|tan/g, ''))) return null;
+  const tokens = source.match(/\d+(?:\.\d+)?|log|ln|sin|cos|tan|[+\-*/()√^°]/g) || [];
+  const FUNCTIONS = {
+    log: (value) => (value > 0 ? Math.log10(value) : null),
+    ln: (value) => (value > 0 ? Math.log(value) : null),
+    sin: Math.sin, cos: Math.cos, tan: Math.tan,
+  };
   let at = 0;
+  let degreeUsed = false;
   const peek = () => tokens[at];
   const take = () => tokens[at++];
   function atom() {
@@ -56,13 +66,34 @@ export function evaluateExpression(text) {
     if (token === '(') { const value = sum(); if (take() !== ')') throw new Error('paren'); return value; }
     if (token === '-') return -power();
     if (token === '√') { const value = power(); if (value < 0) throw new Error('sqrt'); return Math.sqrt(value); }
+    if (FUNCTIONS[token]) {
+      if (take() !== '(') throw new Error('call');
+      const before = degreeUsed;
+      degreeUsed = false;
+      const inner = sum();
+      if (take() !== ')') throw new Error('paren');
+      // 학교 과제의 각은 도(°)다. °를 안 붙여도 sin·cos·tan의 각은 도로 읽는다 — 라디안으로 읽으면 학생 자료와
+      // 어긋나 계산이 떨어지고 문장이 지워진다.
+      const angle = /^(?:sin|cos|tan)$/.test(token) && !degreeUsed ? (inner * Math.PI) / 180 : inner;
+      degreeUsed = before;
+      const value = FUNCTIONS[token](angle);
+      if (value === null || !Number.isFinite(value)) throw new Error('domain');
+      return value;
+    }
     if (token !== undefined && /^\d/.test(token)) return Number(token);
     throw new Error('token');
   }
   function power() {
-    const base = atom();
+    // 각도 표시(30°)는 라디안으로 바꿔 둔다 — 학교 과제의 각은 도(°)로 적는다.
+    const base = degree(atom());
     if (peek() === '^') { take(); return base ** power(); }
     return base;
+  }
+  function degree(value) {
+    if (peek() !== '°') return value;
+    take();
+    degreeUsed = true;
+    return (value * Math.PI) / 180;
   }
   const primary = power;
   function product() {
@@ -204,7 +235,7 @@ export function tidyCalculatedNumbers(body, verified) {
 export function calculationPromptLines() {
   return [
     '- 안내문이 구하라고 한 값(농도·산도·속력·효율·오차율 등)을 학생 숫자로 계산할 수 있으면, 본문을 쓰기 전에 calculations에 식으로 먼저 계산한다. 계산이 필요 없으면 빈 배열이다.',
-    '- calculations의 expression은 숫자와 + - × ÷ ( )만 쓴 한 줄 식이다(단위·글자 없이). 식의 숫자는 학생입력·결과정리·기준값·안내문·1차 설계서의 숫자, 앞 계산의 result, 또는 constants에 이름과 함께 적은 교과서 상수(몰질량 등)만 쓴다. result는 식의 값을 반올림한 숫자다 — 10 이상이면 소수 첫째 자리까지(116.8), 10보다 작으면 유효숫자 세 자리까지(4.32, 0.176) 적고, 소수를 통째로 버리지 않는다(116.8을 117로 적지 않는다). 측정값이 0.05 mL 눈금인데 답을 소수 넷째 자리까지 적는 것은 정밀도를 부풀리는 것이다.',
+    '- calculations의 expression은 숫자와 + - × ÷ ( ) √ ^ 와 log( ) · ln( ) · sin( ) · cos( ) · tan( ) 만 쓴 한 줄 식이다(단위·글자 없이). 삼각함수의 각은 도(°)로 읽는다(sin(30) = 0.5). 상용로그는 log( ), 자연로그는 ln( )이다. 식의 숫자는 학생입력·결과정리·기준값·안내문·1차 설계서의 숫자, 앞 계산의 result, 또는 constants에 이름과 함께 적은 교과서 상수(몰질량 등)만 쓴다. result는 식의 값을 반올림한 숫자다 — 10 이상이면 소수 첫째 자리까지(116.8), 10보다 작으면 유효숫자 세 자리까지(4.32, 0.176) 적고, 소수를 통째로 버리지 않는다(116.8을 117로 적지 않는다). 측정값이 0.05 mL 눈금인데 답을 소수 넷째 자리까지 적는 것은 정밀도를 부풀리는 것이다.',
     '- 한 계산에는 단위 바꾸기를 여러 번 섞지 않는다. 예: ① 몰 농도(M) = 0.1 × 36.0 ÷ 5 → 0.72, ② 산도(%) = 0.72 × 60.05 ÷ 10 → 4.32, ③ 오차율(%) = (4.5 - 4.32) ÷ 4.5 × 100 → 4. 단위 바꾸기를 한 식에 여러 번 섞으면 자릿수가 틀리기 쉽다. 앞 단계의 result를 다음 식에 그대로 쓴다. 단, 리터로 바꾸기·블랭크 빼기 같은 작은 손질만 따로 떼어 칸을 쓰지 않는다 — 칸은 최대 16개이고, **안내문이 구하라고 한 값과 기준값 비교가 먼저**다.',
     '- 코드가 식을 다시 계산해 맞는 계산의 result만 본문에 쓸 수 있다. 본문에는 계산 과정(무엇을 무엇으로 나눴는지)과 result를 함께 쓴다.',
     '- calculations에 넣은 값은 **하나도 빠짐없이 본문에 숫자로 적는다**(탐구 결과나 결과 분석에서 조건마다 「… = 0.49 m/s²」처럼). 「계산하면 커진다」·「환산하면 증가했다」처럼 값을 빼고 말하지 않는다 — 안내문이 구하라고 한 값이 보고서에 없으면 과제를 안 한 것이다.',

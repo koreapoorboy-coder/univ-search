@@ -326,4 +326,18 @@ check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조
   check(plain.removed === 0, "C17 기구를 못 박지 않은 방법 문장은 건드리지 않는다", plain.body);
 }
 
+// C18 루프 2: 대수의 「지수와 로그」·기하의 「삼각함수」 과제는 log·sin 없이는 계산을 한 줄도 검산할 수 없었다.
+{
+  const near = (value, want) => Math.abs(value - want) < 1e-6;
+  check(near(evaluateExpression("log(100)"), 2) && near(evaluateExpression("log(8) ÷ log(2)"), 3), "C18 상용로그를 읽는다");
+  check(near(evaluateExpression("ln(1)"), 0), "C18 자연로그를 읽는다");
+  check(near(evaluateExpression("sin(30)"), 0.5) && near(evaluateExpression("sin(30°)"), 0.5), "C18 삼각함수의 각은 도로 읽고, °를 붙여도 같다");
+  check(near(evaluateExpression("1.5 ÷ sin(30)"), 3), "C18 식 안에서 함께 쓴다");
+  check(evaluateExpression("log(0)") === null && evaluateExpression("ln(0)") === null, "C18 정의되지 않는 로그는 계산하지 않는다");
+  check(evaluateExpression("log 100") === null && evaluateExpression("abc(2)") === null && evaluateExpression("0.1 × 36 mL") === null, "C18 괄호 없는 함수와 낯선 글자는 여전히 막는다");
+  check(near(evaluateExpression("0.1 × 36 ÷ 5"), 0.72) && near(evaluateExpression("√(16)"), 4), "C18 예전 식도 그대로 계산한다");
+  const logRun = verifyCalculations([{ what: "감소율", constants: [], expression: "log(63.0 ÷ 75.0) ÷ log(2)", result: "-0.252", unit: "" }], new Set(["63", "75", "2"]));
+  check(logRun.verified.length === 1, "C18 로그가 든 계산도 검산을 통과한다", JSON.stringify(logRun.rejected));
+}
+
 console.log(`\n${passed} checks passed`);
