@@ -313,4 +313,17 @@ check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조
   check(table.columns[1] === "도달 시각 (초)", "C16 표 머리글에 단위가 한 번만 나온다", JSON.stringify(table.columns));
 }
 
+// C17 운영 테스트 38(물리 빗면): 학생은 시간만 적었는데 방법 절에 「스마트폰 카메라를 고정해 프레임률을 고정했다」가 들어갔다.
+{
+  const { removeUnnamedTools } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  const made = removeUnnamedTools("레일 1.0 m 구간을 표시했다. 스마트폰 카메라를 고정해 프레임률을 고정했다. 조건마다 5회씩 쟀다.", "빨라서 멈추는 순간을 잡기 어려웠다");
+  check(made.removed === 1 && !made.body.includes("스마트폰") && made.body.includes("5회씩 쟀다"), "C17 학생이 말한 적 없는 기구 문장만 지운다", made.body);
+  const asked = removeUnnamedTools("스마트폰으로 촬영해 도달 시각을 읽었다.", "안내문: 스마트폰으로 촬영해 시간을 읽는다");
+  check(asked.removed === 0, "C17 안내문이 그 기구를 쓰라고 했으면 그대로 둔다", asked.body);
+  const said = removeUnnamedTools("영상을 다시 보며 시간을 확인했다.", "영상으로 다시 보니 출발이 늦었다");
+  check(said.removed === 0, "C17 학생이 스스로 적은 기구도 그대로 둔다");
+  const plain = removeUnnamedTools("초시계로 같은 기준에서 시간을 쟀다. 조건마다 5회 반복했다.", "");
+  check(plain.removed === 0, "C17 기구를 못 박지 않은 방법 문장은 건드리지 않는다", plain.body);
+}
+
 console.log(`\n${passed} checks passed`);

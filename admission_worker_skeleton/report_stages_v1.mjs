@@ -557,6 +557,18 @@ export function removeUnknownSubjectNames(body) {
   });
 }
 
+// 학생이 말한 적 없는 기구·절차를 했다고 단정한 문장은 지운다. 운영 테스트 38(물리 빗면): 학생은 시간만 적었는데
+// 「스마트폰 카메라를 고정해 프레임률을 고정했다」, 「영상 재생의 프레임 단위로 판정했다」가 방법 절에 들어갔다.
+// 안내문이나 학생 메모에 그 말이 있으면 그대로 둔다(선생님이 영상으로 재라고 한 과제도 있다).
+const UNNAMED_TOOLS = /스마트폰|휴대폰|핸드폰|카메라|촬영|동영상|영상|프레임률|프레임 단위|프레임으로|마스킹테이프|삼각대|광센서|포토게이트|모션 센서|어플|앱으로|전용 프로그램|엑셀로|초고속/;
+export function removeUnnamedTools(body, studentText) {
+  const text = String(studentText || '');
+  return filterSentences(body, (sentence) => {
+    const found = String(sentence).match(new RegExp(UNNAMED_TOOLS, 'g')) || [];
+    return !found.length || found.every((word) => text.includes(word));
+  });
+}
+
 // 앞으로 할 일을 말하는 문장(「35~45 °C를 2~3 °C 간격으로 재겠다」)의 숫자는 결과를 지어낸 것이 아니라 다음 실험의 조건이다.
 // 운영 테스트 25: 이런 문장 4개가 지워져 결론의 후속 탐구가 한 문장만 남고 느낀 점의 「다음에는 ~」가 빠졌다.
 // 결과를 말하는 말(였다·나왔다·측정되었다·확인했다…)이 섞인 문장은 계획으로 보지 않는다.
@@ -865,8 +877,8 @@ function stageSectionGuideBase(title, stage) {
   const second = stage === STAGE.FINAL || stage === STAGE.LITERATURE;
   if (second && /연구 질문/.test(text)) return '1차 설계서의 연구 질문(물음표로 끝나는 질문)을 이어받는다. 주제를 고른 이유는 학생이 쓴 reason이 있으면 그 뜻과 표현을 살리고, 없으면 수업에서 생긴 궁금증으로 쓴다. 250~400자';
   if (second && /이론적 배경/.test(text)) return '1차 설계서의 이론을 이어받되 목표 수준에 맞게 구체적인 물질과 반응 수준으로 깊게 설명한다. 대상의 성분과 그에 맞는 효소·반응의 대응, 조건이 효소와 대상 각각에 주는 영향을 인과 관계로 쓴다. 700~1000자';
-  if (stage === STAGE.FINAL && /탐구 방법/.test(text)) return '1차 설계서의 준비물, 변인, 절차, 안전을 실제로 한 과정으로 과거형으로 쓴다. 학생 관찰 메모에 설계와 다르게 한 점이 있으면 반영한다. 500~800자';
-  if (stage === STAGE.DRAFT && /탐구 방법/.test(text)) return '학생이 직접 하는 실험으로 설계한다. 준비물, 조작·통제·종속 변인, 대조군, 번호를 붙인 절차, 조건마다 3회 이상 측정해 어떻게 기록할지, 측정 오차를 줄이는 방법, 안전 주의. 문헌 조사로 대신하지 않는다. 700~1000자';
+  if (stage === STAGE.FINAL && /탐구 방법/.test(text)) return '1차 설계서의 준비물, 변인, 절차, 안전을 실제로 한 과정으로 과거형으로 쓴다. 학생 관찰 메모에 설계와 다르게 한 점이 있으면 반영한다. **학생이 적지 않은 도구나 절차를 했다고 단정하지 않는다** — 「스마트폰으로 촬영해 프레임으로 판정했다」처럼 쓰지 말고, 「시간을 재는 도구를 정해 시작과 끝 기준을 같게 해 쟀다」처럼 무엇을 같은 기준으로 했는지만 쓴다. 500~800자';
+  if (stage === STAGE.DRAFT && /탐구 방법/.test(text)) return '학생이 직접 하는 실험으로 설계한다. 준비물, 조작·통제·종속 변인, 대조군, 번호를 붙인 절차, 조건마다 3회 이상 측정해 어떻게 기록할지, 측정 오차를 줄이는 방법, 안전 주의. 문헌 조사로 대신하지 않는다. **학교나 집에 있는 것으로 할 수 있게 쓰고, 특정 기구·앱·소모품을 못 박지 않는다**(「스마트폰으로 촬영해 프레임으로 읽는다」·「마스킹테이프로 표시한다」처럼 쓰지 말고, 「시간을 재는 도구를 하나 정해 시작과 끝 기준을 같게 해 잰다」·「출발점과 도착점을 눈에 띄게 표시한다」처럼 학생이 고를 수 있게 쓴다). 700~1000자';
   if (/가설/.test(text)) return '"~하면 ~할 것이다" 형태의 가설 1~2개와 그렇게 생각한 교과 근거. 150~300자';
   if (/결과 기록 계획/.test(text)) return '무엇을 어떤 단위나 점수 기준으로 조건마다 몇 번 측정해 표에 기록할지. 점수는 클수록 측정 항목이 크다는 뜻이 되게 정한다. 학생이 채울 결과 표 양식과 같은 내용이어야 한다. 2차 보고서에서는 조건별 값과 평균, 흔들림(최댓값-최솟값)을 담은 표가 만들어지고, 비교가 뚜렷한 경우에만 막대나 선 그래프가 하나 붙는다. 표준편차, 오차막대, 흔들림을 표시한 선, 통계 검정처럼 만들어지지 않는 것을 하겠다고 쓰지 않고, 그래프가 반드시 들어간다고도 쓰지 않는다. 결과나 예상 수치는 쓰지 않는다. 200~350자';
   if (/탐구 결과|결과 정리|관찰 기록|자료 정리/.test(text)) return '표 1을 먼저 가리키고, 그림이 있을 때만 그림 1도 함께 가리킨다. 조건별 평균을 결과정리의 숫자 그대로 비교한다. 평균이 같은 조건은 같다고 쓴다. 학생의 관찰 메모(note, observations)를 함께 쓴다. 해석은 다음 절로 미룬다. 400~600자';
@@ -1252,7 +1264,9 @@ export function finalizeStageOutput(stage, rawParsed, input) {
         { allowPlans: /결론|제언|후속|느낀 점|고찰|확장|성찰/.test(title) });
       const units = removeCrossSubjectUnitClaims(cleanedNumbers.body, input.subject);
       const subjects = removeUnknownSubjectNames(units.body);
-      const numbers = { body: subjects.body, removed: cleanedNumbers.removed + units.removed + subjects.removed, dropped: [...cleanedNumbers.dropped, ...units.dropped, ...subjects.dropped] };
+      // 안내문에 적힌 기구(선생님이 영상으로 재라고 한 과제)는 그대로 둔다.
+      const tools = removeUnnamedTools(subjects.body, [studentText, input.taskDescription, input.taskName, data.draftReport].filter(Boolean).join(' '));
+      const numbers = { body: tools.body, removed: cleanedNumbers.removed + units.removed + subjects.removed + tools.removed, dropped: [...cleanedNumbers.dropped, ...units.dropped, ...subjects.dropped, ...tools.dropped] };
       removed += numbers.removed;
       // 무엇이 지워졌는지 남긴다(학생 화면에는 안 보인다). 운영 테스트에서 지워진 문장을 볼 수 없어 원인을 짐작만 했다.
       droppedSamples.push(...numbers.dropped.map((sentence) => clip(sentence, 140)));
