@@ -71,4 +71,12 @@ check(evaluator.includes("자료해석형 tag cannot be used"), "the evaluator r
   check(field === "measurement", "야외 조사는 그대로 직접 재는 과제다", field);
 }
 
+// 루프 18(지구과학 별의 등급): 「천문 자료에서 등급을 찾아 표로 정리한다」가 문헌 탐구로 잡혔다.
+{
+  const stars = resolveCollectionKind({ taskDescription: "천문 자료에서 별 네 개의 겉보기 등급과 절대 등급을 찾아 표로 정리한다", subjectGroup: "과학" });
+  check(stars === "dataset", "찾아서 표에 옮겨 적는 과제는 공개 자료형이다", stars);
+  const reading = resolveCollectionKind({ taskDescription: "읽은 책의 줄거리를 찾아 독서 기록장에 적는다", subjectGroup: "국어" });
+  check(reading === "reading", "책을 읽고 적는 과제는 그대로 문헌 탐구다", reading);
+}
+
 console.log(`PASS collection kind: ${passed}/${passed}`);

@@ -47,6 +47,9 @@ export function resolveCollectionKind(input) {
   // Graded as an essay answer: the student looks at something, but there is no table to fill in.
   if (/논술형 ?문제|논술형 ?평가|서·?논술형|논술형으로 ?해결|논술 ?문항/.test(text)) return COLLECTION.NONE;
   if (/통계|지표|빅데이터|공공 ?데이터|데이터를 ?수집|데이터를 ?분석|데이터 ?시각화|자료 ?해석|그래프 ?분석|추이|수치 ?자료|관측 ?자료/.test(text)) return COLLECTION.DATASET;
+  // 「천문 자료에서 별 네 개의 등급을 찾아 표로 정리한다」도 공개 자료를 옮겨 적는 과제다 — 루프 18: '통계·지표'
+  // 같은 말이 없어 문헌 탐구로 잡혀 자료 5개를 읽으라는 설계서가 나왔다. 찾아서 **표에 옮겨 적으라는** 말을 본다.
+  if (/(자료|데이터|목록|표|기록)[^.]{0,30}(찾아|조회|검색|내려받)[^.]{0,30}(표로|표에|정리|옮겨|적는다|적어)/.test(text)) return COLLECTION.DATASET;
   // 야외 조사도 직접 재는 일이다. 「방형구를 설치해 개체 수를 조사」가 '조사'라는 말 때문에 문헌 조사로
   // 잡혀, 자료 5개를 읽으라는 설계서가 나왔다(운영 테스트 2026-09-18). 논술형·공개 자료 판정 **뒤에** 둔다 —
   // 수행평가 7,131건 가운데 이 말이 든 12건에서 바뀌는 것은 문헌으로 잡히던 2건뿐이다.
