@@ -128,7 +128,8 @@ const row = (title, core = 1) => [title, "김 외", "2024", "학회지", "3", "2
 // P9: 과목 묶음 — 실제 파일.
 {
   const subjects = Object.keys({ ...fieldMap.subjects, ...(fieldMap.route_subjects || {}) });
-  check(subjects.length === 18, "P9 묶음을 만들 과목 18개", String(subjects.length));
+  // 2026-09-20: 영어·한국사 단원 자료를 넣고 두 과목의 논문 묶음도 만들었다(18 → 20).
+  check(subjects.length === 20, "P9 묶음을 만들 과목 20개", String(subjects.length));
   let total = 0;
   for (const subject of subjects) {
     const file = here(`../seed/${shardFile(subject)}`);
