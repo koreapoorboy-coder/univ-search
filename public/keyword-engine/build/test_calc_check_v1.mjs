@@ -238,4 +238,20 @@ check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조
   check(chart?.valueLabels?.join("|") === "36.0|72.1|0.07", "C6 그래프 숫자도 학생이 쓴 자릿수로(36.0)", JSON.stringify(chart?.valueLabels));
 }
 
+// C13 운영 테스트 31(통합사회 고령화): 본문에 우리 표의 항목 이름이 그대로 나왔고, 없는 과목 이름을 지어냈다.
+{
+  const { scrubInternalNames, removeUnknownSubjectNames } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  const leak = scrubInternalNames("수준별 비교 지표로 본 같은 연도 격차는 2010년 3.3%p였다.");
+  check(leak === "같은 기준끼리 견준 비교로 본 같은 연도 격차는 2010년 3.3%p였다.", "C13 「수준별 비교 지표」는 본문에 나오지 않는다", leak);
+  check(scrubInternalNames("수준별비교에서도 반복이 없어 알 수 없음으로 처리했다.").startsWith("같은 기준끼리 견준 비교에서도"), "C13 붙여 쓴 항목 이름도 풀어 쓴다");
+  const keys = scrubInternalNames("조건별결과의 관찰메모와 첫조건과의차이, 같은집단첫조건대비변화율, 도수분포요약, 평균이높은순서를 보았다.");
+  check(!/조건별결과|관찰메모|첫조건과의차이|같은집단첫조건대비변화율|도수분포요약|평균이높은순서/.test(keys) && keys.includes("조건별 결과") && keys.includes("같은 집단 첫 조건 대비 변화율"), "C13 한글 항목 이름은 모두 띄어 쓴 말로 바뀐다", keys);
+  const madeUp = removeUnknownSubjectNames("이번 탐구는 통합사회 과목의 자료 해석이다.\n나아가 복지정책 과목에서 서비스 입지를 따지는 문제로 이어진다.");
+  check(madeUp.removed === 1 && !madeUp.body.includes("복지정책") && madeUp.body.includes("통합사회 과목"), "C13 없는 과목 이름을 쓴 문장만 지운다", JSON.stringify(madeUp.body));
+  const realOnes = removeUnknownSubjectNames("확률과 통계 과목의 표본 개념과 정보 과목의 데이터 처리, 화학 반응의 세계 과목까지 이어진다.\n이 과목에서 배운 개념과 사회 교과의 관점을 함께 썼다.\n교과서의 단원과 다른 과목의 개념도 보았다.");
+  check(realOnes.removed === 0, "C13 실제 과목·교과군·「이 과목」은 그대로 둔다", JSON.stringify(realOnes.dropped));
+  const roman = removeUnknownSubjectNames("물리학Ⅰ 과목과 영어 과목에서도 같은 방법을 쓴다.");
+  check(roman.removed === 0, "C13 물리학Ⅰ처럼 숫자가 붙은 과목 이름도 실제 이름으로 본다", JSON.stringify(roman.dropped));
+}
+
 console.log(`\n${passed} checks passed`);

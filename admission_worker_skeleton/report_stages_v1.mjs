@@ -406,6 +406,16 @@ const INTERNAL_NAME_FIXES = [
   [/자료\s*카드/g, '자료'], [/카드\s*자료/g, '자료'],
   [/(기사|신문|보고서|교과서|논문|기관|통계|영상|도서)\s*카드/g, '$1'],
   [/카드별/g, '자료별'], [/카드들/g, '자료들'], [/카드(?!뉴스)/g, '자료'],
+  // 우리가 AI에게 넘기는 자료 항목 이름은 한글이어도 본문에 나오면 안 된다. 운영 테스트 31(통합사회 고령화):
+  // 「수준별 비교 지표로 본 같은 연도 격차는 …」 — 「수준별비교」는 우리가 넘긴 표의 항목 이름이다.
+  [/수준별\s*비교(?:\s*(?:지표|항목|값|결과))?/g, '같은 기준끼리 견준 비교'],
+  [/흔들림보다\s*큰\s*차이인가(?:는|은|가|이)?/g, '반복 측정의 흔들림보다 큰 차이인지는'],
+  [/조건별결과/g, '조건별 결과'], [/결과정리/g, '결과 정리'], [/도수분포요약/g, '도수분포표 요약'],
+  [/측정항목/g, '측정 항목'], [/점수기준/g, '점수 기준'], [/반복횟수/g, '반복 횟수'], [/관찰메모/g, '관찰 메모'],
+  [/전체도수/g, '전체 도수'], [/가장높은쪽/g, '가장 높은 쪽'], [/두번째/g, '두 번째'],
+  [/같은집단첫조건대비변화율/g, '같은 집단 첫 조건 대비 변화율'], [/같은집단첫조건과의차이/g, '같은 집단 첫 조건과의 차이'],
+  [/첫조건대비변화율/g, '첫 조건 대비 변화율'], [/첫조건과의차이/g, '첫 조건과의 차이'],
+  [/(값|평균)이높은순서/g, '$1이 높은 순서'], [/(값|평균)이같은조건/g, '$1이 같은 조건'],
 ];
 
 // 교과 확장 재료의 번호(P2, R1)는 AI와 우리 사이의 표시다 — 본문에 「(P2)」가 그대로 나왔다(비교 시험 2026-09-18).
@@ -489,6 +499,43 @@ export function removeCrossSubjectUnitClaims(body, subject) {
     if (!/「[^」]+」\s*단원/.test(sentence)) return true;
     return !SCHOOL_SUBJECTS.some((name) => !own.startsWith(name.replace(/\s+/g, '')) && !name.replace(/\s+/g, '').startsWith(own)
       && new RegExp(`${name}[ⅠⅡ12]?\\s*(과|와|의|·)`).test(sentence));
+  });
+}
+
+// 고등학교에 없는 과목 이름을 지어낸 문장은 지운다. 운영 테스트 31(통합사회 고령화): 결론 마지막에
+// 「나아가 복지정책 과목에서 실제 서비스 입지의 …」 — 「복지정책」이라는 고등학교 과목은 없다.
+// 교과군 이름(사회 교과)과 「이 과목·다른 과목」처럼 이름이 없는 말은 그대로 둔다.
+const REAL_SUBJECTS = [
+  '공통국어', '화법과 언어', '독서와 작문', '문학', '주제 탐구 독서', '문학과 영상', '매체 의사소통', '독서 토론과 글쓰기', '언어생활 탐구', '직무 의사소통',
+  '공통수학', '기본수학', '대수', '미적분', '확률과 통계', '기하', '경제 수학', '인공지능 수학', '직무 수학', '수학과 문화', '실용 통계', '수학과제 탐구',
+  '공통영어', '영어', '기본영어', '영어 독해와 작문', '영미 문학 읽기', '영어 발표와 토론', '심화 영어', '실생활 영어 회화', '직무 영어',
+  '한국사', '통합사회', '세계시민과 지리', '세계사', '사회와 문화', '사회·문화', '현대사회와 윤리', '한국지리 탐구', '한국지리', '세계지리', '도시의 미래 탐구',
+  '동아시아 역사 기행', '동아시아사', '정치', '정치와 법', '법과 사회', '경제', '윤리와 사상', '생활과 윤리', '인문학과 윤리', '국제 관계의 이해', '여행지리',
+  '역사로 탐구하는 현대 세계', '사회문제 탐구', '금융과 경제생활', '윤리문제 탐구', '기후변화와 지속가능한 세계',
+  '통합과학', '과학탐구실험', '물리학', '물리', '화학', '생명과학', '지구과학', '역학과 에너지', '전자기와 양자', '물질과 에너지', '화학 반응의 세계',
+  '세포와 물질대사', '생물의 유전', '지구시스템과학', '행성우주과학', '과학의 역사와 문화', '기후변화와 환경생태', '융합과학 탐구', '물리학 실험', '과학과제 연구',
+  '기술·가정', '정보', '데이터 과학', '인공지능 기초', '로봇과 공학세계', '소프트웨어와 생활', '생활과학 탐구', '창의 공학 설계', '지식 재산 일반',
+  '체육', '운동과 건강', '스포츠 생활', '음악', '미술', '연극', '음악 연주와 창작', '미술 창작', '미술 감상과 비평',
+  '진로와 직업', '생태와 환경', '인간과 철학', '논리와 사고', '인간과 심리', '교육의 이해', '삶과 종교', '보건', '논술', '심리학', '환경', '철학', '한문', '제2외국어',
+];
+// 교과군·묶음 이름과 이름을 대신하는 말 — 이 말 앞에 붙은 「과목」은 지어낸 이름이 아니다.
+const SUBJECT_GROUPS = ['국어', '수학', '영어', '사회', '과학', '역사', '지리', '윤리', '도덕', '예술', '체육', '기술', '가정', '한문', '교양', '실기', '탐구'];
+const SUBJECT_STAND_INS = ['이', '그', '저', '요', '이번', '해당', '같은', '다른 ', '다른', '여러', '각', '각각의', '모든', '위', '앞', '뒤', '타', '관련', '연계', '선택', '일반', '진로', '융합', '공통', '전공', '주요', '기타', '개별', '두', '세', '네', '몇'];
+export function removeUnknownSubjectNames(body) {
+  const plain = (name) => String(name).replace(/[\s·,]/g, '').replace(/[ⅠⅡⅢ0-9]+$/, '');
+  const known = [...REAL_SUBJECTS, ...SUBJECT_GROUPS, ...SUBJECT_STAND_INS].map(plain).filter((name) => name);
+  return filterSentences(body, (sentence) => {
+    const words = /([가-힣A-Za-zⅠⅡⅢ0-9·]+)(?:\s+([가-힣A-Za-zⅠⅡⅢ0-9·]+))?(?:\s+([가-힣A-Za-zⅠⅡⅢ0-9·]+))?\s*(?:과목|교과)(?![서군])/g;
+    let hit = words.exec(sentence);
+    while (hit) {
+      const parts = [hit[1], hit[2], hit[3]].filter(Boolean);
+      // 「확률과 통계 과목」은 앞 두 낱말을 합쳐야 이름이 된다 — 바로 앞 한 낱말부터 세 낱말까지 모두 견준다.
+      const tries = parts.map((word, index) => plain(parts.slice(index).join('')));
+      const real = tries.some((candidate) => candidate && known.some((name) => candidate === name || candidate.endsWith(name) || name.startsWith(candidate)));
+      if (!real) return false;
+      hit = words.exec(sentence);
+    }
+    return true;
   });
 }
 
@@ -935,7 +982,8 @@ export function stagePromptLines(stage, input) {
       '- 결과가 가설과 다르면 억지로 맞추지 말고 다르게 나온 그대로 쓴다.',
       '- 흔들림은 반복 측정값의 최대와 최소의 차이다. 흔들림을 점수 범위와 비교해 판단한다(예: 0~3점에서 1점은 큰 흔들림이다). 흔들림이 큰 조건은 결과의 신뢰도가 낮다고 밝히고 원인을 추정한다.',
       '- 수준별비교의 흔들림보다큰차이인가가 아니오이면 그 차이는 반복 측정의 흔들림보다 작거나 같으므로 "확실한 차이라고 보기 어렵다"고 쓴다. 조건 간 평균 차이가 흔들림보다 작은 비교를 근거로 결론을 내리지 않는다.',
-      '- 본문과 그림 제목·설명에는 입력 자료의 항목 이름(결과정리, 수준별비교 같은 이름이나 영어 이름)을 그대로 쓰지 말고 "반복 측정값의 흔들림", "평균의 차이"처럼 자연스러운 말로 풀어 쓴다. 그림 설명에는 그림에 실제로 그려진 것만 쓴다(오차 막대는 그려지지 않는다).',
+      '- 본문과 그림 제목·설명에는 입력 자료의 항목 이름(결과정리, 수준별비교 같은 이름이나 영어 이름)을 그대로 쓰지 말고 "반복 측정값의 흔들림", "평균의 차이"처럼 자연스러운 말로 풀어 쓴다. 띄어쓰기만 바꿔 쓰는 것("수준별 비교 지표로 본")도 안 된다 — 같은 기준끼리 견준 차이라고 쓴다. 그림 설명에는 그림에 실제로 그려진 것만 쓴다(오차 막대는 그려지지 않는다).',
+      '- 과목 이름은 실제 고등학교 과목 이름만 쓴다. 없는 과목 이름(예: 복지정책 과목, 도시계획 과목)을 만들어 쓰지 않는다. 학문 분야를 말하려면 "과목" 대신 "행정학 분야", "도시계획 분야"처럼 쓴다.',
       ...bookBlock(book),
       '',
       '[학생 실험 데이터]',
@@ -1164,7 +1212,9 @@ export function finalizeStageOutput(stage, rawParsed, input) {
       }
       const cleanedNumbers = removeUnsupportedNumbers(tidyCalculatedNumbers(scrubInternalNames(input.ingredients ? scrubIngredientIds(section?.body) : section?.body), calculation.verified), allowed,
         { allowPlans: /결론|제언|후속|느낀 점|고찰|확장|성찰/.test(title) });
-      const numbers = { ...cleanedNumbers, body: removeCrossSubjectUnitClaims(cleanedNumbers.body, input.subject).body };
+      const units = removeCrossSubjectUnitClaims(cleanedNumbers.body, input.subject);
+      const subjects = removeUnknownSubjectNames(units.body);
+      const numbers = { body: subjects.body, removed: cleanedNumbers.removed + units.removed + subjects.removed, dropped: [...cleanedNumbers.dropped, ...units.dropped, ...subjects.dropped] };
       removed += numbers.removed;
       // 무엇이 지워졌는지 남긴다(학생 화면에는 안 보인다). 운영 테스트에서 지워진 문장을 볼 수 없어 원인을 짐작만 했다.
       droppedSamples.push(...numbers.dropped.map((sentence) => clip(sentence, 140)));
