@@ -207,14 +207,19 @@ export function computeStats(data) {
 // 도수분포표(계급별 인원수)면 집단마다 계급값으로 평균·표준편차를 **코드가** 구한다. 운영 테스트 28: AI에게 맡기자 평균을
 // 211÷32=6.59 대신 6.49로, 표준편차 자리에 분산(0.74)을 적었다 — 검산이 떨어뜨려 보고서에 숫자가 하나도 남지 않았다.
 // 계급은 조건 이름의 마지막 토막에 있는 「5~6시간」 같은 닫힌 구간이고, 그 앞 토막(「스마트폰 0~3시간」)이 집단이다.
-const RANGE = /(\d+(?:\.\d+)?)\s*[~∼\-–]\s*(\d+(?:\.\d+)?)/;
+// 계급 이름은 「6~8시간」처럼 물결표로도, 「4시간 이상 6시간 미만」처럼 말로도 적힌다. 루프 7(확률과 통계):
+// 첫 계급만 말로 적혀 있어 도수분포표로 못 알아봤고, 그래서 평균·표준편차를 엔진이 구해 주지 못했다
+// (과제가 구하라던 표준편차가 보고서에서 통째로 빠졌다).
+const RANGE_MARK = /(\d+(?:\.\d+)?)\s*[~∼\-–]\s*(\d+(?:\.\d+)?)/;
+const RANGE_WORDS = /(\d+(?:\.\d+)?)\s*[가-힣]*\s*이상\s*(?:~|부터)?\s*(\d+(?:\.\d+)?)\s*[가-힣]*\s*(?:미만|이하|까지)/;
+const matchRange = (text) => String(text).match(RANGE_WORDS) || String(text).match(RANGE_MARK);
 export function frequencySummary(data, rows) {
   const counts = /명|도수|응답|인원|개수|건/.test(`${data.unit || ''} ${data.measurementName || ''}`);
   if (!counts || !rows.length || rows.some((row) => row.values.length !== 1)) return [];
   const groups = new Map();
   for (const row of rows) {
     const pieces = String(row.label).split(/\s*·\s*/);
-    const match = pieces[pieces.length - 1].match(RANGE);
+    const match = matchRange(pieces[pieces.length - 1]);
     if (!match) return [];
     const key = pieces.slice(0, -1).join(' · ');
     if (!groups.has(key)) groups.set(key, []);

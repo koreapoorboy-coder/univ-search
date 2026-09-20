@@ -340,4 +340,19 @@ check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조
   check(logRun.verified.length === 1, "C18 로그가 든 계산도 검산을 통과한다", JSON.stringify(logRun.rejected));
 }
 
+// C19 루프 7(확률과 통계): 계급 이름이 「4시간 이상 6시간 미만」이면 도수분포표로 못 알아봐
+// 평균·표준편차를 엔진이 구해 주지 못했고, 과제가 구하라던 표준편차가 보고서에서 빠졌다.
+{
+  const make = (labels) => computeStats(normalizeStudentData({ measurementName: "인원수", unit: "명",
+    conditions: labels.map((label, index) => ({ label, values: [[4, 9, 11, 6][index]] })) }));
+  const words = make(["4시간 이상 6시간 미만", "6시간 이상 8시간 미만", "8시간 이상 10시간 미만", "10시간 이상 12시간 미만"]).frequency;
+  check(words.length === 1 && words[0].mean === 8.27 && words[0].sd === 1.9, "C19 말로 적은 계급도 도수분포표로 읽는다", JSON.stringify(words));
+  const mixed = make(["4시간 이상 6시간 미만", "6~8시간", "8~10시간", "10~12시간"]).frequency;
+  check(mixed.length === 1 && mixed[0].mean === 8.27, "C19 물결표와 말이 섞여 있어도 읽는다", JSON.stringify(mixed));
+  const marks = make(["4~6시간", "6~8시간", "8~10시간", "10~12시간"]).frequency;
+  check(marks.length === 1 && marks[0].sd === 1.9, "C19 예전 물결표 계급도 그대로", JSON.stringify(marks));
+  const notClasses = make(["남학생", "여학생", "기타", "무응답"]).frequency;
+  check(notClasses.length === 0, "C19 계급이 아닌 조건은 도수분포로 보지 않는다", JSON.stringify(notClasses));
+}
+
 console.log(`\n${passed} checks passed`);
