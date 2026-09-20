@@ -406,4 +406,24 @@ check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조
   check(keep.removed === 0, "C23 앞 문장이 남아 있으면 그대로 둔다", keep.body);
 }
 
+// C24 남은 흠 세 가지: 지시어가 아닌 앞말 없는 문장, 정수에 붙은 .0, 제목의 준비물 종류.
+{
+  const { removeUnsupportedNumbers, generalizeThings, finalizeStageOutput: finish } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  const { tidyCalculatedNumbers: tidyZero } = await import("../../../admission_worker_skeleton/calc_check_v1.mjs");
+  const ok = new Set(["2", "120", "48"]);
+  const cut = removeUnsupportedNumbers("가설 2를 보았다. 예측값은 13.75명이었다. 반면 표본은 120명이었다.", ok);
+  check(cut.removed === 2 && !cut.body.includes("반면"), "C24 「반면 …」처럼 앞말에 매달린 문장도 지운다", cut.body);
+  const keep = removeUnsupportedNumbers("표본은 120명이었다. 반면 다른 반은 48명이었다.", ok);
+  check(keep.removed === 0, "C24 앞 문장이 남아 있으면 그대로 둔다", keep.body);
+  const zero = tidyZero("열량은 12540.0 J였고 물 온도는 50.0 °C였다.", [{ expression: "4.18 × 100 × 30", result: "12540", unit: "J" }]);
+  check(zero === "열량은 12540 J였고 물 온도는 50.0 °C였다.", "C24 큰 정수 답의 .0은 지우고 측정값의 .0은 남긴다", zero);
+  const small = tidyZero("길이는 12.0 cm였다.", [{ expression: "6 × 2", result: "12", unit: "cm" }]);
+  check(small === "길이는 12.0 cm였다.", "C24 작은 값의 .0은 학생이 잰 자릿수라 그대로 둔다", small);
+  check(generalizeThings("경사로 테니스공과 머그컵 물", "") === "경사로 공과 컵 물", "C24 학생이 안 적은 준비물 종류는 흔한 말로");
+  check(generalizeThings("테니스공을 굴렸다", "테니스공으로 했다") === "테니스공을 굴렸다", "C24 학생이 적었으면 그대로 둔다");
+  const titled = finish(STAGE.FINAL, { sections: [{ title: "6. 결론", body: "테니스공이 굴러갔다." }], calculations: [], figures: [], recordDraft: [] },
+    { studentData: normalizeStudentData({ measurementName: "거리", unit: "m", conditions: [{ label: "1초", values: ["0.25"] }] }), subject: "물리", taskDescription: "공을 굴려 거리를 잰다" });
+  check(!titled.parsed.sections[0].body.includes("테니스공"), "C24 본문의 준비물 종류도 흔한 말로 바뀐다", titled.parsed.sections[0].body);
+}
+
 console.log(`\n${passed} checks passed`);

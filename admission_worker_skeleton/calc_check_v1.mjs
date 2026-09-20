@@ -225,6 +225,16 @@ export function tidyCalculatedNumbers(body, verified) {
       out = out.replace(new RegExp(`(?<![\\d.])${raw.replace('.', '\\.')}(?!\\d)`, 'g'), String(Number(raw)));
     }
   }
+  // 딱 맞는 정수인 답에 소수점 0을 붙여 쓴 자리는 정수로 되돌린다(「12540.0 J」 → 「12540 J」, 루프 13).
+  // 그 계산의 **단위가 붙은 자리만** 고친다 — 재서 얻은 「50.0 °C」의 0은 뜻이 있으므로 건드리지 않는다.
+  for (const one of Array.isArray(verified) ? verified : []) {
+    const unit = String(one.unit || '').trim();
+    const value = Number(one.result);
+    // 1000 이상인 큰 값에서만 뗀다. 「12.0 cm」의 0은 학생이 잰 자릿수라 뜻이 있고, 「12540.0 J」의 0은 군더더기다.
+    if (!unit || !Number.isInteger(value) || Math.abs(value) < 1000) continue;
+    const quoted = unit.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    out = out.replace(new RegExp(`(?<![\\d.])${Math.abs(value)}\\.0+(?!\\d)(\\s*${quoted})`, 'g'), `${Math.abs(value)}$1`);
+  }
   // 소수를 버리고 적은 답은 본문에서도 제 값으로 되돌린다(「117 km」 → 「116.8 km」). **단위가 붙은 자리만**
   // 고친다 — 같은 숫자가 다른 뜻으로 쓰인 자리(「117명이 참여했다」)까지 바꾸면 안 된다.
   for (const one of Array.isArray(verified) ? verified : []) {

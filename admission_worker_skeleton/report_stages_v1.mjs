@@ -511,7 +511,15 @@ const SENTENCE = /(?:[^.?!\n]|(?<=\d)\.(?=\d))+[.?!]*\s*/g;
 
 // 앞 문장을 지우면 그것을 가리키던 다음 문장이 홀로 남는다 — 「이 일관성은, …을 지지한다」(루프 17),
 // 「이 역시 초기 과도기 영향으로 …」(루프 2). 가리킬 말이 사라진 문장은 함께 지운다.
-const ORPHAN_SENTENCE = /^\s*(?:이는|이것은|그것은|이 역시|그 역시|이러한|이런|그러한|그런|이를|이 점|여기서)\b|^\s*[이그]\s*[가-힣]{1,6}(?:은|는|이|가|도)\s/;
+// 지시어로 시작하지 않아도 앞 문장에 매달린 문장이 있다 — 「두 비교 모두 같은 방향으로 어긋나 있어…」(루프 21),
+// 「반면 …」, 「따라서 …」처럼 앞말이 없으면 뜻이 서지 않는 문장도 함께 지운다.
+const ORPHAN_SENTENCE = new RegExp([
+  '^\\s*(?:이는|이것은|그것은|이 역시|그 역시|이러한|이런|그러한|그런|이를|이 점|여기서)(?=\\s|,)',
+  '^\\s*[이그]\\s*[가-힣]{1,6}(?:은|는|이|가|도)\\s',
+  '^\\s*(?:두|세|네)\\s*(?:비교|값|계산|수치|결과|지표|조건|식|경우|방법)',
+  '^\\s*(?:위|앞|앞서|같은)\\s*(?:식|계산|표|값|결과|방법|기준|비교)',
+  '^\\s*(?:반면|즉|요약하면|정리하면|따라서|그러므로|반대로|한편)(?=\\s|,)',
+].join('|'));
 function filterSentences(body, keep) {
   let removed = 0;
   const dropped = [];
@@ -858,6 +866,7 @@ export function titleRules(kind = COLLECTION.MEASUREMENT, stage = STAGE.COMPLETE
     '- 길이는 공백 포함 20~45자, 하나의 명사구다. 끝을 ~측정, ~분석, ~비교, ~탐구, ~평가, ~설계, ~추정, ~확인으로 맺는다.',
     '- 넣지 않는다: 조건 수·반복 횟수·인원·편수 같은 규모 숫자, 실험 조건 값(0.40 m, 10배 희석, 30 °C), 결과 숫자, 물음표, 줄표(—)나 콜론(:)으로 붙인 부제, 과목 이름, 학교 이름과 학년(예: ○○고2), 수행평가 안내문 문장, "~에 대한 고찰", "~의 이해", "~ 연구" 같은 빈말. 규모와 결과는 본문과 세특 초안이 따로 맡는다.',
     '- "~을 3회씩 재어 ~해 ~한 비교"처럼 한 일을 차례로 늘어놓지 않는다. 그것은 제목이 아니라 요약이다.',
+    '- 학생이 적지 않은 **준비물의 종류나 상표**는 제목에 넣지 않는다(테니스공·머그컵·스마트폰 ×, 공·컵 ○). 재료가 무엇인지 확실하지 않으면 흔한 말로 쓴다.',
     '- 조사를 넣어 자연스러운 우리말로 쓴다. 가운뎃점(·)은 한 번까지만 쓴다.',
     '- 약어와 원소 기호는 우리말로 푼다(BOD → 생물학적 산소 요구량, NaCl → 염화나트륨). 위첨자·아래첨자가 필요한 화학식은 일반 이름으로 쓴다(아세트산). 물·이산화탄소처럼 익숙한 이름은 그대로 둔다.',
     '- 다 쓴 뒤 소리 내어 읽어 본다. 학술지 목차나 과학 대회 보고서 제목으로 있을 법하게 들려야 한다.',
@@ -1239,6 +1248,20 @@ function baseSchemaProperties(stage, input = {}) {
 }
 
 // Applies the stage rules to the model output before the sections are joined into one report.
+// 학생이 말한 적 없는 준비물의 **종류**는 흔한 말로 바꾼다. 루프 3: 제목과 본문이 준비물을 「테니스공」으로,
+// 루프 2는 「머그컵」으로 못 박았다 — 학생은 공 종류를 적은 적이 없다. 안내문이나 학생 메모에 있으면 그대로 둔다.
+const THING_WORDS = {
+  테니스공: '공', 탁구공: '공', 야구공: '공', 농구공: '공', 축구공: '공', 골프공: '공', 쇠구슬: '구슬',
+  머그컵: '컵', 종이컵: '컵', 유리컵: '컵', 플라스틱컵: '컵', 비커컵: '컵',
+  스톱워치: '시간 재는 도구', 초시계: '시간 재는 도구', 전자저울: '저울', 눈금실린더: '실린더',
+};
+export function generalizeThings(text, studentText) {
+  const said = String(studentText || '');
+  return Object.entries(THING_WORDS).reduce((out, [word, plain]) => (
+    said.includes(word) ? out : out.replace(new RegExp(word, 'g'), plain)
+  ), String(text || ''));
+}
+
 // 제목에서 학교 이름을 뺀다. 운영 테스트 27: 「테스트고2 스마트폰 사용별 수면 분포·표준편차 해석」 — 제목은 주제다.
 // 「○○고등학교」「○○고」와 뒤에 붙은 학년 숫자(2, 2학년)까지 지우고, 앞뒤 빈칸과 가운뎃점을 정리한다.
 export function stripSchoolName(title, schoolName) {
@@ -1254,8 +1277,11 @@ export function stripSchoolName(title, schoolName) {
 }
 
 export function finalizeStageOutput(stage, rawParsed, input) {
+  // 학생·안내문이 말한 적 없는 준비물 종류(테니스공·머그컵)는 제목에서도 흔한 말로 바꾼다.
+  const saidWords = [input?.studentData?.reason, input?.studentData?.observations, input?.studentData?.reflection,
+    input?.taskDescription, input?.taskName, ...((input?.studentData?.conditions || []).map((row) => `${row?.label || ''} ${row?.note || ''}`))].filter(Boolean).join(' ');
   const parsed = rawParsed && typeof rawParsed === 'object' && rawParsed.reportTitle
-    ? { ...rawParsed, reportTitle: stripSchoolName(rawParsed.reportTitle, input?.schoolName) || rawParsed.reportTitle }
+    ? { ...rawParsed, reportTitle: generalizeThings(stripSchoolName(rawParsed.reportTitle, input?.schoolName) || rawParsed.reportTitle, saidWords) }
     : rawParsed;
   const sections = Array.isArray(parsed?.sections) ? parsed.sections : [];
   if (stage === STAGE.DRAFT) {
@@ -1308,7 +1334,9 @@ export function finalizeStageOutput(stage, rawParsed, input) {
       const units = removeCrossSubjectUnitClaims(cleanedNumbers.body, input.subject);
       const subjects = removeUnknownSubjectNames(units.body);
       // 안내문에 적힌 기구(선생님이 영상으로 재라고 한 과제)는 그대로 둔다.
-      const tools = removeUnnamedTools(subjects.body, [studentText, input.taskDescription, input.taskName, data.draftReport].filter(Boolean).join(' '));
+      const said = [studentText, input.taskDescription, input.taskName, data.draftReport, ...data.conditions.map((row) => `${row.label} ${row.note || ''}`)].filter(Boolean).join(' ');
+      const tools = removeUnnamedTools(subjects.body, said);
+      tools.body = generalizeThings(tools.body, said);
       const numbers = { body: tools.body, removed: cleanedNumbers.removed + units.removed + subjects.removed + tools.removed, dropped: [...cleanedNumbers.dropped, ...units.dropped, ...subjects.dropped, ...tools.dropped] };
       removed += numbers.removed;
       // 무엇이 지워졌는지 남긴다(학생 화면에는 안 보인다). 운영 테스트에서 지워진 문장을 볼 수 없어 원인을 짐작만 했다.
