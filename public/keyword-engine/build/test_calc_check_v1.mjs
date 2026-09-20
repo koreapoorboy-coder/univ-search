@@ -365,4 +365,19 @@ check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조
   check(other === "길이는 12.0 cm였다.", "C20 세는 단위가 아니면 건드리지 않는다", other);
 }
 
+// C21 루프 4·9: 그래프 축이 「(센티미터)」, 기준값 단위가 「뉴턴」·「볼트」로 나왔다 — 교과서는 기호로 적는다.
+{
+  const { symbolUnit } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  check(symbolUnit("센티미터") === "cm" && symbolUnit("뉴턴") === "N" && symbolUnit("볼트") === "V" && symbolUnit("퍼센트") === "%", "C21 한글 단위 이름은 기호로 바꾼다");
+  check(symbolUnit("센티미터(cm)") === "cm", "C21 둘 다 적었으면 기호만 남긴다");
+  check(symbolUnit("초") === "초" && symbolUnit("도") === "도" && symbolUnit("명") === "명", "C21 초·도·명은 한글이 교과서 표기라 그대로 둔다");
+  check(symbolUnit("cm") === "cm" && symbolUnit("") === "", "C21 이미 기호면 그대로");
+  const data = normalizeStudentData({ measurementName: "늘어난 길이", unit: "센티미터",
+    conditions: [{ label: "힘 0.50 N", values: ["2.0"] }], references: [{ label: "추 한 개의 무게", unit: "뉴턴", value: "0.50" }] });
+  check(data.unit === "cm" && data.references[0].unit === "N", "C21 학생 자료의 단위와 기준값 단위 모두 기호로", JSON.stringify([data.unit, data.references[0].unit]));
+  const draft = finalizeStageOutput(STAGE.DRAFT, { sections: [], dataTemplate: { measurementName: "늘어난 길이", unit: "센티미터", scaleGuide: "", trials: 3,
+    conditions: ["힘 0.50 N", "힘 1.00 N"], referenceInputs: [{ label: "추 한 개의 무게", unit: "뉴턴" }] } }, { collectionKind: "measurement" });
+  check(draft.extra.dataTemplate.unit === "cm" && draft.extra.dataTemplate.referenceInputs[0].unit === "N", "C21 설계서 단계에서 바꿔 화면에도 기호로 나간다", JSON.stringify(draft.extra.dataTemplate.unit));
+}
+
 console.log(`\n${passed} checks passed`);

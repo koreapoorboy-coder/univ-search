@@ -117,12 +117,12 @@ export function normalizeStudentData(raw) {
     .filter((row) => row.label);
   return {
     // 설계서 때 「도달 시각 초」로 저장된 이름도 최종 보고서에서 한 번 더 손본다(표 머리글이 「… 초 (초)」가 됐다).
-    measurementName: dropUnitFromName(clip(src.measurementName, 40), clip(src.unit, 20)),
-    unit: clip(src.unit, 20),
+    measurementName: dropUnitFromName(clip(src.measurementName, 40), symbolUnit(clip(src.unit, 20))),
+    unit: symbolUnit(clip(src.unit, 20)),
     scaleGuide: clip(src.scaleGuide, 200),
     conditions,
     references: (Array.isArray(src.references) ? src.references : []).slice(0, 3)
-      .map((one) => ({ label: clip(one?.label, 40), unit: clip(one?.unit, 20), value: clip(one?.value, 20).replace(/,/g, '') }))
+      .map((one) => ({ label: clip(one?.label, 40), unit: symbolUnit(clip(one?.unit, 20)), value: clip(one?.value, 20).replace(/,/g, '') }))
       .filter((one) => one.label && Number.isFinite(toNumber(one.value))),
     reason: clip(src.reason, 600),
     observations: clip(src.observations, 1200),
@@ -662,6 +662,26 @@ export function singleMeasure(name) {
   return cut ? cut[1].trim() : text;
 }
 
+// 단위는 교과서처럼 기호로 적는다. 루프 4·9: 그래프 축이 「(센티미터)」, 기준값 단위가 「뉴턴」·「볼트」로 나왔다.
+// 각도의 「도」와 시간의 「초·분」, 세는 단위(명·개)는 한글이 교과서 표기이므로 그대로 둔다.
+const UNIT_SYMBOLS = {
+  센티미터: 'cm', 밀리미터: 'mm', 킬로미터: 'km', 미터: 'm', 제곱미터: 'm²', 세제곱미터: 'm³',
+  킬로그램: 'kg', 밀리그램: 'mg', 그램: 'g', 톤: 't',
+  밀리리터: 'mL', 리터: 'L', 세제곱센티미터: 'cm³',
+  뉴턴: 'N', 볼트: 'V', 밀리볼트: 'mV', 암페어: 'A', 밀리암페어: 'mA', 와트: 'W', 킬로와트: 'kW', 옴: 'Ω',
+  줄: 'J', 킬로줄: 'kJ', 칼로리: 'cal', 킬로칼로리: 'kcal', 헤르츠: 'Hz', 파스칼: 'Pa', 기압: 'atm',
+  몰: 'mol', 퍼센트: '%', 섭씨: '°C', 섭씨도: '°C', 루멘: 'lm', 럭스: 'lx', 데시벨: 'dB',
+};
+export function symbolUnit(unit) {
+  const text = String(unit || '').trim();
+  if (!text) return text;
+  const hit = UNIT_SYMBOLS[text.replace(/\s+/g, '')];
+  if (hit) return hit;
+  // 「센티미터(cm)」처럼 둘 다 적은 경우에는 기호만 남긴다.
+  const both = text.match(/^([가-힣]+)\s*[(（]\s*([A-Za-z°%Ω][A-Za-z0-9°/²³]*)\s*[)）]$/);
+  return both && UNIT_SYMBOLS[both[1]] ? both[2] : text;
+}
+
 // 값 이름 뒤에 단위를 또 붙이면 표 머리글이 「도달 시각 초 (초)」가 된다(운영 테스트 36). 이름 끝에 붙은
 // 단위는 뗀다 — 단위는 머리글의 괄호 자리가 따로 있다. 이름이 단위 하나뿐이면(「초」, 단위 「초」) 그대로 둔다.
 export function dropUnitFromName(name, unit) {
@@ -687,15 +707,15 @@ function sanitizeDataTemplate(raw, kind) {
   return {
     // 한 칸에는 값 하나 — 「종별 개체 수와 피복 점수」처럼 두 값을 한 칸에 담은 이름은 앞의 값만 남긴다(운영 테스트 2026-09-18:
     // 학생은 종수를 적었는데 표 제목이 「개체 수와 피복 점수 결과」로 나왔다).
-    measurementName: dropUnitFromName(singleMeasure(clip(raw?.measurementName, 40)), clip(raw?.unit, 20)) || '측정값',
-    unit: clip(raw?.unit, 20),
+    measurementName: dropUnitFromName(singleMeasure(clip(raw?.measurementName, 40)), symbolUnit(clip(raw?.unit, 20))) || '측정값',
+    unit: symbolUnit(clip(raw?.unit, 20)),
     scaleGuide: clip(raw?.scaleGuide, 200),
     // 하나만 남으면 그 조건은 살리고 대조 칸을 붙인다(예전에는 「조건 1·조건 2」로 바꿔 진짜 조건까지 잃었다).
     conditions: conditions.length >= 2 ? conditions : conditions.length === 1 ? [conditions[0], '대조(비교용)'] : ['조건 1', '조건 2'],
     trials,
     // 결과와 견줄 기준값(표시 산도·이론값) 칸. 학생이 실험 밖에서 옮겨 적는다(calc_check_v1).
     referenceInputs: (Array.isArray(raw?.referenceInputs) ? raw.referenceInputs : [])
-      .map((one) => ({ label: clip(one?.label, 40), unit: clip(one?.unit, 20) })).filter((one) => one.label).slice(0, 3),
+      .map((one) => ({ label: clip(one?.label, 40), unit: symbolUnit(clip(one?.unit, 20)) })).filter((one) => one.label).slice(0, 3),
   };
 }
 
