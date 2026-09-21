@@ -659,6 +659,10 @@
       // 학생이 낱말을 손으로 눌렀는가. 미리 골라 둔 것은 우리 추천일 뿐이라,
       // 과제 글이 말한 단원을 덮어쓰면 안 된다(전수 검사 2026-09-21).
       conceptPicked: readValue("conceptPicked") === "true",
+      // 학생이 「다르게 잡을래요」에서 수행평가 방식을 손으로 고쳤는가. 이것이 있어야 학생이
+      // 채울 것(숫자 표·자료 카드·없음)이 학생 말대로 바뀐다.
+      methodPicked: readValue("methodPicked") === "true",
+      methodAxes: [readValue("correctionMethod")].filter(Boolean),
       selectedKeyword: s.selectedKeyword || s.selectedRecommendedKeyword || "",
       selectedFollowupAxis: s.selectedFollowupAxis || s.followupAxis || "",
       selectedBookTitle: (mini.useBookInReport || mini.bookUsageMode === "useBook") ? (mini.selectedBook?.title || "") : "",

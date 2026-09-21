@@ -444,6 +444,10 @@
         reportModes:[text($("correctionMode")?.value)],
         structureId:text($("correctionStructure")?.value)
       };
+      // **학생이 손으로 고쳤다는 표시.** 이것이 있어야 워커가 「학생이 채울 것」을 학생 말대로 바꾼다.
+      // 화면이 미리 채워 둔 값은 우리 추정일 뿐이라 이 표시가 없으면 무시한다.
+      state.methodPicked = true;
+      if($("methodPicked")) $("methodPicked").value = "true";
       state.signature = "";
       await previewInterpretation(true);
     });

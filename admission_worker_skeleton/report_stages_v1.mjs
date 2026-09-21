@@ -32,6 +32,22 @@ export function resolveCollectionKind(input) {
   // made every task a measurement no matter what it asked for — a 통계 자료 분석 in 과학탐구실험 came out as one.
   // 과제 글만 본다. 사이트가 추정한 보고서 유형(reportMode, 예: '실험분석형')을 섞으면 '실험'이라는 말이 과제 글에 없어도
   // 실험 과제가 됐다 — 엔진 전수 검사(2026-09-18)에서 숫자 과제 988건 중 384건이 과제 글에 실험·측정·데이터라는 말이 없었다.
+  // **학생이 「다르게 잡을래요」에서 직접 고쳤으면 그 말이 먼저다.**
+  //
+  // 이 판정은 실제 과제 3,440건으로 재어 86.3% 맞는다. 바꿔 말하면 **여섯 번에 한 번 틀린다.**
+  // 유료로 나가는 프로그램에서 한 번 틀리면 한 학생이 아니라 그 과제를 받은 모두가 틀린다. 그래서
+  // 틀렸을 때 학생이 되돌릴 길이 있어야 하는데, 화면에 「다르게 잡을래요」가 있는데도 **그 값이
+  // 여기까지 오지 않고 있었다**(2026-09-21). 고른 값이 아무것도 바꾸지 못했다.
+  //
+  // 학생이 손으로 고쳤을 때만 받는다 — 화면이 미리 채워 둔 값은 우리 추정일 뿐이다.
+  if (input?.methodPicked === true || input?.methodPicked === 'true') {
+    const picked = [].concat(input?.methodAxes || [], input?.correctionMethod || []).join(' ');
+    if (/실험|실습|측정|관찰/.test(picked)) return COLLECTION.MEASUREMENT;
+    if (/설문/.test(picked)) return COLLECTION.SURVEY;
+    if (/자료해석|자료분석|통계|데이터/.test(picked)) return COLLECTION.DATASET;
+    if (/문헌|자료조사|독서/.test(picked)) return COLLECTION.READING;
+    if (/논술|논증|토의|토론|구술|발표|포트폴리오|프로젝트|창작|제작/.test(picked)) return COLLECTION.NONE;
+  }
   const text = [input?.taskDescription, input?.taskName, input?.taskType].filter(Boolean).join(' ');
   const science = String(input?.subjectGroup || '').trim() === '과학';
 

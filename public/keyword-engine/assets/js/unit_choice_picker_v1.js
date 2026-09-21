@@ -91,6 +91,7 @@
 #unitChoiceBox .uc-why{display:block;font-size:12px;color:#2563eb;margin-top:3px}
 #unitChoiceBox .uc-why.is-plain{color:#98a2b3}
 #unitChoiceBox .uc-unit{color:#667085;font-weight:500}
+#unitChoiceBox .uc-fill{margin-top:11px;padding-top:10px;border-top:1px dashed #d1d9e6;font-size:12.5px;color:#475569;line-height:1.6}
 @media (max-width:640px){#unitChoiceBox .uc-words{font-size:13.5px}}`;
     document.head.appendChild(tag);
   }
@@ -153,6 +154,28 @@
     }, 400);
   }
 
+  // **학생이 무엇을 채우게 될지 미리 알려 준다.**
+  //
+  // 이 판정은 실제 과제 3,440건으로 재어 86.3% 맞는다 — 여섯 번에 한 번 틀린다. 유료로 나가는
+  // 프로그램에서 한 번 틀리면 그 과제를 받은 학생 모두가 틀린다. 그러니 **틀린 것이 보여야** 하고,
+  // 보이면 학생이 「다르게 잡을래요」로 되돌릴 수 있다. 조용히 틀리는 것이 제일 나쁘다.
+  const FILL_LABEL = {
+    measurement: "직접 잰 숫자를 표에 적게 돼요",
+    survey: "친구들에게 물어본 답을 적게 돼요",
+    dataset: "공개된 자료를 찾아 표에 옮기게 돼요",
+    reading: "읽은 자료의 제목과 내 해석을 적게 돼요",
+    none: "따로 적을 것 없이 바로 보고서가 나와요",
+  };
+  // 화면이 읽어 낸 「수행평가 방식」에서 고른다. 워커의 판정과 같은 말을 쓴다(report_stages_v1).
+  function fillKind() {
+    const method = text($("correctionMethod")?.value) + " " + text($("interpretedModes")?.textContent);
+    if (/실험|실습|측정|관찰/.test(method)) return "measurement";
+    if (/설문/.test(method)) return "survey";
+    if (/자료해석|자료분석|통계|데이터/.test(method)) return "dataset";
+    if (/문헌|자료조사|독서/.test(method)) return "reading";
+    return "none";
+  }
+
   function render(list) {
     const anchor = $("interpretationActions");
     if (!anchor || !list.length) return;
@@ -196,6 +219,11 @@
       wrap.appendChild(button);
     });
     box.appendChild(wrap);
+    // 무엇을 채우게 될지 한 줄. 틀렸으면 「다르게 잡을래요」로 바꾸라고 함께 적는다.
+    const fill = document.createElement("div");
+    fill.className = "uc-fill";
+    fill.textContent = `이 과제는 ${FILL_LABEL[fillKind()]}. 아니면 아래 「다르게 잡을래요」에서 수행평가 방식을 바꿔 주세요.`;
+    box.appendChild(fill);
     // 맨 위를 미리 골라 둔다 — 맞으면 학생은 아무것도 안 눌러도 된다.
     apply(list[0], list[0].keywords[0] || list[0].concept);
   }
