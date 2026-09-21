@@ -288,6 +288,13 @@ const UNIT_NOISE = new Set(['수행평가', '보고서', '탐구', '실험', '�
 // 여러 단원에 두루 나오는 낱말(발표·자료·데이터·설계·해석…)도 단원을 못 가른다. 전수 검사(2026-09-19)에서
 // 「발표」 한 낱말로 「생명과학의 이해」가, 「데이터 분석」으로 「해수의 성질」이 잡혔다. 그래서 전체 단원 가운데
 // 몇 곳에 나오는지 세어, 너무 흔한 낱말은 빼고 드문 낱말일수록 무겁게 센다.
+// **탐구 방법 낱말.** 무엇을 탐구하는지가 아니라 어떻게 탐구하는지를 말하는 말이다. 이 말만 걸렸을 때는
+// 단원을 정하지 않는다 — 「빛의 스펙트럼 관찰하기」가 「관찰」 하나로 과학탐구실험1 「문제 인식과 탐구 질문
+// 설정」에 걸렸다(2026-09-21). 단원 이름에 이 말이 들어 있는 경우(「과학의 측정과 우리 사회」)는 이름의
+// 다른 낱말로 점수를 받으므로 막히지 않는다.
+const UNIT_METHOD = new Set(['관찰', '측정', '기록', '발표', '질문', '계획', '설계', '해석', '추론', '검증', '확인',
+  '토론', '토의', '요약', '선정', '선택', '수집', '처리', '제시', '활용', '연결', '적용', '완성', '구체화',
+  '배경지식', '궁금증', '일상', '생활', '사례', '범위', '인식', '설정', '작성', '제작', '산출', '발견']);
 const UNIT_COMMON = 10;
 // 드문 낱말 하나(약 4점)는 걸려야 단원을 정한다. 못 미치면 고르지 않는다.
 const UNIT_MIN = 4;
@@ -342,15 +349,33 @@ export function inferConcept(subject, text, axisIndex) {
     ? [...(bags.get(exact) || [])]
     : [...(loose.get(want) || [])].flatMap((name) => [...(bags.get(name) || [])]);
   let best = null;
+  // 걸린 단원이 **그 과목 안에서 몇 곳인가**. 하나뿐이면 점수가 낮아도 받는다(아래).
+  let touched = 0;
   for (const [concept, bag] of pool) {
     let hit = 0;
+    let real = 0;   // 탐구 방법 낱말이 아닌, 무엇을 탐구하는지 말하는 낱말
     for (const word of mine) {
       const many = spread.get(word) || 0;
-      if (bag.has(word) && many <= UNIT_COMMON) hit += Math.log((total + 1) / many);
+      if (!bag.has(word) || many > UNIT_COMMON) continue;
+      hit += Math.log((total + 1) / many);
+      if (!UNIT_METHOD.has(word)) real += 1;
     }
-    if (hit && (!best || hit > best.hit)) best = { concept, hit };
+    if (hit) touched += 1;
+    if (hit && (!best || hit > best.hit)) best = { concept, hit, real };
   }
-  return best && best.hit >= UNIT_MIN ? best.concept : '';
+  if (!best) return '';
+  // **과목 안에서 유일하면 받는다.**
+  //
+  // 점수는 전체 187개 단원 칸을 통틀어 「몇 곳에 나오는가」로 낸다. 그래서 과목 안에서는 아주 분명한
+  // 낱말이 버려졌다 — 「스펙트럼」은 전체 5곳에 있어 3.63점(문턱 4점 미달)이지만, **물리 7단원 중에는
+  // 한 곳뿐**이다. 물리 학생에게 이보다 분명한 낱말이 없다. 전수 검사 2,473건 중 1,001건(40%)이
+  // 이렇게 주제가 제목에 적혀 있는데도 단원을 못 정했다(2026-09-21).
+  //
+  // 문턱을 그냥 낮추지는 않는다 — 그러면 「발표」 하나로 「생명과학의 이해」가, 「데이터 분석」으로
+  // 「해수의 성질」이 잡히던 예전 실패가 돌아온다(2026-09-19). 흔한 낱말은 위에서 이미 점수를 못 받으므로
+  // (UNIT_COMMON), 여기 걸리는 것은 **드문 낱말이 그 과목 단원 하나에만 있는 경우**뿐이다.
+  if (touched === 1 && best.real > 0) return best.concept;
+  return best.hit >= UNIT_MIN ? best.concept : '';
 }
 
 // 이 개념에 **실제로 쓸 수 있는 문장**을 앞으로 보낸다.
