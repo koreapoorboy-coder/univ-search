@@ -435,9 +435,20 @@ export default {
         //     통합사회1 축이 잡히고, 커피 추출 보고서에 '화학량론 해석 축'이 잡혔다. 그래서 마지막이다.
         const namedConcept = String(input.selectedConcept || '').replace(/\s+/g, '') === String(input.subject || '').replace(/\s+/g, '')
           ? '' : input.selectedConcept;
+        // 학생이 낱말을 **손으로** 골랐는가. 미리 골라 둔 것은 우리 추천일 뿐이다.
+        const chosenByStudent = input.conceptPicked === true || input.conceptPicked === 'true';
+        // **학생이 고르지 않았으면 우리 낱말을 여기에 섞지 않는다.**
+        //
+        // 화면은 낱말 목록의 맨 위를 미리 골라 보내는데, 그 낱말을 과제 글과 함께 넣고 단원을 찾으면
+        // 우리 추천이 과제 글을 밀어낸다 — 「지질도 해석하기」가 「날씨의 변화」로, 「사료 탐구 활동」이
+        // 「역사 탐구 방법과 사료 읽기」 대신 「개항과 근대 국가 수립 운동」으로 잡혔다. 전수 검사에
+        // 단원 검사를 넣고서야 보였다(220건, 2026-09-21).
+        //
+        // 학생이 손으로 고른 낱말은 학생의 뜻이므로 그대로 넣는다.
+        const pickedWords = chosenByStudent ? [input.selectedKeyword, input.keyword] : [];
         const guessedConcept = inferConcept(
           input.subject,
-          [input.taskTitle, input.taskDescription, input.selectedKeyword, input.keyword].filter(Boolean).join(' '),
+          [input.taskTitle, input.taskDescription, ...pickedWords].filter(Boolean).join(' '),
           seedPack.axisIndex,
         );
         const careerAxis = pickAxis(input.careerAxes, seedPack.axisIndex, input.subject);
@@ -456,7 +467,6 @@ export default {
         // 과제 글이 말한 단원을 덮어써 버렸다 — 「등가속도 운동 분석하기」가 「힘과 운동」에서
         // 「에너지와 열」로 바뀌었다(₩0 전수 검사 2026-09-21, 이렇게 망가진 과제 78건).
         // 그래서 화면이 conceptPicked 로 「학생이 손으로 눌렀다」를 알려 줄 때만 앞자리를 준다.
-        const chosenByStudent = input.conceptPicked === true || input.conceptPicked === 'true';
         const namedUnit = namedConcept && isUnitName(namedConcept) ? namedConcept : '';
         const fromTask = (chosenByStudent ? namedUnit : '') || listedUnit || guessedConcept || namedUnit || namedConcept || careerConcept;
         // **과제 글이 단원을 말하지 않는 과제가 전체의 23%다**(전수 검사 2,473건 중 567건: 「과제」,

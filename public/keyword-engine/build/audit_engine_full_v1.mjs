@@ -39,6 +39,11 @@ await mkdir(`${OUT}/cache`, { recursive: true });
 // ── 과목: 기록의 과목 이름 → 사이트에서 고를 수 있는 32과목 ─────────────────────────────
 const { SITE_SUBJECTS, siteSubject } = await import(new URL("../../../tools/site_subject.mjs", import.meta.url));
 const { unitChoices } = await import(new URL("../../../admission_worker_skeleton/unit_choices_v1.mjs", import.meta.url));
+// **단원이 맞는지 재려고** 엔진 자신의 단원 찾기를 그대로 쓴다. 지금까지 이 검사는 재료만 세었고,
+// 단원이 엉뚱해도 재료만 있으면 「문제 없음」이었다 — 「검기를 이용한 정전기 유도」가 「에너지와
+// 열」로 잡혀도 안 보였다(2026-09-21).
+const { inferConcept } = await import(`file:///${ROOT}/admission_worker_skeleton/book_match_v1.mjs`);
+const axisIndexForCheck = JSON.parse(readFileSync(`${SITE}/seed/engine-index/longitudinal_axis_index.v1.json`, "utf8"));
 const unitChoiceIndex = JSON.parse(readFileSync(`${SITE}/seed/engine-index/unit_choices.v1.json`, "utf8"));
 // 한 번도 안 본 학교. 우리 점수는 가진 자료로 낸 점수라 실제보다 높을 수 있어, 이 학교들로만
 // 따로 재어 그것을 진짜 점수로 본다(tools/holdout_schools_2026_09.json).
@@ -267,6 +272,12 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
     row.stage = r.reportStage;
     row.keyword = r.keyword;
     row.concept = r.reportConcept;
+    // **과제 글이 스스로 말하는 단원**과 견준다. 학생은 이 검사에서 아무것도 고르지 않으므로,
+    // 둘이 다르면 우리가 고른 것이 과제를 밀어낸 것이다.
+    row.unitFromTask = inferConcept(subject, taskText, axisIndexForCheck) || "";
+    if (row.unitFromTask && row.concept && row.unitFromTask !== row.concept) {
+      flag("단원_어긋남", `과제 글은 「${row.unitFromTask}」인데 「${row.concept}」로 썼다`);
+    }
     // 과목에 단원 자료가 아예 없으면(영어·한국사 등) 규칙 탓이 아니라 자료가 비어 있는 것이다. 따로 센다.
     if (!r.reportConcept) flag(UNIT_SUBJECTS.has(subject) ? "단원_못정함" : "과목에_단원자료없음");
     if (BLOG.test(r.keyword || "")) flag("엔진키워드_블로그제목", r.keyword);
