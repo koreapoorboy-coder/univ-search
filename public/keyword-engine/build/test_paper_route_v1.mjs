@@ -129,7 +129,15 @@ const row = (title, core = 1) => [title, "김 외", "2024", "학회지", "3", "2
 {
   const subjects = Object.keys({ ...fieldMap.subjects, ...(fieldMap.route_subjects || {}) });
   // 2026-09-20: 영어·한국사 단원 자료를 넣고 두 과목의 논문 묶음도 만들었다(18 → 20).
-  check(subjects.length === 20, "P9 묶음을 만들 과목 20개", String(subjects.length));
+  // 2026-09-21: 확률과 통계를 더했다(20 → 21). 나머지 수학 다섯 과목(공통수학1·2, 대수, 미적분1,
+  // 기하)은 **일부러 안 만든다** — KCI 에 한글 제목 수학 논문이 387편뿐이고 대부분 수학교육 연구라,
+  // 「초등학교 1학년 다문화학생들의 수 세기 분석」 같은 것이 고등학생 보고서에 붙는다. 붙일 것이
+  // 없는 것보다 엉뚱한 것이 붙는 쪽이 나쁘다.
+  check(subjects.length === 21, "P9 묶음을 만들 과목 21개", String(subjects.length));
+  const pureMath = ["공통수학1", "공통수학2", "대수", "미적분1", "기하"];
+  check(pureMath.every((one) => !subjects.includes(one)),
+    "P9 순수 수학 다섯 과목은 묶음을 만들지 않는다",
+    pureMath.filter((one) => subjects.includes(one)).join(", "));
   let total = 0;
   for (const subject of subjects) {
     const file = here(`../seed/${shardFile(subject)}`);

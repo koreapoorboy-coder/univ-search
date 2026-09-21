@@ -28,6 +28,9 @@ const MAP = JSON.parse(await readFile(here("./subject_field_map_2026_09.json"), 
 const FIELD_MAP = { ...MAP.subjects, ...(MAP.route_subjects || {}) };
 const EXCLUDE = MAP.route_exclude || {};
 const CORE = MAP.route_core || {};
+// 제목에 이 말이 있으면 그 과목 묶음에서 뺀다. 분야만으로는 못 거르는 것이 있다 — 수학은 한글 제목
+// 논문이 거의 다 수학교육 연구여서, 분야가 「자연과학 > 수학」이어도 학생이 쓸 수 없다.
+const TITLE_OUT = MAP.route_title_exclude || {};
 
 // 과목 → 계열. 수행평가 데이터의 subject_group 과 같은 이름이다.
 const GROUP = {
@@ -36,6 +39,9 @@ const GROUP = {
   통합과학1: "과학", 통합과학2: "과학", 과학탐구실험1: "과학", 과학탐구실험2: "과학",
   정보: "정보", 공통국어1: "국어", 공통국어2: "국어", 통합사회1: "사회", 통합사회2: "사회",
   영어: "영어", 한국사: "사회·역사·윤리",
+  // 수학은 논문 묶음이 아예 없었다. 전수 검사에서 「단원은 정했는데 재료가 0개」인 566건 중 401건이
+  // 수학이었다(공통수학1 128, 대수 98, 미적분1 77, 확률과 통계 56, 기하 42).
+  공통수학1: "수학", 공통수학2: "수학", 대수: "수학", 미적분1: "수학", 기하: "수학", "확률과 통계": "수학",
 };
 
 function cells(line) {
@@ -173,8 +179,10 @@ for (const [subject, fields] of Object.entries(FIELD_MAP)) {
   const bag = vocab.get(GROUP[subject]);
   if (!bag) continue;
   const out = EXCLUDE[subject] || [];
+  const badWords = TITLE_OUT[subject] || [];
   const inField = papers.filter((paper) => fields.some((one) => paper.field.startsWith(one))
-    && !out.some((one) => paper.field.startsWith(one)));
+    && !out.some((one) => paper.field.startsWith(one))
+    && !badWords.some((word) => paper.title.includes(word)));
   const rows = [];
   const seen = new Set();
   const units = [];
