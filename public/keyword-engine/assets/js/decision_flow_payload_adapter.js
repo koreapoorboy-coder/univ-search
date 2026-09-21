@@ -18,7 +18,8 @@
     const reportView = read("reportView") || "원리";
     const method = first(connection?.interpreter?.methodAxes, connection?.assessment_route?.recommendedMethod || "보고서작성형");
     const output = first(connection?.interpreter?.outputAxes, connection?.assessment_route?.recommendedOutput || "탐구보고서");
-    const selectedConcept = read("selectedConcept") || first(cross?.topic?.subjectConcepts, read("subject"));
+    // 과목 이름을 개념으로 쓰지 않는다 — 워커가 단원을 못 잡고 주제를 지어낸다.
+    const selectedConcept = read("selectedConcept") || first(cross?.topic?.subjectConcepts, "");
     // 학생 키워드가 비면 **과제에서 뽑은 개념**을 쓴다. 참고 사례의 제목(sourceTitle·selectionKeywordBasis)은
     // 블로그 글 제목일 때가 있어 쓰지 않는다 — 운영 테스트(2026-09-18)에서 「[원자력/지구 과학] … 세특 보고서
     // 추천」이 키워드로 들어가 해수면 온도 보고서가 원전 냉각 보고서가 됐다.

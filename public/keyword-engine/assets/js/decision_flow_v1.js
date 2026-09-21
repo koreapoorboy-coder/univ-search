@@ -213,7 +213,10 @@
     const candidate = text(seed.sourceTitle || seed.label || first(concepts,""));
     if(candidate) return candidate.slice(0,100);
     const cleaned = text(guide).replace(/평가방법.*$/s, "").split(/[/.]/)[0].trim();
-    return cleaned.slice(0,100) || subject;
+    // **과목 이름을 키워드로 쓰지 않는다.** 여기서 「물리」가 들어가면 워커는 학생이 무엇을
+    // 탐구할지 모르는 채로 쓰고, 같은 과제가 매번 다른 주제로 나온다(유료 확인 2026-09-21).
+    // 비워 두면 단원 고르기(unit_choice_picker_v1)가 학생에게 낱말을 물어 채운다.
+    return cleaned.slice(0,100) || "";
   }
   function contextLists(context){
     const interpreter = context?.interpreter || {};
@@ -228,7 +231,8 @@
   }
   function applyContextToHidden(context){
     const lists = contextLists(context);
-    const concept = first(context?.cross_axis?.topic?.subjectConcepts, text($("subject")?.value));
+    // 같은 까닭으로 개념 자리에도 과목 이름을 넣지 않는다.
+    const concept = first(context?.cross_axis?.topic?.subjectConcepts, "");
     const keyword = deriveKeyword(context, $("taskDescription")?.value, $("subject")?.value);
     if($("selectedConcept")) $("selectedConcept").value = concept;
     if($("keyword")) $("keyword").value = keyword;

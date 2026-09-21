@@ -538,7 +538,10 @@
     const reqSubjectGroup = form.subjectGroup || s.subjectGroup || "";
     const reqMajor = s.department || form.career || "";
     const reqConcept = s.selectedConcept || "";
-    const reqKeyword = s.selectedKeyword || s.selectedRecommendedKeyword || form.keyword || s.selectedConcept || form.subject || "";
+    // **마지막 대비책이 과목 이름이었다.** keyword 로 「물리」가 워커에 가면, 워커는 학생이 무엇을
+    // 탐구할지 모르는 채로 쓰고 같은 과제가 매번 다른 주제로 나온다(유료 확인 2026-09-21).
+    // 이제는 비워 보낸다 — 워커에는 과제 글·전공·생활기록부로 단원을 정하는 길이 따로 있다.
+    const reqKeyword = s.selectedKeyword || s.selectedRecommendedKeyword || form.keyword || s.selectedConcept || "";
     const reqAxisRaw = s.selectedFollowupAxis || s.followupAxis || "";
     const reqAxis = compactAxis(reqAxisRaw);
     const reqMajorContext = mini.major_context || mini.reportGenerationContext?.majorContext || null;

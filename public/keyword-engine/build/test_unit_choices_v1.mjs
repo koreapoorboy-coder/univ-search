@@ -4,20 +4,17 @@
 // 그리고 **진로와 이어지는 것이 위**여야 한다 — 아래로 밀리면 학생은 자기 것을 못 찾는다.
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { unitChoices, conceptOfKeyword, CHOICE_WHY } from "../../../admission_worker_skeleton/unit_choices_v1.mjs";
+import { unitChoices, conceptOfKeyword, CHOICE_WHY, TRACK_GROUP } from "../../../admission_worker_skeleton/unit_choices_v1.mjs";
 
 const here = (name) => new URL(name, import.meta.url);
-const [conceptMap, majorSubjectIndex] = await Promise.all([
-  readFile(here("../seed/textbook-v1/subject_concept_engine_map.json"), "utf8").then(JSON.parse),
-  readFile(here("../seed/engine-index/major_subject_concept_index.v1.json"), "utf8").then(JSON.parse),
-]);
-const all = { conceptMap, majorSubjectIndex };
+const index = JSON.parse(await readFile(here("../seed/engine-index/unit_choices.v1.json"), "utf8"));
+const all = { index };
 let passed = 0;
 const check = (ok, label, detail = "") => { assert.equal(ok, true, `${label} -> ${detail}`); console.log(`PASS ${label}`); passed++; };
 
 // K1. 모든 과목이 고를 거리를 준다. 하나라도 비면 그 과목 학생은 막힌다.
 {
-  const subjects = Object.keys(conceptMap);
+  const subjects = Object.keys(index.subjects);
   const empty = subjects.filter((subject) => unitChoices({ subject, ...all }).length === 0);
   check(empty.length === 0, "K1 26과목 모두 고를 거리가 있다", empty.join(", "));
   const thin = subjects.filter((subject) => unitChoices({ subject, ...all }).length < 3);
@@ -44,18 +41,44 @@ const check = (ok, label, detail = "") => { assert.equal(ok, true, `${label} -> 
   const plainB = unitChoices({ subject: "물리", ...all }).map((r) => r.concept);
   check(plainA.join("|") === plainB.join("|"), "K3 전공이 없어도 차례가 흔들리지 않는다");
   check(unitChoices({ subject: "물리", ...all }).every((r) => r.why === CHOICE_WHY.PLAIN),
-    "K3 전공이 없으면 「진로와 이어짐」이라고 말하지 않는다");
+    "K3 전공도 계열도 없으면 「이어짐」이라고 말하지 않는다");
 }
 
 // K4. 왜 위에 올렸는지 말한다. 우리가 고른 까닭을 숨기지 않는다.
 {
-  const rows = unitChoices({ subject: "물리", major: "기계공학과", ...all });
-  const top = rows.find((row) => row.why !== CHOICE_WHY.PLAIN);
-  check(Boolean(top), "K4 전공을 주면 까닭이 붙은 줄이 있다");
-  check([CHOICE_WHY.BOTH, CHOICE_WHY.CAREER_BRIDGE, CHOICE_WHY.MAJOR_CURRICULUM].includes(top.why),
-    "K4 까닭은 세 가지 중 하나다", top.why);
-  check(top.why === CHOICE_WHY.PLAIN || top.career.length > 0 || top.why === CHOICE_WHY.MAJOR_CURRICULUM,
-    "K4 「진로와 이어짐」이라고 했으면 이어지는 분야를 댈 수 있다", JSON.stringify(top.career));
+  const rows = unitChoices({ subject: "물리", major: "기계공학과", track: "engineering", ...all });
+  const top = rows[0];
+  check([CHOICE_WHY.FROM_TASK, CHOICE_WHY.MAJOR, CHOICE_WHY.MAJOR_COURSE, CHOICE_WHY.TRACK].includes(top.why),
+    "K4 맨 위 줄에는 까닭이 붙는다", top.why);
+  check(top.why === CHOICE_WHY.MAJOR, "K4 진로 칸으로 걸린 전공이 대학 수업보다 먼저", `${top.concept}/${top.why}`);
+  check(top.majors.length > 0, "K4 「전공과 이어짐」이라고 했으면 전공 이름을 댈 수 있다", JSON.stringify(top.majors));
+}
+
+// K8. **계열만 고른 학생**(자율전공·미정)도 빈손으로 두지 않는다.
+{
+  const only = unitChoices({ subject: "물리", track: "engineering", ...all });
+  check(only.length >= 3, "K8 전공이 없어도 고를 거리가 있다", String(only.length));
+  check(only[0].why === CHOICE_WHY.TRACK, "K8 계열과 이어지는 단원이 위로 온다", only[0].why);
+  // 계열 이름을 한글로 줘도 읽는다.
+  check(unitChoices({ subject: "물리", track: "공학", ...all })[0].why === CHOICE_WHY.TRACK,
+    "K8 계열을 한글로 줘도 읽는다");
+  check(TRACK_GROUP.engineering === "공학" && TRACK_GROUP.humanities === "인문", "K8 화면의 계열 값과 표의 이름이 이어져 있다");
+  // 그 과목과 인연이 없는 계열이면 까닭을 붙이지 않는다 — 거짓으로 이어 붙이지 않는다.
+  const far = unitChoices({ subject: "물리", track: "humanities", ...all });
+  check(far.every((row) => row.why === CHOICE_WHY.PLAIN), "K8 인연이 없으면 「이어짐」이라고 말하지 않는다");
+}
+
+// K9. **안내문에서 읽어낸 단원은 맨 위에 두고 표시**한다. 표시가 없으면 학생이 진로 쪽으로 바꿔 버린다.
+{
+  const rows = unitChoices({ subject: "물리", major: "기계공학과", track: "engineering", detected: "파동의 성질과 활용", ...all });
+  check(rows[0].concept === "파동의 성질과 활용", "K9 안내문에서 읽어낸 단원이 맨 위", rows[0].concept);
+  check(rows[0].why === CHOICE_WHY.FROM_TASK, "K9 그렇다고 표시한다", rows[0].why);
+  // 띄어쓰기가 달라도 같은 단원으로 본다.
+  check(unitChoices({ subject: "물리", detected: "파동의성질과활용", ...all })[0].why === CHOICE_WHY.FROM_TASK,
+    "K9 띄어쓰기가 달라도 같은 단원으로 본다");
+  // 없는 단원을 읽어냈다고 해도 아무 줄이나 맨 위로 올리지 않는다.
+  const bogus = unitChoices({ subject: "물리", detected: "김치찌개", ...all });
+  check(bogus.every((row) => row.why !== CHOICE_WHY.FROM_TASK), "K9 없는 단원이면 표시하지 않는다");
 }
 
 // K5. 이미 쓴 단원은 지우지 않고 **뒤로 보내고 표시**한다 — 학생이 일부러 또 할 수도 있다.
@@ -72,25 +95,25 @@ const check = (ok, label, detail = "") => { assert.equal(ok, true, `${label} -> 
 
 // K6. 학생이 낱말만 돌려보내도 단원을 되찾는다. 화면은 낱말을 보여 주므로 낱말만 돌아온다.
 {
-  check(conceptOfKeyword({ subject: "물리", keyword: "등가속도 운동", conceptMap }) === "힘과 운동",
-    "K6 낱말 → 단원", conceptOfKeyword({ subject: "물리", keyword: "등가속도 운동", conceptMap }));
-  check(conceptOfKeyword({ subject: "물리", keyword: "힘과 운동", conceptMap }) === "힘과 운동",
+  check(conceptOfKeyword({ subject: "물리", keyword: "등가속도 운동", index }) === "힘과 운동",
+    "K6 낱말 → 단원", conceptOfKeyword({ subject: "물리", keyword: "등가속도 운동", index }));
+  check(conceptOfKeyword({ subject: "물리", keyword: "힘과 운동", index }) === "힘과 운동",
     "K6 단원 이름을 그대로 줘도 된다");
-  check(conceptOfKeyword({ subject: "물리", keyword: "등가속도운동", conceptMap }) === "힘과 운동",
+  check(conceptOfKeyword({ subject: "물리", keyword: "등가속도운동", index }) === "힘과 운동",
     "K6 띄어쓰기가 달라도 찾는다");
-  check(conceptOfKeyword({ subject: "물리", keyword: "김치찌개", conceptMap }) === "",
+  check(conceptOfKeyword({ subject: "물리", keyword: "김치찌개", index }) === "",
     "K6 없는 낱말은 빈칸으로 돌려준다 — 아무 단원이나 집지 않는다");
-  check(conceptOfKeyword({ subject: "", keyword: "등가속도 운동", conceptMap }) === "",
+  check(conceptOfKeyword({ subject: "", keyword: "등가속도 운동", index }) === "",
     "K6 과목을 모르면 되찾지 않는다");
 }
 
 // K7. 고른 낱말은 **그 과목의 것**이어야 한다. 다른 과목 낱말이 섞이면 교과서 줄이 거짓이 된다.
 {
   let wrong = 0;
-  for (const subject of Object.keys(conceptMap)) {
+  for (const subject of Object.keys(index.subjects)) {
     for (const row of unitChoices({ subject, limit: 99, ...all })) {
       for (const word of row.keywords) {
-        if (conceptOfKeyword({ subject, keyword: word, conceptMap }) !== row.concept) wrong += 1;
+        if (conceptOfKeyword({ subject, keyword: word, index }) !== row.concept) wrong += 1;
       }
     }
   }
