@@ -656,6 +656,9 @@
       track: s.department || form.career,
       keyword: s.selectedKeyword || s.selectedRecommendedKeyword || form.keyword,
       selectedConcept: s.selectedConcept || "",
+      // 학생이 낱말을 손으로 눌렀는가. 미리 골라 둔 것은 우리 추천일 뿐이라,
+      // 과제 글이 말한 단원을 덮어쓰면 안 된다(전수 검사 2026-09-21).
+      conceptPicked: readValue("conceptPicked") === "true",
       selectedKeyword: s.selectedKeyword || s.selectedRecommendedKeyword || "",
       selectedFollowupAxis: s.selectedFollowupAxis || s.followupAxis || "",
       selectedBookTitle: (mini.useBookInReport || mini.bookUsageMode === "useBook") ? (mini.selectedBook?.title || "") : "",

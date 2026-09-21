@@ -450,7 +450,15 @@ export default {
         // 둘이 다를 때 화면 쪽이 대체로 맞았다(H-R도 과제: 화면 「별의 특성과 진화」, 추정 「지층과 지질시대」).
         const listedUnit = [input.selectedKeyword, input.keyword].flatMap((one) => String(one || '').split(/\s*[·,]\s*/))
           .map((one) => one.trim()).find((one) => one && isUnitName(one)) || '';
-        const fromTask = (namedConcept && isUnitName(namedConcept) ? namedConcept : '') || listedUnit || guessedConcept || namedConcept || careerConcept;
+        // **학생이 실제로 눌렀을 때만 화면이 보낸 단원이 과제 글을 이긴다.**
+        //
+        // 화면은 낱말 목록의 맨 위를 미리 골라 둔다(학생 손을 덜려고). 그런데 그 미리 고른 것이
+        // 과제 글이 말한 단원을 덮어써 버렸다 — 「등가속도 운동 분석하기」가 「힘과 운동」에서
+        // 「에너지와 열」로 바뀌었다(₩0 전수 검사 2026-09-21, 이렇게 망가진 과제 78건).
+        // 그래서 화면이 conceptPicked 로 「학생이 손으로 눌렀다」를 알려 줄 때만 앞자리를 준다.
+        const chosenByStudent = input.conceptPicked === true || input.conceptPicked === 'true';
+        const namedUnit = namedConcept && isUnitName(namedConcept) ? namedConcept : '';
+        const fromTask = (chosenByStudent ? namedUnit : '') || listedUnit || guessedConcept || namedUnit || namedConcept || careerConcept;
         // **과제 글이 단원을 말하지 않는 과제가 전체의 23%다**(전수 검사 2,473건 중 567건: 「과제」,
         // 「발표」, 「자유주제탐구」). 지금까지는 여기서 단원을 비워 둔 채 보고서를 썼고, 단원을 모르니
         // 논문도 책도 안 붙어 속이 빈 보고서가 나갔다 — 오류 화면이 안 떠서 문제로 보이지도 않았다.

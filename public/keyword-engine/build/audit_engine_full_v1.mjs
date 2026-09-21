@@ -38,6 +38,8 @@ await mkdir(`${OUT}/cache`, { recursive: true });
 
 // ── 과목: 기록의 과목 이름 → 사이트에서 고를 수 있는 32과목 ─────────────────────────────
 const { SITE_SUBJECTS, siteSubject } = await import(new URL("../../../tools/site_subject.mjs", import.meta.url));
+const { unitChoices } = await import(new URL("../../../admission_worker_skeleton/unit_choices_v1.mjs", import.meta.url));
+const unitChoiceIndex = JSON.parse(readFileSync(`${SITE}/seed/engine-index/unit_choices.v1.json`, "utf8"));
 
 // ── 과제 ──────────────────────────────────────────────────────────────────────────────
 const all = readFileSync(`${SITE}/data/assessment/records/assessment_tasks.v1.jsonl`, "utf8").split(/\r?\n/)
@@ -226,8 +228,13 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
     const cross = conn?.cross_axis || {};
     const concepts = (cross.topic?.subjectConcepts || []).map(String).filter(Boolean);
     const taskConcepts = concepts.slice(0, 3).join(" · ");
-    const selectedConcept = concepts[0] || subject;
-    const selectedKeyword = taskConcepts || selectedConcept;
+    // **화면이 보내는 것과 똑같이 맞춘다.** 2026-09-21 이전에는 화면이 주제 칸에 과목 이름을 넣었고
+    // (selectedConcept = concepts[0] || subject) 이 검사기도 그대로 따라 했다. 이제 화면은 학생에게
+    // 낱말 목록을 보여 주고 맨 위를 미리 골라 둔다(unit_choice_picker_v1). 그러니 검사기도
+    // **미리 골라진 낱말**을 보내야 실제와 같은 것을 재게 된다.
+    const top = unitChoices({ subject, index: unitChoiceIndex, major: MAJOR, track: CAREER, detected: concepts[0] || "" })[0] || null;
+    const selectedConcept = top?.concept || concepts[0] || "";
+    const selectedKeyword = top?.keywords?.[0] || taskConcepts || selectedConcept;
     const reportMode = conn?.assessment_route?.recommendedReportMode || "연구보고서형";
     const structure = cross.structure || { id: "structure_research_report", sections: [] };
     row.site = { concepts, reportMode, structure: structure.id, blocked: Boolean(conn?.reportTarget === false || conn?.blocked) };

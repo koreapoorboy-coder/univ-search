@@ -224,8 +224,15 @@ const pick = (subject, concept, major) => {
   // 다른 과목의 개념을 집지 않는다.
   check(inferConcept("지구과학", "태풍 경로와 악기상 재난 사례를 비교한다", axisIndex) === "태풍과 악기상",
     "A3f 과목 안에서만 고른다", inferConcept("지구과학", "태풍 경로와 악기상 재난 사례를 비교한다", axisIndex));
-  check(worker.includes("const fromTask = (namedConcept && isUnitName(namedConcept) ? namedConcept : '') || listedUnit || guessedConcept || namedConcept || careerConcept"),
-    "A3f 학생이 고른 단원 → 화면 목록의 단원 → 과제 문구 → (단원 이름이 아닌) 고른 낱말 → 축의 개념 차례로 쓴다");
+  check(worker.includes("const fromTask = (chosenByStudent ? namedUnit : '') || listedUnit || guessedConcept || namedUnit || namedConcept || careerConcept"),
+    "A3f 학생이 손으로 고른 단원 → 화면 목록의 단원 → 과제 문구 → 추천 단원 → 축의 개념 차례로 쓴다");
+  // 화면은 낱말 목록의 맨 위를 미리 골라 둔다. 그 **미리 고른 것**이 과제 글이 말한 단원을 덮어쓰면
+  // 안 된다 — 「등가속도 운동 분석하기」가 「힘과 운동」에서 「에너지와 열」로 바뀌었다(전수 검사
+  // 2026-09-21, 78건). 학생이 손으로 눌렀을 때만(conceptPicked) 앞자리를 준다.
+  check(worker.includes("const chosenByStudent = input.conceptPicked === true || input.conceptPicked === 'true';"),
+    "A3f 학생이 손으로 눌렀는지 구분한다");
+  check(bridge.includes('conceptPicked: readValue("conceptPicked") === "true"'),
+    "A3f 화면이 그것을 워커에 보낸다");
   // 과제 글이 단원을 아예 안 말하는 과제가 전체의 23%다(전수 검사 567/2,473). 그때는 비워 두지 않고
   // 우리가 정한다 — 학생에게 물으면 찍는다.
   check(worker.includes("const chosen = fromTask ? { concept: fromTask, from: UNIT_SOURCE.TASK } : chooseUnit({"),

@@ -100,7 +100,11 @@
   // 다리(mini_worker_generate_bridge)는 `.engine-chip[data-action="keyword"][data-value]` 가운데
   // is-active 인 것을 키워드로 읽고, `#selectedConcept` 를 단원으로 읽는다. 그래서 새 통로를 만들지
   // 않고 그 두 자리에 적는다.
-  function apply(row, word) {
+  // 학생이 손으로 눌렀는가. 미리 골라 둔 것은 **우리 추천일 뿐**이라, 과제 글이 말한 단원을
+  // 덮어쓰면 안 된다(₩0 전수 검사에서 78건이 그렇게 망가졌다). 워커가 이 값을 보고 판단한다.
+  let touched = false;
+  function apply(row, word, byHand) {
+    if (byHand) touched = true;
     picked = { concept: row.concept, keyword: word };
     let hidden = $("unitChoiceChips");
     if (!hidden) {
@@ -117,7 +121,7 @@
     chip.textContent = word;
     hidden.appendChild(chip);
 
-    for (const [id, value] of [["selectedConcept", row.concept], ["keyword", word]]) {
+    for (const [id, value] of [["selectedConcept", row.concept], ["keyword", word], ["conceptPicked", touched ? "true" : "false"]]) {
       let field = $(id);
       if (!field) {
         field = document.createElement("input");
@@ -145,6 +149,7 @@
       if (!picked) return;
       if ($("selectedConcept") && $("selectedConcept").value !== picked.concept) $("selectedConcept").value = picked.concept;
       if ($("keyword") && $("keyword").value !== picked.keyword) $("keyword").value = picked.keyword;
+      if ($("conceptPicked")) $("conceptPicked").value = touched ? "true" : "false";
     }, 400);
   }
 
@@ -186,7 +191,7 @@
       button.addEventListener("click", () => {
         wrap.querySelectorAll(".uc-item").forEach((one) => one.classList.remove("is-on"));
         button.classList.add("is-on");
-        apply(row, row.keywords[0] || row.concept);
+        apply(row, row.keywords[0] || row.concept, true);
       });
       wrap.appendChild(button);
     });
