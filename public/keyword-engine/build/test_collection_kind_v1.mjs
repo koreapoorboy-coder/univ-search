@@ -41,17 +41,27 @@ is("공공 데이터 포털에서 주제를 골라 데이터를 분석해 시각
 
 // When the wording says nothing at all.
 // 2026-09-18: 과학 과목이라도 과제 글에 단서가 없으면 실험으로 단정하지 않는다 — 「독서 및 글쓰기」, 「자유주제발표」까지
-// 숫자 표를 채우는 과제가 됐다(전수 검사 384건). 가장 적게 요구하는 읽기 보고서로 둔다.
-is("탐구 보고서를 작성하시오.", COLLECTION.READING, "a science task with no other clue is no longer assumed to be an experiment", { subjectGroup: "과학" });
+// 숫자 표를 채우는 과제가 됐다(전수 검사 384건).
+// 2026-09-21: 그때 둔 기본값(읽기 보고서)이 **가장 적게 요구하는 쪽이 아니었다.** 문헌 읽기는 자료 찾기·
+// 읽기·요약·내 해석 넷을 시키는데, 이 자리로 오는 과제는 읽을 자료가 안내문에 한 마디도 없다(869건).
+// 보고서 유형을 알면 그것으로 방향을 잡고, 모르면 아무것도 요구하지 않는다.
+is("탐구 보고서를 작성하시오.", COLLECTION.NONE, "a science task with no other clue asks the student for nothing", { subjectGroup: "과학" });
+is("탐구 보고서를 작성하시오.", COLLECTION.DATASET, "and a data-shaped report type points to published figures", { subjectGroup: "과학", reportMode: "자료해석형" });
+is("탐구 보고서를 작성하시오.", COLLECTION.READING, "and a reading-shaped report type points to source cards", { subjectGroup: "과학", reportMode: "독서비평형" });
 is("독서 및 글쓰기 / 책의 내용을 적절하게 요약했는가?", COLLECTION.READING, "독서 및 글쓰기 in 지구과학 is not a measurement", { subjectGroup: "과학" });
 is("뉴턴 운동 법칙 탐구하기 / 물체의 시간에 따른 속도 변화를 통해 운동을 분석", COLLECTION.MEASUREMENT, "a quantity changing with another is measured even without the word 실험", { subjectGroup: "과학" });
 is("힘과 가속도의 관계 탐구", COLLECTION.MEASUREMENT, "A와 B의 관계 in science is measured", { subjectGroup: "과학" });
 is("저항의 연결 / 저항의 직렬연결과 병렬연결에서 전류, 전위차, 전력을 비교할 수 있다.", COLLECTION.MEASUREMENT, "a series/parallel circuit task is measured", { subjectGroup: "과학" });
 is("스펙트럼 관찰 / 스펙트럼 관찰 후 보고서를 작성하여 제출", COLLECTION.MEASUREMENT, "관찰 후 보고서 is an observation record", { subjectGroup: "과학" });
 is("우리 학교 바이오 블리츠", COLLECTION.MEASUREMENT, "a school bioblitz counts species", { subjectGroup: "과학" });
-is("기온 변화에 따른 생활 양식의 차이", COLLECTION.READING, "the same wording outside science is not a measurement", { subjectGroup: "사회" });
-is("효소 탐구 보고서", COLLECTION.READING, "the site's guessed report mode no longer makes it an experiment", { subjectGroup: "과학", reportMode: "실험분석형" });
-is("보고서를 작성하시오.", COLLECTION.READING, "anything else with no clue asks the least of the student", { subjectGroup: "국어" });
+// 이 줄이 지키는 것은 「과학 밖에서는 재는 과제가 아니다」이다. 단서가 없을 때의 기본값이 읽기에서
+// 「아무것도 안 요구함」으로 바뀌었으므로(2026-09-21), 뜻 그대로 「재는 과제가 아님」을 본다.
+is("기온 변화에 따른 생활 양식의 차이", COLLECTION.NONE, "the same wording outside science is not a measurement", { subjectGroup: "사회" });
+is("기온 변화에 따른 생활 양식의 차이를 자료로 조사한다", COLLECTION.READING, "and it becomes a reading task once the wording says so", { subjectGroup: "사회" });
+// 2026-09-18 의 결정은 그대로다: 사이트가 추정한 보고서 유형으로 **실험이라고 단정하지 않는다**
+// (그때 384건이 숫자 표를 채우는 과제가 됐다). 기본값만 읽기에서 「아무것도 안 요구함」으로 바뀌었다.
+is("효소 탐구 보고서", COLLECTION.NONE, "the site's guessed report mode still cannot make it an experiment", { subjectGroup: "과학", reportMode: "실험분석형" });
+is("보고서를 작성하시오.", COLLECTION.NONE, "anything else with no clue asks the least of the student", { subjectGroup: "국어" });
 
 // The evaluator is part of the contract: the number has to stay checkable.
 const evaluator = await readFile(new URL("../../../tools/eval_collection_kind.mjs", import.meta.url), "utf8");

@@ -188,7 +188,9 @@ check(kindOf("최근 10년 청년 고용 통계 자료를 해석해 보고서를
 check(kindOf("관심 있는 사회 문제를 정해 주제 탐구 보고서를 작성하시오") === COLLECTION.READING, "a research task collects source cards", kindOf("관심 있는 사회 문제를 정해 주제 탐구 보고서를 작성하시오"));
 check(kindOf("주제에 대한 자신의 주장을 담은 논술문을 쓰시오") === COLLECTION.NONE, "an essay task collects nothing", kindOf("주제에 대한 자신의 주장을 담은 논술문을 쓰시오"));
 // 2026-09-18: 과학 과목이라는 것만으로 실험이 되지 않는다 — 과제 글에 재는 일이 드러나야 한다(test_collection_kind_v1).
-check(kindOf("탐구 보고서를 쓰시오", "과학") === COLLECTION.READING, "a science subject alone no longer means an experiment");
+// 2026-09-21: 단서가 없을 때의 기본값을 읽기에서 「아무것도 안 요구함」으로 바꿨다. 읽기는 자료 찾기·읽기·
+// 요약·내 해석 넷을 시키는데, 이 자리로 오는 과제에는 읽을 자료가 없다.
+check(kindOf("탐구 보고서를 쓰시오", "과학") === COLLECTION.NONE, "a science subject alone no longer means an experiment", kindOf("탐구 보고서를 쓰시오", "과학"));
 
 // 야외 조사(방형구·개체 수)는 측정이다 — 운영 테스트에서 '조사'라는 말 때문에 문헌으로 잡혔다.
 check(kindOf("방형구법을 활용한 식물 군집 조사 보고서 / 방형구를 설치해 식물 종류와 개체 수를 조사하고 중요치를 구해 비교한다") === COLLECTION.MEASUREMENT,
