@@ -123,6 +123,11 @@ const row = (title, core = 1) => [title, "김 외", "2024", "학회지", "3", "2
   check(line === "김 외 (2024). 효소 활성에 미치는 온도. 학회지, 3(2), 10-20.", "P8 최종 보고서 참고 자료 줄은 옛 줄과 같은 모양", line);
   check(routedPaperLine(picked[0]) === line, "P8 설계서의 줄과 참고 자료의 줄이 같다 — 학생이 같은 논문으로 알아본다");
   check(shardFile("세포와 물질대사") === "paper-route/세포와_물질대사.v1.json" && shardFile("") === "", "P8 과목 → 묶음 파일 이름");
+  // shardFile 은 아무 과목에나 이름을 만들어 준다. 묶음이 없는 과목(대수·미적분1·기하…)은 Pages 가
+  // 404 대신 화면(HTML)을 200 으로 돌려주므로, 워커가 content-type 을 보고 물러서야 한다. 안 그러면
+  // json 읽다 터지고 재료 단계가 통째로 날아가 **서울대 연구까지** 빠진다.
+  check(worker.includes("res.ok && kind.includes('json')"),
+    "P8 묶음이 없는 과목은 HTML 을 json 으로 읽지 않는다");
 }
 
 // P9: 과목 묶음 — 실제 파일.

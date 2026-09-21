@@ -1205,7 +1205,12 @@ async function loadPaperShard(env, subject) {
   if (paperShards.has(file)) return paperShards.get(file);
   const base = env.SEED_BASE_URL || DEFAULT_SEED_BASE;
   const res = await fetch(encodeURI(`${base}/${file}`), { cf: { cacheTtl: 300, cacheEverything: true } });
-  const body = res.ok ? await res.json() : null;
+  // **묶음이 없는 과목이 있다**(공통수학1·2, 대수, 미적분1, 기하, 인공지능 기초…). Pages 는 없는 주소에
+  // 404 대신 화면(HTML)을 200 으로 돌려주므로 res.ok 만 보면 통과하고, 그 HTML 을 json 으로 읽다가
+  // 터진다. 부르는 쪽이 try 로 감싸 두어 보고서는 안 죽지만, 재료 단계가 통째로 건너뛰어져 **논문뿐
+  // 아니라 서울대 연구까지** 빠졌다 — 오류 화면이 없어서 보이지도 않았다.
+  const kind = res.headers.get('content-type') || '';
+  const body = res.ok && kind.includes('json') ? await res.json() : null;
   const shard = body?.rows ? { rows: body.rows, units: Array.isArray(body.units) ? body.units : [] } : null;
   paperShards.set(file, shard);
   return shard;
