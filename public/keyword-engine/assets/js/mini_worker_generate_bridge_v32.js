@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v284_reference_use
+// SCREEN_VERSION: v285_korean_input_message
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v284-reference-use";
+  const VERSION = "mini-worker-generate-bridge-v285-korean-input-message";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -798,7 +798,8 @@
       throw error;
     }
     if(!accepted?.ok || !accepted.envelope || !accepted.seal || !accepted.phase1_lineage){
-      throw new Error(accepted?.error || "LIVE_INTAKE_GATEWAY_REJECTED");
+      throw new Error(koreanIntakeMessage(accepted?.message) || koreanIntakeMessage(accepted?.error)
+        || accepted?.error || INTAKE_MESSAGE.LIVE_INTAKE_GATEWAY_REJECTED);
     }
     req.liveAuthorityEnvelope = accepted.envelope;
     req.liveAuthoritySeal = accepted.seal;
@@ -816,9 +817,45 @@
     return accepted;
   }
 
+  // 입력 문이 막았을 때 학생에게 보일 문장. 워커의 live_input_message_v1.mjs 와 같은 뜻이다.
+  const INTAKE_MESSAGE = {
+    LIVE_INPUT_CANDIDATE_REQUIRED: "화면을 새로고침한 뒤 학교·학년·과목·과제 안내문을 다시 넣어 주세요.",
+    LIVE_INTAKE_GATEWAY_REJECTED: "화면을 새로고침한 뒤 다시 눌러 주세요.",
+    LIVE_INTAKE_REJECTED: "넣은 내용을 다시 확인해 주세요. 학교·학년·과목·안내문이 모두 있어야 해요.",
+    BLANK_SCHOOL: "학교 이름을 넣어 주세요.",
+    BLANK_SUBJECT: "과목을 골라 주세요.",
+    BLANK_SUBJECT_GROUP: "과목을 골라 주세요. 계열이 함께 정해져요.",
+    BLANK_SELECTED_SUBJECT: "과목을 골라 주세요.",
+    BLANK_SELECTED_SUBJECT_GROUP: "과목을 골라 주세요. 계열이 함께 정해져요.",
+    BLANK_TASK_DESCRIPTION: "수행평가 안내문을 넣어 주세요. 선생님이 주신 글을 그대로 붙여 넣으면 돼요.",
+    GRADE_INVALID: "학년을 고1·고2·고3 중에서 골라 주세요.",
+    UNKNOWN_SUBJECT_OPTION: "목록에 있는 과목 중에서 골라 주세요.",
+    AMBIGUOUS_SUBJECT_OPTION: "과목을 다시 골라 주세요. 같은 이름이 두 번 잡혔어요.",
+    INVENTORY_GROUP_MISMATCH: "과목을 다시 골라 주세요. 과목과 계열이 서로 맞지 않아요.",
+    RAW_METADATA_SUBJECT_MISMATCH: "과목을 다시 골라 주세요.",
+    RAW_METADATA_GROUP_MISMATCH: "과목을 다시 골라 주세요.",
+    LIVE_INPUT_SCHOOL_CONFLICT: "학교 이름이 도중에 바뀌었어요. 새로고침한 뒤 다시 넣어 주세요.",
+    LIVE_INPUT_GRADE_CONFLICT: "학년이 도중에 바뀌었어요. 새로고침한 뒤 다시 골라 주세요.",
+    LIVE_INPUT_SUBJECT_CONFLICT: "과목이 도중에 바뀌었어요. 새로고침한 뒤 다시 골라 주세요.",
+    LIVE_INPUT_SUBJECT_GROUP_CONFLICT: "계열이 도중에 바뀌었어요. 새로고침한 뒤 다시 골라 주세요.",
+    LIVE_INPUT_TASK_DESCRIPTION_CONFLICT: "안내문이 도중에 바뀌었어요. 새로고침한 뒤 다시 붙여 넣어 주세요.",
+    LIVE_INPUT_AUTHORITY_REJECTED: "넣은 내용을 다시 확인해 주세요. 학교·학년·과목·안내문이 모두 있어야 해요."
+  };
+  function koreanIntakeMessage(value){
+    const text = String(value || "").trim();
+    if(!text) return "";
+    if(/[가-힣]/.test(text)) return text;            // 이미 한국어면 그대로 쓴다
+    if(INTAKE_MESSAGE[text]) return INTAKE_MESSAGE[text];
+    if(/^BLANK_/.test(text)) return "빈 칸이 있어요. 학교·학년·과목·안내문을 모두 넣어 주세요.";
+    if(/VERSION_MISMATCH$/.test(text)) return "화면이 오래됐어요. 새로고침한 뒤 다시 해 주세요.";
+    return "";
+  }
+
   function makeHttpError(response, url, text, data){
     const isHtml = /<html[\s>]/i.test(String(text || ""));
-    let msg = data?.error || data?.message || "";
+    // 워커가 보낸 한국어 문장이 있으면 그것을 먼저 쓴다. 없으면 코드를 한국어로 바꾼다.
+    // 그냥 `data.error` 를 쓰면 화면에 「BLANK_TASK_DESCRIPTION」 같은 영어가 그대로 뜬다.
+    let msg = koreanIntakeMessage(data?.message) || koreanIntakeMessage(data?.error) || data?.error || data?.message || "";
     if(!msg && isHtml && response.status === 405){
       msg = `현재 접속 주소에서 생성 엔드포인트가 POST 요청을 받지 못했습니다. (${response.status})`;
     }

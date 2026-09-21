@@ -1,4 +1,5 @@
 import { acceptLiveInputCandidate, handleSimpleLiveIntakeRequest, parseStrictIJson } from './simple_live_intake_v1.mjs';
+import { messageForCode } from './live_input_message_v1.mjs';
 import { COLLECTION, STAGE, finalizeStageOutput, hasStudentMeasurements, normalizeStudentData, titleRules, resolveCollectionKind, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
 import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, matchAxes, priorWorkPromptLines, sanitizeAnalysis, sharesGround, expandMajorTerms } from './upload_analysis_v1.mjs';
 import { pickReportShape, shapePromptLines } from './report_shape_v1.mjs';
@@ -329,7 +330,9 @@ export default {
           liveAuthority = await establishTrustedLiveAuthorityForGenerate(payload);
           mintRuntimeOriginCapability(liveAuthority.envelope, request);
         } catch (error) {
-          return json({ ok: false, error: error?.code || error?.message || 'LIVE_INPUT_AUTHORITY_REJECTED' }, 400);
+          const code = error?.code || error?.message || 'LIVE_INPUT_AUTHORITY_REJECTED';
+          // 기계가 읽는 낱말은 `error`, 학생이 읽는 문장은 `message`.
+          return json({ ok: false, error: code, message: messageForCode(code) }, 400);
         }
         const runtimeOriginVerified = hasRuntimeOriginCapability(liveAuthority.envelope, request);
         if (!runtimeOriginVerified) {
