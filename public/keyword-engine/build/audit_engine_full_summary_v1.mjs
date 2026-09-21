@@ -39,7 +39,20 @@ console.log(`참고 자료에 붙은 것 — 논문 ${has("refPapers")} · 서�
 console.log(`\n문제별 (과제 수):`);
 const perKind = count(rows.flatMap((r) => [...new Set(r.issues.map((i) => i.kind))]));
 for (const [k, v] of top(perKind)) console.log(`  ${String(v).padStart(5)}  ${k}`);
-const clean = rows.filter((r) => !r.issues.length).length;
+// **「살펴보기:」로 시작하는 것은 흠으로 세지 않는다.** 사람이 훑어볼 목록이지 잘못이 아니다 —
+// 낱말 겹침으로 연구 연결을 재면 좋은 연결의 61%가 걸린다(2026-09-21 확인).
+const isLook = (kind) => String(kind).startsWith("살펴보기:");
+// 「맞게막음:」은 보고서 과제가 아닌 것을 바르게 막은 것이다. 잘못이 아니므로 흠으로 세지 않되,
+// 학생은 아무것도 못 받으므로 따로 세어 보여 준다.
+const isRight = (kind) => String(kind).startsWith("맞게막음:");
+const wrong = (r) => r.issues.filter((i) => !isLook(i.kind) && !isRight(i.kind));
+const clean = rows.filter((r) => !wrong(r).length).length;
+const looks = rows.filter((r) => r.issues.some((i) => isLook(i.kind))).length;
+const blocked = rows.filter((r) => r.issues.some((i) => isRight(i.kind))).length;
+if (blocked) console.log(`
+맞게 막은 과제 ${blocked.toLocaleString()}건 (보고서 과제가 아니어서 — 학생은 못 받는다)`);
+if (looks) console.log(`
+사람이 살펴볼 것 ${looks.toLocaleString()}건 (흠으로 세지 않음)`);
 console.log(`\n문제 없는 과제 ${clean.toLocaleString()}건 (${Math.round((clean / rows.length) * 100)}%)`);
 
 // **진짜 점수.** 위 숫자는 우리가 읽고 맞춰 온 자료로 낸 것이라 실제보다 높을 수 있다. 한 번도 안 본
@@ -47,7 +60,7 @@ console.log(`\n문제 없는 과제 ${clean.toLocaleString()}건 (${Math.round((
 const held = rows.filter((r) => r.hold);
 const seen = rows.filter((r) => !r.hold);
 if (held.length) {
-  const ok = (list) => list.filter((r) => !r.issues.length).length;
+  const ok = (list) => list.filter((r) => !wrong(r).length).length;
   console.log(`  ├ 우리가 봐 온 학교   ${ok(seen).toLocaleString()}/${seen.length.toLocaleString()} (${Math.round((ok(seen) / seen.length) * 100)}%)`);
   console.log(`  └ 한 번도 안 본 학교 ${ok(held).toLocaleString()}/${held.length.toLocaleString()} (${Math.round((ok(held) / held.length) * 100)}%)  ← 진짜 점수`);
 }

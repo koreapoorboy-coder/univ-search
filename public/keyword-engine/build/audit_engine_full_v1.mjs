@@ -247,7 +247,10 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
     const reportMode = conn?.assessment_route?.recommendedReportMode || "연구보고서형";
     const structure = cross.structure || { id: "structure_research_report", sections: [] };
     row.site = { concepts, reportMode, structure: structure.id, blocked: Boolean(conn?.reportTarget === false || conn?.blocked) };
-    if (row.site.blocked) flag("사이트가_보고서아님으로_막음");
+    // **흠이 아니다.** 연극 시연·과학 마술·실기시험·수업 참여도처럼 **보고서 과제가 아닌 것**을
+    // 맞게 막은 것이다(13건 전부 사람이 확인했다, 2026-09-21). 다만 학생은 아무것도 못 받으므로
+    // 숨기지 않고 따로 센다 — 여기 쌓이면 「못 하는 과제를 어떻게 안내할까」를 다시 봐야 한다.
+    if (row.site.blocked) flag("맞게막음:사이트가막음");
     if (!concepts.length) flag("사이트_개념없음");
     if (BLOG.test(selectedKeyword)) flag("키워드_블로그제목", selectedKeyword);
 
@@ -264,7 +267,7 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
     // 2. 설계서
     const d = await generate({ ...base, reportStage: "experiment_draft" });
     row.draft = { status: d.status, ok: d.data.ok, source: d.data.source, error: d.data.error || d.data.message || "" };
-    if (d.status === 422) { row.scope = d.data.scope; flag("엔진이_보고서아님", d.data.scope); rows.push(row); continue; }
+    if (d.status === 422) { row.scope = d.data.scope; flag("맞게막음:보고서과제아님", d.data.scope); rows.push(row); continue; }
     if (!d.data.ok) { flag("설계서_실패", `${d.status} ${d.data.error || ""}`); rows.push(row); continue; }
     if (d.data.source !== "openai") flag("설계서_GPT단계_실패(검사용)", d.data.result?.diagnostic || d.data.source);
     const r = d.data.resolved || {};
@@ -335,7 +338,14 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
     row.research = (next?.research || []).map((x) => x.title);
     for (const title of row.research) {
       const h = hitsIn(title, words);
-      if (h.length && h.every((x) => x.inner)) flag("다음걸음연구_글자만겹침", `${title} ← ${h.map((x) => x.word).join(",")}`);
+      // **흠이 아니라 「살펴볼 것」이다.** 이 연구 글은 낱말이 아니라 **단원으로** 이어 붙인 것이라,
+      // 과제 낱말과 겹치지 않는 것이 정상이다 — 「천구와 천체의 일주운동」에 「남반구 하늘 지도」가
+      // 붙은 것은 정확한데 이 검사가 잡았다. 단원 낱말로 재 보아도 655개 연결 중 401개(61%)가
+      // 걸리는데, 그중 대부분이 좋은 연결이다(「광합성과 세포 호흡」 ← 「엽록소 형광 원격탐사」).
+      //
+      // 그래도 버리지는 않는다. 손으로 이어 붙인 것 가운데 억지가 둘 있었고(「공의 질량」 ← 「블랙홀
+      // 질량」, 「주기율표」 ← 「발광효율」) 바로 이 검사가 잡아 주었다. 사람이 훑어보는 목록으로 남긴다.
+      if (h.length && h.every((x) => x.inner)) flag("살펴보기:연구_낱말안겹침", `${title} ← ${h.map((x) => x.word).join(",")}`);
     }
     // 엔진은 절을 「1. 제목\n본문」 글 하나(report)로 합쳐 보낸다.
     const parts = String(f.data.result?.report || "").split(/\n\n(?=\d+\. )/).map((one) => {
