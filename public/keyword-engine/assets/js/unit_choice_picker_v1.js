@@ -37,6 +37,12 @@
   let picked = null;
 
   const $ = (id) => document.getElementById(id);
+  // 전공은 상태 어디에도 이름으로 남지 않는다(major 엔진은 계열만 받는다). 눌린 단추의 글자가 이름이다.
+  function pickedMajor() {
+    // 눌린 단추에 data-major 로 이름이 들어 있다(「아직 못 정했어요」는 빈 값이다).
+    const on = document.querySelector("#majorStep button.is-active[data-major], #majorStep button.is-on[data-major], #majorStep button.active[data-major], #majorStep button.selected[data-major]");
+    return String(on?.dataset?.major || "").trim();
+  }
   const text = (value) => String(value == null ? "" : value).trim();
   const plain = (value) => text(value).replace(/\s+/g, "");
 
@@ -126,6 +132,20 @@
     try {
       global.dispatchEvent(new CustomEvent("keyword-engine:unit-choice", { detail: { ...picked, why: row.why } }));
     } catch (error) { /* 알림이 실패해도 고른 것은 남는다 */ }
+    guard();
+  }
+
+  // 해석을 그리는 코드(decision_flow_v1)가 미리보기를 다시 그릴 때마다 이 두 칸을 덮어쓴다.
+  // 그래서 비워지면 **학생이 고른 것으로 되돌린다.** 학생이 짚은 것이 마지막 말이어야 한다.
+  let guarding = false;
+  function guard() {
+    if (guarding) return;
+    guarding = true;
+    setInterval(() => {
+      if (!picked) return;
+      if ($("selectedConcept") && $("selectedConcept").value !== picked.concept) $("selectedConcept").value = picked.concept;
+      if ($("keyword") && $("keyword").value !== picked.keyword) $("keyword").value = picked.keyword;
+    }, 400);
   }
 
   function render(list) {
@@ -198,8 +218,8 @@
       const detected = text($("selectedConcept")?.value);
       show({
         subject: text($("subject")?.value),
-        major: text(global.__DECISION_FLOW_STATE__?.department || $("major")?.value),
-        track: text(global.__DECISION_FLOW_STATE__?.category || $("subjectGroupCategory")?.value),
+        major: pickedMajor(),
+        track: text(global.__DECISION_FLOW_STATE__?.category || ""),
         detected,
       });
     };
@@ -216,7 +236,7 @@
       setTimeout(() => {
         show({
           subject: text($("subject")?.value),
-          major: text(global.__DECISION_FLOW_STATE__?.department || ""),
+          major: pickedMajor(),
           track: text(global.__DECISION_FLOW_STATE__?.category || button.dataset.category || ""),
           detected: text(global.__UNIT_CHOICE_DETECTED__ || ""),
         });
