@@ -1,0 +1,262 @@
+{
+  "subject_name": "과학과제 연구",
+  "version": "1.0.0",
+  "policy": "실제 수행평가 제목을 읽고 묶어 만든 단원. 시험용으로 떼어 둔 학교 과제는 읽지 않았다.",
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "연구 주제 선정과 선행 연구 조사",
+      "concept_label": "주제·선행 연구",
+      "core_focus": "연구할 거리를 고르고 앞선 연구를 찾아 읽는 단원",
+      "longitudinal_axes": [
+        {
+          "axis_id": "sr_topic_prior_research",
+          "axis_title": "연구 주제·선행 연구 축",
+          "axis_short": "주제와 선행 연구",
+          "axis_domain": "science_history",
+          "priority": 1,
+          "next_subjects": [
+            "공통국어2",
+            "정보",
+            "과학탐구실험1"
+          ],
+          "why": "이미 밝혀진 것과 아직 아닌 것을 가르는 일이 연구의 첫걸음입니다.",
+          "student_output_hint": "선행 연구 두세 편의 목적·방법·결과를 견준 표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "연구 주제",
+                "선행 연구",
+                "문헌 조사",
+                "연구 동기",
+                "연구 목적",
+                "논문 검색",
+                "키워드 검색",
+                "연구 필요성"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "주제와 선행 연구",
+              "message": "선택한 키워드가 연구 주제 선정과 선행 연구 조사 방향을 강화합니다.",
+              "reason": "선택한 키워드가 연구 주제 선정과 선행 연구 조사 방향을 강화합니다.",
+              "desc": "선택한 키워드가 연구 주제 선정과 선행 연구 조사 방향을 강화합니다.",
+              "activity_hint": "선행 연구 두세 편의 목적·방법·결과를 견준 표"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "연구 설계와 변인 통제",
+      "concept_label": "설계·변인",
+      "core_focus": "무엇을 바꾸고 무엇을 고정할지 정하는 단원",
+      "longitudinal_axes": [
+        {
+          "axis_id": "sr_design_variable_control",
+          "axis_title": "연구 설계·변인 통제 축",
+          "axis_short": "설계와 변인",
+          "axis_domain": "science_history",
+          "priority": 1,
+          "next_subjects": [
+            "과학탐구실험1",
+            "확률과 통계",
+            "생명과학"
+          ],
+          "why": "변인을 가르는 힘이 결과를 믿을 수 있게 만듭니다.",
+          "student_output_hint": "독립·종속·통제 변인을 적은 설계표와 예상 결과",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "연구 설계",
+                "독립 변인",
+                "종속 변인",
+                "통제 변인",
+                "대조군",
+                "실험군",
+                "반복",
+                "표본 수",
+                "연구 계획서"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "설계와 변인",
+              "message": "선택한 키워드가 연구 설계와 변인 통제 방향을 강화합니다.",
+              "reason": "선택한 키워드가 연구 설계와 변인 통제 방향을 강화합니다.",
+              "desc": "선택한 키워드가 연구 설계와 변인 통제 방향을 강화합니다.",
+              "activity_hint": "독립·종속·통제 변인을 적은 설계표와 예상 결과"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "데이터 수집과 분석",
+      "concept_label": "수집·분석",
+      "core_focus": "연구 자료를 모으고 통계로 읽는 단원",
+      "longitudinal_axes": [
+        {
+          "axis_id": "sr_data_collection_analysis",
+          "axis_title": "연구 자료 수집·분석 축",
+          "axis_short": "수집과 분석",
+          "axis_domain": "data",
+          "priority": 1,
+          "next_subjects": [
+            "확률과 통계",
+            "정보",
+            "데이터 과학"
+          ],
+          "why": "숫자를 정직하게 다루는 습관이 연구의 신뢰를 만듭니다.",
+          "student_output_hint": "측정값 표와 평균·표준편차, 그래프",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "데이터 수집",
+                "측정",
+                "평균",
+                "표준편차",
+                "오차",
+                "유의성",
+                "그래프",
+                "반복 측정",
+                "통계 처리"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "수집과 분석",
+              "message": "선택한 키워드가 데이터 수집과 분석 방향을 강화합니다.",
+              "reason": "선택한 키워드가 데이터 수집과 분석 방향을 강화합니다.",
+              "desc": "선택한 키워드가 데이터 수집과 분석 방향을 강화합니다.",
+              "activity_hint": "측정값 표와 평균·표준편차, 그래프"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "논문 읽기와 비교 분석",
+      "concept_label": "논문 읽기",
+      "core_focus": "연구 논문을 읽고 견주는 단원",
+      "longitudinal_axes": [
+        {
+          "axis_id": "sr_paper_reading_comparison",
+          "axis_title": "논문 읽기·비교 축",
+          "axis_short": "논문 읽기",
+          "axis_domain": "science_history",
+          "priority": 1,
+          "next_subjects": [
+            "공통국어2",
+            "영어",
+            "생명과학"
+          ],
+          "why": "남의 연구를 정확히 읽는 힘이 내 연구의 자리를 잡아 줍니다.",
+          "student_output_hint": "논문 두 편의 목적·방법·결과·한계를 나란히 둔 표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "논문",
+                "초록",
+                "연구 방법",
+                "연구 결과",
+                "고찰",
+                "비교 분석",
+                "세미나",
+                "인용",
+                "한계"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "논문 읽기",
+              "message": "선택한 키워드가 논문 읽기와 비교 분석 방향을 강화합니다.",
+              "reason": "선택한 키워드가 논문 읽기와 비교 분석 방향을 강화합니다.",
+              "desc": "선택한 키워드가 논문 읽기와 비교 분석 방향을 강화합니다.",
+              "activity_hint": "논문 두 편의 목적·방법·결과·한계를 나란히 둔 표"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "연구 보고서 작성과 참고문헌",
+      "concept_label": "보고서·인용",
+      "core_focus": "연구를 글로 정리하고 출처를 밝히는 단원",
+      "longitudinal_axes": [
+        {
+          "axis_id": "sr_report_writing_citation",
+          "axis_title": "연구 보고서·인용 축",
+          "axis_short": "보고서 쓰기",
+          "axis_domain": "science_history",
+          "priority": 1,
+          "next_subjects": [
+            "공통국어2",
+            "정보",
+            "과학탐구실험1"
+          ],
+          "why": "출처를 밝히는 습관이 연구자의 기본이자 자기 주장의 근거가 됩니다.",
+          "student_output_hint": "서론·방법·결과·고찰·참고문헌을 갖춘 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "연구 보고서",
+                "참고문헌",
+                "인용",
+                "서론",
+                "고찰",
+                "논문 작성법",
+                "표와 그림",
+                "요약"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "보고서 쓰기",
+              "message": "선택한 키워드가 연구 보고서 작성과 참고문헌 방향을 강화합니다.",
+              "reason": "선택한 키워드가 연구 보고서 작성과 참고문헌 방향을 강화합니다.",
+              "desc": "선택한 키워드가 연구 보고서 작성과 참고문헌 방향을 강화합니다.",
+              "activity_hint": "서론·방법·결과·고찰·참고문헌을 갖춘 보고서"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "연구 발표와 동료 평가",
+      "concept_label": "발표·평가",
+      "core_focus": "연구를 알리고 서로 평가하는 단원",
+      "longitudinal_axes": [
+        {
+          "axis_id": "sr_presentation_peer_review",
+          "axis_title": "연구 발표·동료 평가 축",
+          "axis_short": "발표와 평가",
+          "axis_domain": "science_history",
+          "priority": 1,
+          "next_subjects": [
+            "공통국어1",
+            "영어",
+            "정보"
+          ],
+          "why": "질문을 받고 답하는 경험이 연구의 약한 곳을 스스로 찾게 합니다.",
+          "student_output_hint": "발표 자료와 받은 질문·답변을 정리한 기록",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "연구 발표",
+                "중간 발표",
+                "최종 발표",
+                "동료 평가",
+                "질의응답",
+                "발표 자료",
+                "포스터",
+                "세미나"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "발표와 평가",
+              "message": "선택한 키워드가 연구 발표와 동료 평가 방향을 강화합니다.",
+              "reason": "선택한 키워드가 연구 발표와 동료 평가 방향을 강화합니다.",
+              "desc": "선택한 키워드가 연구 발표와 동료 평가 방향을 강화합니다.",
+              "activity_hint": "발표 자료와 받은 질문·답변을 정리한 기록"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

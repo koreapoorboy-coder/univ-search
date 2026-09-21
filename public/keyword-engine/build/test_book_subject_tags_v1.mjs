@@ -25,8 +25,13 @@ for (const axis of Object.values(axisIndex.axes || {})) {
 }
 const spread = new Map();
 for (const bag of vocab.values()) for (const word of bag) spread.set(word, (spread.get(word) || 0) + 1);
-const telling = (word) => (spread.get(word) || 0) > 0 && spread.get(word) <= 3;
 const subjects = [...vocab.keys()];
+// 「이 말이 그 과목을 가리키는가」는 **몇 과목에 나오는가**로 잰다. 그런데 과목 수가 늘면 같은 말이
+// 더 많은 과목에 나타나므로, 고정된 3 으로 재면 과목을 더할 때마다 멀쩡한 태그가 떨어져 나간다 —
+// 2026-09-21 에 단원 사전이 없던 5과목을 넣자 「모델링」이 3 → 4 과목이 되어 「카오스」의 지구과학
+// 태그가 떨어졌다. 그래서 **과목 수에 견주어** 잰다(26과목이면 3, 31과목이면 4).
+const tellingMax = Math.max(3, Math.round(subjects.length * 0.12));
+const telling = (word) => (spread.get(word) || 0) > 0 && spread.get(word) <= tellingMax;
 // 정확히 같은 이름을 먼저 찾는다. norm()이 끝의 숫자를 떼기 때문에 공통국어1과 공통국어2가 같은
 // 이름이 되어, 「스틱!」의 공통국어2 태그를 공통국어1의 어휘로 재고 떼어 버렸다 — '홍보'는 공통국어2에만
 // 있는 말이다. 1과 2는 다루는 개념이 다르므로 섞으면 안 된다.

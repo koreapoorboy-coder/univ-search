@@ -19,7 +19,14 @@ const SEED = "../public/keyword-engine/seed";
 
 // ── 축 파일 ────────────────────────────────────────────────────────────
 const axisPath = here(`${SEED}/followup-axis/${patch.axis_file}`);
-const axisDoc = JSON.parse(await readFile(axisPath, "utf8"));
+// 축 파일이 없는 과목이 있다(인공지능 기초·융합과학 탐구·데이터 과학·과학과제 연구·화학 반응의 세계).
+// 사이트에서 고를 수는 있는데 단원 사전이 없어, 그 과목 학생은 무조건 빈 보고서를 받았다.
+const axisDoc = JSON.parse(await readFile(axisPath, "utf8").catch(() => JSON.stringify({
+  subject_name: patch.subject,
+  version: "1.0.0",
+  policy: "실제 수행평가 제목을 읽고 묶어 만든 단원. 시험용으로 떼어 둔 학교 과제는 읽지 않았다.",
+  concept_longitudinal_map: [],
+})));
 const axisList = axisDoc.concept_longitudinal_map;
 const have = new Set(axisList.map((one) => one.concept_name));
 
@@ -61,8 +68,10 @@ for (const unit of patch.units) {
 // ── 개념표 ─────────────────────────────────────────────────────────────
 const mapPath = here(`${SEED}/textbook-v1/subject_concept_engine_map.json`);
 const conceptMap = JSON.parse(await readFile(mapPath, "utf8"));
+if (!conceptMap[patch.subject]) {
+  conceptMap[patch.subject] = { meta: { subject_kr: patch.subject, curriculum: "2022 개정 교육과정", source_name: "assessment_task_survey", version: "1.0.0" }, concepts: {} };
+}
 const own = conceptMap[patch.subject];
-if (!own) { console.error(`개념표에 ${patch.subject} 가 없습니다.`); process.exit(1); }
 let addedMap = 0;
 for (const unit of patch.units) {
   if (own.concepts[unit.name]) { continue; }

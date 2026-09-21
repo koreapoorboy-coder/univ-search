@@ -1,0 +1,224 @@
+{
+  "subject_name": "화학 반응의 세계",
+  "version": "1.0.0",
+  "policy": "실제 수행평가 제목을 읽고 묶어 만든 단원. 시험용으로 떼어 둔 학교 과제는 읽지 않았다.",
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "산 염기와 이온화 평형",
+      "concept_label": "산염기·평형",
+      "core_focus": "산과 염기가 물에서 어떻게 나뉘고 균형을 이루는지 다루는 단원",
+      "longitudinal_axes": [
+        {
+          "axis_id": "crw_acid_base_ionization",
+          "axis_title": "산 염기·이온화 평형 축",
+          "axis_short": "산염기 평형",
+          "axis_domain": "chemistry",
+          "priority": 1,
+          "next_subjects": [
+            "화학",
+            "생명과학",
+            "물질과 에너지"
+          ],
+          "why": "이온화 평형을 식으로 다루는 힘이 이후 생체 완충과 공정 제어로 이어집니다.",
+          "student_output_hint": "농도별 pH 측정표와 이온화 상수 계산",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "브뢴스테드",
+                "산 염기",
+                "이온화",
+                "이온화 상수",
+                "pH",
+                "완충 용액",
+                "중화 적정",
+                "짝산",
+                "짝염기",
+                "이온화도"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "산염기 평형",
+              "message": "선택한 키워드가 산 염기와 이온화 평형 방향을 강화합니다.",
+              "reason": "선택한 키워드가 산 염기와 이온화 평형 방향을 강화합니다.",
+              "desc": "선택한 키워드가 산 염기와 이온화 평형 방향을 강화합니다.",
+              "activity_hint": "농도별 pH 측정표와 이온화 상수 계산"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "화학 반응의 속도",
+      "concept_label": "반응 속도",
+      "core_focus": "반응이 빨라지고 느려지는 까닭을 다루는 단원",
+      "longitudinal_axes": [
+        {
+          "axis_id": "crw_reaction_rate",
+          "axis_title": "화학 반응 속도 축",
+          "axis_short": "반응 속도",
+          "axis_domain": "chemistry",
+          "priority": 1,
+          "next_subjects": [
+            "화학",
+            "물질과 에너지",
+            "생명과학"
+          ],
+          "why": "속도를 조건으로 다루는 눈이 이후 촉매 설계와 공정 최적화로 이어집니다.",
+          "student_output_hint": "조건별 반응 시간 표와 속도 비교 그래프",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "반응 속도",
+                "촉매",
+                "활성화 에너지",
+                "농도",
+                "온도",
+                "표면적",
+                "충돌 이론",
+                "반응 차수",
+                "속도 상수"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "반응 속도",
+              "message": "선택한 키워드가 화학 반응의 속도 방향을 강화합니다.",
+              "reason": "선택한 키워드가 화학 반응의 속도 방향을 강화합니다.",
+              "desc": "선택한 키워드가 화학 반응의 속도 방향을 강화합니다.",
+              "activity_hint": "조건별 반응 시간 표와 속도 비교 그래프"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "화학 평형과 평형 이동",
+      "concept_label": "평형 이동",
+      "core_focus": "정반응과 역반응이 균형을 이루고 옮겨 가는 것을 다루는 단원",
+      "longitudinal_axes": [
+        {
+          "axis_id": "crw_chemical_equilibrium",
+          "axis_title": "화학 평형·이동 축",
+          "axis_short": "화학 평형",
+          "axis_domain": "chemistry",
+          "priority": 1,
+          "next_subjects": [
+            "화학",
+            "물질과 에너지",
+            "지구과학"
+          ],
+          "why": "평형을 옮기는 조건을 읽는 힘이 이후 화학 공정 설계의 바탕이 됩니다.",
+          "student_output_hint": "조건을 바꿔 가며 색이나 농도 변화를 적은 표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "화학 평형",
+                "르샤틀리에",
+                "평형 상수",
+                "정반응",
+                "역반응",
+                "평형 이동",
+                "동적 평형",
+                "압력 변화",
+                "농도 변화"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "화학 평형",
+              "message": "선택한 키워드가 화학 평형과 평형 이동 방향을 강화합니다.",
+              "reason": "선택한 키워드가 화학 평형과 평형 이동 방향을 강화합니다.",
+              "desc": "선택한 키워드가 화학 평형과 평형 이동 방향을 강화합니다.",
+              "activity_hint": "조건을 바꿔 가며 색이나 농도 변화를 적은 표"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "산화 환원과 전기 화학",
+      "concept_label": "산화환원·전기화학",
+      "core_focus": "전자를 주고받는 반응과 전지를 다루는 단원",
+      "longitudinal_axes": [
+        {
+          "axis_id": "crw_redox_electrochemistry",
+          "axis_title": "산화 환원·전기 화학 축",
+          "axis_short": "산화 환원",
+          "axis_domain": "chemistry",
+          "priority": 1,
+          "next_subjects": [
+            "화학",
+            "전자기와 양자",
+            "물질과 에너지"
+          ],
+          "why": "전자의 이동으로 반응을 읽는 눈이 이후 전지와 부식 문제로 이어집니다.",
+          "student_output_hint": "전지의 전압 측정표와 반응식",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "산화",
+                "환원",
+                "산화수",
+                "전지",
+                "전기 분해",
+                "표준 환원 전위",
+                "전극",
+                "부식",
+                "이차 전지",
+                "연료 전지"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "산화 환원",
+              "message": "선택한 키워드가 산화 환원과 전기 화학 방향을 강화합니다.",
+              "reason": "선택한 키워드가 산화 환원과 전기 화학 방향을 강화합니다.",
+              "desc": "선택한 키워드가 산화 환원과 전기 화학 방향을 강화합니다.",
+              "activity_hint": "전지의 전압 측정표와 반응식"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "실험 설계와 안전",
+      "concept_label": "실험 설계·안전",
+      "core_focus": "실험의 원리와 절차를 이해하고 안전하게 수행하는 단원",
+      "longitudinal_axes": [
+        {
+          "axis_id": "crw_experiment_design_safety",
+          "axis_title": "화학 실험 설계·안전 축",
+          "axis_short": "실험 설계",
+          "axis_domain": "chemistry",
+          "priority": 1,
+          "next_subjects": [
+            "과학탐구실험1",
+            "화학",
+            "생명과학"
+          ],
+          "why": "절차와 안전을 먼저 세우는 습관이 실험 결과를 믿을 수 있게 만듭니다.",
+          "student_output_hint": "실험 목적·원리·절차·안전 수칙을 적은 계획서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "실험 원리",
+                "실험 절차",
+                "실험 안전",
+                "시약",
+                "기구",
+                "농도 계산",
+                "표준 용액",
+                "폐액 처리",
+                "실험 준비"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "실험 설계",
+              "message": "선택한 키워드가 실험 설계와 안전 방향을 강화합니다.",
+              "reason": "선택한 키워드가 실험 설계와 안전 방향을 강화합니다.",
+              "desc": "선택한 키워드가 실험 설계와 안전 방향을 강화합니다.",
+              "activity_hint": "실험 목적·원리·절차·안전 수칙을 적은 계획서"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

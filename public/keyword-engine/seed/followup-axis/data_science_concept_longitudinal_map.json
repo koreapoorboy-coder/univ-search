@@ -1,0 +1,262 @@
+{
+  "subject_name": "데이터 과학",
+  "version": "1.0.0",
+  "policy": "실제 수행평가 제목을 읽고 묶어 만든 단원. 시험용으로 떼어 둔 학교 과제는 읽지 않았다.",
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "데이터와 사회 변화",
+      "concept_label": "데이터·사회",
+      "core_focus": "데이터가 사회를 어떻게 바꾸는지와 지켜야 할 선을 다루는 단원",
+      "longitudinal_axes": [
+        {
+          "axis_id": "ds_data_social_change",
+          "axis_title": "데이터·사회 변화 축",
+          "axis_short": "데이터와 사회",
+          "axis_domain": "data",
+          "priority": 1,
+          "next_subjects": [
+            "통합사회2",
+            "정보",
+            "공통국어2"
+          ],
+          "why": "데이터가 가진 힘과 위험을 함께 보는 눈이 이후 모든 분석의 판단 기준이 됩니다.",
+          "student_output_hint": "데이터로 바뀐 사례 하나를 골라 이로운 점과 위험을 견준 글",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "데이터 사회",
+                "개인정보",
+                "데이터 윤리",
+                "가명처리",
+                "데이터 편향",
+                "정보 격차",
+                "데이터 주권",
+                "사회 변화"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "데이터와 사회",
+              "message": "선택한 키워드가 데이터와 사회 변화 방향을 강화합니다.",
+              "reason": "선택한 키워드가 데이터와 사회 변화 방향을 강화합니다.",
+              "desc": "선택한 키워드가 데이터와 사회 변화 방향을 강화합니다.",
+              "activity_hint": "데이터로 바뀐 사례 하나를 골라 이로운 점과 위험을 견준 글"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "데이터 수집과 전처리",
+      "concept_label": "수집·전처리",
+      "core_focus": "쓸 수 있는 데이터를 모으고 다듬는 단원",
+      "longitudinal_axes": [
+        {
+          "axis_id": "ds_collection_preprocessing",
+          "axis_title": "데이터 수집·전처리 축",
+          "axis_short": "수집과 전처리",
+          "axis_domain": "data",
+          "priority": 1,
+          "next_subjects": [
+            "정보",
+            "확률과 통계",
+            "인공지능 기초"
+          ],
+          "why": "지저분한 데이터를 다듬는 손이 분석 결과의 신뢰를 좌우합니다.",
+          "student_output_hint": "원자료와 다듬은 자료를 나란히 둔 표와 처리 기준",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "데이터 수집",
+                "공공데이터",
+                "전처리",
+                "결측치",
+                "이상치",
+                "정제",
+                "데이터 형식",
+                "속성 추출",
+                "표본"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "수집과 전처리",
+              "message": "선택한 키워드가 데이터 수집과 전처리 방향을 강화합니다.",
+              "reason": "선택한 키워드가 데이터 수집과 전처리 방향을 강화합니다.",
+              "desc": "선택한 키워드가 데이터 수집과 전처리 방향을 강화합니다.",
+              "activity_hint": "원자료와 다듬은 자료를 나란히 둔 표와 처리 기준"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "탐색적 데이터 분석과 시각화",
+      "concept_label": "탐색·시각화",
+      "core_focus": "데이터를 그림으로 그려 무엇이 보이는지 찾는 단원",
+      "longitudinal_axes": [
+        {
+          "axis_id": "ds_exploratory_visualization",
+          "axis_title": "탐색적 분석·시각화 축",
+          "axis_short": "탐색과 시각화",
+          "axis_domain": "data",
+          "priority": 1,
+          "next_subjects": [
+            "확률과 통계",
+            "정보",
+            "공통수학1"
+          ],
+          "why": "그림으로 먼저 보는 습관이 잘못된 계산을 미리 잡아 줍니다.",
+          "student_output_hint": "같은 자료를 두 가지 그래프로 그리고 무엇이 다르게 보이는지 적은 기록",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "탐색적 데이터 분석",
+                "시각화",
+                "산포도",
+                "히스토그램",
+                "상자 그림",
+                "평균",
+                "중앙값",
+                "분포",
+                "시각화 오류",
+                "축 왜곡"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "탐색과 시각화",
+              "message": "선택한 키워드가 탐색적 데이터 분석과 시각화 방향을 강화합니다.",
+              "reason": "선택한 키워드가 탐색적 데이터 분석과 시각화 방향을 강화합니다.",
+              "desc": "선택한 키워드가 탐색적 데이터 분석과 시각화 방향을 강화합니다.",
+              "activity_hint": "같은 자료를 두 가지 그래프로 그리고 무엇이 다르게 보이는지 적은 기록"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "회귀와 예측 모델",
+      "concept_label": "회귀·예측",
+      "core_focus": "값들 사이의 관계를 식으로 만들어 예측하는 단원",
+      "longitudinal_axes": [
+        {
+          "axis_id": "ds_regression_prediction",
+          "axis_title": "회귀·예측 모델 축",
+          "axis_short": "회귀와 예측",
+          "axis_domain": "data",
+          "priority": 1,
+          "next_subjects": [
+            "확률과 통계",
+            "미적분1",
+            "인공지능 기초"
+          ],
+          "why": "관계를 식으로 세우고 얼마나 맞는지 재는 훈련이 모든 예측 모델의 바탕입니다.",
+          "student_output_hint": "산점도와 회귀 직선, 기울기·절편의 뜻을 적은 해석",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "회귀분석",
+                "상관",
+                "산포도",
+                "기울기",
+                "결정계수",
+                "예측",
+                "잔차",
+                "선형 모델",
+                "추세선"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "회귀와 예측",
+              "message": "선택한 키워드가 회귀와 예측 모델 방향을 강화합니다.",
+              "reason": "선택한 키워드가 회귀와 예측 모델 방향을 강화합니다.",
+              "desc": "선택한 키워드가 회귀와 예측 모델 방향을 강화합니다.",
+              "activity_hint": "산점도와 회귀 직선, 기울기·절편의 뜻을 적은 해석"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "군집과 연관 분석",
+      "concept_label": "군집·연관",
+      "core_focus": "비슷한 것끼리 묶고 함께 나타나는 것을 찾는 단원",
+      "longitudinal_axes": [
+        {
+          "axis_id": "ds_clustering_association",
+          "axis_title": "군집·연관 분석 축",
+          "axis_short": "군집과 연관",
+          "axis_domain": "data",
+          "priority": 1,
+          "next_subjects": [
+            "확률과 통계",
+            "정보",
+            "인공지능 기초"
+          ],
+          "why": "정답이 없는 자료에서 구조를 찾는 방법이 이후 비지도 학습으로 이어집니다.",
+          "student_output_hint": "군집 결과를 그림으로 그리고 각 무리의 특징을 적은 표",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "군집",
+                "클러스터링",
+                "연관 분석",
+                "연관 규칙",
+                "거리",
+                "유사도",
+                "비지도 학습",
+                "장바구니 분석"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "군집과 연관",
+              "message": "선택한 키워드가 군집과 연관 분석 방향을 강화합니다.",
+              "reason": "선택한 키워드가 군집과 연관 분석 방향을 강화합니다.",
+              "desc": "선택한 키워드가 군집과 연관 분석 방향을 강화합니다.",
+              "activity_hint": "군집 결과를 그림으로 그리고 각 무리의 특징을 적은 표"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "데이터 과학 프로젝트",
+      "concept_label": "프로젝트",
+      "core_focus": "문제를 정하고 데이터로 끝까지 풀어 보는 단원",
+      "longitudinal_axes": [
+        {
+          "axis_id": "ds_project_end_to_end",
+          "axis_title": "데이터 과학 프로젝트 축",
+          "axis_short": "데이터 프로젝트",
+          "axis_domain": "data",
+          "priority": 1,
+          "next_subjects": [
+            "정보",
+            "통합사회2",
+            "인공지능 기초"
+          ],
+          "why": "문제 정의부터 해석까지 한 바퀴 돈 경험이 이후 모든 데이터 일의 뼈대가 됩니다.",
+          "student_output_hint": "문제·데이터·방법·결과·한계를 담은 프로젝트 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "데이터 프로젝트",
+                "문제 정의",
+                "포스터",
+                "결과 해석",
+                "진로 설계",
+                "대시보드",
+                "보고서 작성"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "데이터 프로젝트",
+              "message": "선택한 키워드가 데이터 과학 프로젝트 방향을 강화합니다.",
+              "reason": "선택한 키워드가 데이터 과학 프로젝트 방향을 강화합니다.",
+              "desc": "선택한 키워드가 데이터 과학 프로젝트 방향을 강화합니다.",
+              "activity_hint": "문제·데이터·방법·결과·한계를 담은 프로젝트 보고서"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
