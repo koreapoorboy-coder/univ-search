@@ -41,5 +41,15 @@ const perKind = count(rows.flatMap((r) => [...new Set(r.issues.map((i) => i.kind
 for (const [k, v] of top(perKind)) console.log(`  ${String(v).padStart(5)}  ${k}`);
 const clean = rows.filter((r) => !r.issues.length).length;
 console.log(`\n문제 없는 과제 ${clean.toLocaleString()}건 (${Math.round((clean / rows.length) * 100)}%)`);
+
+// **진짜 점수.** 위 숫자는 우리가 읽고 맞춰 온 자료로 낸 것이라 실제보다 높을 수 있다. 한 번도 안 본
+// 학교(tools/holdout_schools_2026_09.json)만 따로 내면, 처음 보는 안내문에서 어떻게 될지에 더 가깝다.
+const held = rows.filter((r) => r.hold);
+const seen = rows.filter((r) => !r.hold);
+if (held.length) {
+  const ok = (list) => list.filter((r) => !r.issues.length).length;
+  console.log(`  ├ 우리가 봐 온 학교   ${ok(seen).toLocaleString()}/${seen.length.toLocaleString()} (${Math.round((ok(seen) / seen.length) * 100)}%)`);
+  console.log(`  └ 한 번도 안 본 학교 ${ok(held).toLocaleString()}/${held.length.toLocaleString()} (${Math.round((ok(held) / held.length) * 100)}%)  ← 진짜 점수`);
+}
 const logs = top(count(engineLog.map((l) => l.replace(/\d+/g, "#").slice(0, 80)))).slice(0, 8);
 if (logs.length) console.log(`\n엔진 오류 기록(앞 200줄 중): ${logs.map(([k, v]) => `${v}× ${k}`).join("\n  ")}`);

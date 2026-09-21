@@ -40,6 +40,9 @@ await mkdir(`${OUT}/cache`, { recursive: true });
 const { SITE_SUBJECTS, siteSubject } = await import(new URL("../../../tools/site_subject.mjs", import.meta.url));
 const { unitChoices } = await import(new URL("../../../admission_worker_skeleton/unit_choices_v1.mjs", import.meta.url));
 const unitChoiceIndex = JSON.parse(readFileSync(`${SITE}/seed/engine-index/unit_choices.v1.json`, "utf8"));
+// 한 번도 안 본 학교. 우리 점수는 가진 자료로 낸 점수라 실제보다 높을 수 있어, 이 학교들로만
+// 따로 재어 그것을 진짜 점수로 본다(tools/holdout_schools_2026_09.json).
+const HOLDOUT = new Set(JSON.parse(readFileSync(new URL("../../../tools/holdout_schools_2026_09.json", import.meta.url), "utf8")).schools);
 
 // ── 과제 ──────────────────────────────────────────────────────────────────────────────
 const all = readFileSync(`${SITE}/data/assessment/records/assessment_tasks.v1.jsonl`, "utf8").split(/\r?\n/)
@@ -219,7 +222,8 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
   // 과제 글 안에 학교 이름이 섞여 있을 때가 있다(「2026학년도 ○○고 교수학습 및 평가 운영 계획」). 결과에는 지운다.
   const school = String(task.school_name || "").trim();
   const scrub = (text) => (school ? String(text).split(school).join("○○고").split(school.replace(/등학교$/, "")).join("○○") : String(text));
-  const row = { id, subject, raw: task.subject_standard, grade, task: scrub(taskText.slice(0, 300)), issues: [] };
+  // 시험용으로 떼어 둔 학교인가. **학교 이름은 결과에 적지 않는다** — 참/거짓만 남긴다.
+  const row = { id, subject, raw: task.subject_standard, grade, task: scrub(taskText.slice(0, 300)), hold: HOLDOUT.has(school), issues: [] };
   const flag = (kind, detail = "") => row.issues.push({ kind, detail: String(detail).slice(0, 200) });
   try {
     // 1. 사이트 해석
