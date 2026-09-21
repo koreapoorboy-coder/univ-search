@@ -16,6 +16,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { createInterface } from "node:readline";
 import { taskWords, taskHit } from "../admission_worker_skeleton/univ_research_v1.mjs";
 import { FRAME, isVerb } from "../admission_worker_skeleton/paper_route_v1.mjs";
+import { WORDS as UNIT_WORDS } from "./unit_word_tags.mjs";
 
 const here = (name) => new URL(name, import.meta.url);
 const CSV = process.argv.find((one) => /\.csv$/i.test(one))
@@ -201,13 +202,30 @@ for (const [subject, fields] of Object.entries(FIELD_MAP)) {
     rows.push([paper.title, paper.who, paper.year, paper.journal, paper.volume, paper.issue, paper.pages, core,
       tag ? tag.concepts.map(unitAt) : null, tag ? LEVEL[tag.level] || "" : "", paper.keywords || ""]);
   }
-  shards[subject] = { fields, inField: inField.length, rows, units, core: rows.filter((row) => row[7]).length };
+  // **낱말로 다는 꼬리표.** GPT 꼬리표(kci_paper_index)는 2026-09-20 에 새로 넣은 과목(영어·한국사)의
+  // 단원을 모른다. 그 단원만 쓰는 낱말을 손으로 정해 제목·키워드에 있는지 본다(unit_word_tags.mjs).
+  // **여기서 같이 붙여야 한다.** 예전에는 묶음을 만든 뒤 따로 다는 도구를 돌렸는데, 묶음을 다시 만들면
+  // 꼬리표가 지워졌다 — 수학을 넣으려고 다시 만들었더니 영어 267건·한국사 142건이 재료 없는 보고서가
+  // 됐다(전수 검사 69% → 53%).
+  let byWord = 0;
+  for (const [unit, words] of Object.entries(UNIT_WORDS[subject] || {})) {
+    const at = unitAt(`${subject}::${unit}`);
+    for (const row of rows) {
+      const text = `${row[0] || ""} ${row[10] || ""}`;
+      if (!words.some((word) => text.includes(word))) continue;
+      const before = Array.isArray(row[8]) ? row[8] : [];
+      if (before.includes(at)) continue;
+      row[8] = [...before, at];
+      byWord += 1;
+    }
+  }
+  shards[subject] = { fields, inField: inField.length, rows, units, core: rows.filter((row) => row[7]).length, byWord };
 }
 
 console.log("\n과목별 묶음:");
 for (const [subject, one] of Object.entries(shards)) {
   const size = Buffer.byteLength(JSON.stringify(one.rows), "utf8");
-  console.log(`  ${subject.padEnd(10)} 분야 ${String(one.inField).padStart(6)}편 → 묶음 ${String(one.rows.length).padStart(6)}편 (중심 학문 ${String(one.core).padStart(5)})  ${(size / 1e6).toFixed(2)}MB`);
+  console.log(`  ${subject.padEnd(10)} 분야 ${String(one.inField).padStart(6)}편 → 묶음 ${String(one.rows.length).padStart(6)}편 (중심 학문 ${String(one.core).padStart(5)})  ${(size / 1e6).toFixed(2)}MB${one.byWord ? `  · 낱말 꼬리표 ${one.byWord}` : ""}`);
 }
 console.log(`손으로 지운 것 ${handDropped}편 · GPT 꼬리표로 뺀 것(이어지는 단원 없음) ${unlinked}편 · 꼬리표 붙은 줄 ${tagged}`);
 
