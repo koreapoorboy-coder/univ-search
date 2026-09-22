@@ -17,12 +17,20 @@
 (function (global) {
   "use strict";
 
-  const VERSION = "unit-choice-picker-v1.7.0";
+  const VERSION = "unit-choice-picker-v1.8.0";
   global.__UNIT_CHOICE_PICKER_VERSION__ = VERSION;
 
   // 판 이름을 붙여 부른다. 안 붙이면 force-cache 때문에 **단원 사전을 새로 올려도 옛 목록이**
   // 계속 나온다 — 빠진 단원 셋을 채워 배포했는데 화면은 그대로였다(2026-09-22).
-  const INDEX_URL = `seed/engine-index/unit_choices.v1.json?v=${VERSION}`;
+  // 사전 주소에 붙일 판 이름. **index.html 이 이 파일을 부를 때 쓴 ?v= 를 그대로 쓴다.**
+  // 예전에는 여기 적힌 VERSION 만 썼는데, 사전을 고치고 index.html 의 ?v= 만 올리면 사전 주소는
+  // 그대로라 브라우저가 옛 사전을 계속 내놓았다 — 낱말을 채워 배포해도 화면은 안 바뀌었다
+  // (2026-09-22, 두 번 겪었다). 화면 판을 올리면 사전도 같이 새로 받게 묶어 둔다.
+  const STAMP = (() => {
+    try { return new URL(document.currentScript?.src || "", location.href).searchParams.get("v") || VERSION; }
+    catch (error) { return VERSION; }
+  })();
+  const INDEX_URL = `seed/engine-index/unit_choices.v1.json?v=${STAMP}`;
   const TRACK_GROUP = {
     engineering: "공학", natural: "자연", medical: "의약", social: "사회", humanities: "인문",
   };
