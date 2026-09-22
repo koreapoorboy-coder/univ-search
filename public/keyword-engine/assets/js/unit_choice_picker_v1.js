@@ -17,10 +17,12 @@
 (function (global) {
   "use strict";
 
-  const VERSION = "unit-choice-picker-v1.5.0";
+  const VERSION = "unit-choice-picker-v1.6.0";
   global.__UNIT_CHOICE_PICKER_VERSION__ = VERSION;
 
-  const INDEX_URL = "seed/engine-index/unit_choices.v1.json";
+  // 판 이름을 붙여 부른다. 안 붙이면 force-cache 때문에 **단원 사전을 새로 올려도 옛 목록이**
+  // 계속 나온다 — 빠진 단원 셋을 채워 배포했는데 화면은 그대로였다(2026-09-22).
+  const INDEX_URL = `seed/engine-index/unit_choices.v1.json?v=${VERSION}`;
   const TRACK_GROUP = {
     engineering: "공학", natural: "자연", medical: "의약", social: "사회", humanities: "인문",
   };
