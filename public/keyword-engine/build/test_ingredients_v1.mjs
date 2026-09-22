@@ -70,8 +70,11 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
   check(/"확인함"/.test(lines) && /학생은 제목만 보았다/.test(lines) && /탐구를 확장함/.test(lines), "I3 참고 연구는 '확인함'이 아니라 '찾아봄·확장함'으로");
   check(/반드시 usedIngredients에 넣는다/.test(lines) && /번호\(P1, R1\)는 본문에 쓰지 않는다/.test(lines), "I3 재료 내용을 썼으면 반드시 표시, 번호는 본문에 안 쓴다");
   const { scrubIngredientIds } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
-  check(scrubIngredientIds("이산화탄소를 전환하는 연구(P2)가 있었다. R1에서도 다룬다. P파와 S파.") === "이산화탄소를 전환하는 연구가 있었다. 에서도 다룬다. P파와 S파.",
-    "I3 본문에 남은 재료 번호는 지운다 — P파 같은 말은 그대로", scrubIngredientIds("이산화탄소를 전환하는 연구(P2)가 있었다. R1에서도 다룬다. P파와 S파."));
+  // 2026-09-22에 바꿨다. 예전에는 맨몸의 R1 까지 지워 「R1에서도 다룬다」가 「에서도 다룬다」가 됐다.
+  // 그 규칙이 학생 보고서의 변수 이름을 먹는 것을 운영 검사에서 보았다(아래 I8). 이제 괄호에
+  // 든 번호만 지운다 — 맨몸 번호가 새면 「R1」 한 마디가 남을 뿐이고, 지우면 문장이 부서진다.
+  check(scrubIngredientIds("이산화탄소를 전환하는 연구(P2)가 있었다. R1에서도 다룬다. P파와 S파.") === "이산화탄소를 전환하는 연구가 있었다. R1에서도 다룬다. P파와 S파.",
+    "I3 괄호에 든 재료 번호만 지운다 — 맨몸 번호와 P파 같은 말은 그대로", scrubIngredientIds("이산화탄소를 전환하는 연구(P2)가 있었다. R1에서도 다룬다. P파와 S파."));
   check(/제목으로 알 수 있는 주제까지만/.test(lines) && /읽고 알게 된 내용처럼 쓰지 않는다/.test(lines), "I3 결과를 아는 척하지 말 것");
   check(ingredientPromptLines({ papers: [], research: [] }).length === 0, "I3 재료가 없으면 칸도 없다");
   const used = usedIngredients({ usedIngredients: ["P1", "R1", "P9", "x"] }, got);
@@ -152,6 +155,26 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
   check(!bridge.includes("studentData.inspiration"), "I6 설계서에서 재료를 넘겨받지 않는다 — 최종 보고서가 직접 고른다");
   check(bridge.includes('if(block.mode === "inspiration")') && bridge.includes("보고서가 참고한 연구") && bridge.includes("본문에는 이름을 드러내지 않고 참고 자료에만"),
     "I6 사이트가 '보고서가 참고한 연구'를 그리고, 본문에는 이름이 없다고 알려 준다");
+}
+
+// I8: 재료 번호를 지우다가 **학생 보고서의 변수 이름**을 먹으면 안 된다.
+// 운영 검사 2026-09-22(공통수학1): 「tanθ=t를 놓고 P1=(g x^2)/(2v0^2)라 하면」이
+// 「놓고 =(g x^2)…」로 나왔다. P1·P2 는 점, R1·R2 는 저항이다 — 수학·과학·정보에서 늘 쓴다.
+{
+  const { scrubIngredientIds } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  const keep = [
+    ["저항 R1과 R2를 직렬로 연결하고 전류를 측정한다.", "R1"],
+    ["두 점 P1(1,2)와 P2(3,4)를 지나는 직선의 방정식", "P1"],
+    ["tanθ=t를 놓고 P1=(g x^2)/(2v0^2)라 하면", "P1"],
+    ["압력 P1에서 P2로 변할 때 부피 변화를 본다.", "P2"],
+  ];
+  for (const [line, word] of keep) {
+    check(scrubIngredientIds(line).includes(word), `I8 「${word}」은 학생의 변수이므로 지우지 않는다`, scrubIngredientIds(line));
+  }
+  // 괄호에 든 번호는 우리 표시다 — 이건 그대로 지운다.
+  check(!/P2/.test(scrubIngredientIds("교과 확장 재료 (P2) 를 참고했다.")), "I8 괄호에 든 재료 번호는 지운다");
+  check(!/[PR]\d/.test(scrubIngredientIds("[P1, R2] 에서 가져왔다.")), "I8 대괄호에 여러 개가 들어도 지운다");
+  check(!/2024/.test(scrubIngredientIds("(홍의정 외, 2024) 연구를 보면")), "I8 본문의 인용 괄호는 그대로 지운다");
 }
 
 console.log(`\n${passed} checks passed`);

@@ -114,20 +114,33 @@ export function resolveReportStage(payload) {
   return STAGE.COMPLETE;
 }
 
+// 평균을 소수 두 자리로 깎으면 작은 값이 통째로 사라진다.
+// 운영 검사 2026-09-22(정보): 파이썬 처리 시간 0.004·0.003·0.004초의 평균이 「0초」로 나왔고,
+// 보고서가 「딕셔너리는 100개에서 0초」라고 썼다. 거기서 나온 배수(1.5배)도 실제(1.96배)와 달랐다.
+// 잰 값이 작은 과제는 흔하다 — 처리 시간(초), 농도, 질량 변화.
+// 학생이 적은 자릿수만큼은 지킨다. 두 자리보다 잘게 적었으면 그만큼 남긴다.
+const placesOf = (row) => Math.max(2, ...(Array.isArray(row?.typed) ? row.typed : [])
+  .map((one) => (String(one ?? '').split('.')[1] || '').length));
+
 export function computeStats(data) {
-  const rows = data.conditions.filter((row) => row.values.length).map((row) => ({
-    label: row.label,
-    values: row.values,
-    typed: Array.isArray(row.typed) && row.typed.length === row.values.length ? row.typed : [],
-    note: row.note,
-    mean: round(row.values.reduce((sum, value) => sum + value, 0) / row.values.length),
-    min: Math.min(...row.values),
-    max: Math.max(...row.values),
-    spread: round(Math.max(...row.values) - Math.min(...row.values)),
-  }));
+  const rows = data.conditions.filter((row) => row.values.length).map((row) => {
+    const typed = Array.isArray(row.typed) && row.typed.length === row.values.length ? row.typed : [];
+    const places = placesOf({ typed });
+    return {
+      label: row.label,
+      values: row.values,
+      typed,
+      note: row.note,
+      places,
+      mean: round(row.values.reduce((sum, value) => sum + value, 0) / row.values.length, places),
+      min: Math.min(...row.values),
+      max: Math.max(...row.values),
+      spread: round(Math.max(...row.values) - Math.min(...row.values), places),
+    };
+  });
   const base = rows[0]?.mean ?? 0;
   rows.forEach((row) => {
-    row.diff_from_first = round(row.mean - base);
+    row.diff_from_first = round(row.mean - base, Math.max(row.places || 2, rows[0]?.places || 2));
     row.percent_from_first = base ? round(((row.mean - base) / Math.abs(base)) * 100, 1) : null;
   });
   // 집단이 둘 이상이면(「우리 지역 · 2014년」「비교 지역 · 2014년」) 집단마다 자기 첫 조건을 기준으로도 잰다. 운영 테스트 29:
@@ -144,7 +157,7 @@ export function computeStats(data) {
       const first = list[0].mean;
       list.forEach((row) => {
         row.group = groupOf(row.label);
-        row.diff_from_group_first = round(row.mean - first);
+        row.diff_from_group_first = round(row.mean - first, row.places || 2);
         row.percent_from_group_first = first ? round(((row.mean - first) / Math.abs(first)) * 100, 1) : null;
       });
     }
@@ -266,7 +279,8 @@ function rowDecimals(row) {
   return Math.max(0, ...(row.typed || []).map((one) => (String(one).split('.')[1] || '').length));
 }
 function asRowNumber(value, row) {
-  const places = Math.min(rowDecimals(row), 2);
+  // 두 자리로 자르면 0.004 같은 값이 「0.00」이 된다(운영 검사 2026-09-22, 정보). 학생이 적은 자릿수를 따른다.
+  const places = Math.min(rowDecimals(row), 4);
   return places > 0 && Number.isFinite(value) && Math.round(value * 10 ** places) / 10 ** places === value ? value.toFixed(places) : value;
 }
 
@@ -411,8 +425,18 @@ const INTERNAL_NAME_FIXES = [
 
 // 교과 확장 재료의 번호(P2, R1)는 AI와 우리 사이의 표시다 — 본문에 「(P2)」가 그대로 나왔다(비교 시험 2026-09-18).
 // 본문의 인용 괄호 「(홍의정 외, 2024)」도 지운다 — 참고한 연구는 참고 문헌에만 적는다(사용자 결정 2026-09-18).
+//
+// **맨몸의 P1·R1 은 지우지 않는다.** 예전에는 괄호가 없어도 지웠는데, 그것이 학생 보고서의
+// 변수 이름을 먹었다(운영 검사 2026-09-22, 공통수학1):
+//   「저항 R1과 R2를 직렬로 연결하고」 → 「저항 과 를 직렬로 연결하고」
+//   「두 점 P1(1,2)와 P2(3,4)를 지나는」 → 「두 점 (1,2)와 (3,4)를 지나는」
+//   「tanθ=t를 놓고 P1=(g x^2)/(2v0^2)라 하면」 → 「놓고 =(g x^2)…」
+// P1·P2 는 점, R1·R2 는 저항이다. 수학·과학·정보에서 늘 쓰는 이름이다.
+// 번호가 맨몸으로 새면 본문에 「P2」 한 마디가 남을 뿐이지만, 지우면 문장이 부서진다.
+// 어느 쪽이 나쁜지는 분명하다. 출처는 usedIngredients 로 따로 붙으니 새어도 인용은 멀쩡하다.
+// 본문의 인용 괄호 「(홍의정 외, 2024)」도 지운다 — 참고한 연구는 참고 문헌에만 적는다(사용자 결정 2026-09-18).
 export function scrubIngredientIds(text) {
-  return String(text || '').replace(/\s*\((?:[PR]\d(?:\s*[,·、]\s*)?)+\)/g, '').replace(/(^|[^A-Za-z0-9])[PR][1-9](?![0-9A-Za-z])/g, '$1')
+  return String(text || '').replace(/\s*[([［【](?:[PR]\d(?:\s*[,·、]\s*)?)+[)\]］】]/g, '')
     .replace(/\s*\([가-힣A-Za-z·\s]{1,30}(?:외)?,\s*(?:19|20)\d{2}\)/g, '')
     .replace(/[ \t]{2,}/g, ' ');
 }

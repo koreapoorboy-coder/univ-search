@@ -459,3 +459,21 @@ console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
   const whole = normalizeStudentData({ measurementName: "종수", conditions: [{ label: "화단", values: ["8", "10"] }, { label: "운동장", values: ["4", "3"] }] });
   check(whole.decimals === 0 && buildFigures([], computeStats(whole))[0].rows[0][1] === 8, "whole numbers stay as they were");
 }
+
+// 평균을 두 자리로 깎으면 작은 값이 사라진다.
+// 운영 검사 2026-09-22(정보): 파이썬 처리 시간 0.004·0.003·0.004초의 평균이 「0초」로 나왔고,
+// 보고서가 「딕셔너리는 100개에서 0초」라고 썼다. 거기서 나온 배수도 실제와 달랐다.
+{
+  const tiny = normalizeStudentData({ measurementName: "처리 시간", unit: "초", conditions: [
+    { label: "딕셔너리 · 100개", values: ["0.004", "0.003", "0.004"] },
+    { label: "딕셔너리 · 500개", values: ["0.017", "0.016", "0.018"] },
+    { label: "중첩반복 · 500개", values: ["0.48", "0.51", "0.47"] },
+  ] });
+  const stats = computeStats(tiny);
+  check(stats.rows[0].mean === 0.004, "작은 값의 평균이 0이 되지 않는다", String(stats.rows[0].mean));
+  check(stats.rows[1].mean === 0.017, "셋째 자리까지 적었으면 셋째 자리로 낸다", String(stats.rows[1].mean));
+  check(stats.rows[2].mean === 0.49, "두 자리로 적은 줄은 두 자리 그대로다", String(stats.rows[2].mean));
+  const table = buildFigures([], stats)[0];
+  const meanAt = table.columns.indexOf("평균");
+  check(String(table.rows[0][meanAt]) === "0.004", "표의 평균 칸에도 0.00 이 아니라 0.004 가 찍힌다", JSON.stringify(table.rows[0]));
+}
