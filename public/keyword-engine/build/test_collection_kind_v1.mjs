@@ -89,4 +89,20 @@ check(evaluator.includes("자료해석형 tag cannot be used"), "the evaluator r
   check(reading === "reading", "책을 읽고 적는 과제는 그대로 문헌 탐구다", reading);
 }
 
+// 규칙이 아무리 맞아도 **값이 안 닿으면 죽은 규칙이다.**
+// 운영 검사 2026-09-22(공통수학2 「생활 속에서 찾은 자료를 함수로 나타내고 그래프를 그려…」):
+// 화면은 「공개된 자료를 찾아 표에 옮기게 돼요」라고 했는데 워커는 아무것도 안 시켰다.
+// resolveInput 이 과제명·과제 유형을 남기지 않고 보고서 유형은 다른 이름(performanceAssessment)
+// 으로 넣어 두어서, 규칙의 마지막 두 줄과 학생의 「다르게 잡을래요」가 통째로 닿지 않았다.
+{
+  const worker = await readFile(new URL("../../../admission_worker_skeleton/worker.js", import.meta.url), "utf8");
+  const at = worker.indexOf("resolveCollectionKind({");
+  check(at > 0, "워커는 판정에 필요한 것을 따로 모아 넘긴다");
+  const call = worker.slice(at, at + 520);
+  for (const field of ["taskName", "taskType", "reportMode", "methodPicked", "methodAxes", "correctionMethod"]) {
+    check(call.includes(field), `그 안에 ${field} 가 들어 있다`, call.slice(0, 200));
+  }
+  check(/reportMode:\s*reportModeOf\(input\)/.test(call), "보고서 유형은 워커가 읽는 자리에서 가져온다");
+}
+
 console.log(`PASS collection kind: ${passed}/${passed}`);

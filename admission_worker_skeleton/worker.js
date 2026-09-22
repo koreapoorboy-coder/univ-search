@@ -375,7 +375,21 @@ export default {
         if (scope.scope !== SCOPE.REPORT) {
           return json({ ok: false, error: 'NOT_A_REPORT_TASK', scope: scope.scope, message: scope.message }, 422);
         }
-        input.collectionKind = resolveCollectionKind(input);
+        // 판정에 필요한 것을 **이름 그대로** 넘긴다. resolveInput 은 과제명·과제 유형을 남기지 않고,
+        // 보고서 유형은 performanceAssessment 안에 다른 이름으로 들어 있다. 그래서 여기 규칙의
+        // 마지막 두 줄(보고서 유형으로 방향 잡기)과 **학생의 「다르게 잡을래요」가 통째로 죽어 있었다**
+        // — 화면은 「공개된 자료를 찾아 표에 옮기게 돼요」라고 했는데 워커는 아무것도 안 시켰다
+        // (운영 검사 2026-09-22, 공통수학2 「자료를 함수로 나타내고 그래프를 그려…」).
+        // 3,440건 채점도 과제명·과제 유형을 함께 넣고 잰 값이다. 넘기지 않으면 잰 것과 다른 것이 돈다.
+        input.collectionKind = resolveCollectionKind({
+          ...input,
+          taskName: String(trustedPayload?.taskName || '').trim(),
+          taskType: String(trustedPayload?.taskType || '').trim(),
+          reportMode: reportModeOf(input),
+          methodPicked: trustedPayload?.methodPicked,
+          methodAxes: trustedPayload?.methodAxes,
+          correctionMethod: trustedPayload?.correctionMethod,
+        });
         // What the student already did, read from their upload in the separate step. Sanitised again here
         // because it travels back through the browser between the two calls.
         input.priorWork = trustedPayload?.priorWork ? sanitizeAnalysis(trustedPayload.priorWork) : null;

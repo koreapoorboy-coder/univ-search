@@ -45,7 +45,9 @@ checks.push(
 
 // Task types (2026-09-12): the Worker picks what the student will collect; tasks with nothing to collect stay one-shot.
 checks.push(
-  [worker.includes("input.collectionKind = resolveCollectionKind(input)"), "the Worker does not decide the collection type"],
+  // 2026-09-22: 이제는 판정에 필요한 것을 따로 모아 넘긴다(과제명·과제 유형·보고서 유형·학생의 정정).
+  // 그냥 input 만 넘기면 규칙의 마지막 두 줄과 「다르게 잡을래요」가 닿지 않는다.
+  [worker.includes("input.collectionKind = resolveCollectionKind({"), "the Worker does not decide the collection type"],
   [worker.includes("input.collectionKind === COLLECTION.NONE") && worker.includes("input.reportStage = STAGE.COMPLETE"), "an essay/창작 task is not sent back to the one-shot report"],
   [worker.includes("stageSectionGuide(title, stage, input.collectionKind)"), "the section guide is not told the collection type"],
   [bridge.includes('function decideReportStage(){') && bridge.includes('return "experiment_draft";'), "the site still starts the two-stage flow only for science"],
