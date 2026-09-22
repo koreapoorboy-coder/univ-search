@@ -17,7 +17,7 @@
 (function (global) {
   "use strict";
 
-  const VERSION = "unit-choice-picker-v1.8.0";
+  const VERSION = "unit-choice-picker-v1.9.0";
   global.__UNIT_CHOICE_PICKER_VERSION__ = VERSION;
 
   // 판 이름을 붙여 부른다. 안 붙이면 force-cache 때문에 **단원 사전을 새로 올려도 옛 목록이**
@@ -76,11 +76,10 @@
   // 「힘과 운동」은 ㅎ 이라 맨 끝이었다.
   // 한 글자 낱말은 세지 않는다 — 「일」 같은 말은 아무 글에나 들어 있다.
   function hits(row, task) {
-    if (!task) return 0;
-    let count = 0;
-    if (row.c && row.c.length > 1 && task.includes(row.c)) count += 2;
-    for (const word of row.w || row.k || []) if (word && word.length > 1 && task.includes(word)) count += 1;
-    return count;
+    if (!task) return { score: 0, matched: [] };
+    const matched = (row.w || row.k || []).filter((word) => word && word.length > 1 && task.includes(word));
+    const byName = row.c && row.c.length > 1 && task.includes(row.c) ? 2 : 0;
+    return { score: byName + matched.length, matched };
   }
 
   // 차례: 안내문에서 읽어낸 것 → 전공(진로 칸) → 전공(대학 수업) → 계열 → 나머지.
@@ -90,7 +89,7 @@
     const found = plain(detected);
     const words = text(task || $("taskDescription")?.value);
     return list.map((row) => {
-      const score = hits(row, words);
+      const { score, matched } = hits(row, words);
       // 「안내문에서 읽었어요」라고 **말하는** 것은 근거가 셀 때만이다 — 단원 이름이 그대로 있거나,
       // 낱말이 둘 이상 맞을 때. 한 낱말만 스치면(「그래프」 같은 말) 차례만 위로 올리고, 어디서
       // 왔는지는 원래대로 말한다. 없는 근거를 댈 바에는 아무 말도 안 하는 편이 낫다.
@@ -100,7 +99,11 @@
       const byTrack = Boolean(group) && (row.g || []).includes(group);
       const why = fromTask ? "task" : byBridge ? "major" : byCourse ? "course" : byTrack ? "track" : "plain";
       const order = fromTask ? 0 : byBridge ? 1 : byCourse ? 2 : byTrack ? 3 : 4;
-      return { concept: row.c, keywords: (row.k || []).slice(0, 5), topic: text(row.t), why, order, score };
+      // 보여 주는 낱말은 **안내문과 맞은 것을 먼저** 둔다. 안 그러면 「안내문에서 읽었어요」라고
+      // 적어 놓고 과제와 상관없는 말을 보여 주게 된다 — 낙하 실험 과제에 「지진 · 댐퍼 · 진자」가
+      // 떴다(운영 검사 2026-09-22, 통합과학1).
+      const shown = [...new Set([...matched, ...(row.k || [])])].slice(0, 5);
+      return { concept: row.c, keywords: shown, topic: text(row.t), why, order, score };
     }).sort((a, b) => (a.order - b.order) || (b.score - a.score) || a.concept.localeCompare(b.concept, "ko")).slice(0, limit);
   }
 

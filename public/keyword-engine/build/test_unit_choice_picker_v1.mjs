@@ -252,6 +252,19 @@ check(blank.every((row) => row.why !== "task"), "단서가 없으면 안내문�
   check(rows2[0].why === "task", "그리고 안내문에서 읽었다고 말한다", rows2[0].why);
 }
 
+// P11: 「안내문에서 읽었어요」라고 적었으면, **그 안내문과 맞은 낱말**을 보여 줘야 한다.
+// 운영 검사 2026-09-22(통합과학1 낙하 실험): 단원은 「역학 시스템」으로 맞게 잡았는데 보여 준
+// 낱말이 「지진 · 댐퍼 · 진자 · 흔들림 감소」였다. 낙하와 아무 상관이 없다.
+{
+  byId.get("taskDescription").value = "낙하 높이를 달리하며 바닥까지 걸리는 시간을 측정하고 중력 가속도를 구하시오.";
+  byId.get("subject").value = "통합과학1";
+  const rows3 = await picker.show({ subject: "통합과학1", major: "", track: "" });
+  check(rows3[0].concept === "역학 시스템", "낙하 과제는 역학 시스템이 맨 위다", rows3[0].concept);
+  check(rows3[0].keywords.some((one) => /낙하|중력/.test(one)),
+    "보여 주는 낱말이 그 과제의 말이다", rows3[0].keywords.join(" · "));
+  check(!/지진|댐퍼/.test(rows3[0].keywords[0] || ""), "상관없는 말이 맨 앞에 오지 않는다", rows3[0].keywords.join(" · "));
+}
+
 console.log(`PASS unit choice picker: ${passed}/${passed}`);
 // 화면 코드가 400ms 지킴이 타이머를 계속 걸어 두기 때문에, 다 끝났으면 손으로 닫는다.
 process.exit(0);
