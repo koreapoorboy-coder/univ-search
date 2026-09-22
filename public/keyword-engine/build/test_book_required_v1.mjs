@@ -61,4 +61,15 @@ for (const text of mayBook) check(!rule.test(text), `곁들이는 과제는 그�
   check(/bookIsSubject\(input\)/.test(worker), "B2 한 번에 쓰는 보고서에도 그 규칙이 닿는다");
 }
 
+// B3: 화면에서 고른 도서가 **워커까지 가야** 한다.
+// 운영 검사 2026-09-22: 화면에는 책 이름이 보이는데 보내는 값은 빈 칸이었다. 보내는 쪽이 숨은 칸이
+// 아니라 창의 값(__BOOK_USAGE_MODE__)과 localStorage 를 먼저 보는데, 이 화면이 그것을 안 고쳤다.
+// 도서를 쓰는 과제 전부가 같은 길을 탄다 — 국어만의 일이 아니다.
+{
+  check(/__BOOK_USAGE_MODE__ = state\.bookMode/.test(flow), "B3 도서 사용 여부를 창의 값에도 적는다");
+  check(/ke\.bookUsageMode\.v222/.test(flow), "B3 저장해 둔 값도 함께 고친다");
+  const bridge = await readFile(new URL("../assets/js/mini_worker_generate_bridge_v32.js", import.meta.url), "utf8");
+  check(/__BOOK_USAGE_MODE__/.test(bridge), "B3 보내는 쪽이 그 값을 본다(그래서 맞춰야 한다)");
+}
+
 console.log(`PASS book required: ${passed}/${passed}`);

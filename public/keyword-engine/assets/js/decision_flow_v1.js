@@ -169,6 +169,14 @@
     if($("majorPick")) $("majorPick").value = text(state.major);
     if($("selectedBookTitle")) $("selectedBookTitle").value = state.bookMode === "useBook" ? state.bookTitle : "";
     if($("bookUsageMode")) $("bookUsageMode").value = state.bookMode;
+    // 보내는 쪽(mini_worker_generate_bridge)은 이 칸이 아니라 **창의 값과 localStorage 를 먼저** 본다.
+    // 그래서 이 화면에서 「도서 활용」을 눌러도 옛 값(noBook)이 이기고 책이 통째로 빠졌다 —
+    // 화면에는 책 이름이 보이는데 워커로는 빈 값이 갔다(운영 검사 2026-09-22, 서평 ₩215).
+    // 도서를 쓰는 과제 전부가 같은 길을 탄다.
+    try {
+      global.__BOOK_USAGE_MODE__ = state.bookMode;
+      localStorage.setItem("ke.bookUsageMode.v222", state.bookMode);
+    } catch (error) { /* 저장을 막아 둔 브라우저면 창의 값만으로도 된다 */ }
   }
   function setProgress(step){
     document.querySelectorAll("[data-progress]").forEach(el => {
