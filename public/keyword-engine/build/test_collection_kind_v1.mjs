@@ -105,4 +105,14 @@ check(evaluator.includes("자료해석형 tag cannot be used"), "the evaluator r
   check(/reportMode:\s*reportModeOf\(input\)/.test(call), "보고서 유형은 워커가 읽는 자리에서 가져온다");
 }
 
+// 평가방법 칸의 한 마디가 과제 본문을 이기면 안 된다.
+// 운영 검사 2026-09-22(데이터 과학): 「공공데이터 포털에서 내려받아 정제하고 시각화」 과제에
+// 평가방법의 「실습」 때문에 「교차로 보행 대기시간을 초시계로 재라」는 설계서가 나왔다.
+is("공공데이터 포털에서 데이터를 내려받아 정제하고 그래프로 시각화하여 해석한다. / 평가방법: 보고서, 실습",
+  COLLECTION.DATASET, "평가방법의 「실습」이 공공데이터 과제를 실험으로 만들지 않는다", { subjectGroup: "정보" });
+is("역학 수레로 가속도를 측정하는 실습을 하고 결과를 기록한다.",
+  COLLECTION.MEASUREMENT, "진짜 실습은 그대로 재는 과제다", { subjectGroup: "과학" });
+is("공공데이터를 참고하여 염화나트륨 농도별 발아율을 실험으로 확인한다.",
+  COLLECTION.MEASUREMENT, "공공데이터를 곁들인 실험은 그대로 실험이다", { subjectGroup: "과학" });
+
 console.log(`PASS collection kind: ${passed}/${passed}`);
