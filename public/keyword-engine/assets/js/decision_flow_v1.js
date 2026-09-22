@@ -421,7 +421,15 @@
     $("bookTitleField").hidden = true;
     $("generateBtn").hidden = true;
     $("generateBtn").disabled = true;
-    document.querySelectorAll("[data-category],[data-book-mode]").forEach(btn => btn.classList.remove("is-active"));
+    // 전공도 함께 지운다. 예전에는 [data-major] 를 안 지워서, 「처음부터 다시」를 눌러도 앞 과제에서
+    // 고른 학과가 눌린 채 남았다 — 새 과제의 단원 차례가 그 학과로 매겨졌다(운영 검사 2026-09-22).
+    document.querySelectorAll("[data-category],[data-book-mode],[data-major]").forEach(btn => btn.classList.remove("is-active"));
+    if($("majorPick")) $("majorPick").value = "";
+    if($("majorStep")) $("majorStep").hidden = true;
+    if($("conceptPicked")) $("conceptPicked").value = "false";
+    // 단원 목록도 앞 과제의 선택을 물고 있다. 그쪽은 400ms 마다 숨은 칸을 되돌리므로, 여기서
+    // 지우기만 해서는 되살아난다.
+    global.__UNIT_CHOICE__?.forget?.();
     document.querySelector('[data-book-mode="noBook"]')?.classList.add("is-active");
     setProgress("subject");
     setStatus("과목과 안내문을 입력하면 자동으로 해석합니다.");

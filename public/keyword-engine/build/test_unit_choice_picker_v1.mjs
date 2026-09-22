@@ -207,6 +207,32 @@ check(blank.every((row) => row.why !== "task"), "단서가 없으면 안내문�
   check(picker.fillKind() === "dataset", "학생이 직접 고치면 그 말이 먼저다", picker.fillKind());
 }
 
+// P9: 과제가 바뀌면 앞 과제의 선택을 버린다.
+// 2026-09-22 운영 검사(5번 생명과학 설문 → 6번 지구과학 별의 등급): 「처음부터 다시」를 누르고
+// 새 과목·새 안내문을 넣었는데 목록에 앞 과제의 단원(면역과 백신)이 그대로 있었고, 숨은 칸도
+// 「병원체 / 면역과 백신」을 물고 있었다. 두 과제의 보고서 유형이 똑같이 「자료해석형」이라
+// 화면을 지켜보는 쪽이 글자 변화를 못 봤기 때문이다.
+{
+  byId.get("taskDescription").value = "우리 반 학생들에게 설문을 받아 응답을 정리하시오.";
+  byId.get("subject").value = "생명과학";
+  const first = await picker.show({ subject: "생명과학", major: "", track: "" });
+  rowsOnScreen()[1].click();
+  check(state().picked === "true", "앞 과제에서 학생이 하나 짚었다", state().picked);
+  const held = state().concept;
+
+  byId.get("taskDescription").value = "천문 자료에서 별 네 개의 겉보기 등급과 절대 등급을 찾아 표로 정리한다.";
+  byId.get("subject").value = "지구과학";
+  const next = await picker.show({ subject: "지구과학", major: "", track: "" });
+  check(next.length > 0 && next.every((row) => row.concept !== held), "새 과제 목록에 앞 과제의 단원은 없다", held);
+  check(state().concept !== held, "숨은 칸도 앞 과제를 물고 있지 않다", state().concept);
+  check(state().picked === "false", "새 과제에서는 학생이 아직 아무것도 고르지 않았다", state().picked);
+
+  // 「처음부터 다시」가 부르는 길
+  picker.forget();
+  check(state().concept === "" && state().keyword === "" && state().picked === "false",
+    "처음부터 다시를 누르면 단원 선택이 비워진다", JSON.stringify(state()));
+}
+
 console.log(`PASS unit choice picker: ${passed}/${passed}`);
 // 화면 코드가 400ms 지킴이 타이머를 계속 걸어 두기 때문에, 다 끝났으면 손으로 닫는다.
 process.exit(0);

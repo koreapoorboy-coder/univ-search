@@ -17,7 +17,7 @@
 (function (global) {
   "use strict";
 
-  const VERSION = "unit-choice-picker-v1.4.0";
+  const VERSION = "unit-choice-picker-v1.5.0";
   global.__UNIT_CHOICE_PICKER_VERSION__ = VERSION;
 
   const INDEX_URL = "seed/engine-index/unit_choices.v1.json";
@@ -238,6 +238,7 @@
       anchor.parentNode.insertBefore(box, anchor);
     }
     box.innerHTML = "";
+    box.hidden = false;
     const head = document.createElement("div");
     head.className = "uc-head";
     head.textContent = "무엇으로 탐구할까요?";
@@ -280,13 +281,52 @@
     else apply(list[0], list[0].keywords[0] || list[0].concept);
   }
 
+  // 과목이나 안내문이 바뀌면 **앞 과제의 선택은 버린다.**
+  // 운영 검사 2026-09-22(5번 생명과학 설문 → 6번 지구과학 별의 등급): 「처음부터 다시」를 누르고
+  // 새 과목·새 안내문을 넣었는데 목록에 앞 과제의 단원(면역과 백신)이 그대로 있었고, 숨은 칸도
+  // 「병원체 / 면역과 백신」을 물고 있었다. 지켜보는 쪽이 해석 결과 **글자**만 보는데, 두 과제의
+  // 보고서 유형이 똑같이 「자료해석형」이라 글자가 안 바뀌어 아무 일도 일어나지 않았다.
+  let lastInput = "";
+  function forget() {
+    picked = null;
+    touched = false;
+    lastInput = "";
+    const box = $("unitChoiceBox");
+    if (box) { box.innerHTML = ""; box.hidden = true; }
+    for (const id of ["selectedConcept", "keyword"]) { const field = $(id); if (field) field.value = ""; }
+    const flag = $("conceptPicked");
+    if (flag) flag.value = "false";
+  }
+
   async function show({ subject, major, track, detected } = {}) {
     if (!text(subject)) return [];
     await load();
+    const signature = `${plain(subject)}|${plain($("taskDescription")?.value)}`;
+    if (signature !== lastInput) {
+      // 새 과제다 — 학생이 앞 과제에서 짚은 것은 이 과제의 답이 아니다.
+      picked = null;
+      touched = false;
+      lastInput = signature;
+    }
     if (text(detected)) global.__UNIT_CHOICE_DETECTED__ = text(detected);
     rows = rank({ subject: text(subject), major: text(major), track: text(track), detected: text(detected) });
     render(rows);
     return rows;
+  }
+
+  // 과목·안내문이 바뀌면 다시 짠다. 해석 결과 글자가 같을 때도 움직여야 한다.
+  let redrawTimer = null;
+  function redraw() {
+    clearTimeout(redrawTimer);
+    redrawTimer = setTimeout(() => {
+      if (!$("unitChoiceBox")) return;   // 아직 해석 전이면 목록을 띄우지 않는다
+      show({
+        subject: text($("subject")?.value),
+        major: pickedMajor(),
+        track: text(global.__DECISION_FLOW_STATE__?.category || ""),
+        detected: text(global.__UNIT_CHOICE_DETECTED__ || ""),
+      });
+    }, 250);
   }
 
   // 해석 결과가 채워지는 순간 목록을 띄운다. 새 화면을 만들지 않으려고 화면을 지켜보는 쪽을 골랐다 —
@@ -315,6 +355,12 @@
 
   // 계열·전공은 해석 뒤에 고르므로, 고르고 나면 차례를 다시 매긴다.
   function rewatch() {
+    for (const id of ["subject", "taskDescription"]) {
+      const field = $(id);
+      if (!field) continue;
+      field.addEventListener("change", redraw);
+      field.addEventListener("input", redraw);
+    }
     document.addEventListener("click", (event) => {
       const button = event.target?.closest?.("button[data-category], #majorStep button");
       if (!button || !$("unitChoiceBox")) return;
@@ -342,6 +388,7 @@
     rank: (input) => rank(input),
     chosen: () => picked,
     fillKind,
+    forget,
     load,
   };
 })(window);
