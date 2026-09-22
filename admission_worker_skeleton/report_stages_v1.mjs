@@ -899,7 +899,16 @@ export function stageSections(stage, input) {
   const misread = stage === STAGE.COMPLETE
     && kind !== COLLECTION.MEASUREMENT
     && rawSite.some((section) => EXPERIMENT_SECTION.test(section));
-  const fromSite = misread ? [] : rawSite;
+  // 실험 절이 아니어도 사이트 뼈대가 과제와 안 맞는 일이 있다 — 책 서평이 「쟁점 정리 → 찬반 근거
+  // 비교 → 반론 검토 → 재반박」으로, 이차곡선 설명 보고서가 「찬반」으로 나왔다(운영 검사
+  // 2026-09-22, 2회차). 찬반이 없는 과제에 찬반 절을 주면 학생은 없는 반대 의견을 지어내야 한다.
+  //
+  // 우리 틀은 실제 수행평가 7,131건에서 뽑은 열일곱 모양이고, 서평 과제에 서평 틀을 정확히 준다.
+  // 그래서 **한 번에 쓰는 보고서에서는 우리 틀을 먼저 쓴다.** 다만 학생이 「다르게 잡을래요」로
+  // 손수 고쳤으면 그 말이 먼저다 — 그때의 사이트 뼈대는 우리 추측이 아니라 학생의 답이다.
+  const studentChoseMethod = input?.methodPicked === true || input?.methodPicked === 'true';
+  const ourShapeFirst = stage === STAGE.COMPLETE && !studentChoseMethod && shaped.length >= 4;
+  const fromSite = misread || ourShapeFirst ? [] : rawSite;
   const siteChose = fromSite.length >= 4;
   if (shaped.length >= 4 && !siteChose) {
     const useSection = wantsUse && !shaped.some((section) => /활용|방안/.test(section)) ? ['활용 방안'] : [];

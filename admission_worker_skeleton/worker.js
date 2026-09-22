@@ -390,6 +390,9 @@ export default {
           methodAxes: trustedPayload?.methodAxes,
           correctionMethod: trustedPayload?.correctionMethod,
         });
+        // 학생이 「다르게 잡을래요」로 손수 고쳤는가. 절 구성을 정할 때도 이 말이 먼저다
+        // (stageSections) — 고치지 않았으면 사이트 뼈대는 우리 추측일 뿐이다.
+        input.methodPicked = trustedPayload?.methodPicked === true || trustedPayload?.methodPicked === 'true';
         // What the student already did, read from their upload in the separate step. Sanitised again here
         // because it travels back through the browser between the two calls.
         input.priorWork = trustedPayload?.priorWork ? sanitizeAnalysis(trustedPayload.priorWork) : null;
