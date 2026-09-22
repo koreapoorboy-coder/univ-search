@@ -391,6 +391,9 @@ const INTERNAL_NAME_FIXES = [
   // 단위 이름을 소리 나는 대로 옮겨 적은 것. 운영 검사 2026-09-22(화학 중화 적정): 「0.1몰 매리터
   // 수산화나트륨 표준용액」이 본문에 두 번 나왔다. 학생이 그대로 내면 교과서에 없는 말이다.
   [/(\d)\s*몰\s*매리터/g, '$1 mol/L'], [/몰\s*매리터/g, 'mol/L'],
+  // 나눗셈을 말로 쓴 단위도 본문에 그대로 나온다(공통수학2 일사량, 2026-09-22).
+  [/와트\s*매\s*제곱미터/g, 'W/m²'], [/미터\s*매\s*초/g, 'm/s'],
+  [/킬로미터\s*매\s*시간/g, 'km/h'], [/몰\s*매\s*리터/g, 'mol/L'],
   [/자료\s*카드/g, '자료'], [/카드\s*자료/g, '자료'],
   [/(기사|신문|보고서|교과서|논문|기관|통계|영상|도서)\s*카드/g, '$1'],
   [/카드별/g, '자료별'], [/카드들/g, '자료들'], [/카드(?!뉴스)/g, '자료'],
@@ -649,11 +652,22 @@ const UNIT_SYMBOLS = {
   줄: 'J', 킬로줄: 'kJ', 칼로리: 'cal', 킬로칼로리: 'kcal', 헤르츠: 'Hz', 파스칼: 'Pa', 기압: 'atm',
   몰: 'mol', 퍼센트: '%', 섭씨: '°C', 섭씨도: '°C', 루멘: 'lm', 럭스: 'lx', 데시벨: 'dB',
 };
+// 「와트 매 제곱미터」의 앞뒤에 올 수 있는 말들. 나눗셈 안에서는 초·분·시간도 기호가 교과서 표기다
+// (m/s 를 「미터 매 초」로 쓰는 교과서는 없다).
+const RATE_UNITS = {
+  ...UNIT_SYMBOLS,
+  초: 's', 분: 'min', 시간: 'h', 시: 'h', 일: 'day', 년: 'yr',
+  제곱미터: 'm²', 세제곱미터: 'm³', 제곱센티미터: 'cm²', 세제곱센티미터: 'cm³',
+};
 export function symbolUnit(unit) {
   const text = String(unit || '').trim();
   if (!text) return text;
   const hit = UNIT_SYMBOLS[text.replace(/\s+/g, '')];
   if (hit) return hit;
+  // 나눗셈을 말로 쓴 단위. 운영 검사 2026-09-22(공통수학2 일사량): 표 머리글이
+  // 「일사량 (와트 매 제곱미터)」로 나왔다. 학생이 그대로 내면 교과서에 없는 표기다.
+  const rate = text.replace(/\s+/g, '').split('매');
+  if (rate.length === 2 && RATE_UNITS[rate[0]] && RATE_UNITS[rate[1]]) return `${RATE_UNITS[rate[0]]}/${RATE_UNITS[rate[1]]}`;
   // 「센티미터(cm)」처럼 둘 다 적은 경우에는 기호만 남긴다.
   const both = text.match(/^([가-힣]+)\s*[(（]\s*([A-Za-z°%Ω][A-Za-z0-9°/²³]*)\s*[)）]$/);
   return both && UNIT_SYMBOLS[both[1]] ? both[2] : text;

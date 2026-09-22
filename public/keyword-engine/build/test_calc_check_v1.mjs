@@ -248,6 +248,15 @@ check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조
   // 단위 이름을 소리 나는 대로 옮겨 적은 말로, 교과서에도 없고 학생이 그대로 내기에는 이상하다.
   check(scrubInternalNames("0.1몰 매리터 수산화나트륨 표준용액을 썼다.") === "0.1 mol/L 수산화나트륨 표준용액을 썼다.",
     "C13 단위를 소리 나는 대로 적은 말은 기호로 바꿄다", scrubInternalNames("0.1몰 매리터 수산화나트륨 표준용액을 썼다."));
+  // 운영 검사 2026-09-22(공통수학2 일사량): 표 머리글이 「일사량 (와트 매 제곱미터)」로 나왔다.
+  // 나눗셈을 말로 쓴 단위는 교과서처럼 기호로 적는다.
+  {
+    const { symbolUnit } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+    check(symbolUnit("와트 매 제곱미터") === "W/m²", "C13 나눗셈 단위는 기호로 적는다", symbolUnit("와트 매 제곱미터"));
+    check(symbolUnit("미터 매 초") === "m/s", "C13 m/s 도 마찬가지다", symbolUnit("미터 매 초"));
+    check(symbolUnit("초") === "초" && symbolUnit("명") === "명", "C13 혹로 쓰는 초·명은 그대로 둔다");
+    check(scrubInternalNames("일사량은 와트 매 제곱미터 단위다.") === "일사량은 W/m² 단위다.", "C13 본문에서도 바꾸어 쓴다");
+  }
   const keys = scrubInternalNames("조건별결과의 관찰메모와 첫조건과의차이, 같은집단첫조건대비변화율, 도수분포요약, 평균이높은순서를 보았다.");
   check(!/조건별결과|관찰메모|첫조건과의차이|같은집단첫조건대비변화율|도수분포요약|평균이높은순서/.test(keys) && keys.includes("조건별 결과") && keys.includes("같은 집단 첫 조건 대비 변화율"), "C13 한글 항목 이름은 모두 띄어 쓴 말로 바뀐다", keys);
   const madeUp = removeUnknownSubjectNames("이번 탐구는 통합사회 과목의 자료 해석이다.\n나아가 복지정책 과목에서 서비스 입지를 따지는 문제로 이어진다.");
