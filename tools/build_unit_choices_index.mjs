@@ -76,7 +76,7 @@ for (const [subject, body] of Object.entries(conceptMap)) {
       // 화면에 보여 주는 것은 다섯 개까지지만, **안내문과 맞춰 보는 것은 더 많이** 본다.
       // 운영 검사 2026-09-22: 「매체·광고·뉴스·표현 전략」을 사전에 더했는데도 여섯째부터라 잘려 나가,
       // 매체 비평 과제가 그 단원을 못 찾았다. 보이는 것과 맞춰 보는 것은 다른 일이다.
-      w: (one.micro_keywords || []).map((x) => String(x).trim()).filter(Boolean).slice(0, 20),
+      w: (one.micro_keywords || []).map((x) => String(x).trim()).filter(Boolean).slice(0, 40),
       // 학생 말로 쓴 탐구 질문 한 줄(있으면).
       t: String((one.student_topics || [])[0] || "").trim().slice(0, 160),
       // 이 단원에 닿는 전공과 계열. b 는 그 가운데 **진로 칸으로 걸린 전공**이다(주제에 더 가깝다).
