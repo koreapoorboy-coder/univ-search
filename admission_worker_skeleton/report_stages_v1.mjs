@@ -647,7 +647,9 @@ export function buildReferencesBody(body, sources, extra = {}) {
 // 과제가 시킨 것보다 다섯 배를 요구한 것이다.
 function sanitizeSourceTemplate(raw, least = 3) {
   return {
-    cardCount: Math.min(6, Math.max(least, Math.round(Number(raw?.cardCount) || (least === 1 ? 1 : 4)))),
+    // least 가 1 이면 **한 권으로 못 박는다.** 일러 주기만 해서는 AI 가 3 을 골랐다
+    // (운영 검사 2026-09-22, 공통수학1: 5 → 3 으로 줄었을 뿐 여전히 여러 개였다).
+    cardCount: least === 1 ? 1 : Math.min(6, Math.max(least, Math.round(Number(raw?.cardCount) || 4))),
     whatToFind: clip(raw?.whatToFind, 200),
   };
 }
@@ -1042,6 +1044,9 @@ export function stagePromptLines(stage, input) {
         ? ['- 이 과제는 숫자를 재지 않는다. dataTemplate 대신 sourceTemplate을 쓴다. cardCount는 학생이 읽을 자료 수(3~6), whatToFind에는 각 자료에서 무엇을 찾아 적어야 하는지 한 문장으로 쓴다.',
            '- 학생은 자료마다 제목, 자료 종류, 핵심 내용, 내 해석을 카드로 적는다. 본문에는 학생이 아직 읽지 않은 자료의 내용을 미리 쓰지 않는다.']
         : []),
+      // 책이 과제의 대상이면 설계서도 그 책으로 짠다. 예전에는 도서 규칙이 최종 보고서에만 닿아,
+      // 설계서 제목에 책이 없고 엉뚱한 소재가 들어갔다(운영 검사 2026-09-22, 공통수학1).
+      ...(bookIsSubject(input) ? bookRules(pickedBook(data) || { title: input.selectedBookTitle || '' }, true) : []),
       '- 결과, 예상 수치, 결론을 쓰지 않는다. 가설은 쓴다.',
       ...(kind === COLLECTION.MEASUREMENT
         ? ['- 측정은 고등학생이 학교나 집에서 안전하게 할 수 있고 숫자로 기록할 수 있어야 한다. 기구로 재기 어려우면 0~3점 같은 점수 기준을 정한다.',

@@ -50,7 +50,7 @@ for (const text of mayBook) check(!rule.test(text), `곁들이는 과제는 그�
 
   const book = { title: "아픔이 길이 되려면", type: "도서 · 김승섭" };
   const asSubject = bookRules(book, true).join(" ");
-  check(/보고서 전체가 이 책을 다룬다/.test(asSubject), "B2 대상일 때는 보고서 전체가 그 책을 다룬다", asSubject.slice(0, 80));
+  check(/보고서 전체가 이 책을/.test(asSubject), "B2 대상일 때는 보고서 전체가 그 책을 다룬다", asSubject.slice(0, 80));
   check(/다른 소재로 바꾸지 않는다/.test(asSubject), "B2 다른 소재로 갈아타지 못하게 막는다");
   check(/지어내지 않는다/.test(asSubject), "B2 줄거리·인용을 지어내지 못하게 막는다");
 
@@ -82,6 +82,11 @@ for (const text of mayBook) check(!rule.test(text), `곁들이는 과제는 그�
     taskDescription: "수학 관련 도서를 한 권 선정하여 읽고, 책에 나온 개념을 정리한 뒤 독후 보고서를 쓰시오.",
   }).join(" ");
   check(/cardCount 는 1 로 한다/.test(oneBook), "B4 책 한 권이면 카드도 하나다", oneBook.slice(0, 90));
+  check(/보고서 전체가 이 책을/.test(stagePromptLines(STAGE.DRAFT, {
+    collectionKind: "reading",
+    taskDescription: "수학 관련 도서를 한 권 선정하여 읽고 독후 보고서를 쓰시오.",
+    selectedBookTitle: "수학이 필요한 순간",
+  }).join(" ")), "B4 설계서도 그 책으로 짠다");
 
   const many = stagePromptLines(STAGE.DRAFT, {
     collectionKind: "reading",
