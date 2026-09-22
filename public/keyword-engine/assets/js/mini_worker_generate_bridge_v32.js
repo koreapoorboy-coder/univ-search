@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v286_one_book_one_card
+// SCREEN_VERSION: v287_note_hint_by_kind
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v286-one-book-one-card";
+  const VERSION = "mini-worker-generate-bridge-v287-note-hint-by-kind";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2700,6 +2700,20 @@
     return PANEL_TEXT[kind] || PANEL_TEXT.measurement;
   }
 
+  // 메모 칸의 예시 문구. 운영 검사 2026-09-22(인공지능 기초): 공개 자료를 옮겨 적는 표인데
+  // 예시가 「예: 색이 연했다」였다 — 재지 않는 과제에서는 눈으로 본 색을 적을 일이 없다.
+  // 예시는 그 자리에서 무엇을 적으라는 말이므로, 과제가 시키는 일과 같아야 한다.
+  const NOTE_HINT = {
+    measurement: "예: 색이 연했다",
+    survey: "예: 무응답이 2명 있었다",
+    dataset: "예: 2023년 표에서 옮김",
+    reading: "예: 저자가 다르게 본 곳",
+  };
+
+  function noteHint(kind){
+    return NOTE_HINT[kind] || NOTE_HINT.measurement;
+  }
+
   // 읽기 보고서는 자료 카드가 본체라 이미 위에 있다. 두 벌을 주면 학생이 어느 쪽에 적어야 하는지 모른다.
   function renderStudentFields(observationLabel, withRefCards){
     const refBlock = withRefCards ? `
@@ -2981,7 +2995,7 @@
       ? Array.from({ length: trials }, (_, i) => `<th>${i + 1}회<span>${escapeHtml(template?.measurementName || "값")}${escapeHtml(unit)}</span></th>`).join("")
       : `<th>${escapeHtml(template?.measurementName || "값")}${escapeHtml(unit)}</th>`;
     const head = `<tr><th>조건</th>${valueHead}<th>관찰 메모</th></tr>`;
-    const rows = conditions.map((label, r) => `<tr><th scope="row">${escapeHtml(label)}</th>${Array.from({ length: trials }, (_, i) => `<td><input type="text" inputmode="decimal" placeholder="숫자" data-row="${r}" data-trial="${i}" aria-label="${escapeHtml(label)} ${i + 1}회"></td>`).join("")}<td><input type="text" placeholder="예: 색이 연했다" data-row="${r}" data-note="1" aria-label="${escapeHtml(label)} 관찰 메모"></td></tr>`).join("");
+    const rows = conditions.map((label, r) => `<tr><th scope="row">${escapeHtml(label)}</th>${Array.from({ length: trials }, (_, i) => `<td><input type="text" inputmode="decimal" placeholder="숫자" data-row="${r}" data-trial="${i}" aria-label="${escapeHtml(label)} ${i + 1}회"></td>`).join("")}<td><input type="text" placeholder="${escapeHtml(noteHint(kind))}" data-row="${r}" data-note="1" aria-label="${escapeHtml(label)} 관찰 메모"></td></tr>`).join("");
     return `
       <section class="mini-exp-panel" id="miniExpPanel">
         <div class="mini-v43-kicker">${escapeHtml(text[0])}</div>
