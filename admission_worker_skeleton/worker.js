@@ -1,6 +1,6 @@
 import { acceptLiveInputCandidate, handleSimpleLiveIntakeRequest, parseStrictIJson } from './simple_live_intake_v1.mjs';
 import { messageForCode } from './live_input_message_v1.mjs';
-import { COLLECTION, STAGE, finalizeStageOutput, hasStudentMeasurements, normalizeStudentData, titleRules, resolveCollectionKind, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
+import { COLLECTION, STAGE, bookIsSubject, finalizeStageOutput, hasStudentMeasurements, normalizeStudentData, titleRules, resolveCollectionKind, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
 import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, matchAxes, priorWorkPromptLines, sanitizeAnalysis, sharesGround, expandMajorTerms } from './upload_analysis_v1.mjs';
 import { pickReportShape, shapePromptLines } from './report_shape_v1.mjs';
 import { crossSubjectPromptLines, pickCrossSubject } from './cross_subject_v1.mjs';
@@ -1409,6 +1409,14 @@ function buildPrompt(input, seedMatch, env) {
     '참고문헌은 입력에 제공되었거나 생성 데이터에서 정확히 확인된 자료만 서지사항으로 적는다.',
     '확인되지 않은 저자, 책 제목, 연도, 기관 데이터베이스명, URL을 절대 만들지 않는다. 확인된 서지가 없으면 통합과학1 교과서의 관련 단원처럼 자료 종류만 정직하게 적는다.',
     '연결 도서를 사용하지 않기로 한 경우 도서명과 독서 내용을 절대 넣지 않는다.',
+    // 서평·독후감은 책 한 권이 과제의 대상이다. 한 번에 쓰는 보고서(COMPLETE)에는 bookRules 가
+    // 닿지 않아, 책을 골라도 보고서가 책을 다루지 않았다 — 두 번 다 신문 칼럼 분석이 나왔다
+    // (운영 검사 2026-09-22, ₩430).
+    ...(bookIsSubject(input) && input.useBookInReport && input.selectedBookTitle
+      ? [`이 과제의 대상은 책 「${input.selectedBookTitle}」 한 권이다. 보고서 전체가 이 책을 다루며, 신문 칼럼·기사·통계 같은 다른 소재로 바꾸지 않는다.`,
+         '그 책의 줄거리·인용·장면·인물을 지어내지 않는다. 확인할 수 없는 것은 쓰지 않고, 그 책이 다루는 주제와 쟁점을 중심으로 쓴다.',
+         '학생이 읽고 느낀 것을 대신 쓰지 않는다. 학생이 적어 둔 줄이 있으면 그것만 살려 쓴다.']
+      : []),
     '학과명은 탐구 동기나 확장 가능성에서만 절제해 사용하고 본론을 장식하는 단어로 반복하지 않는다.',
     stage === STAGE.COMPLETE
       ? '분량은 공백 포함 2800~4200자다. 2800자보다 짧게 끝내지 않으며, 연구 질문과 참고문헌을 뺀 각 절은 두 문단 이상, 400자 이상으로 쓴다. 절마다 서로 다른 역할을 수행한다.'

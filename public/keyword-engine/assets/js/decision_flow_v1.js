@@ -319,13 +319,31 @@
       || BOOK_TEXT_RE.test(text($("taskDescription")?.value))
       || lists.outputs.some(v => BOOK_TEXT_RE.test(v));
   }
+  // 안내문이 **책 한 권을 정하라고 시키는** 과제인가. 「서평」, 「독후감」, 「도서를 읽고」처럼
+  // 책이 과제의 대상 자체인 경우다. 「참고 도서」처럼 곁들이는 말과는 다르다.
+  const BOOK_REQUIRED_RE = /서평|독후|독서\s*감상|책을\s*읽고|도서를\s*읽고|도서를?\s*(한\s*권|선정|골라)|책을?\s*(한\s*권|선정|골라)/;
+  function bookIsRequired(){
+    return BOOK_REQUIRED_RE.test(text($("taskDescription")?.value));
+  }
   function updateBookAndGenerate(){
     const hasCategory = !!state.category;
     const context = state.finalContext || state.preview;
     state.bookSignal = determineBookSignal(context);
     const bookStep = $("bookStep");
     if(bookStep) bookStep.hidden = !(state.confirmed && hasCategory && state.bookSignal);
-    const readyBook = state.bookMode !== "useBook" || !!text(state.bookTitle);
+    // 책이 과제의 대상이면 책 없이 만들지 않는다.
+    // 운영 검사 2026-09-22(공통국어1 서평, 두 번): 「진로 관련 도서를 한 권 골라 읽고 서평을
+    // 작성하시오」인데 이 단계의 기본값이 「사용하지 않음」이라, 학생이 아무것도 안 누르면 책 없는
+    // 보고서가 나왔다. 두 번 다 책이 아니라 신문 칼럼을 다루는 글이 나왔다 — 과제 미이행이다.
+    const mustBook = bookIsRequired();
+    const readyBook = mustBook
+      ? (state.bookMode === "useBook" && !!text(state.bookTitle))
+      : (state.bookMode !== "useBook" || !!text(state.bookTitle));
+    const note = $("bookRequiredNote");
+    if(note){
+      note.hidden = !(mustBook && !readyBook && !bookStep?.hidden);
+      note.textContent = "이 과제는 책을 한 권 정해야 해요. 「도서 활용」을 누르고 책 이름을 넣거나 아래에서 골라 주세요.";
+    }
     const btn = $("generateBtn");
     if(btn){
       btn.hidden = !(state.confirmed && hasCategory);

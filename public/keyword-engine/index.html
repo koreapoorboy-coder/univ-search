@@ -6,7 +6,7 @@
   <title>RNY 탐구 보고서 프로그램</title>
   <link rel="stylesheet" href="assets/keyword_engine.css" />
   <link rel="stylesheet" href="assets/topic_generator.css" />
-  <link rel="stylesheet" href="assets/decision_flow.css?v=v273_kci_paper" />
+  <link rel="stylesheet" href="assets/decision_flow.css?v=v275_book_required" />
   <style>
     /* 학생 코드 — 보고서가 누구 것이 되는지 정하는 칸이라 첫 화면에 있어야 한다. */
     .student-code-panel { padding: 16px 20px; margin-bottom: 14px; }
@@ -230,6 +230,7 @@
           <button type="button" data-book-mode="noBook" class="is-active">도서 없이 진행</button>
           <button type="button" data-book-mode="useBook">도서 활용</button>
         </div>
+        <p id="bookRequiredNote" class="student-code-help" hidden></p>
         <label id="bookTitleField" class="decision-field full" hidden>
           <span>사용할 도서</span>
           <input id="bookTitleInput" type="text" placeholder="과제에 지정된 도서명 또는 사용할 도서명을 입력하세요" />
@@ -278,7 +279,7 @@
 
   <script src="assets/js/subject_alias.js?v=v1_subject_alias"></script>
   <script src="assets/js/simple_live_intake_v1.js?v=phase6a_v1"></script>
-  <script src="assets/js/decision_flow_v1.js?v=v274_reset_clears_major"></script>
+  <script src="assets/js/decision_flow_v1.js?v=v275_book_required"></script>
   <script src="assets/js/subject_support_notice.js?v=v14_korean_thin_seed"></script>
   <!-- 「이렇게 이해했어요」 카드 안에서 학생이 탐구할 낱말을 짚게 한다. 새 화면을 만들지 않는다. -->
   <!-- 무엇을 모아 오게 되는가 — 화면과 워커가 **같은 파일**을 쓴다. 둘이 어긋나면 학생에게 한 말과 실제가 달라진다. -->
