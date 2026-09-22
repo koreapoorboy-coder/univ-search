@@ -38,6 +38,29 @@ if (!/const fromTask = \(Boolean\(found\) && plain\(row\.c\) === found\) \|\| sc
 const index = JSON.parse(readFileSync(indexPath, "utf8"));
 const subjects = index.subjects || {};
 
+// 학교 평가계획이 쓰는 과목 이름과 우리 화면의 이름이 다를 때가 있다. 「물리학」과 「물리」,
+// 「통합과학」과 「통합과학1」은 같은 과목인데, 이름이 다르다고 재지 않으면 측정이 한쪽으로
+// 기운다. 아래는 **같은 과목의 다른 표기**만 적은 것이다 — 다른 과목을 억지로 끌어오지 않는다.
+const ALIAS = {
+  "물리학": "물리", "물리학Ⅰ": "물리", "물리학I": "물리",
+  "화학Ⅰ": "화학", "화학I": "화학",
+  "생명과학Ⅰ": "생명과학", "생명과학I": "생명과학",
+  "지구과학Ⅰ": "지구과학", "지구과학I": "지구과학",
+  "통합과학": "통합과학1", "통합사회": "통합사회1",
+  "과학탐구실험": "과학탐구실험1",
+  "미적분": "미적분1", "공통국어": "공통국어1", "공통수학": "공통수학1",
+  "공통영어": "영어", "공통영어1": "영어", "공통영어2": "영어",
+};
+const pick = (row) => {
+  for (const name of [row.subject_raw, row.subject_standard]) {
+    const one = String(name || "").trim();
+    if (subjects[one]) return { name: one, list: subjects[one] };
+    const alias = ALIAS[one];
+    if (alias && subjects[alias]) return { name: alias, list: subjects[alias] };
+  }
+  return null;
+};
+
 const rows = [];
 const rl = createInterface({ input: createReadStream(corpus, "utf8"), crlfDelay: Infinity });
 for await (const line of rl) {
@@ -49,15 +72,16 @@ for await (const line of rl) {
 let noSubject = 0;
 const seen = [];
 for (const row of rows) {
-  const list = subjects[row.subject_raw] || subjects[row.subject_standard];
-  if (!list || !list.length) { noSubject += 1; continue; }
+  const found = pick(row);
+  if (!found || !found.list.length) { noSubject += 1; continue; }
+  const list = found.list;
   const task = `${row.raw_task_title || ""} ${row.raw_task_desc || ""}`.trim();
   if (!task) { noSubject += 1; continue; }
   const scored = list.map((one) => ({ concept: one.c, ...hits(one, task) }))
     .sort((a, b) => (b.score - a.score) || a.concept.localeCompare(b.concept, "ko"));
   const top = scored[0];
   const tie = scored.filter((one) => one.score === top.score && top.score > 0).length;
-  seen.push({ subject: row.subject_raw, task, top, tie, best: top.score });
+  seen.push({ subject: found.name, task, top, tie, best: top.score });
 }
 
 const total = seen.length;
