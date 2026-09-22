@@ -8,7 +8,11 @@ const [html, bridge] = await Promise.all([
   readFile(bridgePath, "utf8")
 ]);
 
-const inlineScripts = Array.from(html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi), match => match[1])
+// type="module" 조각은 new Function 으로 문법을 볼 수 없다 — import 문이 들어 있다. 그런 조각은
+// 불러오는 파일 쪽에서 검사한다(test_unit_choice_picker_v1).
+const inlineScripts = Array.from(html.matchAll(/<script((?:\s[^>]*)?)>([\s\S]*?)<\/script>/gi))
+  .filter(match => !/type\s*=\s*["']module["']/i.test(match[1]))
+  .map(match => match[2])
   .filter(source => source.trim());
 for (const source of inlineScripts) new Function(source);
 
@@ -28,7 +32,14 @@ const checks = [
   [bridge.includes("makeReportPlainText"), "copy output is not built from the displayed report document"]
   ,[bridge.includes("LIVE_INTAKE_PREFLIGHT_UNAVAILABLE"), "missing live-intake preflight is not handled"]
   ,[bridge.includes("req.liveInputCandidate = candidate"), "live-input candidate is not retained for generate"]
-  ,[html.includes("v268_input_guidance"), "browser cache version was not advanced"]
+  ,[(() => {
+    // Pinning the literal version broke this test on every release. What matters is that the page asks for the
+    // same build the bridge says it is — one writes v269_major_pick, the other v269-major-pick.
+    const norm = (value) => String(value || "").replace(/[-_]/g, "").replace(/^v/, "");
+    const asked = norm((html.match(/mini_worker_generate_bridge_v32\.js\?v=([\w-]+)/) || [])[1]);
+    const says = norm((bridge.match(/mini-worker-generate-bridge-([\w-]+)/) || [])[1]);
+    return Boolean(asked) && asked === says;
+  })(), "the page and the bridge disagree about which build is loaded"]
 ];
 
 for (const [passed, message] of checks) assert.equal(passed, true, message);

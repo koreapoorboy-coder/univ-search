@@ -169,6 +169,25 @@ const blank = await picker.show({ subject: "물리", major: "", track: "" });
 check(blank.every((row) => row.why !== "task"), "단서가 없으면 안내문에서 읽었다고 말하지 않는다",
   blank.map((r) => r.why).join(","));
 
+// P7: 학생에게 보여 주는 「무엇을 채우게 돼요」는 **워커와 같은 규칙**에서 나와야 한다.
+// 2026-09-22 운영 검사: 생명과학 「우리 반 학생들을 대상으로 … 설문으로 조사」 과제에 화면은
+// 「공개된 자료를 찾아 표에 옮기게 돼요」라고 적었고, 워커는 설문으로 잡았다. 학생에게 한 말과
+// 실제가 달랐다.
+{
+  const source = await readFile(new URL("../assets/js/unit_choice_picker_v1.js", import.meta.url), "utf8");
+  check(/__COLLECTION_KIND__/.test(source), "화면은 함께 쓰는 규칙을 부른다");
+  const page = await readFile(new URL("../index.html", import.meta.url), "utf8");
+  check(/collection_kind_v1\.js/.test(page) && /__COLLECTION_KIND__/.test(page), "그 규칙이 화면에 실려 있다");
+
+  const { resolveCollectionKind } = await import("../assets/js/collection_kind_v1.js");
+  const { resolveCollectionKind: fromWorker } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  check(resolveCollectionKind === fromWorker, "워커가 쓰는 것과 같은 함수다");
+
+  const survey = "우리 반 학생들을 대상으로 수면 시간과 아침 식사 여부 등 생활 습관을 설문으로 조사하고, 응답을 표로 정리하여 항목 사이의 관계를 해석한 보고서를 작성하시오.";
+  check(resolveCollectionKind({ taskDescription: survey, subject: "생명과학", subjectGroup: "과학", reportMode: "자료해석형" }) === "survey",
+    "설문 과제는 보고서 유형 배지가 무엇이든 설문이다");
+}
+
 console.log(`PASS unit choice picker: ${passed}/${passed}`);
 // 화면 코드가 400ms 지킴이 타이머를 계속 걸어 두기 때문에, 다 끝났으면 손으로 닫는다.
 process.exit(0);

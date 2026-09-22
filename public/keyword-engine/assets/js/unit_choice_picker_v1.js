@@ -17,7 +17,7 @@
 (function (global) {
   "use strict";
 
-  const VERSION = "unit-choice-picker-v1.2.0";
+  const VERSION = "unit-choice-picker-v1.3.0";
   global.__UNIT_CHOICE_PICKER_VERSION__ = VERSION;
 
   const INDEX_URL = "seed/engine-index/unit_choices.v1.json";
@@ -185,9 +185,28 @@
     reading: "읽은 자료의 제목과 내 해석을 적게 돼요",
     none: "따로 적을 것 없이 바로 보고서가 나와요",
   };
-  // 화면이 읽어 낸 「수행평가 방식」에서 고른다. 워커의 판정과 같은 말을 쓴다(report_stages_v1).
+  // **워커와 같은 규칙을 쓴다.** 예전에는 여기에 짧은 규칙을 따로 두고 「수행평가 방식」 배지만 봤다.
+  // 그래서 생명과학 「우리 반 학생들을 대상으로 … 설문으로 조사」 과제에 화면은 「공개된 자료를 찾아
+  // 표에 옮기게 돼요」라고 적었는데, 워커는 설문으로 잡았다(운영 검사 2026-09-22). 학생에게 한 말과
+  // 실제가 다르면 「틀리면 보이게 한다」는 약속이 무너진다.
+  // 규칙은 collection_kind_v1.js 한 군데에 있고, index.html 이 그것을 창에 올려 둔다.
   function fillKind() {
-    const method = text($("correctionMethod")?.value) + " " + text($("interpretedModes")?.textContent);
+    const shared = global.__COLLECTION_KIND__?.resolve;
+    const fixed = text($("correctionMethod")?.value);
+    if (typeof shared === "function") {
+      return shared({
+        taskDescription: text($("taskDescription")?.value),
+        taskName: text($("taskName")?.value),
+        subject: text($("subject")?.value),
+        subjectGroup: text($("subjectGroup")?.value),
+        reportMode: text($("interpretedModes")?.textContent),
+        // 학생이 「다르게 잡을래요」로 고쳤을 때만 그 말이 먼저다 — 워커와 같은 조건이다.
+        methodPicked: Boolean(fixed),
+        correctionMethod: fixed,
+      });
+    }
+    // 공유 규칙이 아직 안 올라왔을 때만 쓰는 짧은 길. 여기서 멈추면 줄이 아예 안 나온다.
+    const method = `${fixed} ${text($("interpretedModes")?.textContent)}`;
     if (/실험|실습|측정|관찰/.test(method)) return "measurement";
     if (/설문/.test(method)) return "survey";
     if (/자료해석|자료분석|통계|데이터/.test(method)) return "dataset";
