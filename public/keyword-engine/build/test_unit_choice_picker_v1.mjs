@@ -65,6 +65,7 @@ makeField("subject").value = "통합사회1";
 makeField("selectedConcept");
 makeField("keyword");
 makeField("conceptPicked");
+makeField("taskDescription");
 
 let activeMajor = null;   // #majorStep 에서 눌린 단추 (없으면 null)
 
@@ -151,6 +152,22 @@ const other = await picker.show({ subject: "물리", major: "", track: "자연" 
 check(other.length > 0, "다른 과목에도 후보가 있다", String(other.length));
 check(state().concept === other[0].concept, "새 과목의 맨 위가 골라진다", state().concept);
 check(state().picked === "false", "사라진 선택을 학생이 고른 것처럼 말하지 않는다", state().picked);
+
+// P5: 안내문 글자만으로도 맞는 단원을 찾아 맨 위에 둔다.
+// 2026-09-22 운영 검사: 물리 「역학 수레 … 가속도를 측정 … 뉴턴 운동 제2법칙」 과제에
+// 자기장·전기·빛의 이중성·상대성·열 다섯 줄이 떴다. 「힘과 운동」은 ㄱㄴㄷ 순으로 맨 끝이라
+// 다섯 줄 밖으로 밀려 아예 보이지 않았다.
+byId.get("taskDescription").value = "역학 수레에 작용하는 힘을 달리하며 가속도를 측정하고, 힘과 가속도의 관계를 그래프로 나타내어 뉴턴 운동 제2법칙을 검증하시오.";
+const physics = await picker.show({ subject: "물리", major: "", track: "" });
+check(physics[0].concept === "힘과 운동", "안내문이 말한 단원이 맨 위에 온다", physics[0].concept);
+check(physics[0].why === "task", "그리고 안내문에서 읽었다고 말한다", physics[0].why);
+check(state().concept === "힘과 운동", "그 단원이 미리 골라져 있다", state().concept);
+
+// P6: 안내문에 단서가 없으면 예전처럼 둔다 — 억지로 하나를 고르지 않는다.
+byId.get("taskDescription").value = "탐구 보고서를 작성하시오.";
+const blank = await picker.show({ subject: "물리", major: "", track: "" });
+check(blank.every((row) => row.why !== "task"), "단서가 없으면 안내문에서 읽었다고 말하지 않는다",
+  blank.map((r) => r.why).join(","));
 
 console.log(`PASS unit choice picker: ${passed}/${passed}`);
 // 화면 코드가 400ms 지킴이 타이머를 계속 걸어 두기 때문에, 다 끝났으면 손으로 닫는다.

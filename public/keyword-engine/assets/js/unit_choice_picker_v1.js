@@ -17,7 +17,7 @@
 (function (global) {
   "use strict";
 
-  const VERSION = "unit-choice-picker-v1.1.0";
+  const VERSION = "unit-choice-picker-v1.2.0";
   global.__UNIT_CHOICE_PICKER_VERSION__ = VERSION;
 
   const INDEX_URL = "seed/engine-index/unit_choices.v1.json";
@@ -59,20 +59,39 @@
     return index;
   }
 
+  // 안내문 **글자**에서도 단원을 찾는다.
+  // 화면의 해석이 단원을 못 집어내면 차례가 가나다순이 되고, 정작 맞는 단원은 다섯 줄 밖으로
+  // 밀려 아예 안 보였다 — 물리 「역학 수레에 작용하는 힘을 달리하며 가속도를 측정… 뉴턴 운동
+  // 제2법칙」 과제에 자기장·전기·빛의 이중성·상대성·열이 떴다(운영 검사 2026-09-22).
+  // 「힘과 운동」은 ㅎ 이라 맨 끝이었다.
+  // 한 글자 낱말은 세지 않는다 — 「일」 같은 말은 아무 글에나 들어 있다.
+  function hits(row, task) {
+    if (!task) return 0;
+    let count = 0;
+    if (row.c && row.c.length > 1 && task.includes(row.c)) count += 2;
+    for (const word of row.k || []) if (word && word.length > 1 && task.includes(word)) count += 1;
+    return count;
+  }
+
   // 차례: 안내문에서 읽어낸 것 → 전공(진로 칸) → 전공(대학 수업) → 계열 → 나머지.
-  function rank({ subject, major, track, detected, limit = 5 }) {
+  function rank({ subject, major, track, detected, task, limit = 5 }) {
     const list = (index?.subjects || {})[text(subject)] || [];
     const group = TRACK_GROUP[text(track)] || "";
     const found = plain(detected);
+    const words = text(task || $("taskDescription")?.value);
     return list.map((row) => {
-      const fromTask = Boolean(found) && plain(row.c) === found;
+      const score = hits(row, words);
+      // 「안내문에서 읽었어요」라고 **말하는** 것은 근거가 셀 때만이다 — 단원 이름이 그대로 있거나,
+      // 낱말이 둘 이상 맞을 때. 한 낱말만 스치면(「그래프」 같은 말) 차례만 위로 올리고, 어디서
+      // 왔는지는 원래대로 말한다. 없는 근거를 댈 바에는 아무 말도 안 하는 편이 낫다.
+      const fromTask = (Boolean(found) && plain(row.c) === found) || score >= 2;
       const byBridge = Boolean(major) && (row.b || []).includes(major);
       const byCourse = Boolean(major) && !byBridge && (row.m || []).includes(major);
       const byTrack = Boolean(group) && (row.g || []).includes(group);
       const why = fromTask ? "task" : byBridge ? "major" : byCourse ? "course" : byTrack ? "track" : "plain";
       const order = fromTask ? 0 : byBridge ? 1 : byCourse ? 2 : byTrack ? 3 : 4;
-      return { concept: row.c, keywords: (row.k || []).slice(0, 5), topic: text(row.t), why, order };
-    }).sort((a, b) => (a.order - b.order) || a.concept.localeCompare(b.concept, "ko")).slice(0, limit);
+      return { concept: row.c, keywords: (row.k || []).slice(0, 5), topic: text(row.t), why, order, score };
+    }).sort((a, b) => (a.order - b.order) || (b.score - a.score) || a.concept.localeCompare(b.concept, "ko")).slice(0, limit);
   }
 
   function style() {
