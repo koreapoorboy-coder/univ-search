@@ -1,11 +1,13 @@
 (function(global){
   "use strict";
 
-  const VERSION = "subject-support-notice-v1.2.0";
+  const VERSION = "subject-support-notice-v1.3.0";
   const STORAGE_KEY = "ke.subjectSelectionLogs.v1";
-  const NOTICE_TEXT = "현재 과학·수학·사회·영어·정보 과목을 지원합니다.\n국어 수행평가는 준비 중입니다.";
   const THIN_SEED_NOTICE = "이 과목의 전용 참고 사례는 현재 확충 중입니다.\n보유 범위에서 결과를 제공하지만, 다른 과목보다 주제 다양성이 낮을 수 있습니다.";
-  const PENDING_LANGUAGE = new Set(["공통국어1", "공통국어2"]);
+  // 국어(공통국어1·2)는 **고를 수 없다.** 예전에는 목록에 두고 「준비 중입니다」라고만 적었는데,
+  // 학생은 그래도 고를 수 있었고 보고서도 나왔다 — 그런데 그 보고서가 과제와 달랐다
+  // (운영 검사 2026-09-22: 「도서를 읽고 서평」 과제에 「AI 저작권 칼럼 논증 비교」가 나왔다).
+  // 안 파는 것은 보여 주지 않는다. 목록에서 뺐다(index.html).
   // 런타임 후보 30건 미만 과목. 기능은 정상 동작하며 안내만 표시한다.
   const THIN_SEED = new Set([
     "공통수학1", "공통수학2", "지구과학",
@@ -15,10 +17,8 @@
     // 아니다. 되는 과목을 안 된다고 적어 두면 학생이 그냥 나간다.
     "영어", "한국사"
   ]);
-  const HELD = new Set([...PENDING_LANGUAGE, ...THIN_SEED]);
+  const HELD = new Set([...THIN_SEED]);
   const EXPECTED_COUNTS = {
-    "공통국어1": 0,
-    "공통국어2": 0,
     "영어": 0,
     "한국사": 0,
     "공통수학1": 1,
@@ -51,7 +51,6 @@
     }
   }
   function statusOf(subject){
-    if(PENDING_LANGUAGE.has(subject)) return "pending_language_seed";
     if(THIN_SEED.has(subject)) return "thin_seed_pool";
     return "supported";
   }
@@ -85,13 +84,7 @@
       notice.style.display = "none";
       return;
     }
-    let noticeText;
-    if(THIN_SEED.has(subject)){
-      noticeText = THIN_SEED_NOTICE;
-    }else{
-      noticeText = NOTICE_TEXT;
-    }
-    notice.textContent = noticeText;
+    notice.textContent = THIN_SEED_NOTICE;
     notice.style.display = "block";
   }
   function appendLocalLog(event){
@@ -192,9 +185,7 @@
   global.__SUBJECT_SUPPORT__ = {
     version: VERSION,
     heldSubjects: Array.from(HELD),
-    pendingLanguageSubjects: Array.from(PENDING_LANGUAGE),
     thinSeedSubjects: Array.from(THIN_SEED),
-    noticeText: NOTICE_TEXT,
     readLocalLogs(){
       try{ return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
       catch(error){ return []; }
