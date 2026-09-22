@@ -17,7 +17,7 @@
 (function (global) {
   "use strict";
 
-  const VERSION = "unit-choice-picker-v1.0.0";
+  const VERSION = "unit-choice-picker-v1.1.0";
   global.__UNIT_CHOICE_PICKER_VERSION__ = VERSION;
 
   const INDEX_URL = "seed/engine-index/unit_choices.v1.json";
@@ -179,6 +179,15 @@
   function render(list) {
     const anchor = $("interpretationActions");
     if (!anchor || !list.length) return;
+    // 학생이 이미 손으로 짚었으면, 목록을 다시 그려도 그 단원을 그대로 둔다.
+    // 전공을 고르면 차례가 바뀌는데, 그때마다 맨 위가 다시 골라지면서 학생이 짚은 단원을 조용히
+    // 덮었다. 게다가 conceptPicked 는 true 로 남아서, **우리가 고른 것을 학생이 고른 것처럼**
+    // 워커에 알렸다 — 워커는 그 값을 믿고 과제 글의 단원까지 밀어낸다
+    // (운영 검사 2026-09-22, 통합사회1: 학생이 「인구 변화」를 짚었는데 행정학과를 고르자
+    //  「사회 정의와 불평등」으로 바뀌었다).
+    let keepAt = touched && picked ? list.findIndex((row) => row.concept === picked.concept) : -1;
+    // 과목이 바뀌어 짚은 단원이 목록에서 사라졌다면, 더는 「학생이 골랐다」고 말하지 않는다.
+    if (touched && keepAt < 0) touched = false;
     style();
     let box = $("unitChoiceBox");
     if (!box) {
@@ -202,7 +211,7 @@
     list.forEach((row, at) => {
       const button = document.createElement("button");
       button.type = "button";
-      button.className = `uc-item${at === 0 ? " is-on" : ""}`;
+      button.className = `uc-item${at === (keepAt >= 0 ? keepAt : 0) ? " is-on" : ""}`;
       const words = document.createElement("span");
       words.className = "uc-words";
       words.textContent = row.keywords.slice(0, 4).join(" · ");
@@ -224,8 +233,9 @@
     fill.className = "uc-fill";
     fill.textContent = `이 과제는 ${FILL_LABEL[fillKind()]}. 아니면 아래 「다르게 잡을래요」에서 수행평가 방식을 바꿔 주세요.`;
     box.appendChild(fill);
-    // 맨 위를 미리 골라 둔다 — 맞으면 학생은 아무것도 안 눌러도 된다.
-    apply(list[0], list[0].keywords[0] || list[0].concept);
+    // 학생이 짚은 것이 있으면 그것을, 없으면 맨 위를 미리 골라 둔다 — 맞으면 아무것도 안 눌러도 된다.
+    if (keepAt >= 0) apply(list[keepAt], picked.keyword || list[keepAt].keywords[0] || list[keepAt].concept, true);
+    else apply(list[0], list[0].keywords[0] || list[0].concept);
   }
 
   async function show({ subject, major, track, detected } = {}) {
