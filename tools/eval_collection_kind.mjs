@@ -38,7 +38,15 @@ function groundTruth(row) {
   // Asked for in the task itself, so they win over whatever the axes say.
   if (/설문|인터뷰|여론 ?조사|응답자/.test(text)) return "survey";
   if (/실험|실습/.test(text) && /실험보고서/.test(outputs)) return "measurement";
-  if (/통계|지표|데이터|그래프|수치 ?자료|공공 ?데이터/.test(text) && /자료분석지|보고서/.test(outputs)) return "dataset";
+  // 수학에서 「그래프」는 **함수를 손으로 그리는 일**이지, 공개된 수치를 옮겨 적는 일이 아니다.
+  // 이 줄이 「미적분 · 함수의 그래프 개형을 그리기」, 「공통수학1 · 방정식과 함수의 문제해결」
+  // 같은 연필 문제를 자료 과제로 찍어 두고 있었다 — 수학 오답 29건 가운데 24건이 여기서 나왔고,
+  // 손으로 읽어 보니 그중 22건은 정답표가 틀린 것이었다(2026-09-22).
+  // **이건 제품을 고친 것이 아니라 자를 고친 것이다.** 수학에서는 통계·데이터라는 말이 실제로
+  // 있을 때만 자료 과제로 본다.
+  const mathish = /수학/.test(String(row.subject_group || ""));
+  const dataWord = mathish ? /통계|지표|데이터|수치 ?자료|공공 ?데이터/ : /통계|지표|데이터|그래프|수치 ?자료|공공 ?데이터/;
+  if (dataWord.test(text) && /자료분석지|보고서/.test(outputs)) return "dataset";
 
   // Nothing to collect: the student writes, performs or makes something.
   if (/실기|시연|연주|가창|경기|연습|실음/.test(`${text} ${outputs} ${modes}`)) return "none";
@@ -63,16 +71,25 @@ function groundTruth(row) {
 // 화면에 없는 과목을 섞어 채점하면 무엇을 고쳐야 할지 가려진다.
 const unitIndex = JSON.parse(readFileSync(join(repo, "public/keyword-engine/seed/engine-index/unit_choices.v1.json"), "utf8"));
 const SERVED = new Set(Object.keys(unitIndex.subjects || {}));
+// 학교가 쓰는 이름은 흔들린다 — 「데이터과학」·「인공지능기초」(띄어쓰기 없음), 「미적분Ⅰ」(로마 숫자).
+// 띄어쓰기와 로마 숫자를 지우고 맞춰 본다. 이걸 안 했을 때 정보 과제 23건을 공백 하나 때문에
+// 빼고 재고 있었다.
+const norm = (one) => String(one || "").trim()
+  .replace(/Ⅰ/g, "1").replace(/Ⅱ/g, "2").replace(/Ⅲ/g, "3")
+  .replace(/III/g, "3").replace(/II/g, "2").replace(/I/g, "1")
+  .replace(/[\s·]/g, "");
+const SERVED_NORM = new Map(Object.keys(unitIndex.subjects || {}).map((one) => [norm(one), one]));
+// 같은 과목의 다른 이름. 다른 과목을 억지로 끌어오지 않는다.
 const SERVED_ALIAS = {
-  "물리학": "물리", "물리학Ⅰ": "물리", "물리학I": "물리", "화학Ⅰ": "화학", "화학I": "화학",
-  "생명과학Ⅰ": "생명과학", "생명과학I": "생명과학", "지구과학Ⅰ": "지구과학", "지구과학I": "지구과학",
+  "물리학": "물리", "물리학1": "물리", "화학1": "화학", "생명과학1": "생명과학", "지구과학1": "지구과학",
   "통합과학": "통합과학1", "통합사회": "통합사회1", "과학탐구실험": "과학탐구실험1",
   "미적분": "미적분1", "공통국어": "공통국어1", "공통수학": "공통수학1",
-  "공통영어": "영어", "공통영어1": "영어", "공통영어2": "영어",
+  "공통영어": "영어", "공통영어1": "영어", "공통영어2": "영어", "인공지능": "인공지능 기초",
 };
 const isServed = (row) => [row.subject_raw, row.subject_standard].some((one) => {
-  const name = String(one || "").trim();
-  return SERVED.has(name) || SERVED.has(SERVED_ALIAS[name]);
+  const key = norm(one);
+  if (!key) return false;
+  return SERVED_NORM.has(key) || Boolean(SERVED_ALIAS[key]);
 });
 const servedOnly = process.argv.includes("--served");
 

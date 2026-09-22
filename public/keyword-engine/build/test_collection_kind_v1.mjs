@@ -139,4 +139,14 @@ is("확률분포가 시험 점수에 영향을 미치는 요인을 자료로 분
 is("주제에 대해 자신의 생각을 글로 쓴다. / 평가방법: 논술, 교사 관찰 및 기록",
   COLLECTION.NONE, "「교사 관찰 및 기록」은 재는 과제로 만들지 않는다", { subjectGroup: "과학" });
 
+// 정보·AI 과목. 런칭을 수학·과학·정보로 잡았으니 이 셋이 제일 촘촘해야 한다.
+is("정렬과 탐색 알고리즘을 분석하여 논술하기",
+  COLLECTION.NONE, "알고리즘 과제라도 논술이면 숫자 표를 주지 않는다", { subjectGroup: "정보" });
+is("기계학습 데이터 분석 및 모델 구현하기 · 데이터 수집 및 전처리",
+  COLLECTION.DATASET, "조사가 빠진 「데이터 수집」도 자료 과제로 본다", { subjectGroup: "정보" });
+is("수집한 데이터의 속성을 파악하고 데이터를 전처리하고 문제 해결에 활용한다",
+  COLLECTION.DATASET, "「데이터 전처리」는 모아 오는 것이 데이터다", { subjectGroup: "정보" });
+is("텍스트 기반 파이썬 프로그램을 작성하고 실행 결과를 확인한다",
+  COLLECTION.MEASUREMENT, "데이터 말이 없는 프로그래밍은 그대로 돌려 보는 과제다", { subjectGroup: "정보" });
+
 console.log(`PASS collection kind: ${passed}/${passed}`);

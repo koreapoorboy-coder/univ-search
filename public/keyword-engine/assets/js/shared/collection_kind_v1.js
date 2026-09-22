@@ -58,7 +58,11 @@ export function resolveCollectionKind(input) {
   // 학생은 「다르게 잡을래요」로 문헌 탐구로 바꿀 수 있다. 재서 나빠지는 규칙은 넣지 않는다.
   // Graded as an essay answer: the student looks at something, but there is no table to fill in.
   if (/논술형 ?문제|논술형 ?평가|서·?논술형|논술형으로 ?해결|논술 ?문항/.test(text)) return COLLECTION.NONE;
-  if (/통계|지표|빅데이터|공공 ?데이터|데이터를 ?수집|데이터를 ?분석|데이터 ?시각화|자료 ?해석|그래프 ?분석|추이|수치 ?자료|관측 ?자료/.test(text)) return COLLECTION.DATASET;
+  // 「데이터 수집 및 전처리」처럼 조사가 빠진 말이 많아 「데이터를 수집」만으로는 놓쳤다.
+  // 인공지능 기초·데이터 과학 과제가 「프로그래밍」 규칙에 먼저 걸려 실험으로 잡혔다 —
+  // 학생이 모아 오는 것은 데이터인데 잰 숫자를 적으라는 표를 받았다(2026-09-22).
+  // 정보 80.7% → 83%, 과학 85.4% → 85.8%, 수학 그대로.
+  if (/통계|지표|빅데이터|공공 ?데이터|데이터를? ?(수집|전처리|정제|분석)|데이터 ?시각화|자료 ?해석|그래프 ?분석|추이|수치 ?자료|관측 ?자료/.test(text)) return COLLECTION.DATASET;
   // 「천문 자료에서 별 네 개의 등급을 찾아 표로 정리한다」도 공개 자료를 옮겨 적는 과제다 — 루프 18: '통계·지표'
   // 같은 말이 없어 문헌 탐구로 잡혀 자료 5개를 읽으라는 설계서가 나왔다. 찾아서 **표에 옮겨 적으라는** 말을 본다.
   if (/(자료|데이터|목록|표|기록)[^.]{0,30}(찾아|조회|검색|내려받)[^.]{0,30}(표로|표에|정리|옮겨|적는다|적어)/.test(text)) return COLLECTION.DATASET;
@@ -98,7 +102,10 @@ export function resolveCollectionKind(input) {
   // 관찰하고 기록하는 과제, 회로를 꾸며 전류·전압을 재는 과제, 학교 생물 조사(바이오 블리츠) — 전수 검사에서 빠질 뻔한 것들
   if (science && /관찰 ?후|관찰하고|관찰 ?활동|바이오 ?블리츠|직렬|병렬|회로를 ?(구성|꾸미|만들)/.test(text)) return COLLECTION.MEASUREMENT;
   // Running a program and recording what it outputs is the same kind of work as measuring.
-  if (/알고리즘|프로그래밍|프로그램을 ?작성|코드를 ?작성|구현하여|구현한|테스트 ?결과|오류를 ?수정|디버깅/.test(text)) return COLLECTION.MEASUREMENT;
+  // 프로그램을 돌려 결과를 적는 것은 재는 일과 같다. 다만 **과제가 논술이면 물린다** —
+  // 「정렬과 탐색 알고리즘을 분석하여 논술하기」가 실험으로 잡혀 학생이 숫자 표를 받았다
+  // (2026-09-22). 이 한 줄로 정보 75% → 80.7%, 다른 갈래는 한 칸도 안 움직인다.
+  if (!/논술|비평|감상문/.test(text) && /알고리즘|프로그래밍|프로그램을 ?작성|코드를 ?작성|구현하여|구현한|테스트 ?결과|오류를 ?수정|디버깅/.test(text)) return COLLECTION.MEASUREMENT;
   if (/데이터|자료를 ?분석/.test(text)) return COLLECTION.DATASET;
 
   // Nothing to collect: the student writes it, performs it, or makes it.
