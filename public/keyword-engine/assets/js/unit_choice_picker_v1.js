@@ -17,7 +17,7 @@
 (function (global) {
   "use strict";
 
-  const VERSION = "unit-choice-picker-v1.9.0";
+  const VERSION = "unit-choice-picker-v1.10.0";
   global.__UNIT_CHOICE_PICKER_VERSION__ = VERSION;
 
   // 판 이름을 붙여 부른다. 안 붙이면 force-cache 때문에 **단원 사전을 새로 올려도 옛 목록이**
@@ -88,7 +88,7 @@
     const group = TRACK_GROUP[text(track)] || "";
     const found = plain(detected);
     const words = text(task || $("taskDescription")?.value);
-    return list.map((row) => {
+    const scored = list.map((row) => {
       const { score, matched } = hits(row, words);
       // 「안내문에서 읽었어요」라고 **말하는** 것은 근거가 셀 때만이다 — 단원 이름이 그대로 있거나,
       // 낱말이 둘 이상 맞을 때. 한 낱말만 스치면(「그래프」 같은 말) 차례만 위로 올리고, 어디서
@@ -104,7 +104,15 @@
       // 떴다(운영 검사 2026-09-22, 통합과학1).
       const shown = [...new Set([...matched, ...(row.k || [])])].slice(0, 5);
       return { concept: row.c, keywords: shown, topic: text(row.t), why, order, score };
-    }).sort((a, b) => (a.order - b.order) || (b.score - a.score) || a.concept.localeCompare(b.concept, "ko")).slice(0, limit);
+    });
+    // 낱말이 **하나라도** 걸렸는지는 따로 들고 간다. 문턱을 못 넘어도 「안내문에 주제가 없다」는
+    // 말은 사실이 아니기 때문이다 — 화면이 학생에게 무슨 말을 할지 여기서 갈린다.
+    // 다섯 줄로 자르기 전에 세야 한다. 걸린 단원이 여섯째에 있을 수도 있다.
+    const anyHit = scored.some((one) => one.score > 0);
+    return scored
+      .sort((a, b) => (a.order - b.order) || (b.score - a.score) || a.concept.localeCompare(b.concept, "ko"))
+      .slice(0, limit)
+      .map((one) => ({ ...one, anyHit }));
   }
 
   function style() {
@@ -257,9 +265,22 @@
     head.textContent = "무엇으로 탐구할까요?";
     const sub = document.createElement("div");
     sub.className = "uc-sub";
+    // 할 말이 셋이다. 안내문을 읽어낸 것, 읽긴 했는데 못 좁힌 것, 아무것도 못 읽은 것.
+    //
+    // 운영 검사 2026-09-22(인공지능 기초): 안내문이 「학습 데이터의 편향을 주제로」라고 또렷이
+    // 말했는데 화면은 「안내문에 주제가 없어서」라고 했다. 전수로 재 보니 단원 목록이 있는 과제
+    // 1,196건 중 **384건(32.1%)** 이 이렇게 말한다 — 낱말은 걸렸는데 문턱(2점)을 못 넘은 것들이다.
+    //
+    // 문턱을 내리는 것은 재 보고 그만두었다. 1점까지 믿으면 새로 384건을 「읽었다」고 말하는데,
+    // 그중 절반(48.7%)이 다른 단원과 동점이고 77.3%가 「평가」·「정리」 같은 아무 데나 있는 말
+    // 하나로 걸린 것이다. 안전장치를 걸어 88건만 믿어 봐도 손으로 본 30건 중 6건이 틀렸다.
+    // 고칠 것은 판단이 아니라 **문장**이었다. 못 좁힌 것을 못 좁혔다고 말하면 된다.
+    // (`node tools/eval_unit_from_task.mjs`)
     sub.textContent = list[0].why === "task"
       ? "안내문에서 읽어낸 것을 맨 위에 두었어요. 그대로면 그냥 「맞아요」를 누르세요."
-      : "안내문에 주제가 없어서 저희가 골라 두었어요. 수업에서 배운 것과 가까운 쪽을 눌러 주세요.";
+      : list[0].anyHit
+        ? "안내문에서 몇 낱말이 걸렸는데 단원 하나로 좁히지 못했어요. 가까운 쪽을 눌러 주세요."
+        : "안내문에 주제가 없어서 저희가 골라 두었어요. 수업에서 배운 것과 가까운 쪽을 눌러 주세요.";
     box.appendChild(head);
     box.appendChild(sub);
     const wrap = document.createElement("div");

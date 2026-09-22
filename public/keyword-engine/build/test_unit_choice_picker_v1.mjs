@@ -265,6 +265,39 @@ check(blank.every((row) => row.why !== "task"), "단서가 없으면 안내문�
   check(!/지진|댐퍼/.test(rows3[0].keywords[0] || ""), "상관없는 말이 맨 앞에 오지 않는다", rows3[0].keywords.join(" · "));
 }
 
+// P12: 학생에게 하는 말이 사실이어야 한다. 할 말은 셋이다 —
+//   ① 안내문을 읽어냈다   ② 읽긴 했는데 못 좁혔다   ③ 아무것도 못 읽었다
+//
+// 운영 검사 2026-09-22(인공지능 기초): 안내문이 「학습 데이터의 편향을 주제로」라고 또렷이
+// 말했는데 화면이 ③(「안내문에 주제가 없어서」)을 말했다. 그 과제는 「인공지능」·「학습 데이터」·
+// 「편향」이 서로 다른 세 단원에 하나씩 걸려 동점이라, 하나로 좁히는 것이 옳지 않은 경우다.
+// 못 좁힌 것은 ②라고 말해야 한다.
+{
+  const subtitle = () => {
+    const box = byId.get("unitChoiceBox");
+    return (box?.children || []).find((one) => one.className === "uc-sub")?.textContent || "";
+  };
+
+  byId.get("taskDescription").value = "인공지능 학습 데이터의 편향 문제를 주제로 정하고, 공개된 사례와 자료를 조사하여 편향이 생기는 원인과 이를 줄이기 위한 방안을 정리한 보고서를 작성하시오.";
+  byId.get("subject").value = "인공지능 기초";
+  const rows4 = await picker.show({ subject: "인공지능 기초", major: "", track: "" });
+  check(rows4[0].why !== "task", "세 단원이 동점이면 읽어냈다고 우기지 않는다", rows4[0].why);
+  check(rows4.some((one) => one.score > 0), "그래도 낱말은 걸려 있다", rows4.map((o) => o.score).join(","));
+  check(/좁히지 못했어요/.test(subtitle()), "② 못 좁혔다고 말한다", subtitle());
+  check(!/주제가 없어서/.test(subtitle()), "안내문에 주제가 없다고 말하지 않는다", subtitle());
+
+  // ③ 은 그대로 남아야 한다. 정말 아무 낱말도 안 걸린 안내문에는 예전 말이 맞다.
+  byId.get("taskDescription").value = "자유 주제로 보고서를 쓰시오.";
+  await picker.show({ subject: "인공지능 기초", major: "", track: "" });
+  check(/주제가 없어서/.test(subtitle()), "③ 정말 못 읽었으면 예전 말 그대로다", subtitle());
+
+  // ① 도 그대로다.
+  byId.get("taskDescription").value = "낙하 높이를 달리하며 바닥까지 걸리는 시간을 측정하고 중력 가속도를 구하시오.";
+  byId.get("subject").value = "통합과학1";
+  await picker.show({ subject: "통합과학1", major: "", track: "" });
+  check(/읽어낸 것을 맨 위에/.test(subtitle()), "① 읽어냈으면 읽어냈다고 말한다", subtitle());
+}
+
 console.log(`PASS unit choice picker: ${passed}/${passed}`);
 // 화면 코드가 400ms 지킴이 타이머를 계속 걸어 두기 때문에, 다 끝났으면 손으로 닫는다.
 process.exit(0);
