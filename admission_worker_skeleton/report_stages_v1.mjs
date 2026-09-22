@@ -642,9 +642,12 @@ export function buildReferencesBody(body, sources, extra = {}) {
   });
 }
 
-function sanitizeSourceTemplate(raw) {
+// 책 한 권이 과제의 대상이면 카드는 하나다. 운영 검사 2026-09-22(공통수학1 독후 보고서):
+// 「도서를 한 권 선정하여 읽고」 과제에 「자료를 5개 찾아 읽어요」라고 시켰다.
+// 과제가 시킨 것보다 다섯 배를 요구한 것이다.
+function sanitizeSourceTemplate(raw, least = 3) {
   return {
-    cardCount: Math.min(6, Math.max(3, Math.round(Number(raw?.cardCount) || 4))),
+    cardCount: Math.min(6, Math.max(least, Math.round(Number(raw?.cardCount) || (least === 1 ? 1 : 4)))),
     whatToFind: clip(raw?.whatToFind, 200),
   };
 }
@@ -1030,6 +1033,11 @@ export function stagePromptLines(stage, input) {
       ...(input.collectionKind === COLLECTION.DATASET
         ? ['- 학생이 공개 자료(통계표, 기관 공개 지표 등)에서 숫자를 옮겨 적을 수 있게 설계한다. conditions에는 "연도"나 "지역·항목"처럼 비교할 칸 이름을 넣고, measurementName과 unit에는 그 지표와 단위를 쓴다. 자료의 출처 종류(무엇에서 찾을지)는 본문에 밝히되 기관명이나 수치를 지어내지 않는다.']
         : []),
+      // 책 한 권이 과제의 대상이면 읽을 것은 그 책 하나다.
+      ...(input.collectionKind === COLLECTION.READING && bookIsSubject(input)
+        ? ['- 이 과제가 읽으라고 한 것은 **책 한 권**이다. cardCount 는 1 로 한다. 자료를 여러 개 찾아 읽으라고 하지 않는다.',
+           '- whatToFind 에는 그 책에서 뽑아 적을 것을 쓴다(핵심 주장, 근거로 든 장면·자료, 교과 개념과 닿는 대목, 내 판단).']
+        : []),
       ...(input.collectionKind === COLLECTION.READING
         ? ['- 이 과제는 숫자를 재지 않는다. dataTemplate 대신 sourceTemplate을 쓴다. cardCount는 학생이 읽을 자료 수(3~6), whatToFind에는 각 자료에서 무엇을 찾아 적어야 하는지 한 문장으로 쓴다.',
            '- 학생은 자료마다 제목, 자료 종류, 핵심 내용, 내 해석을 카드로 적는다. 본문에는 학생이 아직 읽지 않은 자료의 내용을 미리 쓰지 않는다.']
@@ -1260,7 +1268,7 @@ function baseSchemaProperties(stage, input = {}) {
         type: 'object',
         additionalProperties: false,
         required: ['cardCount', 'whatToFind'],
-        properties: { cardCount: { type: 'integer', minimum: 3, maximum: 6 }, whatToFind: { type: 'string' } },
+        properties: { cardCount: { type: 'integer', minimum: 1, maximum: 6 }, whatToFind: { type: 'string' } },
       },
     };
   }
@@ -1318,7 +1326,7 @@ export function finalizeStageOutput(stage, rawParsed, input) {
     const scrubbed = sections.map((section) => ({ ...section, body: scrubInternalNames(section?.body) }));
     const kind = input.collectionKind || COLLECTION.MEASUREMENT;
     if (kind === COLLECTION.READING) {
-      const sourceTemplate = sanitizeSourceTemplate(parsed?.sourceTemplate);
+      const sourceTemplate = sanitizeSourceTemplate(parsed?.sourceTemplate, bookIsSubject(input) ? 1 : 3);
       return {
         parsed: { ...parsed, sections: scrubbed },
         extra: { collectionKind: kind, sourceTemplate, combination: { caseTag: clip(parsed?.caseTag, 40), variableTag: '', measureTag: clip(sourceTemplate.whatToFind, 40) },

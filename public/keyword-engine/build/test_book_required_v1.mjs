@@ -72,4 +72,22 @@ for (const text of mayBook) check(!rule.test(text), `곁들이는 과제는 그�
   check(/__BOOK_USAGE_MODE__/.test(bridge), "B3 보내는 쪽이 그 값을 본다(그래서 맞춰야 한다)");
 }
 
+// B4: 책 한 권짜리 과제에 자료 다섯 개를 읽으라고 하지 않는다.
+// 운영 검사 2026-09-22(공통수학1 독후 보고서): 「도서를 한 권 선정하여 읽고」 과제인데 2단계가
+// 「자료를 5개 찾아 읽어요」였다. 과제가 시킨 것보다 다섯 배를 요구한 셈이다.
+{
+  const { stagePromptLines, STAGE } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  const oneBook = stagePromptLines(STAGE.DRAFT, {
+    collectionKind: "reading",
+    taskDescription: "수학 관련 도서를 한 권 선정하여 읽고, 책에 나온 개념을 정리한 뒤 독후 보고서를 쓰시오.",
+  }).join(" ");
+  check(/cardCount 는 1 로 한다/.test(oneBook), "B4 책 한 권이면 카드도 하나다", oneBook.slice(0, 90));
+
+  const many = stagePromptLines(STAGE.DRAFT, {
+    collectionKind: "reading",
+    taskDescription: "관심 있는 사회 문제의 원인과 해결 방안을 조사해 정리하시오.",
+  }).join(" ");
+  check(!/cardCount 는 1 로 한다/.test(many), "B4 자료를 모아 오는 과제는 그대로 여러 개다");
+}
+
 console.log(`PASS book required: ${passed}/${passed}`);
