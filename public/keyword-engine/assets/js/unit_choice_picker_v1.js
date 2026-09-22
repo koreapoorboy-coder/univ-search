@@ -17,7 +17,7 @@
 (function (global) {
   "use strict";
 
-  const VERSION = "unit-choice-picker-v1.6.0";
+  const VERSION = "unit-choice-picker-v1.7.0";
   global.__UNIT_CHOICE_PICKER_VERSION__ = VERSION;
 
   // 판 이름을 붙여 부른다. 안 붙이면 force-cache 때문에 **단원 사전을 새로 올려도 옛 목록이**
@@ -71,7 +71,7 @@
     if (!task) return 0;
     let count = 0;
     if (row.c && row.c.length > 1 && task.includes(row.c)) count += 2;
-    for (const word of row.k || []) if (word && word.length > 1 && task.includes(word)) count += 1;
+    for (const word of row.w || row.k || []) if (word && word.length > 1 && task.includes(word)) count += 1;
     return count;
   }
 

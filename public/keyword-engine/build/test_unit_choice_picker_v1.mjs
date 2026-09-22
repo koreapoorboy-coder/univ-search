@@ -233,6 +233,25 @@ check(blank.every((row) => row.why !== "task"), "단서가 없으면 안내문�
     "처음부터 다시를 누르면 단원 선택이 비워진다", JSON.stringify(state()));
 }
 
+// P10: 화면에 보여 주는 낱말은 다섯 개지만, **안내문과 맞춰 보는 것은 더 많이** 본다.
+// 운영 검사 2026-09-22: 「매체·광고·뉴스·표현 전략」을 사전에 더했는데도 여섯째부터라 잘려 나가,
+// 매체 비평 과제가 그 단원을 못 찾았다. 보이는 것과 맞춰 보는 것은 다른 일이다.
+{
+  const raw = JSON.parse(await readFile(new URL("../seed/engine-index/unit_choices.v1.json", import.meta.url), "utf8"));
+  const media = (raw.subjects["공통국어2"] || []).find((row) => row.c === "매체 비평과 비판적 수용");
+  check(Boolean(media), "매체 비평 단원이 사전에 있다");
+  check((media.w || []).length > (media.k || []).length, "맞춰 보는 낱말이 보여 주는 낱말보다 많다",
+    `${(media.k || []).length} → ${(media.w || []).length}`);
+  check((media.w || []).includes("광고") && (media.w || []).includes("표현 전략"),
+    "선생님이 쓰는 말(광고·표현 전략)이 들어 있다", (media.w || []).join(","));
+
+  byId.get("taskDescription").value = "광고나 뉴스 등 매체 자료 한 편을 골라, 표현 전략을 분석하여 비평문을 작성하시오.";
+  byId.get("subject").value = "공통국어2";
+  const rows2 = await picker.show({ subject: "공통국어2", major: "", track: "" });
+  check(rows2[0].concept === "매체 비평과 비판적 수용", "매체 과제가 그 단원을 맨 위에 둔다", rows2[0].concept);
+  check(rows2[0].why === "task", "그리고 안내문에서 읽었다고 말한다", rows2[0].why);
+}
+
 console.log(`PASS unit choice picker: ${passed}/${passed}`);
 // 화면 코드가 400ms 지킴이 타이머를 계속 걸어 두기 때문에, 다 끝났으면 손으로 닫는다.
 process.exit(0);
