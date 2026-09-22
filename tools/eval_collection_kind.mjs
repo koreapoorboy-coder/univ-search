@@ -55,6 +55,27 @@ function groundTruth(row) {
   return null;
 }
 
+// 우리가 **실제로 받는 과목**만 따로 채점할 수 있게 한다(--served).
+// 말뭉치에는 과학고 과목(고급 물리학·첨단기기활용법·일반화학실험)과 2015 개정 Ⅱ과목이 잔뜩
+// 들어 있다. 그 과목들의 평가계획은 강좌 전체에 「실험·실습 / 실험보고서」를 켜 두고, 정작
+// 수행평가 영역은 「주제 발표」·「에세이」·「토론」이다. 그러면 여기 정답이 measurement 로
+// 찍히는데 과제는 잴 것이 없다 — 우리가 틀린 것이 아니라 정답이 틀린 것이다.
+// 화면에 없는 과목을 섞어 채점하면 무엇을 고쳐야 할지 가려진다.
+const unitIndex = JSON.parse(readFileSync(join(repo, "public/keyword-engine/seed/engine-index/unit_choices.v1.json"), "utf8"));
+const SERVED = new Set(Object.keys(unitIndex.subjects || {}));
+const SERVED_ALIAS = {
+  "물리학": "물리", "물리학Ⅰ": "물리", "물리학I": "물리", "화학Ⅰ": "화학", "화학I": "화학",
+  "생명과학Ⅰ": "생명과학", "생명과학I": "생명과학", "지구과학Ⅰ": "지구과학", "지구과학I": "지구과학",
+  "통합과학": "통합과학1", "통합사회": "통합사회1", "과학탐구실험": "과학탐구실험1",
+  "미적분": "미적분1", "공통국어": "공통국어1", "공통수학": "공통수학1",
+  "공통영어": "영어", "공통영어1": "영어", "공통영어2": "영어",
+};
+const isServed = (row) => [row.subject_raw, row.subject_standard].some((one) => {
+  const name = String(one || "").trim();
+  return SERVED.has(name) || SERVED.has(SERVED_ALIAS[name]);
+});
+const servedOnly = process.argv.includes("--served");
+
 const rows = [];
 const rl = createInterface({ input: createReadStream(corpus, "utf8"), crlfDelay: Infinity });
 for await (const line of rl) {
@@ -64,6 +85,7 @@ for await (const line of rl) {
   try { row = JSON.parse(trimmed); } catch { continue; }
   const truth = groundTruth(row);
   if (!truth) continue;
+  if (servedOnly && !isServed(row)) continue;
   rows.push({
     truth,
     group: groupOf(row.subject_group),
@@ -86,7 +108,7 @@ for (const row of rows) {
 }
 
 const pct = (n, d) => `${Math.round((n / Math.max(1, d)) * 1000) / 10}%`;
-console.log(`판단이 분명한 과제 ${rows.length.toLocaleString()}건으로 채점 (전체 7,131건 중)\n`);
+console.log(`판단이 분명한 과제 ${rows.length.toLocaleString()}건으로 채점 (전체 7,131건 중${servedOnly ? ", 화면에 있는 과목만" : ""})\n`);
 console.log(`전체 정확도: ${right.toLocaleString()} / ${rows.length.toLocaleString()} = ${pct(right, rows.length)}\n`);
 
 console.log("== 유형별");
@@ -110,6 +132,18 @@ console.log("\n== 가장 흔한 오답 (정답 → 우리 판단)");
 [...confusion.entries()].filter(([key]) => key.split(" → ")[0] !== key.split(" → ")[1])
   .sort((a, b) => b[1] - a[1]).slice(0, 10)
   .forEach(([key, count]) => console.log(`  ${String(count).padStart(5)}  ${key}`));
+
+// 한 갈래만 따로 보고 싶을 때가 있다. 과학이 제일 많이 쓰이는데 제일 약하다면, 과학의 오답만
+// 모아 놓고 봐야 무엇을 고칠지 보인다.
+const onlyGroup = (process.argv.find((a) => a.startsWith("--group=")) || "").split("=")[1] || "";
+if (onlyGroup) {
+  const mine = rows.filter((r) => r.group === onlyGroup);
+  const bad = wrong.filter((r) => r.group === onlyGroup);
+  console.log(`\n== ${onlyGroup}만 보기 : ${mine.length - bad.length} / ${mine.length}  ${pct(mine.length - bad.length, mine.length)}`);
+  const own = new Map();
+  for (const r of bad) { const k = `${r.truth} → ${r.guess}`; own.set(k, (own.get(k) || 0) + 1); }
+  [...own.entries()].sort((a, b) => b[1] - a[1]).forEach(([k, n]) => console.log(`  ${String(n).padStart(4)}  ${k}`));
+}
 
 const only = (process.argv.find((a) => a.startsWith("--only=")) || "").split("=")[1] || "";
 if (show) {

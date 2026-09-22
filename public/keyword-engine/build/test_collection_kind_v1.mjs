@@ -115,4 +115,28 @@ is("역학 수레로 가속도를 측정하는 실습을 하고 결과를 기록
 is("공공데이터를 참고하여 염화나트륨 농도별 발아율을 실험으로 확인한다.",
   COLLECTION.MEASUREMENT, "공공데이터를 곁들인 실험은 그대로 실험이다", { subjectGroup: "과학" });
 
+// 과학 과제가 「모아 올 것 없음」으로 새어 나가던 말버릇들. 전수 채점에서 과학 82.6% → 85.2%
+// (node tools/eval_collection_kind.mjs --served --group=과학). 여기 있는 문장은 모두 실제
+// 수행평가 안내문에서 읽은 것이다 — 지어낸 문장이 아니다.
+is("볼록 렌즈에 의한 실상 관찰을 통한 상의 위치와 초점 거리 탐구하기",
+  COLLECTION.MEASUREMENT, "「관찰을 통한」도 재는 과제다", { subjectGroup: "과학" });
+is("효소의 작용에 영향을 미치는 요인을 탐구하고 그에 대해 설명하기",
+  COLLECTION.MEASUREMENT, "「영향을 미치는 요인」은 변인을 바꿔 가며 재는 과제다", { subjectGroup: "과학" });
+is("충돌 상황에서 운동량 보존 확인하기",
+  COLLECTION.MEASUREMENT, "조사가 빠진 「보존 확인하기」도 잡는다", { subjectGroup: "과학" });
+is("태양 관측보고서 작성 · 태양 관측 및 관측 일지 작성",
+  COLLECTION.MEASUREMENT, "관측 일지는 재는 과제다", { subjectGroup: "과학" });
+is("천체관측 프로젝트 · 관측 대상 천체 선정, 관측 장비 선정",
+  COLLECTION.MEASUREMENT, "관측 장비·대상을 고르는 과제도 재는 과제다", { subjectGroup: "과학" });
+is("자유 낙하와 수평으로 던진 물체의 운동을 시각화하여 비교할 수 있다",
+  COLLECTION.MEASUREMENT, "찍어서 견주는 낙하 과제를 글쓰기로 보지 않는다", { subjectGroup: "과학" });
+
+// 반대쪽 — 이 말들을 과학 밖으로 풀어 두면 수학이 81% → 79.6% 로 내려갔다. 과학에만 건다.
+is("확률분포가 시험 점수에 영향을 미치는 요인을 자료로 분석하고 논술한다",
+  COLLECTION.NONE, "같은 말이라도 수학 과제까지 실험으로 만들지 않는다", { subjectGroup: "수학" });
+
+// 평가방법 칸의 「교사 관찰 및 기록」은 거의 모든 안내문에 있다. 그 말로 실험이 되면 안 된다.
+is("주제에 대해 자신의 생각을 글로 쓴다. / 평가방법: 논술, 교사 관찰 및 기록",
+  COLLECTION.NONE, "「교사 관찰 및 기록」은 재는 과제로 만들지 않는다", { subjectGroup: "과학" });
+
 console.log(`PASS collection kind: ${passed}/${passed}`);
