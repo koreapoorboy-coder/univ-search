@@ -864,6 +864,9 @@ export function titleRules(kind = COLLECTION.MEASUREMENT, stage = STAGE.COMPLETE
   ];
 }
 
+// 재는 과제에서만 뜻이 서는 절 이름. 잴 것이 없는 과제에 이 절이 있으면 모델은 지어내는 수밖에 없다.
+const EXPERIMENT_SECTION = /가설|변인|실험/;
+
 export function stageSections(stage, input) {
   const wantsUse = /활용|적용|방안|제안/.test(String(input?.taskDescription || ''));
   // The draft is a plan, not the report, so it keeps its own five parts whatever the task is.
@@ -872,7 +875,19 @@ export function stageSections(stage, input) {
   // seventeen shapes); the two sections our own flow needs are added to it. A structure the site sent
   // explicitly still wins — that came from the student answering questions about their own task.
   const shaped = withConclusion((input?.reportShape?.sections || []).filter(Boolean));
-  const siteChose = (input?.targetStructure || []).filter(Boolean).length >= 4;
+  // **잴 것이 없는 과제에는 실험 절을 주지 않는다.**
+  // 운영 검사 2026-09-22(공통국어1 서평). 사이트가 「가설과 변인 설정」·「실험 조건 또는 자료 수집」을
+  // 보냈고, 그것이 우리 서평 틀(텍스트 이해 → 핵심 질문 → 근거 장면·문장 → …)을 밀어냈다. 모델은
+  // 빈 절을 채워야 하니 없는 실험을 지어냈다 — 책 서평이 「인간 칼럼과 AI 칼럼을 코딩해 비교하는
+  // 연구」가 되어 나왔다. 절 이름 하나가 보고서를 통째로 바꾼다.
+  const kind = input?.collectionKind || COLLECTION.MEASUREMENT;
+  const rawSite = (input?.targetStructure || []).filter(Boolean);
+  // 잴 것이 없는 과제에 사이트가 실험 절을 보냈다면, 사이트가 과제를 잘못 읽은 것이다. 그 한 절만
+  // 빼는 것으로는 모자라다 — 남은 뼈대도 재는 과제의 것이라 서평이 「결과 정리」를 갖게 된다.
+  // 그럴 때는 사이트 뼈대를 통째로 물리고 우리 틀을 쓴다.
+  const misread = kind !== COLLECTION.MEASUREMENT && rawSite.some((section) => EXPERIMENT_SECTION.test(section));
+  const fromSite = misread ? [] : rawSite;
+  const siteChose = fromSite.length >= 4;
   if (shaped.length >= 4 && !siteChose) {
     const useSection = wantsUse && !shaped.some((section) => /활용|방안/.test(section)) ? ['활용 방안'] : [];
     // The one-shot report closes with its sources; the two-stage flow closes with 느낀 점 (it feeds the teacher's 세특).
@@ -886,6 +901,14 @@ export function stageSections(stage, input) {
   }
   if (stage === STAGE.FINAL) return ['연구 질문', '이론적 배경', '탐구 방법', '탐구 결과', '결과 분석', '결론', ...(wantsUse ? ['활용 방안'] : []), '느낀 점'];
   if (stage === STAGE.LITERATURE) return ['연구 질문', '이론적 배경', '자료 조사 방법', wantsComparison(input) ? '자료 비교 정리' : '자료 분석과 해석', '결론', ...(wantsUse ? ['활용 방안'] : []), '느낀 점'];
+  // 사이트가 보낸 뼈대를 쓴다 — 다만 실험 절을 뺀 것으로. 예전에는 여기서 null 을 돌려주어 워커가
+  // 사이트의 원본을 그대로 썼고, 그래서 걸러 낸 것이 아무 뜻도 없었다.
+  if (fromSite.length) return fromSite;
+  // 사이트가 보낸 것이 전부 실험 절이라 다 걸러졌다. 그래도 실험 절로 돌아가지는 않는다.
+  if (shaped.length) {
+    const closes = shaped.some((section) => REFERENCE_TITLE.test(section));
+    return stage === STAGE.COMPLETE ? [...shaped, ...(closes ? [] : ['참고문헌'])] : [...shaped, '느낀 점'];
+  }
   return null;
 }
 
