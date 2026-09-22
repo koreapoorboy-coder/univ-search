@@ -255,6 +255,8 @@ check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조
     check(symbolUnit("와트 매 제곱미터") === "W/m²", "C13 나눗셈 단위는 기호로 적는다", symbolUnit("와트 매 제곱미터"));
     check(symbolUnit("미터 매 초") === "m/s", "C13 m/s 도 마찬가지다", symbolUnit("미터 매 초"));
     check(symbolUnit("초") === "초" && symbolUnit("명") === "명", "C13 혹로 쓰는 초·명은 그대로 둔다");
+    // 운영 검사 2026-09-22(지구시스템과학 기온): 표 머리글이 「(도 섭씨)」로 나왔다.
+    check(symbolUnit("도 섭씨") === "°C", "C13 「도 섭씨」도 기호로 적는다", symbolUnit("도 섭씨"));
     check(scrubInternalNames("일사량은 와트 매 제곱미터 단위다.") === "일사량은 W/m² 단위다.", "C13 본문에서도 바꾸어 쓴다");
   }
   const keys = scrubInternalNames("조건별결과의 관찰메모와 첫조건과의차이, 같은집단첫조건대비변화율, 도수분포요약, 평균이높은순서를 보았다.");
