@@ -24,8 +24,8 @@ const MAX_TRIALS = 5;
 const FEELING_WORDS = ['힘들', '어려웠', '재미', '즐거', '뿌듯', '보람', '아쉬', '감동', '행복', '설레', '흥미', '신기', '인상 깊', '기뻤', '만족'];
 
 // 무엇을 모아 오는가는 화면과 함께 쓰는 한 파일에 있다(왜 거기 있는지는 그 파일 첫머리에).
-export { COLLECTION, resolveCollectionKind } from '../public/keyword-engine/assets/js/collection_kind_v1.js';
-import { COLLECTION } from '../public/keyword-engine/assets/js/collection_kind_v1.js';
+export { COLLECTION, resolveCollectionKind } from '../public/keyword-engine/assets/js/shared/collection_kind_v1.js';
+import { COLLECTION } from '../public/keyword-engine/assets/js/shared/collection_kind_v1.js';
 
 const COLLECTION_LABEL = {
   [COLLECTION.MEASUREMENT]: '실험 측정',
@@ -890,7 +890,12 @@ export function stageSections(stage, input) {
   // 잴 것이 없는 과제에 사이트가 실험 절을 보냈다면, 사이트가 과제를 잘못 읽은 것이다. 그 한 절만
   // 빼는 것으로는 모자라다 — 남은 뼈대도 재는 과제의 것이라 서평이 「결과 정리」를 갖게 된다.
   // 그럴 때는 사이트 뼈대를 통째로 물리고 우리 틀을 쓴다.
-  const misread = kind !== COLLECTION.MEASUREMENT && rawSite.some((section) => EXPERIMENT_SECTION.test(section));
+  // **한 번에 쓰는 보고서에서만** 물린다. 두 단계로 가는 과제(설계서 → 최종)는 아래에 제 구조가
+  // 따로 있고, 그 길에서 사이트 뼈대를 물렸더니 참고 자료가 빈 보고서가 9건 나왔다
+  // (₩0 전수 검사 2026-09-22, 2,473건). 고치려던 것은 서평이 실험 절을 받던 한 번짜리 보고서였다.
+  const misread = stage === STAGE.COMPLETE
+    && kind !== COLLECTION.MEASUREMENT
+    && rawSite.some((section) => EXPERIMENT_SECTION.test(section));
   const fromSite = misread ? [] : rawSite;
   const siteChose = fromSite.length >= 4;
   if (shaped.length >= 4 && !siteChose) {

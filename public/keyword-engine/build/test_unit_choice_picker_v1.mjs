@@ -182,7 +182,7 @@ check(blank.every((row) => row.why !== "task"), "단서가 없으면 안내문�
   const page = await readFile(new URL("../index.html", import.meta.url), "utf8");
   check(/collection_kind_v1\.js/.test(page) && /__COLLECTION_KIND__/.test(page), "그 규칙이 화면에 실려 있다");
 
-  const { resolveCollectionKind } = await import("../assets/js/collection_kind_v1.js");
+  const { resolveCollectionKind } = await import("../assets/js/shared/collection_kind_v1.js");
   const { resolveCollectionKind: fromWorker } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
   check(resolveCollectionKind === fromWorker, "워커가 쓰는 것과 같은 함수다");
 
@@ -195,7 +195,7 @@ check(blank.every((row) => row.why !== "task"), "단서가 없으면 안내문�
 // correctionMethod 칸에는 우리가 읽어 낸 값이 미리 들어 있다. 그것을 학생의 말로 치면 과제 글이
 // 통째로 밀린다 — 생명과학 설문 과제가 「자료해석형」 배지 때문에 공개 자료로 뒤집혔다.
 {
-  const { resolveCollectionKind, COLLECTION } = await import("../assets/js/collection_kind_v1.js");
+  const { resolveCollectionKind, COLLECTION } = await import("../assets/js/shared/collection_kind_v1.js");
   window.__COLLECTION_KIND__ = { resolve: resolveCollectionKind, COLLECTION };
   byId.get("taskDescription").value = "우리 반 학생들을 대상으로 수면 시간과 아침 식사 여부 등 생활 습관을 설문으로 조사하고, 응답을 표로 정리한다.";
   byId.get("subjectGroup").value = "과학";
