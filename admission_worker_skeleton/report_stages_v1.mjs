@@ -476,6 +476,9 @@ const INTERNAL_NAME_FIXES = [
   [/\bgap\b/g, '차이'],
   [/\b(?:dataSummary|sameMean|comparisons|clearDifference|runnerUp|ranking|conditionOrder|caseTag)\b/g, ''],
   [/\bflux\b/gi, '자속'],
+  // 단위 이름을 소리 나는 대로 옮겨 적은 것. 운영 검사 2026-09-22(화학 중화 적정): 「0.1몰 매리터
+  // 수산화나트륨 표준용액」이 본문에 두 번 나왔다. 학생이 그대로 내면 교과서에 없는 말이다.
+  [/(\d)\s*몰\s*매리터/g, '$1 mol/L'], [/몰\s*매리터/g, 'mol/L'],
   [/자료\s*카드/g, '자료'], [/카드\s*자료/g, '자료'],
   [/(기사|신문|보고서|교과서|논문|기관|통계|영상|도서)\s*카드/g, '$1'],
   [/카드별/g, '자료별'], [/카드들/g, '자료들'], [/카드(?!뉴스)/g, '자료'],

@@ -244,6 +244,10 @@ check(one.extra.dataTemplate.conditions.join("|") === "식초 시료 5 mL|대조
   const leak = scrubInternalNames("수준별 비교 지표로 본 같은 연도 격차는 2010년 3.3%p였다.");
   check(leak === "같은 기준끼리 견준 비교로 본 같은 연도 격차는 2010년 3.3%p였다.", "C13 「수준별 비교 지표」는 본문에 나오지 않는다", leak);
   check(scrubInternalNames("수준별비교에서도 반복이 없어 알 수 없음으로 처리했다.").startsWith("같은 기준끼리 견준 비교에서도"), "C13 붙여 쓴 항목 이름도 풀어 쓴다");
+  // 운영 검사 2026-09-22(화학 중화 적정): 본문에 「0.1몰 매리터 수산화나트륨 표준용액」이 두 번 나왔다.
+  // 단위 이름을 소리 나는 대로 옮겨 적은 말로, 교과서에도 없고 학생이 그대로 내기에는 이상하다.
+  check(scrubInternalNames("0.1몰 매리터 수산화나트륨 표준용액을 썼다.") === "0.1 mol/L 수산화나트륨 표준용액을 썼다.",
+    "C13 단위를 소리 나는 대로 적은 말은 기호로 바꿄다", scrubInternalNames("0.1몰 매리터 수산화나트륨 표준용액을 썼다."));
   const keys = scrubInternalNames("조건별결과의 관찰메모와 첫조건과의차이, 같은집단첫조건대비변화율, 도수분포요약, 평균이높은순서를 보았다.");
   check(!/조건별결과|관찰메모|첫조건과의차이|같은집단첫조건대비변화율|도수분포요약|평균이높은순서/.test(keys) && keys.includes("조건별 결과") && keys.includes("같은 집단 첫 조건 대비 변화율"), "C13 한글 항목 이름은 모두 띄어 쓴 말로 바뀐다", keys);
   const madeUp = removeUnknownSubjectNames("이번 탐구는 통합사회 과목의 자료 해석이다.\n나아가 복지정책 과목에서 서비스 입지를 따지는 문제로 이어진다.");
