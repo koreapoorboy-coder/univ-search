@@ -480,7 +480,20 @@ const ORPHAN_SENTENCE = new RegExp([
   '^\\s*(?:두|세|네)\\s*(?:비교|값|계산|수치|결과|지표|조건|식|경우|방법)',
   '^\\s*(?:위|앞|앞서|같은)\\s*(?:식|계산|표|값|결과|방법|기준|비교)',
   '^\\s*(?:반면|즉|요약하면|정리하면|따라서|그러므로|반대로|한편)(?=\\s|,)',
+  // 앞말에 매달린 이음말. 운영 검사 2026-09-22(정보 정렬): 배수를 잘못 센 문장이 지워지자
+  // 「또한 이론값과의 차이가…」(물리)와 「선택 정렬보다 일관되게 작은 배수가…」(정보)가 홀로 남았다.
+  '^\\s*(?:또한|아울러|게다가|더불어|마찬가지로|이와 달리|그와 달리|이에 비해|그에 비해)(?=\\s|,)',
+  // 「… 보다 …」로 시작하면서 견줄 주어가 없는 문장. 앞 문장이 지워졌을 때만 본다.
+  '^\\s*[^,.]{1,20}보다\\s',
 ].join('|'));
+
+// 절의 **첫 문장**이 이음말로 시작하면 그 말만 뗀다.
+// 앞 문장이 다른 단계에서 지워지면 위의 홀로 남은 문장 검사가 못 잡는다 — 그 단계에서는
+// 「앞 문장이 지워졌다」는 사실이 남아 있지 않기 때문이다. 문장을 통째로 버리면 내용이 사라지니,
+// 뜻이 온전한 문장은 이음말만 떼어 살린다(운영 검사 2026-09-22: 물리 결론이 「또한」으로 시작했다).
+export function dropLeadingConnective(body) {
+  return String(body || '').replace(/^\s*(?:또한|아울러|게다가|더불어|그리고|또)\s*,?\s+/, '');
+}
 function filterSentences(body, keep) {
   let removed = 0;
   const dropped = [];
@@ -1323,9 +1336,9 @@ export function finalizeStageOutput(stage, rawParsed, input) {
         // sources 만 보다가 「참고 자료는 별도로 사용하지 않았고」가 그대로 남았다.
         const sourceClaim = removeNoSourceClaim(actions.body, (data.sources || []).length + (data.sourceCards || []).length > 0);
         removedFeelings += feelings.removed + praise.removed + actions.removed + sourceClaim.removed;
-        return { ...section, body: sourceClaim.body };
+        return { ...section, body: dropLeadingConnective(sourceClaim.body) };
       }
-      return { ...section, body: numbers.body };
+      return { ...section, body: dropLeadingConnective(numbers.body) };
     });
     // 모델에게는 참고 자료 절을 쓰지 말라고 일러 두었으므로, 거의 항상 여기서 붙는다. **실제 경로는 이쪽이다** —
     // 위의 buildReferencesBody만 고쳤을 때 아무것도 바뀌지 않았던 이유가 이것이었다.

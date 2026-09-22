@@ -57,5 +57,14 @@ checks.push(
   [bridge.includes('reportStage: !reading && measured >= 2 ? "experiment_final" : "literature"'), "a reading task must end in the literature report"],
 );
 
+// 운영 검사 2026-09-22(국어 서평·영어 기사 비평): 글로 쓰는 과제인데 보고서가
+// 「코더 2인이 20% 표본을 중복 코딩해 일치도를 확인한다」 같은 연구자용 절차를 시켰다.
+// 학생이 혼자 못 하는 일을 시키면 그 절에서 멈추거나, 안 한 일을 했다고 적게 된다.
+checks.push(
+  [worker.includes("학생이 혼자, 학교와 집에서, 며칠 안에 할 수 있는 크기"), "the report may still order a research-team procedure"],
+  [worker.includes("평정자 2인") && worker.includes("1주 뒤 재코딩"), "the examples of what not to order are missing"],
+  [worker.includes("절차를 늘려 해결하지 말고"), "a thin sample must be written in the limits, not fixed by more procedure"],
+);
+
 for (const [passed, message] of checks) assert.equal(passed, true, message);
 console.log(`PASS complete report worker contract: ${checks.length}/${checks.length}`);
