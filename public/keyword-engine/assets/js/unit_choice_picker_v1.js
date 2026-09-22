@@ -17,7 +17,7 @@
 (function (global) {
   "use strict";
 
-  const VERSION = "unit-choice-picker-v1.3.0";
+  const VERSION = "unit-choice-picker-v1.4.0";
   global.__UNIT_CHOICE_PICKER_VERSION__ = VERSION;
 
   const INDEX_URL = "seed/engine-index/unit_choices.v1.json";
@@ -192,7 +192,11 @@
   // 규칙은 collection_kind_v1.js 한 군데에 있고, index.html 이 그것을 창에 올려 둔다.
   function fillKind() {
     const shared = global.__COLLECTION_KIND__?.resolve;
-    const fixed = text($("correctionMethod")?.value);
+    // 「다르게 잡을래요」를 학생이 **실제로 누른** 때에만 그 말이 먼저다. correctionMethod 칸에는
+    // 우리가 읽어 낸 값이 미리 들어 있어서, 그것을 학생의 말로 치면 과제 글이 통째로 밀린다
+    // (생명과학 설문 과제가 「자료해석형」 배지 때문에 공개 자료로 뒤집혔다).
+    const byHand = text($("methodPicked")?.value) === "true";
+    const fixed = byHand ? text($("correctionMethod")?.value) : "";
     if (typeof shared === "function") {
       return shared({
         taskDescription: text($("taskDescription")?.value),
@@ -201,7 +205,7 @@
         subjectGroup: text($("subjectGroup")?.value),
         reportMode: text($("interpretedModes")?.textContent),
         // 학생이 「다르게 잡을래요」로 고쳤을 때만 그 말이 먼저다 — 워커와 같은 조건이다.
-        methodPicked: Boolean(fixed),
+        methodPicked: byHand && Boolean(fixed),
         correctionMethod: fixed,
       });
     }
@@ -337,6 +341,7 @@
     show,
     rank: (input) => rank(input),
     chosen: () => picked,
+    fillKind,
     load,
   };
 })(window);

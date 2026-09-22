@@ -66,6 +66,9 @@ makeField("selectedConcept");
 makeField("keyword");
 makeField("conceptPicked");
 makeField("taskDescription");
+makeField("correctionMethod");
+makeField("methodPicked");
+makeField("subjectGroup");
 
 let activeMajor = null;   // #majorStep 에서 눌린 단추 (없으면 null)
 
@@ -186,6 +189,22 @@ check(blank.every((row) => row.why !== "task"), "단서가 없으면 안내문�
   const survey = "우리 반 학생들을 대상으로 수면 시간과 아침 식사 여부 등 생활 습관을 설문으로 조사하고, 응답을 표로 정리하여 항목 사이의 관계를 해석한 보고서를 작성하시오.";
   check(resolveCollectionKind({ taskDescription: survey, subject: "생명과학", subjectGroup: "과학", reportMode: "자료해석형" }) === "survey",
     "설문 과제는 보고서 유형 배지가 무엇이든 설문이다");
+}
+
+// P8: 「다르게 잡을래요」는 학생이 **실제로 누른** 때에만 앞선다.
+// correctionMethod 칸에는 우리가 읽어 낸 값이 미리 들어 있다. 그것을 학생의 말로 치면 과제 글이
+// 통째로 밀린다 — 생명과학 설문 과제가 「자료해석형」 배지 때문에 공개 자료로 뒤집혔다.
+{
+  const { resolveCollectionKind, COLLECTION } = await import("../assets/js/collection_kind_v1.js");
+  window.__COLLECTION_KIND__ = { resolve: resolveCollectionKind, COLLECTION };
+  byId.get("taskDescription").value = "우리 반 학생들을 대상으로 수면 시간과 아침 식사 여부 등 생활 습관을 설문으로 조사하고, 응답을 표로 정리한다.";
+  byId.get("subjectGroup").value = "과학";
+  byId.get("interpretedModes").textContent = "자료해석형";
+  byId.get("correctionMethod").value = "자료해석형";
+  byId.get("methodPicked").value = "";
+  check(picker.fillKind() === "survey", "미리 채워 둔 값은 학생의 말이 아니다", picker.fillKind());
+  byId.get("methodPicked").value = "true";
+  check(picker.fillKind() === "dataset", "학생이 직접 고치면 그 말이 먼저다", picker.fillKind());
 }
 
 console.log(`PASS unit choice picker: ${passed}/${passed}`);
