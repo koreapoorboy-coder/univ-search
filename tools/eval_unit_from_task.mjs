@@ -81,7 +81,7 @@ for (const row of rows) {
     .sort((a, b) => (b.score - a.score) || a.concept.localeCompare(b.concept, "ko"));
   const top = scored[0];
   const tie = scored.filter((one) => one.score === top.score && top.score > 0).length;
-  seen.push({ subject: found.name, task, top, tie, best: top.score });
+  seen.push({ subject: found.name, group: row.subject_group || "", task, top, tie, best: top.score });
 }
 
 const total = seen.length;
@@ -92,6 +92,16 @@ console.log(`과제 ${rows.length}건 중 단원 목록이 있는 과목 ${total
 console.log("문턱별로 「안내문에서 읽었어요」라고 말하게 되는 비율");
 for (const t of [1, 2, 3]) console.log(`  ${t}점 이상 : ${String(at(t)).padStart(5)}건  ${pct(at(t))}${t === 2 ? "   ← 지금" : ""}`);
 
+
+// 갈래별로도 본다. 과목마다 안내문이 단원을 얼마나 또렷이 말하는지가 다르다.
+console.log("\n== 갈래별 (지금 문턱 2점 기준)");
+for (const name of [...new Set(seen.map((one) => one.group))].filter(Boolean).sort()) {
+  const mine = seen.filter((one) => one.group === name);
+  const read = mine.filter((one) => one.best >= 2).length;
+  const some = mine.filter((one) => one.best === 1).length;
+  const at100 = (n) => `${((n / mine.length) * 100).toFixed(0)}%`;
+  console.log(`  ${name.padEnd(12)} ${String(mine.length).padStart(5)}건 중 읽어냄 ${String(read).padStart(4)} (${at100(read)}) · 걸렸지만 못 좁힘 ${String(some).padStart(4)} (${at100(some)})`);
+}
 // 문턱을 1점으로 내리면 새로 「읽었다」고 말하게 되는 과제들. 이것들이 믿을 만한가가 핵심이다.
 const flips = seen.filter((one) => one.best === 1);
 const tied = flips.filter((one) => one.tie > 1);

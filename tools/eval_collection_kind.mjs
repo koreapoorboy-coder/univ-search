@@ -97,6 +97,15 @@ for (const kind of KINDS) {
   console.log(`  ${kind.padEnd(12)} ${String(hit).padStart(5)} / ${String(total).padStart(5)}  ${pct(hit, total)}`);
 }
 
+// 과목 갈래로도 나눠 본다. 프로그램을 국어·영어·수학·과학으로만 쓴다면 그 넷이 어떤지가
+// 전체 평균보다 중요하다 — 평균 한 숫자는 어느 갈래가 나쁜지를 가려 준다.
+console.log("\n== 갈래별");
+for (const name of [...new Set(rows.map((r) => r.group))].sort()) {
+  const total = rows.filter((r) => r.group === name).length;
+  const bad = wrong.filter((r) => r.group === name).length;
+  console.log(`  ${name.padEnd(8)} ${String(total - bad).padStart(5)} / ${String(total).padStart(5)}  ${pct(total - bad, total)}`);
+}
+
 console.log("\n== 가장 흔한 오답 (정답 → 우리 판단)");
 [...confusion.entries()].filter(([key]) => key.split(" → ")[0] !== key.split(" → ")[1])
   .sort((a, b) => b[1] - a[1]).slice(0, 10)
