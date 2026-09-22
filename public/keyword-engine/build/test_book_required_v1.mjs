@@ -95,4 +95,13 @@ for (const text of mayBook) check(!rule.test(text), `곁들이는 과제는 그�
   check(!/cardCount 는 1 로 한다/.test(many), "B4 자료를 모아 오는 과제는 그대로 여러 개다");
 }
 
+// B5: 화면도 그 수를 그대로 그린다.
+// 운영 검사 2026-09-22: 워커는 cardCount 1 을 보냈는데 화면이 최소 3 으로 올려, 책 한 권짜리
+// 과제에 여전히 「자료를 3개 찾아 읽어요」라고 적혔다. 양쪽을 다 고쳐야 학생 화면이 바뀐다.
+{
+  const bridge = await readFile(new URL("../assets/js/mini_worker_generate_bridge_v32.js", import.meta.url), "utf8");
+  const line = bridge.match(/const count = Math\.max\((\d)/)?.[1];
+  check(line === "1", "B5 화면이 카드 수를 1 까지 받아들인다", `Math.max(${line}, …)`);
+}
+
 console.log(`PASS book required: ${passed}/${passed}`);

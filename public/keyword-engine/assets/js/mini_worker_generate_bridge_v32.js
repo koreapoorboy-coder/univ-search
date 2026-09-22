@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v285_korean_input_message
+// SCREEN_VERSION: v286_one_book_one_card
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v285-korean-input-message";
+  const VERSION = "mini-worker-generate-bridge-v286-one-book-one-card";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2724,7 +2724,10 @@
 
   // Reading tasks (논설문 분석, 자료 조사, 사례 탐구 …) collect source cards instead of numbers.
   function renderSourceCardPanel(template){
-    const count = Math.max(3, Math.min(6, Number(template?.cardCount) || 4));
+    // 워커가 보낸 수를 그대로 따른다. 예전에는 여기서 최소 3 으로 올려, 책 한 권짜리 과제에
+    // 워커가 1 을 보내도 화면은 「자료를 3개 찾아 읽어요」라고 적었다
+    // (운영 검사 2026-09-22, 공통수학1 독후 보고서). 뭐를 몇 개 읽을지는 워커가 정한다.
+    const count = Math.max(1, Math.min(6, Number(template?.cardCount) || 4));
     const text = panelText("reading");
     const cards = Array.from({ length: count }, (_, i) => `
           <div class="mini-card"><b>자료 ${i + 1}</b>
