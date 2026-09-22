@@ -46,6 +46,11 @@ export function resolveCollectionKind(input) {
   if (/(명|학생|친구|학급|반원|가족)에게/.test(text) && /물어|물었|물어보|여쭈|응답|답하게|답을 ?받|조사한다|조사하여/.test(text)) return COLLECTION.SURVEY;
   if (/손을 ?들게|거수|투표하게 ?하여/.test(text)) return COLLECTION.SURVEY;
   if (/실험|측정|실습|재어|계측/.test(text)) return COLLECTION.MEASUREMENT;
+  // 여기에 「기사를 세 편 이상 찾아 읽고」를 문헌 탐구로 보내는 줄을 두어 봤다가 **뺐다**
+  // (2026-09-22, 영어). 학생이 실제로 기사를 찾아 읽어야 하니 말은 되는데, 3,440건으로 재 보니
+  // 86.3% → 86.2% 로 내려갔고 문헌 탐구 정확도(64%)는 그대로였다. 평가방법이 「논술형 평가」인
+  // 과제의 정답표는 「모아 올 것 없음」 쪽이다. 읽은 자료는 어차피 자료 칸에 적을 수 있고,
+  // 학생은 「다르게 잡을래요」로 문헌 탐구로 바꿀 수 있다. 재서 나빠지는 규칙은 넣지 않는다.
   // Graded as an essay answer: the student looks at something, but there is no table to fill in.
   if (/논술형 ?문제|논술형 ?평가|서·?논술형|논술형으로 ?해결|논술 ?문항/.test(text)) return COLLECTION.NONE;
   if (/통계|지표|빅데이터|공공 ?데이터|데이터를 ?수집|데이터를 ?분석|데이터 ?시각화|자료 ?해석|그래프 ?분석|추이|수치 ?자료|관측 ?자료/.test(text)) return COLLECTION.DATASET;
