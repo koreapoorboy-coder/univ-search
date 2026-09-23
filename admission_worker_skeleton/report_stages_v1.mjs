@@ -1,5 +1,5 @@
 import { ingredientSchema, inspirationCitations, inspirationOf, usedIngredients } from './ingredients_v1.mjs';
-import { normalizeSourceCards, referencesBody } from './references_v1.mjs';
+import { normalizeSourceCards, referencesBody, studentSourceLines } from './references_v1.mjs';
 import { CALCULATION_SCHEMA, calculationPromptLines, tidyCalculatedNumbers, verifyCalculations } from './calc_check_v1.mjs';
 // Two-stage experiment report.
 // Stage 1 (experiment_draft): a design report plus a data template the student fills in after doing the experiment.
@@ -691,6 +691,8 @@ export function buildReferencesBody(body, sources, extra = {}) {
     // 대학 연구 소개 글. 넣기 직전에 주소가 열리는 것을 확인했고 접속일이 붙어 있다.
     web: extra.web || [],
     textbook: extra.textbook || '',
+    // 학생이 메모 칸에 적은 자료원. 맨 앞에 온다 — 그 학생이 실제로 본 자료다.
+    studentSources: extra.studentSources || [],
     fallbackBody: written.length ? written.join('\n') : body,
   });
 }

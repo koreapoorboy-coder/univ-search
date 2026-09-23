@@ -84,7 +84,29 @@ export function dataLine(row) {
 // 참고 자료 절의 몸통.
 //
 // 차례는 **학생이 적은 것 → 논문 → 공개 자료 → 교과서**다. 학생이 실제로 본 것이 앞이어야 한다.
-export function referencesBody({ cards = [], papers = [], web = [], datasets = [], textbook = '', fallbackBody = '' } = {}) {
+// **학생이 메모 칸에 적은 자료원.** 설계서가 「자료의 출처나 이상한 점은 오른쪽 메모 칸에 적어요」라고
+// 시켜 놓고, 정작 그 메모가 참고 자료에 안 들어가고 있었다(사용자 지적 2026-09-23).
+//
+// 운영 검사에서 학생이 「공공데이터 포털 대기오염 월별 통계, 2026-09-23 조회」라고 적었는데
+// 참고 자료에는 교과서 한 줄뿐이었다. **학생이 실제로 쓴 자료가 그것인데** 빠진 것이다.
+// 우리가 개념으로 찾아 둔 공개 자료는 학생이 쓴 것과 다를 수 있어 엄격하게 거르지만,
+// 학생이 손으로 적은 출처는 **그 학생이 실제로 본 자료**다. 이것이 가장 확실한 자료원이다.
+const SOURCE_NOTE = /출처|자료|포털|통계|조회|내려받|공공데이터|청_|공단|연구원|기상청|환경부|교육청|[0-9]{4}[-.년]/;
+export function studentSourceLines(conditions) {
+  const seen = new Set();
+  const lines = [];
+  for (const one of Array.isArray(conditions) ? conditions : []) {
+    const note = clean(one?.note, 120);
+    if (!note || note.length < 6 || !SOURCE_NOTE.test(note)) continue;
+    const key = note.replace(/[\s\p{P}]/gu, '');
+    if (seen.has(key)) continue;
+    seen.add(key);
+    lines.push(note);
+  }
+  return lines.slice(0, 2);
+}
+
+export function referencesBody({ cards = [], papers = [], web = [], datasets = [], textbook = '', fallbackBody = '', studentSources = [] } = {}) {
   const lines = [];
   // 학생이 자료 카드에 적은 것이 우리가 붙이는 논문과 **같은 논문**이면 한 줄로 합친다 — 운영 테스트에서
   // 같은 논문이 카드 줄과 서지사항 줄로 두 번 나왔다. 서지사항을 쓰고, 학생이 얻은 것을 뒤에 붙인다.
@@ -95,6 +117,10 @@ export function referencesBody({ cards = [], papers = [], web = [], datasets = [
     const b = bare(row?.title);
     return a.length >= 8 && b && (b.startsWith(a) || a.startsWith(b));
   });
+  // 학생이 적은 자료원이 맨 앞이다 — 그 학생이 실제로 본 자료다.
+  for (const note of studentSources) {
+    if (note && !lines.includes(note)) lines.push(note);
+  }
   for (const card of cards) {
     const paper = sameAs(card);
     let line = sourceLine(card);

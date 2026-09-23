@@ -560,3 +560,25 @@ console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
   }
   check(M.symbolUnit("건") === "건", "기호가 없는 단위는 그대로 둔다", M.symbolUnit("건"));
 }
+
+// 사용자 지적 2026-09-23: 보고서 참고 자료에 공공데이터가 없다. 설명서에는 있는데.
+// 설계서가 「자료의 출처는 오른쪽 메모 칸에 적어요」라고 시켜 놓고, 그 메모가 참고 자료에
+// 안 들어가고 있었다. 학생이 손으로 적은 출처가 **그 학생이 실제로 본 자료**다.
+{
+  const M = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  const R = await import("../../../admission_worker_skeleton/references_v1.mjs");
+  const d = normalizeStudentData({ measurementName: "농도", unit: "μg/m³", conditions: [
+    { label: "대전 · 1월", values: ["28.4"], note: "공공데이터 포털 대기오염 월별 통계, 2026-09-23 조회" },
+    { label: "부산 · 1월", values: ["26.9"], note: "값이 조금 튀어 보임" },
+    { label: "대전 · 4월", values: ["19.1"], note: "공공데이터 포털 대기오염 월별 통계, 2026-09-23 조회" },
+  ] });
+  const notes = R.studentSourceLines(d.conditions);
+  check(notes.length === 1 && /대기오염 월별 통계/.test(notes[0]),
+    "출처처럼 보이는 메모만 골라낸다 — 같은 것은 한 번만", JSON.stringify(notes));
+  check(!notes.some((one) => /튀어 보임/.test(one)), "관찰 메모는 자료원이 아니다");
+  const body = M.buildReferencesBody("", [], { textbook: "데이터 과학 교과서 · 데이터 수집과 전처리 단원", studentSources: notes });
+  check(body.split("\n")[0] === notes[0], "학생이 적은 자료원이 참고 자료 맨 앞이다", body);
+  check(/교과서/.test(body), "교과서 줄은 그대로 남는다", body);
+  const none = R.studentSourceLines([{ label: "가", values: ["1"], note: "색이 연했다" }]);
+  check(none.length === 0, "출처가 아닌 메모만 있으면 아무것도 안 넣는다", JSON.stringify(none));
+}
