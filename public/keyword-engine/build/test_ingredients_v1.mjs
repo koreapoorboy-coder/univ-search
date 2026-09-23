@@ -177,4 +177,27 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
   check(!/2024/.test(scrubIngredientIds("(홍의정 외, 2024) 연구를 보면")), "I8 본문의 인용 괄호는 그대로 지운다");
 }
 
+// I9: 학생이 논문을 읽을 틈은 **설계서와 최종 사이**다. 그때 안내서가 화면에 있어야 한다.
+// 2026-09-23에 알았다: guideBlock 이 import 만 되어 있고 아무도 부르지 않아, 화면의
+// 「논문 길잡이」를 그리는 코드가 한 번도 뜨지 않았다. 최종 보고서에 붙이면 이미 다 쓴 뒤라 늦다.
+{
+  check(/if \(draftStage\) paperGuide = guideBlock\(query, picked\);/.test(worker),
+    "I9 설계서 단계에서 논문 안내서를 만든다");
+  check(/const shard = \(finalStage && !input\.ingredients\) \|\| draftStage \?/.test(worker),
+    "I9 그러려면 설계서에서도 논문 묶음을 읽는다");
+  check(/else input\.referencePapers = picked\.map\(citationRow\);/.test(worker),
+    "I9 설계서에서는 참고 자료 줄로 쓰지 않는다 — 화면 안내서뿐이다");
+  check(!/paperGuide[\s\S]{0,200}prompt|ingredientPromptLines\(input\.paperGuide/.test(worker),
+    "I9 안내서는 AI에게 가지 않는다");
+
+  // 읽기 발판 세 가지가 화면에 있다.
+  check(bridge.includes("저자가 붙인 낱말") && bridge.includes("제목 복사하고 KCI 열기")
+    && bridge.includes('data-paper-field="take"'),
+    "I9 저자 낱말 · KCI 열기 · 두 줄 칸이 논문마다 붙는다");
+  check(bridge.includes("collectPaperCards") && /take && title \? \{ title, type: "논문", take \} : null/.test(bridge),
+    "I9 두 줄을 적었을 때만 자료 카드가 된다 — 적지 않으면 인용되지 않는다");
+  check(/keywords: clean\(paper\.keywords, 80\)/.test(await readFile(new URL("../../../admission_worker_skeleton/paper_route_v1.mjs", import.meta.url), "utf8")),
+    "I9 저자 낱말이 화면까지 내려간다");
+}
+
 console.log(`\n${passed} checks passed`);

@@ -583,8 +583,15 @@ export default {
           }
         }
         // 재료를 못 골랐거나 꺼 두었을 때(INGREDIENTS=off)만 예전처럼 낱말 규칙으로 참고 논문을 고른다.
+        // 설계서에도 논문 안내서를 보낸다 — **화면에만** 보이고 AI에게는 안 간다.
+        //
+        // guideBlock 은 이 파일에 import 되어 있는데 **아무도 부르지 않고 있었다**(2026-09-23 확인).
+        // 그래서 화면의 「논문 길잡이」를 그리는 코드가 한 번도 뜨지 않았다. 학생이 논문을 읽을 틈은
+        // 설계서와 최종 보고서 **사이**다 — 최종 보고서에 붙여 주면 이미 다 쓴 뒤라 늦다.
+        // 읽고 두 줄 적으면 그것이 자료 카드가 되어 최종 보고서에 들어간다(읽은 것만 인용된다).
+        const draftStage = input.reportStage === STAGE.DRAFT;
         try {
-          const shard = finalStage && !input.ingredients ? await loadPaperShard(env, input.subject) : null;
+          const shard = (finalStage && !input.ingredients) || draftStage ? await loadPaperShard(env, input.subject) : null;
           if (shard) {
             // 보고서의 단원. GPT 꼬리표가 붙은 논문은 이 단원과 같을 때만 붙는다(paper_route_v1.mjs).
             const units = [reportConcept, axisConceptName(seedPack, reportAxis)].filter(Boolean).map((name) => `${input.subject}::${name}`);
@@ -599,7 +606,9 @@ export default {
               anchor: [input.selectedKeyword || input.keyword, input.taskTitle, reportConcept, axisConceptName(seedPack, reportAxis)]
                 .filter(Boolean).join(' '),
             });
-            input.referencePapers = picked.map(citationRow);
+            // 설계서: 화면 안내서로만 쓴다. 최종: 참고 자료 줄로 쓴다. 같은 입력이면 같은 논문이다.
+            if (draftStage) paperGuide = guideBlock(query, picked);
+            else input.referencePapers = picked.map(citationRow);
           }
         } catch (error) {
           // 논문을 못 찾아도 보고서는 그대로 나간다.
