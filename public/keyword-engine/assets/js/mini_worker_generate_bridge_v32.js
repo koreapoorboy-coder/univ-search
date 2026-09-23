@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v287_note_hint_by_kind
+// SCREEN_VERSION: v288_paper_reading_step
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v287-note-hint-by-kind";
+  const VERSION = "mini-worker-generate-bridge-v288-paper-reading-step";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2828,9 +2828,27 @@
   // 이 논문을 어느 칸에 쓰라고 한 줄씩 적는다. 고르는 칸이 아니다: 논문은 AI에게 가지 않고, 최종 보고서의
   // 참고 자료에 서지사항으로만 붙는다. 우리는 제목만 알므로 "초록에서 확인하라"고 쓴다.
   function renderPaperGuide(block){
-    const list = Array.isArray(block?.papers) ? block.papers.filter(one => one && one.line) : [];
+    const list = Array.isArray(block?.papers) ? block.papers.filter(row => row && row.line) : [];
     if(!list.length) return "";
     const center = (block.center || []).filter(Boolean);
+    // 읽기 발판. 여기까지가 우리가 줄 수 있는 것이다 —
+    // 초록은 우리에게 없고(공공데이터 파일에 없다) 퍼다 보여 줄 라이선스도 없다. 그래서
+    //   ① 저자가 붙인 낱말을 보여 주고(논문에 적힌 말이다)
+    //   ② 제목을 복사해 KCI 를 열어 주고
+    //   ③ 읽고 두 줄 적을 칸을 준다. 적으면 그 논문이 자료 카드가 되어 본문에 정식으로 들어간다.
+    // 안 적으면 아무 일도 없다. **읽지 않은 자료는 인용되지 않는다**는 규칙이 그대로 지켜진다.
+    const one = (paper, at) => `
+        <li class="mini-paper">
+          <span class="mini-paper-t">${escapeHtml(paper.line)}</span>
+          ${paper.keywords ? `<span class="mini-paper-k">저자가 붙인 낱말 · ${escapeHtml(paper.keywords)}</span>` : ""}
+          ${paper.guide ? `<span class="mini-paper-g">${escapeHtml(paper.guide)}</span>` : ""}
+          <div class="mini-paper-read">
+            <button type="button" class="mini-paper-open" data-paper-title="${escapeHtml(paper.title || "")}">제목 복사하고 KCI 열기</button>
+            <label>초록을 읽고 <b>두 줄</b>로 적어 주세요 <span>(적으면 참고 자료로 들어가요)</span>
+              <textarea rows="2" data-paper-field="take" data-paper-index="${at}" placeholder="예: 방언권에 따라 인식률이 달라진다는 것을 표로 보여 준 연구"></textarea></label>
+            <input type="hidden" data-paper-field="title" data-paper-index="${at}" value="${escapeHtml(paper.title || "")}">
+          </div>
+        </li>`;
     // 재료 조합(ingredients_v1): AI가 이 설계를 잡을 때 **실제로 참고한** 연구다. 최종 보고서 참고 자료에 그대로 들어간다.
     if(block.mode === "inspiration"){
       return `
@@ -2839,18 +2857,9 @@
           <span>${list.length}편 · 참고 자료에 들어가 있어요</span></summary>
         <p class="mini-book-why">보고서의 배경 설명과 후속 탐구를 쓸 때 참고한 실제 연구예요. 본문에는 이름을 드러내지 않고 참고 자료에만 적었어요.
           발표나 면접에서 "더 찾아본 것이 있어?"라고 물으면 이 연구를 말하면 돼요. 제목으로 <b>초록</b>을 한 번 읽어 두세요.</p>
-        <ul class="mini-paper-list">${list.map(paper => `
-          <li class="mini-paper">
-            <span class="mini-paper-t">${escapeHtml(paper.line)}</span>
-            ${paper.guide ? `<span class="mini-paper-g">${escapeHtml(paper.guide)}</span>` : ""}
-          </li>`).join("")}</ul>
+        <ul class="mini-paper-list">${list.map((paper, at) => one(paper, at)).join("")}</ul>
       </details>`;
     }
-    const one = (paper) => `
-        <li class="mini-paper">
-          <span class="mini-paper-t">${escapeHtml(paper.line)}</span>
-          ${paper.guide ? `<span class="mini-paper-g">${escapeHtml(paper.guide)}</span>` : ""}
-        </li>`;
     return `
       <details class="mini-book-pick mini-paper-guide">
         <summary>논문 길잡이
@@ -2943,6 +2952,20 @@
       .filter(card => card.title);
   }
 
+  // 논문을 읽고 두 줄 적었으면 그것이 자료 카드 한 장이다. 이미 있는 길을 탄다:
+  // 자료 카드 → 프롬프트 → 이론적 배경과 참고 자료. 책과 같은 방식이다.
+  // **적지 않은 논문은 카드가 되지 않는다.** 읽지 않은 자료는 인용되지 않는다.
+  function collectPaperCards(panel){
+    const root = panel || document;
+    return Array.from(root.querySelectorAll('[data-paper-field="take"]'))
+      .map((box) => {
+        const at = box.getAttribute("data-paper-index");
+        const take = (box.value || "").trim();
+        const title = root.querySelector(`[data-paper-field="title"][data-paper-index="${at}"]`)?.value.trim() || "";
+        return take && title ? { title, type: "논문", take } : null;
+      }).filter(Boolean);
+  }
+
   function collectSourceCards(panel){
     const read = (index, field) => panel.querySelector(`[data-card-field="${field}"][data-card-index="${index}"]`)?.value.trim() || "";
     return Array.from({ length: panel.querySelectorAll(".mini-card").length }, (_, i) => ({
@@ -2994,7 +3017,10 @@
     const valueHead = trials > 1
       ? Array.from({ length: trials }, (_, i) => `<th>${i + 1}회<span>${escapeHtml(template?.measurementName || "값")}${escapeHtml(unit)}</span></th>`).join("")
       : `<th>${escapeHtml(template?.measurementName || "값")}${escapeHtml(unit)}</th>`;
-    const head = `<tr><th>조건</th>${valueHead}<th>관찰 메모</th></tr>`;
+    // 줄이 조건이 아닐 때가 있다 — 「1월·3월·5월」은 달이다. 최종 보고서의 표와 같은 말을 써야
+    // 학생이 설계서에서 본 머리말과 보고서의 머리말이 어긋나지 않는다(검수 시험 2026-09-22).
+    const axis = global.__TABLE_AXIS__?.rowAxisName?.(conditions) || '조건';
+    const head = `<tr><th>${escapeHtml(axis)}</th>${valueHead}<th>관찰 메모</th></tr>`;
     const rows = conditions.map((label, r) => `<tr><th scope="row">${escapeHtml(label)}</th>${Array.from({ length: trials }, (_, i) => `<td><input type="text" inputmode="decimal" placeholder="숫자" data-row="${r}" data-trial="${i}" aria-label="${escapeHtml(label)} ${i + 1}회"></td>`).join("")}<td><input type="text" placeholder="${escapeHtml(noteHint(kind))}" data-row="${r}" data-note="1" aria-label="${escapeHtml(label)} 관찰 메모"></td></tr>`).join("");
     return `
       <section class="mini-exp-panel" id="miniExpPanel">
@@ -3048,7 +3074,7 @@
       reflection: text("miniExpReflection"),
       // 실험 보고서에서도 카드로 걷는다. 제목만 있고 얻은 것이 없으면 참고 자료로 치지 않는다.
       // 고른 책이 먼저다. 직접 적은 자료가 뒤에 붙는다.
-      sourceCards: [collectBookCard(panel), ...collectRefCards(panel)].filter(Boolean),
+      sourceCards: [collectBookCard(panel), ...collectPaperCards(panel), ...collectRefCards(panel)].filter(Boolean),
       sources: []
     };
   }
@@ -3081,7 +3107,7 @@
     if(reading){
       // 고른 책도 자료 한 장이다. 읽기 보고서는 자료 카드가 본체이므로 개수에도 들어간다.
       const bookCard = collectBookCard(panel);
-      const sourceCards = [bookCard, ...collectSourceCards(panel)].filter(Boolean);
+      const sourceCards = [bookCard, ...collectPaperCards(panel), ...collectSourceCards(panel)].filter(Boolean);
       measured = sourceCards.length;
       if(measured < 2){
         errorBox.hidden = false;
@@ -4382,6 +4408,19 @@ ${result}`;
       school: readValue("schoolName") || req.schoolName || "",
       task: req.taskDescription || ""
     }));
+    // 논문 제목을 복사하고 KCI 검색 쪽을 새 창으로 연다.
+    // KCI 는 검색어를 주소로 받아 주지 않는다(직접 확인했다 — 주소에 넣어도 결과가 안 붙는다).
+    // 그래서 **되는 방법**으로 한다: 제목을 눌러 복사해 주고, 학생이 붙여넣는다.
+    root.querySelectorAll(".mini-paper-open").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const title = btn.getAttribute("data-paper-title") || "";
+        let copied = false;
+        try { await navigator.clipboard.writeText(title); copied = true; } catch { copied = false; }
+        btn.textContent = copied ? "제목을 복사했어요 — KCI에 붙여넣어 주세요" : "복사가 안 됐어요 — 제목을 직접 옮겨 주세요";
+        window.open("https://www.kci.go.kr/kciportal/po/search/poArtiSearList.kci", "_blank", "noopener");
+        setTimeout(() => { btn.textContent = "제목 복사하고 KCI 열기"; }, 4000);
+      });
+    });
     if(stage === "experiment_draft" && (stageResult.dataTemplate || stageResult.sourceTemplate)){
       global.__MINI_EXPERIMENT_DRAFT__ = { result: stageResult, template: stageResult.dataTemplate, title: reportTitle, plainText: reportPlainText };
       $("miniExpFinalBtn")?.addEventListener("click", handleExperimentFinal);
@@ -4684,6 +4723,16 @@ ${result}`;
     "        .mini-book-pick>summary span{font-weight:600;color:#8a90a0;font-size:12.5px}",
     "        .mini-book-pick[open]>summary{margin:0 0 10px}",
     "        .mini-book-why{margin:0 0 10px;font-size:12.5px;color:#667085;line-height:1.6}",
+    "        .mini-paper-k{display:block;margin:3px 0 0;font-size:12px;color:#475569}",
+    "        .mini-paper-read{margin:8px 0 2px;padding:9px 11px;border:1px solid #e6eaf2;",
+    "          border-radius:9px;background:#fff}",
+    "        .mini-paper-open{font:inherit;font-size:12.5px;font-weight:700;color:#2458ff;",
+    "          background:#eef3ff;border:1px solid #cfdcff;border-radius:8px;padding:5px 10px;cursor:pointer}",
+    "        .mini-paper-open:hover{border-color:#2458ff}",
+    "        .mini-paper-read label{display:block;margin:8px 0 0;font-size:12.5px;color:#334155}",
+    "        .mini-paper-read label span{color:#8a90a0;font-weight:500}",
+    "        .mini-paper-read textarea{width:100%;margin:4px 0 0;font:inherit;font-size:13px;",
+    "          padding:7px 9px;border:1px solid #d7dbe6;border-radius:8px;box-sizing:border-box}",
     "        .mini-paper-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}",
     "        .mini-paper{display:grid;gap:4px;border:1px solid var(--mini-line,#e6eaf2);background:#fff;",
     "          border-radius:var(--mini-r-sm,10px);padding:9px 12px}",

@@ -297,8 +297,12 @@ const pick = (subject, concept, major) => {
   check(/major: input\.major \|\| input\.track/.test(worker), "A6 학과가 없으면 계열이라도 쓴다");
   check(bridge.includes("renderBookPick") && bridge.includes("renderCollectionPanel(stageResult, rawData?.bookChoices)"),
     "A6 화면이 그 후보를 받아 그린다");
-  check(/collectBookCard\(panel\), \.\.\.collectRefCards\(panel\)/.test(bridge),
+  // 2026-09-23: 읽은 논문도 카드가 되어 책과 손수 적은 자료 사이에 들어간다. 못 박는 것은
+  // **책이 맨 앞**이라는 것이다 — 고른 책이 첫 자료여야 한다는 규칙은 그대로다.
+  check(/sourceCards: \[collectBookCard\(panel\)/.test(bridge),
     "A6 고른 책이 자료 카드 맨 앞에 붙는다");
+  check(/collectBookCard\(panel\), \.\.\.collectPaperCards\(panel\), \.\.\.collectRefCards\(panel\)/.test(bridge),
+    "A6 그 뒤에 읽은 논문, 그 뒤에 손수 적은 자료가 온다");
   check(/const bookCard = collectBookCard\(panel\);/.test(bridge), "A6 읽기 보고서에서도 책을 센다");
   check(bridge.includes("고른 책은 <b>참고 자료</b>에 들어가고"), "A6 학생이 이 칸이 무엇에 쓰이는지 알 수 있다");
   check(bridge.includes("읽어 두세요"), "A6 그리고 내용은 읽어 두라고 말한다 — 선생님이 물어볼 수 있다");

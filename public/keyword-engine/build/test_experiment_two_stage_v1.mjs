@@ -477,3 +477,35 @@ console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
   const meanAt = table.columns.indexOf("평균");
   check(String(table.rows[0][meanAt]) === "0.004", "표의 평균 칸에도 0.00 이 아니라 0.004 가 찍힌다", JSON.stringify(table.rows[0]));
 }
+
+// 검수 시험 2026-09-22이 찾은 **우리 틀** 흠 셋. 하나 고치면 그 과제를 받는 학생 전부가 고쳐진다.
+{
+  const { rowAxisName } = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+
+  // ① 줄이 조건이 아닐 때 머리말이 「조건」이면 틀린다 — 「1월·3월·5월」은 달이다.
+  const mk = (labels) => computeStats(normalizeStudentData({ measurementName: "대여 건수", unit: "건",
+    conditions: labels.map((label, at) => ({ label, values: [String(100 + at * 10)] })) }));
+  const monthly = buildFigures([], mk(["1월", "3월", "5월", "12월"]))[0];
+  check(monthly.columns[0] === "월", "달이 줄에 오면 머리말이 「월」이다", monthly.columns.join("/"));
+  check(monthly.title.startsWith("월별"), "표 제목도 「월별」이다", monthly.title);
+  const yearly = buildFigures([], mk(["2014년", "2015년", "2016년"]))[0];
+  check(yearly.columns[0] === "연도", "연도가 줄에 오면 「연도」다", yearly.columns.join("/"));
+  const cond = buildFigures([], mk(["수도권 · 청년층", "경상권 · 중장년층", "전라권 · 청년층"]))[0];
+  check(cond.columns[0] === "조건" && cond.title.startsWith("조건별"), "진짜 조건은 그대로 「조건」이다", cond.title);
+  check(rowAxisName(["1월"]) === "조건", "줄이 하나면 짐작하지 않는다", rowAxisName(["1월"]));
+  check(rowAxisName(["1월", "지난달"]) === "조건", "한 줄이라도 꼴이 다르면 짐작하지 않는다");
+
+  // ② 칸마다 값이 하나뿐인 과제의 연구 질문에 「변동 폭」을 묻지 않는다.
+  const draftRules = stagePromptLines(STAGE.DRAFT, { collectionKind: COLLECTION.DATASET, taskDescription: "공공데이터에서 월별 값을 찾아 표로 옮긴다." }).join("\n");
+  check(/변동 폭/.test(draftRules) && /칸과 칸 [*][*]사이[*][*]/.test(draftRules),
+    "값이 하나뿐인 과제에는 칸 안의 변동 폭을 묻지 말라고 이른다", draftRules.slice(0, 120));
+  const measureRules = stagePromptLines(STAGE.DRAFT, { collectionKind: COLLECTION.MEASUREMENT, taskDescription: "온도를 달리하며 반응 속도를 측정한다." }).join("\n");
+  check(!/칸과 칸 [*][*]사이[*][*]/.test(measureRules), "재는 과제는 반복이 있으니 그 규칙을 주지 않는다");
+
+  // ③ 뒤가 다른 조건을 나눠 배수를 내지 않는다.
+  const finalRules = stagePromptLines(STAGE.FINAL, { collectionKind: COLLECTION.MEASUREMENT,
+    studentData: normalizeStudentData({ measurementName: "처리 시간", unit: "초", conditions: [
+      { label: "수작업 · 100개", values: ["180", "195", "172"] },
+      { label: "딕셔너리 · 1000개", values: ["0.034", "0.031", "0.035"] }] }) }).join("\n");
+  check(/뒤가 같은 조건끼리만/.test(finalRules), "견줄 수 없는 조건을 나누지 말라고 이른다", finalRules.slice(0, 120));
+}

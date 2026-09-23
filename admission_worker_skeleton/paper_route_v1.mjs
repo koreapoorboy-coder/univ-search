@@ -403,6 +403,10 @@ export function guideBlock(query, picked) {
     line: routedPaperLine(paper),
     title: clean(paper.title, 200),
     guide: clean(paper.guide, 300),
+    // 저자가 붙인 낱말. **지어낸 말이 아니라 논문에 적혀 있는 말**이다(한국연구재단 공공데이터,
+    // 이용허락 제한 없음). 학생이 이 논문을 열어 볼지 말지 판단할 수 있게 보여 준다 — 초록은
+    // 우리에게 없고 가져올 라이선스도 없으니, 줄 수 있는 것은 제목과 이 낱말까지다.
+    keywords: clean(paper.keywords, 80),
     hits: (paper.fit?.hits || []).slice(0, 3),
   })).filter((one) => one.line);
   if (!papers.length) return null;

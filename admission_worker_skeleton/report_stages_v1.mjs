@@ -26,6 +26,8 @@ const FEELING_WORDS = ['힘들', '어려웠', '재미', '즐거', '뿌듯', '보
 // 무엇을 모아 오는가는 화면과 함께 쓰는 한 파일에 있다(왜 거기 있는지는 그 파일 첫머리에).
 export { COLLECTION, resolveCollectionKind } from '../public/keyword-engine/assets/js/shared/collection_kind_v1.js';
 import { COLLECTION } from '../public/keyword-engine/assets/js/shared/collection_kind_v1.js';
+import { rowAxisName } from '../public/keyword-engine/assets/js/shared/table_axis_v1.js';
+export { rowAxisName } from '../public/keyword-engine/assets/js/shared/table_axis_v1.js';
 
 const COLLECTION_LABEL = {
   [COLLECTION.MEASUREMENT]: '실험 측정',
@@ -291,7 +293,7 @@ export function describesPlotted(text, measurementName) {
   const value = String(text || '');
   if (CALCULATED_WORDS.test(value)) return false;
   const words = String(measurementName || '').split(/[^가-힣A-Za-z0-9]+/).filter((word) => word.length >= 2);
-  return !words.length || words.some((word) => value.includes(word)) || /평균|측정값|잰 값|조건별/.test(value);
+  return !words.length || words.some((word) => value.includes(word)) || /평균|측정값|잰 값|(조건|월|연도|분기|요일|학년)별/.test(value);
 }
 
 export function buildFigures(specs, stats) {
@@ -300,7 +302,9 @@ export function buildFigures(specs, stats) {
     .slice(0, 3);
   const name = stats.measurementName || '측정값';
   const grid = splitFactors(stats.rows);
-  if (!valid.some((spec) => spec.kind === 'table')) valid.push({ kind: 'table', metric: 'raw', title: `조건별 ${name} 결과` });
+  // 줄이 조건이 아닐 때가 있다 — 「1월·3월·5월」은 달이다. 머리말과 표 제목이 같은 말을 쓴다.
+  const axis = rowAxisName(stats.rows.map((row) => row.label));
+  if (!valid.some((spec) => spec.kind === 'table')) valid.push({ kind: 'table', metric: 'raw', title: `${axis}별 ${name} 결과` });
   // A chart is worth drawing when there is a shape to see: a two-variable grid, or at least three conditions to
   // line up. Two bars say nothing the table has not already said, so no chart is added and any the model asked
   // for is dropped.
@@ -324,18 +328,18 @@ export function buildFigures(specs, stats) {
     const rawTitle = clip(scrubInternalNames(spec.title), 60);
     const rawCaption = clip(cleanCaption(spec.caption), 160);
     const figure = { label, kind: spec.kind, metric, metricLabel: METRIC_LABEL[metric],
-      title: rawTitle && plotted(rawTitle) ? rawTitle : `조건별 ${name}${metric === 'raw' || metric === 'mean' ? (spec.kind === 'table' ? ' 결과' : ' 평균') : ''}`,
+      title: rawTitle && plotted(rawTitle) ? rawTitle : `${axis}별 ${name}${metric === 'raw' || metric === 'mean' ? (spec.kind === 'table' ? ' 결과' : ' 평균') : ''}`,
       caption: rawCaption && plotted(rawCaption) ? rawCaption : '', unit };
     if (spec.kind === 'table') {
       if (metric === 'raw') {
         // One value per cell: the repeat columns, the mean of a single number and its wobble would all say the same thing.
         if (stats.trials <= 1) {
-          return { ...figure, columns: ['조건', `${name}${stats.unit ? ` (${stats.unit})` : ''}`], rows: rows.map((row) => [row.label, asTyped(row.values[0], stats.decimals, row.typed?.[0])]) };
+          return { ...figure, columns: [axis, `${name}${stats.unit ? ` (${stats.unit})` : ''}`], rows: rows.map((row) => [row.label, asTyped(row.values[0], stats.decimals, row.typed?.[0])]) };
         }
         const trials = Array.from({ length: stats.trials }, (_, index) => `${index + 1}회`);
-        return { ...figure, columns: ['조건', ...trials, '평균', '흔들림'], rows: rows.map((row) => [row.label, ...trials.map((_, index) => asTyped(row.values[index], stats.decimals, row.typed?.[index])), asRowNumber(row.mean, row), asRowNumber(row.spread, row)]) };
+        return { ...figure, columns: [axis, ...trials, '평균', '흔들림'], rows: rows.map((row) => [row.label, ...trials.map((_, index) => asTyped(row.values[index], stats.decimals, row.typed?.[index])), asRowNumber(row.mean, row), asRowNumber(row.spread, row)]) };
       }
-      return { ...figure, columns: ['조건', `${METRIC_LABEL[metric]}${unit ? ` (${unit})` : ''}`], rows: rows.map((row) => [row.label, row[metric]]) };
+      return { ...figure, columns: [axis, `${METRIC_LABEL[metric]}${unit ? ` (${unit})` : ''}`], rows: rows.map((row) => [row.label, row[metric]]) };
     }
     const chartMetric = metric === 'raw' ? 'mean' : metric;
     const base = { ...figure, metric: chartMetric, metricLabel: METRIC_LABEL[chartMetric] };
@@ -1124,6 +1128,12 @@ export function stagePromptLines(stage, input) {
       ...(/평균|표준편차|분산/.test(String(input.taskDescription || '')) && kind !== COLLECTION.MEASUREMENT
         ? ['- 안내문이 평균·표준편차·분산을 구하라고 한다. 표는 **도수분포표**로 만든다: conditions는 평균을 구할 값의 **닫힌 계급**(예: "수면 5~6시간", "수면 6~7시간")이고, 칸에는 그 계급의 인원수를 적는다. "6시간 이상", "6시간 미만"처럼 열린 계급은 쓰지 않는다 — 맨 끝 계급도 "8~9시간"처럼 닫는다. 계급 폭은 같게 한다. 두 변수의 관계도 보라는 과제면 다른 변수를 두 집단으로 나누어 계급 앞에 붙인다(예: "스마트폰 3시간 미만 · 수면 6~7시간"). 조건은 모두 8개 이하다.']
         : []),
+      // 검수 시험 2026-09-22(데이터 과학): 달마다 값이 하나뿐인 과제인데 연구 질문이 「각 달의
+      // **변동 폭**은 어느 달에서 가장 크고 작은가」였다. 값이 하나면 그 칸의 변동 폭은 없는 것이다.
+      // 학생이 답할 수 없는 질문을 주면 보고서가 처음부터 어긋난다.
+      ...(kind !== COLLECTION.MEASUREMENT
+        ? ['- 칸마다 값이 하나뿐이다. 연구 질문에 한 칸 안의 "변동 폭", "흔들림", "편차", "안정성"을 묻지 않는다 — 값이 하나면 그것은 없다. 칸과 칸 **사이**의 차이·순서·경향을 묻는다.']
+        : []),
       '- measurementName에는 단위를 넣지 않는다. 단위는 unit 칸에만 적는다 — 이름에 또 넣으면 표 머리글이 「도달 시각 초 (초)」가 된다.',
       '- measurementName은 한 칸에 적을 **값 하나**의 이름이다. 두 가지 값(예: 개체 수와 피복 점수)을 한 칸에 담지 않는다. 여러 값을 재야 하면 연구 질문에 가장 중심이 되는 하나를 표에 두고, 나머지는 관찰 메모에 적게 한다.',
       `- dataTemplate은 학생이 채울 결과 표다. conditions는 표의 행이 될 조건 이름 2~8개(두 변인을 함께 바꾸면 "효소 세제 · 미지근한 물"처럼 "앞 변인 · 뒤 변인" 순서로 모든 조합), ${kind === COLLECTION.MEASUREMENT ? 'trials는 조건마다 반복 횟수(3~5)' : 'trials는 반드시 1'}, measurementName과 unit은 ${kind === COLLECTION.MEASUREMENT ? '측정 항목과 단위(점수면 "점")' : '적을 값의 이름과 단위'}, scaleGuide는 ${kind === COLLECTION.MEASUREMENT ? '점수 기준이나 측정 방법' : '값을 어디서 어떻게 옮겨 적는지'} 한 문장이다.`,
@@ -1148,6 +1158,9 @@ export function stagePromptLines(stage, input) {
       ...(stats.trials <= 1
         ? ['- 칸마다 값이 하나뿐이라 반복의 흔들림이 없다. 값 하나를 "평균"이라고 부르지 않는다. 평균, 흔들림, 반복의 안정성을 근거로 쓰지 않고, 값 자체와 칸 사이의 차이로만 비교한다. 차이가 작을 때는 확실하다고 단정하지 않고, 값이 하나뿐이라 단정할 수 없다고 밝힌다.']
         : []),
+      // 검수 시험 2026-09-22(정보): 「수작업 · 100개」의 시간을 「딕셔너리 · 1000개」의 시간으로 나눠
+      // 「수작업 대비 6077.7배」라고 썼다. 입력 크기가 다르니 견줄 수 없는 것을 견준 것이다.
+      '- 조건 이름이 "앞 · 뒤"로 두 가지를 담고 있으면, **뒤가 같은 조건끼리만** 나누어 배수나 비율을 낸다. 뒤가 다른 조건(예: "수작업 · 100개"와 "딕셔너리 · 1000개")을 나눈 값은 쓰지 않는다. 뒤가 같은 짝이 없으면 배수를 내지 않고 값 자체로만 말한다.',
       '- 평균이같은조건은 평균이 같은 조건 묶음이다. 서로 다른 조건의 평균이 같은 것은 우연일 수 있으므로 이를 근거로 해석하지 않는다.',
       '- 활용 방안은 실험한 대상과 조건 안에서만 말한다. 실험하지 않은 재료나 얼룩 종류로 넓히려면 추가 실험이 필요하다고 쓴다.',
       '- figures에는 이 데이터를 보여줄 표나 그래프를 고른다. 표는 코드가 항상 만들므로 넣지 않아도 된다. 그래프는 표보다 한눈에 더 잘 보이는 모양(순서 있는 값의 경향, 두 변인이 엇갈리는 모양)이 있을 때만 고르고, 표로 충분하면 고르지 않는다. 조건이 둘뿐이면 그래프를 고르지 않는다. 억지로 채우지 말고 필요 없으면 빈 배열로 둔다. 최대 3개다. 숫자는 넣지 말고 kind(table, bar, line, grouped_bar, grouped_line), metric(raw, mean, diff_from_first, percent_from_first), conditionOrder(보여줄 조건 이름과 순서), title, caption만 쓴다. 조건이 "앞 변인 · 뒤 변인" 조합이면 grouped_bar나 grouped_line으로 앞 변인을 색으로 나누고 뒤 변인을 가로축에 놓는다. 뒤 변인이 순서 있는 값(온도, 시간 등)이면 grouped_line이 알맞다. 숫자는 학생 데이터로 코드가 채운다.',
