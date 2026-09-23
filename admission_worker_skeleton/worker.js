@@ -13,6 +13,7 @@ import { adjustLicense, adjustStudent, checkEntitlement, claimSeat, emptyGrant, 
 import { textbookCitation } from './references_v1.mjs';
 import { buildConceptCounts, buildMajorCounts, buildWordCounts, inferConcept, matchBooks } from './book_match_v1.mjs';
 import { datasetPromptLines, findPublicData } from './public_data_v1.mjs';
+import { buildFilledTable, findTable } from './kosis_fill_v1.mjs';
 import { pickForTask } from './univ_research_v1.mjs';
 import { citationRow, contentWords, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';
 import { accessDate, aliveOnly, asResearch, pickUnivWeb } from './univ_web_v1.mjs';
@@ -68,6 +69,9 @@ const SEED_FILES = {
   subjectDefaultUnit: 'engine-index/subject_default_unit.v1.json',
   bookMatchIndex: 'engine-index/book_match_index.v1.json',
   publicDataTerms: 'engine-index/public_data_terms.v1.json',
+  // 어느 단원에 어느 통계표를 쓸지. 1KB 라 늘 싣는다. 표 자체(kosis_tables.v1.json, 약 0.5MB)는
+  // 단원에 짝이 있을 때만 따로 읽는다 — 논문 묶음과 같은 방식이다.
+  kosisUnitMap: 'engine-index/kosis_unit_map.v1.json',
   // Built by tools/build_univ_research_index.mjs: 개념마다 붙일 대학 연구 최대 2건.
   // 참고문헌이 아니라 「다음에 해 볼 것」에 붙는다 — 학생이 읽을 원문이 아니기 때문이다.
   univResearchIndex: 'engine-index/univ_research_index.v1.json',
@@ -799,12 +803,29 @@ export default {
 
         // 최종 보고서 화면의 "교과 확장에 쓴 연구" — AI가 실제로 쓴 재료만.
         if (input.reportStage !== STAGE.DRAFT) paperGuide = inspirationGuide(result?.inspiration);
+
+        // **설계서 표를 진짜 통계로 채운다.** 사용자 결정 2026-09-23: 학생이 공공데이터 포털에서
+        // 자료를 찾아 옮겨 적는 것은 너무 힘들다. 우리가 채워 주고 학생은 읽고 해석을 쓴다.
+        //
+        // 숫자는 KOSIS 씨앗 파일의 값 **그대로**다. 표 이름·기관·조회일을 함께 보내므로
+        // 보고서는 「내가 쟀다」가 아니라 「통계청 ○○표에서 가져온 값」이 된다.
+        // 학생은 화면에서 값을 고칠 수 있다 — 다른 지역·다른 해를 보고 싶을 수 있다.
+        let filledTable = null;
+        if (input.reportStage === STAGE.DRAFT && result?.dataTemplate) {
+          try {
+            const table = findTable(await loadKosisTables(env), seedPack.kosisUnitMap, reportConcept);
+            if (table) filledTable = buildFilledTable(table);
+          } catch (error) {
+            console.error('kosis fill failed:', error?.message || error);
+          }
+        }
         return json({
           ok: true,
           source,
           reportId,
           bookChoices,
           paperGuide,
+          filledTable,
           nextStep,
           resolved: input,
           phase1Lineage: liveAuthority.phase1Lineage,
@@ -1267,6 +1288,19 @@ async function loadPaperShard(env, subject) {
 // 이름이 아닐 때가 있다(「유전 정보」 ↔ 「유전자와 염색체」). 인덱스 키는 단원 이름이다.
 function axisConceptName(seedPack, axis) {
   return axis?.axisId ? (seedPack.axisIndex?.axes || {})[axis.axisId]?.concept || '' : '';
+}
+
+// KOSIS 표는 0.5MB 라 **단원에 짝이 있을 때만** 읽는다.
+let kosisSeed = null;
+async function loadKosisTables(env) {
+  if (kosisSeed !== null) return kosisSeed;
+  try {
+    kosisSeed = await loadSeedFile(env, 'engine-index/kosis_tables.v1.json');
+  } catch (error) {
+    console.error('kosis seed failed:', error?.message || error);
+    kosisSeed = { tables: [] };
+  }
+  return kosisSeed;
 }
 
 async function loadSeedFile(env, file) {

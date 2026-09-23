@@ -600,3 +600,43 @@ console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
   check(/교과서/.test(ref?.body || ""), "교과서 줄도 함께 남는다", ref?.body);
   check(!/튀어 보임/.test(ref?.body || ""), "관찰 메모는 참고 자료에 안 들어간다", ref?.body);
 }
+
+// **설계서 표를 진짜 통계로 채운다** (사용자 결정 2026-09-23).
+// 학생이 공공데이터 포털에서 찾아 옮겨 적는 것은 너무 힘들다. 우리가 채우고 학생은 해석을 쓴다.
+// 숫자는 KOSIS 씨앗의 값 **그대로**다 — 지어내지 않는다.
+{
+  const { findTable, buildFilledTable } = await import("../../../admission_worker_skeleton/kosis_fill_v1.mjs");
+  const seed = JSON.parse(await readFile(new URL("../seed/engine-index/kosis_tables.v1.json", import.meta.url), "utf8"));
+  const map = JSON.parse(await readFile(new URL("../seed/engine-index/kosis_unit_map.v1.json", import.meta.url), "utf8"));
+
+  check((seed.tables || []).length >= 4, "통계표 씨앗이 있다", String((seed.tables || []).length));
+  check((seed.tables || []).every((one) => one.org && one.name && one.accessed),
+    "표마다 기관·이름·조회일이 있다 — 참고 자료에 그대로 쓴다");
+
+  const table = findTable(seed, map, "모집단과 표본");
+  check(Boolean(table), "단원에 짝지은 표를 찾는다", table?.name);
+  const filled = buildFilledTable(table);
+  check(filled && filled.conditions.length >= 4, "표가 채워진다", String(filled?.conditions.length));
+  check(filled.conditions.every((one) => /^[0-9.]+$/.test(one.values[0])), "칸마다 숫자가 들어 있다",
+    JSON.stringify(filled.conditions.slice(0, 2)));
+  check(/통계청/.test(filled.note) && /조회/.test(filled.note), "출처 메모가 함께 온다", filled.note);
+
+  // 채운 값은 씨앗에 **실제로 있는 값**이어야 한다. 하나라도 지어내면 안 된다.
+  const real = new Set(table.rows.map((one) => String(one.value)));
+  check(filled.conditions.every((one) => real.has(one.values[0])),
+    "채운 값이 전부 씨앗에 있는 값이다 — 지어낸 숫자가 없다");
+
+  // 합계 줄은 조건으로 쓰지 않는다 — 비교가 안 된다.
+  check(!filled.conditions.some((one) => /^(전국|총계|합계) /.test(one.label)), "합계 줄은 조건에 넣지 않는다");
+
+  // 짝이 없는 단원에는 아무것도 안 준다.
+  check(!findTable(seed, map, "효소와 대사 반응"), "짝이 없으면 아무것도 안 준다");
+
+  // 워커와 화면이 실제로 이어져 있나.
+  const worker = await readFile(new URL("../../../admission_worker_skeleton/worker.js", import.meta.url), "utf8");
+  const bridge = await readFile(new URL("../assets/js/mini_worker_generate_bridge_v32.js", import.meta.url), "utf8");
+  check(/if \(table\) filledTable = buildFilledTable\(table\);/.test(worker), "워커가 설계서에서 표를 채운다");
+  check(/input\.reportStage === STAGE\.DRAFT && result\?\.dataTemplate/.test(worker), "설계서 단계에서만 채운다");
+  check(/applyFilledTable\(rawData\?\.filledTable\)/.test(bridge), "화면이 그 값을 표에 넣는다");
+  check(/if\(box && !box\.value\)/.test(bridge), "학생이 이미 적은 칸은 덮어쓰지 않는다");
+}

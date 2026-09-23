@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v289_report_guide
+// SCREEN_VERSION: v290_kosis_prefill
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v289-report-guide";
+  const VERSION = "mini-worker-generate-bridge-v290-kosis-prefill";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2980,6 +2980,25 @@
   // 처음에는 이 칸을 자료 수집 패널 **안에만** 넣었다. 그런데 그 패널은 experiment_draft 에서만 그려진다.
   // 실제 화면으로 "실생활 활용 사례 화학 탐구 글쓰기" 과제를 돌려 보니 글쓰기·논술형으로 잡혔고,
   // 참고 도서 칸이 아예 안 나왔다. 학교가 책을 시키는 과제는 대개 글쓰기형이라 가장 필요한 자리였다.
+  // **통계표로 미리 채워진 표.** 워커가 KOSIS 씨앗에서 가져온 진짜 값이다(filledTable).
+  // 사용자 결정 2026-09-23: 학생이 공공데이터 포털에서 찾아 옮겨 적는 것은 너무 힘들다.
+  // 우리가 채워 주고 학생은 읽고 해석을 쓴다. **학생이 값을 고칠 수 있게 둔다** —
+  // 다른 지역이나 다른 해를 보고 싶을 수 있고, 고치면 그 값으로 보고서가 만들어진다.
+  function applyFilledTable(filled){
+    if(!filled || !Array.isArray(filled.conditions) || !filled.conditions.length) return;
+    const panel = document.querySelector("#miniExpPanel");
+    if(!panel) return;
+    filled.conditions.forEach((row, at) => {
+      const box = panel.querySelector(`input[data-row="${at}"][data-trial="0"]`);
+      if(box && !box.value) { box.value = String(row.values?.[0] ?? ""); box.dispatchEvent(new Event("input", { bubbles: true })); }
+    });
+    const note = panel.querySelector('input[data-row="0"][data-note]');
+    if(note && !note.value && filled.note) { note.value = filled.note; note.dispatchEvent(new Event("input", { bubbles: true })); }
+    const help = panel.querySelector(".mini-exp-help");
+    if(help) help.innerHTML = `<b>표를 미리 채워 두었어요.</b> ${escapeHtml(filled.source?.org || "")} 「${escapeHtml(filled.source?.name || "")}」에서 가져온 값이에요`
+      + ` (조회일 ${escapeHtml(filled.source?.accessed || "")}). 값을 바꾸고 싶으면 칸을 고쳐도 돼요.`;
+  }
+
   function renderCollectionPanel(result, books){
     const pick = renderBookPick(books);
     if(result?.collectionKind === "reading") return result?.sourceTemplate ? pick + renderSourceCardPanel(result.sourceTemplate) : pick;
@@ -4469,6 +4488,8 @@ ${result}`;
       });
     });
     if(stage === "experiment_draft" && (stageResult.dataTemplate || stageResult.sourceTemplate)){
+      // 표를 그린 **뒤에** 진짜 통계로 채운다. 화면이 먼저 있어야 칸을 찾는다.
+      applyFilledTable(rawData?.filledTable);
       global.__MINI_EXPERIMENT_DRAFT__ = { result: stageResult, template: stageResult.dataTemplate, title: reportTitle, plainText: reportPlainText };
       $("miniExpFinalBtn")?.addEventListener("click", handleExperimentFinal);
     }
