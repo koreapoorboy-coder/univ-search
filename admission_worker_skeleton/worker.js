@@ -12,7 +12,7 @@ import { chooseUnit, UNIT_SOURCE } from './unit_fallback_v1.mjs';
 import { adjustLicense, adjustStudent, checkEntitlement, claimSeat, emptyGrant, issueLicense, listLicenses, listStudents, loadLicense, releaseSeat, spendUse } from './license_v1.mjs';
 import { textbookCitation } from './references_v1.mjs';
 import { buildConceptCounts, buildMajorCounts, buildWordCounts, inferConcept, matchBooks } from './book_match_v1.mjs';
-import { findPublicData } from './public_data_v1.mjs';
+import { datasetPromptLines, findPublicData } from './public_data_v1.mjs';
 import { pickForTask } from './univ_research_v1.mjs';
 import { citationRow, contentWords, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';
 import { accessDate, aliveOnly, asResearch, pickUnivWeb } from './univ_web_v1.mjs';
@@ -1494,6 +1494,7 @@ function buildPrompt(input, seedMatch, env) {
     ...crossSubjectPromptLines(input.crossSubject, stage, input.collectionKind),
     ...majorPathPromptLines(input.majorPath, input.careerAxes),
     ...(stage !== STAGE.DRAFT ? ingredientPromptLines(input.ingredients) : []),
+    ...(stage !== STAGE.DRAFT ? datasetPromptLines(input.referenceDatasets) : []),
     '',
     '[깊이 기준]',
     '- 원리는 구체적인 물질과 반응 수준까지 설명한다. 예: 어떤 효소가 어떤 결합을 끊는지, 대상(얼룩, 음식 등)이 어떤 성분으로 되어 있는지, 조건이 효소와 대상 각각에 어떤 영향을 주는지.',

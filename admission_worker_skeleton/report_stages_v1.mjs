@@ -27,6 +27,7 @@ const FEELING_WORDS = ['힘들', '어려웠', '재미', '즐거', '뿌듯', '보
 export { COLLECTION, resolveCollectionKind } from '../public/keyword-engine/assets/js/shared/collection_kind_v1.js';
 import { COLLECTION } from '../public/keyword-engine/assets/js/shared/collection_kind_v1.js';
 import { rowAxisName } from '../public/keyword-engine/assets/js/shared/table_axis_v1.js';
+import { buildReportGuide } from './report_guide_v1.mjs';
 export { rowAxisName } from '../public/keyword-engine/assets/js/shared/table_axis_v1.js';
 
 const COLLECTION_LABEL = {
@@ -614,6 +615,30 @@ export function removeUnsupportedNumbers(body, allowed, { allowPlans = false } =
     || numbersIn(sentence).every((number) => allowed.has(canonicalNumber(number))));
 }
 
+// **지식 절에서는 교과 지식의 숫자를 지우지 않는다.**
+//
+// 사용자 지적 2026-09-23: 「학생이 모르는 것을 넣지 않는다」는 전제가 애초에 틀렸다. 학생은
+// 모르는 것이 맞고, 모르는 것을 정리해 알려 주는 것이 이 프로그램이 하는 일이다.
+// 그런데 숫자 검문소가 이론적 배경에서도 돌아, 이런 문장을 통째로 지우고 있었다:
+//   ✗ 「중력가속도는 약 9.8 m/s^2 이다」
+//   ✗ 「표준 상태에서 기체 1몰의 부피는 22.4 L 이다」
+// 지어내기를 막는 장치가 **가르치기를 막고** 있었다.
+//
+// 그래서 지식 절에서는 숫자를 막지 않는다. 대신 **없는 근거를 대는 문장**만 막는다 —
+// 「선행 연구에 따르면 78%」처럼 우리가 주지 않은 자료를 근거로 대는 문장이다.
+// 우리가 실제로 준 자료(공공데이터·논문·교과서)를 가리키면 그대로 둔다.
+// 결과·분석·결론 절은 그대로다 — 거기 숫자는 학생 데이터에서만 나와야 한다.
+export const KNOWLEDGE_SECTION = /이론적 배경|핵심 개념|교과 개념|개념 정리|배경 지식/;
+const CITES_SOURCE = /선행 ?연구|기존 ?연구|여러 ?연구|한 ?연구|연구에 ?따르면|논문에 ?따르면|조사에 ?따르면|통계에 ?따르면|보고서에 ?따르면|자료에 ?따르면|에 ?의하면/;
+
+export function removeUnsourcedClaims(body, sources) {
+  const names = (Array.isArray(sources) ? sources : []).flatMap((one) => String(one || '').split(/[\s_·,()]+/))
+    .map((one) => one.trim()).filter((one) => one.length >= 2);
+  return filterSentences(body, (sentence) => !numbersIn(sentence).length
+    || !CITES_SOURCE.test(sentence)
+    || names.some((name) => sentence.includes(name)));
+}
+
 export function removeInventedFeelings(body, studentText) {
   const invented = FEELING_WORDS.filter((word) => !String(studentText || '').includes(word));
   return filterSentences(body, (sentence) => !invented.some((word) => sentence.includes(word)));
@@ -973,6 +998,12 @@ export function stageSectionGuide(title, stage, kind = COLLECTION.MEASUREMENT) {
     [COLLECTION.DATASET]: '찾은 수치를 어떤 표에 어떤 단위로 기록할지, 출처를 어디에 적을지 쓴다. 결과나 예상 수치는 쓰지 않는다. 200~350자',
     [COLLECTION.READING]: '자료마다 제목, 자료 종류, 핵심 내용, 내 해석을 카드로 적는다는 계획을 쓴다. 몇 개를 읽을지와 무엇을 찾을지가 드러나야 한다. 아직 읽지 않았으므로 내용을 미리 쓰지 않는다. 200~350자',
   };
+  // **자료원은 방법 절에 밝힌다.** 사용자 지적 2026-09-23: 보고서는 학생이 쓴 글이고, 출처는
+  // 방법 절 한 줄과 참고문헌으로 밝히는 것이다. 「이건 제가 안 했습니다」 같은 고백은 보고서
+  // 문장이 아니다. 지금까지는 운이 좋을 때만 들어갔다 — 이제 반드시 들어가게 한다.
+  if (stage === STAGE.FINAL && /탐구 방법/.test(String(title)) && kind !== COLLECTION.MEASUREMENT) {
+    return '자료원과 고른 기준, 옮겨 적은 범위(어느 대상·어느 기간), 단위를 어떻게 맞췄는지를 과거형으로 쓴다. **첫 문장에 자료원을 밝힌다** — 「자료원은 ○○(기관)의 ○○ 자료다」처럼 한 줄로 쓴다. 학생이 적은 출처 메모가 있으면 그 이름을 쓰고, 없으면 과제문에 적힌 자료 이름을 쓴다. 이것은 보고서의 표준 형식이지 변명이 아니다 — 「제가 구한 값이 아닙니다」처럼 쓰지 않는다. 학생이 적지 않은 절차를 했다고 단정하지 않는다. 500~800자';
+  }
   if (stage === STAGE.DRAFT && /탐구 방법/.test(String(title)) && draftMethod[kind]) return draftMethod[kind];
   if (stage === STAGE.DRAFT && /결과 기록 계획/.test(String(title)) && draftRecord[kind]) return draftRecord[kind];
   return stageSectionGuideBase(title, stage);
@@ -1414,6 +1445,14 @@ export function finalizeStageOutput(stage, rawParsed, input) {
     // AI가 적은 계산을 코드가 다시 해 보고, 맞는 계산의 답만 본문에 쓸 수 있는 숫자로 더한다(calc_check_v1).
     const calculation = verifyCalculations(parsed?.calculations, allowed);
     calculation.allowed.forEach((number) => allowed.add(number));
+    // 우리가 **실제로 준** 자료의 이름. 지식 절에서 근거로 댈 수 있는 것은 이것뿐이다.
+    const sourceNames = [
+      ...(input.referenceDatasets || []).flatMap((one) => [one?.title, one?.org, one?.orgName]),
+      ...refPapers.flatMap((one) => [one?.title, one?.author, one?.journal]),
+      ...refWeb.flatMap((one) => [one?.title, one?.org]),
+      ...(data.sourceCards || []).map((one) => one?.title),
+      input.textbookCitation, input.subject,
+    ].filter(Boolean).map((one) => String(one));
     const studentText = [data.reason, data.observations, data.reflection].join(' ');
     let removed = 0;
     let removedFeelings = 0;
@@ -1426,8 +1465,11 @@ export function finalizeStageOutput(stage, rawParsed, input) {
           cards: data.sourceCards, textbook: input.textbookCitation || '',
         }) };
       }
-      const cleanedNumbers = removeUnsupportedNumbers(tidyCalculatedNumbers(scrubInternalNames(input.ingredients ? scrubIngredientIds(section?.body) : section?.body), calculation.verified), allowed,
-        { allowPlans: /결론|제언|후속|느낀 점|고찰|확장|성찰/.test(title) });
+      const tidied = tidyCalculatedNumbers(scrubInternalNames(input.ingredients ? scrubIngredientIds(section?.body) : section?.body), calculation.verified);
+      // 지식 절은 교과 지식을 쓰는 자리다. 숫자를 막지 않고, 없는 근거를 대는 문장만 막는다.
+      const cleanedNumbers = KNOWLEDGE_SECTION.test(title)
+        ? removeUnsourcedClaims(tidied, sourceNames)
+        : removeUnsupportedNumbers(tidied, allowed, { allowPlans: /결론|제언|후속|느낀 점|고찰|확장|성찰/.test(title) });
       const units = removeCrossSubjectUnitClaims(cleanedNumbers.body, input.subject);
       const subjects = removeUnknownSubjectNames(units.body);
       // 안내문에 적힌 기구(선생님이 영상으로 재라고 한 과제)는 그대로 둔다.
@@ -1463,7 +1505,9 @@ export function finalizeStageOutput(stage, rawParsed, input) {
             ? buildSourceCardTable(data.sourceCards) || sanitizeComparisonTable(parsed?.comparisonTable) : null,
           comparisonTableAfterSection: '자료 비교 정리' };
     const recordDraft = buildRecordDraft((Array.isArray(parsed?.recordDraft) ? parsed.recordDraft : []).map((line) => tidyCalculatedNumbers(line, calculation.verified)), allowed);
-    return { parsed: { ...parsed, sections: cleaned }, extra: { ...extra, recordDraft, removedNumberSentences: removed, removedFeelingSentences: removedFeelings,
+    // 학생용 설명서. 보고서 본문에는 안 들어간다 — 따로 준다(사용자 결정 2026-09-23).
+    const reportGuide = buildReportGuide({ input, data, stats, sections: cleaned, title: parsed?.title });
+    return { parsed: { ...parsed, sections: cleaned }, extra: { ...extra, recordDraft, reportGuide, removedNumberSentences: removed, removedFeelingSentences: removedFeelings,
       ...(calculation.verified.length || calculation.rejected.length ? { calculations: calculation.verified, rejectedCalculations: calculation.rejected } : {}),
       ...(droppedSamples.length ? { removedNumberSamples: droppedSamples.slice(0, 8) } : {}),
       ...(used ? { inspiration: inspirationOf(used) } : {}) } };
@@ -1503,5 +1547,6 @@ export function finalizeStageOutput(stage, rawParsed, input) {
   // 확인된 자료가 하나도 없으면(단원을 못 정한 과제) 두 단계 보고서와 같게 과목 교과서 줄 하나를 둔다.
   const closing = verified || [String(input.subject || '').trim(), '교과서 관련 단원'].filter(Boolean).join(' ');
   if (oneShot.length && !oneShot.some((section) => REFERENCE_TITLE.test(String(section?.title || '')))) oneShot.push({ title: '참고 자료', body: closing });
-  return { parsed: { ...parsed, sections: oneShot }, extra: { removedFeelingSentences: removedPraise, ...(used ? { inspiration: inspirationOf(used) } : {}) } };
+  const oneShotGuide = buildReportGuide({ input, data: normalizeStudentData(null), stats: null, sections: oneShot, title: parsed?.title });
+  return { parsed: { ...parsed, sections: oneShot }, extra: { reportGuide: oneShotGuide, removedFeelingSentences: removedPraise, ...(used ? { inspiration: inspirationOf(used) } : {}) } };
 }

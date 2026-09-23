@@ -332,13 +332,23 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
     "L2 공공데이터도 넉넉히 받아 두고 고른다");
 }
 
-// L3: **AI는 이것들을 보지 않는다.** 보고서 본문이 논문 쪽으로 끌려가면 안 된다.
+// L3: **논문은 AI가 보지 않는다.** 보고서 본문이 논문 쪽으로 끌려가면 끼워 맞추기가 된다.
+//
+// 2026-09-23에 **공공데이터는 예외가 됐다.** 사용자 지적: 「학생이 모르는 것을 넣지 않는다」는
+// 전제가 틀렸다. 자료원을 AI에게 안 알려 주면 보고서가 「공공데이터 포털에서 찾아라」라고 말만
+// 하고 어디인지 못 적는다. 이제 **자료의 이름과 기관까지는** 보낸다.
+// 값은 여전히 안 보낸다 — 우리도 모르기 때문이다(목록 API는 값을 안 준다).
 {
   const at = worker.indexOf("function buildPrompt(");
   const body = worker.slice(at, worker.indexOf("\nfunction ", at + 50));
   check(at > 0 && body.length > 500, "L3 프롬프트를 만드는 곳을 찾았다", String(body.length));
-  for (const name of ["referencePapers", "referenceDatasets", "papers", "datasets"]) {
+  for (const name of ["referencePapers"]) {
     check(!body.includes(name), `L3 프롬프트에 ${name} 가 안 들어간다 — 보고서는 학생 과제문과 학생 데이터로만 쓴다`);
   }
+  // 공공데이터는 **이름과 기관까지만** 간다. 그리고 「수치를 지어내지 마라」가 함께 간다.
+  const pd = await readFile(new URL("../../../admission_worker_skeleton/public_data_v1.mjs", import.meta.url), "utf8");
+  check(body.includes("datasetPromptLines(input.referenceDatasets)"), "L3 공공데이터 자료원은 프롬프트로 간다");
+  check(/이 자료의 수치를 지어내지 않는다/.test(pd), "L3 그러면서 「수치를 지어내지 마라」를 함께 이른다");
+  check(/읽고 알게 되었다[^]{0,30}쓰지 않는다/.test(pd), "L3 읽은 척하지 말라고도 이른다");
 }
 console.log(`\n${passed} checks passed`);

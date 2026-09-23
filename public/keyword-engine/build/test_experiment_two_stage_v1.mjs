@@ -509,3 +509,42 @@ console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
       { label: "딕셔너리 · 1000개", values: ["0.034", "0.031", "0.035"] }] }) }).join("\n");
   check(/뒤가 같은 조건끼리만/.test(finalRules), "견줄 수 없는 조건을 나누지 말라고 이른다", finalRules.slice(0, 120));
 }
+
+// 사용자 지적 2026-09-23: 「학생이 모르는 것을 넣지 않는다」는 전제가 틀렸다. 학생은 모르는 것이
+// 맞고, 모르는 것을 정리해 주는 것이 이 프로그램이 하는 일이다. 지어내기를 막는 장치가
+// **가르치기를 막고** 있었다 — 이론적 배경에서 「중력가속도는 9.8 m/s^2」이 통째로 지워졌다.
+{
+  const M = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  const know = ["중력가속도는 약 9.8 m/s^2 이다.", "표준 상태에서 기체 1몰의 부피는 22.4 L 이다."].join(" ");
+  const kept = M.removeUnsourcedClaims(know, ["데이터 과학"]);
+  check(/9\.8/.test(kept.body) && /22\.4/.test(kept.body), "교과 지식의 숫자는 지식 절에서 살아남는다", kept.body);
+
+  const sourced = M.removeUnsourcedClaims("환경부 대기오염 측정자료에 따르면 연평균은 21 ㎍/㎥ 였다.", ["환경부 대기오염 측정자료"]);
+  check(/21/.test(sourced.body), "우리가 준 자료를 가리키면 그대로 둔다", sourced.body);
+
+  const bad = M.removeUnsourcedClaims("선행 연구에 따르면 참여율이 78% 로 나타났다.", ["환경부 대기오염 측정자료"]);
+  check(!/78/.test(bad.body), "우리가 주지 않은 근거를 대면 지운다", bad.body);
+
+  // 결과 절은 그대로다 — 거기 숫자는 학생 데이터에서만 나와야 한다.
+  check(M.KNOWLEDGE_SECTION.test("이론적 배경") && !M.KNOWLEDGE_SECTION.test("탐구 결과"),
+    "지식 절과 결과 절을 가른다");
+
+  // 자료 과제의 방법 절에는 자료원을 반드시 밝히게 한다.
+  check(/첫 문장에 자료원을 밝힌다/.test(M.stageSectionGuide("탐구 방법", STAGE.FINAL, COLLECTION.DATASET)),
+    "자료 과제는 방법 절에 자료원을 밝힌다");
+  check(!/첫 문장에 자료원을 밝힌다/.test(M.stageSectionGuide("탐구 방법", STAGE.FINAL, COLLECTION.MEASUREMENT)),
+    "직접 잰 과제에는 그 규칙을 주지 않는다");
+
+  // 학생용 설명서 — AI 없이 우리가 아는 사실로만 만든다.
+  const { buildReportGuide } = await import("../../../admission_worker_skeleton/report_guide_v1.mjs");
+  const gData = normalizeStudentData({ measurementName: "대여 건수", unit: "건",
+    conditions: [{ label: "1월", values: ["182450"], note: "공공데이터 포털, 2026-09-22 조회" }] });
+  const guide = buildReportGuide({ input: { subject: "데이터 과학", collectionKind: COLLECTION.DATASET,
+    referenceDatasets: [{ title: "한국환경공단_에어코리아", org: "한국환경공단" }] },
+    data: gData, stats: computeStats(gData), sections: [{ title: "연구 질문" }], title: "시험" });
+  const flat = guide.blocks.flatMap((one) => one.lines).join(" ");
+  check(guide.blocks.length === 4, "설명서는 네 덩이다", String(guide.blocks.length));
+  check(/한국환경공단/.test(flat), "자료원이 설명서에 들어간다", flat.slice(0, 80));
+  check(/공공데이터 포털, 2026-09-22 조회/.test(flat), "내가 적은 출처 메모가 들어간다");
+  check(/제출하지 않아요/.test(flat), "설명서는 제출하지 않는다고 알려 준다");
+}

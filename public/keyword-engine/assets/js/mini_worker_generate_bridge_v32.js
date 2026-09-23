@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v288_paper_reading_step
+// SCREEN_VERSION: v289_report_guide
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v288-paper-reading-step";
+  const VERSION = "mini-worker-generate-bridge-v289-report-guide";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -2810,6 +2810,51 @@
       </section>`;
   }
 
+  // **보고서 설명서** — 학생에게 「이게 무슨 보고서이고 어떻게 만들어졌는지」 알려 준다.
+  //
+  // 사용자 결정 2026-09-23: 학생에게 두 가지를 준다 — ①그대로 낼 수 있는 보고서 ②이 설명서.
+  // 「그냥 보고서만 주면 무슨 내용인지 모를 수 있으니까」가 그 이유다.
+  // 내용은 워커가 **우리가 아는 사실로만** 만든다(report_guide_v1). AI가 쓴 글이 아니다.
+  function renderReportGuide(guide){
+    const blocks = Array.isArray(guide?.blocks) ? guide.blocks.filter(one => (one?.lines || []).length) : [];
+    if(!blocks.length) return "";
+    return `
+      <section class="mini-guide" id="miniReportGuide">
+        <div class="mini-v43-kicker">보고서 설명서</div>
+        <h3>이 보고서가 무엇인지 읽어 보세요</h3>
+        <p class="mini-guide-help">보고서는 위에 있는 것을 그대로 내면 돼요. <b>이 설명서는 제출하지 않아요</b> — 내가 무엇을 내는 것인지 알고 내라고 만든 거예요.</p>
+        ${blocks.map(block => `
+          <div class="mini-guide-b">
+            <b>${escapeHtml(block.head)}</b>
+            <ul>${(block.lines || []).map(line => `<li>${escapeHtml(line)}</li>`).join("")}</ul>
+          </div>`).join("")}
+        <div class="mini-v229-actions"><button type="button" id="miniGuideDownloadBtn" class="secondary">설명서 내려받기</button></div>
+      </section>`;
+  }
+
+  // 설명서를 그 자체로 한 장짜리 파일로 만든다. 보고서와 **따로** 받는다.
+  function downloadReportGuide(guide){
+    const blocks = Array.isArray(guide?.blocks) ? guide.blocks : [];
+    const body = blocks.map(block => `<section><h2>${escapeHtml(block.head)}</h2><ul>${(block.lines || []).map(line => `<li>${escapeHtml(line)}</li>`).join("")}</ul></section>`).join("");
+    const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8">`
+      + `<meta name="viewport" content="width=device-width,initial-scale=1">`
+      + `<title>보고서 설명서 — ${escapeHtml(guide?.title || "")}</title><style>`
+      + `body{font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;max-width:760px;margin:40px auto;padding:0 24px;color:#111827;line-height:1.85}`
+      + `h1{font-size:21px;margin:0 0 4px}.t{color:#6b7280;font-size:13.5px;margin:0 0 24px}`
+      + `section{margin:0 0 20px}h2{font-size:15px;margin:0 0 6px;color:#1f2937}`
+      + `ul{margin:0;padding-left:20px}li{margin:3px 0;font-size:14px}`
+      + `.f{margin-top:26px;padding-top:12px;border-top:1px solid #e5e7eb;color:#6b7280;font-size:12.5px}`
+      + `</style></head><body><h1>보고서 설명서</h1>`
+      + `<p class="t">${escapeHtml(guide?.title || "")}</p>${body}`
+      + `<p class="f">이 설명서는 제출하지 않아요. 보고서만 내면 됩니다.</p></body></html>`;
+    const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "보고서_설명서.html";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+  }
+
   function renderRecordDraft(lines){
     if(!Array.isArray(lines) || lines.length < 3) return "";
     return `
@@ -4388,6 +4433,7 @@ ${result}`;
         ${renderPaperGuide(rawData?.paperGuide)}
         ${stage === "experiment_draft" ? renderCollectionPanel(stageResult, rawData?.bookChoices) : renderBookPick(rawData?.bookChoices)}
         ${renderNextStep(rawData?.nextStep)}
+        ${renderReportGuide(stageResult.reportGuide)}
         ${renderRecordDraft(stageResult.recordDraft)}
       </section>
     `;
@@ -4402,6 +4448,7 @@ ${result}`;
     });
     $("miniV32CopyReportBtn")?.addEventListener("click", () => navigator.clipboard?.writeText(reportPlainText));
     $("miniRecordCopyBtn")?.addEventListener("click", () => navigator.clipboard?.writeText((stageResult.recordDraft || []).join("\n")));
+    $("miniGuideDownloadBtn")?.addEventListener("click", () => downloadReportGuide(stageResult.reportGuide));
     $("miniV32DownloadReportBtn")?.addEventListener("click", () => downloadReportHtml(reportTitle, metadata, displaySections, {
       subject: s.subject || req.subject || "",
       grade: readValue("grade") || req.grade || "",
