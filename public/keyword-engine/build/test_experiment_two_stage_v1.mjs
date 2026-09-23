@@ -548,3 +548,15 @@ console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
   check(/공공데이터 포털, 2026-09-22 조회/.test(flat), "내가 적은 출처 메모가 들어간다");
   check(/제출하지 않아요/.test(flat), "설명서는 제출하지 않는다고 알려 준다");
 }
+
+// 운영 검사 2026-09-23(데이터 과학 미세먼지): 표 머리글이 「마이크로그램 매 세제곱미터」로 나왔다.
+// 학생이 그대로 내면 교과서에 없는 표기다.
+{
+  const M = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  const pairs = [["마이크로그램 매 세제곱미터", "μg/m³"], ["밀리그램 매 리터", "mg/L"],
+    ["와트 매 제곱미터", "W/m²"], ["도 섭씨", "°C"], ["피피엠", "ppm"]];
+  for (const [said, want] of pairs) {
+    check(M.symbolUnit(said) === want, `「${said}」은 ${want} 로 적는다`, M.symbolUnit(said));
+  }
+  check(M.symbolUnit("건") === "건", "기호가 없는 단위는 그대로 둔다", M.symbolUnit("건"));
+}
