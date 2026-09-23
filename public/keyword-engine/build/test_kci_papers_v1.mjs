@@ -191,8 +191,13 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
   // 참고 자료가 되고 화면에 "교과 확장에 쓴 연구"로 보인다. 낱말 규칙(routePapers)은 재료를 꺼 두었을 때만.
   check(worker.includes("if (input.reportStage !== STAGE.DRAFT) paperGuide = inspirationGuide(result?.inspiration);"),
     "G8 최종 보고서 화면에 교과 확장에 쓴 연구");
-  check(/const shard = finalStage && !input\.ingredients \? await loadPaperShard/.test(worker),
-    "G8 낱말 규칙은 재료가 없을 때(INGREDIENTS=off)만");
+  // 2026-09-23: 설계서도 이 묶음을 읽는다. 다만 설계서에서는 **화면 안내서로만** 쓴다 —
+  // 참고 자료 줄로는 쓰지 않고 AI에게도 안 보낸다. 최종 보고서 쪽 규칙(재료가 없을 때만
+  // 낱말 규칙으로 참고 논문을 고른다)은 그대로다.
+  check(/const shard = \(finalStage && !input\.ingredients\) \|\| draftStage \? await loadPaperShard/.test(worker),
+    "G8 낱말 규칙은 재료가 없을 때(INGREDIENTS=off)만 — 설계서는 화면 안내서용으로만 읽는다");
+  check(/if \(draftStage\) paperGuide = guideBlock\(query, picked\);[\s]*else input\.referencePapers = picked\.map\(citationRow\);/.test(worker),
+    "G8 설계서에서 고른 논문은 참고 자료 줄이 되지 않는다");
   // 개념 이름이 교육과정 단원 이름과 다를 때가 있다. 대학 연구에서 겪은 그대로다.
   check(/anchor: \[input\.selectedKeyword \|\| input\.keyword, input\.taskTitle, reportConcept, axisConceptName\(seedPack, reportAxis\)\]/.test(worker),
     "G8 중심 칸은 학생 키워드·과제 제목·개념·축의 단원 이름에서 온다");
