@@ -582,3 +582,21 @@ console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
   const none = R.studentSourceLines([{ label: "가", values: ["1"], note: "색이 연했다" }]);
   check(none.length === 0, "출처가 아닌 메모만 있으면 아무것도 안 넣는다", JSON.stringify(none));
 }
+
+// 2026-09-23: 받을 자리만 만들고 **넘겨주는 곳을 빠뜨려서** 보고서에 안 나왔다.
+// 그래서 함수 하나가 아니라 **보고서를 끝까지 만들어** 참고 자료를 본다.
+{
+  const M = await import("../../../admission_worker_skeleton/report_stages_v1.mjs");
+  const data = normalizeStudentData({ measurementName: "농도", unit: "μg/m³", conditions: [
+    { label: "대전 · 1월", values: ["28.4"], note: "공공데이터 포털 대기오염 월별 통계, 2026-09-23 조회" },
+    { label: "부산 · 1월", values: ["26.9"], note: "값이 조금 튀어 보임" },
+  ] });
+  const out = M.finalizeStageOutput(STAGE.FINAL,
+    { title: "시험", sections: [{ title: "탐구 결과", body: "대전 1월은 28.4였다." }, { title: "참고 자료", body: "" }] },
+    { studentData: data, subject: "데이터 과학", collectionKind: COLLECTION.DATASET,
+      textbookCitation: "데이터 과학 교과서 · 데이터 수집과 전처리 단원" });
+  const ref = (out.parsed.sections || []).find((one) => /참고 자료/.test(one.title));
+  check(/대기오염 월별 통계/.test(ref?.body || ""), "보고서 참고 자료에 학생이 적은 자료원이 들어간다", ref?.body);
+  check(/교과서/.test(ref?.body || ""), "교과서 줄도 함께 남는다", ref?.body);
+  check(!/튀어 보임/.test(ref?.body || ""), "관찰 메모는 참고 자료에 안 들어간다", ref?.body);
+}
