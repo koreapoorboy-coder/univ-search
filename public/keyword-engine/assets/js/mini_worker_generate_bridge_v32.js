@@ -2982,13 +2982,32 @@
   // 참고 도서 칸이 아예 안 나왔다. 학교가 책을 시키는 과제는 대개 글쓰기형이라 가장 필요한 자리였다.
   // **통계표로 미리 채워진 표.** 워커가 KOSIS 씨앗에서 가져온 진짜 값이다(filledTable).
   // 사용자 결정 2026-09-23: 학생이 공공데이터 포털에서 찾아 옮겨 적는 것은 너무 힘들다.
-  // 우리가 채워 주고 학생은 읽고 해석을 쓴다. **학생이 값을 고칠 수 있게 둔다** —
-  // 다른 지역이나 다른 해를 보고 싶을 수 있고, 고치면 그 값으로 보고서가 만들어진다.
+  // 우리가 채워 주고 학생은 읽고 해석을 쓴다.
+  //
+  // **줄 이름도 함께 바꾼다.** 처음에는 값만 칸에 넣었더니 AI가 지어낸 줄 이름(마포구·영등포구)에
+  // 우리 표의 값(서울특별시 인구)이 순서대로 들어가 「마포구 = 9,509,458」이 나왔다
+  // (운영 검사 2026-09-23). 값과 이름은 **같은 표에서** 와야 한다. 하나라도 어긋나면 거짓이 된다.
+  function mergeFilled(template, filled){
+    if(!filled || !Array.isArray(filled.conditions) || filled.conditions.length < 2) return template;
+    return {
+      ...(template || {}),
+      measurementName: filled.measurementName || template?.measurementName,
+      unit: filled.unit || template?.unit,
+      scaleGuide: filled.scaleGuide || template?.scaleGuide,
+      conditions: filled.conditions.map(one => one.label),
+      trials: 1,
+    };
+  }
+
+  // 줄 이름을 바꿔 그린 **뒤에** 값을 넣는다. 이름과 값이 같은 차례이므로 어긋나지 않는다.
+  // 학생이 이미 적은 칸은 덮어쓰지 않는다 — 다른 지역·다른 해를 보고 싶을 수 있다.
   function applyFilledTable(filled){
     if(!filled || !Array.isArray(filled.conditions) || !filled.conditions.length) return;
     const panel = document.querySelector("#miniExpPanel");
     if(!panel) return;
     filled.conditions.forEach((row, at) => {
+      const head = panel.querySelector(`tbody tr:nth-child(${at + 1}) th`);
+      if(!head || head.textContent.trim() !== row.label) return;   // 이름이 다르면 넣지 않는다
       const box = panel.querySelector(`input[data-row="${at}"][data-trial="0"]`);
       if(box && !box.value) { box.value = String(row.values?.[0] ?? ""); box.dispatchEvent(new Event("input", { bubbles: true })); }
     });
@@ -2999,10 +3018,10 @@
       + ` (조회일 ${escapeHtml(filled.source?.accessed || "")}). 값을 바꾸고 싶으면 칸을 고쳐도 돼요.`;
   }
 
-  function renderCollectionPanel(result, books){
+  function renderCollectionPanel(result, books, filled){
     const pick = renderBookPick(books);
     if(result?.collectionKind === "reading") return result?.sourceTemplate ? pick + renderSourceCardPanel(result.sourceTemplate) : pick;
-    return result?.dataTemplate ? pick + renderExperimentInputPanel(result.dataTemplate, result.collectionKind) : pick;
+    return result?.dataTemplate ? pick + renderExperimentInputPanel(mergeFilled(result.dataTemplate, filled), result.collectionKind) : pick;
   }
 
   // 실험·설문·자료 해석 보고서의 자료 카드. 읽기 보고서와 달리 핵심 내용은 묻지 않고 "얻은 것"만 묻는다 —
@@ -4450,7 +4469,7 @@ ${result}`;
           ${sectionHtml}
         </div>
         ${renderPaperGuide(rawData?.paperGuide)}
-        ${stage === "experiment_draft" ? renderCollectionPanel(stageResult, rawData?.bookChoices) : renderBookPick(rawData?.bookChoices)}
+        ${stage === "experiment_draft" ? renderCollectionPanel(stageResult, rawData?.bookChoices, rawData?.filledTable) : renderBookPick(rawData?.bookChoices)}
         ${renderNextStep(rawData?.nextStep)}
         ${renderReportGuide(stageResult.reportGuide)}
         ${renderRecordDraft(stageResult.recordDraft)}

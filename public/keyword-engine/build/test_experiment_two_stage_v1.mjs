@@ -640,3 +640,18 @@ console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
   check(/applyFilledTable\(rawData\?\.filledTable\)/.test(bridge), "화면이 그 값을 표에 넣는다");
   check(/if\(box && !box\.value\)/.test(bridge), "학생이 이미 적은 칸은 덮어쓰지 않는다");
 }
+
+// 운영 검사 2026-09-23: 값만 칸에 넣었더니 AI가 지어낸 줄 이름(마포구)에 우리 표의 값
+// (서울특별시 인구 9,509,458)이 순서대로 들어가 **「마포구 = 9,509,458」**이 나왔다.
+// 값과 이름은 같은 표에서 와야 한다.
+{
+  const bridge = await readFile(new URL("../assets/js/mini_worker_generate_bridge_v32.js", import.meta.url), "utf8");
+  check(/conditions: filled\.conditions\.map\(one => one\.label\)/.test(bridge),
+    "줄 이름도 우리 표에서 가져온다 — AI가 지어낸 이름을 쓰지 않는다");
+  check(/renderExperimentInputPanel\(mergeFilled\(result\.dataTemplate, filled\)/.test(bridge),
+    "표를 그리기 **전에** 바꿔 끼운다");
+  check(/head\.textContent\.trim\(\) !== row\.label\) return;/.test(bridge),
+    "그래도 이름이 다르면 값을 넣지 않는다 — 두 겹으로 막는다");
+  check(/renderCollectionPanel\(stageResult, rawData\?\.bookChoices, rawData\?\.filledTable\)/.test(bridge),
+    "화면이 채운 표를 넘겨받는다");
+}
