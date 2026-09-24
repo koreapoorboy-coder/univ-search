@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v291_review_wait
+// SCREEN_VERSION: v292_draft_review_wait
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v291-review-wait";
+  const VERSION = "mini-worker-generate-bridge-v292-draft-review-wait";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -62,7 +62,7 @@
     if(el) el.style.display = "none";
   }
   // 2026-09-24: 검수(gpt-5 가 한 번 더 읽고 고친다)를 붙여 최종 보고서가 95초 → 223초가 됐다.
-  // 안내가 「2~3분」이면 학생이 기다리다 새로고침해 보고서를 잃는다. 설계서는 검수하지 않아 그대로 둔다.
+  // 안내가 「2~3분」이면 학생이 기다리다 새로고침해 보고서를 잃는다. 설계서도 2026-09-24 에 함께 올렸다.
   function setLoading(isLoading){
     const btn = $("generateBtn");
     const resetBtn = $("resetBtn");
@@ -5089,7 +5089,8 @@ ${result}`;
       if(!line) return;
       global.__MINI_PRIOR_WORK__ = { ...analysis, chosenLine: line };
       button.disabled = true;
-      button.textContent = "설계서 만드는 중... (최대 2~3분)";
+      // 2026-09-24: 설계서에도 검수를 붙여 84~257초가 됐다. 어제 최종 보고서만 고치고 여기를 빠뜨렸다.
+      button.textContent = "설계서 만드는 중... (최대 3~5분)";
       runGenerate();
     }));
     root.scrollIntoView?.({ behavior: "smooth", block: "start" });
