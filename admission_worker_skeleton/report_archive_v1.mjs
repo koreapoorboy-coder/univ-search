@@ -75,9 +75,15 @@ export async function ensureArchiveTable(db) {
       reasoning_tokens INTEGER,
       cost_krw INTEGER,
       took_ms INTEGER,
-      source TEXT
+      source TEXT,
+      review_count INTEGER,
+      review_json TEXT
     )
   `).run();
+  // 검수 칸은 2026-09-24 에 붙였다. 이미 만들어진 표에는 ALTER 로 더한다 — 있으면 그냥 실패한다.
+  for (const [column, type] of [['review_count', 'INTEGER'], ['review_json', 'TEXT']]) {
+    try { await db.prepare(`ALTER TABLE report_outputs ADD COLUMN ${column} ${type}`).run(); } catch { /* 이미 있다 */ }
+  }
   // 과목별로 훑고, 한 보고서를 이어 보고, 코드로 붙일 때 쓴다.
   await db.prepare('CREATE INDEX IF NOT EXISTS idx_report_outputs_subject ON report_outputs (subject, report_stage)').run();
   await db.prepare('CREATE INDEX IF NOT EXISTS idx_report_outputs_report ON report_outputs (report_id)').run();
@@ -148,6 +154,13 @@ export function archiveRow(input, result, meta = {}) {
     measure_tag: clean(combination.measureTag, 40),
     title: scrubForArchive(clean(result?.reportTitle, 300)),
     body_json: JSON.stringify(sections),
+    // 검수가 무엇을 찾아 고쳤는지 남긴다. 이것이 없으면 검수가 도움이 됐는지 나중에 알 수 없다.
+    review_count: (meta.review?.findings || []).length,
+    review_json: meta.review ? JSON.stringify({
+      findings: (meta.review.findings || []).map((one) => ({ kind: one?.kind, section: clean(one?.section, 40), why: scrubForArchive(clean(one?.why, 200)) })),
+      applied: meta.review.applied || [], skipped: meta.review.skipped || [],
+      droppedCount: (meta.review.dropped || []).length,
+    }) : null,
     record_draft: (result?.recordDraft || []).map((line) => scrubForArchive(clean(line, 200))).join('\n'),
     section_count: sections.length,
     body_chars: sections.reduce((total, section) => total + section.text.length, 0),
@@ -167,6 +180,7 @@ const COLUMNS = [
   'axis_id', 'axis_title', 'cross_subject', 'major_path', 'case_tag', 'variable_tag', 'measure_tag',
   'title', 'body_json', 'record_draft', 'section_count', 'body_chars',
   'model', 'input_tokens', 'output_tokens', 'reasoning_tokens', 'cost_krw', 'took_ms', 'source',
+  'review_count', 'review_json',
 ];
 
 export async function saveReportOutput(db, input, result, meta = {}) {

@@ -14,6 +14,7 @@ import { textbookCitation } from './references_v1.mjs';
 import { buildConceptCounts, buildMajorCounts, buildWordCounts, inferConcept, matchBooks } from './book_match_v1.mjs';
 import { datasetPromptLines, findPublicData } from './public_data_v1.mjs';
 import { buildFilledTable, findTable } from './kosis_fill_v1.mjs';
+import { applyReview, buildReviewPrompt, reviewNotes, reviewSchema } from './report_review_v1.mjs';
 import { pickForTask } from './univ_research_v1.mjs';
 import { citationRow, contentWords, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';
 import { accessDate, aliveOnly, asResearch, pickUnivWeb } from './univ_web_v1.mjs';
@@ -675,11 +676,38 @@ export default {
         // AI가 쓴 것을 남기려면 언제 시작했는지부터 알아야 한다.
         const startedAt = Date.now();
         const reportId = `r-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+        let reviewInfo = null;
 
         if (env.OPENAI_API_KEY && String(env.ALLOW_STUB).toLowerCase() === 'false') {
           try {
-            ({ result, usage } = await callOpenAIWithRetry(prompt, env, input));
+            let rawParsed;
+            ({ result, usage, parsed: rawParsed } = await callOpenAIWithRetry(prompt, env, input));
             source = 'openai';
+            // **검수.** 다 지은 보고서를 gpt-5 가 한 번 더 읽고 고친다(약 ₩96 더, 2026-09-24 실측).
+            // 설계서(DRAFT)는 검수하지 않는다 — 아직 학생이 표를 채우지 않아 맞출 숫자가 없다.
+            // REPORT_REVIEW=off 로 끌 수 있다.
+            const forReview = rawParsed?.sections?.length ? { ...rawParsed, figures: result?.figures } : null;
+            if (String(env.REPORT_REVIEW || 'on').toLowerCase() !== 'off' && input.reportStage !== STAGE.DRAFT && forReview) {
+              try {
+                const checked = await callReview(forReview, env, input);
+                if (checked) {
+                  reviewInfo = checked.review;
+                  usage = mergeUsage(usage, checked.usage);
+                  if (checked.review.applied.length) {
+                    // 고친 절로 **관문과 합치기를 원래 자리에서 다시 한 번** 돌린다.
+                    // 검수가 지어낸 숫자나 없는 자료를 댄 문장은 여기서 지워지고, 검산한 숫자는 살아남는다.
+                    result = buildStageResult(input.reportStage || STAGE.COMPLETE, { ...rawParsed, sections: checked.sections }, input);
+                  }
+                  const lines = reviewNotes(checked.review);
+                  if (result?.reportGuide && lines.length) {
+                    result = { ...result, reportGuide: { ...result.reportGuide, blocks: withReviewBlock(result.reportGuide.blocks, lines) } };
+                  }
+                }
+              } catch (error) {
+                // 검수가 실패해도 **보고서는 그대로 나간다.** 검수는 덧붙이는 것이고 관문이 아니다.
+                console.error('report review failed:', error?.message || error);
+              }
+            }
             // The report becomes a row under the student's own code, so three years of them add up to something.
             // The 학생 이름 is not part of it — the code is the key, and the name never travels with the work.
             if (env.DB && input.studentCode && result?.reportTitle) {
@@ -724,6 +752,7 @@ export default {
               reportId, taskKey: taskKeyOf(input), usage, source,
               model: env.OPENAI_MODEL || '', tookMs: Date.now() - startedAt,
               structure: input.reportShape?.structure || '',
+              review: reviewInfo,
             });
           } catch (error) {
             // 보관에 실패해도 학생의 보고서는 그대로 나간다.
@@ -1547,6 +1576,65 @@ function buildPrompt(input, seedMatch, env) {
 }
 
 // One retry: a single transient model or parsing error should not cost the student a failed report.
+// **검수 호출.** 다 지은 보고서를 gpt-5 가 한 번 더 읽는다. 보고서 하나에 약 ₩112 더 든다.
+// 본문을 새로 짓는 것이 아니라 흠을 찾아 그 절만 다시 쓰게 하므로, 생각 단계는 낮게 둔다.
+async function callReview(report, env, input) {
+  const model = env.OPENAI_REVIEW_MODEL || env.OPENAI_MODEL || 'gpt-5';
+  const reasoningModel = /^(gpt-5|o\d)/.test(model);
+  const res = await fetch('https://api.openai.com/v1/responses', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${env.OPENAI_API_KEY}` },
+    body: JSON.stringify({
+      model,
+      input: buildReviewPrompt(report, input),
+      ...(reasoningModel ? { reasoning: { effort: env.OPENAI_REASONING_EFFORT_REVIEW || 'low' } } : { temperature: 0.2 }),
+      max_output_tokens: reasoningModel ? 16000 : 6000,
+      text: { format: { type: 'json_schema', name: 'report_review', schema: reviewSchema() } },
+    }),
+  });
+  const body = await res.json();
+  if (!res.ok) throw new Error(body?.error?.message || `OpenAI review error ${res.status}`);
+  const message = (body?.output || []).find((item) => item?.type === 'message') || body?.output?.[0];
+  const content = message?.content?.find((part) => part?.type === 'output_text')?.text || message?.content?.[0]?.text || body?.output_text;
+  if (!content) throw new Error('review response had no text');
+  const parsed = JSON.parse(content);
+  const { sections, review } = applyReview(report, parsed);
+  return {
+    sections,
+    review,
+    usage: {
+      model: String(body?.model || model),
+      input_tokens: Number(body?.usage?.input_tokens || 0),
+      output_tokens: Number(body?.usage?.output_tokens || 0),
+      reasoning_tokens: Number(body?.usage?.output_tokens_details?.reasoning_tokens || 0),
+    },
+  };
+}
+
+// 설명서는 이미 만들어져 있다. 검수 칸만 「내기 전에 볼 것」 앞에 끼운다.
+function withReviewBlock(blocks, lines) {
+  const next = (blocks || []).filter((one) => one?.head !== '검수에서 고친 것');
+  const at = next.findIndex((one) => one?.head === '내기 전에 볼 것');
+  const block = { head: '검수에서 고친 것', lines };
+  if (at < 0) return [...next, block];
+  return [...next.slice(0, at), block, ...next.slice(at)];
+}
+
+// 검수 호출의 토큰을 본 호출에 더한다. 한 보고서에 든 돈이 한 줄로 남아야 한다.
+function mergeUsage(first, second) {
+  if (!second) return first;
+  if (!first) return second;
+  return {
+    model: first.model,
+    reviewModel: second.model,
+    input_tokens: Number(first.input_tokens || 0) + Number(second.input_tokens || 0),
+    output_tokens: Number(first.output_tokens || 0) + Number(second.output_tokens || 0),
+    reasoning_tokens: Number(first.reasoning_tokens || 0) + Number(second.reasoning_tokens || 0),
+    review_input_tokens: Number(second.input_tokens || 0),
+    review_output_tokens: Number(second.output_tokens || 0),
+  };
+}
+
 async function callOpenAIWithRetry(prompt, env, input) {
   try {
     return await callOpenAI(prompt, env, input);
@@ -1631,6 +1719,9 @@ async function callOpenAI(prompt, env, input = {}) {
   }
   return {
     result: buildStageResult(stage, parsed, input),
+    // 검수는 **합치기 전 절**에 대고 해야 한다. 최종 보고서는 절이 한 덩어리 글로 합쳐져
+    // sections 가 사라진다 — 합친 뒤에 검수하려 했더니 검수가 한 번도 돌지 않았다(2026-09-24).
+    parsed,
     usage: {
       model: String(body?.model || model),
       input_tokens: Number(body?.usage?.input_tokens || 0),

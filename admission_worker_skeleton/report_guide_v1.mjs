@@ -21,7 +21,7 @@ const KIND_WORD = {
 
 const clip = (value, max) => String(value ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
 
-export function buildReportGuide({ input = {}, data = {}, stats = null, sections = [], title = '' } = {}) {
+export function buildReportGuide({ input = {}, data = {}, stats = null, sections = [], title = '', reviewLines = [] } = {}) {
   const kind = input.collectionKind || COLLECTION.NONE;
   const rows = (stats?.rows || []).filter((one) => (one?.values || []).length);
   const filled = rows.reduce((sum, one) => sum + one.values.length, 0);
@@ -65,6 +65,8 @@ export function buildReportGuide({ input = {}, data = {}, stats = null, sections
       { head: '이 보고서는 무엇인가요', lines: what },
       { head: '무엇으로 만들었나요', lines: how },
       { head: '숫자는 어디에서 왔나요', lines: numbers },
+      // 검수에서 고친 것을 학생에게 알려 준다. 조용히 고치면 학생이 자기 글로 읽을 수 없다.
+      ...(reviewLines.length ? [{ head: '검수에서 고친 것', lines: reviewLines }] : []),
       { head: '내기 전에 볼 것', lines: check },
     ],
   };
