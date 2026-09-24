@@ -693,7 +693,16 @@ export default {
             const forReview = rawParsed?.sections?.length
               ? { ...rawParsed, ...(draftStageNow ? { dataTemplate: result?.dataTemplate } : { figures: result?.figures }) }
               : null;
-            if (String(env.REPORT_REVIEW || 'on').toLowerCase() !== 'off' && forReview) {
+            // **건너뛴 이유도 남긴다.** 두 번이나 「검수가 조용히 안 돌았다」를 겪었다.
+            // 아무 기록이 없으면 안 돌았는지, 흠이 없었는지 구분할 수 없다.
+            const reviewOff = String(env.REPORT_REVIEW || 'on').toLowerCase() === 'off';
+            const skipWhy = reviewOff ? 'REPORT_REVIEW=off'
+              : !forReview ? `합치기 전 절이 없다(sections=${(rawParsed?.sections || []).length}, keys=${Object.keys(rawParsed || {}).join('|').slice(0, 80)})` : '';
+            if (skipWhy) {
+              console.error('report review skipped:', skipWhy);
+              reviewInfo = { findings: [], dropped: [], applied: [], skipped: [], failed: `건너뜀 — ${skipWhy}` };
+            }
+            if (!skipWhy) {
               try {
                 const checked = draftStageNow ? await callDraftReview(forReview, env, input) : await callReview(forReview, env, input);
                 if (checked) {
