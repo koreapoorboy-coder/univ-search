@@ -84,6 +84,10 @@ const realFetch = globalThis.fetch;
 const seedCache = new Map();
 const outbound = new Map();
 let lastPrompt = "";
+// 2026-09-24: 검수를 붙이자 한 보고서에 OpenAI 호출이 **두 번** 생겼다(생성 → 검수).
+// lastPrompt 만 보던 감사는 검수 프롬프트를 보게 되어 「재료_없음」을 2,460건 찍었다.
+// 제품 흠이 아니라 우리 자의 흠이었다. 호출을 **다 모아** 두고 첫 번째(생성)를 본다.
+let prompts = [];
 let publicCalls = 0;
 const sectionTitles = (prompt) => {
   // 번호 목록이 여럿일 수 있다(사례 목록 등). 절 목록은 가장 긴 목록이다.
@@ -132,6 +136,7 @@ globalThis.fetch = async (input, init) => {
   if (url === "https://api.openai.com/v1/responses") {
     const body = JSON.parse(init?.body || (await input.text()));
     lastPrompt = typeof body.input === "string" ? body.input : JSON.stringify(body.input);
+    prompts.push(lastPrompt);
     const out = fake(body.text?.format?.schema);
     // 재료를 받았으면 첫 재료를 '썼다'고 답한다 — 설계서 → 최종 보고서 참고 자료까지 이어지는지 보려고.
     if ("usedIngredients" in out) out.usedIngredients = (lastPrompt.match(/^ {2}([PR]\d)\. /m) || [])[1] ? [lastPrompt.match(/^ {2}([PR]\d)\. /m)[1]] : [];
@@ -171,10 +176,13 @@ console.warn = () => {};
 
 async function generate(payload) {
   lastPrompt = "";
+  prompts = [];
   const res = await worker.fetch(new Request("http://localhost/generate", {
     method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload),
   }), env, { waitUntil() {} });
-  return { status: res.status, data: await res.json().catch(() => ({})), prompt: lastPrompt };
+  // prompt 는 **생성** 프롬프트다. 검수 프롬프트는 reviewPrompt 로 따로 본다.
+  return { status: res.status, data: await res.json().catch(() => ({})),
+    prompt: prompts[0] || "", reviewPrompt: prompts.length > 1 ? prompts[prompts.length - 1] : "", calls: prompts.length };
 }
 
 // ── 규칙 검사 ─────────────────────────────────────────────────────────────────────────
@@ -309,6 +317,12 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
     // 교과 확장 재료(ingredients_v1) — 확장을 쓰는 단계에서 몇 개를 AI에게 보냈고, 결과에 무엇이 실렸나
     row.ingredients = { papers: (f.prompt.match(/^ {2}P\d\. /gm) || []).length, research: (f.prompt.match(/^ {2}R\d\. /gm) || []).length };
     row.inspiration = (f.data.result?.inspiration || []).map((one) => one.title);
+    // **검수가 돌았나.** 오늘 두 번이나 조용히 안 돌았다 — 스키마가 400을 받았고, 배선이 틀렸다.
+    // 겉보기에는 멀쩡한 보고서가 나오니 사람이 알아채지 못한다. 전수로 세는 것이 유일한 방법이다.
+    row.reviewed = { draft: d.calls > 1, final: f.calls > 1 };
+    if (d.calls <= 1) flag("설계서_검수_안돎");
+    if (f !== d && f.calls <= 1) flag("최종_검수_안돎");
+    if (f.reviewPrompt && /^ {2}[PR]\d\. /m.test(f.reviewPrompt)) flag("검수에_재료가_감");
     if (!row.ingredients.papers && !row.ingredients.research) flag(UNIT_SUBJECTS.has(subject) && r.reportConcept ? "재료_없음" : "재료_없음(단원모름)");
     else if (f.data.ok && !row.inspiration.length) flag("재료를_썼는데_결과에_없음");
     row.final = { status: f.status, ok: f.data.ok, source: f.data.source };
