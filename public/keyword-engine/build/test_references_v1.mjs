@@ -68,11 +68,11 @@ const axisIndex = { axes: {
   const lines = body.split("\n");
   check(lines.length === 2 && lines[0].includes("기후변화"), "F4 학생이 적은 것이 먼저", body);
   check(lines[1].includes("교과서"), "F4 교과서는 마지막 한 줄");
-  // 2026-09-24: 출판사·쪽수는 학생만 안다. 빼고 두면 서지가 모자란 줄이 되어 감점된다
+  // 2026-09-25: 「(출판사·쪽수는 …)」를 이 줄에 붙여 보았다가 되돌렸다 — 설계서 26장 중 다섯 장에서
   // (보고서 49장 중 열세 장에서 걸렸다). 채울 자리를 남긴다.
   const onlyBook = referencesBody({ cards: [], textbook: "화학Ⅰ 교과서" });
-  check(onlyBook.startsWith("화학Ⅰ 교과서") && onlyBook.includes("출판사"),
-    "F4 아무것도 안 적었어도 교과서 한 줄은 남고, 채울 자리가 붙는다", onlyBook);
+  check(onlyBook === "화학Ⅰ 교과서",
+    "F4 아무것도 안 적었어도 교과서 한 줄은 남는다", onlyBook);
   const already = referencesBody({ cards: [], fallbackBody: "화학 교과서 관련 단원", textbook: "화학Ⅰ 교과서 · 동적 평형 단원" });
   check(already.split("\n").length === 1, "F4 모델이 이미 교과서를 적었으면 두 번 적지 않는다", already);
   const dupes = referencesBody({ cards: [{ title: "같은 책" }, { title: "같은 책" }], textbook: "" });
@@ -87,9 +87,9 @@ const axisIndex = { axes: {
   // 모델은 "화학 교과서 관련 단원"처럼 뭉뚱그린다. 정확한 단원을 아는데 그 줄을 남기면, 아는 것을 두고
   // 모르는 척한 줄이 보고서에 남는다.
   const vague = referencesBody({ cards: [], fallbackBody: '화학 교과서 관련 단원', textbook: T });
-  check(vague.startsWith(T) && vague.split("\n").length === 1, "F4b a vague textbook line is replaced by the precise one, not kept beside it", vague);
+  check(vague === T, "F4b a vague textbook line is replaced by the precise one, not kept beside it", vague);
   const both = referencesBody({ cards: [{ title: '기후변화 보고서', take: '기온 상승 폭 확인' }], fallbackBody: '화학 교과서 관련 단원', textbook: T });
-  check(both.split("\n").length === 2 && both.split("\n")[1].startsWith(T), "F4b and the student own source survives beside it", both);
+  check(both.split("\n").length === 2 && both.endsWith(T), "F4b and the student own source survives beside it", both);
   check(referencesBody({ cards: [], fallbackBody: T, textbook: T }) === T, 'F4b the precise line is never written twice');
   check(referencesBody({ cards: [], fallbackBody: '화학 교과서 관련 단원', textbook: '' }) === '화학 교과서 관련 단원',
     "F4b but with no citation of our own we keep what the model wrote — deleting it would leave nothing");
@@ -123,8 +123,8 @@ const axisIndex = { axes: {
   const withCard = run(body, card);
   check(withCard.split("\n").length === 2 && withCard.startsWith("기후변화"),
     "F4c the section the code appends carries the student's own source first", withCard);
-  check(withCard.split("|").length >= 1 && withCard.includes(cite), "F4c and the precise textbook line after it", withCard);
-  check(run(body, {}).startsWith(cite), "F4c a student who read nothing still gets the precise unit, not '관련 단원'", run(body, {}));
+  check(withCard.endsWith(cite), "F4c and the precise textbook line after it");
+  check(run(body, {}) === cite, "F4c a student who read nothing still gets the precise unit, not '관련 단원'", run(body, {}));
   const vague = run([...body, { title: '참고 자료', body: '물리 교과서 관련 단원' }], card);
   check(!vague.includes("관련 단원"), "F4c and when the model does write the section, its vague line is replaced", vague);
 }
@@ -232,7 +232,7 @@ const axisIndex = { axes: {
     textbook: "지구과학Ⅰ 교과서 · 판 구조와 암석 변화 단원",
   });
   check(mine.includes("진앙 거리를 구하는 방법을 읽었다"), "F9 학생이 적은 교과서 자료는 지우지 않는다", mine);
-  check(mine.split("|").length >= 1 && mine.includes("판 구조와 암석 변화 단원"), "F9 우리 교과서 줄은 그 뒤에 그대로 붙는다", JSON.stringify(mine));
+  check(mine.split("\n").length === 2 && mine.endsWith("판 구조와 암석 변화 단원"), "F9 우리 교과서 줄은 그 뒤에 그대로 붙는다", JSON.stringify(mine));
   const vague = referencesBody({ cards: [{ title: "기상청 지진 조회", type: "기관 자료", take: "도달 시각을 얻었다" }],
     fallbackBody: "", textbook: "지구과학Ⅰ 교과서 · 판 구조와 암석 변화 단원" });
   check(!/관련 단원/.test(vague), "F9 뭉뚱그린 교과서 줄은 여전히 갈아 끼운다", vague);

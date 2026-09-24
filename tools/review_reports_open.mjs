@@ -28,6 +28,7 @@ const IDS = (arg('--ids', '') || '').split(',').map((one) => one.trim()).filter(
 const LATEST = Number(arg('--latest', '0'));
 const STAGE = arg('--stage', 'experiment_final');
 const FILE = arg('--file', '');
+const MADE = arg('--made', '');   // 쓸이가 만들 때 받아 둔 본문 파일
 const OUT = arg('--out', '');
 const KEY = process.env.OPENAI_API_KEY;
 if (!KEY) { console.error('OPENAI_API_KEY 가 없습니다. 환경 변수로 넣어 주세요.'); process.exit(1); }
@@ -117,17 +118,33 @@ function fromD1(sql) {
 
 const SKIP = new Set(['reportStage', 'sectionTitles', 'figuresAfterSection', 'removedNumberSamples', 'dataSummary']);
 const pieces = [];
-if (FILE) {
+if (MADE) {
+  // 쓸이가 만들면서 받아 둔 본문을 그대로 읽는다. D1 을 거치지 않는다.
+  const d = JSON.parse(readFileSync(MADE, 'utf8'));
+  for (const one of d.made || []) {
+    if (!one.body) continue;
+    pieces.push({ id: one.id, stage: one.stage || '', subject: one.subject || '', task: one.task || '',
+      title: one.title || '', body: one.body, conditions: one.conditions || [] });
+  }
+} else if (FILE) {
   const d = JSON.parse(readFileSync(FILE, 'utf8'));
   const r = d.result || d;
   pieces.push({ id: d.reportId || FILE, stage: r.reportStage || '', subject: '', task: '',
     title: r.reportTitle || '', body: String(r.report || ''), conditions: [] });
 } else {
-  const where = IDS.length ? `report_id IN (${IDS.map((one) => `'${one.replace(/'/g, '')}'`).join(', ')})`
-    : `report_stage = '${STAGE}' AND source = 'openai' AND body_chars > 3000`;
-  const sql = `SELECT report_id, report_stage, subject, task_description, title, body_json FROM report_outputs`
-    + ` WHERE ${where} ORDER BY id DESC${IDS.length ? '' : ` LIMIT ${Math.max(1, LATEST || 5)}`}`;
-  for (const row of fromD1(sql)) {
+  // 번호를 한 줄에 다 넣으면 명령이 너무 길어 막힌다(2026-09-24: 36개에서 7403). 열 개씩 나눠 묻는다.
+  const batches = IDS.length
+    ? Array.from({ length: Math.ceil(IDS.length / 10) }, (_, at) => IDS.slice(at * 10, at * 10 + 10))
+    : [null];
+  const rows = [];
+  for (const batch of batches) {
+    const where = batch ? `report_id IN (${batch.map((one) => `'${one.replace(/'/g, '')}'`).join(', ')})`
+      : `report_stage = '${STAGE}' AND source = 'openai' AND body_chars > 3000`;
+    const sql = `SELECT report_id, report_stage, subject, task_description, title, body_json FROM report_outputs`
+      + ` WHERE ${where} ORDER BY id DESC${batch ? '' : ` LIMIT ${Math.max(1, LATEST || 5)}`}`;
+    rows.push(...fromD1(sql));
+  }
+  for (const row of rows) {
     const parts = JSON.parse(row.body_json || '[]').filter((one) => !SKIP.has(one.key));
     pieces.push({ id: row.report_id, stage: row.report_stage, subject: row.subject,
       task: row.task_description || '', title: row.title || '',
@@ -210,6 +227,7 @@ console.log(`
 ${'-'.repeat(64)}`);
 console.log(`── 여러 장에 똑같이 난 흠 — **이것이 우리가 고칠 목록이다** ──`);
 for (const box of repeated) {
+  if (!box.items?.length) continue;   // 빈 묶음이 [undefined] 로 찍혔다
   const worst = box.items.reduce((a, b) => ((weightOf(b.severity) > weightOf(a.severity)) ? b : a));
   const said = box.items.filter((one) => one.blame === '틀이 시킨 것').length;
   console.log(`
