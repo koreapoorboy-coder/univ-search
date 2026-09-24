@@ -154,6 +154,41 @@ for (const one of pieces) {
 }
 
 // ── 틀이 시킨 것을 모아 보여 준다 — 이것이 우리가 고칠 목록이다 ──
+// **겹치는 지적을 묶는다. 이것이 이 도구의 핵심이다.**
+//
+// AI 에게 「틀이 시킨 것인가」를 물어도 못 믿는다. 2026-09-24 에 72건 중 65건을
+// 「이 보고서만의 것」이라고 답했는데, 흔들림 문제는 분명히 모든 보고서에 나는 것이었다.
+//
+// **여러 장에서 똑같이 나온 지적이면 그것이 틀 흠이다.** AI 의 판정이 아니라 겹침으로 정한다.
+// 그러면 수백 건을 다 볼 필요 없이 겹친 열 개쯤만 보면 된다.
+const STOP = /이다|있다|없다|한다|된다|같다|것|수|의|를|을|이|가|은|는|에|와|과|로|도|만|더|그|이런|저런|때문|경우|대해|관해|따라|통해|위해|보고서|설계서|학생|내용|부분|표현|문장|서술|기술|제시|사용|필요|가능|어렵|부족|미흡|불명확|근거|해석|판단|기록|조건|결과/g;
+const gist = (text) => [...new Set(String(text ?? '')
+  .replace(/[^가-힣A-Za-z0-9 ]/g, ' ').replace(STOP, ' ')
+  .split(/\s+/).filter((one) => one.length >= 2))].sort();
+
+// 두 지적이 같은 흠인가 — 뜻 낱말이 절반 넘게 겹치면 같은 것으로 본다.
+function same(a, b) {
+  if (!a.length || !b.length) return false;
+  const set = new Set(b);
+  const hit = a.filter((one) => set.has(one)).length;
+  return hit / Math.min(a.length, b.length) >= 0.5;
+}
+
+const weightOf = (level) => ({ '높음': 2, '보통': 1, '낮음': 0 })[level] || 0;
+
+function cluster(list) {
+  const groups = [];
+  for (const one of list) {
+    const key = gist(one.problem);
+    const box = groups.find((group) => same(group.key, key));
+    if (box) { box.items.push(one); box.ids.add(one.id); }
+    else groups.push({ key, items: [one], ids: new Set([one.id]) });
+  }
+  // 여러 장에 난 것이 먼저, 그다음 무거운 것이 먼저.
+  return groups.sort((a, b) => (b.ids.size - a.ids.size)
+    || (Math.max(...b.items.map((x) => weightOf(x.severity))) - Math.max(...a.items.map((x) => weightOf(x.severity)))));
+}
+
 const byBlame = { '틀이 시킨 것': [], '이 보고서만의 것': [], '모르겠다': [] };
 for (const one of all) (byBlame[one.blame] || byBlame['모르겠다']).push(one);
 const heavy = (list) => list.filter((one) => one.severity !== '낮음');
@@ -164,13 +199,29 @@ console.log(`  틀이 시킨 것       ${byBlame['틀이 시킨 것'].length}건
 console.log(`  이 보고서만의 것   ${byBlame['이 보고서만의 것'].length}건 (높음·보통 ${heavy(byBlame['이 보고서만의 것']).length}건)`);
 console.log(`  모르겠다           ${byBlame['모르겠다'].length}건`);
 
-console.log(`\n── 틀이 시킨 것 (높음·보통) — 여러 장에 같이 난 것이 먼저다 ──`);
-const groups = new Map();
-for (const one of heavy(byBlame['틀이 시킨 것'])) {
-  const word = clip(one.problem, 28);
-  const box = groups.get(word) || { problem: one.problem, severity: one.severity, ids: [], quote: one.quote };
-  box.ids.push(one.id);
-  groups.set(word, box);
+// **겹친 것 = 틀 흠.** 두 장 이상에 난 것만 사람이 본다.
+const groups = cluster(all);
+const repeated = groups.filter((one) => one.ids.size >= 2);
+const once = groups.filter((one) => one.ids.size === 1);
+console.log(`
+지적을 뜻으로 묶으니 ${groups.length}가지 · 그중 두 장 이상에 난 것 ${repeated.length}가지`);
+console.log(`한 장에만 난 것 ${once.length}가지는 그 보고서만의 일일 수 있어 뒤로 둔다.`);
+console.log(`
+${'-'.repeat(64)}`);
+console.log(`── 여러 장에 똑같이 난 흠 — **이것이 우리가 고칠 목록이다** ──`);
+for (const box of repeated) {
+  const worst = box.items.reduce((a, b) => ((weightOf(b.severity) > weightOf(a.severity)) ? b : a));
+  const said = box.items.filter((one) => one.blame === '틀이 시킨 것').length;
+  console.log(`
+[${worst.severity}] **${box.ids.size}장**에서 (AI 가 틀 탓이라고 본 것 ${said}/${box.items.length}건)`);
+  console.log(`   ${clip(worst.problem, 220)}`);
+  for (const one of box.items.slice(0, 2)) console.log(`   · ${one.subject || one.stage} 「${clip(one.quote, 76)}」`);
+}
+console.log(`
+── 한 장에만 난 무거운 것 (높음) ──`);
+for (const box of once.filter((one) => one.items.some((x) => x.severity === '높음')).slice(0, 12)) {
+  const one = box.items[0];
+  console.log(`  [${one.subject || one.stage}] ${clip(one.problem, 130)}`);
 }
 for (const box of [...groups.values()].sort((a, b) => b.ids.length - a.ids.length)) {
   console.log(`\n[${box.severity}] ${box.ids.length}장에서 — ${clip(box.problem, 200)}`);
@@ -180,6 +231,7 @@ for (const box of [...groups.values()].sort((a, b) => b.ids.length - a.ids.lengt
 if (OUT) {
   mkdirSync(OUT, { recursive: true });
   const file = `${OUT}/open_review_${new Date().toISOString().slice(0, 10)}.json`;
-  writeFileSync(file, JSON.stringify({ at: new Date().toISOString(), won: total, findings: all }, null, 1), 'utf8');
+  writeFileSync(file, JSON.stringify({ at: new Date().toISOString(), won: total, findings: all,
+    repeated: repeated.map((one) => ({ 장수: one.ids.size, 보고서: [...one.ids], problem: one.items[0].problem, quotes: one.items.map((x) => x.quote) })) }, null, 1), 'utf8');
   console.log(`\n${file} 에 적었습니다.`);
 }
