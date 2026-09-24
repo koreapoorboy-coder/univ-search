@@ -142,9 +142,16 @@ export function computeStats(data) {
     };
   });
   const base = rows[0]?.mean ?? 0;
-  rows.forEach((row) => {
+  rows.forEach((row, at) => {
     row.diff_from_first = round(row.mean - base, Math.max(row.places || 2, rows[0]?.places || 2));
     row.percent_from_first = base ? round(((row.mean - base) / Math.abs(base)) * 100, 1) : null;
+    // **직전 조건과의 차이**도 준다. 2026-09-24 에 보고서를 읽히니 이런 지적이 나왔다:
+    //   「'3월 대비' 변화율만 있어 전월 대비 전환점 분석을 수행하지 못했다」
+    // 달·연도처럼 줄지어 있는 자료에서는 「언제 꺾였나」가 핵심인데, 첫 조건 대비만으로는 못 본다.
+    // 값은 우리가 표에서 계산한 것이고 지어낸 것이 아니다.
+    const before = at > 0 ? rows[at - 1] : null;
+    row.diff_from_prev = before ? round(row.mean - before.mean, Math.max(row.places || 2, before.places || 2)) : null;
+    row.percent_from_prev = before && before.mean ? round(((row.mean - before.mean) / Math.abs(before.mean)) * 100, 1) : null;
   });
   // 집단이 둘 이상이면(「우리 지역 · 2014년」「비교 지역 · 2014년」) 집단마다 자기 첫 조건을 기준으로도 잰다. 운영 테스트 29:
   // 모든 조건을 「우리 지역 2014년」 하나와만 견줘, 비교 지역의 증가폭을 자기 2014년 기준으로 볼 수 없었다.
@@ -378,8 +385,8 @@ export function summaryForPrompt(stats) {
     점수기준: stats.scaleGuide,
     반복횟수: stats.trials,
     조건별결과: stats.rows.map((row) => ({ ...(single
-      ? { 조건: row.label, 값: row.mean, 첫조건과의차이: row.diff_from_first, 첫조건대비변화율: row.percent_from_first, 관찰메모: row.note }
-      : { 조건: row.label, 측정값: row.values, 평균: row.mean, 흔들림: row.spread, 첫조건과의차이: row.diff_from_first, 첫조건대비변화율: row.percent_from_first, 관찰메모: row.note }),
+      ? { 조건: row.label, 값: row.mean, 첫조건과의차이: row.diff_from_first, 첫조건대비변화율: row.percent_from_first, 직전조건과의차이: row.diff_from_prev, 직전조건대비변화율: row.percent_from_prev, 관찰메모: row.note }
+      : { 조건: row.label, 측정값: row.values, 평균: row.mean, 흔들림: row.spread, 첫조건과의차이: row.diff_from_first, 첫조건대비변화율: row.percent_from_first, 직전조건과의차이: row.diff_from_prev, 직전조건대비변화율: row.percent_from_prev, 관찰메모: row.note }),
       ...(row.group !== undefined ? { 집단: row.group, 같은집단첫조건과의차이: row.diff_from_group_first, 같은집단첫조건대비변화율: row.percent_from_group_first } : {}) })),
     [single ? '값이높은순서' : '평균이높은순서']: stats.ranking.map((item) => `${item.label} (${item.mean})`),
     [single ? '값이같은조건' : '평균이같은조건']: stats.sameMean,
@@ -424,6 +431,7 @@ const INTERNAL_NAME_FIXES = [
   [/측정항목/g, '측정 항목'], [/점수기준/g, '점수 기준'], [/반복횟수/g, '반복 횟수'], [/관찰메모/g, '관찰 메모'],
   [/전체도수/g, '전체 도수'], [/가장높은쪽/g, '가장 높은 쪽'], [/두번째/g, '두 번째'],
   [/같은집단첫조건대비변화율/g, '같은 집단 첫 조건 대비 변화율'], [/같은집단첫조건과의차이/g, '같은 집단 첫 조건과의 차이'],
+  [/직전조건대비변화율/g, '직전 조건 대비 변화율'], [/직전조건과의차이/g, '직전 조건과의 차이'],
   [/첫조건대비변화율/g, '첫 조건 대비 변화율'], [/첫조건과의차이/g, '첫 조건과의 차이'],
   [/(값|평균)이높은순서/g, '$1이 높은 순서'], [/(값|평균)이같은조건/g, '$1이 같은 조건'],
 ];
@@ -630,6 +638,30 @@ export function removeUnsupportedNumbers(body, allowed, { allowPlans = false } =
 // 결과·분석·결론 절은 그대로다 — 거기 숫자는 학생 데이터에서만 나와야 한다.
 export const KNOWLEDGE_SECTION = /이론적 배경|핵심 개념|교과 개념|개념 정리|배경 지식/;
 const CITES_SOURCE = /선행 ?연구|기존 ?연구|여러 ?연구|한 ?연구|연구에 ?따르면|논문에 ?따르면|조사에 ?따르면|통계에 ?따르면|보고서에 ?따르면|자료에 ?따르면|에 ?의하면/;
+
+// 반복 세 번의 범위로는 통계적 판단을 할 수 없다. 그런데 지시만으로는 막히지 않았다 —
+// 실제 보고서에 「차이의 신뢰성을 흔들림과 함께 보면 … 훨씬 크다」가 나왔다(2026-09-24).
+// 말을 바꿔 준다. 문장을 지우면 학생이 낼 분석이 사라지므로, **주장의 세기만 낮춘다.**
+const OVERCLAIM = [
+  [/통계적으로\s*(?:유의미?하다|유의하다|의미\s*있다)/g, '반복에서 생긴 흔들림만으로는 설명되지 않는다'],
+  [/통계적으로\s*유의미?한/g, '반복의 흔들림보다 큰'],
+  [/유의미?한\s*차이/g, '반복의 흔들림보다 큰 차이'],
+  [/유의미?하다고\s*(?:볼\s*수\s*있다|판단(?:된다|한다)|해석(?:된다|한다))/g, '반복의 흔들림보다 큰 차이라고 볼 수 있다'],
+  [/유의미?하게\s*/g, '뚜렷하게 '],
+  [/유의성(?:을|이|은)?\s*(?:판단|검정|확인)(?:했다|한다|하였다)/g, '차이의 크기를 반복 폭과 견주었다'],
+  [/(?:통계적\s*)?유의성/g, '차이의 크기'],
+  [/신뢰구간/g, '반복 측정의 폭'],
+  [/표준오차/g, '반복 측정의 폭'],
+  [/(?:t-?검정|t검정|카이제곱\s*검정|가설\s*검정)(?:을|를)?\s*(?:실시|수행|시행)(?:했다|하였다|한다)/g, '반복 측정의 폭과 평균 차이를 견주었다'],
+];
+export function softenStatClaims(body) {
+  let text = String(body ?? '');
+  let changed = 0;
+  for (const [pattern, into] of OVERCLAIM) {
+    text = text.replace(pattern, () => { changed += 1; return into; });
+  }
+  return { body: text, changed };
+}
 
 export function removeUnsourcedClaims(body, sources) {
   const names = (Array.isArray(sources) ? sources : []).flatMap((one) => String(one || '').split(/[\s_·,()]+/))
@@ -1140,6 +1172,14 @@ export function stagePromptLines(stage, input) {
       '- 가설에는 그렇게 예상하는 과학적 근거를 구체적인 물질·반응 수준으로 쓰고, 다른 결과가 나온다면 무엇을 뜻하는지도 한 문장 쓴다.',
       '- 본문에는 dataTemplate 같은 영어 항목 이름을 쓰지 않는다. flux, gap 같은 영어 낱말도 자속, 차이처럼 우리말로 쓴다.',
       '- 2차 보고서에서 만들어지는 것은 조건별 값과 평균, 흔들림(최댓값-최솟값)을 담은 표이고, 그래프는 비교가 뚜렷할 때만 하나 붙는다. 표준편차, 오차막대, 흔들림 표시선, 유의성 검정처럼 만들어 주지 않는 것을 하겠다고 쓰지 않는다.',
+      // 2026-09-24: 설계서를 gpt-5 에게 읽히니 [높음] 셋이 여기서 나왔다. 학생이 실험실에서 망칠 것들이다.
+      //   · 「과산화수소 용액(가정에서 구할 수 있는 농도)」 → 3%~12% 다. 재현도 안 되고 안전 문제다.
+      //   · 「물을 약간 섞어」·「같은 희석비」·「같은 부피」 → 숫자가 없어 두 번째 시도를 같게 못 한다.
+      //   · 「각각 목표 온도의 수조에 넣어 두고」 → 시약이 그 사이 변질된다. 실험이 처음부터 틀린다.
+      '- **준비물과 절차의 양을 숫자로 적는다.** "약간", "적당히", "같은 부피", "가정에서 구할 수 있는 농도"처럼 숫자가 없는 말을 쓰지 않는다. 부피는 mL, 질량은 g, 농도는 %나 mol/L 로 값을 정해 적는다. 학생이 그대로 따라 해서 두 번째 시도를 똑같이 할 수 있어야 한다.',
+      '- 시약이나 시료를 **가열·냉각한 상태로 오래 두지 않게** 절차를 짠다. 두어야 한다면 몇 분까지인지 적는다. 오래 두면 스스로 분해되거나 상해서 조건이 달라진다.',
+      '- 위험할 수 있는 물질이나 열을 쓰면 보안경·장갑을 **"필요 시"가 아니라 반드시** 쓰라고 적고, 뒤처리 방법도 적는다.',
+      '- 그 실험에서 결과를 바꾸는 조건은 빠뜨리지 않고 통제 변인에 적는다. 효소·용액을 쓰면 pH와 시료를 만든 뒤 쓸 때까지의 시간, 담는 그릇의 온도까지 본다.',
       '- caseTag에는 이번 탐구의 실생활 사례를 8~20자로 짧게 적는다. 예: "우유 유당 분해", "렌즈 세척액 과산화수소". 본문에는 쓰지 않는다.',
       ...((input.recentCombinations || []).length
         ? ['', '[같은 학교에서 이 과제로 이미 만든 탐구 (사례 | 바꾼 것 | 잰 것)]',
@@ -1216,6 +1256,14 @@ export function stagePromptLines(stage, input) {
       ...bookRules(book, bookIsSubject(input)),
       '- 결과가 가설과 다르면 억지로 맞추지 말고 다르게 나온 그대로 쓴다.',
       '- 흔들림은 반복 측정값의 최대와 최소의 차이다. 흔들림을 점수 범위와 비교해 판단한다(예: 0~3점에서 1점은 큰 흔들림이다). 흔들림이 큰 조건은 결과의 신뢰도가 낮다고 밝히고 원인을 추정한다.',
+      // 2026-09-24: 보고서를 gpt-5 에게 읽히니 이 대목이 가장 무거운 흠으로 나왔다(₩883, 5장).
+      //   「평균 차이 8.76초는 두 조건의 흔들림(1.3초, 0.8초)보다 훨씬 크다」 → 범위를 유의성 근거로 쓴 것이다.
+      // 반복 3회의 최댓값−최솟값으로는 통계적 판단을 할 수 없다. 그런데 우리가 그렇게 쓰도록 시켜 왔다.
+      // 차이를 견주는 것 자체는 정직하다 — 다만 **그것이 통계가 아니라는 것을 말로 분명히** 해야 한다.
+      '- 조건이 달·연도처럼 줄지어 있으면 **직전조건과의차이·직전조건대비변화율**로 어디서 흐름이 꺾였는지 짚는다. 첫 조건 대비만 쓰면 전환점을 못 본다.',
+      '- 흔들림을 처음 쓸 때 그 뜻을 한 번 밝힌다(예: "반복 측정한 값의 최댓값과 최솟값의 차이(이하 흔들림)"). 뜻을 안 밝히고 숫자만 견주면 읽는 사람이 표준편차로 오해한다.',
+      '- **반복이 세 번뿐이므로 통계적 판단은 하지 않는다.** "유의미하다", "유의성", "통계적으로", "신뢰구간", "표준오차", "검정" 같은 말을 쓰지 않는다. 차이가 반복 폭보다 큰지 작은지만 말하고, 그것을 "통계적으로 증명되었다"는 뜻으로 쓰지 않는다.',
+      '- 차이가 반복 폭보다 클 때는 "반복에서 생긴 흔들림만으로는 설명되지 않는 차이"라고 쓴다. "유의미한 차이"라고 쓰지 않는다. 반복이 세 번이라 더 강한 주장은 할 수 없다고 한 번 밝힌다.',
       '- 수준별비교의 흔들림보다큰차이인가가 아니오이면 그 차이는 반복 측정의 흔들림보다 작거나 같으므로 "확실한 차이라고 보기 어렵다"고 쓴다. 조건 간 평균 차이가 흔들림보다 작은 비교를 근거로 결론을 내리지 않는다.',
       '- 본문과 그림 제목·설명에는 입력 자료의 항목 이름(결과정리, 수준별비교 같은 이름이나 영어 이름)을 그대로 쓰지 말고 "반복 측정값의 흔들림", "평균의 차이"처럼 자연스러운 말로 풀어 쓴다. 띄어쓰기만 바꿔 쓰는 것("수준별 비교 지표로 본")도 안 된다 — 같은 기준끼리 견준 차이라고 쓴다. 그림 설명에는 그림에 실제로 그려진 것만 쓴다(오차 막대는 그려지지 않는다).',
       '- 과목 이름은 실제 고등학교 과목 이름만 쓴다. 없는 과목 이름(예: 복지정책 과목, 도시계획 과목)을 만들어 쓰지 않는다. 학문 분야를 말하려면 "과목" 대신 "행정학 분야", "도시계획 분야"처럼 쓴다.',
@@ -1478,7 +1526,9 @@ export function finalizeStageOutput(stage, rawParsed, input) {
       const cleanedNumbers = KNOWLEDGE_SECTION.test(title)
         ? removeUnsourcedClaims(tidied, sourceNames)
         : removeUnsupportedNumbers(tidied, allowed, { allowPlans: /결론|제언|후속|느낀 점|고찰|확장|성찰/.test(title) });
-      const units = removeCrossSubjectUnitClaims(cleanedNumbers.body, input.subject);
+      // 반복 세 번의 범위로 통계를 말하는 문장의 **세기만 낮춘다**. 지우지 않는다 — 지우면 분석이 사라진다.
+      const softened = softenStatClaims(cleanedNumbers.body);
+      const units = removeCrossSubjectUnitClaims(softened.body, input.subject);
       const subjects = removeUnknownSubjectNames(units.body);
       // 안내문에 적힌 기구(선생님이 영상으로 재라고 한 과제)는 그대로 둔다.
       const said = [studentText, input.taskDescription, input.taskName, data.draftReport, ...data.conditions.map((row) => `${row.label} ${row.note || ''}`)].filter(Boolean).join(' ');
