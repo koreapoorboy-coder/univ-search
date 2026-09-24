@@ -7,6 +7,11 @@ keep_vars = true
 ALLOW_STUB = "false"
 ENGINE_MODE = "production"
 OPENAI_MODEL = "gpt-5"
+# 검수의 생각 단계. 2026-09-24 실측(물리·운동량 보고서):
+#   low    → ₩47, 찾은 것은 「같은 수치를 두 번 적었다」 하나뿐
+#   medium → ₩88~96, 「외력이 유의미했다면 p후가 작아졌을 것이다」를 잡았다(틀린 단정)
+# 돈을 내는 기능이므로 medium 으로 둔다. 끄려면 REPORT_REVIEW = "off".
+OPENAI_REASONING_EFFORT_REVIEW = "medium"
 # Seeds come from our own Pages deploy, not jsDelivr@main: the repo is never pushed to GitHub, so a newly
 # built seed (engine-index) would 404 there. Pages serves exactly what we deployed.
 SEED_BASE_URL = "https://univ-search.pages.dev/keyword-engine/seed"
