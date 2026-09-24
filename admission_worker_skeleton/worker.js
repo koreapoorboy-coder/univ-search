@@ -713,7 +713,12 @@ export default {
                 }
               } catch (error) {
                 // 검수가 실패해도 **보고서는 그대로 나간다.** 검수는 덧붙이는 것이고 관문이 아니다.
+                // 다만 **조용히 넘어가지는 않는다.** 설계서 검수를 붙인 날, 스키마가 400 을 받아
+                // 검수가 한 번도 돌지 않았는데 겉보기에는 멀쩡한 설계서가 나왔다(2026-09-24).
+                // 보관 표에 남겨야 나중에 「검수가 몇 번 실패했나」를 셀 수 있다.
                 console.error('report review failed:', error?.message || error);
+                reviewInfo = { findings: [], dropped: [], applied: [], skipped: [],
+                  failed: String(error?.message || error).slice(0, 200) };
               }
             }
             // The report becomes a row under the student's own code, so three years of them add up to something.

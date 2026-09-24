@@ -12,7 +12,7 @@
 //   ④ 반복 횟수(trials)는 검수가 못 바꾼다 — 모으는 방식에 따라 코드가 정한다.
 //   ⑤ 다시 쓴 절은 워커가 관문(finalizeStageOutput → sanitizeDataTemplate)에 다시 넣는다.
 import { COLLECTION, STAGE, finalizeStageOutput } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
-import { applyDraftReview, buildDraftReviewPrompt, draftReviewSchema, keptTemplate, kindLabel, reviewNotes } from '../../../admission_worker_skeleton/report_review_v1.mjs';
+import { applyDraftReview, buildDraftReviewPrompt, draftReviewSchema, keptTemplate, kindLabel, reviewNotes, reviewSchema } from '../../../admission_worker_skeleton/report_review_v1.mjs';
 
 let fail = 0;
 const bad = (why) => { console.log(`  ✗ ${why}`); fail += 1; };
@@ -54,6 +54,27 @@ const input = { subject: '물리', selectedConcept: '힘과 운동', reportStage
   for (const kind of kinds) ok(kindLabel(kind).length > 0, `${kind} 에 한글 이름이 있어야 한다`);
   ok(kinds.includes('kindfit'), '모으는 방식이 맞는지 보는 항목이 있어야 한다');
   ok(!kinds.includes('number'), '설계서에는 숫자 맞추기가 없어야 한다');
+}
+
+// ── 스키마가 OpenAI strict 규칙을 지켜야 한다 ──────────────
+// 2026-09-24 실측: scaleGuide 를 required 에서 빼 두었더니 OpenAI 가 400 을 주었고,
+// 검수는 조용히 건너뛰어졌다. 살아 있는 설계서 한 장을 만들어 보고서야 알았다.
+// strict 스키마는 **모든 칸이 required 에 있어야 한다.** 검수 두 개 다 본다.
+{
+  const walk = (node, path = 'root') => {
+    if (!node || typeof node !== 'object') return;
+    const types = Array.isArray(node.type) ? node.type : [node.type];
+    if (types.includes('object') && node.properties) {
+      const keys = Object.keys(node.properties);
+      const required = node.required || [];
+      for (const key of keys) if (!required.includes(key)) bad(`${path} 의 ${key} 가 required 에 없다`);
+      if (node.additionalProperties !== false) bad(`${path} 에 additionalProperties: false 가 없다`);
+      for (const key of keys) walk(node.properties[key], `${path}.${key}`);
+    }
+    if (types.includes('array') && node.items) walk(node.items, `${path}[]`);
+  };
+  walk(draftReviewSchema(), '설계서 검수');
+  walk(reviewSchema(), '최종 보고서 검수');
 }
 
 // ── ① 없는 문장을 지적하면 버린다 ────────────────────────

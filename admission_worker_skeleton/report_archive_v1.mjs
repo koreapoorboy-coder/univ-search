@@ -160,6 +160,7 @@ export function archiveRow(input, result, meta = {}) {
       findings: (meta.review.findings || []).map((one) => ({ kind: one?.kind, section: clean(one?.section, 40), why: scrubForArchive(clean(one?.why, 200)) })),
       applied: meta.review.applied || [], skipped: meta.review.skipped || [],
       droppedCount: (meta.review.dropped || []).length,
+      ...(meta.review.failed ? { failed: clean(meta.review.failed, 200) } : {}),
     }) : null,
     record_draft: (result?.recordDraft || []).map((line) => scrubForArchive(clean(line, 200))).join('\n'),
     section_count: sections.length,

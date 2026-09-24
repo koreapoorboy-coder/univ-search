@@ -283,7 +283,7 @@ export function draftReviewSchema() {
   return {
     type: 'object',
     additionalProperties: false,
-    required: ['findings', 'sections'],
+    required: ['findings', 'sections', 'dataTemplate'],
     properties: {
       findings: {
         type: 'array',
@@ -300,10 +300,13 @@ export function draftReviewSchema() {
         },
       },
       sections: base.properties.sections,
+      // OpenAI 의 strict 스키마는 **모든 칸이 required 에 있어야 한다.**
+      // scaleGuide 를 빼 두었더니 400 이 떨어졌고, 검수는 조용히 건너뛰어졌다(2026-09-24 실측).
+      // 고칠 표 틀이 없을 때는 null 로 받는다.
       dataTemplate: {
-        type: 'object',
+        type: ['object', 'null'],
         additionalProperties: false,
-        required: ['measurementName', 'unit', 'conditions'],
+        required: ['measurementName', 'unit', 'scaleGuide', 'conditions'],
         properties: {
           measurementName: { type: 'string' },
           unit: { type: 'string' },
