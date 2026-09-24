@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v290_kosis_prefill
+// SCREEN_VERSION: v291_review_wait
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v290-kosis-prefill";
+  const VERSION = "mini-worker-generate-bridge-v291-review-wait";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -61,18 +61,20 @@
   function hide(el){
     if(el) el.style.display = "none";
   }
+  // 2026-09-24: 검수(gpt-5 가 한 번 더 읽고 고친다)를 붙여 최종 보고서가 95초 → 223초가 됐다.
+  // 안내가 「2~3분」이면 학생이 기다리다 새로고침해 보고서를 잃는다. 설계서는 검수하지 않아 그대로 둔다.
   function setLoading(isLoading){
     const btn = $("generateBtn");
     const resetBtn = $("resetBtn");
     const loading = $("loadingMessage");
     if(btn){
       btn.disabled = isLoading;
-      btn.textContent = isLoading ? "보고서 생성 중... (최대 2~3분)" : "보고서 만들기";
+      btn.textContent = isLoading ? "보고서 생성 중... (최대 3~5분)" : "보고서 만들기";
     }
     if(resetBtn) resetBtn.disabled = isLoading;
     if(loading){
       loading.style.display = isLoading ? "block" : "none";
-      if(isLoading) loading.textContent = "AI가 보고서를 깊이 있게 쓰고 있어요. 최대 2~3분 걸리니 창을 닫지 말고 기다려 주세요.";
+      if(isLoading) loading.textContent = "AI가 보고서를 깊이 있게 쓰고 있어요. 최대 3~5분 걸리니 창을 닫지 말고 기다려 주세요.";
     }
   }
   function clearError(){
@@ -2763,7 +2765,7 @@
         ${template?.whatToFind ? `<p class="mini-exp-measure"><b>각 자료에서 찾을 것</b> ${escapeHtml(template.whatToFind)}</p>` : ""}
         <div class="mini-card-grid">${cards}</div>
         ${renderStudentFields(text[3], false)}
-        <p class="mini-exp-note">적은 내용은 최종 보고서에 거의 그대로 들어가요. 자료를 <b>2개 이상</b> 적어야 최종 보고서를 만들 수 있어요. 최종 보고서를 만들 때 사용 횟수가 1회 차감되고, 만드는 데 2~3분 걸려요.</p>
+        <p class="mini-exp-note">적은 내용은 최종 보고서에 거의 그대로 들어가요. 자료를 <b>2개 이상</b> 적어야 최종 보고서를 만들 수 있어요. 최종 보고서를 만들 때 사용 횟수가 1회 차감되고, 만드는 데 3~5분 걸려요.</p>
         <p class="mini-exp-error" id="miniExpError" hidden></p>
         <div class="mini-v229-actions"><button type="button" id="miniExpFinalBtn">최종 보고서 만들기</button></div>
       </section>`;
@@ -3116,7 +3118,7 @@
         <p class="mini-exp-hint">아직 못 한 칸은 비워 두어도 돼요. 표를 통째로 비우면 실험 없이 <b>모은 자료로 쓰는 보고서</b>로 만들어 드려요.</p>
         ${renderReferenceInputs(template)}
         ${renderStudentFields(text[3], true)}
-        <p class="mini-exp-note">적은 문장은 최종 보고서에 거의 그대로 들어가요. 표를 비워 두고 만들면 모은 자료로 쓰는 <b>문헌 탐구 보고서</b>로 만들어요. 최종 보고서를 만들 때 사용 횟수가 1회 차감되고, 만드는 데 2~3분 걸려요.</p>
+        <p class="mini-exp-note">적은 문장은 최종 보고서에 거의 그대로 들어가요. 표를 비워 두고 만들면 모은 자료로 쓰는 <b>문헌 탐구 보고서</b>로 만들어요. 최종 보고서를 만들 때 사용 횟수가 1회 차감되고, 만드는 데 3~5분 걸려요.</p>
         <p class="mini-exp-error" id="miniExpError" hidden></p>
         <div class="mini-v229-actions"><button type="button" id="miniExpFinalBtn">최종 보고서 만들기</button></div>
       </section>`;
@@ -3215,7 +3217,7 @@
     const button = $("miniExpFinalBtn");
     if(button){
       button.disabled = true;
-      button.textContent = "최종 보고서 만드는 중... (최대 2~3분)";
+      button.textContent = "최종 보고서 만드는 중... (최대 3~5분)";
     }
     try{
       return await runGenerate({ reportStage: !reading && measured >= 2 ? "experiment_final" : "literature", studentData });
