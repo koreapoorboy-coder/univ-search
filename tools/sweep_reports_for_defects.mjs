@@ -18,6 +18,7 @@
 // 값: 최종 보고서 한 장 약 ₩96~162, 설계서 약 ₩130. 읽히기는 장당 약 ₩165.
 // 학생 코드는 SC 환경 변수로 준다 — 횟수 무제한인 시험용 계정을 쓴다.
 import { execSync } from 'node:child_process';
+import https from 'node:https';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
 const ROOT = 'C:/Users/korea/univ-search';
@@ -115,14 +116,45 @@ function payload(one, stage) {
     } };
 }
 
+// **fetch 를 쓰지 않는다.** node 의 fetch 는 머리글을 5분 안에 못 받으면 스스로 끊는다
+// (UND_ERR_HEADERS_TIMEOUT). 보고서 한 장이 4~5분 걸리고, 동시에 넷을 돌리면 그보다 길어진다.
+// 2026-09-24 에 19번째에서 쓸이가 통째로 죽었다 — 만든 것까지 잃을 수 있었다.
+// https 로 직접 부르고 제한을 15분으로 둔다.
+function post(url, body, ms = 900000) {
+  return new Promise((done, fail) => {
+    const data = Buffer.from(JSON.stringify(body), 'utf8');
+    const req = https.request(url, { method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Content-Length': data.length } }, (res) => {
+      let text = '';
+      res.setEncoding('utf8');
+      res.on('data', (piece) => { text += piece; });
+      res.on('end', () => done({ status: res.statusCode, text }));
+    });
+    req.setTimeout(ms, () => { req.destroy(new Error(`${Math.round(ms / 1000)}초가 지났다`)); });
+    req.on('error', fail);
+    req.end(data);
+  });
+}
+
 async function generate(one, stage) {
   const at = Date.now();
-  const res = await fetch(`${WORKER}/generate`, { method: 'POST',
-    headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload(one, stage)) });
-  const out = await res.json();
-  if (!out.ok) return { ok: false, why: `${res.status} ${String(out.error || out.reason || '').slice(0, 60)}` };
-  return { ok: true, id: out.reportId, won: won(out.usage || {}), secs: Math.round((Date.now() - at) / 1000),
-    title: out.result?.reportTitle || '', stage: out.result?.reportStage || stage };
+  // 한 장이 실패해도 쓸이는 계속 간다. 한 번 다시 해 본다 — 워커가 바빠 늦는 일이 있다.
+  for (let tries = 1; tries <= 2; tries += 1) {
+    try {
+      const res = await post(`${WORKER}/generate`, payload(one, stage));
+      const out = JSON.parse(res.text);
+      if (!out.ok) return { ok: false, why: `${res.status} ${String(out.error || out.reason || '').slice(0, 60)}` };
+      // **본문을 그대로 들고 있는다.** 읽힐 때 D1 을 다시 안 거친다 —
+      // 번호 36개를 한 줄에 넣어 물으니 명령이 너무 길어 막혔다(2026-09-24).
+      return { ok: true, id: out.reportId, won: won(out.usage || {}), secs: Math.round((Date.now() - at) / 1000),
+        title: out.result?.reportTitle || '', stage: out.result?.reportStage || stage,
+        body: String(out.result?.report || ''), task: one.desc,
+        conditions: (payload(one, stage).studentData?.conditions || []).map((row) => `  · ${row.label} = ${row.values.join(', ')}${row.note ? ` (메모: ${row.note})` : ''}`) };
+    } catch (error) {
+      if (tries === 2) return { ok: false, why: String(error?.message || error).slice(0, 70) };
+    }
+  }
+  return { ok: false, why: '알 수 없음' };
 }
 
 const stages = STAGE === 'both' ? ['final', 'draft'] : [STAGE];
@@ -143,6 +175,9 @@ async function worker() {
     spent += got.won;
     made.push({ ...got, subject: job.one.subject, kind: job.one.kind, group: job.one.group });
     console.log(`  ${String(done).padStart(2)}/${done + jobs.length} ${job.one.subject.padEnd(10)} ${job.stage.padEnd(5)} ${got.id} · ${got.secs}초 · ₩${got.won}`);
+    // 한 장 만들 때마다 적어 둔다. 쓸이가 죽어도 만든 것은 남는다.
+    if (OUT) { mkdirSync(OUT, { recursive: true });
+      writeFileSync(`${OUT}/sweep_made.json`, JSON.stringify({ at: new Date().toISOString(), won: spent, made }, null, 1), 'utf8'); }
   }
 }
 await Promise.all(Array.from({ length: PARALLEL }, worker));
@@ -156,7 +191,9 @@ if (OUT) {
 
 // ── 바로 읽힌다 ──────────────────────────────────────────
 console.log(`\n${'='.repeat(64)}\n이제 읽힙니다.\n`);
-const ids = made.map((one) => one.id).join(',');
-execSync(`node tools/review_reports_open.mjs --ids ${ids}${OUT ? ` --out ${OUT}` : ''}`,
+const madeFile = `${OUT || ROOT}/sweep_made.json`;
+mkdirSync(OUT || ROOT, { recursive: true });
+writeFileSync(madeFile, JSON.stringify({ at: new Date().toISOString(), won: spent, made }, null, 1), 'utf8');
+execSync(`node tools/review_reports_open.mjs --made "${madeFile}"${OUT ? ` --out ${OUT}` : ''}`,
   { cwd: ROOT, stdio: 'inherit', env: process.env });
 console.log(`\n만드는 데 ₩${spent} 썼습니다(읽히는 값은 위에 따로 적혀 있습니다).`);
