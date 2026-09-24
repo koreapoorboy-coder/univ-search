@@ -55,6 +55,7 @@ export function buildReportGuide({ input = {}, data = {}, stats = null, sections
   const check = [
     datasets.length || notes.length ? '자료원을 한 번 열어 보세요. 선생님이 「이 자료 봤니?」 하고 물을 수 있어요.' : '',
     '「느낀 점」이 내 생각과 같은지 읽어 보세요. 다르면 고쳐 주세요.',
+    input.textbookCitation ? '참고 자료의 교과서 줄에 **출판사와 쪽수**를 적어 주세요. 그건 내 교과서를 봐야 알 수 있어요.' : '',
     '표지의 이름·학번 칸을 채우세요.',
     '이 설명서는 제출하지 않아요. 보고서만 내면 돼요.',
   ].filter(Boolean);

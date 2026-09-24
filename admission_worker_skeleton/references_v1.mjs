@@ -173,7 +173,10 @@ export function referencesBody({ cards = [], papers = [], web = [], datasets = [
     const vague = (line) => /교과서/.test(line) && !mine.has(line) && !line.includes('·') && !/\(\d{4}\)\./.test(line);
     const precise = lines.findIndex((line) => line === textbook);
     const kept = lines.filter((line) => !vague(line));
-    if (precise < 0) kept.push(textbook);
+    // 출판사·쪽수는 **학생만 안다.** 우리가 지어낼 수 없고, 빼고 두면 서지가 모자란 줄이 된다 —
+    // 보고서 49장을 읽히니 「교과서 서지 정보가 빠졌다」가 열세 장에서 걸렸다(2026-09-24).
+    // 그래서 채울 자리를 남긴다. 학생이 자기 교과서를 보고 한 번 적으면 된다.
+    if (precise < 0) kept.push(`${textbook} (출판사·쪽수는 쓰는 교과서를 보고 적으세요)`);
     return kept.join('\n');
   }
   return lines.join('\n');

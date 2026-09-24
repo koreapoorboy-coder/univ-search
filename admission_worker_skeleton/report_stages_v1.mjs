@@ -122,7 +122,11 @@ export function resolveReportStage(payload) {
 // 보고서가 「딕셔너리는 100개에서 0초」라고 썼다. 거기서 나온 배수(1.5배)도 실제(1.96배)와 달랐다.
 // 잰 값이 작은 과제는 흔하다 — 처리 시간(초), 농도, 질량 변화.
 // 학생이 적은 자릿수만큼은 지킨다. 두 자리보다 잘게 적었으면 그만큼 남긴다.
-const placesOf = (row) => Math.max(2, ...(Array.isArray(row?.typed) ? row.typed : [])
+// 평균의 소수 자리는 **학생이 쓴 자리를 따른다.** 하한이 2 로 박혀 있었는데,
+// 그러면 18.2·17.6·18.9(한 자리)의 평균이 18.23(두 자리)으로 나온다 — 잰 것보다 정밀한 척하는 것이다.
+// 보고서 49장을 읽히니 「측정 해상도에 비해 과도한 유효숫자」가 여섯 장에서 걸렸다(2026-09-24).
+// 정수로 적은 자료(12·15·13)는 평균에 한 자리를 준다 — 13 보다 13.3 이 자료를 더 잘 담는다.
+const placesOf = (row) => Math.max(1, ...(Array.isArray(row?.typed) ? row.typed : [])
   .map((one) => (String(one ?? '').split('.')[1] || '').length));
 
 export function computeStats(data) {
@@ -135,23 +139,27 @@ export function computeStats(data) {
       typed,
       note: row.note,
       places,
+      // **반올림 전 평균을 남긴다.** 차이·변화율을 반올림한 평균으로 계산하면 오차가 커진다 —
+      // 소수 자리를 두 자리에서 한 자리로 내리자 같은 자료의 변화율이 100.8% → 107.7% 로 틀어졌다
+      // (2026-09-24). 보여 주는 값만 반올림하고, 계산은 정확한 값으로 한다.
+      exact: row.values.reduce((sum, value) => sum + value, 0) / row.values.length,
       mean: round(row.values.reduce((sum, value) => sum + value, 0) / row.values.length, places),
       min: Math.min(...row.values),
       max: Math.max(...row.values),
       spread: round(Math.max(...row.values) - Math.min(...row.values), places),
     };
   });
-  const base = rows[0]?.mean ?? 0;
+  const base = rows[0]?.exact ?? 0;
   rows.forEach((row, at) => {
-    row.diff_from_first = round(row.mean - base, Math.max(row.places || 2, rows[0]?.places || 2));
-    row.percent_from_first = base ? round(((row.mean - base) / Math.abs(base)) * 100, 1) : null;
+    row.diff_from_first = round(row.exact - base, Math.max(row.places || 2, rows[0]?.places || 2));
+    row.percent_from_first = base ? round(((row.exact - base) / Math.abs(base)) * 100, 1) : null;
     // **직전 조건과의 차이**도 준다. 2026-09-24 에 보고서를 읽히니 이런 지적이 나왔다:
     //   「'3월 대비' 변화율만 있어 전월 대비 전환점 분석을 수행하지 못했다」
     // 달·연도처럼 줄지어 있는 자료에서는 「언제 꺾였나」가 핵심인데, 첫 조건 대비만으로는 못 본다.
     // 값은 우리가 표에서 계산한 것이고 지어낸 것이 아니다.
     const before = at > 0 ? rows[at - 1] : null;
-    row.diff_from_prev = before ? round(row.mean - before.mean, Math.max(row.places || 2, before.places || 2)) : null;
-    row.percent_from_prev = before && before.mean ? round(((row.mean - before.mean) / Math.abs(before.mean)) * 100, 1) : null;
+    row.diff_from_prev = before ? round(row.exact - before.exact, Math.max(row.places || 2, before.places || 2)) : null;
+    row.percent_from_prev = before && before.exact ? round(((row.exact - before.exact) / Math.abs(before.exact)) * 100, 1) : null;
   });
   // 집단이 둘 이상이면(「우리 지역 · 2014년」「비교 지역 · 2014년」) 집단마다 자기 첫 조건을 기준으로도 잰다. 운영 테스트 29:
   // 모든 조건을 「우리 지역 2014년」 하나와만 견줘, 비교 지역의 증가폭을 자기 2014년 기준으로 볼 수 없었다.
@@ -164,11 +172,12 @@ export function computeStats(data) {
   rows.forEach((row) => { const key = groupOf(row.label); if (key) groups.set(key, [...(groups.get(key) || []), row]); });
   if (groups.size >= 2 && [...groups.values()].some((list) => list.length >= 2)) {
     for (const list of groups.values()) {
-      const first = list[0].mean;
+      // 여기도 반올림 전 평균으로 계산한다.
+      const first = list[0].exact;
       list.forEach((row) => {
         row.group = groupOf(row.label);
-        row.diff_from_group_first = round(row.mean - first, row.places || 2);
-        row.percent_from_group_first = first ? round(((row.mean - first) / Math.abs(first)) * 100, 1) : null;
+        row.diff_from_group_first = round(row.exact - first, row.places || 2);
+        row.percent_from_group_first = first ? round(((row.exact - first) / Math.abs(first)) * 100, 1) : null;
       });
     }
   }
@@ -229,13 +238,13 @@ function gridComparisons(rows) {
   const grid = splitFactors(rows);
   if (!grid) return [];
   return grid.seconds.map((second) => {
-    const values = grid.firsts.map((first) => ({ label: first, mean: grid.find(first, second).mean, spread: grid.find(first, second).spread }));
-    const sorted = [...values].sort((a, b) => b.mean - a.mean);
-    const gap = round(sorted[0].mean - sorted[1].mean);
-    const wobble = Math.max(sorted[0].spread, sorted[1].spread);
-    // With one value per cell there is no wobble to compare against, so the report may not call a gap clear.
-    const singleShot = rows.every((row) => row.values.length < 2);
-    return { at: second, values, higher: gap === 0 ? '같음' : sorted[0].label, runnerUp: sorted[1].label, gap, clearDifference: singleShot ? null : gap > wobble };
+    const values = grid.firsts.map((first) => ({ label: first, mean: grid.find(first, second).mean,
+      exact: grid.find(first, second).exact, spread: grid.find(first, second).spread }));
+    const sorted = [...values].sort((a, b) => b.exact - a.exact);
+    // 차이도 반올림 전 값으로 잰다.
+    const gap = round(sorted[0].exact - sorted[1].exact);
+    return { at: second, values: values.map(({ label, mean, spread }) => ({ label, mean, spread })),
+      higher: gap === 0 ? '같음' : sorted[0].label, runnerUp: sorted[1].label, gap };
   });
 }
 
@@ -341,11 +350,17 @@ export function buildFigures(specs, stats) {
     if (spec.kind === 'table') {
       if (metric === 'raw') {
         // One value per cell: the repeat columns, the mean of a single number and its wobble would all say the same thing.
+        // **관찰 메모를 표에 보인다.** 본문이 학생의 메모를 근거로 해석을 바꾸는데 표에 그 메모가 없으면,
+        // 읽는 사람은 그 근거를 볼 수 없다 — 보고서 49장을 읽히니 「제출물에 없는 기록을 근거로 삼았다」가
+        // 세 장에서 걸렸다(2026-09-24). 메모를 적은 학생만 칸이 생긴다.
+        const noted = rows.some((row) => String(row.note || '').trim());
+        const memo = noted ? ['관찰 메모'] : [];
+        const memoOf = (row) => (noted ? [String(row.note || '').trim()] : []);
         if (stats.trials <= 1) {
-          return { ...figure, columns: [axis, `${name}${stats.unit ? ` (${stats.unit})` : ''}`], rows: rows.map((row) => [row.label, asTyped(row.values[0], stats.decimals, row.typed?.[0])]) };
+          return { ...figure, columns: [axis, `${name}${stats.unit ? ` (${stats.unit})` : ''}`, ...memo], rows: rows.map((row) => [row.label, asTyped(row.values[0], stats.decimals, row.typed?.[0]), ...memoOf(row)]) };
         }
         const trials = Array.from({ length: stats.trials }, (_, index) => `${index + 1}회`);
-        return { ...figure, columns: [axis, ...trials, '평균', '흔들림'], rows: rows.map((row) => [row.label, ...trials.map((_, index) => asTyped(row.values[index], stats.decimals, row.typed?.[index])), asRowNumber(row.mean, row), asRowNumber(row.spread, row)]) };
+        return { ...figure, columns: [axis, ...trials, '평균', '흔들림', ...memo], rows: rows.map((row) => [row.label, ...trials.map((_, index) => asTyped(row.values[index], stats.decimals, row.typed?.[index])), asRowNumber(row.mean, row), asRowNumber(row.spread, row), ...memoOf(row)]) };
       }
       return { ...figure, columns: [axis, `${METRIC_LABEL[metric]}${unit ? ` (${unit})` : ''}`], rows: rows.map((row) => [row.label, row[metric]]) };
     }
@@ -390,7 +405,11 @@ export function summaryForPrompt(stats) {
       ...(row.group !== undefined ? { 집단: row.group, 같은집단첫조건과의차이: row.diff_from_group_first, 같은집단첫조건대비변화율: row.percent_from_group_first } : {}) })),
     [single ? '값이높은순서' : '평균이높은순서']: stats.ranking.map((item) => `${item.label} (${item.mean})`),
     [single ? '값이같은조건' : '평균이같은조건']: stats.sameMean,
-    수준별비교: (stats.comparisons || []).map((item) => ({ 기준: item.at, 가장높은쪽: item.higher, 두번째: item.runnerUp, 차이: item.gap, 흔들림보다큰차이인가: item.clearDifference === null ? '반복이 없어 알 수 없음' : (item.clearDifference ? '예' : '아니오') })),
+    // 「흔들림보다큰차이인가」를 **뺐다.** 이 칸이 범위(최댓값−최솟값, n=3)로 차이의 믿음성을
+    // 판단하게 시켰고, 보고서 49장을 읽히니 그 판단이 **스물여섯 장에서 [높음] 흠**으로 걸렸다
+    // (2026-09-24). 범위는 표준편차도 표준오차도 아니어서 그런 판단의 근거가 못 된다.
+    // 차이의 크기는 그대로 준다 — 크다·작다를 말하는 것은 정직하다. 믿음성 판정만 뺀다.
+    수준별비교: (stats.comparisons || []).map((item) => ({ 기준: item.at, 가장높은쪽: item.higher, 두번째: item.runnerUp, 차이: item.gap })),
     ...((stats.frequency || []).length
       ? { 도수분포요약: stats.frequency.map((one) => ({ 집단: one.group, 전체도수: one.n, '평균(계급값)': one.mean, '분산(계급값)': one.variance, '표준편차(계급값)': one.sd })) }
       : {}),
@@ -642,25 +661,51 @@ const CITES_SOURCE = /선행 ?연구|기존 ?연구|여러 ?연구|한 ?연구|�
 // 반복 세 번의 범위로는 통계적 판단을 할 수 없다. 그런데 지시만으로는 막히지 않았다 —
 // 실제 보고서에 「차이의 신뢰성을 흔들림과 함께 보면 … 훨씬 크다」가 나왔다(2026-09-24).
 // 말을 바꿔 준다. 문장을 지우면 학생이 낼 분석이 사라지므로, **주장의 세기만 낮춘다.**
-const OVERCLAIM = [
-  [/통계적으로\s*(?:유의미?하다|유의하다|의미\s*있다)/g, '반복에서 생긴 흔들림만으로는 설명되지 않는다'],
+// 지시만으로는 안 막힌다. 어제 넣은 말바꾸기가 그대로 다시 흠으로 걸렸다(49장 중 26장).
+// 그래서 **판단하는 말버릇 자체**를 지운다. 비교 자체는 남기고 뒤에 붙는 판정만 뗀다.
+// 낱말 바꾸기 — 문장 안에서 바로 갈아 낀다.
+const WORD_SWAP = [
+  [/충분히\s+(?=크|큰|작|작은|많|적)/g, ''],          // 기준 없는 「충분히」
+  [/더\s*신뢰할\s*수\s*있는/g, '더 크게 벌어진'],
+  [/통계적으로\s*(?:유의미?하다|유의하다|의미\s*있다)/g, '반복에서 본 흔들림보다 크다'],
   [/통계적으로\s*유의미?한/g, '반복의 흔들림보다 큰'],
   [/유의미?한\s*차이/g, '반복의 흔들림보다 큰 차이'],
-  [/유의미?하다고\s*(?:볼\s*수\s*있다|판단(?:된다|한다)|해석(?:된다|한다))/g, '반복의 흔들림보다 큰 차이라고 볼 수 있다'],
   [/유의미?하게\s*/g, '뚜렷하게 '],
-  [/유의성(?:을|이|은)?\s*(?:판단|검정|확인)(?:했다|한다|하였다)/g, '차이의 크기를 반복 폭과 견주었다'],
   [/(?:통계적\s*)?유의성/g, '차이의 크기'],
   [/신뢰구간/g, '반복 측정의 폭'],
   [/표준오차/g, '반복 측정의 폭'],
   [/(?:t-?검정|t검정|카이제곱\s*검정|가설\s*검정)(?:을|를)?\s*(?:실시|수행|시행)(?:했다|하였다|한다)/g, '반복 측정의 폭과 평균 차이를 견주었다'],
+  [/반복에서 (?:생긴|본) 흔들림만으로는 설명되지 ?않는/g, '반복에서 본 흔들림보다 큰'],
+  [/흔들림만으로는 설명되지 ?않(?:는다|았다|습니다)/g, '흔들림보다 컸다'],
 ];
+
+// 「…흔들림보다 커서 … 우연이 아니다」처럼 **판정하는 문장**은 판정 절을 떼고 사실만 남긴다.
+// 정규식으로 문장을 자르려 했더니 소수점(0.8)에서 끊겼다. 그래서 문장 단위로 다룬다.
+const JUDGE = /설명되지 ?않|우연이 ?아니|신뢰할 ?수 ?있|믿을 ?수 ?있|유의|확실한 ?차이/;
+const BECAUSE = /(보다|과 견주어)\s*(?:도\s*)?(커서|크므로|크기 때문에|크다는 점에서|크다면|큰 경우)/;
 export function softenStatClaims(body) {
-  let text = String(body ?? '');
+  const text = String(body ?? '');
   let changed = 0;
-  for (const [pattern, into] of OVERCLAIM) {
-    text = text.replace(pattern, () => { changed += 1; return into; });
-  }
-  return { body: text, changed };
+  // 문장으로 나눈다. 소수점은 뒤에 숫자가 오므로 문장 끝이 아니다.
+  const out = text.split(/(?<=\.)(?=\s)|(?<=\.)$/).map((piece) => {
+    let one = piece;
+    if (/흔들림/.test(one) && JUDGE.test(one)) {
+      const hit = BECAUSE.exec(one);
+      if (hit) {
+        // 「…흔들림(0.8~1.6초)보다」 까지 남기고 뒤를 자른다.
+        const head = one.slice(0, hit.index + hit[1].length)
+          .replace(/\s*(?:을|를)?\s*합친 값(?=\s*보다)/, '')
+          .replace(/\s*의 합(?=\s*보다)/, '');
+        one = `${head} 컸다.`;
+        changed += 1;
+      }
+    }
+    for (const [pattern, into] of WORD_SWAP) {
+      one = one.replace(pattern, () => { changed += 1; return into; });
+    }
+    return one;
+  }).join('');
+  return { body: out, changed };
 }
 
 export function removeUnsourcedClaims(body, sources) {
@@ -1261,10 +1306,15 @@ export function stagePromptLines(stage, input) {
       // 반복 3회의 최댓값−최솟값으로는 통계적 판단을 할 수 없다. 그런데 우리가 그렇게 쓰도록 시켜 왔다.
       // 차이를 견주는 것 자체는 정직하다 — 다만 **그것이 통계가 아니라는 것을 말로 분명히** 해야 한다.
       '- 조건이 달·연도처럼 줄지어 있으면 **직전조건과의차이·직전조건대비변화율**로 어디서 흐름이 꺾였는지 짚는다. 첫 조건 대비만 쓰면 전환점을 못 본다.',
+      // 49장을 읽히니 「분석 항목으로 적어 놓고 본문에서 쓰지 않았다」가 세 장에서 걸렸다(2026-09-24).
+      '- **쓸 것만 적는다.** 「첫 조건 대비와 직전 조건 대비를 함께 본다」처럼 분석 항목을 늘어놓고 본문에서 그 수치를 쓰지 않으면 안 된다. 쓰지 않을 항목은 아예 적지 않는다.',
       '- 흔들림을 처음 쓸 때 그 뜻을 한 번 밝힌다(예: "반복 측정한 값의 최댓값과 최솟값의 차이(이하 흔들림)"). 뜻을 안 밝히고 숫자만 견주면 읽는 사람이 표준편차로 오해한다.',
       '- **반복이 세 번뿐이므로 통계적 판단은 하지 않는다.** "유의미하다", "유의성", "통계적으로", "신뢰구간", "표준오차", "검정" 같은 말을 쓰지 않는다. 차이가 반복 폭보다 큰지 작은지만 말하고, 그것을 "통계적으로 증명되었다"는 뜻으로 쓰지 않는다.',
-      '- 차이가 반복 폭보다 클 때는 "반복에서 생긴 흔들림만으로는 설명되지 않는 차이"라고 쓴다. "유의미한 차이"라고 쓰지 않는다. 반복이 세 번이라 더 강한 주장은 할 수 없다고 한 번 밝힌다.',
-      '- 수준별비교의 흔들림보다큰차이인가가 아니오이면 그 차이는 반복 측정의 흔들림보다 작거나 같으므로 "확실한 차이라고 보기 어렵다"고 쓴다. 조건 간 평균 차이가 흔들림보다 작은 비교를 근거로 결론을 내리지 않는다.',
+      // 어제는 「유의미한」을 「흔들림만으로는 설명되지 않는」으로 바꾸라고 했다. 말만 바꾼 것이어서
+      // 판단 자체가 남았고 검수는 그대로 흠으로 잡았다. 이번에는 **판단을 하지 말라고** 한다.
+      '- **평균 차이와 흔들림을 견주어 차이의 믿음성을 판단하지 않는다.** 반복이 세 번이면 그런 판단을 할 수 없다. "흔들림보다 크므로 우연이 아니다", "충분히 크다", "더 신뢰할 수 있다", "설명되지 않는다" 같은 말을 쓰지 않는다. 두 흔들림을 더하거나 합쳐 기준으로 삼는 것도 안 된다.',
+      '- 대신 이렇게 쓴다. ① 조건마다 평균과 흔들림이 얼마였는지 그대로 적는다. ② 어느 조건이 크고 작았는지, 차이가 얼마였는지 적는다. ③ **한 번만** 이렇게 밝힌다: "반복이 세 번뿐이라 이 차이가 늘 같게 나올지는 이 자료만으로 알 수 없고, 반복을 늘리면 확인할 수 있다."',
+
       '- 본문과 그림 제목·설명에는 입력 자료의 항목 이름(결과정리, 수준별비교 같은 이름이나 영어 이름)을 그대로 쓰지 말고 "반복 측정값의 흔들림", "평균의 차이"처럼 자연스러운 말로 풀어 쓴다. 띄어쓰기만 바꿔 쓰는 것("수준별 비교 지표로 본")도 안 된다 — 같은 기준끼리 견준 차이라고 쓴다. 그림 설명에는 그림에 실제로 그려진 것만 쓴다(오차 막대는 그려지지 않는다).',
       '- 과목 이름은 실제 고등학교 과목 이름만 쓴다. 없는 과목 이름(예: 복지정책 과목, 도시계획 과목)을 만들어 쓰지 않는다. 학문 분야를 말하려면 "과목" 대신 "행정학 분야", "도시계획 분야"처럼 쓴다.',
       ...bookBlock(book),

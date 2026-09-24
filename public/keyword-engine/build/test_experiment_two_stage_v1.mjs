@@ -35,8 +35,11 @@ check(resolveReportStage({}) === STAGE.COMPLETE, "no stage keeps the existing co
 const data = normalizeStudentData(studentData);
 const stats = computeStats(data);
 const [plain, enzymeWarm, enzymeHot] = stats.rows;
-check(plain.mean === 1.33 && enzymeWarm.mean === 2.67 && enzymeHot.mean === 1.67, "means are computed from the student values", stats.rows.map(r => r.mean).join(","));
-check(enzymeWarm.diff_from_first === 1.34 && enzymeWarm.percent_from_first === 100.8, "difference and percent change are computed against the first condition", `${enzymeWarm.diff_from_first} ${enzymeWarm.percent_from_first}`);
+// 2026-09-24: 평균의 소수 자리는 학생이 쓴 자리를 따른다(정수로 쓰면 한 자리). 전에는 하한이 두 자리라
+// 「1.33」처럼 잰 것보다 정밀한 척했다. 그리고 차이·변화율은 **반올림 전** 평균으로 잰다 —
+// 반올림한 값으로 재니 같은 자료의 변화율이 100.8% 로 틀어졌다(정답은 100%).
+check(plain.mean === 1.3 && enzymeWarm.mean === 2.7 && enzymeHot.mean === 1.7, "means are computed from the student values", stats.rows.map(r => r.mean).join(","));
+check(enzymeWarm.diff_from_first === 1.3 && enzymeWarm.percent_from_first === 100, "difference and percent change are computed against the first condition (from the unrounded mean)", `${enzymeWarm.diff_from_first} ${enzymeWarm.percent_from_first}`);
 
 const figures = buildFigures([
   { kind: "line", metric: "mean", conditionOrder: ["효소 세제 · 미지근한 물", "효소 세제 · 뜨거운 물"], title: "효소 세제의 온도별 평균", caption: "", values: [99, 98] },
@@ -44,19 +47,21 @@ const figures = buildFigures([
 ], stats);
 const line = figures.find(f => f.kind === "line");
 const table = figures.find(f => f.kind === "table");
-check(line && line.values.join(",") === "2.67,1.67" && line.label === "그림 1", "the model picks the chart, the numbers come from the student data", JSON.stringify(line?.values));
-check(table && table.label === "표 1" && table.columns.join("|") === "조건|1회|2회|3회|평균|흔들림" && table.rows[0].join("|") === "일반 세제 · 미지근한 물|1|2|1|1.33|1", "a raw-data table is always included, with the spread between repeats", JSON.stringify(table?.rows?.[0]));
+check(line && line.values.join(",") === "2.7,1.7" && line.label === "그림 1", "the model picks the chart, the numbers come from the student data", JSON.stringify(line?.values));
+// 2026-09-24: 관찰 메모 칸이 늘었다. 본문이 메모를 근거로 해석을 바꾸는데 표에 그 메모가 없으면
+// 읽는 사람이 근거를 볼 수 없다 — 보고서 49장 중 세 장에서 걸렸다.
+check(table && table.label === "표 1" && table.columns.join("|") === "조건|1회|2회|3회|평균|흔들림|관찰 메모" && table.rows[0].join("|") === "일반 세제 · 미지근한 물|1|2|1|1.3|1|누런 자국이 남음", "a raw-data table is always included, with the spread between repeats and the note the student wrote", JSON.stringify(table?.rows?.[0]));
 check(!figures.some(f => f.title === "invalid kind is dropped"), "unknown figure kinds are ignored");
 
 const allowed = allowedNumberSet(data, stats);
-const { body, removed } = removeUnsupportedNumbers("효소 세제는 평균 2.67점으로 가장 높았다. 일반적으로 효소는 45도에서 가장 활발하다. 세탁은 20분 동안 했다. 차이는 1.34점이었다.", allowed);
-check(removed === 1 && !body.includes("45도") && body.includes("2.67점") && body.includes("20분") && body.includes("1.34점"), "only the sentence with an invented number is removed (decimals kept)", body);
+const { body, removed } = removeUnsupportedNumbers("효소 세제는 평균 2.7점으로 가장 높았다. 일반적으로 효소는 45도에서 가장 활발하다. 세탁은 20분 동안 했다. 차이는 1.3점이었다.", allowed);
+check(removed === 1 && !body.includes("45도") && body.includes("2.7점") && body.includes("20분") && body.includes("1.3점"), "only the sentence with an invented number is removed (decimals kept)", body);
 
 const draftOut = finalizeStageOutput(STAGE.DRAFT, { reportTitle: "t", sections: [], dataTemplate: { measurementName: "얼룩 제거 정도", unit: "점", scaleGuide: "", conditions: ["A", "A", "B"], trials: 9 } }, { studentData: data });
 check(draftOut.extra.dataTemplate.conditions.join(",") === "A,B" && draftOut.extra.dataTemplate.trials === 5, "the data template is cleaned (unique conditions, at most 5 trials)", JSON.stringify(draftOut.extra.dataTemplate));
 
-const finalOut = finalizeStageOutput(STAGE.FINAL, { reportTitle: "t", sections: [{ title: "탐구 결과", body: "표 1을 보면 평균은 2.67점이었다. 문헌에서는 60도에서 변성된다." }], figures: [] }, { studentData: data, taskDescription: "효소 탐구보고서" });
-check(finalOut.parsed.sections[0].body === "표 1을 보면 평균은 2.67점이었다." && finalOut.extra.removedNumberSentences === 1 && finalOut.extra.figures.length === 1 && finalOut.extra.figures[0].kind === "table", "final output: invented number removed, the raw table added — no chart the model did not ask for", finalOut.parsed.sections[0].body);
+const finalOut = finalizeStageOutput(STAGE.FINAL, { reportTitle: "t", sections: [{ title: "탐구 결과", body: "표 1을 보면 평균은 2.7점이었다. 문헌에서는 60도에서 변성된다." }], figures: [] }, { studentData: data, taskDescription: "효소 탐구보고서" });
+check(finalOut.parsed.sections[0].body === "표 1을 보면 평균은 2.7점이었다." && finalOut.extra.removedNumberSentences === 1 && finalOut.extra.figures.length === 1 && finalOut.extra.figures[0].kind === "table", "final output: invented number removed, the raw table added — no chart the model did not ask for", finalOut.parsed.sections[0].body);
 
 const litOut = finalizeStageOutput(STAGE.LITERATURE, { reportTitle: "t", sections: [], comparisonTable: { title: "비교", columns: ["조건", "경향"], rows: [["미지근한 물", "잘 작용"], ["뜨거운 물", "40% 감소"]] } }, { studentData: normalizeStudentData(empty) });
 check(litOut.extra.comparisonTable === null, "a literature table with a number is dropped (nothing backs it)");
@@ -77,7 +82,7 @@ const gridData = normalizeStudentData({
 });
 const gridStats = computeStats(gridData);
 const grouped = buildFigures([{ kind: "bar", metric: "mean", conditionOrder: [], title: "평균", caption: "" }], gridStats).find(f => f.kind !== "table");
-check(grouped.kind === "grouped_bar" && grouped.labels.join(",") === "찬물,미지근한 물,뜨거운 물" && grouped.series.map(s => `${s.name}:${s.values.join("/")}`).join(" ") === "효소 세제:1.33/2.33/1.33 일반 세제:0.33/1/1.33",
+check(grouped.kind === "grouped_bar" && grouped.labels.join(",") === "찬물,미지근한 물,뜨거운 물" && grouped.series.map(s => `${s.name}:${s.values.join("/")}`).join(" ") === "효소 세제:1.3/2.3/1.3 일반 세제:0.3/1/1.3",
   "a chart over a 세제 × 온도 grid is grouped: 세제 as colours, 온도 on the x-axis", JSON.stringify(grouped));
 check(gridStats.sameMean.some(group => group.join("|") === "효소 세제 · 찬물|효소 세제 · 뜨거운 물|일반 세제 · 뜨거운 물") && gridStats.ranking[0].label === "효소 세제 · 미지근한 물",
   "ties (same mean) and the ranking are computed for the model", JSON.stringify(gridStats.sameMean));
@@ -140,9 +145,12 @@ const threeWay = computeStats(normalizeStudentData({
   ],
 }));
 const [warm, hot] = threeWay.comparisons;
-check(hot.higher === "같음" && hot.gap === 0 && hot.clearDifference === false, "a tie at the top (효소 = 일반 in hot water) is reported as 같음, not against 물만", JSON.stringify(hot));
-check(warm.higher === "효소 세제" && warm.runnerUp === "일반 세제" && warm.gap === 1 && warm.clearDifference === false,
-  "the gap is measured against the runner-up, and a gap no bigger than the repeat spread is not a clear difference", JSON.stringify(warm));
+// 2026-09-24: clearDifference 를 **없앴다.** 반복 세 번의 범위(최댓값−최솟값)로 차이의 믿음성을
+// 판단하게 시킨 칸이었고, 보고서 49장을 읽히니 그 판단이 스물여섯 장에서 [높음] 흠으로 걸렸다.
+// 차이의 크기(gap)는 그대로 준다 — 크다·작다를 말하는 것은 정직하다. 믿음성 판정만 뺐다.
+check(hot.higher === "같음" && hot.gap === 0 && !("clearDifference" in hot), "a tie at the top (효소 = 일반 in hot water) is reported as 같음, and no reliability verdict is sent", JSON.stringify(hot));
+check(warm.higher === "효소 세제" && warm.runnerUp === "일반 세제" && warm.gap === 1 && !("clearDifference" in warm),
+  "the gap is measured against the runner-up, and no reliability verdict rides along", JSON.stringify(warm));
 
 // Real gpt-5 production report (2026-09-11) leaked internal field names into the student's text.
 const leakedSentences = [
@@ -161,8 +169,8 @@ check(leakedSentences.join("|") === [
   ].join("|"),
   "internal field names are removed or rewritten with correct particles", leakedSentences.join(" / "));
 const koreanSummary = summaryForPrompt(threeWay);
-check(koreanSummary.조건별결과[0].흔들림 === 1 && koreanSummary.수준별비교[1].흔들림보다큰차이인가 === "아니오" && !JSON.stringify(koreanSummary).includes("spread"),
-  "the model sees the data summary under Korean names", JSON.stringify(koreanSummary.수준별비교[1]));
+check(koreanSummary.조건별결과[0].흔들림 === 1 && !("흔들림보다큰차이인가" in koreanSummary.수준별비교[1]) && !JSON.stringify(koreanSummary).includes("spread"),
+  "the model sees the data summary under Korean names, without the reliability verdict", JSON.stringify(koreanSummary.수준별비교[1]));
 const captionFigure = buildFigures([{ kind: "bar", metric: "mean", conditionOrder: [], title: "평균 비교", caption: "각 조건의 평균을 비교한다. 에러표시는 반복 측정의 spread를 함께 제시한다." }], threeWay).find(f => f.kind !== "table");
 check(captionFigure.caption === "각 조건의 평균을 비교한다.", "a caption may not describe error bars the chart does not draw", captionFigure.caption);
 
@@ -220,8 +228,9 @@ const oneShotSummary = summaryForPrompt(oneShot);
 check(oneShotSummary.값이높은순서 && !oneShotSummary.평균이높은순서 && oneShotSummary.조건별결과[0].값 === 7 && !("평균" in oneShotSummary.조건별결과[0]) && !("흔들림" in oneShotSummary.조건별결과[0]),
   "a single response count is called a value, never a mean", JSON.stringify(oneShotSummary.조건별결과[0]));
 check(summaryForPrompt(threeWay).평균이높은순서 && "흔들림" in summaryForPrompt(threeWay).조건별결과[0], "repeated measurements keep the mean and the wobble");
-check(summaryForPrompt(oneShot).수준별비교[0].흔들림보다큰차이인가 === "반복이 없어 알 수 없음",
-  "a gap with nothing to compare it against is not called clear", JSON.stringify(summaryForPrompt(oneShot).수준별비교[0]));
+// 판정 칸을 없앴으니 「반복이 없어 알 수 없음」도 없다. 차이의 크기만 간다.
+check(!("흔들림보다큰차이인가" in summaryForPrompt(oneShot).수준별비교[0]) && "차이" in summaryForPrompt(oneShot).수준별비교[0],
+  "no reliability verdict is sent, only how big the gap was", JSON.stringify(summaryForPrompt(oneShot).수준별비교[0]));
 check(stagePromptLines(STAGE.FINAL, { studentData: normalizeStudentData({ conditions: [{ label: "가", values: ["1"] }, { label: "나", values: ["2"] }] }) }).join("\n").includes("값이 하나뿐이라"),
   "the final report is told not to lean on a mean of one number");
 check(!stagePromptLines(STAGE.DRAFT, { collectionKind: COLLECTION.SURVEY }).join("\n").includes("조건마다 3회 이상 반복")
