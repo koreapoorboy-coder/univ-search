@@ -14,7 +14,7 @@ import { textbookCitation } from './references_v1.mjs';
 import { buildConceptCounts, buildMajorCounts, buildWordCounts, inferConcept, matchBooks } from './book_match_v1.mjs';
 import { datasetPromptLines, findPublicData } from './public_data_v1.mjs';
 import { buildFilledTable, findTable } from './kosis_fill_v1.mjs';
-import { applyReview, buildReviewPrompt, reviewNotes, reviewSchema } from './report_review_v1.mjs';
+import { applyDraftReview, applyReview, buildDraftReviewPrompt, buildReviewPrompt, draftReviewSchema, reviewNotes, reviewSchema } from './report_review_v1.mjs';
 import { pickForTask } from './univ_research_v1.mjs';
 import { citationRow, contentWords, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';
 import { accessDate, aliveOnly, asResearch, pickUnivWeb } from './univ_web_v1.mjs';
@@ -686,17 +686,25 @@ export default {
             // **검수.** 다 지은 보고서를 gpt-5 가 한 번 더 읽고 고친다(약 ₩96 더, 2026-09-24 실측).
             // 설계서(DRAFT)는 검수하지 않는다 — 아직 학생이 표를 채우지 않아 맞출 숫자가 없다.
             // REPORT_REVIEW=off 로 끌 수 있다.
-            const forReview = rawParsed?.sections?.length ? { ...rawParsed, figures: result?.figures } : null;
-            if (String(env.REPORT_REVIEW || 'on').toLowerCase() !== 'off' && input.reportStage !== STAGE.DRAFT && forReview) {
+            // 설계서도 검수한다. 처음에는 「아직 숫자가 없어 맞출 것이 없다」고 빼 두었는데,
+            // 그건 여덟 가지 중 하나에만 맞는 말이었다. 설계서 흠은 학생이 실험실에 다녀온 뒤에는
+            // 못 고치고, 그 표로 만든 최종 보고서는 검수를 통과해도 틀린다.
+            const draftStageNow = input.reportStage === STAGE.DRAFT;
+            const forReview = rawParsed?.sections?.length
+              ? { ...rawParsed, ...(draftStageNow ? { dataTemplate: result?.dataTemplate } : { figures: result?.figures }) }
+              : null;
+            if (String(env.REPORT_REVIEW || 'on').toLowerCase() !== 'off' && forReview) {
               try {
-                const checked = await callReview(forReview, env, input);
+                const checked = draftStageNow ? await callDraftReview(forReview, env, input) : await callReview(forReview, env, input);
                 if (checked) {
                   reviewInfo = checked.review;
                   usage = mergeUsage(usage, checked.usage);
-                  if (checked.review.applied.length) {
+                  if (checked.review.applied.length || checked.dataTemplate) {
                     // 고친 절로 **관문과 합치기를 원래 자리에서 다시 한 번** 돌린다.
                     // 검수가 지어낸 숫자나 없는 자료를 댄 문장은 여기서 지워지고, 검산한 숫자는 살아남는다.
-                    result = buildStageResult(input.reportStage || STAGE.COMPLETE, { ...rawParsed, sections: checked.sections }, input);
+                    // 설계서의 표 틀도 여기서 sanitizeDataTemplate 관문을 지난다.
+                    result = buildStageResult(input.reportStage || STAGE.COMPLETE,
+                      { ...rawParsed, sections: checked.sections, ...(checked.dataTemplate ? { dataTemplate: checked.dataTemplate } : {}) }, input);
                   }
                   const lines = reviewNotes(checked.review);
                   if (result?.reportGuide && lines.length) {
@@ -1609,6 +1617,36 @@ async function callReview(report, env, input) {
       reasoning_tokens: Number(body?.usage?.output_tokens_details?.reasoning_tokens || 0),
     },
   };
+}
+
+// **설계서 검수 호출.** 설계서는 최종 보고서보다 짧아 더 싸다.
+// 보는 것이 다르다 — 숫자가 아니라 변인·단위·조건·모으는 방식·가설이다.
+async function callDraftReview(draft, env, input) {
+  const model = env.OPENAI_REVIEW_MODEL || env.OPENAI_MODEL || 'gpt-5';
+  const reasoningModel = /^(gpt-5|o\d)/.test(model);
+  const res = await fetch('https://api.openai.com/v1/responses', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${env.OPENAI_API_KEY}` },
+    body: JSON.stringify({
+      model,
+      input: buildDraftReviewPrompt(draft, input),
+      ...(reasoningModel ? { reasoning: { effort: env.OPENAI_REASONING_EFFORT_REVIEW || 'medium' } } : { temperature: 0.2 }),
+      max_output_tokens: reasoningModel ? 16000 : 6000,
+      text: { format: { type: 'json_schema', name: 'draft_review', schema: draftReviewSchema() } },
+    }),
+  });
+  const body = await res.json();
+  if (!res.ok) throw new Error(body?.error?.message || `OpenAI draft review error ${res.status}`);
+  const message = (body?.output || []).find((item) => item?.type === 'message') || body?.output?.[0];
+  const content = message?.content?.find((part) => part?.type === 'output_text')?.text || message?.content?.[0]?.text || body?.output_text;
+  if (!content) throw new Error('draft review response had no text');
+  const { sections, dataTemplate, review } = applyDraftReview(draft, JSON.parse(content));
+  return { sections, dataTemplate, review, usage: {
+    model: String(body?.model || model),
+    input_tokens: Number(body?.usage?.input_tokens || 0),
+    output_tokens: Number(body?.usage?.output_tokens || 0),
+    reasoning_tokens: Number(body?.usage?.output_tokens_details?.reasoning_tokens || 0),
+  } };
 }
 
 // 설명서는 이미 만들어져 있다. 검수 칸만 「내기 전에 볼 것」 앞에 끼운다.

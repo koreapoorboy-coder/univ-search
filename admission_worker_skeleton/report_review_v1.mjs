@@ -36,8 +36,36 @@ const KIND_LABEL = {
   notdone: '학생이 하지 않은 일을 했다고 적었다',
 };
 
+// ── 설계서 검수 ─────────────────────────────────────────────
+//
+// 처음에는 설계서를 검수하지 않았다. 이유를 「아직 숫자가 없어 맞출 것이 없다」고 적었는데,
+// 그건 여덟 가지 중 한 가지(number)에만 맞는 말이었다. 나머지는 설계서에 그대로 해당되고,
+// 일부는 **설계서에서 더 중요하다.**
+//
+// 설계서 흠이 최종 보고서 흠보다 비싸다. 최종 보고서는 다시 만들면 되지만,
+// 설계서에 통제 변인이 빠져 있으면 학생은 그 계획대로 가서 엉뚱하게 재고 온다.
+// **실험실에 다녀온 뒤에는 못 고친다.** 그 표로 만든 최종 보고서는 검수를 통과해도 틀린다.
+export const DRAFT_REVIEW_KINDS = Object.freeze({
+  VARIABLE: 'variable',     // 바꾼 것·고정한 것·잰 것 가운데 빠진 것이 있다
+  UNIT: 'unit',             // 표 틀의 단위가 없거나 맞지 않는다
+  DOABLE: 'doable',         // 학생이 실제로 할 수 없는 조건이다
+  KINDFIT: 'kindfit',       // 안내문이 시키는 것과 모으는 방식이 다르다
+  HYPOTHESIS: 'hypothesis', // 가설이 재서 판가름할 수 없는 문장이다
+  MISMATCH: 'mismatch',     // 절 제목과 안의 내용이 다르다
+});
+
+const DRAFT_KIND_LABEL = {
+  variable: '바꾼 것·고정한 것·잰 것 가운데 빠진 것이 있다',
+  unit: '표 틀의 단위가 없거나 맞지 않는다',
+  doable: '학생이 실제로 할 수 없는 조건이다',
+  kindfit: '안내문이 시키는 것과 모으는 방식이 다르다',
+  hypothesis: '가설이 재서 판가름할 수 없는 문장이다',
+  mismatch: '절 제목과 안의 내용이 다르다',
+};
+
 export function kindLabel(kind) {
-  return KIND_LABEL[String(kind || '').trim()] || '';
+  const key = String(kind || '').trim();
+  return KIND_LABEL[key] || DRAFT_KIND_LABEL[key] || '';
 }
 
 const clip = (text, max) => String(text ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
@@ -196,6 +224,129 @@ export function applyReview(report, review) {
   const { sections, applied, skipped } = mergeSections(report, review?.sections, titles);
   if (!applied.length) return { ...none, review: { findings: kept, dropped, applied: [], skipped } };
   return { sections, review: { findings: kept, dropped, applied, skipped } };
+}
+
+// 설계서 검수에게 넘길 말. **표 틀과 안내문을 같이 준다** — 그 둘이 맞는지가 핵심이다.
+const KIND_WORD = {
+  measurement: '직접 재서 숫자를 표에 적는 과제',
+  survey: '설문으로 응답 수를 세는 과제',
+  dataset: '공개된 자료의 수치를 옮겨 적는 과제',
+  reading: '자료를 읽고 정리하는 과제',
+  none: '모아 올 자료 없이 교과 개념으로 쓰는 과제',
+};
+
+export function buildDraftReviewPrompt(draft, input = {}) {
+  const sections = (draft?.sections || []).map((one) => `### ${one?.title || ''}\n${one?.body || ''}`);
+  const table = draft?.dataTemplate || {};
+  const kind = String(input.collectionKind || 'measurement');
+  return [
+    '너는 고등학교 수행평가 **설계서**를 검수한다. 학생은 이 설계서를 보고 실제로 실험실에 가거나 자료를 찾아 온다.',
+    '**설계서가 틀리면 학생은 엉뚱하게 재고 돌아온다. 그다음에는 고칠 수 없다.**',
+    '',
+    '## 검수 규칙',
+    '1. **설계서에 실제로 있는 문장만 지적한다.** quote 는 그대로 옮긴 글자여야 한다. 고쳐 적거나 요약하면 그 지적은 버려진다.',
+    '2. section 과 title 에는 **절 제목을 그대로** 적는다. 번호를 붙이거나 줄여 적으면 그 절을 못 찾는다.',
+    '3. 아래 여섯 가지만 본다. 글이 매끄러운지, 더 길게 쓸 수 있는지는 보지 않는다.',
+    ...Object.entries(DRAFT_KIND_LABEL).map(([key, label]) => `   · ${key}: ${label}`),
+    '4. 흠이 있는 절은 **그 절 전체를 다시 써서** sections 에 담는다. 흠이 없는 절은 담지 않는다.',
+    '5. 표 틀(측정 항목·단위·조건)이 잘못됐으면 dataTemplate 에 고친 것을 담는다. 고칠 것이 없으면 담지 않는다.',
+    '   조건 개수는 원래와 크게 달라지면 안 된다. 학생이 낼 표의 크기가 바뀌면 곤란하다.',
+    '6. 다시 쓴 글은 원래 글과 길이가 비슷해야 한다.',
+    '7. **숫자를 새로 만들지 않는다.** 설계서는 계획이므로, 학생이 정할 조건값은 계획으로 밝혀 적는다.',
+    '8. 흠이 없으면 findings 와 sections 를 빈 배열로 둔다. 없는 흠을 만들지 않는다.',
+    '',
+    '## 이 과제를 우리가 어떻게 읽었나',
+    `  모으는 방식: ${KIND_WORD[kind] || kind}`,
+    '  이 읽기가 안내문과 다르면 kindfit 으로 지적한다. 우리 판정은 여덟 건에 한 건쯤 틀린다.',
+    '',
+    '## 학생이 채울 표 틀',
+    `  측정 항목: ${clip(table.measurementName, 60) || '(없음)'}`,
+    `  단위: ${clip(table.unit, 20) || '(없음)'}`,
+    `  점수·기준 설명: ${clip(table.scaleGuide, 200) || '(없음)'}`,
+    `  반복 횟수: ${table.trials ?? '(없음)'}`,
+    '  조건:',
+    ...((table.conditions || []).map((one) => `    · ${clip(one, 60)}`)),
+    '',
+    '## 과제',
+    `  과목: ${clip(input.subject, 40)} / 단원: ${clip(input.selectedConcept, 60)}`,
+    `  안내문: ${clip(input.taskDescription, 900)}`,
+    '',
+    '## 설계서',
+    `제목: ${draft?.reportTitle || ''}`,
+    '',
+    ...sections,
+  ].join('\n');
+}
+
+export function draftReviewSchema() {
+  const base = reviewSchema();
+  return {
+    type: 'object',
+    additionalProperties: false,
+    required: ['findings', 'sections'],
+    properties: {
+      findings: {
+        type: 'array',
+        items: {
+          type: 'object',
+          additionalProperties: false,
+          required: ['section', 'kind', 'quote', 'why'],
+          properties: {
+            section: { type: 'string' },
+            kind: { type: 'string', enum: Object.values(DRAFT_REVIEW_KINDS) },
+            quote: { type: 'string', minLength: 4 },
+            why: { type: 'string', minLength: 4 },
+          },
+        },
+      },
+      sections: base.properties.sections,
+      dataTemplate: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['measurementName', 'unit', 'conditions'],
+        properties: {
+          measurementName: { type: 'string' },
+          unit: { type: 'string' },
+          scaleGuide: { type: 'string' },
+          conditions: { type: 'array', minItems: 2, maxItems: 8, items: { type: 'string' } },
+        },
+      },
+    },
+  };
+}
+
+// 표 틀을 고쳐 받았을 때, **학생이 낼 표의 크기가 바뀌지 않는지** 본다.
+// 조건 개수가 달라지면 학생이 실험실에서 몇 번 재야 하는지가 달라진다. 그건 검수가 정할 일이 아니다.
+export function keptTemplate(was, next) {
+  if (!next || typeof next !== 'object') return { template: null, reason: '표 틀을 주지 않았다' };
+  const before = (was?.conditions || []).length;
+  const after = (next.conditions || []).length;
+  if (!after) return { template: null, reason: '조건이 비었다' };
+  if (before && Math.abs(after - before) > 1) return { template: null, reason: `조건 개수가 너무 달라졌다(${before}→${after})` };
+  // 점수·기준 설명(scaleGuide)도 센다. 이것만 고친 것을 「바뀐 것이 없다」고 버렸는데,
+  // 학생에게 「구간 길이 0.60 m」를 알려 주는 자리가 이것이다 — 빠지면 학생이 무엇을 재는지 모른다.
+  const same = clip(was?.measurementName, 60) === clip(next.measurementName, 60)
+    && clip(was?.unit, 20) === clip(next.unit, 20)
+    && clip(was?.scaleGuide, 200) === clip(next.scaleGuide, 200)
+    && (was?.conditions || []).join('|') === (next.conditions || []).join('|');
+  if (same) return { template: null, reason: '바뀐 것이 없다' };
+  // trials 는 검수가 정하지 않는다 — 모으는 방식에 따라 코드가 정한다.
+  return { template: { ...next, trials: was?.trials }, reason: '' };
+}
+
+// 설계서 검수 결과를 반영한다. 관문(sanitizeDataTemplate 을 품은 finalizeStageOutput)은 워커가 돌린다.
+export function applyDraftReview(draft, review) {
+  const { kept, dropped } = keptFindings(draft, review?.findings);
+  const none = { sections: draft?.sections || [], dataTemplate: null,
+    review: { findings: kept, dropped, applied: [], skipped: [], template: '' } };
+  if (!kept.length) return { ...none, review: { ...none.review, findings: [] } };
+  const titles = new Set(kept.map((one) => bareTitle(one?.section)).filter(Boolean));
+  const { sections, applied, skipped } = mergeSections(draft, review?.sections, titles);
+  // 표 틀은 그 얘기를 하는 지적이 있을 때만 고친다.
+  const wantsTable = kept.some((one) => ['unit', 'variable', 'doable', 'kindfit'].includes(String(one?.kind)));
+  const { template, reason } = wantsTable ? keptTemplate(draft?.dataTemplate, review?.dataTemplate) : { template: null, reason: '표 틀 얘기가 없다' };
+  return { sections, dataTemplate: template,
+    review: { findings: kept, dropped, applied, skipped, template: template ? '고쳤다' : reason } };
 }
 
 // 학생에게 보여 줄 한 줄들. 설명서에 들어간다.
