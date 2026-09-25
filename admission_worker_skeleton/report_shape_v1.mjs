@@ -56,10 +56,55 @@ const BY_COLLECTION = {
   none: { structure: 'structure_concept_interpretation', mode: '개념해석형' },
 };
 
+// **학년 공통 양식의 방식표는 방식 정보가 아니다.**
+// 학교가 한 학년 전체에 같은 양식을 쓰면서 칸을 다 켜 둔다 —
+//   「서술·논술, 구술발표, 토의토론, 조사관찰보고서, **실험실습**, 실기시연, 포트폴리오, …」 (열한 개)
+// 그 「실험실습」 때문에 국어·영어 글쓰기 과제가 실험 뼈대로 갔다. 서평에 「가설과 변인 설정」이 붙었다.
+// 전체 2,473건 중 **709건(29%)** 이 칸이 다섯 개 이상이다(2026-09-25 실측).
+// 칸이 다섯 개 이상이면 양식일 뿐이므로 뼈대를 정할 때 쓰지 않는다. 안내문 글만 본다.
+const FORM_FIELDS = 5;
+function methodText(input) {
+  const raw = String(input?.taskType || '');
+  const fields = raw.split(/[,·\s]+/).map((one) => one.trim()).filter(Boolean);
+  return fields.length >= FORM_FIELDS ? '' : raw;
+}
+
+// **글쓰기 과제에는 재는 뼈대를 주지 않는다.**
+// 서평·논평·감상·에세이는 학생 자신의 글이다. 「가설과 변인 설정」·「오차·한계 분석」을 주면
+// 모델이 빈 절을 채우려고 없는 실험을 지어낸다 — 서평이 「코딩해 비교하는 연구」로 나왔다
+// (운영 검사 2026-09-22, 공통국어1).
+//
+// 무엇이 「학생 자신의 글」인지는 **화면과 같은 파일**을 본다. 두 곳이 다르게 판단하면
+// 화면은 「글은 안 써 드려요」라고 하고 워커는 실험 뼈대를 주는 일이 생긴다.
+// 글쓰기 낱말은 과제 이름·안내문에서만 본다 — 방식표는 학년 공통 양식이라 못 믿는다.
+const WRITING_TASK = /서평|독후|감상문|비평|논평|논술|논증|에세이|수필|창작|시 ?쓰기|글쓰기|작문|낭독|번역/;
+const MEASURING_SHAPE = /experiment|data_interpretation|data_analysis|modeling|problem_design|algorithm|engineering/;
+
 export function decideStructure(input) {
-  const text = [input?.taskDescription, input?.taskName, input?.taskType].filter(Boolean).join(' ');
-  const matched = SHAPE_RULES.find((rule) => rule.test.test(text));
+  const text = [input?.taskDescription, input?.taskName, methodText(input)].filter(Boolean).join(' ');
+  const writing = WRITING_TASK.test(text);
+  // 글쓰기 과제면 재는 뼈대를 건너뛴다. 규칙 순서는 그대로 두고 **고를 수 있는 것만** 줄인다.
+  const rules = writing ? SHAPE_RULES.filter((rule) => !MEASURING_SHAPE.test(rule.structure)) : SHAPE_RULES;
+  const matched = rules.find((rule) => rule.test.test(text));
   if (matched) return { structure: matched.structure, mode: matched.mode, basis: '과제 안내문의 표현' };
+  // 안내문이 아무 말도 안 하면 학생이 모으는 것으로 정한다. 다만 글쓰기 과제는
+  // 「모을 것 없음」이어도 재는 뼈대로 가면 안 된다.
+  // 글쓰기 과제는 무엇을 쓰는 글인지에 따라 뼈대가 다르다. 논증문에 「책 선정 이유」를 주면 안 된다.
+  if (writing) {
+    if (/논술|논증|논설|주장|쟁점|찬반|반론|설득/.test(text)) {
+      return { structure: 'structure_argumentative_writing', mode: '논증형', basis: '학생이 직접 쓰는 논증문' };
+    }
+    if (/서평|독후|책을 읽고|도서/.test(text)) {
+      return { structure: 'structure_reading_critique', mode: '독서비평형', basis: '학생이 직접 쓰는 서평' };
+    }
+    if (/창작|시 ?쓰기|소설|수필 ?쓰기/.test(text)) {
+      return { structure: 'structure_creative_application', mode: '창작설계형', basis: '학생이 직접 하는 창작' };
+    }
+    if (/에세이|영어로|English/i.test(text)) {
+      return { structure: 'structure_text_analysis_argument', mode: '논증형', basis: '학생이 직접 쓰는 에세이' };
+    }
+    return { structure: 'structure_reading_criticism', mode: '독서비평형', basis: '학생이 직접 쓰는 글' };
+  }
   const byKind = BY_COLLECTION[input?.collectionKind] || BY_COLLECTION.reading;
   return { structure: byKind.structure, mode: byKind.mode, basis: '학생이 모으는 자료의 종류' };
 }

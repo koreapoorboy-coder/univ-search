@@ -17,6 +17,7 @@ import { buildFilledTable, findTable } from './kosis_fill_v1.mjs';
 import { applyDraftReview, applyReview, buildDraftReviewPrompt, buildReviewPrompt, draftReviewSchema, reviewNotes, reviewSchema } from './report_review_v1.mjs';
 import { pickForTask } from './univ_research_v1.mjs';
 import { citationRow, contentWords, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';
+import { unitFromStandard } from './unit_from_standard_v1.mjs';
 import { accessDate, aliveOnly, asResearch, pickUnivWeb } from './univ_web_v1.mjs';
 import { cleanKeyword, seedFitsTask } from './seed_fit_v1.mjs';
 import { ingredientPromptLines, inspirationGuide, pickIngredients } from './ingredients_v1.mjs';
@@ -58,6 +59,7 @@ const SEED_FILES = {
   reportShapeIndex: 'engine-index/report_shape_index.v1.json',
   // Built by tools/build_axis_index.mjs: 465 종단 축 and the 1,684 keywords that reach them.
   axisIndex: 'engine-index/longitudinal_axis_index.v1.json',
+  unitFromStandard: 'engine-index/unit_from_standard.v1.json',
   // Built by tools/build_cross_subject_index.mjs: which other subject this one honestly crosses into.
   crossSubjectIndex: 'engine-index/cross_subject_index.v1.json',
   // Built by tools/build_major_curriculum_index.mjs: 33 majors' published curricula, already matched to the
@@ -493,7 +495,12 @@ export default {
         // 「에너지와 열」로 바뀌었다(₩0 전수 검사 2026-09-21, 이렇게 망가진 과제 78건).
         // 그래서 화면이 conceptPicked 로 「학생이 손으로 눌렀다」를 알려 줄 때만 앞자리를 준다.
         const namedUnit = namedConcept && isUnitName(namedConcept) ? namedConcept : '';
-        const fromTask = (chosenByStudent ? namedUnit : '') || listedUnit || guessedConcept || namedUnit || namedConcept || careerConcept;
+        // **성취기준 코드로 읽어낸 단원.** 국어·영어 안내문에는 단원 이름이 없고 코드만 있다 —
+        // 「[10공영1-02-02]」. 그래서 단원을 읽어내는 비율이 0% 였고(2026-09-25 실측, 과제 379건)
+        // 단원을 모르니 논문도 뼈대도 다 어긋났다. 코드는 국가가 정한 것이라 **추측보다 앞자리**다.
+        // 학생이 손으로 고른 것보다는 뒤다 — 학생의 뜻이 먼저다.
+        const byStandard = unitFromStandard(input.subject, taskText(input), seedPack.unitFromStandard).unit;
+        const fromTask = (chosenByStudent ? namedUnit : '') || byStandard || listedUnit || guessedConcept || namedUnit || namedConcept || careerConcept;
         // **과제 글이 단원을 말하지 않는 과제가 전체의 23%다**(전수 검사 2,473건 중 567건: 「과제」,
         // 「발표」, 「자유주제탐구」). 지금까지는 여기서 단원을 비워 둔 채 보고서를 썼고, 단원을 모르니
         // 논문도 책도 안 붙어 속이 빈 보고서가 나갔다 — 오류 화면이 안 떠서 문제로 보이지도 않았다.

@@ -226,8 +226,10 @@ const pick = (subject, concept, major) => {
   // 다른 과목의 개념을 집지 않는다.
   check(inferConcept("지구과학", "태풍 경로와 악기상 재난 사례를 비교한다", axisIndex) === "태풍과 악기상",
     "A3f 과목 안에서만 고른다", inferConcept("지구과학", "태풍 경로와 악기상 재난 사례를 비교한다", axisIndex));
-  check(worker.includes("const fromTask = (chosenByStudent ? namedUnit : '') || listedUnit || guessedConcept || namedUnit || namedConcept || careerConcept"),
-    "A3f 학생이 손으로 고른 단원 → 화면 목록의 단원 → 과제 문구 → 추천 단원 → 축의 개념 차례로 쓴다");
+  check(worker.includes("const fromTask = (chosenByStudent ? namedUnit : '') || byStandard || listedUnit || guessedConcept || namedUnit || namedConcept || careerConcept"),
+  // 2026-09-25: 성취기준 코드로 읽어낸 단원이 둘째 자리에 들어왔다. 국어·영어 안내문에는 단원 이름이
+  // 없고 코드만 있어 읽어내는 비율이 0% 였다 — 코드는 국가가 정한 것이라 추측보다 앞이다.
+    "A3f 학생이 손으로 고른 단원 → 성취기준 코드 → 화면 목록의 단원 → 과제 문구 → 추천 단원 → 축의 개념 차례로 쓴다");
   // 화면은 낱말 목록의 맨 위를 미리 골라 둔다. 그 **미리 고른 것**이 과제 글이 말한 단원을 덮어쓰면
   // 안 된다 — 「등가속도 운동 분석하기」가 「힘과 운동」에서 「에너지와 열」로 바뀌었다(전수 검사
   // 2026-09-21, 78건). 학생이 손으로 눌렀을 때만(conceptPicked) 앞자리를 준다.

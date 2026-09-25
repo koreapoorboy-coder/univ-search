@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v293_review_off
+// SCREEN_VERSION: v294_writing_notice
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v293-review-off";
+  const VERSION = "mini-worker-generate-bridge-v294-writing-notice";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -3022,8 +3022,21 @@
       + ` (조회일 ${escapeHtml(filled.source?.accessed || "")}). 값을 바꾸고 싶으면 칸을 고쳐도 돼요.`;
   }
 
+  // 학생 자신의 글이 점수인 과제에는 **먼저 무엇을 주고 무엇을 안 주는지** 말한다.
+  // 사장님 판단(2026-09-25): 국어·영어 글쓰기·논평·서평은 우리가 해 줄 형태가 아니다. 확인해 보니 맞았다 —
+  // 국어·영어 과제 379건 중 206건(54%)이 학생 자신의 글이고, 우리 형태는 8건(2%)뿐이었다.
+  // 막지는 않는다. 읽을 자료와 뼈대도 학생에게는 큰 도움이고, 막으면 아무것도 못 준다.
+  function renderWritingNotice(){
+    const rule = window.__WRITING_TASK__;
+    if(!rule) return "";
+    const task = { taskName: readValue("taskName"), taskDescription: readRawValue("taskDescription") };
+    const notice = rule.writingNotice(task);
+    if(!notice) return "";
+    return `<div class="mini-writing-notice">${notice}</div>`;
+  }
+
   function renderCollectionPanel(result, books, filled){
-    const pick = renderBookPick(books);
+    const pick = renderWritingNotice() + renderBookPick(books);
     if(result?.collectionKind === "reading") return result?.sourceTemplate ? pick + renderSourceCardPanel(result.sourceTemplate) : pick;
     return result?.dataTemplate ? pick + renderExperimentInputPanel(mergeFilled(result.dataTemplate, filled), result.collectionKind) : pick;
   }
@@ -4747,6 +4760,10 @@ ${result}`;
     "        .mini-exp-panel h3{font-size:19px;margin:0 0 8px;letter-spacing:-.01em}",
     "        .mini-exp-help,.mini-exp-note{font-size:14.5px;line-height:1.7;color:#4b5b73;margin:0 0 14px}",
     "        .mini-exp-note{margin:14px 0 0;padding-top:12px;border-top:1px dashed #cfdcff;font-size:13.5px}",
+    // 학생 자신의 글이 점수인 과제에 먼저 보이는 안내. 눈에 띄어야 한다 — 이걸 못 보면
+    // 「글을 써 줄 줄 알았는데」가 된다.
+    "        .mini-writing-notice{margin:0 0 16px;padding:14px 16px;background:#fff8e6;border:1px solid #e8d9a8;border-radius:8px;font-size:14.5px;line-height:1.75;color:#5c4a12}",
+    "        .mini-writing-notice b{color:#7a5c00}",
     "        .mini-exp-table input{width:100%;min-width:72px;box-sizing:border-box;border:1px solid var(--mini-line,#e6eaf2);border-radius:var(--mini-r-sm,10px);padding:9px 10px;font:inherit;font-size:14px;background:#fff}",
     "        .mini-exp-table input:focus{outline:2px solid var(--mini-primary,#2458ff);outline-offset:-1px;border-color:transparent}",
     "        .mini-exp-table input.is-invalid{border-color:#dc2626;background:#fef2f2}",

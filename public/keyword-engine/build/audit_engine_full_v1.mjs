@@ -167,6 +167,8 @@ await copyFile(`${ROOT}/admission_worker_skeleton/worker.js`, TEMP);
 let worker;
 try { worker = (await import(`file:///${TEMP}`)).default; } finally { await rm(TEMP, { force: true }); }
 const { contentWords } = await import(`file:///${ROOT}/admission_worker_skeleton/paper_route_v1.mjs`);
+const { unitFromStandard } = await import(`file:///${ROOT}/admission_worker_skeleton/unit_from_standard_v1.mjs`);
+const unitStandardTable = JSON.parse(readFileSync(`${SITE}/seed/engine-index/unit_from_standard.v1.json`, "utf8"));
 const env = { OPENAI_API_KEY: "audit-stub", OPENAI_MODEL: "gpt-5", ENGINE_MODE: "production", ALLOW_STUB: "false",
   SEED_BASE_URL: SEED, PUBLIC_DATA_KEY: process.env.PUBLIC_DATA_KEY || "" };
 const quiet = { log: console.log, error: console.error, warn: console.warn };
@@ -286,6 +288,12 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
     // **과제 글이 스스로 말하는 단원**과 견준다. 학생은 이 검사에서 아무것도 고르지 않으므로,
     // 둘이 다르면 우리가 고른 것이 과제를 밀어낸 것이다.
     row.unitFromTask = inferConcept(subject, taskText, axisIndexForCheck) || "";
+    // **성취기준 코드로 정한 단원은 낱말 추측과 견주지 않는다.**
+    // 국어·영어 안내문에는 단원 이름이 없고 코드만 있어서 낱말 추측이 애초에 0% 였다.
+    // 코드는 국가가 정한 것이니 추측보다 낫다 — 견주면 좋은 답이 흠으로 세어진다
+    // (2026-09-25: 이 검사가 41 → 61건으로 늘었고 새로 는 20건이 국어·영어였다. 표본 8건 중 우리가 5건 맞았다).
+    const byStandard = unitFromStandard(subject, taskText, unitStandardTable).unit;
+    if (byStandard && row.concept === byStandard) row.unitFromTask = "";
     if (row.unitFromTask && row.concept && row.unitFromTask !== row.concept) {
       flag("단원_어긋남", `과제 글은 「${row.unitFromTask}」인데 「${row.concept}」로 썼다`);
     }
