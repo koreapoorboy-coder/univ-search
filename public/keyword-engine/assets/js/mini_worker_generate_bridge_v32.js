@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v300_guard_bad_input
+// SCREEN_VERSION: v301_notice_not_error
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v300-guard-bad-input";
+  const VERSION = "mini-worker-generate-bridge-v301-notice-not-error";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -86,7 +86,20 @@
       el.style.display = "none";
     }
   }
+  // **막히는 것과 고장 나는 것은 다르다.** 「이 과제는 우리가 못 해요」에 빨간 「오류」를 띄우면
+  // 학생은 프로그램이 고장 난 줄 알고 나간다. 유료라서 더 그렇다(2026-09-25에 화면을 보고 고쳤다).
+  // 우리가 일부러 막은 것은 **알림**으로, 진짜 고장만 **오류**로 보여 준다.
+  function showNotice(message, detail){
+    const el = $("errorMessage");
+    if(!el){ alert(`${message}${detail ? `
+
+${detail}` : ""}`); return; }
+    el.classList.add("mini-v32-notice");
+    el.innerHTML = `<strong>알려 드려요</strong><br>${escapeHtml(message)}${detail ? `<div class="mini-v32-notice-detail">${escapeHtml(detail)}</div>` : ""}`;
+    el.style.display = "block";
+  }
   function showError(message, detail){
+    $("errorMessage")?.classList.remove("mini-v32-notice");
     const el = $("errorMessage");
     if(el){
       el.innerHTML = `<strong>오류</strong><br>${escapeHtml(message)}${detail ? `<pre class="mini-v32-error-detail">${escapeHtml(detail)}</pre>` : ""}`;
@@ -859,6 +872,8 @@
     return "";
   }
 
+  // 워커가 **일부러** 막은 것들. 고장이 아니라 알림으로 보여 준다.
+  const ON_PURPOSE = new Set(["GUIDE_TOO_SHORT", "NOT_A_REPORT_TASK", "NO_CODE", "TOO_MANY_TRIES"]);
   function makeHttpError(response, url, text, data){
     const isHtml = /<html[\s>]/i.test(String(text || ""));
     // 워커가 보낸 한국어 문장이 있으면 그것을 먼저 쓴다. 없으면 코드를 한국어로 바꾼다.
@@ -4604,7 +4619,7 @@ ${result}`;
       // Turned away here, before the request is made, so nothing is charged for a task that has no report in it.
       const outOfScope = reportScopeProblem(req);
       if(outOfScope){
-        showError("이 과제는 보고서 과제가 아닌 것 같아요.", outOfScope);
+        showNotice("이 과제는 보고서로 내는 과제가 아닌 것 같아요.", outOfScope);
         return false;
       }
       const reportStage = options.reportStage || decideReportStage(req);
@@ -4633,7 +4648,10 @@ ${result}`;
       return true;
     }catch(e){
       console.error("v32 generate failed:", e);
-      showError("보고서 생성 중 오류가 발생했습니다.", e.message || String(e));
+      // 워커가 **일부러** 막은 것이면 고장이 아니다. 학생이 읽는 문장을 그대로 보여 준다.
+      const why = String(e?.data?.reason || e?.data?.error || "");
+      if(ON_PURPOSE.has(why)) showNotice(e.message || String(e));
+      else showError("보고서 생성 중 오류가 발생했습니다.", e.message || String(e));
       return false;
     }finally{
       setLoading(false);
@@ -4790,6 +4808,9 @@ ${result}`;
     "        .mini-exp-note{margin:14px 0 0;padding-top:12px;border-top:1px dashed #cfdcff;font-size:13.5px}",
     // 학생 자신의 글이 점수인 과제에 먼저 보이는 안내. 눈에 띄어야 한다 — 이걸 못 보면
     // 「글을 써 줄 줄 알았는데」가 된다.
+    "        .mini-v32-notice{border-color:#c7d7f0 !important;background:#f4f8ff !important;color:#23395d !important}",
+    "        .mini-v32-notice strong{color:#1d4ed8}",
+    "        .mini-v32-notice-detail{margin-top:8px;line-height:1.75;white-space:pre-line}",
     "        .mini-writing-notice{margin:0 0 16px;padding:14px 16px;background:#fff8e6;border:1px solid #e8d9a8;border-radius:8px;font-size:14.5px;line-height:1.75;color:#5c4a12}",
     "        .mini-writing-notice b{color:#7a5c00}",
     "        .mini-exp-table input{width:100%;min-width:72px;box-sizing:border-box;border:1px solid var(--mini-line,#e6eaf2);border-radius:var(--mini-r-sm,10px);padding:9px 10px;font:inherit;font-size:14px;background:#fff}",

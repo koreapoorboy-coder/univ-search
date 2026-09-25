@@ -3,7 +3,7 @@
 // what comes next, and until now the upload analysis invented its suggestions instead of reading them.
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { SCOPE, isReportTask, resolveReportScope } from "../../../admission_worker_skeleton/report_scope_v1.mjs";
+import { SCOPE, isReportTask, resolveReportScope } from "../assets/js/shared/report_scope_v1.js";
 import { axisPromptLines, matchAxes } from "../../../admission_worker_skeleton/upload_analysis_v1.mjs";
 
 let passed = 0;
@@ -39,7 +39,7 @@ check(scopeOf("배드민턴 경기에 참여하여 규칙을 지킨다").scope =
 
 // The site and the Worker have to agree, or a student is turned away in one place and charged in the other.
 const bridge = await readFile(new URL("../assets/js/mini_worker_generate_bridge_v32.js", import.meta.url), "utf8");
-const scopeSource = await readFile(new URL("../../../admission_worker_skeleton/report_scope_v1.mjs", import.meta.url), "utf8");
+const scopeSource = await readFile(new URL("../assets/js/shared/report_scope_v1.js", import.meta.url), "utf8");
 // 엔진 전수 검사(2026-09-18)에서 나온 두 가지: 천문학의 「연주 운동」을 악기 연주로 봤고, 채점표 속 「수업 참여」 한 줄이
 // 진로 탐구 프로젝트를 막았다. 수업 참여·태도는 이제 과제 제목에서만 본다.
 check(isReportTask({ taskDescription: "좌표계 탐구하기 / 지평 좌표계와 적도 좌표계로 별의 일주 운동과 연주 운동을 설명하기" }), "연주 운동 is astronomy, not a performance");
@@ -48,8 +48,12 @@ check(scopeOf("수업 참여도 / 매 수업시간 관찰").scope === SCOPE.PART
 check(bridge.includes("pattern.test(at === 2 ? head : text)") && scopeSource.includes("rule.scope === SCOPE.PARTICIPATION ? head : text"), "the site and the Worker both read participation from the title only");
 const shared = "연주(?! ?운동| ?시차)|가창|합창|독창(?!적|성)|중주|시연|실기|경기(?! ?침체| ?회복| ?불황| ?호황| ?변동| ?순환| ?지표| ?동향| ?전망)|리그전|타격|송구|드리블";
 check(bridge.includes(shared) && scopeSource.includes(shared), "the site turns away exactly what the Worker would");
-check(bridge.includes("reportScopeProblem(req)") && bridge.includes("이 과제는 보고서 과제가 아닌 것 같아요"),
+// 2026-09-25: 「오류」가 아니라 「알려 드려요」로 말한다. 우리가 일부러 막은 것에 빨간 오류를 띄우면
+// 학생은 프로그램이 고장 난 줄 알고 나간다 — 유료라서 더 그렇다.
+check(bridge.includes("reportScopeProblem(req)") && bridge.includes("이 과제는 보고서로 내는 과제가 아닌 것 같아요"),
   "the site says so before any request is made, so nothing is charged");
+check(bridge.includes("showNotice(\"이 과제는 보고서로 내는 과제가 아닌 것 같아요.\""),
+  "and it is shown as guidance, not as a red error");
 const worker = await readFile(new URL("../../../admission_worker_skeleton/worker.js", import.meta.url), "utf8");
 check(worker.includes("NOT_A_REPORT_TASK") && worker.includes("scope.scope !== SCOPE.REPORT"), "the Worker refuses too, before any model call");
 check(worker.indexOf("scope.scope !== SCOPE.REPORT") < worker.indexOf("callOpenAIWithRetry"), "the refusal comes before the model call");

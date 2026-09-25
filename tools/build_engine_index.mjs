@@ -11,7 +11,7 @@ import { createReadStream, mkdirSync, readFileSync, writeFileSync } from "node:f
 import { createInterface } from "node:readline";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { resolveReportScope, SCOPE } from "../admission_worker_skeleton/report_scope_v1.mjs";
+import { resolveReportScope, SCOPE } from "../public/keyword-engine/assets/js/shared/report_scope_v1.js";
 
 const repo = join(dirname(fileURLToPath(import.meta.url)), "..");
 const corpus = join(repo, "public/keyword-engine/data/assessment/records/assessment_tasks.v1.json");

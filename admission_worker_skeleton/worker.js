@@ -24,7 +24,7 @@ import { accessDate, aliveOnly, asResearch, pickUnivWeb } from './univ_web_v1.mj
 import { cleanKeyword, seedFitsTask } from './seed_fit_v1.mjs';
 import { ingredientPromptLines, inspirationGuide, pickIngredients } from './ingredients_v1.mjs';
 import { axisForConcept, buildNextStep, pickAxis } from './next_step_v1.mjs';
-import { resolveReportScope, SCOPE } from './report_scope_v1.mjs';
+import { resolveReportScope, SCOPE } from '../public/keyword-engine/assets/js/shared/report_scope_v1.js';
 
 const SERVICE_NAME = 'admission-keyword-worker';
 

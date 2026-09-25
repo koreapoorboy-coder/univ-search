@@ -86,5 +86,18 @@ const read = (path) => readFileSync(path, 'utf8');
   }
 }
 
+// ── ⑥ 막히는 것과 고장 나는 것을 가른다 ────────────────────
+// 「이 과제는 우리가 못 해요」에 빨간 「오류」를 띄우면 학생은 프로그램이 고장 난 줄 알고 나간다.
+// 2026-09-25에 화면을 실제로 보고 찾았다 — 수업 참여도 과제에 「오류」가 떴다.
+{
+  const bridge = read('public/keyword-engine/assets/js/mini_worker_generate_bridge_v32.js');
+  ok(/function showNotice\(/.test(bridge), '알림 함수가 있어야 한다');
+  ok(/알려 드려요/.test(bridge), '알림은 「오류」가 아니라 「알려 드려요」로 말해야 한다');
+  ok(/showNotice\("이 과제는 보고서로 내는 과제가 아닌 것 같아요\."/.test(bridge), '보고서 과제가 아닐 때는 알림이어야 한다');
+  ok(/ON_PURPOSE\.has\(why\)/.test(bridge), '워커가 일부러 막은 것도 알림이어야 한다');
+  ok(/GUIDE_TOO_SHORT/.test(bridge) && /NOT_A_REPORT_TASK/.test(bridge), '일부러 막는 까닭을 목록에 적어야 한다');
+  ok(/mini-v32-notice/.test(bridge), '알림은 빨갛지 않아야 한다');
+}
+
 if (fail) { console.error(`\n실패 ${fail}건`); process.exit(1); }
 console.log('통과 — 짧은 안내문은 막고, 개인정보는 안 보내고, 이상한 값에도 안 터진다');

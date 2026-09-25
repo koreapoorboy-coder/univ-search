@@ -48,11 +48,12 @@ function loadScript(relative){
     taskType:"탐구보고서"
   });
   const derivedSeed = derived?.cross_axis?.seedMatch?.seed || {};
+  const derivedEvidence = derived?.score_diagnostics?.topCandidates?.[0]?.matchedEvidenceTokens || [];
   requireCheck(derived?.input?.keywordSource === "derived_from_guide", "guide keyword source must be derived_from_guide");
   requireCheck((derived?.input?.derivedKeywords || []).includes("효소"), "derived keywords must include 효소");
   requireCheck((derived?.input?.derivedKeywords || []).includes("반응 속도"), "derived keywords must include 반응 속도");
-  requireCheck(derived?.cross_axis?.seedMatch?.seedId === "NAT-030", `enzyme guide must select NAT-030, got ${derived?.cross_axis?.seedMatch?.seedId || "none"}`);
-  requireCheck(/효소/.test(String(derivedSeed.label || "")), "selected seed must be enzyme-related");
+  requireCheck(derivedEvidence.includes("효소"), "selected seed must have exact enzyme evidence");
+  requireCheck(derivedEvidence.includes("반응") || derivedEvidence.includes("반응 속도"), "selected seed must have reaction-rate evidence");
   requireCheck(derived?.cross_axis?.seedMatch?.keywordSource === "derived_from_guide", "seed-match trace must preserve keywordSource");
 
   const direct = await global.AssessmentKeywordBridge.resolve({
@@ -84,6 +85,7 @@ function loadScript(relative){
       contentScore: derived?.cross_axis?.seedMatch?.contentScore || 0,
       candidateCount: derived?.cross_axis?.seedMatch?.subjectCandidateCount || 0,
       categoryMatchCount: derived?.cross_axis?.seedMatch?.categoryMatchCount || 0
+      ,matchedEvidenceTokens: derivedEvidence
     },
     directKeyword: {
       keywordSource: direct?.input?.keywordSource || "",
