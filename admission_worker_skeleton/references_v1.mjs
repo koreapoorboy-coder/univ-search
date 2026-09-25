@@ -139,14 +139,24 @@ export function referencesBody({ cards = [], papers = [], web = [], datasets = [
       if (line && !/^(※|\(|\[)/.test(line)) lines.push(line);
     }
   }
-  // 개념에 맞는 논문. 학생이 적은 것 뒤, 공개 자료 앞이다 — 참고문헌으로는 논문이 가장 격이 높다.
-  // 여기 오는 논문은 원문이 열려 있고 주소가 있는 것뿐이다(kci_v1.mjs).
+  // 개념에 맞는 논문. **이 논문은 학생이 읽은 것이 아니다.**
+  // 우리가 단원에 맞추어 붙인 것이고, 보고서 본문이 그것을 근거로 쓴 것도 아니다.
+  // 그런데 학생이 적은 자료와 한 줄씩 섞여 있어 「인용한 자료」처럼 보였다 — 보고서 49장을
+  // 읽히니 아홉 장쯤에서 「본문 어디에서도 근거로 활용되지 않는다」고 걸렸다(2026-09-24).
+  //
+  // 논문을 더 잘 고르는 쪽도 재 보았다. 「중심 낱말도 드물어야 한다」고 걸으니 붙는 비율이
+  // 10.4% → 8.7% 로 줄었는데 **좋은 것이 떨어지고 나쁜 것이 살아남았다**(「머신러닝 탐구」 ←
+  // 「머신러닝 기반 오이 생육 예측」이 떨어지고 「프로그램 작성하기」 ← 「VR 신체활동 프로그램」이
+  // 남았다). 그래서 고르는 규칙은 건드리지 않고, **무엇인지 그대로 적는다.**
+  const readMore = [];
   for (const row of papers) {
-    if (used.has(row)) continue;   // 학생 카드 자리에서 이미 적었다
+    if (used.has(row)) continue;   // 학생 카드 자리에서 이미 적었다 — 그건 학생이 본 자료다
     // 인덱스에서 온 줄에는 주소가 없고 저자 칸 이름이 다르다. 둘 다 받는다.
     const line = row?.url ? paperLine(row) : indexPaperLine(row);
-    if (line && !lines.includes(line)) lines.push(line);
+    if (line && !lines.includes(line) && !readMore.includes(line)) readMore.push(line);
   }
+  // 맨 뒤에 제목을 달아 따로 적는다. 학생이 읽은 자료와 섞이면 안 된다.
+  const tail = () => (readMore.length ? ['더 읽어 볼 자료 (아직 읽지 않았어요)', ...readMore] : []);
   // 대학 연구 소개 글(웹 자료). 논문 뒤, 공개 자료 앞. 넣기 직전에 주소가 열리는 것을 확인했고
   // 접속일이 붙어 있다(univ_web_v1.mjs).
   for (const row of web) {
@@ -169,7 +179,7 @@ export function referencesBody({ cards = [], papers = [], web = [], datasets = [
     const mine = new Set(cards.map((card) => sourceLine(card)).filter(Boolean));
     // 학생이 같은 교과서·단원을 이미 적었으면 우리 줄을 또 붙이지 않는다. 운영 테스트 38: 「물리학Ⅰ 교과서 힘과 운동
     // 단원 (교과서) — …」 바로 밑에 「물리학Ⅰ 교과서 · 힘과 운동 단원」이 한 번 더 나왔다.
-    if ([...mine].some((line) => bare(line).includes(bare(textbook)))) return lines.filter((line) => mine.has(line) || !/교과서/.test(line) || line.includes('·') || /\(\d{4}\)\./.test(line)).join('\n');
+    if ([...mine].some((line) => bare(line).includes(bare(textbook)))) return [...lines.filter((line) => mine.has(line) || !/교과서/.test(line) || line.includes('·') || /\(\d{4}\)\./.test(line)), ...tail()].join(String.fromCharCode(10));
     const vague = (line) => /교과서/.test(line) && !mine.has(line) && !line.includes('·') && !/\(\d{4}\)\./.test(line);
     const precise = lines.findIndex((line) => line === textbook);
     const kept = lines.filter((line) => !vague(line));
@@ -178,9 +188,9 @@ export function referencesBody({ cards = [], papers = [], web = [], datasets = [
     // 걸렸다(2026-09-25). 맞는 지적이다 — 제출물 안에 우리 지시가 들어가면 서지가 모자란 것보다 나쁘다.
     // 그래서 줄은 깨끗하게 두고, 채워 달라는 말은 **제출하지 않는 설명서**에만 적는다.
     if (precise < 0) kept.push(textbook);
-    return kept.join('\n');
+    return [...kept, ...tail()].join(String.fromCharCode(10));
   }
-  return lines.join('\n');
+  return [...lines, ...tail()].join(String.fromCharCode(10));
 }
 
 // 2단계 폼이 자료 칸을 보여 줄지 정한다. '문헌 읽기'는 자료가 본체라 이미 카드가 있고, 나머지는 **선택**이다 —

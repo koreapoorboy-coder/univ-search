@@ -74,9 +74,11 @@ const answer = (status) => async () => ({ status, body: { cancel: async () => {}
     datasets: [{ title: "공개 자료", org: "기관", id: "15000000" }],
     textbook: "가 교과서 · 나 단원",
   }).split("\n");
-  check(lines.length === 5, "U4 다섯 줄", String(lines.length));
-  check(lines[1].includes("학회지") && lines[2].includes("서울대학교 연구성과") && lines[3].includes("data.go.kr"),
-    "U4 논문 → 대학 글 → 공개 자료 순서", lines.join(" | "));
+  // 2026-09-25: 논문이 「더 읽어 볼 자료」로 갈라져 맨 뒤로 가고, 가르는 줄이 하나 늘었다.
+  check(lines.length === 6, "U4 여섯 줄", String(lines.length));
+  check(lines[1].includes("서울대학교 연구성과") && lines[2].includes("data.go.kr")
+    && lines.some((one) => /더 읽어 볼 자료/.test(one)) && lines[lines.length - 1].includes("학회지"),
+    "U4 대학 글 → 공개 자료 → (가르는 줄) → 논문 순서", lines.join(" | "));
   const built = finalizeStageOutput(STAGE.FINAL, { reportTitle: "t", figures: [], sections: [{ title: "결론", body: "비타민C 처리가 갈변을 가장 늦췄다." }] }, {
     studentData: normalizeStudentData({ measurementName: "m", unit: "점", conditions: [{ label: "A", values: [1, 2] }, { label: "B", values: [2, 3] }] }),
     taskDescription: "", subject: "통합과학2", referenceWeb: [{ ...post(), org: "서울대학교", accessed: "2026.09.18" }],

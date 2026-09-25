@@ -708,6 +708,61 @@ export function softenStatClaims(body) {
   return { body: out, changed };
 }
 
+// **적어 놓고 안 쓴 분석 항목은 그 약속만 지운다.**
+//
+// 보고서가 방법 절에서 「첫 조건 대비 차이와 직전 조건 대비 차이를 함께 본다」고 적고,
+// 본문 어디에서도 그 수치를 쓰지 않았다. 49장 중 세 장, 고친 뒤 13장 중 세 장에서 걸렸다.
+// 지시로 「쓸 것만 적어라」 해도 안 막혔다 — 방법 절과 해석 절을 따로 쓰기 때문이다.
+//
+// 그래서 코드가 본다. 약속한 항목의 **수치가 보고서 어디에도 없으면** 그 약속 조각만 뗀다.
+// 문장을 통째로 지우지 않는다 — 나머지 비교 기준은 지킨 것일 수 있다.
+const PLEDGE = [
+  ['직전', /(?:,|및|과|와|그리고)?\s*직전\s*조건\s*대비(?:\s*차이(?:와|과)?\s*변화율|\s*차이|\s*변화율)?/g],
+  ['첫', /(?:,|및|과|와|그리고)?\s*첫\s*조건\s*대비(?:\s*차이(?:와|과)?\s*변화율|\s*차이|\s*변화율)?/g],
+];
+export function dropUnkeptPledges(sections) {
+  const list = Array.isArray(sections) ? sections : [];
+  const whole = list.map((one) => String(one?.body || '')).join(' ');
+  // 그 항목의 수치를 실제로 쓴 자리가 있나 — 같은 문장에 그 말과 숫자가 함께 있으면 쓴 것이다.
+  const used = (word) => whole.split(/(?<=[.!?])\s+/)
+    .some((one) => one.includes(word) && /-?\d+(?:\.\d+)?\s*(?:%|퍼센트|초|배|점|건|명)/.test(one));
+  const unkept = PLEDGE.filter(([word]) => !used(word));
+  if (!unkept.length) return { sections: list, dropped: 0 };
+  let dropped = 0;
+  const out = list.map((one) => {
+    const body = String(one?.body || '');
+    // **문장 단위로** 다룬다. 조각만 떼면 「함께 적고을 병기해 본다」처럼 문장이 부서졌다.
+    const parts = body.split(/(?<=[.。])\s+/);
+    const kept = [];
+    for (const part of parts) {
+      if (!unkept.some(([, pattern]) => pattern.test(part))) { kept.push(part); continue; }
+      // 그 조각만 떼어 보고, 남은 문장이 멀쩡하면 그것을 쓴다.
+      let trimmed = part;
+      for (const [, pattern] of unkept) trimmed = trimmed.replace(pattern, '');
+      trimmed = trimmed
+        .replace(/\s*[①-⑳]\s*[^.。:：]{0,20}[:：]\s*(?=[.。])/g, '')
+        .replace(/\s*[①-⑳]\s*(?=[.。])/g, '')
+        .replace(/\s{2,}/g, ' ').replace(/\s+([,.·])/g, '$1')
+        .replace(/([,·])\s*([,.·])/g, '$2').trim();
+      dropped += 1;
+      // 조사가 앞말 없이 남았으면(「…적고을」, 「…과 를」) 문장이 부서진 것이다. 그때는 문장을 뺀다.
+      const broken = /[가-힣]고(?:을|를|과|와)|(?:^|\s)(?:을|를|과|와|이|가|은|는)\s/.test(trimmed)
+        || trimmed.replace(/[^가-힣]/g, '').length < 8;
+      if (!broken) kept.push(trimmed);
+    }
+    let out2 = kept.join(' ').replace(/\s{2,}/g, ' ').trim();
+    // **절을 비우지 않는다.** 그 절이 온통 그 얘기뿐이면 다 지워져 빈 절이 된다.
+    // 약속을 떼는 것은 다듬기다. 다듬다가 글을 없애면 안 된다.
+    // 절이 **거의 비면** 되돌린다. 약속을 떼는 것은 다듬기다 — 다듬다가 글을 없애면 안 된다.
+    // 문턱을 원문의 절반으로 두었더니 짧은 방법 절에서 아무것도 못 떼게 됐다. 빈 절만 막는다.
+    if (!out2 || out2.replace(/[^가-힣]/g, '').length < 12) return one;
+    // 「세 층위로 둔다」라고 했는데 둘만 남으면 개수를 말하지 않게 둔다.
+    out2 = out2.replace(/(?:두|세|네|다섯)\s*(?:가지|층위|축)(?=\s*로\s*(?:둔다|나눈다|본다))/g, '여러 가지');
+    return { ...one, body: out2 };
+  });
+  return { sections: out, dropped };
+}
+
 export function removeUnsourcedClaims(body, sources) {
   const names = (Array.isArray(sources) ? sources : []).flatMap((one) => String(one || '').split(/[\s_·,()]+/))
     .map((one) => one.trim()).filter((one) => one.length >= 2);
@@ -1602,6 +1657,11 @@ export function finalizeStageOutput(stage, rawParsed, input) {
       }
       return { ...section, body: dropLeadingConnective(numbers.body) };
     });
+    // **적어 놓고 안 쓴 분석 항목을 뗀다.** 절을 다 손본 뒤에 해야 한다 — 방법 절의 약속과
+    // 해석 절의 수치를 같이 봐야 지켰는지 알 수 있다(2026-09-25).
+    const pledge = dropUnkeptPledges(cleaned);
+    for (let at = 0; at < cleaned.length; at += 1) cleaned[at] = pledge.sections[at];
+
     // 모델에게는 참고 자료 절을 쓰지 말라고 일러 두었으므로, 거의 항상 여기서 붙는다. **실제 경로는 이쪽이다** —
     // 위의 buildReferencesBody만 고쳤을 때 아무것도 바뀌지 않았던 이유가 이것이었다.
     const refs = buildReferencesBody('', data.sources, { cards: data.sourceCards, datasets: input.referenceDatasets || [], papers: refPapers, web: refWeb, textbook: input.textbookCitation || '', studentSources: studentSourceLines(data.conditions) })
