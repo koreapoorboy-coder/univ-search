@@ -45,7 +45,8 @@ const INVENTORY = JSON.parse(Buffer.from(inventory.IMMUTABLE_SUBJECT_INVENTORY_B
 const SITE_GROUP = new Map((INVENTORY.rows || INVENTORY.subjects || INVENTORY).map((one) => [one.subject_value, one.subject_group]));
 
 // ── 과제 뽑기: 과목군 × 모으는 방식 칸마다 PER 장 ──────────
-const GROUPS = ['과학', '수학', '정보'];
+// --groups 로 갈래를 고를 수 있다. 국어·영어를 따로 재려고 붙였다(2026-09-25).
+const GROUPS = (arg('--groups', '') || '과학,수학,정보').split(',').map((one) => one.trim()).filter(Boolean);
 const KINDS = [COLLECTION.MEASUREMENT, COLLECTION.DATASET, COLLECTION.READING, COLLECTION.NONE];
 const rows = readFileSync(`${ROOT}/public/keyword-engine/data/assessment/records/assessment_tasks.v1.jsonl`, 'utf8')
   .split(/\r?\n/).filter(Boolean).map((line) => { try { return JSON.parse(line); } catch { return null; } }).filter(Boolean);

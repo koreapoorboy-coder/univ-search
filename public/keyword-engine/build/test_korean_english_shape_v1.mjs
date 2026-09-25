@@ -11,6 +11,7 @@
 import { readFileSync } from 'node:fs';
 import { decideStructure, pickReportShape } from '../../../admission_worker_skeleton/report_shape_v1.mjs';
 import { standardAreas, unitFromStandard } from '../../../admission_worker_skeleton/unit_from_standard_v1.mjs';
+import { COLLECTION, removeUnreadAuthority, resolveCollectionKind } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
 
 let fail = 0;
 const bad = (why) => { console.log(`  ✗ ${why}`); fail += 1; };
@@ -124,6 +125,35 @@ for (const [name, desc, type, kind] of MEASURING_TASKS) {
   const withForm = decideStructure({ taskName: '서평 작성하기', taskDescription: '책을 읽고 서평을 쓴다', taskType: FORM, collectionKind: 'none' });
   const withOne = decideStructure({ taskName: '서평 작성하기', taskDescription: '책을 읽고 서평을 쓴다', taskType: '논술', collectionKind: 'none' });
   ok(withForm.structure === withOne.structure, `양식표가 결과를 바꿨다 — ${withForm.structure} vs ${withOne.structure}`);
+}
+
+// ── ③ 글쓰기 과제는 숫자 표를 받지 않는다 ────────────────
+// 뼈대만 고쳐서는 모자랐다. **수집 방식 판정**도 방식표를 그대로 보고 있어서
+// 서평 과제가 「직접 재는 과제」로 가 학생에게 숫자 표를 채우라고 시켰다(국어·영어 87건).
+for (const [name, desc] of WRITING) {
+  const kind = resolveCollectionKind({ subject: '공통국어1', subjectGroup: '국어',
+    taskName: name, taskDescription: desc, taskType: FORM });
+  ok(kind !== COLLECTION.MEASUREMENT, `${name} → ${kind} (숫자 표를 받는다)`);
+}
+{
+  const kind = resolveCollectionKind({ subject: '생명과학', subjectGroup: '과학',
+    taskName: '효소 실험 보고서', taskDescription: '온도별로 시간을 세 번씩 재어 표에 적는다', taskType: FORM });
+  ok(kind === COLLECTION.MEASUREMENT, `실험 과제가 숫자 표를 못 받는다 — ${kind}`);
+}
+
+// ── ④ 읽지 않은 연구를 근거로 대지 않는다 ─────────────────
+// 우리가 붙인 논문은 「더 읽어 볼 자료 (아직 읽지 않았어요)」인데 본문이 「최근 연구에 따르면」이라
+// 썼다(국어·영어 10장 중 두 장). 논문은 프롬프트에 넣지 않으니 그 「최근 연구」는 지어낸 것이다.
+for (const line of ['최근 연구에 따르면 구성이 설득력을 바꾼다.', '여러 연구에서 같은 경향이 보고되었다.',
+  '학계에서는 이를 정론으로 본다.', '선행 연구는 이를 뒷받침한다.']) {
+  ok(removeUnreadAuthority(line, []).removed === 1, `지워야 한다 — ${line}`);
+}
+for (const [line, read] of [
+  ['기후변화 감시 보고서 2025에 따르면 기온이 올랐다.', ['기후변화 감시 보고서 2025']],
+  ['내가 잰 값에서는 25도에서 가장 빨랐다.', []],
+  ['교과서에 나오듯 물은 100도에서 끓는다.', []],
+]) {
+  ok(removeUnreadAuthority(line, read).removed === 0, `남겨야 한다 — ${line}`);
 }
 
 if (fail) { console.log(`\n실패 ${fail}건`); process.exit(1); }

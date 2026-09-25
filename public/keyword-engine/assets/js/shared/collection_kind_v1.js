@@ -34,7 +34,15 @@ export function resolveCollectionKind(input) {
     if (/문헌|자료조사|독서/.test(picked)) return COLLECTION.READING;
     if (/논술|논증|토의|토론|구술|발표|포트폴리오|프로젝트|창작|제작/.test(picked)) return COLLECTION.NONE;
   }
-  const text = [input?.taskDescription, input?.taskName, input?.taskType].filter(Boolean).join(' ');
+  // **학년 공통 양식의 방식표는 방식 정보가 아니다.**
+  // 학교가 한 학년에 같은 양식을 쓰면서 칸을 다 켜 둔다 —
+  //   「서술·논술, 구술발표, 토의토론, 조사관찰보고서, **실험실습**, 실기시연, 포트폴리오, …」 (열한 개)
+  // 그 「실험실습」 때문에 국어·영어 글쓰기 과제 87건이 「직접 재는 과제」로 갔고, 서평을 쓰라는
+  // 학생에게 **숫자 표를 채우라고** 시켰다. 전체 2,473건 중 709건(29%)이 이 상태다(2026-09-25 실측).
+  // 칸이 다섯 개 이상이면 양식일 뿐이므로 안내문 글만 본다.
+  const fields = String(input?.taskType || '').split(/[,·\s]+/).map((one) => one.trim()).filter(Boolean);
+  const methodText = fields.length >= 5 ? '' : (input?.taskType || '');
+  const text = [input?.taskDescription, input?.taskName, methodText].filter(Boolean).join(' ');
   const science = String(input?.subjectGroup || '').trim() === '과학';
 
   // Order matters, and it is the order a teacher would read the sentence in. What the student is asked to go out

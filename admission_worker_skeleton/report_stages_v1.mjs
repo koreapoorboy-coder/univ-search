@@ -796,6 +796,23 @@ export function removeNoSourceClaim(body, hasSources) {
   return filterSentences(body, (sentence) => !NO_SOURCE_CLAIM.test(sentence));
 }
 
+// **읽지 않은 연구를 근거로 든 문장을 지운다.**
+// 우리는 논문을 프롬프트에 넣지 않는다. 그런데 본문이 「최근 연구에 따르면 …」이라 쓰고, 참고 자료에는
+// 그 자료가 「더 읽어 볼 자료 (아직 읽지 않았어요)」로 적혀 있었다 — 국어·영어 10장 중 두 장
+// (2026-09-25). 그 「최근 연구」는 모델이 지어낸 것이고, 지어낸 권위가 가장 나쁜 흠이다.
+//
+// 학생이 자료 카드에 적은 자료는 **읽은 것**이므로, 그 제목의 낱말이 문장에 있으면 지우지 않는다.
+const UNREAD_AUTHORITY = /(최근|여러|선행|기존|다수의|국내외)\s*(연구|논문|문헌)|학계(에서|에서는)|연구(에 ?따르면|들은|들이 ?보여|에서 ?밝혀)|논문(에 ?따르면|에서는)|보고된 ?바(에 ?따르면)?/;
+export function removeUnreadAuthority(body, readTitles = []) {
+  const words = readTitles.flatMap((one) => String(one || '').split(/[^가-힣A-Za-z0-9]+/))
+    .filter((one) => one.length >= 3);
+  return filterSentences(body, (sentence) => {
+    if (!UNREAD_AUTHORITY.test(sentence)) return true;
+    // 학생이 읽은 자료를 가리키는 문장은 남긴다.
+    return words.some((word) => sentence.includes(word));
+  });
+}
+
 export function removeSelfPraise(body, studentText) {
   const text = String(studentText || '');
   return filterSentences(body, (sentence) => !SELF_PRAISE.test(sentence) || text.includes(sentence.trim().slice(0, 12)));
@@ -1365,6 +1382,12 @@ export function stagePromptLines(stage, input) {
       '- 조건이 달·연도처럼 줄지어 있으면 **직전조건과의차이·직전조건대비변화율**로 어디서 흐름이 꺾였는지 짚는다. 첫 조건 대비만 쓰면 전환점을 못 본다.',
       // 49장을 읽히니 「분석 항목으로 적어 놓고 본문에서 쓰지 않았다」가 세 장에서 걸렸다(2026-09-24).
       '- **쓸 것만 적는다.** 「첫 조건 대비와 직전 조건 대비를 함께 본다」처럼 분석 항목을 늘어놓고 본문에서 그 수치를 쓰지 않으면 안 된다. 쓰지 않을 항목은 아예 적지 않는다.',
+      // 2026-09-25: 국어·영어 보고서 10장을 읽히니 「읽지 않은 연구를 권위 근거로 동원했다」가
+      // 두 장에서 걸렸다. 본문은 「최근 연구에 따르면 …」이라 쓰고, 참고 자료에는 그 자료가
+      // 「더 읽어 볼 자료 (아직 읽지 않았어요)」로 적혀 있었다. 우리는 논문을 프롬프트에 넣지 않으므로,
+      // 그 「최근 연구」는 **모델이 지어낸 말**이다. 지어낸 권위가 가장 나쁜 흠이다.
+      '- **읽지 않은 연구를 근거로 대지 않는다.** "최근 연구에 따르면", "여러 연구에서", "학계에서는", "선행 연구는" 같은 말을 쓰지 않는다. 학생이 자료 카드에 적은 것과 학생이 잰 값, 그리고 교과서에 나오는 사실만 근거로 쓴다.',
+      '- 교과 지식은 그냥 쓴다 — 근거를 댈 필요가 없다. "물은 100 °C에서 끓는다"는 교과서에 있는 사실이므로 연구를 끌어오지 않는다.',
       '- 흔들림을 처음 쓸 때 그 뜻을 한 번 밝힌다(예: "반복 측정한 값의 최댓값과 최솟값의 차이(이하 흔들림)"). 뜻을 안 밝히고 숫자만 견주면 읽는 사람이 표준편차로 오해한다.',
       '- **반복이 세 번뿐이므로 통계적 판단은 하지 않는다.** "유의미하다", "유의성", "통계적으로", "신뢰구간", "표준오차", "검정" 같은 말을 쓰지 않는다. 차이가 반복 폭보다 큰지 작은지만 말하고, 그것을 "통계적으로 증명되었다"는 뜻으로 쓰지 않는다.',
       // 어제는 「유의미한」을 「흔들림만으로는 설명되지 않는」으로 바꾸라고 했다. 말만 바꾼 것이어서
@@ -1634,14 +1657,16 @@ export function finalizeStageOutput(stage, rawParsed, input) {
         ? removeUnsourcedClaims(tidied, sourceNames)
         : removeUnsupportedNumbers(tidied, allowed, { allowPlans: /결론|제언|후속|느낀 점|고찰|확장|성찰/.test(title) });
       // 반복 세 번의 범위로 통계를 말하는 문장의 **세기만 낮춘다**. 지우지 않는다 — 지우면 분석이 사라진다.
-      const softened = softenStatClaims(cleanedNumbers.body);
+      // 읽지 않은 연구를 근거로 든 문장을 지운다. 학생이 적은 자료 제목은 예외다.
+      const unread = removeUnreadAuthority(cleanedNumbers.body, (data.sourceCards || []).map((one) => one?.title));
+      const softened = softenStatClaims(unread.body);
       const units = removeCrossSubjectUnitClaims(softened.body, input.subject);
       const subjects = removeUnknownSubjectNames(units.body);
       // 안내문에 적힌 기구(선생님이 영상으로 재라고 한 과제)는 그대로 둔다.
       const said = [studentText, input.taskDescription, input.taskName, data.draftReport, ...data.conditions.map((row) => `${row.label} ${row.note || ''}`)].filter(Boolean).join(' ');
       const tools = removeUnnamedTools(subjects.body, said);
       tools.body = generalizeThings(tools.body, said);
-      const numbers = { body: tools.body, removed: cleanedNumbers.removed + units.removed + subjects.removed + tools.removed, dropped: [...cleanedNumbers.dropped, ...units.dropped, ...subjects.dropped, ...tools.dropped] };
+      const numbers = { body: tools.body, removed: cleanedNumbers.removed + unread.removed + units.removed + subjects.removed + tools.removed, dropped: [...cleanedNumbers.dropped, ...unread.dropped, ...units.dropped, ...subjects.dropped, ...tools.dropped] };
       removed += numbers.removed;
       // 무엇이 지워졌는지 남긴다(학생 화면에는 안 보인다). 운영 테스트에서 지워진 문장을 볼 수 없어 원인을 짐작만 했다.
       droppedSamples.push(...numbers.dropped.map((sentence) => clip(sentence, 140)));
