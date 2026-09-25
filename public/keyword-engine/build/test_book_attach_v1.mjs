@@ -188,7 +188,7 @@ const pick = (subject, concept, major) => {
   // 학교가 책을 시키는 과제는 대개 글쓰기·논술형이라 가장 필요한 자리에서 빠져 있었다.
   // 2026-09-23: 설계서 표를 진짜 통계로 채우면서 filledTable 을 함께 넘긴다. 규칙은 그대로 —
   // 자료 수집 패널이 없는 단계에서도 참고 도서 칸은 나온다.
-  check(/stage === "experiment_draft" \? renderCollectionPanel\(stageResult, rawData\?\.bookChoices, rawData\?\.filledTable, rawData\?\.paperGuide\) : renderBookPick\(rawData\?\.bookChoices\)/.test(bridge),
+  check(/stage === "experiment_draft" \? renderCollectionPanel\(stageResult, rawData\?\.bookChoices, rawData\?\.filledTable, rawData\?\.paperGuide, rawData\?\.resolved\?\.referenceDatasets\) : renderBookPick\(rawData\?\.bookChoices\)/.test(bridge),
     "A3e 자료 수집 패널이 없는 단계에서도 참고 도서 칸은 나온다");
   // 2026-09-25: paperGuide 인수가 늘었다 — 화면이 「준 것만」 말하려면 자료가 붙었는지 알아야 한다.
 
@@ -300,7 +300,7 @@ const pick = (subject, concept, major) => {
   check(/input\.reportStage === STAGE\.DRAFT[\s\S]{0,2600}buildMajorCounts/.test(worker),
     "A6 설계서 단계에서, 진로까지 넣어 고른다");
   check(/major: input\.major \|\| input\.track/.test(worker), "A6 학과가 없으면 계열이라도 쓴다");
-  check(bridge.includes("renderBookPick") && bridge.includes("renderCollectionPanel(stageResult, rawData?.bookChoices, rawData?.filledTable, rawData?.paperGuide)"),
+  check(bridge.includes("renderBookPick") && bridge.includes("renderCollectionPanel(stageResult, rawData?.bookChoices, rawData?.filledTable, rawData?.paperGuide, rawData?.resolved?.referenceDatasets)"),
     "A6 화면이 그 후보를 받아 그린다");
   // 2026-09-23: 읽은 논문도 카드가 되어 책과 손수 적은 자료 사이에 들어간다. 못 박는 것은
   // **책이 맨 앞**이라는 것이다 — 고른 책이 첫 자료여야 한다는 규칙은 그대로다.

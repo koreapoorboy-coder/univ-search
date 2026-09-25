@@ -12,6 +12,8 @@ import { readFileSync } from 'node:fs';
 import { decideStructure, pickReportShape } from '../../../admission_worker_skeleton/report_shape_v1.mjs';
 import { standardAreas, unitFromStandard } from '../../../admission_worker_skeleton/unit_from_standard_v1.mjs';
 import { isWritingTask, writingNotice } from '../../../public/keyword-engine/assets/js/shared/writing_task_v1.js';
+import { gaveNothing, gaveText, materialNotice, withObject } from '../../../public/keyword-engine/assets/js/shared/material_notice_v1.js';
+import { readFileSync as read2 } from 'node:fs';
 import { COLLECTION, removeUnreadAuthority, resolveCollectionKind } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
 
 let fail = 0;
@@ -182,6 +184,38 @@ for (const [line, read] of [
   const measuring = { taskName: '효소 반응 실험', taskDescription: '온도를 바꿔 시간을 재어 표에 적는다' };
   ok(!isWritingTask(measuring), '실험 과제를 글쓰기로 보면 안 된다');
   ok(writingNotice(measuring, { papers: 2 }) === '', '실험 과제에는 이 안내를 붙이지 않는다');
+}
+
+// ── ⑥ 글쓰기가 아닌 보고서에도 「무엇을 줬나」를 말한다 ──────
+// 논문은 과제 1,761건 중 183건(10.4%)에만 붙는다 — **열에 아홉은 자료가 없다.**
+// 말하지 않으면 학생은 그냥 받고, 참고 자료가 교과서 한 줄뿐인 것이 괜찮은지 판단할 수 없다.
+{
+  const plain = (text) => String(text).replace(/<[^>]+>/g, '');
+  ok(gaveNothing({}), '아무것도 없으면 없다고 세어야 한다');
+  ok(!gaveNothing({ papers: 1 }), '하나라도 있으면 있다고 세어야 한다');
+  ok(gaveText({ papers: 2, books: 1 }) === '논문 2편, 책 1권', `준 것을 사람 말로 적어야 한다 — ${gaveText({ papers: 2, books: 1 })}`);
+  ok(gaveText({ papers: 0 }) === '', '없으면 빈 문자열이어야 한다');
+
+  const none = plain(materialNotice({}));
+  ok(/찾지 못했어요/.test(none), `없으면 없다고 말해야 한다 — ${none}`);
+  ok(/직접 찾아서/.test(none), '학생이 할 일을 알려야 한다');
+  const some = plain(materialNotice({ papers: 1, datasets: 2 }));
+  ok(/논문 1편/.test(some) && /공개 자료 2개/.test(some), `준 것을 말해야 한다 — ${some}`);
+  ok(!/찾지 못했어요/.test(some), `줬는데 못 찾았다고 말했다 — ${some}`);
+
+  // 조사 — 「공개 자료 2개을」처럼 나오면 학생이 먼저 눈치챈다
+  ok(withObject('논문 1편') === '논문 1편을', withObject('논문 1편'));
+  ok(withObject('공개 자료 2개') === '공개 자료 2개를', withObject('공개 자료 2개'));
+  ok(withObject('숫자 표 1장') === '숫자 표 1장을', withObject('숫자 표 1장'));
+
+  // 글쓰기 과제와 그 밖의 과제가 **같은 문장**을 쓴다 — 두 곳에 따로 적으면 어긋난다
+  const writingNone = plain(writingNotice({ taskName: '서평 작성하기', taskDescription: '책을 읽고 서평을 쓴다' }, {}));
+  ok(writingNone.includes(plain(materialNotice({}))), '없을 때 하는 말이 두 곳에서 같아야 한다');
+
+  // 화면이 두 안내를 **둘 다** 붙이지 않는다 — 글쓰기 과제는 자기 말로 이미 다 한다
+  const bridge = read2('public/keyword-engine/assets/js/mini_worker_generate_bridge_v32.js', 'utf8');
+  ok(/\(writing \|\| renderMaterialNotice\(gave\)\)/.test(bridge), '글쓰기 안내가 있으면 그것만 쓴다');
+  ok(/rawData\?\.resolved\?\.referenceDatasets/.test(bridge), '공개 자료 개수를 넘겨받아야 한다');
 }
 
 if (fail) { console.log(`\n실패 ${fail}건`); process.exit(1); }

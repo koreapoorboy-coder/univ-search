@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v295_say_what_we_gave
+// SCREEN_VERSION: v296_no_material_notice
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v295-say-what-we-gave";
+  const VERSION = "mini-worker-generate-bridge-v296-no-material-notice";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -3042,8 +3042,25 @@
     return `<div class="mini-writing-notice">${notice}</div>`;
   }
 
-  function renderCollectionPanel(result, books, filled, paperGuide){
-    const pick = renderWritingNotice(paperGuide, books) + renderBookPick(books);
+  // 글쓰기가 아닌 보고서(실험·자료·문헌)에도 **무엇을 줬는지** 말한다.
+  // 논문은 과제 열에 한 번만 붙는다(10.4%). 아무것도 안 붙었는데 말하지 않으면 학생은 그냥 받고,
+  // 참고 자료가 교과서 한 줄뿐인 것이 괜찮은지 판단할 수 없다(2026-09-25).
+  function renderMaterialNotice(gave){
+    const rule = window.__MATERIAL_NOTICE__;
+    if(!rule) return "";
+    return `<div class="mini-writing-notice">${rule.materialNotice(gave)}</div>`;
+  }
+
+  function renderCollectionPanel(result, books, filled, paperGuide, datasets){
+    const gave = {
+      papers: Array.isArray(paperGuide?.papers) ? paperGuide.papers.filter(one => one && one.line).length : 0,
+      books: Array.isArray(books) ? books.filter(one => one && one.title).length : 0,
+      datasets: Array.isArray(datasets) ? datasets.filter(one => one && one.title).length : 0,
+      tables: filled && filled.conditions && filled.conditions.length ? 1 : 0,
+    };
+    const writing = renderWritingNotice(paperGuide, books);
+    // 글쓰기 과제는 자기 말로 이미 다 말한다(글은 대신 안 써 준다 + 무엇을 줬나).
+    const pick = (writing || renderMaterialNotice(gave)) + renderBookPick(books);
     if(result?.collectionKind === "reading") return result?.sourceTemplate ? pick + renderSourceCardPanel(result.sourceTemplate) : pick;
     return result?.dataTemplate ? pick + renderExperimentInputPanel(mergeFilled(result.dataTemplate, filled), result.collectionKind) : pick;
   }
@@ -4493,7 +4510,7 @@ ${result}`;
           ${sectionHtml}
         </div>
         ${renderPaperGuide(rawData?.paperGuide)}
-        ${stage === "experiment_draft" ? renderCollectionPanel(stageResult, rawData?.bookChoices, rawData?.filledTable, rawData?.paperGuide) : renderBookPick(rawData?.bookChoices)}
+        ${stage === "experiment_draft" ? renderCollectionPanel(stageResult, rawData?.bookChoices, rawData?.filledTable, rawData?.paperGuide, rawData?.resolved?.referenceDatasets) : renderBookPick(rawData?.bookChoices)}
         ${renderNextStep(rawData?.nextStep)}
         ${renderReportGuide(stageResult.reportGuide)}
         ${renderRecordDraft(stageResult.recordDraft)}

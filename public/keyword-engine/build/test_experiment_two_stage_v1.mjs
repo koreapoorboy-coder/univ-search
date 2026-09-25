@@ -661,7 +661,7 @@ console.log(`PASS experiment two-stage report: ${passed}/${passed}`);
     "표를 그리기 **전에** 바꿔 끼운다");
   check(/head\.textContent\.trim\(\) !== row\.label\) return;/.test(bridge),
     "그래도 이름이 다르면 값을 넣지 않는다 — 두 겹으로 막는다");
-  check(/renderCollectionPanel\(stageResult, rawData\?\.bookChoices, rawData\?\.filledTable, rawData\?\.paperGuide\)/.test(bridge),
+  check(/renderCollectionPanel\(stageResult, rawData\?\.bookChoices, rawData\?\.filledTable, rawData\?\.paperGuide, rawData\?\.resolved\?\.referenceDatasets\)/.test(bridge),
     "화면이 채운 표를 넘겨받는다");
   // 2026-09-25: paperGuide 인수가 늘었다 — 화면이 「준 것만」 말하려면 자료가 붙었는지 알아야 한다.
 }

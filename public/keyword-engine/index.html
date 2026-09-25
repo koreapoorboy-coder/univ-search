@@ -291,6 +291,9 @@
     // 학생 자신의 글이 점수인 과제(서평·논평·에세이·창작)는 **글을 대신 써 주지 않는다.**
     // 무엇을 주고 무엇을 안 주는지 먼저 말한다. 워커의 뼈대 고르기도 같은 규칙을 본다.
     import { isWritingTask, writingNotice, writingKind } from "./assets/js/shared/writing_task_v1.js?v=v2_say_what_we_gave";
+    // 논문·책·공개 자료가 하나도 안 붙으면 **없다고 말한다.** 열에 아홉은 자료가 없다(2026-09-25 실측).
+    import { materialNotice, gaveNothing } from "./assets/js/shared/material_notice_v1.js?v=v1_material";
+    window.__MATERIAL_NOTICE__ = { materialNotice, gaveNothing };
     window.__WRITING_TASK__ = { isWritingTask, writingNotice, writingKind };
   </script>
   <script src="assets/js/unit_choice_picker_v1.js?v=v18_say_what_we_read"></script>
@@ -476,7 +479,7 @@
   <script src="assets/assessment_keyword_bridge_helper.js?v=v36_structure_by_route"></script>
   <script src="assets/keyword_engine.js?v=v42_required_input_hotfix"></script>
   <script src="assets/js/decision_flow_payload_adapter.js?v=v3_social_humanities"></script>
-  <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v295_say_what_we_gave"></script>
+  <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v296_no_material_notice"></script>
 <script>
 // 한 번 넣은 학생 코드는 이 기기가 기억한다. 가입 화면·기록 화면과 같은 자리를 쓴다.
 (function () {

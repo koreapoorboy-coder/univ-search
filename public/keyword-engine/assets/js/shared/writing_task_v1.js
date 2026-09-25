@@ -15,6 +15,8 @@
 // 그래서 **글을 대신 쓰지 않는다.** 대신 읽을 자료와 뼈대를 주고, 그것을 학생에게 분명히 말한다.
 // 막지는 않는다 — 뼈대와 자료도 학생에게는 큰 도움이고, 막으면 아무것도 못 준다.
 
+import { NO_MATERIAL, gaveText } from './material_notice_v1.js';
+
 export const WRITING = Object.freeze({
   CRITIQUE: 'critique',     // 서평·독후감
   ARGUMENT: 'argument',     // 논술·논설·논증
@@ -63,12 +65,9 @@ export function writingNotice(input, gave = {}) {
   const books = Number(gave.books) || 0;
   const head = `${NOTICE[kind]} 그래서 <b>글은 대신 써 드리지 않아요.</b>`;
   const bones = ' <b>글의 뼈대</b>(어떤 순서로 무엇을 쓸지)를 드릴게요. 뼈대에 내 생각을 채워 넣으면 내 글이 돼요.';
-  if (papers || books) {
-    const what = [papers ? `논문 ${papers}편` : '', books ? `책 ${books}권` : ''].filter(Boolean).join(', ');
-    return `${head} 대신 <b>읽어 볼 ${what}</b>을 드리고,${bones}`;
-  }
+  // 「무엇을 줬나」와 「못 찾았다」는 말은 **공용 파일**을 쓴다. 두 곳에 같은 말을 따로 적으면 어긋난다.
+  const what = gaveText({ papers, books, datasets: Number(gave.datasets) || 0, tables: Number(gave.tables) || 0 });
+  if (what) return `${head} 대신 <b>읽어 볼 ${what}</b>을 드리고,${bones}`;
   // 자료를 못 찾았을 때는 **못 찾았다고 말한다.** 학생이 직접 찾아야 한다는 것을 알아야 한다.
-  return `${head}${bones}`
-    + ' <b>이 주제에 맞는 읽을 자료는 찾지 못했어요.</b>'
-    + ' 자료는 직접 찾아서 참고 자료에 적어 주세요 — 선생님이 「무엇을 읽었니」 하고 물을 수 있어요.';
+  return `${head}${bones} ${NO_MATERIAL}`;
 }
