@@ -277,7 +277,9 @@
     const noticeText = blocked
       ? (context?.interpreter?.notice || "이 과제는 실기·수행 중심이라 탐구보고서 형태가 아닙니다.\n보고서형 과제 안내문을 넣어주세요.")
       : (context?.interpreter?.fallbackNotice || context?.student_output?.interpreter_notice || "");
-    if(notice){ notice.textContent = noticeText; notice.hidden = !noticeText; }
+    // 짧은 안내문은 막지 않고 **말만 한다.** 통째로 붙여 넣으면 결과가 크게 달라진다는 것을 알아야 한다.
+    const withThin = [state.thinGuide, noticeText].filter(Boolean).join("\n");
+    if(notice){ notice.textContent = withThin; notice.hidden = !withThin; }
     const actions = $("interpretationActions");
     if(actions) actions.hidden = !!blocked;
     $("interpretationCorrection").hidden = true;
@@ -371,6 +373,16 @@
       if(force) setStatus(!subject ? "과목을 먼저 선택해 주세요." : "수행평가 안내문이나 과제명을 입력해 주세요.");
       return;
     }
+    // **안내문이 너무 짧으면 여기서 멈춘다.** 전에는 비어 있지만 않으면 통과해서,
+    // 「가」 한 글자로도 유료 보고서가 나갔다. 바닥은 실제 과제 7,131건의 길이를 재서 정했다.
+    const words = global.__GUIDE_TEXT__;
+    if(words && words.guideBlocks(guide)){
+      setStatus(words.guideMessage(guide).replace(/<[^>]+>/g, ""));
+      $("interpretationCard").hidden = true;
+      $("generateBtn").hidden = true;
+      $("generateBtn").disabled = true;
+      return;
+    }
     const signature = JSON.stringify([subject,guide,state.override]);
     if(!force && signature === state.signature && state.preview) return;
     state.signature = signature;
@@ -379,6 +391,9 @@
     try{
       const context = await resolveContext(false);
       state.preview = context;
+      // 짧지만 만들 수는 있는 안내문이면 **말은 해 준다.** 막지는 않는다.
+      if(words && words.guideLevel(guide) === "thin") state.thinGuide = words.guideMessage(guide).replace(/<[^>]+>/g, "");
+      else state.thinGuide = "";
       state.finalContext = null;
       state.confirmed = false;
       state.category = "";

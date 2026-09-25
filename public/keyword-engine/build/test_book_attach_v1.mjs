@@ -227,10 +227,15 @@ const pick = (subject, concept, major) => {
   // 다른 과목의 개념을 집지 않는다.
   check(inferConcept("지구과학", "태풍 경로와 악기상 재난 사례를 비교한다", axisIndex) === "태풍과 악기상",
     "A3f 과목 안에서만 고른다", inferConcept("지구과학", "태풍 경로와 악기상 재난 사례를 비교한다", axisIndex));
-  check(worker.includes("const fromTask = (chosenByStudent ? namedUnit : '') || byStandard || listedUnit || guessedConcept || namedUnit || namedConcept || careerConcept"),
-  // 2026-09-25: 성취기준 코드로 읽어낸 단원이 둘째 자리에 들어왔다. 국어·영어 안내문에는 단원 이름이
+  // 2026-09-25 ①: 성취기준 코드로 읽어낸 단원이 둘째 자리에 들어왔다. 국어·영어 안내문에는 단원 이름이
   // 없고 코드만 있어 읽어내는 비율이 0% 였다 — 코드는 국가가 정한 것이라 추측보다 앞이다.
-    "A3f 학생이 손으로 고른 단원 → 성취기준 코드 → 화면 목록의 단원 → 과제 문구 → 추천 단원 → 축의 개념 차례로 쓴다");
+  // 2026-09-25 ②: **과제 글(guessedConcept)이 화면 목록(listedUnit)보다 앞으로 왔다.**
+  // 전수로 재 보니 순서를 바꿔 달라지는 과제가 2,204건 중 41건뿐이었고 41건 모두 미적분1이었다.
+  // 그 41건은 전부 「급수」로 갔다 — 미적분1은 목록 첫 항목이 급수라 아무것도 안 맞을 때 딸려 온다.
+  // 과제 글은 「수열의 수렴, 발산」·「미분법과 적분법」이라고 말하고 있었다. 다른 과목 변화는 0건.
+  check(worker.includes("const fromTask = (chosenByStudent ? namedUnit : '') || byStandard")
+    && worker.includes("|| guessedConcept || listedUnit || namedUnit || namedConcept || careerConcept"),
+    "A3f 학생이 손으로 고른 단원 → 성취기준 코드 → 과제 문구 → 화면 목록의 단원 → 추천 단원 → 축의 개념 차례로 쓴다");
   // 화면은 낱말 목록의 맨 위를 미리 골라 둔다. 그 **미리 고른 것**이 과제 글이 말한 단원을 덮어쓰면
   // 안 된다 — 「등가속도 운동 분석하기」가 「힘과 운동」에서 「에너지와 열」로 바뀌었다(전수 검사
   // 2026-09-21, 78건). 학생이 손으로 눌렀을 때만(conceptPicked) 앞자리를 준다.

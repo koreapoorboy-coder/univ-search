@@ -1,6 +1,6 @@
 {
-  "version": "v299_no_english",
-  "sha256": "f6ae18a7aa3c17ee",
+  "version": "v300_guard_bad_input",
+  "sha256": "0bc41c4963025d19",
   "stamped_at": "2026-09-25",
   "files": {
     "assets/js/subject_alias.js": {
@@ -12,8 +12,8 @@
       "sha256": "7a61a280ee809122"
     },
     "assets/js/decision_flow_v1.js": {
-      "version": "v277_ask_read_work",
-      "sha256": "18216cda8f60208b"
+      "version": "v278_guide_too_short",
+      "sha256": "6b5b32c049677315"
     },
     "assets/js/subject_support_notice.js": {
       "version": "v15_no_english",
@@ -28,8 +28,8 @@
       "sha256": "835cc7e4c897936f"
     },
     "assets/js/shared/writing_task_v1.js": {
-      "version": "v2_say_what_we_gave",
-      "sha256": "241c537c7813a2fe"
+      "version": "v3_diary_is_own_writing",
+      "sha256": "17059cc373a91498"
     },
     "assets/js/shared/material_notice_v1.js": {
       "version": "v1_material",
@@ -38,6 +38,10 @@
     "assets/js/shared/read_work_v1.js": {
       "version": "v1_read_work",
       "sha256": "77995f05a9ea321a"
+    },
+    "assets/js/shared/guide_text_v1.js": {
+      "version": "v1_guide_text",
+      "sha256": "e02d27a8ecf5c195"
     },
     "assets/js/unit_choice_picker_v1.js": {
       "version": "v18_say_what_we_read",
@@ -72,8 +76,8 @@
       "sha256": "1fd61417f2bbded0"
     },
     "assets/js/mini_worker_generate_bridge_v32.js": {
-      "version": "v299_no_english",
-      "sha256": "f6ae18a7aa3c17ee"
+      "version": "v300_guard_bad_input",
+      "sha256": "0bc41c4963025d19"
     }
   },
   "note": "화면 코드를 고치면 index.html 의 ?v= 와 화면 코드의 VERSION 을 올리고 이 파일을 다시 찍는다. 안 올리면 학생이 옛 화면을 받는다."

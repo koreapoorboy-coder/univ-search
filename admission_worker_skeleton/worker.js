@@ -18,6 +18,7 @@ import { applyDraftReview, applyReview, buildDraftReviewPrompt, buildReviewPromp
 import { pickForTask } from './univ_research_v1.mjs';
 import { citationRow, contentWords, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';
 import { findLiteraryPapers, literaryCitation, literaryGuide } from './literary_paper_v1.mjs';
+import { guideBlocks, guideMessage, scrubPersonal } from '../public/keyword-engine/assets/js/shared/guide_text_v1.js';
 import { unitFromStandard } from './unit_from_standard_v1.mjs';
 import { accessDate, aliveOnly, asResearch, pickUnivWeb } from './univ_web_v1.mjs';
 import { cleanKeyword, seedFitsTask } from './seed_fit_v1.mjs';
@@ -373,6 +374,18 @@ export default {
           }
         };
         const input = resolveInput(trustedPayload);
+        // **안내문이 너무 짧으면 여기서 멈춘다.** 이용권을 보기도 전에, AI를 부르기도 전에 멈춘다.
+        // 전에는 비어 있지만 않으면 통과했다 — 「가」 한 글자, 「1234567890」, 이모지 넷으로도
+        // 유료 보고서가 그대로 나갔다. 돈을 내고 아무 근거 없는 글을 받는 것이 제일 나쁘다.
+        // 바닥은 실제 과제 7,131건의 길이를 재서 정했다(한글·영문 8자, guide_text_v1.js).
+        if (guideBlocks(taskText(input))) {
+          const say = guideMessage(taskText(input)).replace(/<[^>]+>/g, '');
+          // 화면은 message 를 먼저 읽는다. error 에만 넣으면 영어 코드가 뜰 수 있다.
+          return withCors(json({ ok: false, reason: 'GUIDE_TOO_SHORT', error: 'GUIDE_TOO_SHORT', message: say }, 400));
+        }
+        // **학생의 개인정보는 AI에게 보내지 않는다.** 안내문을 통째로 붙여 넣으라고 했으므로
+        // 이름·학번·전화번호·메일이 섞여 들어온다. 학생은 미성년자고, 과제를 이해하는 데 필요하지도 않다.
+        input.taskDescription = scrubPersonal(input.taskDescription);
         const missing = missingInputs(input);
         if (missing.length) {
           return json({ ok: false, error: `${missing.join(', ')}을(를) 먼저 고른 뒤에 만들 수 있어요.`, code: 'MISSING_INPUT', missing }, 400);
@@ -501,7 +514,20 @@ export default {
         // 단원을 모르니 논문도 뼈대도 다 어긋났다. 코드는 국가가 정한 것이라 **추측보다 앞자리**다.
         // 학생이 손으로 고른 것보다는 뒤다 — 학생의 뜻이 먼저다.
         const byStandard = unitFromStandard(input.subject, taskText(input), seedPack.unitFromStandard).unit;
-        const fromTask = (chosenByStudent ? namedUnit : '') || byStandard || listedUnit || guessedConcept || namedUnit || namedConcept || careerConcept;
+        // **과제 글이 말한 단원이 화면의 추천보다 앞이다**(2026-09-25에 순서를 바꿨다).
+        // 전에는 화면이 보낸 단원(listedUnit)이 먼저였다. 「둘이 다를 때 화면 쪽이 대체로 맞았다」고
+        // 적혀 있었는데, 다시 전수로 재 보니 그 말이 맞는 곳은 이미 둘이 같았다 —
+        // **순서를 바꿔도 달라지는 과제가 2,204건 중 41건뿐이었고, 41건 모두 미적분1이었다.**
+        // 그 41건은 전부 「급수」로 갔다. 미적분1은 화면 낱말 목록의 첫 항목이 급수라,
+        // 아무것도 안 맞을 때 급수가 딸려 온다 — 판단이 아니라 기본값이다. 과제 글은 이렇게 말하고 있었다:
+        //   「수열의 수렴, 발산의 뜻을 알고」 → 수열의 극한   「미분법과 적분법을 활용한」 → 여러 가지 미분법
+        // 바꾼 뒤 41건이 다 제자리를 찾았고, **다른 과목에서 바뀐 과제는 0건**이다(과제별로 대조했다).
+        //
+        // 주의: ₩0 점검의 「단원_어긋남」은 이제 과제 글과 우리 선택을 견주므로, 이 길로 정한 단원은
+        // 스스로와 견주는 셈이 된다. 그 검사가 여전히 잡는 것은 **덮어쓴 경우**다 —
+        // 학생이 손으로 고른 단원, 성취기준으로 정한 단원, 과제 글이 아무 말도 안 해 기본값으로 간 경우.
+        const fromTask = (chosenByStudent ? namedUnit : '') || byStandard
+          || guessedConcept || listedUnit || namedUnit || namedConcept || careerConcept;
         // **과제 글이 단원을 말하지 않는 과제가 전체의 23%다**(전수 검사 2,473건 중 567건: 「과제」,
         // 「발표」, 「자유주제탐구」). 지금까지는 여기서 단원을 비워 둔 채 보고서를 썼고, 단원을 모르니
         // 논문도 책도 안 붙어 속이 빈 보고서가 나갔다 — 오류 화면이 안 떠서 문제로 보이지도 않았다.
