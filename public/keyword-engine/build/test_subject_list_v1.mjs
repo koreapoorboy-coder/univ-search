@@ -20,8 +20,10 @@ ok(picked.length >= 25, `과목이 들어 있어야 한다 — ${picked.length}�
 // ── ① 영어는 고를 수 없다 ────────────────────────────────────
 ok(!picked.some(([value]) => value === '영어'), '영어가 아직 목록에 있다');
 ok(!picked.some(([, group]) => group === '영어'), '영어 갈래가 아직 목록에 있다');
-ok(/영어는 넣지 않는다/.test(html), '왜 뺐는지 코드에 적혀 있어야 한다');
-ok(/재려는 것을 대신해 버린다/.test(html), '가장 중요한 이유(채점 대상)가 적혀 있어야 한다');
+// 이유는 **이 파일 맨 위에** 적어 둔다. index.html 은 학생이 소스 보기로 볼 수 있어서,
+// 우리 판단과 측정값을 거기 길게 적지 않는다. build/ 는 배포되지 않는다.
+ok(/영어는 목록에 넣지 않는다/.test(html), 'index.html 에 짧은 표시가 있어야 한다 — 없으면 누가 무심코 되넣는다');
+ok(/test_subject_list_v1/.test(html), '이유가 어디 적혀 있는지 가리켜야 한다');
 
 // 드롭다운을 다시 그리는 쪽에도 없어야 한다 — 한쪽만 빼면 되살아난다
 const filter = read('public/keyword-engine/assets/js/ui_subject_group_filter_v222.js');

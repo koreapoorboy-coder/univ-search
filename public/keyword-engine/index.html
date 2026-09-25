@@ -83,14 +83,7 @@
               <option value="공통국어1" data-subject-group="국어">공통국어1</option>
               <option value="공통국어2" data-subject-group="국어">공통국어2</option>
             </optgroup>
-            <!-- 영어는 넣지 않는다(2026-09-25 전수 측정).
-                 영어 과제 363건 중 우리가 제대로 값을 하는 것은 34건(9%)뿐이다.
-                 · 글이 하나도 안 나오는 과제 195건(54%) — 발표·듣기·어휘·수업 참여
-                 · 글이 나오는 168건 중에도 수업 지문으로 쓰는 것 51건은 그 지문이 우리에게 없다
-                 · 그 글은 영어로 내야 하는데 우리는 한국어로 쓴다
-                 · 채점 요소에 어휘·문법·철자가 든 과제가 24%다(국어 8%, 과학 0%) —
-                   우리가 영어 글을 써 주면 **재려는 것을 대신해 버린다**
-                 데이터(영어 논문 621편, 성취기준 표)는 지우지 않고 둔다. 되살리려면 이 줄을 되돌리면 된다. -->
+            <!-- 영어는 목록에 넣지 않는다. 이유는 build/test_subject_list_v1.mjs 에 적혀 있다(배포되지 않는 폴더). -->
             <optgroup label="수학">
               <option value="공통수학1" data-subject-group="수학">공통수학1</option>
               <option value="공통수학2" data-subject-group="수학">공통수학2</option>
@@ -494,7 +487,7 @@
   <script src="assets/assessment_keyword_bridge_helper.js?v=v36_structure_by_route"></script>
   <script src="assets/keyword_engine.js?v=v42_required_input_hotfix"></script>
   <script src="assets/js/decision_flow_payload_adapter.js?v=v3_social_humanities"></script>
-  <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v298_no_english"></script>
+  <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v299_no_english"></script>
 <script>
 // 한 번 넣은 학생 코드는 이 기기가 기억한다. 가입 화면·기록 화면과 같은 자리를 쓴다.
 (function () {
