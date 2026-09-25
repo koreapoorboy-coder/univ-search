@@ -102,5 +102,17 @@ const read = (path) => readFileSync(path, 'utf8');
   ok(workNotice('') === '', '안 적었으면 아무 말도 하지 않는다');
 }
 
+// ── ⑦ 운영 테스트에서 잡힌 흠 두 개 ────────────────────────────
+// 2026-09-25 에 실제 보고서를 만들어 보고 찾았다(₩257).
+{
+  const stages = read('admission_worker_skeleton/report_stages_v1.mjs');
+  const worker = read('admission_worker_skeleton/worker.js');
+  // ㉠ 한 번에 끝나는 보고서에 「읽지 않은 연구」 검사가 없었다 — 국어·영어 글쓰기는 전부 이 길로 온다.
+  ok(stages.includes('const unread = removeUnreadAuthority(raw, []);'), '한 번에 끝나는 보고서에도 검사를 걸어야 한다');
+  ok(stages.includes('연구' + String.fromCharCode(92) + 's*(흐름|경향|성과)'), '「연구 흐름이 있다」도 잡아야 한다');
+  // ㉡ 「동백꽃 (김유정)에서」처럼 괄호를 문장마다 끌고 다녔다.
+  ok(worker.includes('본문에서는 **제목만** 쓴다'), '본문에서는 제목만 쓰라고 해야 한다');
+}
+
 if (fail) { console.error(`\n실패 ${fail}건`); process.exit(1); }
 console.log('통과 — 읽은 작품을 묻고, 그 작품으로 논문을 찾고, 그 작품만 다룬다');

@@ -802,7 +802,11 @@ export function removeNoSourceClaim(body, hasSources) {
 // (2026-09-25). 그 「최근 연구」는 모델이 지어낸 것이고, 지어낸 권위가 가장 나쁜 흠이다.
 //
 // 학생이 자료 카드에 적은 자료는 **읽은 것**이므로, 그 제목의 낱말이 문장에 있으면 지우지 않는다.
-const UNREAD_AUTHORITY = /(최근|여러|선행|기존|다수의|국내외)\s*(연구|논문|문헌)|학계(에서|에서는)|연구(에 ?따르면|들은|들이 ?보여|에서 ?밝혀)|논문(에 ?따르면|에서는)|보고된 ?바(에 ?따르면)?/;
+// 2026-09-25 운영 테스트에서 하나 더 빠져나갔다:
+//   「김유정의 작품을 돌봄과 배려의 관점에서 바라보는 **연구 흐름이 있다**는 점은 … 뒷받침해 준다」
+// 우리는 그 논문을 AI에게 보내지 않았다. 즉 이것은 AI가 스스로 「그런 연구가 있다」고 말한 것이다.
+// 「최근 연구에 따르면」만 막고 있었더니 「연구 흐름이 있다」로 돌아 나왔다.
+const UNREAD_AUTHORITY = /(최근|여러|선행|기존|다수의|국내외)\s*(연구|논문|문헌)|학계(에서|에서는)|연구(에 ?따르면|들은|들이 ?보여|에서 ?밝혀)|논문(에 ?따르면|에서는)|보고된 ?바(에 ?따르면)?|연구\s*(흐름|경향|성과)|(하는|보는|바라보는|다루는)\s*연구(가|는|들이)?\s*(있다|있으며|있고|많다)|연구되어 ?왔다|연구가 ?이루어져/;
 export function removeUnreadAuthority(body, readTitles = []) {
   const words = readTitles.flatMap((one) => String(one || '').split(/[^가-힣A-Za-z0-9]+/))
     .filter((one) => one.length >= 3);
@@ -1732,7 +1736,17 @@ export function finalizeStageOutput(stage, rawParsed, input) {
       const follow = String(section?.body || '').match(/후속 ?탐구[^\n]*\n([\s\S]+)/)?.[1]?.trim() || '';
       return { ...section, body: follow && /후속/.test(title) ? `${verified}\n\n후속 탐구 제안\n${scrubInternalNames(follow)}` : verified };
     }
-    const body = scrubInternalNames(input.ingredients ? scrubIngredientIds(section?.body) : section?.body);
+    const raw = scrubInternalNames(input.ingredients ? scrubIngredientIds(section?.body) : section?.body);
+    // **읽지 않은 연구를 근거로 대는 문장을 지운다.** 한 번에 끝나는 보고서에는 이 검사가 없었다 —
+    // 두 단계 보고서만 걸려 있었고, 한 번에 끝나는 쪽이 전체 2,473건 중 1,102건(45%)이다.
+    // 국어·영어 글쓰기는 **전부** 이 길로 온다. 2026-09-25 테스트에서 그대로 빠져나갔다.
+    //
+    // 여기서는 **숫자 검사를 걸지 않는다.** 문학 감상문에 걸어 보니 「이 작품은 1936년에 발표되었고」가
+    // 통째로 지워졌다 — 표에 없는 숫자라서다. 지어낸 근거만 막고, 글은 남긴다.
+    // 읽은 작품 이름은 예외로 두지 않는다 — 「김유정 연구 흐름이 있다」는 작품을 가리키는 말이 아니다.
+    const unread = removeUnreadAuthority(raw, []);
+    const body = unread.body;
+    removedPraise += unread.removed;
     if (!/느낀 점|소감|성찰/.test(String(section?.title || ''))) return { ...section, body };
     // The student wrote nothing here, so any feeling in it was invented by the model.
     const feelings = removeInventedFeelings(body, '');
