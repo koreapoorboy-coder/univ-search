@@ -11,6 +11,7 @@
 import { readFileSync } from 'node:fs';
 import { decideStructure, pickReportShape } from '../../../admission_worker_skeleton/report_shape_v1.mjs';
 import { standardAreas, unitFromStandard } from '../../../admission_worker_skeleton/unit_from_standard_v1.mjs';
+import { isWritingTask, writingNotice } from '../../../public/keyword-engine/assets/js/shared/writing_task_v1.js';
 import { COLLECTION, removeUnreadAuthority, resolveCollectionKind } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
 
 let fail = 0;
@@ -154,6 +155,33 @@ for (const [line, read] of [
   ['교과서에 나오듯 물은 100도에서 끓는다.', []],
 ]) {
   ok(removeUnreadAuthority(line, read).removed === 0, `남겨야 한다 — ${line}`);
+}
+
+// ── ⑤ 화면은 **준 것만** 말한다 ──────────────────────────
+// 늘 「읽어 볼 자료와 글의 뼈대를 드릴게요」라고 적었더니, 국어·영어 글쓰기 과제 52건 중
+// 49건(94%)에서 자료가 하나도 안 붙는데도 그렇게 말했다(2026-09-25 전수 측정).
+// 못 주는 것을 준다고 말하면 학생은 없는 것을 찾다가 프로그램을 못 믿게 된다.
+{
+  const task = { taskName: '서평 작성하기', taskDescription: '책을 읽고 서평을 쓴다' };
+  const plain = (text) => String(text).replace(/<[^>]+>/g, '');
+
+  const none = plain(writingNotice(task, {}));
+  ok(/찾지 못했어요/.test(none), `자료가 없으면 없다고 말해야 한다 — ${none}`);
+  ok(!/읽어 볼 논문|읽어 볼 책/.test(none), `없는 자료를 준다고 말했다 — ${none}`);
+  ok(/뼈대/.test(none), '뼈대는 늘 준다고 말해야 한다');
+  ok(/직접 찾아서/.test(none), '직접 찾아야 한다는 것을 알려야 한다');
+
+  const two = plain(writingNotice(task, { papers: 2 }));
+  ok(/읽어 볼 논문 2편/.test(two), `준 개수를 말해야 한다 — ${two}`);
+  ok(!/찾지 못했어요/.test(two), `준 것이 있는데 못 찾았다고 말했다 — ${two}`);
+
+  const both = plain(writingNotice(task, { papers: 1, books: 1 }));
+  ok(/논문 1편/.test(both) && /책 1권/.test(both), `둘 다 말해야 한다 — ${both}`);
+
+  // 글쓰기 과제가 아니면 아무 말도 안 한다
+  const measuring = { taskName: '효소 반응 실험', taskDescription: '온도를 바꿔 시간을 재어 표에 적는다' };
+  ok(!isWritingTask(measuring), '실험 과제를 글쓰기로 보면 안 된다');
+  ok(writingNotice(measuring, { papers: 2 }) === '', '실험 과제에는 이 안내를 붙이지 않는다');
 }
 
 if (fail) { console.log(`\n실패 ${fail}건`); process.exit(1); }

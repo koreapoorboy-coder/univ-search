@@ -51,10 +51,24 @@ const NOTICE = {
   [WRITING.RESPONSE]: '이 과제는 <b>내 감상과 해석</b>이 점수예요.',
 };
 
-export function writingNotice(input) {
+// **준 것만 말한다.**
+// 처음에는 「읽어 볼 자료와 글의 뼈대를 드릴게요」라고 늘 적었다. 그런데 전수로 재 보니
+// 국어·영어 글쓰기 과제 52건 중 **49건(94%)** 에서 자료가 하나도 안 붙었다(2026-09-25).
+// 못 주는 것을 준다고 말하면, 학생은 없는 것을 찾다가 프로그램을 못 믿게 된다.
+// 그래서 붙은 개수를 받아 **있을 때만** 말하고, 없으면 없다고 말한다.
+export function writingNotice(input, gave = {}) {
   const kind = writingKind(input);
   if (!kind) return '';
-  return `${NOTICE[kind]} 그래서 <b>글은 대신 써 드리지 않아요.</b>`
-    + ' 대신 <b>읽어 볼 자료</b>와 <b>글의 뼈대</b>(어떤 순서로 무엇을 쓸지)를 드릴게요.'
-    + ' 뼈대에 내 생각을 채워 넣으면 내 글이 돼요.';
+  const papers = Number(gave.papers) || 0;
+  const books = Number(gave.books) || 0;
+  const head = `${NOTICE[kind]} 그래서 <b>글은 대신 써 드리지 않아요.</b>`;
+  const bones = ' <b>글의 뼈대</b>(어떤 순서로 무엇을 쓸지)를 드릴게요. 뼈대에 내 생각을 채워 넣으면 내 글이 돼요.';
+  if (papers || books) {
+    const what = [papers ? `논문 ${papers}편` : '', books ? `책 ${books}권` : ''].filter(Boolean).join(', ');
+    return `${head} 대신 <b>읽어 볼 ${what}</b>을 드리고,${bones}`;
+  }
+  // 자료를 못 찾았을 때는 **못 찾았다고 말한다.** 학생이 직접 찾아야 한다는 것을 알아야 한다.
+  return `${head}${bones}`
+    + ' <b>이 주제에 맞는 읽을 자료는 찾지 못했어요.</b>'
+    + ' 자료는 직접 찾아서 참고 자료에 적어 주세요 — 선생님이 「무엇을 읽었니」 하고 물을 수 있어요.';
 }

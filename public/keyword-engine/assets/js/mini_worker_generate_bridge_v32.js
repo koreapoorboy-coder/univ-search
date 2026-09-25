@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v294_writing_notice
+// SCREEN_VERSION: v295_say_what_we_gave
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v294-writing-notice";
+  const VERSION = "mini-worker-generate-bridge-v295-say-what-we-gave";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -3026,17 +3026,24 @@
   // 사장님 판단(2026-09-25): 국어·영어 글쓰기·논평·서평은 우리가 해 줄 형태가 아니다. 확인해 보니 맞았다 —
   // 국어·영어 과제 379건 중 206건(54%)이 학생 자신의 글이고, 우리 형태는 8건(2%)뿐이었다.
   // 막지는 않는다. 읽을 자료와 뼈대도 학생에게는 큰 도움이고, 막으면 아무것도 못 준다.
-  function renderWritingNotice(){
+  // **준 것만 말한다.** 늘 「읽어 볼 자료를 드릴게요」라고 적었더니, 국어·영어 글쓰기 과제 52건 중
+  // 49건(94%)에서 자료가 하나도 안 붙는데도 그렇게 말했다(2026-09-25 전수 측정).
+  // 못 주는 것을 준다고 말하면 학생이 없는 것을 찾는다.
+  function renderWritingNotice(guide, books){
     const rule = window.__WRITING_TASK__;
     if(!rule) return "";
     const task = { taskName: readValue("taskName"), taskDescription: readRawValue("taskDescription") };
-    const notice = rule.writingNotice(task);
+    const gave = {
+      papers: Array.isArray(guide?.papers) ? guide.papers.filter(one => one && one.line).length : 0,
+      books: Array.isArray(books) ? books.filter(one => one && one.title).length : 0,
+    };
+    const notice = rule.writingNotice(task, gave);
     if(!notice) return "";
     return `<div class="mini-writing-notice">${notice}</div>`;
   }
 
-  function renderCollectionPanel(result, books, filled){
-    const pick = renderWritingNotice() + renderBookPick(books);
+  function renderCollectionPanel(result, books, filled, paperGuide){
+    const pick = renderWritingNotice(paperGuide, books) + renderBookPick(books);
     if(result?.collectionKind === "reading") return result?.sourceTemplate ? pick + renderSourceCardPanel(result.sourceTemplate) : pick;
     return result?.dataTemplate ? pick + renderExperimentInputPanel(mergeFilled(result.dataTemplate, filled), result.collectionKind) : pick;
   }
@@ -4486,7 +4493,7 @@ ${result}`;
           ${sectionHtml}
         </div>
         ${renderPaperGuide(rawData?.paperGuide)}
-        ${stage === "experiment_draft" ? renderCollectionPanel(stageResult, rawData?.bookChoices, rawData?.filledTable) : renderBookPick(rawData?.bookChoices)}
+        ${stage === "experiment_draft" ? renderCollectionPanel(stageResult, rawData?.bookChoices, rawData?.filledTable, rawData?.paperGuide) : renderBookPick(rawData?.bookChoices)}
         ${renderNextStep(rawData?.nextStep)}
         ${renderReportGuide(stageResult.reportGuide)}
         ${renderRecordDraft(stageResult.recordDraft)}
