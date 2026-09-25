@@ -430,14 +430,34 @@
     syncHiddenBase();
     setProgress("subject");
     setStatus("안내문 입력이 멈추면 자동으로 해석합니다.");
+    syncReadWork();
     if(text($("subject")?.value) && text($("taskDescription")?.value)){
       global.__DECISION_FLOW_PREVIEW_TIMER__ = setTimeout(() => previewInterpretation(false), 650);
     }
   }
+  // **정해진 작품을 읽고 쓰는 과제인데 안내문에 이름이 없으면 학생에게 물어본다**(read_work_v1.js).
+  // 국어·영어 과제 620건 중 298건이 그렇다. 교과서를 출판사별로 다 모아도 어느 작품인지 알 수 없다 —
+  // 수업에서 정하기 때문이다. 우리 과목이 아닐 때는 묻지 않는다(수학 과제에 물으면 고장 난 것처럼 보인다).
+  function syncReadWork(){
+    const field = $("readWorkField");
+    const rule = global.__READ_WORK__;
+    if(!field || !rule) return;
+    const need = rule.needsWorkName({
+      subject: text($("subject")?.value),
+      taskName: text($("taskName")?.value),
+      taskDescription: text($("taskDescription")?.value)
+    });
+    field.hidden = !need;
+    const help = $("readWorkHelp");
+    if(help && need && !help.innerHTML) help.innerHTML = rule.ASK_HELP;
+    // 과제를 바꿔서 더 안 물어도 되면 적어 둔 것도 지운다 — 앞 과제의 작품이 남으면 안 된다.
+    if(!need && $("readWork")) $("readWork").value = "";
+  }
   function resetFlow(){
     clearTimeout(global.__DECISION_FLOW_PREVIEW_TIMER__);
     Object.assign(state,{preview:null,finalContext:null,confirmed:false,blocked:false,override:null,category:"",categoryLabel:"",bookSignal:false,bookMode:"noBook",bookTitle:"",signature:"",busy:false});
-    ["subject","taskDescription","career","keyword","selectedConcept","selectedBookTitle","reportMode","reportView","reportLine"].forEach(id => { if($(id)) $(id).value = ""; });
+    ["subject","taskDescription","career","keyword","selectedConcept","selectedBookTitle","reportMode","reportView","reportLine","readWork"].forEach(id => { if($(id)) $(id).value = ""; });
+    if($("readWorkField")) $("readWorkField").hidden = true;
     if($("subjectGroup")) $("subjectGroup").value = "";
     if($("taskName")) $("taskName").value = "";
     if($("bookUsageMode")) $("bookUsageMode").value = "noBook";
@@ -467,6 +487,7 @@
     if(!subject || !guide) return;
     subject.addEventListener("change", markStale);
     guide.addEventListener("input", markStale);
+    syncReadWork();
     $("interpretBtn")?.addEventListener("click", () => previewInterpretation(true));
     $("confirmInterpretationBtn")?.addEventListener("click", () => setConfirmed(true));
     $("editInterpretationBtn")?.addEventListener("click", () => { $("interpretationCorrection").hidden = false; });

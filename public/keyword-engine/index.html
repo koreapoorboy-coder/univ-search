@@ -6,7 +6,7 @@
   <title>RNY 탐구 보고서 프로그램</title>
   <link rel="stylesheet" href="assets/keyword_engine.css" />
   <link rel="stylesheet" href="assets/topic_generator.css" />
-  <link rel="stylesheet" href="assets/decision_flow.css?v=v275_book_required" />
+  <link rel="stylesheet" href="assets/decision_flow.css?v=v276_read_work" />
   <style>
     /* 학생 코드 — 보고서가 누구 것이 되는지 정하는 칸이라 첫 화면에 있어야 한다. */
     .student-code-panel { padding: 16px 20px; margin-bottom: 14px; }
@@ -137,6 +137,12 @@
         <label class="decision-field full">
           <span>수행평가 안내문 (그대로 붙여넣기)</span>
           <textarea id="taskDescription" rows="6" required placeholder="예) 효소의 작용 탐구보고서 작성하기 / 단백질의 특징을 바탕으로 효소의 특성을 이해하고 효소 활성에 영향을 미치는 요인을 설명함. 효소 반응 속도를 측정하는 실험에 대해 가설을 설정하고 탐구 과정을 설계함. / 평가방법: 논술, 교사 관찰 및 기록 / 반영비율 30%"></textarea>
+        </label>
+        <!-- 정해진 작품을 읽고 쓰는 과제인데 안내문에 이름이 없을 때만 나타난다(read_work_v1.js). -->
+        <label class="decision-field full read-work-field" id="readWorkField" hidden>
+          <span id="readWorkLabel">읽은 작품(글)의 이름</span>
+          <input id="readWork" type="text" maxlength="120" placeholder="예) 동백꽃 (김유정) / 구운몽 / The Old Man and the Sea" />
+          <small class="read-work-help" id="readWorkHelp"></small>
         </label>
         <div class="interpret-status-row">
           <span id="interpretStatus" role="status" aria-live="polite">과목과 안내문을 입력하면 자동으로 해석합니다.</span>
@@ -295,6 +301,10 @@
     import { materialNotice, gaveNothing } from "./assets/js/shared/material_notice_v1.js?v=v1_material";
     window.__MATERIAL_NOTICE__ = { materialNotice, gaveNothing };
     window.__WRITING_TASK__ = { isWritingTask, writingNotice, writingKind };
+    // 국어·영어 과제 620건 중 298건은 **안내문에 작품 이름이 없다**. 교과서를 다 모아도 어느 작품인지
+    // 알 수 없다 — 수업에서 정하기 때문이다. 아는 사람은 학생뿐이라, 물어서 받는다.
+    import { needsWorkName, workParts, workNotice, ASK_HELP, ASK_LABEL, ASK_PLACEHOLDER } from "./assets/js/shared/read_work_v1.js?v=v1_read_work";
+    window.__READ_WORK__ = { needsWorkName, workParts, workNotice, ASK_HELP, ASK_LABEL, ASK_PLACEHOLDER };
   </script>
   <script src="assets/js/unit_choice_picker_v1.js?v=v18_say_what_we_read"></script>
   <script src="assets/js/title_composer_v2.js?v=patch6e_title_particles"></script>
@@ -479,7 +489,7 @@
   <script src="assets/assessment_keyword_bridge_helper.js?v=v36_structure_by_route"></script>
   <script src="assets/keyword_engine.js?v=v42_required_input_hotfix"></script>
   <script src="assets/js/decision_flow_payload_adapter.js?v=v3_social_humanities"></script>
-  <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v296_no_material_notice"></script>
+  <script src="assets/js/mini_worker_generate_bridge_v32.js?v=v297_ask_read_work"></script>
 <script>
 // 한 번 넣은 학생 코드는 이 기기가 기억한다. 가입 화면·기록 화면과 같은 자리를 쓴다.
 (function () {

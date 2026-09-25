@@ -840,6 +840,8 @@ export function buildReferencesBody(body, sources, extra = {}) {
     // 대학 연구 소개 글. 넣기 직전에 주소가 열리는 것을 확인했고 접속일이 붙어 있다.
     web: extra.web || [],
     textbook: extra.textbook || '',
+    // 학생이 적은 「읽은 작품」. 참고 자료 맨 앞에 그 작품이 온다.
+    readWork: extra.readWork || '',
     // 학생이 메모 칸에 적은 자료원. 맨 앞에 온다 — 그 학생이 실제로 본 자료다.
     studentSources: extra.studentSources || [],
     fallbackBody: written.length ? written.join('\n') : body,
@@ -1646,6 +1648,7 @@ export function finalizeStageOutput(stage, rawParsed, input) {
       const title = String(section?.title || '');
       if (/참고 자료/.test(title)) {
         return { ...section, body: buildReferencesBody(section?.body, data.sources, {
+          readWork: input.readWork || '',
           datasets: input.referenceDatasets || [], papers: refPapers, web: refWeb,
           cards: data.sourceCards, textbook: input.textbookCitation || '',
           studentSources: studentSourceLines(data.conditions),
@@ -1689,7 +1692,7 @@ export function finalizeStageOutput(stage, rawParsed, input) {
 
     // 모델에게는 참고 자료 절을 쓰지 말라고 일러 두었으므로, 거의 항상 여기서 붙는다. **실제 경로는 이쪽이다** —
     // 위의 buildReferencesBody만 고쳤을 때 아무것도 바뀌지 않았던 이유가 이것이었다.
-    const refs = buildReferencesBody('', data.sources, { cards: data.sourceCards, datasets: input.referenceDatasets || [], papers: refPapers, web: refWeb, textbook: input.textbookCitation || '', studentSources: studentSourceLines(data.conditions) })
+    const refs = buildReferencesBody('', data.sources, { cards: data.sourceCards, datasets: input.referenceDatasets || [], papers: refPapers, web: refWeb, textbook: input.textbookCitation || '', studentSources: studentSourceLines(data.conditions), readWork: input.readWork || '' })
       || [String(input.subject || '').trim(), '교과서 관련 단원'].filter(Boolean).join(' ');
     if (!cleaned.some((section) => /참고 자료/.test(String(section?.title || '')))) cleaned.push({ title: '참고 자료', body: refs });
     const extra = stage === STAGE.FINAL
@@ -1721,6 +1724,7 @@ export function finalizeStageOutput(stage, rawParsed, input) {
     papers: usedRefs ? usedRefs.papers : (input.referencePapers || []),
     web: usedRefs ? used.research : (input.referenceWeb || []),
     textbook: input.textbookCitation || '',
+    readWork: input.readWork || '',
   });
   const oneShot = sections.map((section) => {
     const title = String(section?.title || '');

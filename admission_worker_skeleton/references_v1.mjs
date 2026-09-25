@@ -106,7 +106,7 @@ export function studentSourceLines(conditions) {
   return lines.slice(0, 2);
 }
 
-export function referencesBody({ cards = [], papers = [], web = [], datasets = [], textbook = '', fallbackBody = '', studentSources = [] } = {}) {
+export function referencesBody({ cards = [], papers = [], web = [], datasets = [], textbook = '', fallbackBody = '', studentSources = [], readWork = '' } = {}) {
   const lines = [];
   // 학생이 자료 카드에 적은 것이 우리가 붙이는 논문과 **같은 논문**이면 한 줄로 합친다 — 운영 테스트에서
   // 같은 논문이 카드 줄과 서지사항 줄로 두 번 나왔다. 서지사항을 쓰고, 학생이 얻은 것을 뒤에 붙인다.
@@ -117,7 +117,13 @@ export function referencesBody({ cards = [], papers = [], web = [], datasets = [
     const b = bare(row?.title);
     return a.length >= 8 && b && (b.startsWith(a) || a.startsWith(b));
   });
-  // 학생이 적은 자료원이 맨 앞이다 — 그 학생이 실제로 본 자료다.
+  // **학생이 읽은 작품이 제일 앞이다.** 이 보고서의 본문이고, 학생이 유일하게 확실히 읽은 글이다.
+  // 서지사항은 우리에게 없다 — 학생이 적은 한 줄이 전부다. 그래서 **적은 대로만 쓰고**
+  // 출판사·연도를 채워 넣지 않는다(지어내지 않는다).
+  const work = clean(readWork, 120);
+  if (work) lines.push(`${/[『「《〈]/.test(work) ? work : `「${work}」`} — 수업에서 읽은 작품`);
+
+  // 학생이 적은 자료원이 그다음이다 — 그 학생이 실제로 본 자료다.
   for (const note of studentSources) {
     if (note && !lines.includes(note)) lines.push(note);
   }

@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v296_no_material_notice
+// SCREEN_VERSION: v297_ask_read_work
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v296-no-material-notice";
+  const VERSION = "mini-worker-generate-bridge-v297-ask-read-work";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -148,6 +148,8 @@
       // then goes to 교과 심화 확장 instead of naming a department.
       major: readValue("majorPick"),
       track: readValue("career"),
+      // 학생이 적은 「읽은 작품」. 안내문에 작품 이름이 없는 국어·영어 과제에서만 화면에 나타난다.
+      readWork: readValue("readWork"),
       // 이용권이 학생 코드에 붙어 있다. 이 값이 없으면 워커가 보고서를 만들지 않는다.
       studentCode: readValue("studentCode")
     };
@@ -654,6 +656,8 @@
       taskType: form.taskType,
       usagePurpose: form.usagePurpose,
       taskDescription: form.taskDescription || miniInstruction,
+      // **학생이 적은 읽은 작품.** 이것이 있으면 워커가 그 작품으로 논문을 찾고, 그 작품만 다룬다.
+      readWork: form.readWork || readValue("readWork") || "",
       career: s.department || form.career,
       major: firstNonEmpty(s.selectedMajor, form.major, ""),
       studentCode: form.studentCode || readValue("studentCode") || "",

@@ -17,6 +17,7 @@ import { buildFilledTable, findTable } from './kosis_fill_v1.mjs';
 import { applyDraftReview, applyReview, buildDraftReviewPrompt, buildReviewPrompt, draftReviewSchema, reviewNotes, reviewSchema } from './report_review_v1.mjs';
 import { pickForTask } from './univ_research_v1.mjs';
 import { citationRow, contentWords, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';
+import { findLiteraryPapers, literaryCitation, literaryGuide } from './literary_paper_v1.mjs';
 import { unitFromStandard } from './unit_from_standard_v1.mjs';
 import { accessDate, aliveOnly, asResearch, pickUnivWeb } from './univ_web_v1.mjs';
 import { cleanKeyword, seedFitsTask } from './seed_fit_v1.mjs';
@@ -602,8 +603,23 @@ export default {
         // 설계서와 최종 보고서 **사이**다 — 최종 보고서에 붙여 주면 이미 다 쓴 뒤라 늦다.
         // 읽고 두 줄 적으면 그것이 자료 카드가 되어 최종 보고서에 들어간다(읽은 것만 인용된다).
         const draftStage = input.reportStage === STAGE.DRAFT;
+        // **학생이 적은 작품으로 먼저 찾는다.** 개념으로 찾는 길보다 이것이 앞이다 —
+        // 학생이 읽은 그 글이 이 보고서의 대상이고, 그 작품을 다룬 논문이 개념 논문보다 곧다.
+        // 못 찾으면 빈손으로 두고 아래의 개념 길로 내려간다. 없는 것을 만들지는 않는다.
+        let workPapers = [];
+        if (input.readWork) {
+          try {
+            const found = findLiteraryPapers(await loadLiteraryPapers(env), input.readWork, { limit: 2 });
+            workPapers = found.picked;
+            if (workPapers.length) {
+              if (draftStage) paperGuide = literaryGuide(input.readWork, workPapers);
+              else input.referencePapers = workPapers.map(literaryCitation);
+            }
+          } catch (error) { console.error('literary papers failed:', error?.message || error); }
+        }
         try {
-          const shard = (finalStage && !input.ingredients) || draftStage ? await loadPaperShard(env, input.subject) : null;
+          const shard = !workPapers.length && ((finalStage && !input.ingredients) || draftStage)
+            ? await loadPaperShard(env, input.subject) : null;
           if (shard) {
             // 보고서의 단원. GPT 꼬리표가 붙은 논문은 이 단원과 같을 때만 붙는다(paper_route_v1.mjs).
             const units = [reportConcept, axisConceptName(seedPack, reportAxis)].filter(Boolean).map((name) => `${input.subject}::${name}`);
@@ -932,6 +948,9 @@ function resolveInput(payload) {
     selectedKeyword: keywordOf(payload?.selectedKeyword, selection.selectedKeyword, payload?.keyword) || concept,
     selectedFollowupAxis: String(payload?.selectedFollowupAxis || selection.selectedFollowupAxis || '').trim(),
     selectedBookTitle: String(payload?.selectedBookTitle || '').trim(),
+    // **학생이 적은 「읽은 작품」.** 국어·영어 과제 620건 중 298건은 학교 안내문에 작품 이름이 없다.
+    // 교과서를 다 모아도 어느 작품인지 알 수 없다 — 아는 사람은 학생뿐이라 물어서 받는다(read_work_v1.js).
+    readWork: String(payload?.readWork || '').trim().slice(0, 120),
     useBookInReport: payload?.useBookInReport === true,
     structureId: String(payload?.structureId || '').trim(),
     targetStructure: Array.isArray(payload?.targetStructure) ? payload.targetStructure.map(String).slice(0, 12) : [],
@@ -1342,6 +1361,20 @@ async function loadPaperShard(env, subject) {
   return shard;
 }
 
+// **문학 논문 색인** (4,004편, 0.95MB). 학생이 「읽은 작품」을 적었을 때만 읽는다 —
+// 국어·영어 과제에서만 쓰이고, 그 안에서도 절반쯤이다. 모든 요청에 싣지 않는다.
+let literaryRows = null;
+async function loadLiteraryPapers(env) {
+  if (literaryRows) return literaryRows;
+  const base = env.SEED_BASE_URL || DEFAULT_SEED_BASE;
+  const res = await fetch(encodeURI(`${base}/engine-index/literary_papers.v1.json`), { cf: { cacheTtl: 300, cacheEverything: true } });
+  // Pages 는 없는 주소에 HTML 을 200 으로 준다. 논문 묶음에서 겪은 그대로 내용 종류를 본다.
+  const kind = res.headers.get('content-type') || '';
+  const body = res.ok && kind.includes('json') ? await res.json() : null;
+  literaryRows = Array.isArray(body?.rows) ? body.rows : [];
+  return literaryRows;
+}
+
 // 이 보고서가 선 축의 **단원 이름**. reportConcept 은 과제 글에서 뽑은 말이라 교육과정 단원
 // 이름이 아닐 때가 있다(「유전 정보」 ↔ 「유전자와 염색체」). 인덱스 키는 단원 이름이다.
 function axisConceptName(seedPack, axis) {
@@ -1527,6 +1560,15 @@ function buildPrompt(input, seedMatch, env) {
          '그 책의 줄거리·인용·장면·인물을 지어내지 않는다. 확인할 수 없는 것은 쓰지 않고, 그 책이 다루는 주제와 쟁점을 중심으로 쓴다.',
          '학생이 읽고 느낀 것을 대신 쓰지 않는다. 학생이 적어 둔 줄이 있으면 그것만 살려 쓴다.']
       : []),
+    // **학생이 적어 준 읽은 작품.** 이 한 줄이 없을 때 무슨 일이 났는지 세어 보고 만든 규칙이다 —
+    // 국어·영어 과제 620건 중 298건은 안내문에 작품 이름이 없다. 모르면 AI는 뜬구름을 잡거나
+    // 읽지도 않은 유명 작품을 끌어온다. 이름을 받았으면 **그 작품만** 다룬다.
+    ...(input.readWork
+      ? [`학생이 읽은 작품은 「${input.readWork}」이다. 보고서는 이 작품을 다루며, 다른 작품으로 바꾸거나 다른 작품을 나란히 놓지 않는다.`,
+         '그 작품의 줄거리·인용문·장면·인물 이름·발표 연도를 지어내지 않는다. 확실히 아는 것만 쓰고, 확실하지 않으면 그 작품이 다루는 문제와 쟁점을 중심으로 쓴다.',
+         '학생이 읽고 느낀 것을 대신 쓰지 않는다. 감상과 해석은 학생이 채울 자리로 남기고, 무엇을 채우면 되는지 알려 주는 문장으로 쓴다.',
+         '작품을 부를 때는 학생이 적은 이름 그대로 쓴다. 제목을 고쳐 부르거나 원제·영문 제목으로 바꾸지 않는다.']
+      : []),
     '학과명은 탐구 동기나 확장 가능성에서만 절제해 사용하고 본론을 장식하는 단어로 반복하지 않는다.',
     stage === STAGE.COMPLETE
       ? '분량은 공백 포함 2800~4200자다. 2800자보다 짧게 끝내지 않으며, 연구 질문과 참고문헌을 뺀 각 절은 두 문단 이상, 400자 이상으로 쓴다. 절마다 서로 다른 역할을 수행한다.'
@@ -1546,6 +1588,7 @@ function buildPrompt(input, seedMatch, env) {
       careerTrack: input.track,
       majorInterest: input.major,
       connectedBook: input.useBookInReport ? input.selectedBookTitle : '사용하지 않음',
+      readWork: input.readWork || '학생이 적지 않음',
       structureId: input.structureId,
       requiredSections: requestedSections,
       reportChoices: input.reportChoices,

@@ -1,359 +1,360 @@
-// KCI 논문 — 학생이 **열어서 읽을 수 있는** 것만 참고 자료가 된다.
-//
-// 참고 자료에 논문을 붙이기로 했다. 그런데 유료 논문을 적어 주면 지어내기를 자동화하는 것과 같다 —
-// 입학사정관이 "읽어 봤어요?" 하면 바로 드러난다. KCI 응답에는 원문공개여부(orte-org-yn)와 주소가 있다.
-// 그 둘을 조건으로 건다. 이 파일은 그 조건이 실제로 지켜지는지만 본다.
-//
-// 응답 모양은 kci.go.kr의 'KCI Open API 명세서'를 그대로 옮겨 만들었다. 키가 있어야 실제로 부를 수
-// 있으므로, **진짜 응답으로 잰 것이 아니다.** 키가 오면 한 번 재고 이 파일을 고쳐야 한다.
-import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
-import { findPapers, indexPaperLine, paperLine, paperQueries, parsePapers, pickPapers } from "../../../admission_worker_skeleton/kci_v1.mjs";
-import { pickForTask, taskWords } from "../../../admission_worker_skeleton/univ_research_v1.mjs";
-import { referencesBody } from "../../../admission_worker_skeleton/references_v1.mjs";
-import { finalizeStageOutput, normalizeStudentData, STAGE } from "../../../admission_worker_skeleton/report_stages_v1.mjs";
-
-const worker = (await readFile(new URL("../../../admission_worker_skeleton/worker.js", import.meta.url), "utf8")).replace(/\r\n/g, "\n");
-const index = JSON.parse(await readFile(new URL("../seed/engine-index/kci_paper_index.v1.json", import.meta.url), "utf8"));
-const researchIndex = JSON.parse(await readFile(new URL("../seed/engine-index/univ_research_index.v1.json", import.meta.url), "utf8"));
-let passed = 0;
-const check = (ok, label, detail = "") => { assert.equal(ok, true, `${label} -> ${detail}`); console.log(`PASS ${label}`); passed++; };
-
-const record = (over = {}) => {
-  const it = {
-    title: "효소 활성에 미치는 온도의 영향", author2: "", journal: "한국생물교육학회지",
-    year: "2021", volume: "49", issue: "3", fpage: "301", lpage: "312",
-    open: "Y", url: "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002740000",
-    cited: "3", ...over,
-  };
-  return `<record>
-    <journalInfo>
-      <journal-name><![CDATA[${it.journal}]]></journal-name>
-      <publisher-name><![CDATA[한국생물교육학회]]></publisher-name>
-      <pub-year>${it.year}</pub-year><pub-mon>09</pub-mon>
-      <volume>${it.volume}</volume><issue>${it.issue}</issue>
-    </journalInfo>
-    <articleInfo article-id="ART002740000">
-      <article-categories><![CDATA[자연과학]]></article-categories>
-      <title-group>
-        <article-title lang="original"><![CDATA[${it.title}]]></article-title>
-        <article-title lang="english"><![CDATA[Effects of Temperature]]></article-title>
-      </title-group>
-      <author-group>
-        <author english="Hong Gildong"><![CDATA[홍길동(서울대학교)]]></author>
-        ${it.author2 ? `<author><![CDATA[${it.author2}]]></author>` : ""}
-      </author-group>
-      <abstract-group>
-        <abstract lang="original"><![CDATA[온도를 달리하여 효소의 반응 속도를 측정하였다.]]></abstract>
-      </abstract-group>
-      <fpage>${it.fpage}</fpage><lpage>${it.lpage}</lpage>
-      <orte-open-yn>${it.open}</orte-open-yn>
-      <doi>10.0000/TEST.2021.49.3.301</doi>
-      <uci>I410-ECN-0102</uci>
-      <citation-count kci="${it.cited}" wos="0"/>
-      <url>${it.url}</url>
-      <verified>Y</verified>
-    </articleInfo>
-  </record>`;
-};
-const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
-<MetaData><inputData><apiCode>articleSearch</apiCode></inputData>
-<outputData><result><total>2</total></result>${inner}</outputData></MetaData>`;
-
-// G1: 무엇으로 찾을 것인가. 개념 이름을 통째로 넣으면 0건이 된다 — 조각으로 끊는다.
-{
-  const chem = paperQueries("동적 평형과 화학 평형");
-  check(chem.includes("화학 평형") && chem.includes("동적 평형"), "G1 개념을 조각으로 끊는다", chem.join("·"));
-  check(chem[0].length >= chem[chem.length - 1].length, "G1 긴 조각이 앞이다 — 더 정확하다", chem.join("·"));
-  check(paperQueries("효소와 대사 반응").includes("대사 반응"), "G1 '효소와 대사 반응' → '대사 반응'");
-  check(paperQueries("") .length === 0, "G1 개념이 없으면 안 찾는다 — 과목 이름으로 내려가지 않는다");
-  // 혼자서는 아무 주제도 가리키지 못하는 말로 찾으면 온갖 분야가 다 걸린다.
-  check(!paperQueries("자료의 분석과 해석").includes("분석"), "G1 '분석' 같은 넓은 말로는 안 찾는다");
-  check(paperQueries("가나다라마바사아자차카").length <= 2, "G1 검색어는 많아야 둘 — 호출이 늘면 느려진다");
-}
-
-// G2: 응답 읽기. CDATA·원어 제목·저자 소속을 명세대로 읽는다.
-{
-  const rows = parsePapers(wrap(record()));
-  check(rows.length === 1, "G2 한 건을 읽는다", String(rows.length));
-  const it = rows[0];
-  check(it.title === "효소 활성에 미치는 온도의 영향", "G2 원어 제목을 쓴다 — 영어 제목이 아니다", it.title);
-  check(it.authors[0] === "홍길동", "G2 저자는 '홍길동(서울대학교)'로 온다 — 소속을 떼고 이름만", it.authors[0]);
-  check(it.journal === "한국생물교육학회지" && it.year === "2021" && it.volume === "49", "G2 학술지·연도·권");
-  check(it.open === "Y" && it.url.includes("kci.go.kr"), "G2 원문공개여부와 주소를 읽는다");
-  check(it.cited === 3, "G2 피인용 횟수는 속성에 들어 있다", String(it.cited));
-  check(it.abstract.includes("반응 속도"), "G2 초록도 읽어 둔다");
-  // 실제로 키 없이 불러서 받은 응답이다. 에러는 resultMsg로 온다.
-  const real = `<?xml version="1.0" encoding="UTF-8"?><MetaData><inputData><apiCode>articleSearch</apiCode></inputData>`
-    + `<outputData><result><resultMsg>필수 요청 파라미터가 없음 =&gt; key</resultMsg></result></outputData></MetaData>`;
-  check(parsePapers(real).length === 0, "G2 에러 응답은 0건이다 — 등록되지 않은 key, 사용기간 종료도 같은 모양");
-  check(parsePapers("").length === 0 && parsePapers(null).length === 0, "G2 빈 응답도 0건");
-}
-
-// G3: **이 파일에서 제일 중요한 규칙.** 학생이 못 여는 논문은 참고 자료가 아니다.
-{
-  const closed = parsePapers(wrap(record({ open: "N", title: "닫힌 논문" })));
-  check(pickPapers(closed).length === 0, "G3 원문이 안 열린 논문은 버린다 — 학생이 못 읽는다");
-  const noUrl = parsePapers(wrap(record({ url: "", title: "주소 없는 논문" })));
-  check(pickPapers(noUrl).length === 0, "G3 주소가 없으면 버린다 — '어디서 봤다'고 말할 수 없다");
-  const many = parsePapers(wrap([record(), record()].join("")));
-  check(pickPapers(many).length === 1, "G3 같은 논문이 두 번 걸려도 한 번만");
-  const mixed = parsePapers(wrap([
-    record({ title: "오래된 것", year: "2014" }),
-    record({ title: "닫힌 새 것", year: "2025", open: "N" }),
-    record({ title: "열린 새 것", year: "2023" }),
-  ].join("")));
-  const picked = pickPapers(mixed, 2);
-  check(picked.length === 2 && picked[0].title === "열린 새 것", "G3 최근 것이 앞이다", picked.map((o) => o.title).join("·"));
-  check(!picked.some((o) => o.title === "닫힌 새 것"), "G3 최근이어도 안 열리면 안 쓴다");
-  check(pickPapers(null).length === 0, "G3 아무것도 없으면 아무것도 안 내놓는다");
-}
-
-// G4: 참고 자료 한 줄. 저자(연도). 제목. 학술지, 권(호), 쪽. — 주소
-{
-  const line = paperLine(parsePapers(wrap(record()))[0]);
-  check(line.startsWith("홍길동 (2021)."), "G4 저자와 연도가 앞", line);
-  check(line.includes("한국생물교육학회지, 49(3), 301-312."), "G4 학술지·권(호)·쪽", line);
-  check(line.includes("— https://"), "G4 주소가 반드시 붙는다 — 이게 이 줄을 적어도 되는 조건이다", line);
-  check(!/얻은|여기서/.test(line), "G4 '여기서 무엇을 얻었다'고 쓰지 않는다 — 학생이 아직 안 읽었다");
-  const three = paperLine({ title: "가", authors: ["김", "이", "박"], year: "2020" });
-  check(three.startsWith("김 외 (2020)."), "G4 셋 이상이면 '외'", three);
-  check(paperLine({ title: "가", authors: ["김", "이"] }).startsWith("김 · 이."), "G4 둘이면 둘 다 적는다");
-  check(paperLine({ title: "" }) === "" && paperLine(null) === "", "G4 제목이 없으면 줄을 안 만든다");
-}
-
-// G5: 키가 없으면 **부르지도 않는다.** 키는 워커 비밀로만 들어간다.
-{
-  let called = 0;
-  const spy = async (url) => { called++; return { ok: true, text: async () => wrap(record()) }; };
-  check((await findPapers({ concept: "효소와 대사 반응" }, "", { fetchImpl: spy })).length === 0, "G5 키가 없으면 빈 배열");
-  check(called === 0, "G5 키가 없으면 호출조차 안 한다", String(called));
-  check((await findPapers({ concept: "" }, "KEY", { fetchImpl: spy })).length === 0, "G5 개념이 없어도 안 부른다");
-  check(called === 0, "G5 개념이 없으면 호출 0회", String(called));
-
-  const urls = [];
-  const ok = async (url) => { urls.push(url); return { ok: true, text: async () => wrap(record()) }; };
-  const found = await findPapers({ concept: "효소와 대사 반응" }, "MY-KEY", { fetchImpl: ok, limit: 2 });
-  check(found.length === 1, "G5 찾으면 돌려준다", String(found.length));
-  check(urls[0].includes("apiCode=articleSearch") && urls[0].includes("key=MY-KEY"), "G5 명세대로 부른다", urls[0]);
-  check(urls[0].includes(encodeURIComponent("대사 반응")), "G5 title 에 검색어가 들어간다", urls[0]);
-  check(urls[0].startsWith("https://open.kci.go.kr/po/openapi/openApiSearch.kci"), "G5 명세에 적힌 주소", urls[0]);
-
-  // 실패해도 보고서는 그대로 나가야 한다.
-  const dead = async () => { throw new Error("네트워크"); };
-  check((await findPapers({ concept: "효소" }, "KEY", { fetchImpl: dead })).length === 0, "G5 실패하면 조용히 0건");
-  const bad = async () => ({ ok: false, text: async () => "" });
-  check((await findPapers({ concept: "효소" }, "KEY", { fetchImpl: bad })).length === 0, "G5 응답이 나쁘면 0건");
-}
-
-// G6: 참고 자료에서의 자리. 학생이 적은 것 → 논문 → 공개 자료 → 교과서.
-{
-  const papers = pickPapers(parsePapers(wrap(record())));
-  const card = { title: "부엌의 화학자", type: "도서 · 라파엘 오몽", take: "온도가 녹는 정도를 바꾼다는 걸 알았다" };
-  const data = [{ title: "화학사고정보", org: "화학물질안전원", id: "15048783" }];
-  const body = referencesBody({ cards: [card], papers, datasets: data, textbook: "생명과학Ⅰ 교과서 · 효소와 대사 반응 단원" });
-  const lines = body.split(String.fromCharCode(10));
-  // 2026-09-25: 우리가 붙인 논문은 학생이 읽은 것이 아니라서 「더 읽어 볼 자료」로 갈라 맨 뒤에 간다.
-  // 그래서 줄이 하나 늘었다(가르는 줄).
-  check(lines.length === 5, "G6 학생 자료 + 공개 자료 + 교과서 + 가르는 줄 + 논문", String(lines.length));
-  check(lines[0].includes("부엌의 화학자"), "G6 학생이 실제로 본 것이 맨 앞");
-  check(lines.some((one) => /더 읽어 볼 자료/.test(one)) && lines[lines.length - 1].includes("한국생물교육학회지"),
-    "G6 우리가 붙인 논문은 「더 읽어 볼 자료」 뒤 맨 끝", lines.join(" | "));
-  check(lines[1].includes("data.go.kr"), "G6 공개 자료는 학생 자료 뒤", lines[1]);
-  check(lines[2].includes("교과서"), "G6 교과서는 가르는 줄 앞 마지막", lines[2]);
-  check(referencesBody({ cards: [card], textbook: "가 교과서 · 나 단원" }).split(String.fromCharCode(10)).length === 2,
-    "G6 논문이 없으면 예전과 같다");
-}
-
-// G7: **끝에서부터 본다.** 앞서 buildReferencesBody 를 빠뜨려 공개 자료가 보고서에 안 붙은 적이 있다.
-{
-  const papers = pickPapers(parsePapers(wrap(record())));
-  const whole = finalizeStageOutput(STAGE.FINAL, { sections: [{ title: "결론", body: "끝." }] }, {
-    subject: "생명과학", textbookCitation: "생명과학Ⅰ 교과서 · 효소와 대사 반응 단원",
-    referencePapers: papers, referenceDatasets: [],
-    studentData: normalizeStudentData({
-      conditions: [{ label: "가", values: ["1", "2"] }, { label: "나", values: ["3", "4"] }],
-    }),
-  });
-  const built = whole.parsed.sections.find((one) => /참고 자료/.test(one.title))?.body || "";
-  check(built.includes("한국생물교육학회지"), "G7 최종 보고서의 참고 자료 절에 실제로 붙는다", built);
-  check(built.includes("kci.go.kr"), "G7 주소까지 붙는다 — 학생이 열어 확인할 수 있다", built);
-}
-
-// G8: 워커는 **우리 파일에서** 논문을 꺼낸다. 남의 서버를 보고서 만드는 길에 끼우지 않는다.
-// (2026-09-18: 개념 인덱스 대신 과목 묶음 + 수행평가 틀로 찾는다 — test_paper_route_v1.mjs 가 자세히 본다.)
-{
-  check(worker.includes("loadPaperShard(env, input.subject)"), "G8 워커가 과목 논문 묶음을 읽는다");
-  check(!worker.includes("kciPaperIndex:"), "G8 옛 개념 인덱스는 더 안 싣는다 — 모든 요청에 63KB를 쓸 이유가 없다");
-  check(worker.includes("input.referencePapers = []"), "G8 못 찾아도 빈 배열로 시작한다");
-  check(worker.indexOf("input.referencePapers") < worker.indexOf("callOpenAIWithRetry(prompt, env, input)"),
-    "G8 AI를 부르기 전에 찾아 둔다 — 그래야 참고 자료 절이 쓸 수 있다");
-  check(!/findPapers\(/.test(worker),
-    "G8 KCI 를 보고서마다 부르지 않는다 — 공공데이터포털 KCI API 는 검색이 없고 한 쪽에 10줄만 준다");
-  // 2026-09-18 사용자 결정: 논문·대학 연구는 **교과 확장 재료**다(ingredients_v1). 확장을 쓰는 단계의 AI가 쓴 것만
-  // 참고 자료가 되고 화면에 "교과 확장에 쓴 연구"로 보인다. 낱말 규칙(routePapers)은 재료를 꺼 두었을 때만.
-  check(worker.includes("if (input.reportStage !== STAGE.DRAFT) paperGuide = inspirationGuide(result?.inspiration);"),
-    "G8 최종 보고서 화면에 교과 확장에 쓴 연구");
-  // 2026-09-23: 설계서도 이 묶음을 읽는다. 다만 설계서에서는 **화면 안내서로만** 쓴다 —
-  // 참고 자료 줄로는 쓰지 않고 AI에게도 안 보낸다. 최종 보고서 쪽 규칙(재료가 없을 때만
-  // 낱말 규칙으로 참고 논문을 고른다)은 그대로다.
-  check(/const shard = \(finalStage && !input\.ingredients\) \|\| draftStage \? await loadPaperShard/.test(worker),
-    "G8 낱말 규칙은 재료가 없을 때(INGREDIENTS=off)만 — 설계서는 화면 안내서용으로만 읽는다");
-  check(/if \(draftStage\) paperGuide = guideBlock\(query, picked\);[\s]*else input\.referencePapers = picked\.map\(citationRow\);/.test(worker),
-    "G8 설계서에서 고른 논문은 참고 자료 줄이 되지 않는다");
-  // 개념 이름이 교육과정 단원 이름과 다를 때가 있다. 대학 연구에서 겪은 그대로다.
-  check(/anchor: \[input\.selectedKeyword \|\| input\.keyword, input\.taskTitle, reportConcept, axisConceptName\(seedPack, reportAxis\)\]/.test(worker),
-    "G8 중심 칸은 학생 키워드·과제 제목·개념·축의 단원 이름에서 온다");
-}
-
-// G9: 인덱스에서 온 줄. **주소가 없다.** 그래도 찾을 수 있게 서지사항을 정확히 적는다.
-{
-  const row = { title: "국어 폐쇄음의 음향적 특성과 음운 현상", author: "홍길동", with: "김철수",
-    journal: "한국어학", year: "2024", volume: "12", issue: "3", from: "1", to: "20" };
-  const line = indexPaperLine(row);
-  check(line === "홍길동 · 김철수 (2024). 국어 폐쇄음의 음향적 특성과 음운 현상. 한국어학, 12(3), 1-20.",
-    "G9 저자·연도·제목·학술지·권(호)·쪽", line);
-  check(!/http/.test(line), "G9 주소가 없다 — 파일 자료에 논문 번호가 없다");
-  check(indexPaperLine({ title: "가", author: "김", with: "이, 박" }).startsWith("김 외."),
-    "G9 셋 이상이면 '외'");
-  // **공동저자는 세미콜론으로 이어져 온다.** 쉼표만 자르면 통째로 한 줄에 나온다 — 실제로 그랬다:
-  //   "Lee Hyeong-Seok · 박상혁;김현기;임지훈;정윤성;이선호 (2024)."
-  check(indexPaperLine({ title: "가", author: "Lee Hyeong-Seok", with: "박상혁;김현기;임지훈" })
-    .startsWith("Lee Hyeong-Seok 외."), "G9 세미콜론으로 이어진 공동저자도 자른다");
-  // 제1저자가 영문인 줄이 있다. 원본이 그러므로 바꾸지 않는다 — 서지사항은 정확해야 한다.
-  check(indexPaperLine({ title: "가", author: "Lee Hyeong-Seok" }).startsWith("Lee Hyeong-Seok."),
-    "G9 제1저자가 영문이어도 그대로 쓴다");
-  // 학술지명이 한글이 아닌 것도 많다. 빈칸으로 두면 줄에서 학술지가 사라진다.
-  const anyPaper = Object.values(index.concepts).flat();
-  check(anyPaper.every((one) => String(one.journal || "").length > 0 || true), "G9 (학술지 확인)");
-  check(anyPaper.filter((one) => !one.journal).length <= anyPaper.length * 0.1,
-    "G9 학술지명이 빈 줄이 거의 없다 — 한글이 없으면 영문이라도 쓴다",
-    `${anyPaper.filter((one) => !one.journal).length}/${anyPaper.length}`);
-  check(indexPaperLine({ title: "" }) === "" && indexPaperLine(null) === "", "G9 제목이 없으면 줄이 없다");
-  // 참고 자료 절에 실제로 들어간다.
-  const body = referencesBody({ papers: [row], textbook: "공통국어1 교과서 · 음운 변동과 국어 규범 단원" });
-  const rows = body.split(String.fromCharCode(10));
-  check(rows[rows.length - 1].includes("한국어학") && rows.some((one) => /더 읽어 볼 자료/.test(one)),
-    "G9 우리가 붙인 논문은 참고 자료 맨 끝 「더 읽어 볼 자료」에 들어간다", body);
-  check(index.version === "kci-paper-index-v1" && Object.keys(index.concepts).length >= 20,
-    "G9 인덱스가 있고 개념 20개 이상에 붙는다", String(Object.keys(index.concepts || {}).length));
-  check(index.license.includes("제한 없음"), "G9 이용허락을 적어 둔다");
-}
-
-
-// ─── 과제문으로 고른다 ─────────────────────────────────────────────────────
-//
-// **여기가 빠져 있었다.** 사용자가 짚어 줬다: "우리는 완성본이 아니라 학생이 넣어준 수행평가를
-// 분석해서 넘기는 형태여야 하는데, 지금은 답을 정하는 느낌이다."
-//
-// 실제로 그랬다. 책은 처음부터 과제문의 낱말로 골랐는데(matchBooks 의 keyword), 논문과 대학 연구는
-// `인덱스[과목::개념]` 으로 표를 찾기만 했다. 같은 개념이면 누구나 같은 것을 받았다.
-{
-  const list = [
-    { title: "온도가 효소 반응 속도에 미치는 영향" },
-    { title: "세제 속 효소의 얼룩 분해" },
-    { title: "pH와 효소 활성도" },
-  ];
-  check(pickForTask(list, "효소가 온도에 따라 반응 속도를 어떻게 바꾸는지 조사한다", 1)[0].title.includes("온도"),
-    "K1 온도를 다룬 과제에는 온도 논문");
-  check(pickForTask(list, "세제에 든 효소가 얼룩을 지우는 원리를 조사한다", 1)[0].title.includes("세제"),
-    "K1 세제를 다룬 과제에는 세제 논문 — **같은 개념인데 다른 것이 나온다**");
-  // 걸리는 것이 없으면 억지로 고르지 않는다. 인덱스 차례에는 '쉬운 글이 먼저'가 들어 있다.
-  check(pickForTask(list, "보고서를 작성한다", 1)[0].title.includes("온도"),
-    "K1 과제문에 걸리는 말이 없으면 인덱스 차례대로");
-  check(pickForTask(list, "", 2).length === 2 && pickForTask([], "무엇", 2).length === 0,
-    "K1 과제문이 없거나 후보가 없어도 터지지 않는다");
-  check(pickForTask([list[0]], "세제", 2).length === 1, "K1 후보가 적으면 있는 대로");
-
-  // 과제문에는 쓸모없는 말이 많다. '보고서'·'작성'·'분량' 으로는 아무것도 고르면 안 된다.
-  const noise = taskWords("탐구 보고서를 작성한다. 분량 A4 2장. 출처를 밝힐 것. 평가 기준: 자료를 정리했는가.");
-  check(!noise.has("보고서") && !noise.has("작성") && !noise.has("분량") && !noise.has("자료"),
-    "K1 과제문의 껍데기 말은 안 쓴다", [...noise].join("·"));
-  check(taskWords("효소가 온도에 따라 반응 속도를 바꾸는지").has("효소"), "K1 주제어는 남는다");
-}
-
-// K2: 인덱스는 **후보**를 담고, 고르는 일은 런타임이 한다.
-{
-  const wide = Object.values(researchIndex.concepts).some((list) => list.length > 2);
-  check(wide, "K2 대학 연구 인덱스가 개념당 2건을 넘는 후보를 담는다");
-  const wideKci = Object.values(index.concepts).some((list) => list.length > 2);
-  check(wideKci, "K2 논문 인덱스도 마찬가지");
-  check(/pickForTask\(got, contentWords\(taskText\(input\), input\.subject\)/.test(worker),
-    "K2 워커가 과제문으로 고른다 — 개념만으로 표를 찾지 않는다");
-  check((worker.match(/pickForTask\(/g) || []).length === 2 && /routePapers\(shard\.rows, taskText\(input\)/.test(worker),
-    "K2 논문·대학 연구·공공데이터 **셋 다** 과제문으로 고른다 (논문은 routePapers)");
-  check(worker.includes("function taskText(input)") && /taskDescription/.test(worker),
-    "K2 과제문은 학생이 붙여넣은 안내문 전체다");
-}
-
-// ─── 논문은 **받치는 것**이지 맞추는 것이 아니다 ───────────────────────────
-//
-// 사용자가 다시 짚었다: "논문을 넣는 까닭은 학생이 찾아서 깊이 들어간 느낌을 주고 **그 실험의
-// 정당성을 보장**하려는 것인데, 지금은 논문에 끼워 맞추는 느낌이다."
-//
-// 실제로 그랬다. 「효소가 **온도**에 따라…」 과제에 "바이오 전환 원천 **효소** 및 균주 개발"이
-// 붙었다. '효소'만 같고 온도와는 아무 상관이 없다. 까닭은 점수에 **개념 낱말이 섞여 있어서**다.
-// 후보는 이미 개념으로 걸러져 와서 전부 '효소'를 갖고 있다. 후보를 **가르는** 것은 과제문의 나머지다.
-{
-  const list = [
-    { title: "온도가 효소 반응 속도에 미치는 영향" },
-    { title: "바이오 전환 원천 효소 및 균주 개발" },
-  ];
-  const task = "효소가 온도에 따라 반응 속도를 어떻게 바꾸는지 조사한다";
-  const got = pickForTask(list, task, 1, { skip: "효소와 대사 반응" });
-  check(got[0].title.includes("온도"), "L1 개념 낱말을 빼고 **가르는 말**로 고른다", got[0].title);
-
-  // **받칠 근거가 없으면 안 붙인다.** 이게 '끼워 넣기'와 '받치기'를 가르는 자리다.
-  const only = [{ title: "바이오 전환 원천 효소 및 균주 개발" }];
-  check(pickForTask(only, task, 1, { skip: "효소와 대사 반응", strict: true }).length === 0,
-    "L1 논문은 받칠 근거가 없으면 붙이지 않는다");
-  check(pickForTask(only, task, 1, { skip: "효소와 대사 반응" }).length === 1,
-    "L1 대학 연구는 개념 수준으로도 뜻이 있어 느슨하게 둔다 — 실험을 받치는 근거로는 안 쓴다");
-}
-
-// L1b: **논문 제목은 교과목 이름과 다르다.** 실제 화면에서 잡았다 — 논문이 한 건도 안 붙었다.
-{
-  const title = "ETV6-PDGFRB 유전자 재배열을 동반한 필라델피아 염색체 유사 급성림프모구백혈병 1예: 증례 보고";
-  const task = "염색체 재배열이 질환으로 이어지는 과정을 조사한다. 백혈병처럼 염색체 이상이 원인인 사례를 찾는다.";
-  const got = pickForTask([{ title }], task, 1, { skip: "유전자와 염색체", strict: true });
-  check(got.length === 1, "L1b 조사가 붙은 말(**재배열을**)과 붙여 쓴 말(급성림프모구**백혈병**)을 찾는다");
-  // 두 글자로 포함까지 보면 아무 데나 걸린다. 그건 막는다.
-  check(pickForTask([{ title: "원자로 이론과 냉각" }], "원자의 구조를 조사한다", 1, { skip: "", strict: true }).length === 0,
-    "L1b 두 글자는 정확히 맞춘다 — '원자'가 '원자로'에 걸리면 안 된다");
-  // 받칠 근거가 없으면 붙이지 않는다.
-  check(pickForTask([{ title }], "염색체 구조와 DNA가 유전 정보를 담는 방식", 1, { skip: "유전자와 염색체", strict: true }).length === 0,
-    "L1b 이 과제를 받칠 근거가 없으면 안 붙인다");
-}
-
-// L2: 워커가 자리마다 다르게 쓴다.
-{
-  check(/routePapers\(shard\.rows, taskText\(input\), paperMode/.test(worker) && worker.includes(": reportModeOf(input);"),
-    "L2 논문은 수행평가 틀로 — 받칠 근거가 없으면 안 붙인다");
-  check(/research = pickForTask\(got, contentWords\(taskText\(input\), input\.subject\), 2, \{ skip: name \}\)/.test(worker),
-    "L2 대학 연구는 느슨하게");
-  check(/referenceDatasets = pickForTask\(pool, contentWords\(taskText\(input\), input\.subject\), 3, \{ skip: reportConcept, strict: true, need: 2 \}\)/.test(worker),
-    "L2 공공데이터도 과제문으로, **엄격하게** 고른다 — 사과 갈변 보고서에 대기오염 자료가 붙었다");
-  check(/findPublicData\([\s\S]{0,200}limit: 8/.test(worker),
-    "L2 공공데이터도 넉넉히 받아 두고 고른다");
-}
-
-// L3: **논문은 AI가 보지 않는다.** 보고서 본문이 논문 쪽으로 끌려가면 끼워 맞추기가 된다.
-//
-// 2026-09-23에 **공공데이터는 예외가 됐다.** 사용자 지적: 「학생이 모르는 것을 넣지 않는다」는
-// 전제가 틀렸다. 자료원을 AI에게 안 알려 주면 보고서가 「공공데이터 포털에서 찾아라」라고 말만
-// 하고 어디인지 못 적는다. 이제 **자료의 이름과 기관까지는** 보낸다.
-// 값은 여전히 안 보낸다 — 우리도 모르기 때문이다(목록 API는 값을 안 준다).
-{
-  const at = worker.indexOf("function buildPrompt(");
-  const body = worker.slice(at, worker.indexOf("\nfunction ", at + 50));
-  check(at > 0 && body.length > 500, "L3 프롬프트를 만드는 곳을 찾았다", String(body.length));
-  for (const name of ["referencePapers"]) {
-    check(!body.includes(name), `L3 프롬프트에 ${name} 가 안 들어간다 — 보고서는 학생 과제문과 학생 데이터로만 쓴다`);
-  }
-  // 공공데이터는 **이름과 기관까지만** 간다. 그리고 「수치를 지어내지 마라」가 함께 간다.
-  const pd = await readFile(new URL("../../../admission_worker_skeleton/public_data_v1.mjs", import.meta.url), "utf8");
-  check(body.includes("datasetPromptLines(input.referenceDatasets)"), "L3 공공데이터 자료원은 프롬프트로 간다");
-  check(/이 자료의 수치를 지어내지 않는다/.test(pd), "L3 그러면서 「수치를 지어내지 마라」를 함께 이른다");
-  check(/읽고 알게 되었다[^]{0,30}쓰지 않는다/.test(pd), "L3 읽은 척하지 말라고도 이른다");
-}
-console.log(`\n${passed} checks passed`);
+// KCI 논문 — 학생이 **열어서 읽을 수 있는** 것만 참고 자료가 된다.
+//
+// 참고 자료에 논문을 붙이기로 했다. 그런데 유료 논문을 적어 주면 지어내기를 자동화하는 것과 같다 —
+// 입학사정관이 "읽어 봤어요?" 하면 바로 드러난다. KCI 응답에는 원문공개여부(orte-org-yn)와 주소가 있다.
+// 그 둘을 조건으로 건다. 이 파일은 그 조건이 실제로 지켜지는지만 본다.
+//
+// 응답 모양은 kci.go.kr의 'KCI Open API 명세서'를 그대로 옮겨 만들었다. 키가 있어야 실제로 부를 수
+// 있으므로, **진짜 응답으로 잰 것이 아니다.** 키가 오면 한 번 재고 이 파일을 고쳐야 한다.
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import { findPapers, indexPaperLine, paperLine, paperQueries, parsePapers, pickPapers } from "../../../admission_worker_skeleton/kci_v1.mjs";
+import { pickForTask, taskWords } from "../../../admission_worker_skeleton/univ_research_v1.mjs";
+import { referencesBody } from "../../../admission_worker_skeleton/references_v1.mjs";
+import { finalizeStageOutput, normalizeStudentData, STAGE } from "../../../admission_worker_skeleton/report_stages_v1.mjs";
+
+const worker = (await readFile(new URL("../../../admission_worker_skeleton/worker.js", import.meta.url), "utf8")).replace(/\r\n/g, "\n");
+const index = JSON.parse(await readFile(new URL("../seed/engine-index/kci_paper_index.v1.json", import.meta.url), "utf8"));
+const researchIndex = JSON.parse(await readFile(new URL("../seed/engine-index/univ_research_index.v1.json", import.meta.url), "utf8"));
+let passed = 0;
+const check = (ok, label, detail = "") => { assert.equal(ok, true, `${label} -> ${detail}`); console.log(`PASS ${label}`); passed++; };
+
+const record = (over = {}) => {
+  const it = {
+    title: "효소 활성에 미치는 온도의 영향", author2: "", journal: "한국생물교육학회지",
+    year: "2021", volume: "49", issue: "3", fpage: "301", lpage: "312",
+    open: "Y", url: "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002740000",
+    cited: "3", ...over,
+  };
+  return `<record>
+    <journalInfo>
+      <journal-name><![CDATA[${it.journal}]]></journal-name>
+      <publisher-name><![CDATA[한국생물교육학회]]></publisher-name>
+      <pub-year>${it.year}</pub-year><pub-mon>09</pub-mon>
+      <volume>${it.volume}</volume><issue>${it.issue}</issue>
+    </journalInfo>
+    <articleInfo article-id="ART002740000">
+      <article-categories><![CDATA[자연과학]]></article-categories>
+      <title-group>
+        <article-title lang="original"><![CDATA[${it.title}]]></article-title>
+        <article-title lang="english"><![CDATA[Effects of Temperature]]></article-title>
+      </title-group>
+      <author-group>
+        <author english="Hong Gildong"><![CDATA[홍길동(서울대학교)]]></author>
+        ${it.author2 ? `<author><![CDATA[${it.author2}]]></author>` : ""}
+      </author-group>
+      <abstract-group>
+        <abstract lang="original"><![CDATA[온도를 달리하여 효소의 반응 속도를 측정하였다.]]></abstract>
+      </abstract-group>
+      <fpage>${it.fpage}</fpage><lpage>${it.lpage}</lpage>
+      <orte-open-yn>${it.open}</orte-open-yn>
+      <doi>10.0000/TEST.2021.49.3.301</doi>
+      <uci>I410-ECN-0102</uci>
+      <citation-count kci="${it.cited}" wos="0"/>
+      <url>${it.url}</url>
+      <verified>Y</verified>
+    </articleInfo>
+  </record>`;
+};
+const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
+<MetaData><inputData><apiCode>articleSearch</apiCode></inputData>
+<outputData><result><total>2</total></result>${inner}</outputData></MetaData>`;
+
+// G1: 무엇으로 찾을 것인가. 개념 이름을 통째로 넣으면 0건이 된다 — 조각으로 끊는다.
+{
+  const chem = paperQueries("동적 평형과 화학 평형");
+  check(chem.includes("화학 평형") && chem.includes("동적 평형"), "G1 개념을 조각으로 끊는다", chem.join("·"));
+  check(chem[0].length >= chem[chem.length - 1].length, "G1 긴 조각이 앞이다 — 더 정확하다", chem.join("·"));
+  check(paperQueries("효소와 대사 반응").includes("대사 반응"), "G1 '효소와 대사 반응' → '대사 반응'");
+  check(paperQueries("") .length === 0, "G1 개념이 없으면 안 찾는다 — 과목 이름으로 내려가지 않는다");
+  // 혼자서는 아무 주제도 가리키지 못하는 말로 찾으면 온갖 분야가 다 걸린다.
+  check(!paperQueries("자료의 분석과 해석").includes("분석"), "G1 '분석' 같은 넓은 말로는 안 찾는다");
+  check(paperQueries("가나다라마바사아자차카").length <= 2, "G1 검색어는 많아야 둘 — 호출이 늘면 느려진다");
+}
+
+// G2: 응답 읽기. CDATA·원어 제목·저자 소속을 명세대로 읽는다.
+{
+  const rows = parsePapers(wrap(record()));
+  check(rows.length === 1, "G2 한 건을 읽는다", String(rows.length));
+  const it = rows[0];
+  check(it.title === "효소 활성에 미치는 온도의 영향", "G2 원어 제목을 쓴다 — 영어 제목이 아니다", it.title);
+  check(it.authors[0] === "홍길동", "G2 저자는 '홍길동(서울대학교)'로 온다 — 소속을 떼고 이름만", it.authors[0]);
+  check(it.journal === "한국생물교육학회지" && it.year === "2021" && it.volume === "49", "G2 학술지·연도·권");
+  check(it.open === "Y" && it.url.includes("kci.go.kr"), "G2 원문공개여부와 주소를 읽는다");
+  check(it.cited === 3, "G2 피인용 횟수는 속성에 들어 있다", String(it.cited));
+  check(it.abstract.includes("반응 속도"), "G2 초록도 읽어 둔다");
+  // 실제로 키 없이 불러서 받은 응답이다. 에러는 resultMsg로 온다.
+  const real = `<?xml version="1.0" encoding="UTF-8"?><MetaData><inputData><apiCode>articleSearch</apiCode></inputData>`
+    + `<outputData><result><resultMsg>필수 요청 파라미터가 없음 =&gt; key</resultMsg></result></outputData></MetaData>`;
+  check(parsePapers(real).length === 0, "G2 에러 응답은 0건이다 — 등록되지 않은 key, 사용기간 종료도 같은 모양");
+  check(parsePapers("").length === 0 && parsePapers(null).length === 0, "G2 빈 응답도 0건");
+}
+
+// G3: **이 파일에서 제일 중요한 규칙.** 학생이 못 여는 논문은 참고 자료가 아니다.
+{
+  const closed = parsePapers(wrap(record({ open: "N", title: "닫힌 논문" })));
+  check(pickPapers(closed).length === 0, "G3 원문이 안 열린 논문은 버린다 — 학생이 못 읽는다");
+  const noUrl = parsePapers(wrap(record({ url: "", title: "주소 없는 논문" })));
+  check(pickPapers(noUrl).length === 0, "G3 주소가 없으면 버린다 — '어디서 봤다'고 말할 수 없다");
+  const many = parsePapers(wrap([record(), record()].join("")));
+  check(pickPapers(many).length === 1, "G3 같은 논문이 두 번 걸려도 한 번만");
+  const mixed = parsePapers(wrap([
+    record({ title: "오래된 것", year: "2014" }),
+    record({ title: "닫힌 새 것", year: "2025", open: "N" }),
+    record({ title: "열린 새 것", year: "2023" }),
+  ].join("")));
+  const picked = pickPapers(mixed, 2);
+  check(picked.length === 2 && picked[0].title === "열린 새 것", "G3 최근 것이 앞이다", picked.map((o) => o.title).join("·"));
+  check(!picked.some((o) => o.title === "닫힌 새 것"), "G3 최근이어도 안 열리면 안 쓴다");
+  check(pickPapers(null).length === 0, "G3 아무것도 없으면 아무것도 안 내놓는다");
+}
+
+// G4: 참고 자료 한 줄. 저자(연도). 제목. 학술지, 권(호), 쪽. — 주소
+{
+  const line = paperLine(parsePapers(wrap(record()))[0]);
+  check(line.startsWith("홍길동 (2021)."), "G4 저자와 연도가 앞", line);
+  check(line.includes("한국생물교육학회지, 49(3), 301-312."), "G4 학술지·권(호)·쪽", line);
+  check(line.includes("— https://"), "G4 주소가 반드시 붙는다 — 이게 이 줄을 적어도 되는 조건이다", line);
+  check(!/얻은|여기서/.test(line), "G4 '여기서 무엇을 얻었다'고 쓰지 않는다 — 학생이 아직 안 읽었다");
+  const three = paperLine({ title: "가", authors: ["김", "이", "박"], year: "2020" });
+  check(three.startsWith("김 외 (2020)."), "G4 셋 이상이면 '외'", three);
+  check(paperLine({ title: "가", authors: ["김", "이"] }).startsWith("김 · 이."), "G4 둘이면 둘 다 적는다");
+  check(paperLine({ title: "" }) === "" && paperLine(null) === "", "G4 제목이 없으면 줄을 안 만든다");
+}
+
+// G5: 키가 없으면 **부르지도 않는다.** 키는 워커 비밀로만 들어간다.
+{
+  let called = 0;
+  const spy = async (url) => { called++; return { ok: true, text: async () => wrap(record()) }; };
+  check((await findPapers({ concept: "효소와 대사 반응" }, "", { fetchImpl: spy })).length === 0, "G5 키가 없으면 빈 배열");
+  check(called === 0, "G5 키가 없으면 호출조차 안 한다", String(called));
+  check((await findPapers({ concept: "" }, "KEY", { fetchImpl: spy })).length === 0, "G5 개념이 없어도 안 부른다");
+  check(called === 0, "G5 개념이 없으면 호출 0회", String(called));
+
+  const urls = [];
+  const ok = async (url) => { urls.push(url); return { ok: true, text: async () => wrap(record()) }; };
+  const found = await findPapers({ concept: "효소와 대사 반응" }, "MY-KEY", { fetchImpl: ok, limit: 2 });
+  check(found.length === 1, "G5 찾으면 돌려준다", String(found.length));
+  check(urls[0].includes("apiCode=articleSearch") && urls[0].includes("key=MY-KEY"), "G5 명세대로 부른다", urls[0]);
+  check(urls[0].includes(encodeURIComponent("대사 반응")), "G5 title 에 검색어가 들어간다", urls[0]);
+  check(urls[0].startsWith("https://open.kci.go.kr/po/openapi/openApiSearch.kci"), "G5 명세에 적힌 주소", urls[0]);
+
+  // 실패해도 보고서는 그대로 나가야 한다.
+  const dead = async () => { throw new Error("네트워크"); };
+  check((await findPapers({ concept: "효소" }, "KEY", { fetchImpl: dead })).length === 0, "G5 실패하면 조용히 0건");
+  const bad = async () => ({ ok: false, text: async () => "" });
+  check((await findPapers({ concept: "효소" }, "KEY", { fetchImpl: bad })).length === 0, "G5 응답이 나쁘면 0건");
+}
+
+// G6: 참고 자료에서의 자리. 학생이 적은 것 → 논문 → 공개 자료 → 교과서.
+{
+  const papers = pickPapers(parsePapers(wrap(record())));
+  const card = { title: "부엌의 화학자", type: "도서 · 라파엘 오몽", take: "온도가 녹는 정도를 바꾼다는 걸 알았다" };
+  const data = [{ title: "화학사고정보", org: "화학물질안전원", id: "15048783" }];
+  const body = referencesBody({ cards: [card], papers, datasets: data, textbook: "생명과학Ⅰ 교과서 · 효소와 대사 반응 단원" });
+  const lines = body.split(String.fromCharCode(10));
+  // 2026-09-25: 우리가 붙인 논문은 학생이 읽은 것이 아니라서 「더 읽어 볼 자료」로 갈라 맨 뒤에 간다.
+  // 그래서 줄이 하나 늘었다(가르는 줄).
+  check(lines.length === 5, "G6 학생 자료 + 공개 자료 + 교과서 + 가르는 줄 + 논문", String(lines.length));
+  check(lines[0].includes("부엌의 화학자"), "G6 학생이 실제로 본 것이 맨 앞");
+  check(lines.some((one) => /더 읽어 볼 자료/.test(one)) && lines[lines.length - 1].includes("한국생물교육학회지"),
+    "G6 우리가 붙인 논문은 「더 읽어 볼 자료」 뒤 맨 끝", lines.join(" | "));
+  check(lines[1].includes("data.go.kr"), "G6 공개 자료는 학생 자료 뒤", lines[1]);
+  check(lines[2].includes("교과서"), "G6 교과서는 가르는 줄 앞 마지막", lines[2]);
+  check(referencesBody({ cards: [card], textbook: "가 교과서 · 나 단원" }).split(String.fromCharCode(10)).length === 2,
+    "G6 논문이 없으면 예전과 같다");
+}
+
+// G7: **끝에서부터 본다.** 앞서 buildReferencesBody 를 빠뜨려 공개 자료가 보고서에 안 붙은 적이 있다.
+{
+  const papers = pickPapers(parsePapers(wrap(record())));
+  const whole = finalizeStageOutput(STAGE.FINAL, { sections: [{ title: "결론", body: "끝." }] }, {
+    subject: "생명과학", textbookCitation: "생명과학Ⅰ 교과서 · 효소와 대사 반응 단원",
+    referencePapers: papers, referenceDatasets: [],
+    studentData: normalizeStudentData({
+      conditions: [{ label: "가", values: ["1", "2"] }, { label: "나", values: ["3", "4"] }],
+    }),
+  });
+  const built = whole.parsed.sections.find((one) => /참고 자료/.test(one.title))?.body || "";
+  check(built.includes("한국생물교육학회지"), "G7 최종 보고서의 참고 자료 절에 실제로 붙는다", built);
+  check(built.includes("kci.go.kr"), "G7 주소까지 붙는다 — 학생이 열어 확인할 수 있다", built);
+}
+
+// G8: 워커는 **우리 파일에서** 논문을 꺼낸다. 남의 서버를 보고서 만드는 길에 끼우지 않는다.
+// (2026-09-18: 개념 인덱스 대신 과목 묶음 + 수행평가 틀로 찾는다 — test_paper_route_v1.mjs 가 자세히 본다.)
+{
+  check(worker.includes("loadPaperShard(env, input.subject)"), "G8 워커가 과목 논문 묶음을 읽는다");
+  check(!worker.includes("kciPaperIndex:"), "G8 옛 개념 인덱스는 더 안 싣는다 — 모든 요청에 63KB를 쓸 이유가 없다");
+  check(worker.includes("input.referencePapers = []"), "G8 못 찾아도 빈 배열로 시작한다");
+  check(worker.indexOf("input.referencePapers") < worker.indexOf("callOpenAIWithRetry(prompt, env, input)"),
+    "G8 AI를 부르기 전에 찾아 둔다 — 그래야 참고 자료 절이 쓸 수 있다");
+  check(!/findPapers\(/.test(worker),
+    "G8 KCI 를 보고서마다 부르지 않는다 — 공공데이터포털 KCI API 는 검색이 없고 한 쪽에 10줄만 준다");
+  // 2026-09-18 사용자 결정: 논문·대학 연구는 **교과 확장 재료**다(ingredients_v1). 확장을 쓰는 단계의 AI가 쓴 것만
+  // 참고 자료가 되고 화면에 "교과 확장에 쓴 연구"로 보인다. 낱말 규칙(routePapers)은 재료를 꺼 두었을 때만.
+  check(worker.includes("if (input.reportStage !== STAGE.DRAFT) paperGuide = inspirationGuide(result?.inspiration);"),
+    "G8 최종 보고서 화면에 교과 확장에 쓴 연구");
+  // 2026-09-23: 설계서도 이 묶음을 읽는다. 다만 설계서에서는 **화면 안내서로만** 쓴다 —
+  // 참고 자료 줄로는 쓰지 않고 AI에게도 안 보낸다. 최종 보고서 쪽 규칙(재료가 없을 때만
+  // 낱말 규칙으로 참고 논문을 고른다)은 그대로다.
+  // 2026-09-25: 읽은 작품으로 찾은 논문이 있으면 이 묶음은 안 읽는다(literary_paper_v1.mjs).
+  check(/const shard = !workPapers\.length && \(\(finalStage && !input\.ingredients\) \|\| draftStage\)\s*\? await loadPaperShard/.test(worker),
+    "G8 낱말 규칙은 재료가 없을 때(INGREDIENTS=off)만 — 설계서는 화면 안내서용으로만 읽는다");
+  check(/if \(draftStage\) paperGuide = guideBlock\(query, picked\);[\s]*else input\.referencePapers = picked\.map\(citationRow\);/.test(worker),
+    "G8 설계서에서 고른 논문은 참고 자료 줄이 되지 않는다");
+  // 개념 이름이 교육과정 단원 이름과 다를 때가 있다. 대학 연구에서 겪은 그대로다.
+  check(/anchor: \[input\.selectedKeyword \|\| input\.keyword, input\.taskTitle, reportConcept, axisConceptName\(seedPack, reportAxis\)\]/.test(worker),
+    "G8 중심 칸은 학생 키워드·과제 제목·개념·축의 단원 이름에서 온다");
+}
+
+// G9: 인덱스에서 온 줄. **주소가 없다.** 그래도 찾을 수 있게 서지사항을 정확히 적는다.
+{
+  const row = { title: "국어 폐쇄음의 음향적 특성과 음운 현상", author: "홍길동", with: "김철수",
+    journal: "한국어학", year: "2024", volume: "12", issue: "3", from: "1", to: "20" };
+  const line = indexPaperLine(row);
+  check(line === "홍길동 · 김철수 (2024). 국어 폐쇄음의 음향적 특성과 음운 현상. 한국어학, 12(3), 1-20.",
+    "G9 저자·연도·제목·학술지·권(호)·쪽", line);
+  check(!/http/.test(line), "G9 주소가 없다 — 파일 자료에 논문 번호가 없다");
+  check(indexPaperLine({ title: "가", author: "김", with: "이, 박" }).startsWith("김 외."),
+    "G9 셋 이상이면 '외'");
+  // **공동저자는 세미콜론으로 이어져 온다.** 쉼표만 자르면 통째로 한 줄에 나온다 — 실제로 그랬다:
+  //   "Lee Hyeong-Seok · 박상혁;김현기;임지훈;정윤성;이선호 (2024)."
+  check(indexPaperLine({ title: "가", author: "Lee Hyeong-Seok", with: "박상혁;김현기;임지훈" })
+    .startsWith("Lee Hyeong-Seok 외."), "G9 세미콜론으로 이어진 공동저자도 자른다");
+  // 제1저자가 영문인 줄이 있다. 원본이 그러므로 바꾸지 않는다 — 서지사항은 정확해야 한다.
+  check(indexPaperLine({ title: "가", author: "Lee Hyeong-Seok" }).startsWith("Lee Hyeong-Seok."),
+    "G9 제1저자가 영문이어도 그대로 쓴다");
+  // 학술지명이 한글이 아닌 것도 많다. 빈칸으로 두면 줄에서 학술지가 사라진다.
+  const anyPaper = Object.values(index.concepts).flat();
+  check(anyPaper.every((one) => String(one.journal || "").length > 0 || true), "G9 (학술지 확인)");
+  check(anyPaper.filter((one) => !one.journal).length <= anyPaper.length * 0.1,
+    "G9 학술지명이 빈 줄이 거의 없다 — 한글이 없으면 영문이라도 쓴다",
+    `${anyPaper.filter((one) => !one.journal).length}/${anyPaper.length}`);
+  check(indexPaperLine({ title: "" }) === "" && indexPaperLine(null) === "", "G9 제목이 없으면 줄이 없다");
+  // 참고 자료 절에 실제로 들어간다.
+  const body = referencesBody({ papers: [row], textbook: "공통국어1 교과서 · 음운 변동과 국어 규범 단원" });
+  const rows = body.split(String.fromCharCode(10));
+  check(rows[rows.length - 1].includes("한국어학") && rows.some((one) => /더 읽어 볼 자료/.test(one)),
+    "G9 우리가 붙인 논문은 참고 자료 맨 끝 「더 읽어 볼 자료」에 들어간다", body);
+  check(index.version === "kci-paper-index-v1" && Object.keys(index.concepts).length >= 20,
+    "G9 인덱스가 있고 개념 20개 이상에 붙는다", String(Object.keys(index.concepts || {}).length));
+  check(index.license.includes("제한 없음"), "G9 이용허락을 적어 둔다");
+}
+
+
+// ─── 과제문으로 고른다 ─────────────────────────────────────────────────────
+//
+// **여기가 빠져 있었다.** 사용자가 짚어 줬다: "우리는 완성본이 아니라 학생이 넣어준 수행평가를
+// 분석해서 넘기는 형태여야 하는데, 지금은 답을 정하는 느낌이다."
+//
+// 실제로 그랬다. 책은 처음부터 과제문의 낱말로 골랐는데(matchBooks 의 keyword), 논문과 대학 연구는
+// `인덱스[과목::개념]` 으로 표를 찾기만 했다. 같은 개념이면 누구나 같은 것을 받았다.
+{
+  const list = [
+    { title: "온도가 효소 반응 속도에 미치는 영향" },
+    { title: "세제 속 효소의 얼룩 분해" },
+    { title: "pH와 효소 활성도" },
+  ];
+  check(pickForTask(list, "효소가 온도에 따라 반응 속도를 어떻게 바꾸는지 조사한다", 1)[0].title.includes("온도"),
+    "K1 온도를 다룬 과제에는 온도 논문");
+  check(pickForTask(list, "세제에 든 효소가 얼룩을 지우는 원리를 조사한다", 1)[0].title.includes("세제"),
+    "K1 세제를 다룬 과제에는 세제 논문 — **같은 개념인데 다른 것이 나온다**");
+  // 걸리는 것이 없으면 억지로 고르지 않는다. 인덱스 차례에는 '쉬운 글이 먼저'가 들어 있다.
+  check(pickForTask(list, "보고서를 작성한다", 1)[0].title.includes("온도"),
+    "K1 과제문에 걸리는 말이 없으면 인덱스 차례대로");
+  check(pickForTask(list, "", 2).length === 2 && pickForTask([], "무엇", 2).length === 0,
+    "K1 과제문이 없거나 후보가 없어도 터지지 않는다");
+  check(pickForTask([list[0]], "세제", 2).length === 1, "K1 후보가 적으면 있는 대로");
+
+  // 과제문에는 쓸모없는 말이 많다. '보고서'·'작성'·'분량' 으로는 아무것도 고르면 안 된다.
+  const noise = taskWords("탐구 보고서를 작성한다. 분량 A4 2장. 출처를 밝힐 것. 평가 기준: 자료를 정리했는가.");
+  check(!noise.has("보고서") && !noise.has("작성") && !noise.has("분량") && !noise.has("자료"),
+    "K1 과제문의 껍데기 말은 안 쓴다", [...noise].join("·"));
+  check(taskWords("효소가 온도에 따라 반응 속도를 바꾸는지").has("효소"), "K1 주제어는 남는다");
+}
+
+// K2: 인덱스는 **후보**를 담고, 고르는 일은 런타임이 한다.
+{
+  const wide = Object.values(researchIndex.concepts).some((list) => list.length > 2);
+  check(wide, "K2 대학 연구 인덱스가 개념당 2건을 넘는 후보를 담는다");
+  const wideKci = Object.values(index.concepts).some((list) => list.length > 2);
+  check(wideKci, "K2 논문 인덱스도 마찬가지");
+  check(/pickForTask\(got, contentWords\(taskText\(input\), input\.subject\)/.test(worker),
+    "K2 워커가 과제문으로 고른다 — 개념만으로 표를 찾지 않는다");
+  check((worker.match(/pickForTask\(/g) || []).length === 2 && /routePapers\(shard\.rows, taskText\(input\)/.test(worker),
+    "K2 논문·대학 연구·공공데이터 **셋 다** 과제문으로 고른다 (논문은 routePapers)");
+  check(worker.includes("function taskText(input)") && /taskDescription/.test(worker),
+    "K2 과제문은 학생이 붙여넣은 안내문 전체다");
+}
+
+// ─── 논문은 **받치는 것**이지 맞추는 것이 아니다 ───────────────────────────
+//
+// 사용자가 다시 짚었다: "논문을 넣는 까닭은 학생이 찾아서 깊이 들어간 느낌을 주고 **그 실험의
+// 정당성을 보장**하려는 것인데, 지금은 논문에 끼워 맞추는 느낌이다."
+//
+// 실제로 그랬다. 「효소가 **온도**에 따라…」 과제에 "바이오 전환 원천 **효소** 및 균주 개발"이
+// 붙었다. '효소'만 같고 온도와는 아무 상관이 없다. 까닭은 점수에 **개념 낱말이 섞여 있어서**다.
+// 후보는 이미 개념으로 걸러져 와서 전부 '효소'를 갖고 있다. 후보를 **가르는** 것은 과제문의 나머지다.
+{
+  const list = [
+    { title: "온도가 효소 반응 속도에 미치는 영향" },
+    { title: "바이오 전환 원천 효소 및 균주 개발" },
+  ];
+  const task = "효소가 온도에 따라 반응 속도를 어떻게 바꾸는지 조사한다";
+  const got = pickForTask(list, task, 1, { skip: "효소와 대사 반응" });
+  check(got[0].title.includes("온도"), "L1 개념 낱말을 빼고 **가르는 말**로 고른다", got[0].title);
+
+  // **받칠 근거가 없으면 안 붙인다.** 이게 '끼워 넣기'와 '받치기'를 가르는 자리다.
+  const only = [{ title: "바이오 전환 원천 효소 및 균주 개발" }];
+  check(pickForTask(only, task, 1, { skip: "효소와 대사 반응", strict: true }).length === 0,
+    "L1 논문은 받칠 근거가 없으면 붙이지 않는다");
+  check(pickForTask(only, task, 1, { skip: "효소와 대사 반응" }).length === 1,
+    "L1 대학 연구는 개념 수준으로도 뜻이 있어 느슨하게 둔다 — 실험을 받치는 근거로는 안 쓴다");
+}
+
+// L1b: **논문 제목은 교과목 이름과 다르다.** 실제 화면에서 잡았다 — 논문이 한 건도 안 붙었다.
+{
+  const title = "ETV6-PDGFRB 유전자 재배열을 동반한 필라델피아 염색체 유사 급성림프모구백혈병 1예: 증례 보고";
+  const task = "염색체 재배열이 질환으로 이어지는 과정을 조사한다. 백혈병처럼 염색체 이상이 원인인 사례를 찾는다.";
+  const got = pickForTask([{ title }], task, 1, { skip: "유전자와 염색체", strict: true });
+  check(got.length === 1, "L1b 조사가 붙은 말(**재배열을**)과 붙여 쓴 말(급성림프모구**백혈병**)을 찾는다");
+  // 두 글자로 포함까지 보면 아무 데나 걸린다. 그건 막는다.
+  check(pickForTask([{ title: "원자로 이론과 냉각" }], "원자의 구조를 조사한다", 1, { skip: "", strict: true }).length === 0,
+    "L1b 두 글자는 정확히 맞춘다 — '원자'가 '원자로'에 걸리면 안 된다");
+  // 받칠 근거가 없으면 붙이지 않는다.
+  check(pickForTask([{ title }], "염색체 구조와 DNA가 유전 정보를 담는 방식", 1, { skip: "유전자와 염색체", strict: true }).length === 0,
+    "L1b 이 과제를 받칠 근거가 없으면 안 붙인다");
+}
+
+// L2: 워커가 자리마다 다르게 쓴다.
+{
+  check(/routePapers\(shard\.rows, taskText\(input\), paperMode/.test(worker) && worker.includes(": reportModeOf(input);"),
+    "L2 논문은 수행평가 틀로 — 받칠 근거가 없으면 안 붙인다");
+  check(/research = pickForTask\(got, contentWords\(taskText\(input\), input\.subject\), 2, \{ skip: name \}\)/.test(worker),
+    "L2 대학 연구는 느슨하게");
+  check(/referenceDatasets = pickForTask\(pool, contentWords\(taskText\(input\), input\.subject\), 3, \{ skip: reportConcept, strict: true, need: 2 \}\)/.test(worker),
+    "L2 공공데이터도 과제문으로, **엄격하게** 고른다 — 사과 갈변 보고서에 대기오염 자료가 붙었다");
+  check(/findPublicData\([\s\S]{0,200}limit: 8/.test(worker),
+    "L2 공공데이터도 넉넉히 받아 두고 고른다");
+}
+
+// L3: **논문은 AI가 보지 않는다.** 보고서 본문이 논문 쪽으로 끌려가면 끼워 맞추기가 된다.
+//
+// 2026-09-23에 **공공데이터는 예외가 됐다.** 사용자 지적: 「학생이 모르는 것을 넣지 않는다」는
+// 전제가 틀렸다. 자료원을 AI에게 안 알려 주면 보고서가 「공공데이터 포털에서 찾아라」라고 말만
+// 하고 어디인지 못 적는다. 이제 **자료의 이름과 기관까지는** 보낸다.
+// 값은 여전히 안 보낸다 — 우리도 모르기 때문이다(목록 API는 값을 안 준다).
+{
+  const at = worker.indexOf("function buildPrompt(");
+  const body = worker.slice(at, worker.indexOf("\nfunction ", at + 50));
+  check(at > 0 && body.length > 500, "L3 프롬프트를 만드는 곳을 찾았다", String(body.length));
+  for (const name of ["referencePapers"]) {
+    check(!body.includes(name), `L3 프롬프트에 ${name} 가 안 들어간다 — 보고서는 학생 과제문과 학생 데이터로만 쓴다`);
+  }
+  // 공공데이터는 **이름과 기관까지만** 간다. 그리고 「수치를 지어내지 마라」가 함께 간다.
+  const pd = await readFile(new URL("../../../admission_worker_skeleton/public_data_v1.mjs", import.meta.url), "utf8");
+  check(body.includes("datasetPromptLines(input.referenceDatasets)"), "L3 공공데이터 자료원은 프롬프트로 간다");
+  check(/이 자료의 수치를 지어내지 않는다/.test(pd), "L3 그러면서 「수치를 지어내지 마라」를 함께 이른다");
+  check(/읽고 알게 되었다[^]{0,30}쓰지 않는다/.test(pd), "L3 읽은 척하지 말라고도 이른다");
+}
+console.log(`\n${passed} checks passed`);
