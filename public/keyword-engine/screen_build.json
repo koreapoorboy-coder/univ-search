@@ -1,6 +1,80 @@
 {
-  "version": "v297_ask_read_work",
-  "sha256": "e01df77829a547d3",
+  "version": "v298_no_english",
+  "sha256": "7c13c6357d15a618",
   "stamped_at": "2026-09-25",
+  "files": {
+    "assets/js/subject_alias.js": {
+      "version": "v1_subject_alias",
+      "sha256": "fafd338d85eeb79c"
+    },
+    "assets/js/simple_live_intake_v1.js": {
+      "version": "phase6a_v1",
+      "sha256": "7a61a280ee809122"
+    },
+    "assets/js/decision_flow_v1.js": {
+      "version": "v277_ask_read_work",
+      "sha256": "18216cda8f60208b"
+    },
+    "assets/js/subject_support_notice.js": {
+      "version": "v15_no_english",
+      "sha256": "97ca84a7283fb5f7"
+    },
+    "assets/js/shared/collection_kind_v1.js": {
+      "version": "v4_info_data",
+      "sha256": "2fc3f90f1b365ac9"
+    },
+    "assets/js/shared/table_axis_v1.js": {
+      "version": "v1_row_axis",
+      "sha256": "835cc7e4c897936f"
+    },
+    "assets/js/shared/writing_task_v1.js": {
+      "version": "v2_say_what_we_gave",
+      "sha256": "241c537c7813a2fe"
+    },
+    "assets/js/shared/material_notice_v1.js": {
+      "version": "v1_material",
+      "sha256": "e1105099e522e635"
+    },
+    "assets/js/shared/read_work_v1.js": {
+      "version": "v1_read_work",
+      "sha256": "77995f05a9ea321a"
+    },
+    "assets/js/unit_choice_picker_v1.js": {
+      "version": "v18_say_what_we_read",
+      "sha256": "fb6414a5edde28e7"
+    },
+    "assets/js/title_composer_v2.js": {
+      "version": "patch6e_title_particles",
+      "sha256": "9bf4a334a17433c1"
+    },
+    "assets/textbook_concept_helper.js": {
+      "version": "v1_patch51_overlay",
+      "sha256": "abea4319121e3e91"
+    },
+    "assets/major_engine_helper.js": {
+      "version": "v1_patch51_overlay",
+      "sha256": "005b5654e3b0b90a"
+    },
+    "assets/topic_generator.js": {
+      "version": "v1_patch51_overlay",
+      "sha256": "96a52a12acece41c"
+    },
+    "assets/assessment_keyword_bridge_helper.js": {
+      "version": "v36_structure_by_route",
+      "sha256": "00e1bdbf31b55c1f"
+    },
+    "assets/keyword_engine.js": {
+      "version": "v42_required_input_hotfix",
+      "sha256": "32e06b77be7ae871"
+    },
+    "assets/js/decision_flow_payload_adapter.js": {
+      "version": "v3_social_humanities",
+      "sha256": "1fd61417f2bbded0"
+    },
+    "assets/js/mini_worker_generate_bridge_v32.js": {
+      "version": "v298_no_english",
+      "sha256": "7c13c6357d15a618"
+    }
+  },
   "note": "화면 코드를 고치면 index.html 의 ?v= 와 화면 코드의 VERSION 을 올리고 이 파일을 다시 찍는다. 안 올리면 학생이 옛 화면을 받는다."
 }

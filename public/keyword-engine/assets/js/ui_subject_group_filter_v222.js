@@ -13,7 +13,7 @@
   const SUBJECT_CATALOG = [
     { value:"공통국어1", text:"공통국어1", group:"국어" },
     { value:"공통국어2", text:"공통국어2", group:"국어" },
-    { value:"영어", text:"영어", group:"영어" },
+    // 영어는 넣지 않는다 — index.html 의 주석에 이유를 적어 두었다(2026-09-25).
     { value:"공통수학1", text:"공통수학1", group:"수학" },
     { value:"공통수학2", text:"공통수학2", group:"수학" },
     { value:"대수", text:"대수", group:"수학" },
@@ -33,7 +33,9 @@
     { value:"화학", text:"화학(화학Ⅰ)", group:"과학" },
     { value:"화학 반응의 세계", text:"화학 반응의 세계", group:"과학" },
     { value:"생명과학", text:"생명과학", group:"과학" },
-    { value:"생물의 유전", text:"생물의 유전", group:"과학" },
+    // 생물의 유전은 뺀다(2026-09-25) — **단원이 0개고 논문 묶음도 없다.** 고르면 아무것도 못 준다.
+    // index.html 에는 처음부터 없었는데 이 목록이 넣고 있었다. 이 목록은 화면 목록에 **더한다**
+    // (mergeCatalog). 그래서 한쪽에서만 빼면 되살아난다 — 영어를 뺄 때 같이 확인해서 찾았다.
     { value:"지구과학", text:"지구과학", group:"과학" },
     { value:"역학과 에너지", text:"역학과 에너지", group:"과학" },
     { value:"전자기와 양자", text:"전자기와 양자", group:"과학" },
