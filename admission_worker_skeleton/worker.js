@@ -426,6 +426,37 @@ export default {
           input.reportStage = STAGE.COMPLETE;
         }
 
+        // **2단계인데 표도 자료 카드도 비어 있으면 여기서 멈춘다.** AI를 부르기도 전에 멈춘다.
+        // 2026-09-26 에 확인했다: 모든 칸을 비우거나 「몰라요」로 채워 보내면 유료 호출이 두 번 나가고,
+        // 잰 자료가 하나도 없는 보고서가 나왔다(숫자 표 보고서가 조용히 자료 카드 보고서로 바뀐다 —
+        // resolveReportStage 가 숫자가 없으면 LITERATURE 로 돌린다). 학생은 돈을 내고 아무 근거 없는
+        // 글을 받는다. 안내문이 너무 짧을 때와 같은 자리에서 같은 방식으로 막는다.
+        const collected = input.studentData || normalizeStudentData(null);
+        const filledRows = collected.conditions.filter((row) => row.values.length).length;
+        const stage2 = input.reportStage === STAGE.FINAL || input.reportStage === STAGE.LITERATURE;
+        if (stage2 && !filledRows && !collected.sourceCards.length) {
+          // 조건 이름을 안 적어도 줄이 통째로 버려진다(normalizeStudentData). 그때는 「표가 비었다」가
+          // 아니라 「이름을 적어 달라」고 말해야 맞다 — 학생은 숫자를 적었는데 비었다고 하면 어리둥절하다.
+          const raw = Array.isArray(trustedPayload?.studentData?.conditions) ? trustedPayload.studentData.conditions : [];
+          const typedButUnnamed = raw.some((row) => !String(row?.label || '').trim()
+            && (Array.isArray(row?.values) ? row.values : []).some((one) => /^-?[\d,]+(\.\d+)?/.test(String(one ?? '').trim())));
+          const say = typedButUnnamed
+            ? '조건 이름이 비어 있어요. 무엇을 달리했는지(20 ℃ / 40 ℃ 처럼)를 표 왼쪽 칸에 적어 주세요. 이용권은 쓰이지 않았어요.'
+            : '표가 비어 있어요. 잰 숫자나 자료 카드를 한 칸이라도 적어 주셔야 보고서를 만들 수 있어요.'
+              + ' 아직 재지 않았다면 설계서를 보고 먼저 재 보세요. 이용권은 쓰이지 않았어요.';
+          return withCors(json({ ok: false, reason: 'DATA_TABLE_EMPTY', error: 'DATA_TABLE_EMPTY', message: say }, 400));
+        }
+        // **조건을 하나만 채웠으면 그것도 말해 준다.** 표는 늘 조건 두 줄 이상으로 나간다
+        // (설계서의 dataTemplate 이 그렇게 만든다). 한 줄만 채워 보내면 지금까지는 숫자가 통째로
+        // 버려지고 자료 카드 보고서가 나왔다 — 학생은 자기가 잰 숫자가 보고서에 하나도 없는 것을 본다.
+        const wantsTable = input.collectionKind === COLLECTION.MEASUREMENT
+          || input.collectionKind === COLLECTION.DATASET || input.collectionKind === COLLECTION.SURVEY;
+        if (stage2 && wantsTable && filledRows === 1 && !collected.sourceCards.length) {
+          const say = '조건이 한 줄만 채워져 있어요. 견줄 조건이 둘 이상이어야 잰 숫자로 보고서를 만들 수 있어요.'
+            + ' 표의 다른 줄도 채워 주세요. 이용권은 쓰이지 않았어요.';
+          return withCors(json({ ok: false, reason: 'DATA_TABLE_EMPTY', error: 'DATA_TABLE_EMPTY', message: say }, 400));
+        }
+
         if (env.DB && input.reportStage === STAGE.DRAFT) {
           // Variety is a hint, never a gate: a lookup failure must not stop the report.
           try {

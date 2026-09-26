@@ -43,7 +43,14 @@ const round = (value, digits = 2) => Math.round(value * 10 ** digits) / 10 ** di
 function toNumber(value) {
   if (typeof value === 'number') return Number.isFinite(value) ? value : NaN;
   const text = String(value ?? '').trim().replace(/,/g, '');
-  return /^-?\d+(\.\d+)?$/.test(text) ? Number(text) : NaN;
+  if (/^-?\d+(\.\d+)?$/.test(text)) return Number(text);
+  // **학생은 단위를 붙여 적는다** — 「30초」·「25도」·「1.5mL」·「-5 ℃」. 표에 단위 칸이 따로 있어도
+  // 그렇게 적는다. 이것을 버리고 있었다(2026-09-26 확인): 모든 칸에 「30초」라고 적은 학생은 표가
+  // 통째로 빈 것이 되어, 잰 자료가 하나도 없는 보고서를 받았다.
+  // 숫자가 **하나뿐**이고 나머지가 단위 글자일 때만 받는다. 「3.1.4」·「20~30」·「1시간 30분」처럼
+  // 숫자가 둘 이상인 것은 무엇을 뜻하는지 알 수 없으므로 그대로 버린다.
+  const one = /^(-?\d+(?:\.\d+)?)\s*([^\d.~\-–—]{1,5})$/.exec(text);
+  return one ? Number(one[1]) : NaN;
 }
 
 // 학생이 적은 소수 자릿수. 「6.0」을 숫자로 바꾸면 6이 되어 표에 「6」으로 나왔다 — 같은 열의 6.1·6.2와 자릿수가

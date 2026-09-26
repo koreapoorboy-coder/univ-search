@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v306_math_subjects
+// SCREEN_VERSION: v307_empty_table_notice
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v306-math-subjects";
+  const VERSION = "mini-worker-generate-bridge-v307-empty-table-notice";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -873,7 +873,7 @@ ${detail}` : ""}`); return; }
   }
 
   // 워커가 **일부러** 막은 것들. 고장이 아니라 알림으로 보여 준다.
-  const ON_PURPOSE = new Set(["GUIDE_TOO_SHORT", "NOT_A_REPORT_TASK", "NO_CODE", "TOO_MANY_TRIES"]);
+  const ON_PURPOSE = new Set(["GUIDE_TOO_SHORT", "NOT_A_REPORT_TASK", "NO_CODE", "TOO_MANY_TRIES", "DATA_TABLE_EMPTY"]);
   function makeHttpError(response, url, text, data){
     const isHtml = /<html[\s>]/i.test(String(text || ""));
     // 워커가 보낸 한국어 문장이 있으면 그것을 먼저 쓴다. 없으면 코드를 한국어로 바꾼다.
