@@ -613,6 +613,22 @@ export default {
           || careerAxis;
 
         input.reportConcept = reportConcept;
+        // **정한 단원을 AI에게도 말해 준다.** 2026-09-26 에 실제 보고서로 찾았다: 주제를 안 말하는
+        // 과제(「자유 주제 탐구」)에서 우리가 단원을 「지구시스템」으로 정했는데 보고서는 「오이 절임
+        // 삼투」로 나왔다. 참고 자료 줄과 붙이는 재료는 단원을 따라가고, 본문만 딴 데로 간 것이다 —
+        // 선생님이 보면 바로 어긋나 보인다. 까닭은 단원이 프롬프트에 **한 번도 들어가지 않아서다**
+        // (report_guide_v1 은 selectedConcept 를 읽는데 그 칸은 빈칸으로 남아 있었다).
+        // 학생이 고른 것이 있으면 그것이 이미 reportConcept 이므로 덮어써도 잃는 것이 없다.
+        input.selectedConcept = reportConcept || input.selectedConcept;
+        // **낱말 칸이 비어 오면 과목 이름이 들어가 있다.** resolveInput 이 keywordOf(...) || concept || subject
+        // 로 메우기 때문이다. 그러면 모델은 무엇을 탐구하는지 모른 채 주제를 지어낸다 — 2026-09-21 에
+        // 화면에서 고친 그 버그(「물리」가 주제로 들어감)가 워커 안에는 남아 있었다. 2026-09-26 에
+        // 실제 보고서로 다시 만났다: 단원은 「지구시스템」인데 보고서는 「오이 절임 삼투」였고,
+        // 참고 자료 줄만 지구시스템이라 선생님이 보면 어긋난다. 과목 이름이 들어와 있으면
+        // **우리가 정한 단원**으로 바꾼다 — 단원과 본문이 같은 곳을 가리켜야 한다.
+        const bare = (value) => String(value || '').replace(/\s+/g, '');
+        if (reportConcept && bare(input.keyword) === bare(input.subject)) input.keyword = reportConcept;
+        if (reportConcept && bare(input.selectedKeyword) === bare(input.subject)) input.selectedKeyword = reportConcept;
         // 참고 자료에 "화학 교과서 관련 단원"이라고 뭉뚱그리던 것을, 우리가 아는 과목·단원으로 정확히 적는다.
         // 개념은 위에서 정한 것을 쓴다 — selectedConcept 만 보면 과목 이름('화학')이 단원으로 찍힌다.
         input.textbookCitation = textbookCitation({ ...input, selectedConcept: reportConcept }, seedPack.axisIndex);
