@@ -1622,9 +1622,16 @@ export function finalizeStageOutput(stage, rawParsed, input) {
     const stats = stage === STAGE.FINAL ? computeStats(data) : null;
     // 교과 확장 재료를 보냈으면(ingredients_v1) **AI가 실제로 쓴 재료**가 참고 자료의 논문·대학 글이다.
     const used = input.ingredients ? usedIngredients(parsed, input.ingredients) : null;
-    const usedRefs = used ? inspirationCitations(inspirationOf(used)) : null;
+    // **AI가 하나도 안 썼으면 우리가 고른 것을 그대로 보여 준다**(2026-09-26, 매체 의사소통 실제 보고서).
+    // 보고서 구조에 「교과 심화와 확장」 절이 없는 것이 있다(매체 분석 구조는 8절인데 확장 절이 없다).
+    // 그러면 AI 는 재료를 쓸 자리가 없어 하나도 안 쓰고, 골라 둔 논문 5편이 통째로 사라졌다 —
+    // 학생이 읽을 거리가 0이 된다. 「더 읽어 볼 자료 (아직 읽지 않았어요)」 칸은 바로 이런
+    // 자료를 정직하게 보여 주려고 만든 자리다(2026-09-24). 하나라도 썼으면 예전대로 쓴 것만 적는다.
+    const nothingUsed = used && !used.papers.length && !used.research.length;
+    const shown = nothingUsed ? input.ingredients : used;
+    const usedRefs = shown ? inspirationCitations(inspirationOf(shown)) : null;
     const refPapers = usedRefs ? usedRefs.papers : (input.referencePapers || []);
-    const refWeb = used ? used.research : (input.referenceWeb || []);
+    const refWeb = shown ? shown.research : (input.referenceWeb || []);
     const allowed = allowedNumberSet(data, stats);
     numbersIn(input.taskDescription).forEach((number) => allowed.add(canonicalNumber(number)));
     // 교과 확장 재료의 서지 숫자(연도·권·호·쪽)는 지어낸 숫자가 아니다. 이것을 막았더니 「(이윤미 외, 2024)」가 든 문장이
