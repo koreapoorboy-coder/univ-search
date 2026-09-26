@@ -98,5 +98,22 @@ const UNITS = ['사람의 유전과 유전병', '유전물질', '유전자발현
   ok(/\{ value:"생물의 유전"/.test(filter), '드롭다운 목록에도 있어야 한다 — 한쪽만 넣으면 어긋난다');
 }
 
+// ── ⑥ 문학 성취기준 코드도 같은 모양이다 ────────────────────
+// [12문학01-07] — 붙임표 하나. 국어·영어처럼 둘로 읽고 있어서 **한 번도 안 걸렸다**(2026-09-26).
+// 표에 「12문학 → 공통국어1」을 적어 두었는데 그 표가 한 번도 쓰이지 않았다.
+// 고친 뒤 성취기준 코드로 단원을 읽어내는 비율이 25/39(64.1%) → 34/39(87.2%) 가 되었다.
+{
+  const table = read(`${SEED}/engine-index/unit_from_standard.v1.json`);
+  const lit = unitFromStandard('공통국어1', '[12문학01-02] 현대시를 감상하고 시를 창작한다', table);
+  ok(Boolean(lit.unit), '문학 코드를 읽어야 한다');
+  ok(lit.area === '문학', `문학 과목은 영역 번호와 상관없이 문학이다 — ${lit.area}`);
+  // 과목 전체가 한 영역인 코드는 표에 적어 둔다. 영역 번호의 뜻을 모르는 채
+  // 공통국어1 의 번호표를 빌려 쓰면 문학 과제가 「듣기·말하기」로 간다.
+  ok(table.areaOfHead && table.areaOfHead['12문학'] === '문학', '표에 12문학 → 문학 이 적혀 있어야 한다');
+  // 성취기준 코드 자체는 점수에서 뺀다 — 코드 속 「문학」이 단원 이름과 겹친다.
+  const src = readFileSync('admission_worker_skeleton/unit_from_standard_v1.mjs', 'utf8');
+  ok(/replace\(CODE, ' '\)\.replace\(SHORT_CODE, ' '\)/.test(src), '코드를 빼고 점수를 매겨야 한다');
+}
+
 if (fail) { console.error(`\n실패 ${fail}건`); process.exit(1); }
 console.log(`통과 — 생물의 유전 단원 ${UNITS.length}개, 단원마다 재료가 있다`);

@@ -105,12 +105,18 @@ for (const [subject, byArea] of Object.entries(MAP)) {
 }
 if (bad) { console.error(`\n단원 이름 ${bad}개가 축에 없습니다. 표를 고쳐 주세요.`); process.exit(1); }
 
+// **과목 전체가 한 영역인 코드.** 「문학」 과목은 통째로 문학이므로 영역 번호를 보지 않는다.
+// 영역 번호의 뜻은 국어과 교육과정(별책5)을 봐야 알 수 있고, 기록으로도 확인이 안 된다 —
+// 문학 코드가 적힌 과제 11건이 전부 영역 01 이다. 교육과정을 받으면 번호별로 갈라 적으면 된다.
+const AREA_OF_HEAD = { "12문학": "문학" };
+
 const out = {
   version: 'unit-from-standard-v1',
   note: '성취기준 코드의 영역 번호로 단원을 고른다. 영역 이름과 단원 짝은 사람이 정했고, 영역 번호의 뜻은 실제 과제 기록으로 확인했다.',
   builtAt: new Date().toISOString().slice(0, 10),
   subjectOf: SUBJECT_OF.map(([re, subject]) => [re.source, subject]),
   area: AREA,
+  areaOfHead: AREA_OF_HEAD,
   byArea: MAP,
 };
 let pairs = 0;
