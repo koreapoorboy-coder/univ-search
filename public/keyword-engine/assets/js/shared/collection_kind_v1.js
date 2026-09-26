@@ -42,7 +42,16 @@ export function resolveCollectionKind(input) {
   // 칸이 다섯 개 이상이면 양식일 뿐이므로 안내문 글만 본다.
   const fields = String(input?.taskType || '').split(/[,·\s]+/).map((one) => one.trim()).filter(Boolean);
   const methodText = fields.length >= 5 ? '' : (input?.taskType || '');
-  const text = [input?.taskDescription, input?.taskName, methodText].filter(Boolean).join(' ');
+  // **방식표가 안내문 안에 그대로 박혀 있기도 하다.** 위의 규칙은 taskType 칸만 보았는데,
+  // 학교는 체크박스 표를 안내문 본문에 붙여 넣는다 — 「구술 · 발표 토의 · 토론 프로젝트 실험 · 실습」.
+  // 뽑아 올 때 ☑·□ 표시가 떨어져 나가면 남는 것은 방식 이름의 나열뿐이다. 2026-09-26 실제 보고서로
+  // 확인했다: 윤리문제 탐구 「쟁점비판 및 논증하기」(기후위기 논증 과제)가 그 나열의 「실험·실습」
+  // 때문에 재는 과제가 되어, 학생에게 「빨대 감축 정책 선택 시간을 재라」는 설계서가 나갔다.
+  // 방식 이름이 **넷 이상 줄줄이** 붙어 있으면 그것은 고른 것이 아니라 표다 — 지워 놓고 읽는다.
+  // 넷 이상일 때만 지운다. 「실험·실습」 하나만 적힌 것은 학교가 정말 고른 방식이다.
+  const MENU = /(?:(?:서술|논술|구술|발표|토의|토론|프로젝트|실험|실습|실기|시연|포트폴리오|자기평가|동료평가|관찰기록|기타)[\s·,／\/|☑□ㅇo•()]*){4,}/g;
+  const said = String(input?.taskDescription || '').replace(MENU, ' ');
+  const text = [said, input?.taskName, methodText].filter(Boolean).join(' ');
   const science = String(input?.subjectGroup || '').trim() === '과학';
 
   // Order matters, and it is the order a teacher would read the sentence in. What the student is asked to go out
