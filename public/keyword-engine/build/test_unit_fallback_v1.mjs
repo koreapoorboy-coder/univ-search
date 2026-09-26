@@ -71,14 +71,12 @@ const all = { axisIndex, majorSubjectIndex, defaultUnitIndex };
   // 사이트에서 고를 수 있는 과목은 **전부** 기본 단원이 있어야 한다. 하나라도 비면 그 과목은 빈 보고서가 나간다.
   const { SITE_SUBJECTS } = await import(new URL("../../../tools/site_subject.mjs", import.meta.url));
   const missing = Object.keys(SITE_SUBJECTS).filter((subject) => !chooseUnit({ subject, ...all }).concept);
-  // 이 여섯 과목은 **단원 사전(종단 축)이 아직 없다**. 사이트에서 고를 수는 있는데 단원을 줄 수 없어
-  // 보고서가 빈다(전수 검사 「과목에_단원자료없음」 25건). 영어·한국사처럼 사전을 만들어야 메워진다.
-  // 여기 적어 두는 것은 **이것이 전부라는 약속**이다 — 다른 과목이 비면 이 시험이 잡는다.
-  const KNOWN_EMPTY = ["융합과학 탐구", "과학과제 연구", "화학 반응의 세계", "생물의 유전", "데이터 과학", "인공지능 기초"];
-  const surprise = missing.filter((subject) => !KNOWN_EMPTY.includes(subject));
-  check(surprise.length === 0, "U5 단원 사전이 없는 과목은 알고 있는 여섯 개뿐이다", surprise.join(", "));
-  check(missing.length === KNOWN_EMPTY.length, "U5 그 여섯 개는 아직 그대로다(사전을 만들면 이 줄을 줄인다)",
-    `${missing.length}개`);
+  // **이제 빈 과목은 하나도 없다**(2026-09-26). 전에는 여섯 과목이 비어 있었다 —
+  // 융합과학 탐구·과학과제 연구·화학 반응의 세계·생물의 유전·데이터 과학·인공지능 기초.
+  // 사회·도덕 19과목을 넣으면서 기본 단원 표(build_subject_default_unit.mjs)를 다시 만들었더니
+  // 그 여섯 개까지 메워졌다. 과제에서 안 잡히는 과목은 **축의 첫 단원**을 기본으로 쓴다.
+  // 고를 수 있는 과목이 하나라도 비면 그 과목 학생은 빈 보고서를 받는다. 그래서 0개여야 한다.
+  check(missing.length === 0, "U5 고를 수 있는 과목은 모두 기본 단원이 있다", missing.join(", ") || "0개");
 }
 
 // U6. 과목이 없으면 아무것도 주지 않는다 — 과목을 모르면서 단원을 고르는 것은 지어내기다.
