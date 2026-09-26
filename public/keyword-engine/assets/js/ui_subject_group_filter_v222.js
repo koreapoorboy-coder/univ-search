@@ -28,6 +28,12 @@
     { value:"확률과 통계", text:"확률과 통계", group:"수학" },
     { value:"미적분1", text:"미적분Ⅰ", group:"수학" },
     { value:"기하", text:"기하", group:"수학" },
+    // 2022 개정 수학 선택 과목 5개(2026-09-26).
+    { value:"경제 수학", text:"경제 수학", group:"수학" },
+    { value:"수학과 문화", text:"수학과 문화", group:"수학" },
+    { value:"수학과제 탐구", text:"수학과제 탐구", group:"수학" },
+    { value:"실용 통계", text:"실용 통계", group:"수학" },
+    { value:"인공지능 수학", text:"인공지능 수학", group:"수학" },
     { value:"통합사회1", text:"통합사회1", group:"사회" },
     { value:"통합사회2", text:"통합사회2", group:"사회" },
     { value:"한국사", text:"한국사1·2", group:"사회" },

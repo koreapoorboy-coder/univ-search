@@ -1,0 +1,175 @@
+{
+  "subject_name": "수학과 문화",
+  "version": "1.0.0",
+  "policy": "실제 수행평가 제목을 읽고 묶어 만든 단원. 시험용으로 떼어 둔 학교 과제는 읽지 않았다.",
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "예술과 수학",
+      "concept_label": "예술 속 수학",
+      "core_focus": "음악·미술·건축에 담긴 수학을 찾아 설명하는 단원 [12수문01]",
+      "longitudinal_axes": [
+        {
+          "axis_id": "mc_art",
+          "axis_title": "예술 속 수학 축",
+          "axis_short": "예술과 수학",
+          "axis_domain": "math",
+          "priority": 1,
+          "next_subjects": [
+            "공통수학2",
+            "기하",
+            "미술"
+          ],
+          "why": "아름답다고 느끼는 것 뒤에 수학이 있습니다. 그것을 찾아내는 단원입니다.",
+          "student_output_hint": "예술 작품 하나를 골라 그 안의 수학 규칙을 찾아 설명한 자료",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "황금비",
+                "대칭",
+                "프랙털",
+                "원근법",
+                "테셀레이션",
+                "음악과 수학",
+                "건축",
+                "비례"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "예술과 수학",
+              "message": "선택한 키워드가 예술과 수학 방향을 강화합니다.",
+              "reason": "선택한 키워드가 예술과 수학 방향을 강화합니다.",
+              "desc": "선택한 키워드가 예술과 수학 방향을 강화합니다.",
+              "activity_hint": "예술 작품 하나를 골라 그 안의 수학 규칙을 찾아 설명한 자료"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "생활과 수학",
+      "concept_label": "생활 속 수학",
+      "core_focus": "일상 속 현상과 도구에 쓰인 수학을 찾아 설명하는 단원 [12수문02]",
+      "longitudinal_axes": [
+        {
+          "axis_id": "mc_life",
+          "axis_title": "생활 속 수학 축",
+          "axis_short": "생활과 수학",
+          "axis_domain": "math",
+          "priority": 1,
+          "next_subjects": [
+            "공통수학1",
+            "확률과 통계",
+            "정보"
+          ],
+          "why": "수학이 교과서 밖에서 어떻게 쓰이는지 보면, 배우는 까닭이 분명해집니다.",
+          "student_output_hint": "일상에서 수학이 쓰인 곳을 찾아 그 원리를 풀어 쓴 자료",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "암호",
+                "바코드",
+                "지도",
+                "내비게이션",
+                "일정",
+                "게임",
+                "통계 자료",
+                "생활 수학"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "생활과 수학",
+              "message": "선택한 키워드가 생활과 수학 방향을 강화합니다.",
+              "reason": "선택한 키워드가 생활과 수학 방향을 강화합니다.",
+              "desc": "선택한 키워드가 생활과 수학 방향을 강화합니다.",
+              "activity_hint": "일상에서 수학이 쓰인 곳을 찾아 그 원리를 풀어 쓴 자료"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "사회와 수학",
+      "concept_label": "사회 속 수학",
+      "core_focus": "사회 현상과 제도에 쓰인 수학을 찾아 해석하는 단원 [12수문03]",
+      "longitudinal_axes": [
+        {
+          "axis_id": "mc_society",
+          "axis_title": "사회 속 수학 축",
+          "axis_short": "사회와 수학",
+          "axis_domain": "math",
+          "priority": 1,
+          "next_subjects": [
+            "확률과 통계",
+            "사회문제 탐구",
+            "정치"
+          ],
+          "why": "선거 방식이나 통계 하나가 사회를 바꿉니다. 그 안의 수학을 보는 자리입니다.",
+          "student_output_hint": "사회 제도나 현상 하나를 골라 그 안의 수학을 분석한 자료",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "선거",
+                "의석 배분",
+                "통계",
+                "여론조사",
+                "공정",
+                "분배",
+                "사회 현상",
+                "표본"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "사회와 수학",
+              "message": "선택한 키워드가 사회와 수학 방향을 강화합니다.",
+              "reason": "선택한 키워드가 사회와 수학 방향을 강화합니다.",
+              "desc": "선택한 키워드가 사회와 수학 방향을 강화합니다.",
+              "activity_hint": "사회 제도나 현상 하나를 골라 그 안의 수학을 분석한 자료"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "환경과 수학",
+      "concept_label": "환경 속 수학",
+      "core_focus": "환경 문제를 수학으로 나타내고 해석하는 단원 [12수문04]",
+      "longitudinal_axes": [
+        {
+          "axis_id": "mc_environment",
+          "axis_title": "환경 속 수학 축",
+          "axis_short": "환경과 수학",
+          "axis_domain": "math",
+          "priority": 1,
+          "next_subjects": [
+            "통합과학2",
+            "기후변화와 지속가능한 세계",
+            "확률과 통계"
+          ],
+          "why": "환경 문제는 숫자로 말해야 설득이 됩니다.",
+          "student_output_hint": "환경 자료를 모아 변화를 수학으로 나타내고 앞으로를 가늠해 본 자료",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "탄소",
+                "온실가스",
+                "증가율",
+                "모델링",
+                "예측",
+                "자원",
+                "에너지",
+                "환경 자료"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "환경과 수학",
+              "message": "선택한 키워드가 환경과 수학 방향을 강화합니다.",
+              "reason": "선택한 키워드가 환경과 수학 방향을 강화합니다.",
+              "desc": "선택한 키워드가 환경과 수학 방향을 강화합니다.",
+              "activity_hint": "환경 자료를 모아 변화를 수학으로 나타내고 앞으로를 가늠해 본 자료"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

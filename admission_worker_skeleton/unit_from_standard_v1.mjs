@@ -18,7 +18,9 @@ const CODE = /\[?(1[02](?:공국|공영|영|문학)[0-9IVⅠⅡ]*)-(\d\d)-\d\d\]
 // 일부로 먹어 버려 하나도 안 걸린다.
 // 2026-09-26: 「문학」 코드도 같은 모양이다 — [12문학01-07]. 그래서 문학 코드는 **한 번도 읽히지
 // 않고 있었다.** 표에 「12문학 → 공통국어1」을 적어 두었는데 그 표가 한 번도 쓰이지 않았다.
-const SHORT_CODE = /\[?(1[02](?:유전|문학))(\d\d)-\d\d\]?/g;
+// 2026-09-26: 수학 선택 과목 코드도 같은 모양이다 — [12경수01-01], [12인수04-02], [12실통03-01].
+// 별책8 의 다섯 과목을 넣는다(경제 수학·인공지능 수학·수학과 문화·실용 통계·수학과제 탐구).
+const SHORT_CODE = /\[?(1[02](?:유전|문학|경수|인수|수문|실통|수과))(\d\d)-\d\d\]?/g;
 
 // 학기 전체 성취기준을 다 적어 놓은 안내문이 있다. 그때 코드는 이 과제가 무엇인지 말해 주지 않는다.
 // 영역이 셋 이상이면 나열로 본다(2026-09-25: 379건 중 28건).
@@ -36,11 +38,13 @@ export function standardAreas(text) {
   return found;
 }
 
-function subjectOf(head, table) {
+// 한 코드가 두 과목의 것일 수 있다. [12문학01-02] 는 「문학」 과목의 코드지만, 문학이 화면에 없던
+// 동안 학생은 공통국어1 로 골랐다. 표에 과목을 여럿 적을 수 있게 한다(2026-09-26).
+function subjectsOf(head, table) {
   for (const [source, subject] of table?.subjectOf || []) {
-    if (new RegExp(source).test(head)) return subject;
+    if (new RegExp(source).test(head)) return Array.isArray(subject) ? subject : [subject];
   }
-  return '';
+  return [];
 }
 
 // 단원 이름을 두 글자씩 잘라 세면 「발표와 토론」이 「논설문 쓰기」 과제에 붙었다 —
@@ -98,7 +102,7 @@ export function unitFromStandard(subject, text, table) {
   // 코드가 가리키는 과목이 이 과목과 같아야 한다. 학교가 다른 과목 코드를 함께 적기도 한다.
   const pick = [];
   for (const [number, heads] of areas) {
-    const head = [...heads].find((one) => subjectOf(one, table) === own);
+    const head = [...heads].find((one) => subjectsOf(one, table).includes(own));
     if (!head) continue;
     // **과목 전체가 한 영역인 코드가 있다.** 「문학」 과목은 통째로 문학이라, 영역 번호가 무엇이든
     // 문학 단원으로 간다. 영역 번호의 뜻은 국어과 교육과정을 봐야 알 수 있는데 아직 없고,

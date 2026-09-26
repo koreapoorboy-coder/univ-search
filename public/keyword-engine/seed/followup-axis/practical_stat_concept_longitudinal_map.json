@@ -1,0 +1,170 @@
+{
+  "subject_name": "실용 통계",
+  "version": "1.0.0",
+  "policy": "실제 수행평가 제목을 읽고 묶어 만든 단원. 시험용으로 떼어 둔 학교 과제는 읽지 않았다.",
+  "concept_longitudinal_map": [
+    {
+      "concept_name": "통계와 통계적 문제",
+      "concept_label": "통계의 뜻",
+      "core_focus": "통계가 푸는 문제가 무엇인지 알고 통계적 문제를 세우는 단원 [12실통01]",
+      "longitudinal_axes": [
+        {
+          "axis_id": "ps_intro",
+          "axis_title": "통계적 문제 설정 축",
+          "axis_short": "통계의 뜻",
+          "axis_domain": "math",
+          "priority": 1,
+          "next_subjects": [
+            "확률과 통계",
+            "사회문제 탐구",
+            "정보"
+          ],
+          "why": "좋은 통계는 좋은 물음에서 시작합니다. 무엇을 물을지 정하는 자리입니다.",
+          "student_output_hint": "알고 싶은 것을 통계로 답할 수 있는 물음으로 바꾸어 적은 계획서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "통계",
+                "통계적 문제",
+                "모집단",
+                "표본",
+                "변수",
+                "탐구 물음"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "통계의 뜻",
+              "message": "선택한 키워드가 통계와 통계적 문제 방향을 강화합니다.",
+              "reason": "선택한 키워드가 통계와 통계적 문제 방향을 강화합니다.",
+              "desc": "선택한 키워드가 통계와 통계적 문제 방향을 강화합니다.",
+              "activity_hint": "알고 싶은 것을 통계로 답할 수 있는 물음으로 바꾸어 적은 계획서"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "자료의 수집과 정리",
+      "concept_label": "자료 모으기",
+      "core_focus": "표본을 정해 자료를 모으고 정리하는 단원 [12실통02]",
+      "longitudinal_axes": [
+        {
+          "axis_id": "ps_collect",
+          "axis_title": "표본 추출·자료 정리 축",
+          "axis_short": "자료 모으기",
+          "axis_domain": "math",
+          "priority": 1,
+          "next_subjects": [
+            "확률과 통계",
+            "사회와 문화",
+            "정보"
+          ],
+          "why": "어떻게 모았느냐가 결과를 정합니다. 표본이 치우치면 결론도 치우칩니다.",
+          "student_output_hint": "설문이나 관측으로 자료를 모으고, 어떻게 모았는지와 한계를 함께 적은 자료",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "표본 추출",
+                "설문",
+                "무작위",
+                "자료 정리",
+                "도수분포",
+                "결측",
+                "편향"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "자료 모으기",
+              "message": "선택한 키워드가 자료의 수집과 정리 방향을 강화합니다.",
+              "reason": "선택한 키워드가 자료의 수집과 정리 방향을 강화합니다.",
+              "desc": "선택한 키워드가 자료의 수집과 정리 방향을 강화합니다.",
+              "activity_hint": "설문이나 관측으로 자료를 모으고, 어떻게 모았는지와 한계를 함께 적은 자료"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "자료의 분석",
+      "concept_label": "자료 분석",
+      "core_focus": "모은 자료를 요약하고 그림과 수로 분석하는 단원 [12실통03]",
+      "longitudinal_axes": [
+        {
+          "axis_id": "ps_analyze",
+          "axis_title": "자료 요약·분석 축",
+          "axis_short": "자료 분석",
+          "axis_domain": "math",
+          "priority": 1,
+          "next_subjects": [
+            "확률과 통계",
+            "데이터 과학",
+            "정보"
+          ],
+          "why": "자료를 그림으로 바꾸면 눈에 보이지 않던 것이 보입니다.",
+          "student_output_hint": "모은 자료를 표와 그림으로 나타내고 무엇이 보이는지 해석한 자료",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "평균",
+                "중앙값",
+                "표준편차",
+                "상관",
+                "산점도",
+                "히스토그램",
+                "상자그림",
+                "자료 분석"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "자료 분석",
+              "message": "선택한 키워드가 자료의 분석 방향을 강화합니다.",
+              "reason": "선택한 키워드가 자료의 분석 방향을 강화합니다.",
+              "desc": "선택한 키워드가 자료의 분석 방향을 강화합니다.",
+              "activity_hint": "모은 자료를 표와 그림으로 나타내고 무엇이 보이는지 해석한 자료"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "concept_name": "통계적 탐구",
+      "concept_label": "통계 탐구",
+      "core_focus": "통계적 탐구를 계획해 수행하고 결과를 나누는 단원 [12실통04]",
+      "longitudinal_axes": [
+        {
+          "axis_id": "ps_inquiry",
+          "axis_title": "통계적 탐구 수행 축",
+          "axis_short": "통계 탐구",
+          "axis_domain": "math",
+          "priority": 1,
+          "next_subjects": [
+            "수학과제 탐구",
+            "사회문제 탐구",
+            "데이터 과학"
+          ],
+          "why": "물음부터 결론까지 스스로 한 바퀴 돌아 보는 단원입니다.",
+          "student_output_hint": "스스로 세운 물음으로 자료를 모아 분석하고 결론과 한계를 적은 통계 탐구 보고서",
+          "keyword_signals": [
+            {
+              "keywords": [
+                "통계적 탐구",
+                "탐구 보고서",
+                "결론",
+                "한계",
+                "해석",
+                "의사 결정"
+              ],
+              "boost": 24,
+              "label": "키워드 직접 반영",
+              "short": "통계 탐구",
+              "message": "선택한 키워드가 통계적 탐구 방향을 강화합니다.",
+              "reason": "선택한 키워드가 통계적 탐구 방향을 강화합니다.",
+              "desc": "선택한 키워드가 통계적 탐구 방향을 강화합니다.",
+              "activity_hint": "스스로 세운 물음으로 자료를 모아 분석하고 결론과 한계를 적은 통계 탐구 보고서"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
