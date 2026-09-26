@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v307_empty_table_notice
+// SCREEN_VERSION: v308_prior_record_kept
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v307-empty-table-notice";
+  const VERSION = "mini-worker-generate-bridge-v308-prior-record-kept";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -5068,6 +5068,9 @@ ${result}`;
     // The upload may hold only 1학년 records, but the proposals are for the grade the student is in now.
     const LEVEL_BY_GRADE = { "고1": "고2~고3 심화 수준", "고2": "고3~대학 1학년 수준", "고3": "대학 교양~전공 기초 수준" };
     form.append("payload", JSON.stringify({
+      // **학생 부호를 같이 보낸다.** 이게 없으면 분석이 학생과 이어지지 않아, 다음에 찾아와도
+      // 생활기록부를 또 올려야 한다(2026-09-26). 3년을 이어 쓰는 일이 여기에 달려 있다.
+      studentCode: req.studentCode || "",
       schoolName: req.schoolName,
       grade: req.grade,
       targetLevel: LEVEL_BY_GRADE[String(req.grade || "").trim()] || "고2~고3 심화 수준",

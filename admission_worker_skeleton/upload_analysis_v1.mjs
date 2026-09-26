@@ -70,8 +70,23 @@ export function analysisSchema() {
     record: {
       type: 'object',
       additionalProperties: false,
-      required: ['activitySummary', 'repeatedInterests', 'strongSides', 'thinSides'],
-      properties: { activitySummary: STRING, repeatedInterests: STRINGS, strongSides: STRINGS, thinSides: STRINGS },
+      required: ['activitySummary', 'repeatedInterests', 'strongSides', 'thinSides', 'pastUnits'],
+      properties: { activitySummary: STRING, repeatedInterests: STRINGS, strongSides: STRINGS, thinSides: STRINGS,
+        // **이미 한 것을 과목별로 받는다.** 3년을 이어 쓰려면 2학년 학생이 1학년에 무엇을 했는지
+        // 알아야 한다(사장님 결정 2026-09-26). 요약문만으로는 단원을 집을 수 없어 따로 받는다.
+        // topic 은 우리 단원 사전에 대어 실제 단원 이름으로 바꾼다 — 세특 문장으로 재 보니 33줄 중
+        // 32줄(97%)에서 단원이 나왔다(tools/measure_record_unit_hits_v1.mjs).
+        pastUnits: {
+          type: 'array',
+          minItems: 0,
+          maxItems: 20,
+          items: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['subject', 'topic', 'grade'],
+            properties: { subject: STRING, topic: STRING, grade: STRING },
+          },
+        } },
     },
     reportLines: {
       type: 'array',
@@ -207,6 +222,8 @@ export function analysisPromptLines(input) {
     '[생활기록부일 때]',
     '- activitySummary는 학년이 올라가며 관심이 어떻게 움직였는지 한 문단으로 쓴다.',
     '- repeatedInterests는 여러 과목·여러 학년에서 반복되는 주제 3~6개, strongSides는 이미 잘 해 둔 탐구 방식, thinSides는 아직 얇은 부분(예: 수치 분석이 없음, 한 과목에만 몰려 있음)이다.',
+    '- pastUnits에는 **이 학생이 이미 다룬 것**을 과목별로 적는다. subject는 학교 교과목 이름(통합과학·공통국어1·한국사처럼), topic은 그 과목에서 다룬 주제를 교과서 말로 짧게(예: 광합성과 세포 호흡, 음운 변동), grade는 몇 학년 때인지(고1·고2·고3)를 쓴다.',
+    '- pastUnits는 지어내지 않는다. 세부능력특기사항에 적힌 것만 쓴다. 같은 주제가 여러 번 나오면 한 번만 쓴다. 동아리·자율활동처럼 교과가 아닌 것은 subject를 비운다.',
     '',
     '[reportLines — 가장 중요한 항목]',
     '- 이 학생이 다음에 쓰면 좋을 보고서 주제를 2~4개 제안한다. 이미 한 것을 반복하지 않고 한 단계 올라가야 한다.',
@@ -244,6 +261,9 @@ export function sanitizeAnalysis(parsed) {
       repeatedInterests: texts(parsed?.record?.repeatedInterests, 6, 40),
       strongSides: texts(parsed?.record?.strongSides, 5, 80),
       thinSides: texts(parsed?.record?.thinSides, 5, 80),
+      pastUnits: (Array.isArray(parsed?.record?.pastUnits) ? parsed.record.pastUnits : []).slice(0, 20)
+        .map((one) => ({ subject: text(one?.subject, 30), topic: text(one?.topic, 60), grade: clip(one?.grade, 6) }))
+        .filter((one) => one.topic),
     } : null,
     reportLines: (Array.isArray(parsed?.reportLines) ? parsed.reportLines : []).slice(0, 4).map((line) => ({
       title: text(line?.title, 80),

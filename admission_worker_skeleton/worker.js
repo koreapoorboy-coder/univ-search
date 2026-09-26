@@ -475,9 +475,37 @@ export default {
           } catch (error) {
             console.error('past concept lookup failed:', error?.message || error);
           }
+          // **이번에 안 올렸으면 전에 올린 생활기록부를 쓴다.** 보고서를 쓸 때마다 다시 올리라고 하면
+          // 3년을 이어 쓰는 일이 안 된다 — 그리고 분석 비용을 매번 다시 받는 셈이 된다.
+          if (!input.priorWork) {
+            try {
+              const kept = await loadPriorRecord(env.DB, input.studentCode);
+              if (kept) {
+                input.priorWork = sanitizeAnalysis(kept);
+                input.priorWorkFromStore = true;
+              }
+            } catch (error) {
+              console.error('prior record lookup failed:', error?.message || error);
+            }
+          }
         }
 
         const seedPack = await loadSeedPack(env);
+        // 생활기록부가 말해 주는 **이미 다룬 주제**도 「또 주지 않을 단원」에 넣는다.
+        // 지난 보고서(report_outputs)는 우리와 쓴 것만 담는다 — 1학년에 우리 없이 한 것은 여기서만 온다.
+        const said = input.priorWork?.record?.pastUnits || [];
+        if (said.length) {
+          const mine = String(input.subject || '').replace(/\s+/g, '');
+          const extra = [];
+          for (const one of said) {
+            const subject = String(one?.subject || '').replace(/\s+/g, '');
+            // 과목 이름은 학교마다 다르게 적힌다(통합과학 / 통합과학1). 앞부분이 같으면 같은 과목으로 본다.
+            if (!subject || !(mine.startsWith(subject) || subject.startsWith(mine))) continue;
+            const unit = inferConcept(input.subject, String(one?.topic || ''), seedPack.axisIndex);
+            if (unit) extra.push(unit);
+          }
+          if (extra.length) input.pastConcepts = [...new Set([...(input.pastConcepts || []), ...extra])];
+        }
         // What shape this kind of task actually takes, from real 평가계획 rather than one fixed outline.
         input.reportShape = pickReportShape(input, seedPack.reportShapeIndex);
         // Where this concept leads next, from our own 종단 축 rather than the model's guess.
@@ -1279,10 +1307,15 @@ function bytesToBase64(bytes) {
   return btoa(binary);
 }
 
+// **학생 부호를 같이 적는다.** 2026-09-26 까지 이 표는 학교 이름과 학년만 적고 있었다. 그래서
+// 학생이 생활기록부를 한 번 올려도 **다음에 다시 찾아올 수 없었다** — 보고서를 쓸 때마다 다시
+// 올려야 하고(분석 비용도 다시 든다), 3년을 이어 쓰는 일 자체가 불가능했다. 쓰기만 하고 아무도
+// 읽지 않는 표였다.
 async function ensureUploadTable(db) {
   await db.prepare(`
     CREATE TABLE IF NOT EXISTS student_uploads (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      student_code TEXT,
       school_name TEXT NOT NULL,
       grade TEXT,
       doc_type TEXT NOT NULL,
@@ -1293,14 +1326,34 @@ async function ensureUploadTable(db) {
       created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
     )
   `).run();
+  // 이미 만들어져 있는 표에는 칸을 덧붙인다. 이미 있으면 D1 이 튕기므로 조용히 넘긴다.
+  try { await db.prepare('ALTER TABLE student_uploads ADD COLUMN student_code TEXT').run(); } catch { /* 이미 있다 */ }
+  try { await db.prepare('CREATE INDEX IF NOT EXISTS student_uploads_by_code ON student_uploads (student_code, id)').run(); } catch { /* 이미 있다 */ }
+}
+
+// 이 학생이 전에 올린 생활기록부 분석. 없으면 null 이다.
+// **보고서를 쓸 때마다 다시 올리라고 하지 않으려는 것이다.** 1학년 세특을 한 번 넣으면 2·3학년
+// 보고서가 그것을 이어받는다 — 대학이 읽는 줄기는 「작년에 한 것에서 이어진다」이기 때문이다.
+async function loadPriorRecord(db, code) {
+  const student = String(code || '').trim().toLowerCase();
+  if (!student) return null;
+  await ensureUploadTable(db);
+  const row = await db.prepare(`
+    SELECT analysis FROM student_uploads
+    WHERE student_code = ? AND doc_type = 'record'
+    ORDER BY id DESC LIMIT 1
+  `).bind(student).first();
+  if (!row?.analysis) return null;
+  try { return JSON.parse(row.analysis); } catch { return null; }
 }
 
 async function saveUploadAnalysis(db, meta, analysis, files) {
   await ensureUploadTable(db);
   await db.prepare(`
-    INSERT INTO student_uploads (school_name, grade, doc_type, subject_guess, level, analysis, file_count)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO student_uploads (student_code, school_name, grade, doc_type, subject_guess, level, analysis, file_count)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   `).bind(
+    String(meta?.studentCode || "").trim().toLowerCase().slice(0, 40),
     String(meta?.schoolName || "").slice(0, 80),
     String(meta?.grade || "").slice(0, 10),
     analysis.docType,
