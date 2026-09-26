@@ -9,7 +9,14 @@
 const clean = (value, max = 60) => String(value ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
 
 // [10공영1-02-02], 10공국1-05-03, [12영Ⅰ-01-04] — 낫표는 있어도 없어도 된다.
+// 과목 머리말을 더할 때는 **여기와 seed 의 subjectOf 를 함께** 고쳐야 한다.
 const CODE = /\[?(1[02](?:공국|공영|영|문학)[0-9IVⅠⅡ]*)-(\d\d)-\d\d\]?/g;
+
+// **과학 과목은 붙임표가 하나다.** 국어·영어는 [10공영1-02-02](과목-영역-번호) 세 토막인데,
+// 과학은 [12유전01-01](과목+영역-번호) 두 토막이다. 중학교 과학도 [9과21-02] 로 같은 모양이다.
+// 2026-09-26 에 「생물의 유전」을 넣으면서 알았다 — 같은 규칙으로 읽으면 영역 번호를 과목 이름의
+// 일부로 먹어 버려 하나도 안 걸린다.
+const SCIENCE_CODE = /\[?(1[02](?:유전))(\d\d)-\d\d\]?/g;
 
 // 학기 전체 성취기준을 다 적어 놓은 안내문이 있다. 그때 코드는 이 과제가 무엇인지 말해 주지 않는다.
 // 영역이 셋 이상이면 나열로 본다(2026-09-25: 379건 중 28건).
@@ -17,7 +24,8 @@ const TOO_MANY_AREAS = 3;
 
 export function standardAreas(text) {
   const found = new Map();
-  for (const one of String(text ?? '').matchAll(CODE)) {
+  const seen = [...String(text ?? '').matchAll(CODE), ...String(text ?? '').matchAll(SCIENCE_CODE)];
+  for (const one of seen) {
     const head = one[1].replace(/I/g, 'Ⅱ'.length ? 'Ⅰ' : 'Ⅰ');   // 영I → 영Ⅰ
     const list = found.get(one[2]) || new Set();
     list.add(head);
@@ -38,10 +46,21 @@ function subjectOf(head, table) {
 // 그래서 **뜻을 담은 낱말**로 센다. 단원 이름을 조사·이음말로 끊어 낱말을 만들고,
 // 과제 글에 그 낱말이 통째로 있는지 본다. 긴 낱말이 맞으면 더 세게 센다.
 const SPLIT = /[·,\s]+|와 |과 |의 |및 /;
+
+// **단원 이름에 흔한 말은 세지 않는다.** 2026-09-26: 「유전자발현 과정」과 「유전자발현 조절」이
+// 같은 영역에 있는데, 「세포 분화가 유전자 발현 조절 과정을 통해」라는 성취기준이 **과정** 쪽으로 갔다 —
+// 글에 「과정」이 두 번 나와서다. 「과정」은 어느 단원 이름에나 붙는 말이라 단원을 가리키지 못한다.
+// 여기 적은 말만 뺀다. 다 빼서 남는 말이 없으면 원래대로 둔다(단원 이름이 통째로 흔한 말일 때).
+// 「이해」도 넣어 봤다가 뺐다 — 「영어권 문화 이해와 비교」의 낱말이 셋으로 줄면서 비율이 올라,
+// 「영미문학 논평 쓰기」가 「문단 쓰기와 에세이 구성」에서 그쪽으로 옮겨 갔다(더 나빠졌다).
+// **흔한 말을 뺄수록 좋은 것이 아니다.** 빼면 남은 말의 비중이 커져 엉뚱한 단원이 이길 수 있다.
+const TOO_COMMON = new Set(['과정', '활용']);
 function overlap(name, text) {
   const flat = String(text ?? '').replace(/\s+/g, '');
-  const words = String(name ?? '').split(SPLIT).map((one) => one.replace(/[^가-힣A-Za-z0-9]/g, ''))
+  const all = String(name ?? '').split(SPLIT).map((one) => one.replace(/[^가-힣A-Za-z0-9]/g, ''))
     .filter((one) => one.length >= 2);
+  const kept = all.filter((one) => !TOO_COMMON.has(one));
+  const words = kept.length ? kept : all;
   if (!words.length) return 0;
   // **통째로 맞을 때만 센다.** 앞 두 글자에 점수를 주었더니 「영어 학술 텍스트 요약하기」가
   // 「**영어**권 문화 이해와 비교」로 갔다(2026-09-25). 조각이 맞는 것은 맞는 것이 아니다.
