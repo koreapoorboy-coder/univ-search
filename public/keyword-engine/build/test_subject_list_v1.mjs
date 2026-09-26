@@ -66,5 +66,19 @@ for (const value of inFilter) ok(picked.some(([one]) => one === value), `고르�
   for (const subject of offered) ok(unitsOf(subject) > 0, `${subject} 은 단원이 0개인데 고를 수 있다`);
 }
 
+// ── ⑥ 화면에 보이는 이름이 2022 개정 공식 이름이어야 한다 ────
+// 별책4(고등학교 교육과정) 표5의 이름이다. 학교 평가계획서에도 그 이름으로 적힌다 —
+// 기록에서 「물리학」 78건 / 「화학」 87건 / 「한국사1」 76건으로 가장 흔하다(2026-09-26).
+// 화면이 2015 개정 이름(「물리(물리학Ⅰ)」)을 쓰고 있으면 학생이 자기 과목을 못 알아본다.
+// **value 는 바꾸지 않는다** — 과목 목록 원본(지문이 걸린 파일)과 같아야 한다.
+{
+  const label = new Map([...html.matchAll(/<option value="([^"]+)" data-subject-group="[^"]+">([^<]*)</g)].map((m) => [m[1], m[2]]));
+  for (const [value, want] of [['물리', '물리학'], ['화학', '화학'], ['미적분1', '미적분Ⅰ'], ['한국사', '한국사1·2']]) {
+    ok(label.get(value) === want, `${value} 은 「${want}」로 보여야 한다 — 지금은 「${label.get(value)}」`);
+  }
+  // 2015 개정 이름이 남아 있으면 안 된다.
+  ok(!/물리학Ⅰ\)|화학Ⅰ\)/.test(html), '2015 개정 이름이 화면에 남아 있다');
+}
+
 if (fail) { console.error(`\n실패 ${fail}건`); process.exit(1); }
 console.log(`통과 — 고를 수 있는 과목 ${picked.length}개, 영어는 없다`);
