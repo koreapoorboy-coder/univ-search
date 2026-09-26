@@ -375,7 +375,10 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
       return m ? { title: m[1].trim(), body: m[2] } : null;
     }).filter(Boolean);
     row.sections = parts.map((s) => s.title);
-    const refSec = parts.find((s) => /참고 ?(자료|문헌)/.test(s.title));
+    // 참고 절의 이름은 보고서 구조마다 다르다. 창작 구조는 「참고한 개념과 작품」이라고 적는다.
+    // 좁게 보다가 멀쩡한 보고서 5건을 「참고 절이 없다」고 잡았다(2026-09-26).
+    // **엔진이 쓰는 규칙(report_stages_v1 의 REFERENCE_TITLE)과 같게 본다** — 자가 달라 생긴 흠이었다.
+    const refSec = parts.find((s) => /참고|^\s*출처/.test(s.title));
     if (!refSec) flag("참고자료절_없음");
     else {
       const { lines, issues } = checkRefs(refSec.body);

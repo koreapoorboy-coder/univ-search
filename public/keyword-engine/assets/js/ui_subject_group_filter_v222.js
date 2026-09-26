@@ -13,6 +13,14 @@
   const SUBJECT_CATALOG = [
     { value:"공통국어1", text:"공통국어1", group:"국어" },
     { value:"공통국어2", text:"공통국어2", group:"국어" },
+    // 2022 개정 국어 선택 과목 7개(2026-09-26).
+    { value:"독서 토론과 글쓰기", text:"독서 토론과 글쓰기", group:"국어" },
+    { value:"독서와 작문", text:"독서와 작문", group:"국어" },
+    { value:"매체 의사소통", text:"매체 의사소통", group:"국어" },
+    { value:"문학", text:"문학", group:"국어" },
+    { value:"문학과 영상", text:"문학과 영상", group:"국어" },
+    { value:"주제 탐구 독서", text:"주제 탐구 독서", group:"국어" },
+    { value:"화법과 언어", text:"화법과 언어", group:"국어" },
     // 영어는 넣지 않는다 — index.html 의 주석에 이유를 적어 두었다(2026-09-25).
     { value:"공통수학1", text:"공통수학1", group:"수학" },
     { value:"공통수학2", text:"공통수학2", group:"수학" },

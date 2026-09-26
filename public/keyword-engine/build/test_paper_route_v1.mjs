@@ -145,7 +145,8 @@ const row = (title, core = 1) => [title, "김 외", "2024", "학회지", "3", "2
   // 교육과정 별책9와 미래엔 교사용 교과서로 단원 6개를 만들면서 묶음도 같이 만들었다.
   // 2026-09-26: 2022 개정 사회·도덕 선택 과목 19개를 넣었다(27 → 46).
   // 교육과정 별책6·7 로 단원을 만들면서 묶음도 같이 만들었다.
-  check(subjects.length === 46, "P9 묶음을 만들 과목 46개", String(subjects.length));
+  // 2026-09-26: 국어 선택 과목 7개를 더 넣었다(46 → 53).
+  check(subjects.length === 53, "P9 묶음을 만들 과목 53개", String(subjects.length));
   const pureMath = ["공통수학1", "공통수학2", "대수", "미적분1", "기하"];
   check(pureMath.every((one) => !subjects.includes(one)),
     "P9 순수 수학 다섯 과목은 묶음을 만들지 않는다",

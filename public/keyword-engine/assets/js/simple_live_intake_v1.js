@@ -8,7 +8,7 @@
   "use strict";
 
   const CANDIDATE_VERSION = "PHASE6_LIVE_INPUT_CANDIDATE_SIMPLE_V3";
-  const INVENTORY_VERSION = "subject-option-inventory-v2_f4e4cc72ab5bfb3a9ce317b187949e12d2f2a8b0a721ce459d887a575a1fe094";
+  const INVENTORY_VERSION = "subject-option-inventory-v2_892ab33d19da71e398c4999d8908adbc44b5009bfe65e17bee600aa080b1832d";
 
   function text(value){ return String(value == null ? "" : value); }
 
