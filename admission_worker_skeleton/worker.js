@@ -1654,6 +1654,9 @@ function siteSubjectName(name, axisIndex) {
 // 생활기록부에서 읽은 세특 한 줄 → 포트폴리오 한 줄. 보고서 줄과 **같은 모양**으로 만든다.
 // 그래야 3년 줄기(summarise)와 학과 적합도(majorFit)가 고치지 않고 그대로 센다.
 // source 로 갈라 둔다 — 화면은 「학교 기록」과 「우리와 씀」을 섞어 보여 주면 안 된다.
+// 생기부에서 뽑은 줄에도 **축을 붙인다.** 안 붙였더니 「3년 줄기」가 늘 비어 있었다 — 줄기는 같은 축을
+// 두 번 이상 지난 것을 말하는데(summarise), 학교 기록 15줄이 전부 축 없음이어서 셀 것이 없었다.
+// 1학년 생기부의 단원과 2학년 보고서의 단원이 같은 축이면 그것이 바로 우리가 보여 주려던 연결이다(2026-09-27).
 function recordRowsOf(analysis, seedPack) {
   const said = analysis?.record;
   if (!said) return [];
@@ -1669,7 +1672,7 @@ function recordRowsOf(analysis, seedPack) {
     if (seen.has(key)) continue;
     seen.add(key);
     rows.push({ source: 'record', at: '', grade: one.grade || '', subject, subjectGroup: '',
-      concept: unit, keyword: '', axis: null, crossSubject: [], stage: '', collectionKind: '',
+      concept: unit, keyword: '', axis: axisForConcept(axisIndex, subject, unit), crossSubject: [], stage: '', collectionKind: '',
       title: unit || one.subject, caseTag: '', variableTag: '', measureTag: '', recordDraft: [],
       said: one.text.slice(0, 160) });
   }
@@ -1683,7 +1686,7 @@ function recordRowsOf(analysis, seedPack) {
       if (seen.has(key)) continue;
       seen.add(key);
       rows.push({ source: 'record', at: '', grade: one.grade || '', subject, subjectGroup: '',
-        concept: unit, keyword: '', axis: null, crossSubject: [], stage: '', collectionKind: '',
+        concept: unit, keyword: '', axis: axisForConcept(axisIndex, subject, unit), crossSubject: [], stage: '', collectionKind: '',
         title: one.topic || unit, caseTag: '', variableTag: '', measureTag: '', recordDraft: [], said: '' });
     }
   }

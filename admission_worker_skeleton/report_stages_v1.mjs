@@ -639,9 +639,16 @@ export function removeUnnamedTools(body, studentText) {
 // 결과를 말하는 말(였다·나왔다·측정되었다·확인했다…)이 섞인 문장은 계획으로 보지 않는다.
 const PLAN_SENTENCE = /(겠다|겠습니다|하고 싶다|보고 싶다|싶다\.?$|제안한다|제안하고자|제안할 수 있다|계획이다|계획한다|예정이다|할 것이다|해 볼 것이다|필요가 있다|필요하다)\s*[.!]?\s*$/;
 const RESULT_WORDS = /(였다|였으|이었|나왔|나타났|측정되었|관찰되었|확인했|확인되었|기록되었|보였|얻었|컸다|컸으|작았|높았|낮았)/;
+// 보고서 말투에서 앞으로 할 일은 「…지점을 찾는다」처럼 **현재형**으로도 쓴다. 실전 한 편(2026-09-27,
+// 화학 기체 부피)에서 후속 탐구의 「0.10 g 간격으로 변화시켜 … 지점을 찾는다」가 지워져 후속 탐구가
+// 한 문장으로 얇아졌다. 현재형은 방법 절 말투와 같으므로 **다음 단계를 가리키는 말이 함께 있을
+// 때만** 계획으로 본다.
+const PLAN_NEXT = /다음|앞으로|후속|이어서|추가|더 촘촘|더 넓|더 잘|더 많은|확장|보완|개선|재현|한 단계 더|향후|차후|나아가/;
+const PLAN_PRESENT = /(찾는다|측정한다|비교한다|확인한다|반복한다|설계한다|설정한다|적용한다|변화시킨다|늘린다|줄인다|바꾼다|나눈다|모은다|살펴본다|검증한다|분석한다|본다)\s*[.!]?\s*$/;
 export function isPlanSentence(sentence) {
   const text = String(sentence || '').trim();
-  return PLAN_SENTENCE.test(text) && !RESULT_WORDS.test(text);
+  if (RESULT_WORDS.test(text)) return false;
+  return PLAN_SENTENCE.test(text) || (PLAN_PRESENT.test(text) && PLAN_NEXT.test(text));
 }
 
 export function removeUnsupportedNumbers(body, allowed, { allowPlans = false } = {}) {
@@ -723,6 +730,9 @@ export function softenStatClaims(body) {
 //
 // 그래서 코드가 본다. 약속한 항목의 **수치가 보고서 어디에도 없으면** 그 약속 조각만 뗀다.
 // 문장을 통째로 지우지 않는다 — 나머지 비교 기준은 지킨 것일 수 있다.
+
+// 약속을 「늘어놓기만」 한 문장. 여기 숫자가 있어도 그 항목을 쓴 것이 아니다.
+const PLEDGE_LISTING = /함께\s*(?:본다|보고|제시|비교|적는다|살핀다)|병기|나란히\s*(?:본다|적는다)/;
 const PLEDGE = [
   ['직전', /(?:,|및|과|와|그리고)?\s*직전\s*조건\s*대비(?:\s*차이(?:와|과)?\s*변화율|\s*차이|\s*변화율)?/g],
   ['첫', /(?:,|및|과|와|그리고)?\s*첫\s*조건\s*대비(?:\s*차이(?:와|과)?\s*변화율|\s*차이|\s*변화율)?/g],
@@ -731,8 +741,13 @@ export function dropUnkeptPledges(sections) {
   const list = Array.isArray(sections) ? sections : [];
   const whole = list.map((one) => String(one?.body || '')).join(' ');
   // 그 항목의 수치를 실제로 쓴 자리가 있나 — 같은 문장에 그 말과 숫자가 함께 있으면 쓴 것이다.
+  // **단위가 %·초·배·점·건·명일 때만 「숫자를 썼다」고 셌다.** mL·g·℃·cm 로 재는 실험은 전부
+  // 「약속만 하고 안 썼다」가 되어, 실제로 쓴 분석 문장이 잘렸다 — 실전 한 편(2026-09-27, 화학 기체
+  // 부피)에서 「직전 조건 대비로 보면 0.50 g에서 +7 mL」가 「로 보면 0.50 g에서 +7 mL」로 부서졌다.
+  // 이제 그 말과 숫자가 한 문장에 같이 있으면 쓴 것으로 본다. 단, 「①…②… 함께 본다」처럼 항목만
+  // 늘어놓은 문장은 쓴 것이 아니다.
   const used = (word) => whole.split(/(?<=[.!?])\s+/)
-    .some((one) => one.includes(word) && /-?\d+(?:\.\d+)?\s*(?:%|퍼센트|초|배|점|건|명)/.test(one));
+    .some((one) => one.includes(word) && /[+\-]?\d+(?:\.\d+)?/.test(one) && !PLEDGE_LISTING.test(one));
   const unkept = PLEDGE.filter(([word]) => !used(word));
   if (!unkept.length) return { sections: list, dropped: 0 };
   let dropped = 0;
@@ -754,8 +769,13 @@ export function dropUnkeptPledges(sections) {
       dropped += 1;
       // 조사가 앞말 없이 남았으면(「…적고을」, 「…과 를」) 문장이 부서진 것이다. 그때는 문장을 뺀다.
       const broken = /[가-힣]고(?:을|를|과|와)|(?:^|\s)(?:을|를|과|와|이|가|은|는)\s/.test(trimmed)
+        // 「직전 조건 대비」를 떼면 「로 보면 …」이 남는다. 조사로 시작하는 문장은 부서진 것이다.
+        || /^(?:로|으로|에서|에게|에|와|과|도|만|의|보다|처럼|부터|까지)\s/.test(trimmed)
         || trimmed.replace(/[^가-힣]/g, '').length < 8;
+      // 부서졌는데 그 문장에 숫자가 있으면 **원문을 그대로 둔다.** 학생의 분석을 없애는 것보다
+      // 약속 낱말이 한 번 더 남는 편이 낫다.
       if (!broken) kept.push(trimmed);
+      else if (/\d/.test(part)) { kept.push(part); dropped -= 1; }
     }
     let out2 = kept.join(' ').replace(/\s{2,}/g, ' ').trim();
     // **절을 비우지 않는다.** 그 절이 온통 그 얘기뿐이면 다 지워져 빈 절이 된다.
