@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v308_prior_record_kept
+// SCREEN_VERSION: v309_blocked_notice
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v308-prior-record-kept";
+  const VERSION = "mini-worker-generate-bridge-v309-blocked-notice";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -4810,6 +4810,9 @@ ${result}`;
     // 「글을 써 줄 줄 알았는데」가 된다.
     "        .mini-v32-notice{border-color:#c7d7f0 !important;background:#f4f8ff !important;color:#23395d !important}",
     "        .mini-v32-notice strong{color:#1d4ed8}",
+    // 해석 칸(interpretStatus)은 원래 회색 한 줄이라 테두리도 여백도 없다. 거기에 이 표를 붙이면
+    // 색만 바뀌고 칸처럼 안 보인다 — 막았을 때는 칸으로 보여야 학생이 멈춘 줄 안다(2026-09-27).
+    "        #interpretStatus.mini-v32-notice{display:block;border:1px solid #c7d7f0;border-radius:10px;padding:12px 14px;margin:8px 0 0;line-height:1.7}",
     "        .mini-v32-notice-detail{margin-top:8px;line-height:1.75;white-space:pre-line}",
     "        .mini-writing-notice{margin:0 0 16px;padding:14px 16px;background:#fff8e6;border:1px solid #e8d9a8;border-radius:8px;font-size:14.5px;line-height:1.75;color:#5c4a12}",
     "        .mini-writing-notice b{color:#7a5c00}",

@@ -186,9 +186,17 @@
       el.classList.toggle("is-complete", order[name] < order[step]);
     });
   }
-  function setStatus(message, busy=false){
+  // **막은 것과 그냥 알려 주는 것은 다르게 보여야 한다.**
+  // 2026-09-27 에 실제 화면으로 보고 알았다: 안내문이 짧아 **멈춘** 것도 「과목과 안내문을 입력하면
+  // 자동으로 해석합니다」와 똑같은 회색 글씨로 나왔다. 학생은 멈춘 줄 모르고 버튼만 다시 누른다.
+  // 멈췄을 때는 워커가 막을 때와 같은 파란 「알려 드려요」 칸으로 보여 준다.
+  function setStatus(message, busy=false, stopped=false){
     const el = $("interpretStatus");
-    if(el) el.textContent = message;
+    if(el){
+      el.classList.toggle("mini-v32-notice", Boolean(stopped));
+      if(stopped) el.innerHTML = `<strong>알려 드려요</strong><br>${String(message).replace(/[&<>]/g, (one) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[one])}`;
+      else el.textContent = message;
+    }
     const btn = $("interpretBtn");
     if(btn){ btn.disabled = busy; btn.textContent = busy ? "해석 중..." : "지금 해석하기"; }
   }
@@ -377,7 +385,7 @@
     // 「가」 한 글자로도 유료 보고서가 나갔다. 바닥은 실제 과제 7,131건의 길이를 재서 정했다.
     const words = global.__GUIDE_TEXT__;
     if(words && words.guideBlocks(guide)){
-      setStatus(words.guideMessage(guide).replace(/<[^>]+>/g, ""));
+      setStatus(words.guideMessage(guide).replace(/<[^>]+>/g, ""), false, true);
       $("interpretationCard").hidden = true;
       $("generateBtn").hidden = true;
       $("generateBtn").disabled = true;
