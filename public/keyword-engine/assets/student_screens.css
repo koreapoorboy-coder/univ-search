@@ -139,3 +139,10 @@ tbody tr:hover td { background: #fbfcff; }
   .code-big { font-size: 1.25rem; }
   .row > button, .row > .btn { flex: 1 1 100%; }
 }
+
+/* 출처 표. 학교 기록에서 읽은 줄과 우리가 만든 보고서를 한눈에 갈라 보게 한다(2026-09-27).
+   섞어 보여 주면 우리가 읽은 것을 학교 공식 기록처럼 착각하게 된다. */
+.badge { font-size: .72rem; padding: 1px 6px; border-radius: 999px; background: var(--primary-soft); color: var(--primary); margin-right: 4px; }
+.badge.mine { background: #ecfdf5; color: #065f46; }
+.rep.from-record { background: #fbfbfe; }
+.rep .said { color: var(--muted); font-size: .85rem; margin-top: 5px; }

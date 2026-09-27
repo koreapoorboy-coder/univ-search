@@ -151,4 +151,18 @@ check(/SELECT analysis FROM student_uploads[\s\S]{0,120}WHERE student_code = \?/
 const bridgeSrc = readFileSync(`${SITE}/assets/js/mini_worker_generate_bridge_v32.js`, 'utf8');
 check(/studentCode: req\.studentCode/.test(bridgeSrc), '화면이 올릴 때 학생 부호를 함께 보낸다');
 
+// ── ⑤ 3년이 한 화면에 보이는가 — 포트폴리오에 학교 기록 줄이 들어가는가 ──────────────
+check(/function recordRowsOf\(/.test(workerSrc), '세특 한 줄을 포트폴리오 한 줄로 바꾸는 길이 있다');
+check(/priorRows, summary: summarise\(wholeStory\)/.test(workerSrc),
+  '포트폴리오 응답이 학교 기록 줄과 합친 요약을 함께 돌려준다');
+check(/majorFit\(wholeStory,/.test(workerSrc), '학과 적합도도 3년 전체로 센다 — 우리와 쓴 것만 세면 1학년이 빠진다');
+check(/source: 'record'/.test(workerSrc), '학교 기록에서 온 줄에 출처를 적는다');
+const folioSrc = readFileSync(`${SITE}/portfolio.html`, 'utf8');
+check(/renderRecordRow/.test(folioSrc), '화면이 학교 기록 줄을 따로 그린다');
+check(/badge">학교 기록/.test(folioSrc), '학교 기록이라고 이름 붙여 보여 준다');
+check(/badge mine">우리와 씀/.test(folioSrc), '우리가 만든 보고서도 이름 붙여 보여 준다 — 섞이면 공식 기록으로 오해한다');
+check(/fromRecord\.map\(renderRecordRow\)/.test(folioSrc), '학년 묶음 안에 학교 기록 줄이 함께 들어간다');
+const sheet = readFileSync(`${SITE}/assets/student_screens.css`, 'utf8');
+check(/\.badge\.mine/.test(sheet), '출처 표 꾸밈은 공용 한 장에 있다');
+
 console.log(`\n전에 올린 생활기록부 이어받기: ${passed}/${passed} 통과`);

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>내 탐구 기록 · 키워드 엔진</title>
-<link rel="stylesheet" href="assets/student_screens.css?v=v1" />
+<link rel="stylesheet" href="assets/student_screens.css?v=v2_source_badge" />
 <style>
   .who { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; }
   .who .name { font-size: 1.32rem; font-weight: 800; letter-spacing: -.5px; }
@@ -93,15 +93,28 @@
     observation: "관찰", experiment: "실험"
   };
 
+  // **학교 기록에서 읽은 줄과 우리와 쓴 보고서를 섞어 보여 주면 안 된다.**
+  // 앞의 것은 학생이 올린 생활기록부를 우리가 읽은 것이고, 뒤의 것은 우리가 만든 보고서다.
+  // 섞으면 우리가 읽은 것을 학교 공식 기록처럼 착각하게 된다(2026-09-27).
+  function renderRecordRow(row) {
+    var tags = [row.subject, row.concept].filter(Boolean);
+    return '<div class="rep from-record">'
+      + '<div class="tags"><b class="badge">학교 기록</b> ' + esc(tags.join(" · ")) + (row.concept ? "" : " · 단원 미정") + "</div>"
+      + '<div class="title">' + esc(row.title || row.subject) + "</div>"
+      + (row.said ? '<div class="said">' + esc(row.said) + "</div>" : "")
+      + "</div>";
+  }
+
   function renderReport(report) {
     var tags = [report.subject, report.concept].filter(Boolean);
     if (report.crossSubject && report.crossSubject.length) tags.push("융합 " + report.crossSubject.join("·"));
-    if (report.collectionKind) tags.push(METHOD_KO[report.collectionKind] || report.collectionKind);
+    // 「none」은 학생이 모아 올 것이 없는 과제다. 이름이 없어 영어 그대로 찍히고 있었다 — 안 적는다.
+    if (report.collectionKind && METHOD_KO[report.collectionKind]) tags.push(METHOD_KO[report.collectionKind]);
     var draft = (report.recordDraft || []).map(function (line) {
       return "<li>" + esc(line) + "</li>";
     }).join("");
     return '<div class="rep">'
-      + '<div class="tags">' + esc(tags.join(" · ")) + "</div>"
+      + '<div class="tags"><b class="badge mine">우리와 씀</b> ' + esc(tags.join(" · ")) + "</div>"
       + '<div class="title">' + esc(report.title) + "</div>"
       + (report.axis ? '<div class="tags">축: ' + esc(report.axis.title) + "</div>" : "")
       + (draft ? "<details><summary>생활기록부에 적을 문장 보기</summary><ul>" + draft + "</ul></details>" : "")
@@ -159,6 +172,8 @@
     var student = data.student || {};
     var summary = data.summary || {};
     var reports = (data.reports || []).slice().sort(function (a, b) { return gradeRank(a.grade) - gradeRank(b.grade); });
+    // 학교 기록에서 읽은 줄. 머리말에서도 쓰므로 여기서 먼저 꺼낸다.
+    var priorRows = (data.priorRows || []).slice().sort(function (a, b) { return gradeRank(a.grade) - gradeRank(b.grade); });
     var html = "";
 
     html += '<div class="panel"><div class="who">'
@@ -166,7 +181,9 @@
       + '<span class="meta">' + esc([student.school, student.gradeNow || student.enteredGrade, student.track, student.major].filter(Boolean).join(" · ")) + "</span>"
       + '<span class="code">' + esc(student.code) + "</span></div>"
       + '<div class="counts">'
-      + '<div class="count">보고서 <b>' + esc(summary.reportCount || 0) + "</b>편</div>"
+      // 학교 기록까지 합쳐 「보고서 N편」이라고 적으면 학생이 쓴 보고서 수를 잘못 본다. 갈라 적는다.
+      + '<div class="count">우리와 쓴 보고서 <b>' + esc(reports.length) + "</b>편</div>"
+      + (priorRows.length ? '<div class="count">학교 기록 <b>' + esc(priorRows.length) + "</b>개</div>" : "")
       + '<div class="count">과목 <b>' + esc((summary.subjects || []).length) + "</b>개</div>"
       + '<div class="count">축 <b>' + esc((summary.axes || []).length) + "</b>개</div>"
       + "</div>";
@@ -194,16 +211,21 @@
     html += "</div>";
 
     html += "<h2>3년 기록</h2>";
-    if (!reports.length) {
-      html += '<div class="panel flat">아직 저장된 보고서가 없어요. 보고서를 만들 때 학생 코드를 넣으면 여기에 쌓입니다.</div>';
+    if (!reports.length && !priorRows.length) {
+      html += '<div class="panel flat">아직 쌓인 것이 없어요. 보고서를 만들 때 학생 코드를 넣으면 여기에 쌓이고, 생활기록부를 한 번 올리면 지난 학년 기록도 함께 보입니다.</div>';
     } else {
       GRADE_ORDER.concat(["기타"]).forEach(function (grade) {
-        var mine = reports.filter(function (report) {
-          return grade === "기타" ? gradeRank(report.grade) === 99 : report.grade === grade;
-        });
-        if (!mine.length) return;
-        html += '<div class="year"><div class="label">' + esc(grade) + " · " + mine.length + "편</div>"
-          + mine.map(renderReport).join("") + "</div>";
+        var pick = function (row) {
+          return grade === "기타" ? gradeRank(row.grade) === 99 : row.grade === grade;
+        };
+        var mine = reports.filter(pick);
+        var fromRecord = priorRows.filter(pick);
+        if (!mine.length && !fromRecord.length) return;
+        var count = [];
+        if (fromRecord.length) count.push("학교 기록 " + fromRecord.length + "개");
+        if (mine.length) count.push("우리와 쓴 보고서 " + mine.length + "편");
+        html += '<div class="year"><div class="label">' + esc(grade) + " · " + count.join(" · ") + "</div>"
+          + fromRecord.map(renderRecordRow).join("") + mine.map(renderReport).join("") + "</div>";
       });
     }
 

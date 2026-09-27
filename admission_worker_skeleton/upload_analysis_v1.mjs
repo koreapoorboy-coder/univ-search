@@ -70,7 +70,7 @@ export function analysisSchema() {
     record: {
       type: 'object',
       additionalProperties: false,
-      required: ['activitySummary', 'repeatedInterests', 'strongSides', 'thinSides', 'pastUnits'],
+      required: ['activitySummary', 'repeatedInterests', 'strongSides', 'thinSides', 'pastUnits', 'entries'],
       properties: { activitySummary: STRING, repeatedInterests: STRINGS, strongSides: STRINGS, thinSides: STRINGS,
         // **이미 한 것을 과목별로 받는다.** 3년을 이어 쓰려면 2학년 학생이 1학년에 무엇을 했는지
         // 알아야 한다(사장님 결정 2026-09-26). 요약문만으로는 단원을 집을 수 없어 따로 받는다.
@@ -85,6 +85,22 @@ export function analysisSchema() {
             additionalProperties: false,
             required: ['subject', 'topic', 'grade'],
             properties: { subject: STRING, topic: STRING, grade: STRING },
+          },
+        },
+        // **세특 글을 과목별로 그대로 받는다.** 학생이 개인정보 동의를 한 학생들이므로(사장님 확인
+        // 2026-09-27) 원문을 남길 수 있다. 남기면 두 가지가 된다:
+        //   · 우리 사전이 좋아질 때 **학생에게 다시 안 물어보고** 다시 뽑는다(₩0).
+        //   · 포트폴리오 화면에 1학년 기록을 줄로 보여 준다 — 3년이 한 화면에 있으려면 이것이 있어야 한다.
+        // 사람 이름·학교 이름은 여기에도 쓰지 않는다. 그건 동의와 무관하게 보고서 품질 문제다.
+        entries: {
+          type: 'array',
+          minItems: 0,
+          maxItems: 24,
+          items: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['grade', 'subject', 'text'],
+            properties: { grade: STRING, subject: STRING, text: STRING },
           },
         } },
     },
@@ -224,6 +240,9 @@ export function analysisPromptLines(input) {
     '- repeatedInterests는 여러 과목·여러 학년에서 반복되는 주제 3~6개, strongSides는 이미 잘 해 둔 탐구 방식, thinSides는 아직 얇은 부분(예: 수치 분석이 없음, 한 과목에만 몰려 있음)이다.',
     '- pastUnits에는 **이 학생이 이미 다룬 것**을 과목별로 적는다. subject는 학교 교과목 이름(통합과학·공통국어1·한국사처럼), topic은 그 과목에서 다룬 주제를 교과서 말로 짧게(예: 광합성과 세포 호흡, 음운 변동), grade는 몇 학년 때인지(고1·고2·고3)를 쓴다.',
     '- pastUnits는 지어내지 않는다. 세부능력특기사항에 적힌 것만 쓴다. 같은 주제가 여러 번 나오면 한 번만 쓴다. 동아리·자율활동처럼 교과가 아닌 것은 subject를 비운다.',
+    '- entries에는 **세부능력특기사항 글을 과목별로 그대로** 옮긴다. grade는 학년(고1·고2·고3), subject는 교과목 이름, text는 그 과목에 적힌 글이다. 한 과목이 한 줄이다.',
+    '- entries의 text는 요약하지 않는다. 다만 500자를 넘으면 뒤를 자른다. 사람 이름·학교 이름·선생님 이름은 옮기지 않는다. 읽히지 않는 부분은 빼고 읽힌 것만 옮긴다.',
+    '- entries에는 교과 세부능력특기사항만 넣는다. 창의적 체험활동(자율·동아리·진로)과 행동특성은 넣지 않는다 — 그건 activitySummary가 맡는다.',
     '',
     '[reportLines — 가장 중요한 항목]',
     '- 이 학생이 다음에 쓰면 좋을 보고서 주제를 2~4개 제안한다. 이미 한 것을 반복하지 않고 한 단계 올라가야 한다.',
@@ -261,6 +280,9 @@ export function sanitizeAnalysis(parsed) {
       repeatedInterests: texts(parsed?.record?.repeatedInterests, 6, 40),
       strongSides: texts(parsed?.record?.strongSides, 5, 80),
       thinSides: texts(parsed?.record?.thinSides, 5, 80),
+      entries: (Array.isArray(parsed?.record?.entries) ? parsed.record.entries : []).slice(0, 24)
+        .map((one) => ({ grade: clip(one?.grade, 6), subject: text(one?.subject, 30), text: text(one?.text, 500) }))
+        .filter((one) => one.text.length >= 20),
       pastUnits: (Array.isArray(parsed?.record?.pastUnits) ? parsed.record.pastUnits : []).slice(0, 20)
         .map((one) => ({ subject: text(one?.subject, 30), topic: text(one?.topic, 60), grade: clip(one?.grade, 6) }))
         .filter((one) => one.topic),

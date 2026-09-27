@@ -5,7 +5,7 @@ import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, m
 import { pickReportShape, shapePromptLines } from './report_shape_v1.mjs';
 import { crossSubjectPromptLines, pickCrossSubject } from './cross_subject_v1.mjs';
 import { majorPathPromptLines, resolveMajorPath } from './major_path_v1.mjs';
-import { countAttempts, gradeNow, issueStudentCode, loadPortfolio, loadStudent, parseStudentCode, resetAttempts, saveStudentReport, updateStudent } from './student_portfolio_v1.mjs';
+import { countAttempts, gradeNow, issueStudentCode, loadPortfolio, loadStudent, parseStudentCode, resetAttempts, saveStudentReport, summarise, updateStudent } from './student_portfolio_v1.mjs';
 import { majorFit } from './major_fit_v1.mjs';
 import { attachToStudent, saveReportOutput } from './report_archive_v1.mjs';
 import { chooseUnit, UNIT_SOURCE } from './unit_fallback_v1.mjs';
@@ -294,17 +294,30 @@ export default {
         }
         const folio = await loadPortfolio(env.DB, code);
         if (!folio) return withCors(json({ ok: false, error: '그 코드로 만든 기록이 없어요.' }, 404));
+        // **학교 기록에서 읽은 줄도 한 줄기에 넣는다.** 우리와 쓴 보고서만 쌓으면 2학년 학생의 화면은
+        // 고2부터만 보인다 — 1학년에 학교에서 한 것이 빠지면 3년이 한눈에 보이지 않는다(사장님 2026-09-27).
+        // 저장해 둔 생활기록부 분석에서 과목별 세특 글을 꺼내, **우리 단원 사전으로** 단원을 붙인다.
+        // 실제 생활기록부로 재 보니 세특 33줄 중 32줄(97%)에서 단원이 나왔다.
+        // 표를 따로 만들지 않고 읽을 때마다 뽑는다 — 사전이 좋아지면 다시 물어보지 않고 그대로 좋아진다.
+        let priorRows = [];
+        try {
+          const kept = await loadPriorRecord(env.DB, code);
+          if (kept) priorRows = recordRowsOf(sanitizeAnalysis(kept), await loadSeedPack(env));
+        } catch (error) {
+          console.error('prior record rows failed:', error?.message || error);
+        }
+        const wholeStory = [...priorRows, ...folio.reports];
         let fit = null;
         try {
           const curriculum = await loadSeedFile(env, SEED_FILES.majorCurriculumIndex);
-          fit = majorFit(folio.reports, curriculum, { major: folio.student.major });
+          fit = majorFit(wholeStory, curriculum, { major: folio.student.major });
         } catch (error) {
           // 적합도를 못 읽어도 3년치는 보여 준다.
           console.error('major fit failed:', error?.message || error);
         }
         const student = await loadStudent(env.DB, code);
         const pass = checkEntitlement(student);
-        return withCors(json({ ok: true, ...folio, fit,
+        return withCors(json({ ok: true, ...folio, priorRows, summary: summarise(wholeStory), fit,
           pass: { ok: pass.ok, reason: pass.reason || '', remaining: pass.remaining ?? null,
             maxUses: pass.maxUses || 0, used: pass.used || 0, expiresAt: pass.expiresAt || '',
             org: student?.org_name || '' } }));
@@ -1411,6 +1424,68 @@ async function recentReportCases(db, input) {
 }
 
 // 같은 학생이 이 과목에서 이미 쓴 단원. 학생 부호로 찾는다 — 학교·과제가 아니라 **그 학생**이다.
+// 생활기록부에 적힌 과목 이름 → 우리가 아는 과목 이름. 학교는 2015 개정 이름이나 짧은 이름으로 적는다.
+// 축 색인에 있는 과목 이름과 맞춰 보고, 짧은 이름 몇 개는 손으로 적어 둔다(2022 개정으로 갈아타는 중이라
+// 「국어」·「수학」처럼 학년만 적힌 이름이 아직 많다). 못 찾으면 빈 문자열이다 — 억지로 맞추지 않는다.
+const PLAIN_SUBJECT = {
+  국어: '공통국어1', 수학: '공통수학1', 통합사회: '통합사회1', 통합과학: '통합과학1',
+  과학탐구실험: '과학탐구실험1', 사회문화: '사회와 문화', '사회·문화': '사회와 문화',
+  생활과윤리: '현대사회와 윤리', '생활과 윤리': '현대사회와 윤리', 동아시아사: '동아시아 역사 기행',
+  정치와법: '정치', '정치와 법': '정치', 세계지리: '세계시민과 지리', 한국지리: '한국지리 탐구',
+};
+function siteSubjectName(name, axisIndex) {
+  const bare = String(name || '').replace(/\s+/g, '');
+  if (!bare) return '';
+  if (PLAIN_SUBJECT[bare]) return PLAIN_SUBJECT[bare];
+  const known = new Set(Object.values(axisIndex?.axes || {}).map((axis) => String(axis?.subject || '')).filter(Boolean));
+  for (const one of known) if (String(one).replace(/\s+/g, '') === bare) return one;
+  // 「물리학Ⅰ」→「물리」처럼 꼬리만 다른 이름. 긴 쪽이 짧은 쪽으로 시작하면 같은 과목으로 본다.
+  for (const one of known) {
+    const plain = String(one).replace(/\s+/g, '');
+    if (plain.length >= 2 && (bare.startsWith(plain) || plain.startsWith(bare))) return one;
+  }
+  return '';
+}
+
+// 생활기록부에서 읽은 세특 한 줄 → 포트폴리오 한 줄. 보고서 줄과 **같은 모양**으로 만든다.
+// 그래야 3년 줄기(summarise)와 학과 적합도(majorFit)가 고치지 않고 그대로 센다.
+// source 로 갈라 둔다 — 화면은 「학교 기록」과 「우리와 씀」을 섞어 보여 주면 안 된다.
+function recordRowsOf(analysis, seedPack) {
+  const said = analysis?.record;
+  if (!said) return [];
+  const axisIndex = seedPack?.axisIndex;
+  const rows = [];
+  const seen = new Set();
+  // ① 과목별 세특 글이 있으면 그것으로 단원을 붙인다 — 우리 사전이 가장 정확하다.
+  for (const one of said.entries || []) {
+    const subject = siteSubjectName(one.subject, axisIndex);
+    if (!subject) continue;
+    const unit = inferConcept(subject, one.text, axisIndex) || '';
+    const key = `${one.grade}::${subject}::${unit}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    rows.push({ source: 'record', at: '', grade: one.grade || '', subject, subjectGroup: '',
+      concept: unit, keyword: '', axis: null, crossSubject: [], stage: '', collectionKind: '',
+      title: unit || one.subject, caseTag: '', variableTag: '', measureTag: '', recordDraft: [],
+      said: one.text.slice(0, 160) });
+  }
+  // ② 글이 없고 모델이 「이미 한 것」만 적어 줬으면 그것으로 만든다(예전에 올린 분석).
+  if (!rows.length) {
+    for (const one of said.pastUnits || []) {
+      const subject = siteSubjectName(one.subject, axisIndex);
+      if (!subject) continue;
+      const unit = inferConcept(subject, one.topic, axisIndex) || one.topic || '';
+      const key = `${one.grade}::${subject}::${unit}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      rows.push({ source: 'record', at: '', grade: one.grade || '', subject, subjectGroup: '',
+        concept: unit, keyword: '', axis: null, crossSubject: [], stage: '', collectionKind: '',
+        title: one.topic || unit, caseTag: '', variableTag: '', measureTag: '', recordDraft: [], said: '' });
+    }
+  }
+  return rows;
+}
+
 async function studentPastConcepts(db, input) {
   const code = String(input.studentCode || '').trim().toLowerCase();
   if (!code) return [];
