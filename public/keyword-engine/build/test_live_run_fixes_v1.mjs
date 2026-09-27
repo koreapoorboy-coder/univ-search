@@ -125,5 +125,20 @@ const ok = (name, got) => { if (got) pass += 1; else fails.push(name); };
   ok('조사가 붙어도 학생이 말한 것으로 본다', removeUnnamedTools('촬영으로 시점을 정했다.', '촬영 기록').removed === 0);
 }
 
+// ⑩ 제안 절의 「영상」은 측정 기구가 아니다.
+//
+// 설문형 한 편(2026-09-27, 분실물 반환 캠페인)의 활용 방안에서 두 문장이 지워졌다 — 「반납 절차 영상
+// 링크 … 같은 구체화가 효과적일 수 있다」, 「후속 터치포인트(…, 절차 영상)를 1회 제공한다」. 여기서
+// 영상은 앞으로 만들 안내물이다. 막아야 하는 것은 「내가 이렇게 재었다」는 거짓말뿐이다.
+{
+  const 제안 = '예컨대 반납 절차 영상 링크, 가까운 신고지점 자동 제시 같은 구체화가 효과적일 수 있다.';
+  const 제안2 = '안내 직후의 후속 터치포인트(짧은 리마인드, 위치 지도, 절차 영상)를 1회 제공한다.';
+  const 거짓 = '스마트폰 카메라를 고정해 프레임률을 고정했다.';
+  ok('제안 절의 제안 문장은 안 지운다', removeUnnamedTools(제안, '', { proposal: true }).removed === 0);
+  ok('제안 절의 목록형 제안도 안 지운다', removeUnnamedTools(제안2, '', { proposal: true }).removed === 0);
+  ok('제안 절이어도 「했다」는 막는다', removeUnnamedTools(거짓, '', { proposal: true }).removed === 1);
+  ok('방법 절은 현재형도 막는다', removeUnnamedTools('스마트폰 카메라를 고정해 촬영한다.', '').removed === 1);
+}
+
 console.log(`실전 한 편에서 찾은 흠: ${pass}개 통과${fails.length ? ` · 실패 ${fails.length}` : ''}`);
 if (fails.length) { for (const one of fails) console.error('  실패:', one); process.exit(1); }

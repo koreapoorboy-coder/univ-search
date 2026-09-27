@@ -638,11 +638,20 @@ const UNNAMED_TOOLS = /스마트폰|휴대폰|핸드폰|카메라|촬영|동영�
 // 조사가 붙은 꼴로 걸리면 원래 낱말로 견준다 — 안내문에 「영상」이 있는데 본문이 「영상으로」라고 쓰면
 // 학생이 말한 것인데도 지어낸 것으로 봤다(2026-09-27).
 const 조사떼기 = (word) => String(word).replace(/(으로|로|을|를|이|가|은|는|의|에서|에|와|과|도|만)$/, '');
-export function removeUnnamedTools(body, studentText) {
+// **제안 절에서는 「했다」가 아니면 막지 않는다.**
+//
+// 설문형 한 편(2026-09-27, 분실물 반환 캠페인)의 활용 방안에서 두 문장이 지워졌다 —
+// 「반납 절차 영상 링크 … 같은 구체화가 효과적일 수 있다」, 「후속 터치포인트(짧은 리마인드, 위치 지도,
+// 절차 영상)를 1회 제공한다」. 여기서 영상은 학생이 쓴 측정 기구가 아니라 **앞으로 만들 안내물**이다.
+// 막아야 하는 것은 「내가 이렇게 재었다」는 거짓말뿐이다. 그래서 제안 절에서는 한 일을 말하는 문장만 본다.
+const DID = /(했다|하였다|했으며|했고|했음|했는데|되었다|였다|썼다|썼고|사용했|이용했|촬영했|찍었|고정했|기록했|측정했)/;
+export function removeUnnamedTools(body, studentText, { proposal = false } = {}) {
   const text = String(studentText || '');
   return filterSentences(body, (sentence) => {
     const found = String(sentence).match(new RegExp(UNNAMED_TOOLS, 'g')) || [];
-    return !found.length || found.every((word) => text.includes(word) || text.includes(조사떼기(word)));
+    if (!found.length) return true;
+    if (proposal && !DID.test(String(sentence))) return true;
+    return found.every((word) => text.includes(word) || text.includes(조사떼기(word)));
   });
 }
 
@@ -1718,7 +1727,7 @@ export function finalizeStageOutput(stage, rawParsed, input) {
       const subjects = removeUnknownSubjectNames(units.body);
       // 안내문에 적힌 기구(선생님이 영상으로 재라고 한 과제)는 그대로 둔다.
       const said = [studentText, input.taskDescription, input.taskName, data.draftReport, ...data.conditions.map((row) => `${row.label} ${row.note || ''}`)].filter(Boolean).join(' ');
-      const tools = removeUnnamedTools(subjects.body, said);
+      const tools = removeUnnamedTools(subjects.body, said, { proposal: /결론|제언|후속|활용 방안|고찰|확장|성찰|느낀 점/.test(title) });
       tools.body = generalizeThings(tools.body, said);
       const numbers = { body: tools.body, removed: cleanedNumbers.removed + unread.removed + units.removed + subjects.removed + tools.removed, dropped: [...cleanedNumbers.dropped, ...unread.dropped, ...units.dropped, ...subjects.dropped, ...tools.dropped] };
       removed += numbers.removed;
