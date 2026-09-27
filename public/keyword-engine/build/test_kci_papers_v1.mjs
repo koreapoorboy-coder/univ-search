@@ -10,7 +10,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { findPapers, indexPaperLine, paperLine, paperQueries, parsePapers, pickPapers } from "../../../admission_worker_skeleton/kci_v1.mjs";
 import { pickForTask, taskWords } from "../../../admission_worker_skeleton/univ_research_v1.mjs";
-import { referencesBody } from "../../../admission_worker_skeleton/references_v1.mjs";
+import { referencesBody, unreadSourceLines } from "../../../admission_worker_skeleton/references_v1.mjs";
 import { finalizeStageOutput, normalizeStudentData, STAGE } from "../../../admission_worker_skeleton/report_stages_v1.mjs";
 
 const worker = (await readFile(new URL("../../../admission_worker_skeleton/worker.js", import.meta.url), "utf8")).replace(/\r\n/g, "\n");
@@ -153,14 +153,15 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
   const data = [{ title: "화학사고정보", org: "화학물질안전원", id: "15048783" }];
   const body = referencesBody({ cards: [card], papers, datasets: data, textbook: "생명과학Ⅰ 교과서 · 효소와 대사 반응 단원" });
   const lines = body.split(String.fromCharCode(10));
-  // 2026-09-25: 우리가 붙인 논문은 학생이 읽은 것이 아니라서 「더 읽어 볼 자료」로 갈라 맨 뒤에 간다.
-  // 그래서 줄이 하나 늘었다(가르는 줄).
-  check(lines.length === 5, "G6 학생 자료 + 공개 자료 + 교과서 + 가르는 줄 + 논문", String(lines.length));
-  check(lines[0].includes("부엌의 화학자"), "G6 학생이 실제로 본 것이 맨 앞");
-  check(lines.some((one) => /더 읽어 볼 자료/.test(one)) && lines[lines.length - 1].includes("한국생물교육학회지"),
-    "G6 우리가 붙인 논문은 「더 읽어 볼 자료」 뒤 맨 끝", lines.join(" | "));
-  check(lines[1].includes("data.go.kr"), "G6 공개 자료는 학생 자료 뒤", lines[1]);
-  check(lines[2].includes("교과서"), "G6 교과서는 가르는 줄 앞 마지막", lines[2]);
+  // 2026-09-27 사용자 결정: 우리가 붙인 논문은 **보고서에 안 들어간다.** 제출하는 보고서와 제출하지
+  // 않는 설명서를 각각 따로 준다 — 「아직 읽지 않았어요」라는 칸이 제출물 안에 있으면 안 된다.
+  check(lines.length === 3, "G6 학생 자료 + 공개 자료 + 교과서 — 읽지 않은 논문은 없다", String(lines.length));
+  check(lines[0].includes("부엌의 화학자"), "G6 학생이 적은 자료로 본 것이 맨 앞");
+  check(!/더 읽어 볼 자료/.test(body) && !body.includes("한국생물교육학회지"),
+    "G6 우리가 붙인 논문은 보고서에 없다", lines.join(" | "));
+  check(unreadSourceLines({ cards: [card], papers }).length === papers.length,
+    "G6 그 논문은 설명서 목록으로 간다");
+  check(lines[2].includes("교과서"), "G6 교과서는 맨 끝", lines[2]);
   check(referencesBody({ cards: [card], textbook: "가 교과서 · 나 단원" }).split(String.fromCharCode(10)).length === 2,
     "G6 논문이 없으면 예전과 같다");
 }
@@ -176,8 +177,12 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
     }),
   });
   const built = whole.parsed.sections.find((one) => /참고 자료/.test(one.title))?.body || "";
-  check(built.includes("한국생물교육학회지"), "G7 최종 보고서의 참고 자료 절에 실제로 붙는다", built);
-  check(built.includes("kci.go.kr"), "G7 주소까지 붙는다 — 학생이 열어 확인할 수 있다", built);
+  check(!built.includes("한국생물교육학회지"), "G7 최종 보고서에는 읽지 않은 논문이 없다", built);
+  // 2026-09-27: 그 논문은 제출하지 않는 설명서로 간다. 학생은 두 파일을 따로 받는다.
+  const 안내 = JSON.stringify(whole.extra?.reportGuide || {});
+  check(안내.includes("한국생물교육학회지") && 안내.includes("더 읽어 보면 좋은 자료"),
+    "G7 설명서의 「더 읽어 보면 좋은 자료」에 들어간다", 안내.slice(0, 400));
+  check(안내.includes("kci.go.kr"), "G7 설명서 목록에 주소까지 붙는다 — 학생이 열어 확인할 수 있다", 안내.slice(0, 400));
 }
 
 // G8: 워커는 **우리 파일에서** 논문을 꺼낸다. 남의 서버를 보고서 만드는 길에 끼우지 않는다.
@@ -234,8 +239,8 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
   // 참고 자료 절에 실제로 들어간다.
   const body = referencesBody({ papers: [row], textbook: "공통국어1 교과서 · 음운 변동과 국어 규범 단원" });
   const rows = body.split(String.fromCharCode(10));
-  check(rows[rows.length - 1].includes("한국어학") && rows.some((one) => /더 읽어 볼 자료/.test(one)),
-    "G9 우리가 붙인 논문은 참고 자료 맨 끝 「더 읽어 볼 자료」에 들어간다", body);
+  check(!rows.some((one) => /더 읽어 볼 자료/.test(one)) && !body.includes("한국어학"),
+    "G9 우리가 붙인 논문은 보고서에 없다 — 설명서로 간다", body);
   check(index.version === "kci-paper-index-v1" && Object.keys(index.concepts).length >= 20,
     "G9 인덱스가 있고 개념 20개 이상에 붙는다", String(Object.keys(index.concepts || {}).length));
   check(index.license.includes("제한 없음"), "G9 이용허락을 적어 둔다");

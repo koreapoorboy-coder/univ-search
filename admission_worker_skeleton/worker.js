@@ -1202,8 +1202,14 @@ function buildStageResult(stage, parsed, input) {
   const { parsed: finalized, extra } = finalizeStageOutput(stage, parsed, input);
   const studentText = [input.studentData?.reason, input.studentData?.observations, input.studentData?.reflection].join(' ');
   const assembled = assembleReport(finalized, { keepExperience: stage !== STAGE.DRAFT && /경험|본 적/.test(studentText) });
-  // 한 번에 끝나는 보고서도 AI가 쓴 주제 재료를 함께 돌려준다(참고 자료에는 이미 들어가 있다).
-  if (stage === STAGE.COMPLETE) return extra?.inspiration?.length ? { ...assembled, inspiration: extra.inspiration } : assembled;
+  // 한 번에 끝나는 보고서도 **설명서를 함께 돌려준다.** 안 돌려주고 있었다 — 두 단계 보고서만 받았다.
+  // 2026-09-27 사용자 결정으로 읽지 않은 자료가 보고서에서 설명서로 옮겨졌으니, 설명서를 안 주면
+  // 그 자료가 학생에게 아예 안 간다. 한 번에 끝나는 과제가 1,591건이다.
+  if (stage === STAGE.COMPLETE) {
+    return { ...assembled,
+      ...(extra?.reportGuide ? { reportGuide: extra.reportGuide } : {}),
+      ...(extra?.inspiration?.length ? { inspiration: extra.inspiration } : {}) };
+  }
   return {
     ...assembled,
     reportStage: stage,

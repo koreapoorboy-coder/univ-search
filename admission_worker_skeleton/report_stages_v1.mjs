@@ -1,5 +1,5 @@
 import { ingredientSchema, inspirationCitations, inspirationOf, usedIngredients } from './ingredients_v1.mjs';
-import { normalizeSourceCards, referencesBody, studentSourceLines } from './references_v1.mjs';
+import { normalizeSourceCards, referencesBody, studentSourceLines, unreadSourceLines } from './references_v1.mjs';
 import { CALCULATION_SCHEMA, calculationPromptLines, tidyCalculatedNumbers, verifyCalculations } from './calc_check_v1.mjs';
 // Two-stage experiment report.
 // Stage 1 (experiment_draft): a design report plus a data template the student fills in after doing the experiment.
@@ -1786,7 +1786,9 @@ export function finalizeStageOutput(stage, rawParsed, input) {
           comparisonTableAfterSection: '자료 비교 정리' };
     const recordDraft = buildRecordDraft((Array.isArray(parsed?.recordDraft) ? parsed.recordDraft : []).map((line) => tidyCalculatedNumbers(line, calculation.verified)), allowed);
     // 학생용 설명서. 보고서 본문에는 안 들어간다 — 따로 준다(사용자 결정 2026-09-23).
-    const reportGuide = buildReportGuide({ input, data, stats, sections: cleaned, title: parsed?.title });
+    // 읽지 않은 자료는 보고서가 아니라 **설명서**로 간다(사용자 결정 2026-09-27).
+    const reportGuide = buildReportGuide({ input, data, stats, sections: cleaned, title: parsed?.title,
+      readMore: unreadSourceLines({ cards: data.sourceCards, papers: refPapers, web: refWeb }) });
     return { parsed: { ...parsed, sections: cleaned }, extra: { ...extra, recordDraft, reportGuide, removedNumberSentences: removed, removedFeelingSentences: removedFeelings,
       ...(calculation.verified.length || calculation.rejected.length ? { calculations: calculation.verified, rejectedCalculations: calculation.rejected } : {}),
       ...(droppedSamples.length ? { removedNumberSamples: droppedSamples.slice(0, 8) } : {}),
@@ -1801,10 +1803,12 @@ export function finalizeStageOutput(stage, rawParsed, input) {
   // 재료를 보냈으면(ingredients_v1) **AI가 실제로 쓴 재료**가 참고 자료다. 낱말로 짝지은 논문은 쓰지 않는다.
   const used = input.ingredients ? usedIngredients(parsed, input.ingredients) : null;
   const usedRefs = used ? inspirationCitations(inspirationOf(used)) : null;
+  const shownPapers = usedRefs ? usedRefs.papers : (input.referencePapers || []);
+  const shownWeb = usedRefs ? used.research : (input.referenceWeb || []);
   const verified = buildReferencesBody('', [], {
     datasets: input.referenceDatasets || [],
-    papers: usedRefs ? usedRefs.papers : (input.referencePapers || []),
-    web: usedRefs ? used.research : (input.referenceWeb || []),
+    papers: shownPapers,
+    web: shownWeb,
     textbook: input.textbookCitation || '',
     readWork: input.readWork || '',
   });
@@ -1838,6 +1842,8 @@ export function finalizeStageOutput(stage, rawParsed, input) {
   // 확인된 자료가 하나도 없으면(단원을 못 정한 과제) 두 단계 보고서와 같게 과목 교과서 줄 하나를 둔다.
   const closing = verified || [String(input.subject || '').trim(), '교과서 관련 단원'].filter(Boolean).join(' ');
   if (oneShot.length && !oneShot.some((section) => REFERENCE_TITLE.test(String(section?.title || '')))) oneShot.push({ title: '참고 자료', body: closing });
-  const oneShotGuide = buildReportGuide({ input, data: normalizeStudentData(null), stats: null, sections: oneShot, title: parsed?.title });
+  // 한 번에 끝나는 보고서도 같다 — 읽지 않은 자료는 설명서로 간다(사용자 결정 2026-09-27).
+  const oneShotGuide = buildReportGuide({ input, data: normalizeStudentData(null), stats: null, sections: oneShot, title: parsed?.title,
+    readMore: unreadSourceLines({ papers: shownPapers, web: shownWeb }) });
   return { parsed: { ...parsed, sections: oneShot }, extra: { reportGuide: oneShotGuide, removedFeelingSentences: removedPraise, ...(used ? { inspiration: inspirationOf(used) } : {}) } };
 }

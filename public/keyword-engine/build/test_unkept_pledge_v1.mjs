@@ -9,7 +9,7 @@
 // 그리고 **참고 자료를 가른다.** 우리가 붙인 논문은 학생이 읽은 것이 아니므로,
 // 학생이 적은 자료와 한 줄씩 섞이면 「인용한 자료」처럼 보인다. 「더 읽어 볼 자료」로 따로 적는다.
 import { STAGE, dropUnkeptPledges, finalizeStageOutput, normalizeStudentData } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
-import { referencesBody } from '../../../admission_worker_skeleton/references_v1.mjs';
+import { referencesBody, unreadSourceLines } from '../../../admission_worker_skeleton/references_v1.mjs';
 
 let fail = 0;
 const bad = (why) => { console.log(`  ✗ ${why}`); fail += 1; };
@@ -69,18 +69,18 @@ const ok = (cond, why) => { if (!cond) bad(why); };
   ok(/절대 비교/.test(body), '지킨 기준은 남아야 한다');
 }
 
-// ── 우리가 붙인 논문은 「더 읽어 볼 자료」로 가른다 ────────
+// ── 우리가 붙인 논문은 보고서에 넣지 않는다 — 설명서로 간다(2026-09-27 사용자 결정) ────────
 {
   const paper = { title: '과수원 토양에서 분리한 섬유소 분해 효소 생산', who: '김철수', year: '2024', journal: '한국미생물학회지', volume: '60', issue: '2', pages: '100-108' };
   const body = referencesBody({ cards: [{ title: '기후변화 감시 보고서 2025', type: '기관 자료', take: '기온 상승 폭을 확인했다' }],
     papers: [paper], textbook: '생명과학Ⅰ 교과서 · 세포와 물질대사 단원' });
   const lines = body.split('\n');
-  ok(/더 읽어 볼 자료/.test(body), `가르는 줄이 없다 — ${body}`);
-  const at = lines.findIndex((one) => /더 읽어 볼 자료/.test(one));
-  ok(at > 0, '가르는 줄은 맨 앞에 오면 안 된다');
-  ok(lines.slice(at + 1).some((one) => one.includes('섬유소')), '논문은 그 줄 뒤에 와야 한다');
-  ok(lines.slice(0, at).some((one) => one.includes('기후변화')), '학생이 적은 자료는 그 줄 앞에 있어야 한다');
-  ok(lines.slice(0, at).some((one) => one.includes('교과서')), '교과서도 그 줄 앞에 있어야 한다');
+  ok(!/더 읽어 볼 자료/.test(body), `읽지 않은 자료가 보고서에 남았다 — ${body}`);
+  ok(!body.includes('섬유소'), '읽지 않은 논문이 보고서에 남았다');
+  ok(lines.some((one) => one.includes('기후변화')), '학생이 적은 자료는 보고서에 있어야 한다');
+  ok(lines.some((one) => one.includes('교과서')), '교과서도 보고서에 있어야 한다');
+  ok(unreadSourceLines({ cards: [{ title: '기후변화 감시 보고서 2025' }], papers: [paper] })
+    .some((one) => one.includes('섬유소')), '그 논문은 설명서 목록으로 가야 한다');
 }
 
 // 학생이 그 논문을 이미 적었으면 가르지 않는다 — 그건 학생이 본 자료다

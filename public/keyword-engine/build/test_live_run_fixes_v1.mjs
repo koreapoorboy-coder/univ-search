@@ -2,7 +2,7 @@
 // 하나도 화면에서는 안 보이던 것들이다 — 학생이 내는 글에서만 보인다.
 import { allowedNumberSet, computeStats, normalizeStudentData, dropUnkeptPledges, isPlanSentence, removeNoSourceClaim, removeUnnamedTools, removeUnsupportedNumbers } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
 import { readFileSync } from 'node:fs';
-import { referencesBody } from '../../../admission_worker_skeleton/references_v1.mjs';
+import { referencesBody, unreadSourceLines } from '../../../admission_worker_skeleton/references_v1.mjs';
 import { summarise } from '../../../admission_worker_skeleton/student_portfolio_v1.mjs';
 
 let pass = 0;
@@ -181,10 +181,11 @@ const ok = (name, got) => { if (got) pass += 1; else fails.push(name); };
     textbook: '물리학Ⅰ 교과서 · 힘과 운동 단원',
   });
   const lines = body.split(String.fromCharCode(10));
-  const 제목자리 = lines.findIndex((l) => l.includes('아직 읽지 않았어요'));
-  const 로봇자리 = lines.findIndex((l) => l.includes('웨어러블 로봇'));
-  ok('「아직 읽지 않았어요」 제목이 붙는다', 제목자리 >= 0);
-  ok('대학 글이 그 제목 아래에 있다', 로봇자리 > 제목자리);
+  // 2026-09-27 사용자 결정: 아예 보고서에서 뺀다. 제출하는 보고서와 설명서를 각각 따로 준다.
+  ok('대학 글이 보고서에 없다', !lines.some((l) => l.includes('웨어러블 로봇')));
+  ok('그 글은 설명서 목록으로 간다', unreadSourceLines({ web: [{ title: '새로운 다기능 허리 동작 보조 웨어러블 로봇 개발',
+    org: '서울대학교', team: '기계공학부 박용래 교수 연구팀', date: '2024-01-01',
+    url: 'https://www.snu.ac.kr/x', accessed: '2026.09.27' }] }).some((l) => l.includes('웨어러블 로봇')));
   ok('교과서는 그대로 인용 자리에 있다', lines[0].includes('교과서'));
   const 학생것 = referencesBody({
     studentSources: ['공공데이터 포털 대기오염 월별 통계, 2026-09-23 조회'],

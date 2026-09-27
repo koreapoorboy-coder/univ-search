@@ -21,7 +21,7 @@ const KIND_WORD = {
 
 const clip = (value, max) => String(value ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
 
-export function buildReportGuide({ input = {}, data = {}, stats = null, sections = [], title = '', reviewLines = [] } = {}) {
+export function buildReportGuide({ input = {}, data = {}, stats = null, sections = [], title = '', reviewLines = [], readMore = [] } = {}) {
   const kind = input.collectionKind || COLLECTION.NONE;
   const rows = (stats?.rows || []).filter((one) => (one?.values || []).length);
   const filled = rows.reduce((sum, one) => sum + one.values.length, 0);
@@ -57,6 +57,7 @@ export function buildReportGuide({ input = {}, data = {}, stats = null, sections
     '「느낀 점」이 내 생각과 같은지 읽어 보세요. 다르면 고쳐 주세요.',
     input.textbookCitation ? '참고 자료의 교과서 줄에 **출판사와 쪽수**를 적어 주세요. 그건 내 교과서를 봐야 알 수 있어요.' : '',
     '표지의 이름·학번 칸을 채우세요.',
+    readMore.length ? '아래 「더 읽어 보면 좋은 자료」는 보고서에 안 들어가요. 읽고 싶으면 읽고, 안 읽어도 괜찮아요.' : '',
     '이 설명서는 제출하지 않아요. 보고서만 내면 돼요.',
   ].filter(Boolean);
 
@@ -69,6 +70,11 @@ export function buildReportGuide({ input = {}, data = {}, stats = null, sections
       // 검수에서 고친 것을 학생에게 알려 준다. 조용히 고치면 학생이 자기 글로 읽을 수 없다.
       ...(reviewLines.length ? [{ head: '검수에서 고친 것', lines: reviewLines }] : []),
       { head: '내기 전에 볼 것', lines: check },
+      // **읽지 않은 자료는 여기에만 둔다.** 사용자 결정 2026-09-27: 제출하는 보고서와 설명서를 각각
+      // 따로 준다. 「아직 읽지 않았어요」라는 칸이 제출물 안에 있으면 안 된다(references_v1.mjs).
+      ...(readMore.length ? [{ head: '더 읽어 보면 좋은 자료 (아직 읽지 않았어요)',
+        lines: ['이 자료는 우리가 단원에 맞추어 찾아 둔 것이고, 아직 읽지 않았어요. 보고서에는 들어가지 않아요.',
+          '읽고 두 줄 적으면 다음 보고서의 자료 카드가 돼요.', ...readMore] }] : []),
     ],
   };
 }

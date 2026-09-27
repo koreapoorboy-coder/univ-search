@@ -404,10 +404,15 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
       const tb = lines.find((l) => /교과서/.test(l) && !/\(\d{4}\)\./.test(l));
       if (tb && !tb.includes(subject.replace(/\d$/, "").replace(/ .*/, "")) && !/통합|과학탐구|융합|과제/.test(subject)) flag("교과서줄_과목다름", tb);
       if (!lines.length) flag("참고자료_빈칸");
-      // 설계서가 쓴 재료(또는 한 번에 끝나는 보고서가 쓴 재료)는 참고 자료에 있어야 한다
+      // **쓴 재료는 「설명서」에 있어야 한다.** 2026-09-27 사용자 결정으로, 학생이 읽지 않은 자료(우리가
+      // 붙인 논문·대학 글)는 제출하는 보고서에 넣지 않고 제출하지 않는 설명서에만 싣는다. 학생에게
+      // 주는 것이 두 개이고, 붙여서 주면 학생이 그대로 제출해 버린다.
+      const 설명서 = JSON.stringify(f.data.result?.reportGuide || {});
       const usedTitles = row.inspiration;
       for (const title of usedTitles || []) {
-        if (!lines.some((line) => line.includes(String(title).slice(0, 20)))) flag("쓴재료가_참고자료에_없음", title);
+        const 조각 = String(title).slice(0, 20);
+        if (lines.some((line) => line.includes(조각))) flag("쓴재료가_보고서에_실림", title);
+        else if (!설명서.includes(조각)) flag("쓴재료가_설명서에_없음", title);
       }
     }
   } catch (error) {

@@ -106,6 +106,36 @@ export function studentSourceLines(conditions) {
   return lines.slice(0, 2);
 }
 
+// **읽지 않은 자료는 보고서에 넣지 않는다. 설명서로 간다.**
+//
+// 사용자 결정 2026-09-27: 학생에게 주는 것은 두 개다 — 그대로 낼 수 있는 보고서, 그리고 제출하지 않는
+// 설명서. 「더 읽어 볼 자료」를 보고서의 참고 자료 절 안에 붙여 두었더니, 제출물에 「아직 읽지 않았어요」
+// 라는 칸이 생겼다. 구슬 충돌 보고서에 쿼드로터 고도제어·캐스터 휠 동역학·엑소 슈트가 실려 있었다.
+// 선생님이 받는 종이에 있을 이유가 없다. 붙여 주지 말고 각각 따로 준다.
+//
+// 이 칸을 만든 뜻(2026-09-24)은 그대로다 — 우리가 골라 준 논문이 통째로 사라져 학생이 읽을 거리가
+// 0이 되는 것을 막는 것. 뜻은 맞았고 **둘 자리만 틀렸다.**
+export function unreadSourceLines({ cards = [], papers = [], web = [] } = {}) {
+  const list = normalizeSourceCards(cards);
+  const bare = (value) => String(value || '').replace(/[\s\p{P}\p{S}]/gu, '');
+  const 학생것 = (row) => list.some((card) => {
+    const a = bare(card?.title);
+    const b = bare(row?.title);
+    return a.length >= 8 && b && (b.startsWith(a) || a.startsWith(b));
+  });
+  const lines = [];
+  for (const row of papers) {
+    if (학생것(row)) continue;   // 학생이 자료 카드에 적은 논문이면 그건 읽은 자료다
+    const line = row?.url ? paperLine(row) : indexPaperLine(row);
+    if (line && !lines.includes(line)) lines.push(line);
+  }
+  for (const row of web) {
+    const line = webLine(row);
+    if (line && !lines.includes(line)) lines.push(line);
+  }
+  return lines;
+}
+
 export function referencesBody({ cards = [], papers = [], web = [], datasets = [], textbook = '', fallbackBody = '', studentSources = [], readWork = '' } = {}) {
   const lines = [];
   // 학생이 자료 카드에 적은 것이 우리가 붙이는 논문과 **같은 논문**이면 한 줄로 합친다 — 운영 테스트에서
@@ -154,27 +184,9 @@ export function referencesBody({ cards = [], papers = [], web = [], datasets = [
   // 10.4% → 8.7% 로 줄었는데 **좋은 것이 떨어지고 나쁜 것이 살아남았다**(「머신러닝 탐구」 ←
   // 「머신러닝 기반 오이 생육 예측」이 떨어지고 「프로그램 작성하기」 ← 「VR 신체활동 프로그램」이
   // 남았다). 그래서 고르는 규칙은 건드리지 않고, **무엇인지 그대로 적는다.**
-  const readMore = [];
-  for (const row of papers) {
-    if (used.has(row)) continue;   // 학생 카드 자리에서 이미 적었다 — 그건 학생이 본 자료다
-    // 인덱스에서 온 줄에는 주소가 없고 저자 칸 이름이 다르다. 둘 다 받는다.
-    const line = row?.url ? paperLine(row) : indexPaperLine(row);
-    if (line && !lines.includes(line) && !readMore.includes(line)) readMore.push(line);
-  }
-  // 맨 뒤에 제목을 달아 따로 적는다. 학생이 읽은 자료와 섞이면 안 된다.
-  const tail = () => (readMore.length ? ['더 읽어 볼 자료 (아직 읽지 않았어요)', ...readMore] : []);
-  // 대학 연구 소개 글(웹 자료)도 **학생이 읽은 것이 아니다.** 논문과 똑같다 — 우리가 단원에 맞추어
-  // 붙인 것이고, 학생은 열어 보지 않았다. 그런데 논문은 「더 읽어 볼 자료」로 내려보내면서 이것만
-  // 인용 목록에 올려 두었다.
-  //
-  // 실험 보고서 한 편(2026-09-27, 물리 운동량 보존)에서 이렇게 나왔다: 구슬 충돌 보고서의 참고 자료에
-  // 「새로운 다기능 허리 동작 보조 웨어러블 로봇 개발」과 「부드러운 몸체에서 강력한 힘 내는 소프트 로봇」이
-  // 접속일까지 붙어 인용돼 있었는데, **본문에는 한 줄도 없었다**(AI 가 쓸 자리를 못 찾아 하나도 안 썼다).
-  // 선생님이 보면 학생이 읽고 인용한 것으로 읽힌다. 왕겨 음극재 때와 같은 흠이다.
-  for (const row of web) {
-    const line = webLine(row);
-    if (line && !lines.includes(line) && !readMore.includes(line)) readMore.push(line);
-  }
+  // 읽지 않은 자료(우리가 붙인 논문·대학 글)는 **여기에 넣지 않는다.** 설명서로 간다 —
+  // unreadSourceLines 를 보라. 제출하는 종이에는 학생이 실제로 쓴 자료만 남는다.
+  const tail = () => [];
   // 개념에 맞는 공개 자료. 논문 뒤, 교과서 앞이다.
   for (const row of datasets) {
     const line = dataLine(row);

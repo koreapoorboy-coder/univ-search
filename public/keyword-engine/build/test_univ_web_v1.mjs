@@ -6,7 +6,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { accessDate, aliveOnly, asResearch, checkAlive, pickUnivWeb, webLine } from "../../../admission_worker_skeleton/univ_web_v1.mjs";
-import { referencesBody } from "../../../admission_worker_skeleton/references_v1.mjs";
+import { referencesBody, unreadSourceLines } from "../../../admission_worker_skeleton/references_v1.mjs";
 import { finalizeStageOutput, normalizeStudentData, STAGE } from "../../../admission_worker_skeleton/report_stages_v1.mjs";
 
 const here = (name) => new URL(name, import.meta.url);
@@ -65,11 +65,11 @@ const answer = (status) => async () => ({ status, body: { cancel: async () => {}
     "U3 「다음에 해 볼 것」 칸 모양으로 바뀐다");
 }
 
-// U4: 참고 자료 절에서의 자리 — 학생 자료 → 공개 자료 → 교과서 → (가르는 줄) → 논문 · 대학 글.
+// U4: 참고 자료 절에서의 자리 — 학생 자료 → 공개 자료 → 교과서. 그것뿐이다.
 //
-// 2026-09-27: 대학 글도 「더 읽어 볼 자료 (아직 읽지 않았어요)」로 내려보낸다. 학생이 읽은 것이
-// 아니어서 논문과 같은 자리여야 한다. 실전 보고서(물리 운동량 보존)에서 구슬 충돌 보고서의 참고
-// 자료에 「웨어러블 로봇」이 접속일까지 붙어 인용돼 있었고, 본문에는 한 줄도 없었다.
+// 2026-09-27 사용자 결정: 읽지 않은 자료(우리가 붙인 논문·대학 글)는 **보고서에 안 들어간다.**
+// 제출하는 보고서와 제출하지 않는 설명서를 각각 따로 준다. 구슬 충돌 보고서의 참고 자료에
+// 「웨어러블 로봇」이 「아직 읽지 않았어요」로 실려 있었는데, 선생님이 받는 종이에 있을 이유가 없다.
 {
   const lines = referencesBody({
     cards: [{ title: "부엌의 화학자", type: "도서" }],
@@ -78,21 +78,28 @@ const answer = (status) => async () => ({ status, body: { cancel: async () => {}
     datasets: [{ title: "공개 자료", org: "기관", id: "15000000" }],
     textbook: "가 교과서 · 나 단원",
   }).split("\n");
-  // 2026-09-25: 논문이 「더 읽어 볼 자료」로 갈라져 맨 뒤로 가고, 가르는 줄이 하나 늘었다.
-  check(lines.length === 6, "U4 여섯 줄", String(lines.length));
-  const 가르는줄 = lines.findIndex((one) => /더 읽어 볼 자료/.test(one));
-  check(lines[1].includes("data.go.kr") && /교과서/.test(lines[2]) && 가르는줄 === 3
-    && lines.slice(가르는줄).some((one) => one.includes("학회지"))
-    && lines.slice(가르는줄).some((one) => one.includes("서울대학교 연구성과")),
-    "U4 공개 자료 → 교과서 → (가르는 줄) → 논문 · 대학 글 순서", lines.join(" | "));
-  check(가르는줄 > lines.findIndex((one) => one.includes("data.go.kr")),
-    "U4 학생이 읽지 않은 것은 모두 가르는 줄 뒤에 있다", lines.join(" | "));
+  check(lines.length === 3, "U4 세 줄 — 학생 자료, 공개 자료, 교과서", String(lines.length));
+  check(lines[1].includes("data.go.kr") && /교과서/.test(lines[2])
+    && !lines.some((one) => /더 읽어 볼 자료|서울대학교 연구성과|학회지/.test(one)),
+    "U4 읽지 않은 것은 보고서에 없다", lines.join(" | "));
+  const 설명서 = unreadSourceLines({
+    cards: [{ title: "부엌의 화학자", type: "도서" }],
+    papers: [{ title: "논문 제목", author: "김", year: "2024", journal: "학회지" }],
+    web: [{ ...post(), org: "서울대학교", accessed: "2026.09.18" }],
+  });
+  check(설명서.length === 2 && 설명서.some((one) => one.includes("학회지"))
+    && 설명서.some((one) => one.includes("서울대학교 연구성과")),
+    "U4 논문과 대학 글은 설명서 목록으로 간다", 설명서.join(" | "));
   const built = finalizeStageOutput(STAGE.FINAL, { reportTitle: "t", figures: [], sections: [{ title: "결론", body: "비타민C 처리가 갈변을 가장 늦췄다." }] }, {
     studentData: normalizeStudentData({ measurementName: "m", unit: "점", conditions: [{ label: "A", values: [1, 2] }, { label: "B", values: [2, 3] }] }),
     taskDescription: "", subject: "통합과학2", referenceWeb: [{ ...post(), org: "서울대학교", accessed: "2026.09.18" }],
   });
   const refs = (built.parsed?.sections || []).find((one) => /참고 자료/.test(one.title))?.body || "";
-  check(refs.includes("(접속일: 2026.09.18)"), "U4 최종 보고서의 참고 자료 절에 실제로 붙는다 — 끝에서부터 본다", refs);
+  check(!refs.includes("(접속일: 2026.09.18)"), "U4 최종 보고서에는 대학 글이 없다", refs);
+  // 2026-09-27: 대학 글은 제출하지 않는 설명서로 간다.
+  const 안내 = JSON.stringify(built.extra?.reportGuide || {});
+  check(안내.includes("(접속일: 2026.09.18)") && 안내.includes("더 읽어 보면 좋은 자료"),
+    "U4 설명서의 「더 읽어 보면 좋은 자료」에 들어간다", 안내.slice(0, 400));
 }
 
 // U7: 운영 테스트(생명과학 방형구)에서 나온 두 가지.
@@ -115,8 +122,10 @@ const answer = (status) => async () => ({ status, body: { cancel: async () => {}
   const paper = { title: "해수면 온도의 지역 간 상호작용 분석", author: "김", year: "2024", journal: "한국해양학회지" };
   const base = { reportTitle: "t", sections: [{ title: "반론 검토", body: "가" }, { title: "결론", body: "나" }] };
   const noRef = finalizeStageOutput(STAGE.COMPLETE, base, { subject: "지구과학", referencePapers: [paper], textbookCitation: "지구과학 교과서 · 지구의 기후 변화 단원" }).parsed.sections;
-  check(noRef.length === 3 && noRef[2].title === "참고 자료" && noRef[2].body.includes("한국해양학회지") && noRef[2].body.includes("교과서"),
-    "U9 참고 자료 절이 없는 구성이면 끝에 붙인다 — 논문과 교과서 줄", JSON.stringify(noRef[2]));
+  // 2026-09-27: 읽지 않은 논문은 보고서에 안 들어간다. 참고 자료 절은 교과서 줄로 만들어진다.
+  check(noRef.length === 3 && noRef[2].title === "참고 자료" && noRef[2].body.includes("교과서")
+    && !noRef[2].body.includes("한국해양학회지"),
+    "U9 참고 자료 절이 없는 구성이면 끝에 붙인다 — 교과서 줄", JSON.stringify(noRef[2]));
   const withRef = finalizeStageOutput(STAGE.COMPLETE, { reportTitle: "t", sections: [{ title: "결론", body: "나" },
     { title: "참고문헌 및 후속 탐구", body: "참고 자료 종류\n- 문학 이론 개론서\n후속 탐구 제안\n- 다른 작품과 비교한다." }] },
     { subject: "공통국어1", textbookCitation: "공통국어1 교과서 · 서사 단원" }).parsed.sections;
