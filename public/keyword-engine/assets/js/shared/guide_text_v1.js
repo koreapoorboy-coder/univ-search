@@ -62,3 +62,34 @@ export function scrubPersonal(text) {
     .replace(/[ \t]{2,}/g, ' ')
     .trim();
 }
+
+// **학생은 학년 전체 평가계획표를 통째로 붙여 넣는다.** 우리는 6,000자까지만 쓰는데, 지금까지는
+// 그냥 **앞에서부터 잘랐다.** 그러면 다른 과목 과제 스무 개가 들어오고 정작 학생의 과제는 잘려
+// 나간다 — 2026-09-27 에 13,210자짜리 평가계획표로 확인했다: 우리 과제 문장이 프롬프트에서
+// 통째로 사라지고, 학생은 **남의 과제로 쓴 보고서**를 돈 내고 받는다.
+//
+// 그래서 앞에서 자르지 않고 **이 과제와 겹치는 토막**을 고른다. 빈 줄로 토막을 나누고, 과목·
+// 과제 이름·고른 낱말과 겹치는 낱말이 많은 토막부터 담는다. 원래 순서는 지킨다 — 안내문은
+// 순서가 뜻을 가진다(주제 → 방법 → 채점 기준).
+export function pickGuideSection(text, { limit = 6000, subject = "", taskName = "", keyword = "" } = {}) {
+  const whole = String(text || "").trim();
+  if (whole.length <= limit) return whole;
+  const blocks = whole.split(/\n\s*\n/).filter((one) => one.trim());
+  // 빈 줄이 없는 글도 있다(사진에서 뽑으면 한 덩어리가 된다). 그때는 줄 단위로 묶는다.
+  const parts = blocks.length > 1 ? blocks : whole.split(/\n/).filter((one) => one.trim());
+  const wanted = [subject, taskName, keyword].join(" ").match(/[가-힣a-zA-Z]{2,}/g) || [];
+  const scored = parts.map((part, at) => {
+    let hit = 0;
+    for (const word of wanted) if (part.includes(word)) hit += word.length;
+    return { at, part, hit };
+  });
+  const kept = [];
+  let size = 0;
+  for (const one of [...scored].sort((a, b) => b.hit - a.hit || a.at - b.at)) {
+    if (size + one.part.length > limit && kept.length) continue;
+    kept.push(one);
+    size += one.part.length + 2;
+    if (size >= limit) break;
+  }
+  return kept.sort((a, b) => a.at - b.at).map((one) => one.part.trim()).join("\n\n").slice(0, limit);
+}

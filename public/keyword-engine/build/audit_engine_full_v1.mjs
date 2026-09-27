@@ -278,6 +278,10 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
     const d = await generate({ ...base, reportStage: "experiment_draft" });
     row.draft = { status: d.status, ok: d.data.ok, source: d.data.source, error: d.data.error || d.data.message || "" };
     if (d.status === 422) { row.scope = d.data.scope; flag("맞게막음:보고서과제아님", d.data.scope); rows.push(row); continue; }
+    // **안내문이 너무 짧아 막은 것은 흠이 아니다.** 학생은 「통째로 붙여 넣어 달라」는 말을 받고
+    // 이용권도 안 깎인다. 2026-09-27 에 바닥을 안내문만으로 재게 고치자 두 건이 여기로 왔는데,
+    // 둘 다 안내문이 과제 이름 한 줄뿐인 것이었다(「가상 SNS 제작」). 맞게 막은 것으로 따로 센다.
+    if (d.data.reason === "GUIDE_TOO_SHORT") { flag("맞게막음:안내문너무짧음", d.data.message || ""); rows.push(row); continue; }
     if (!d.data.ok) { flag("설계서_실패", `${d.status} ${d.data.error || ""}`); rows.push(row); continue; }
     if (d.data.source !== "openai") flag("설계서_GPT단계_실패(검사용)", d.data.result?.diagnostic || d.data.source);
     const r = d.data.resolved || {};

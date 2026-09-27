@@ -18,7 +18,7 @@ import { applyDraftReview, applyReview, buildDraftReviewPrompt, buildReviewPromp
 import { pickForTask } from './univ_research_v1.mjs';
 import { citationRow, contentWords, guideBlock, routePapers, shardFile } from './paper_route_v1.mjs';
 import { findLiteraryPapers, literaryCitation, literaryGuide } from './literary_paper_v1.mjs';
-import { guideBlocks, guideMessage, scrubPersonal } from '../public/keyword-engine/assets/js/shared/guide_text_v1.js';
+import { guideBlocks, guideMessage, pickGuideSection, scrubPersonal } from '../public/keyword-engine/assets/js/shared/guide_text_v1.js';
 import { unitFromStandard } from './unit_from_standard_v1.mjs';
 import { accessDate, aliveOnly, asResearch, pickUnivWeb } from './univ_web_v1.mjs';
 import { cleanKeyword, seedFitsTask } from './seed_fit_v1.mjs';
@@ -391,8 +391,14 @@ export default {
         // 전에는 비어 있지만 않으면 통과했다 — 「가」 한 글자, 「1234567890」, 이모지 넷으로도
         // 유료 보고서가 그대로 나갔다. 돈을 내고 아무 근거 없는 글을 받는 것이 제일 나쁘다.
         // 바닥은 실제 과제 7,131건의 길이를 재서 정했다(한글·영문 8자, guide_text_v1.js).
-        if (guideBlocks(taskText(input))) {
-          const say = guideMessage(taskText(input)).replace(/<[^>]+>/g, '');
+        // **재는 것은 안내문뿐이다.** 2026-09-27 에 깨진 안내문을 넣어 보다가 찾았다: taskText 는
+        // 안내문에 **우리가 미리 골라 둔 낱말**(「온도와 반응 속도」)까지 붙여서 글자를 센다.
+        // 화면은 그 낱말을 늘 보내므로, 안내문이 「가」 한 글자여도 글자 수가 8을 넘어 통과했다 —
+        // 즉 이 바닥은 실제 학생에게는 **한 번도 걸리지 않고 있었다.** 우리가 채운 글자로 학생의
+        // 안내문 길이를 재면 안 된다. 과제 이름과 안내문만 센다.
+        const guideText = [input.taskTitle, input.taskDescription].filter(Boolean).join(' ');
+        if (guideBlocks(guideText)) {
+          const say = guideMessage(guideText).replace(/<[^>]+>/g, '');
           // 화면은 message 를 먼저 읽는다. error 에만 넣으면 영어 코드가 뜰 수 있다.
           return withCors(json({ ok: false, reason: 'GUIDE_TOO_SHORT', error: 'GUIDE_TOO_SHORT', message: say }, 400));
         }
@@ -1057,7 +1063,14 @@ function resolveInput(payload) {
     schoolName: String(payload?.schoolName || '').trim(),
     subject: String(payload?.subject || selection.subject || '').trim(),
     subjectGroup: String(payload?.subjectGroup || '').trim(),
-    taskDescription: String(payload?.taskDescription || '').trim().slice(0, 6000),
+    // 6,000자를 넘으면 **앞에서 자르지 않고** 이 과제와 겹치는 토막을 고른다.
+    // 학생은 학년 전체 평가계획표를 통째로 붙여 넣는다 — 앞에서 자르면 남의 과제가 들어온다.
+    taskDescription: pickGuideSection(payload?.taskDescription, {
+      limit: 6000,
+      subject: payload?.subject,
+      taskName: payload?.taskName,
+      keyword: [payload?.selectedKeyword, payload?.keyword, payload?.selectedConcept].filter(Boolean).join(' '),
+    }),
     selectedConcept: String(payload?.selectedConcept || selection.selectedConcept || '').trim(),
     selectedKeyword: keywordOf(payload?.selectedKeyword, selection.selectedKeyword, payload?.keyword) || concept,
     selectedFollowupAxis: String(payload?.selectedFollowupAxis || selection.selectedFollowupAxis || '').trim(),

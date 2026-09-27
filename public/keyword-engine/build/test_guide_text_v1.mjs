@@ -33,8 +33,13 @@ const read = (path) => readFileSync(path, 'utf8');
 // ── ② 이용권이 깎이기 전에 막는다 ───────────────────────────
 {
   const worker = read('admission_worker_skeleton/worker.js');
-  const at = worker.indexOf('guideBlocks(taskText(input))');
+  // **재는 것은 안내문뿐이어야 한다.** 2026-09-27 까지는 taskText(input) 을 쟀는데, 거기에는
+  // 우리가 미리 골라 둔 낱말이 붙어 있다. 화면은 그 낱말을 늘 보내므로 안내문이 「가」 한 글자여도
+  // 통과했다 — 이 바닥이 실제 학생에게는 한 번도 안 걸리고 있었다.
+  const at = worker.indexOf('guideBlocks(guideText)');
   ok(at > 0, '워커가 안내문 길이를 봐야 한다');
+  ok(/const guideText = \[input\.taskTitle, input\.taskDescription\]/.test(worker),
+    '우리가 채운 낱말 말고 학생이 낸 안내문만 재야 한다');
   // 학생 코드를 보기 전에, AI를 부르기 전에 막아야 한다. 뒤에 있으면 이용권이 깎인다.
   ok(at < worker.indexOf('모든 보고서는 학생 코드를 지나간다'), '학생 코드를 확인하기 전에 막아야 한다');
   ok(at < worker.indexOf('const prompt = buildPrompt'), 'AI를 부르기 전에 막아야 한다');
