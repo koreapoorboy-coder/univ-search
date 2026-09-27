@@ -1,6 +1,6 @@
 // 실전 한 편(2026-09-27, 화학 「물질의 양과 화학 반응식」)을 통으로 돌려서 찾은 흠 네 개.
 // 하나도 화면에서는 안 보이던 것들이다 — 학생이 내는 글에서만 보인다.
-import { allowedNumberSet, computeStats, normalizeStudentData, dropUnkeptPledges, isPlanSentence, removeUnsupportedNumbers } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
+import { allowedNumberSet, computeStats, normalizeStudentData, dropUnkeptPledges, isPlanSentence, removeNoSourceClaim, removeUnsupportedNumbers } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
 import { readFileSync } from 'node:fs';
 import { summarise } from '../../../admission_worker_skeleton/student_portfolio_v1.mjs';
 
@@ -83,6 +83,17 @@ const ok = (name, got) => { if (got) pass += 1; else fails.push(name); };
   ok('직전 조건과의 차이도 쓸 수 있다', allowed.has(String(stats.rows[2].diff_from_prev)));
   const sentence = '첫 조건 대비 변화율은 5 mL에서 56.5%, 10 mL에서 112.9%였고, 직전 조건 대비 변화율은 5→10 mL에서 36.1%였다.';
   ok('그 분석을 쓴 문장이 안 지워진다', removeUnsupportedNumbers(sentence, allowed, { allowPlans: false }).removed === 0);
+}
+
+// ⑦ 참고 자료가 실려 있는데 「참고 자료 없이 진행했으며」라고 쓰면 안 된다.
+//
+// 학생이 자료 카드를 안 적어도, 교과 확장 재료에서 온 대학 글·논문이 참고 자료에 실린다. 그것을 세지
+// 않았더니 서울대 연구 두 편이 실린 보고서의 느낀 점에 이 문장이 남았다. 선생님은 두 곳을 같이 본다.
+{
+  const said = '참고 자료 없이 진행했으며, 수업 개념과 측정값만으로 해석을 시도했다.';
+  ok('자료가 실렸으면 그 문장을 지운다', removeNoSourceClaim(said, true).removed === 1);
+  ok('정말 없으면 그대로 둔다', removeNoSourceClaim(said, false).removed === 0);
+  ok('예전 말투(인용하지 않았다)도 그대로 잡는다', removeNoSourceClaim('참고 자료는 따로 인용하지 않았다.', true).removed === 1);
 }
 
 console.log(`실전 한 편에서 찾은 흠: ${pass}개 통과${fails.length ? ` · 실패 ${fails.length}` : ''}`);
