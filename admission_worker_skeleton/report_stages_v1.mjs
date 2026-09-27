@@ -850,7 +850,10 @@ export function removeInventedActions(body, studentText) {
 // 학생이 참고 자료를 적었는데 「참고 자료는 별도로 인용하지 않았다」고 쓴 문장은 지운다. 운영 테스트 34:
 // 학생이 적은 자료 두 개가 참고 자료에서 빠지자 느낀 점에 이 문장이 들어갔다(자료는 그대로 있었다).
 // 「참고 자료 없이 진행했으며」처럼 **없이·전혀 없다**로 쓰는 말투도 같은 것이다(2026-09-27 확인 실행).
-const NO_SOURCE_CLAIM = /(참고\s*자료|참고\s*문헌|자료를|문헌을|인용)[^.]*(?:(?:인용하지|적지|쓰지|밝히지|사용하지|참고하지)\s*(?:않았|못했|않고|않은)|없이|전혀\s*없|하나도\s*없)/;
+// 말버릇을 하나씩 세는 것을 그만둔다. 「인용하지 않았다」를 넣었더니 「없이 진행했으며」가 나왔고,
+// 그것을 넣었더니 「따로 두지 않고」가 나왔다(2026-09-27). 참고 자료를 가리키면서 「않」이나 「없」으로
+// 이어지는 문장이면 같은 말이다.
+const NO_SOURCE_CLAIM = /(참고\s*자료|참고\s*문헌|자료를|문헌을|인용)[^.]{0,30}(않|없)/;
 export function removeNoSourceClaim(body, hasSources) {
   if (!hasSources) return { body: String(body || ''), removed: 0, dropped: [] };
   return filterSentences(body, (sentence) => !NO_SOURCE_CLAIM.test(sentence));
@@ -1750,11 +1753,14 @@ export function finalizeStageOutput(stage, rawParsed, input) {
         const actions = removeInventedActions(praise.body, studentText);
         // 실험 보고서의 학생 자료는 sourceCards 에 있다(sources 는 문헌 탐구 보고서 쪽이다). 운영 테스트 35에서
         // sources 만 보다가 「참고 자료는 별도로 사용하지 않았고」가 그대로 남았다.
-        // **참고 자료에 실제로 실리는 것을 다 센다.** 학생이 자료 카드를 안 적어도 교과 확장 재료에서 온
-        // 논문·대학 글이 참고 자료에 실린다. 그것을 안 세었더니, 서울대 연구 두 편이 실린 보고서의 느낀 점에
-        // 「참고 자료 없이 진행했으며」가 남았다 — 선생님이 두 곳을 같이 본다(2026-09-27 확인 실행).
+        // **학생이 실제로 쓴 자료만 센다.** 오늘 아침에 논문·대학 글도 세도록 고쳤는데, 그것이 틀렸다.
+        // 그 뒤에 참고 자료를 고쳐서 논문·대학 글은 「더 읽어 볼 자료 (아직 읽지 않았어요)」 아래로 내려갔다.
+        // 학생이 읽지 않았다고 우리가 적어 두고서, 학생이 「참고 자료는 따로 두지 않았다」고 쓰면 지운다면
+        // 두 말이 서로 어긋난다. 지워야 하는 것은 **인용 자리에 자료가 있는데 없다고 말하는 문장**이다.
+        // 그 자리에 오는 것은 학생이 적은 자료 카드·자료원, 학생이 값을 가져온 통계표, 학생이 읽은 작품이다.
         const hasSources = (data.sources || []).length + (data.sourceCards || []).length
-          + refPapers.length + refWeb.length + (input.referenceDatasets || []).length > 0;
+          + studentSourceLines(data.conditions).length + (input.referenceDatasets || []).length
+          + (String(input.readWork || '').trim() ? 1 : 0) > 0;
         const sourceClaim = removeNoSourceClaim(actions.body, hasSources);
         removedFeelings += feelings.removed + praise.removed + actions.removed + sourceClaim.removed;
         return { ...section, body: dropLeadingConnective(sourceClaim.body) };
