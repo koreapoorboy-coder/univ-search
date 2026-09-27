@@ -1,6 +1,6 @@
 // 실전 한 편(2026-09-27, 화학 「물질의 양과 화학 반응식」)을 통으로 돌려서 찾은 흠 네 개.
 // 하나도 화면에서는 안 보이던 것들이다 — 학생이 내는 글에서만 보인다.
-import { allowedNumberSet, computeStats, normalizeStudentData, dropUnkeptPledges, isPlanSentence, removeNoSourceClaim, removeUnsupportedNumbers } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
+import { allowedNumberSet, computeStats, normalizeStudentData, dropUnkeptPledges, isPlanSentence, removeNoSourceClaim, removeUnnamedTools, removeUnsupportedNumbers } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
 import { readFileSync } from 'node:fs';
 import { summarise } from '../../../admission_worker_skeleton/student_portfolio_v1.mjs';
 
@@ -109,6 +109,20 @@ const ok = (name, got) => { if (got) pass += 1; else fails.push(name); };
   ok('급수에 단백질 정렬이 없다', 빠졌나('미적분1::급수', 'FoldMason'));
   ok('수열의 극한에 단백질 정렬이 없다', 빠졌나('미적분1::수열의 극한', 'FoldMason'));
   ok('확률과 통계의 의학 코호트 연구는 그대로 있다', (index.concepts['확률과 통계::통계적 추정'] || []).length >= 5);
+}
+
+// ⑨ 「프레임」이 영상의 프레임이 아닐 때가 있다.
+//
+// 설문형 한 편(2026-09-27, 사회문제 탐구 · 메시지 프레이밍)에서 「환경 프레임으로 같은 활동을 제안했을 때
+// 응답 분포는 …」 세 문장이 통째로 지워졌다. 핵심 분석이 전부 사라졌다. 학생이 말한 적 없는 기구를 막는
+// 장치가 「프레임으로」를 영상 측정 기구로 읽은 것이다. 영상의 프레임은 「프레임률」·「프레임 단위」로 잡는다.
+{
+  const 설문 = '환경 프레임으로 같은 활동을 제안했을 때 응답 분포는 아마 안 하겠다 26명 > 하겠다 19명 순으로 나타났다.';
+  ok('메시지 프레이밍 문장은 안 지운다', removeUnnamedTools(설문, '').removed === 0);
+  const 영상 = '영상 재생의 프레임 단위로 종료 시점을 판정했다.';
+  ok('영상 프레임 단위는 그대로 막는다', removeUnnamedTools(영상, '').removed === 1);
+  ok('안내문에 있으면 그대로 둔다', removeUnnamedTools(영상, '영상을 프레임 단위로 재라고 했다').removed === 0);
+  ok('조사가 붙어도 학생이 말한 것으로 본다', removeUnnamedTools('촬영으로 시점을 정했다.', '촬영 기록').removed === 0);
 }
 
 console.log(`실전 한 편에서 찾은 흠: ${pass}개 통과${fails.length ? ` · 실패 ${fails.length}` : ''}`);

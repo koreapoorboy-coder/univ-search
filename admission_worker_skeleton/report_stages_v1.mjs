@@ -630,12 +630,19 @@ export function removeUnknownSubjectNames(body) {
 // 학생이 말한 적 없는 기구·절차를 했다고 단정한 문장은 지운다. 운영 테스트 38(물리 빗면): 학생은 시간만 적었는데
 // 「스마트폰 카메라를 고정해 프레임률을 고정했다」, 「영상 재생의 프레임 단위로 판정했다」가 방법 절에 들어갔다.
 // 안내문이나 학생 메모에 그 말이 있으면 그대로 둔다(선생님이 영상으로 재라고 한 과제도 있다).
-const UNNAMED_TOOLS = /스마트폰|휴대폰|핸드폰|카메라|촬영|동영상|영상|프레임률|프레임 단위|프레임으로|마스킹테이프|삼각대|광센서|포토게이트|모션 센서|어플|앱으로|전용 프로그램|엑셀로|초고속/;
+// 「프레임으로」를 뺐다. 설문 보고서 한 편(2026-09-27, 사회문제 탐구)이 **메시지 프레이밍** 과제였는데,
+// 「환경 프레임으로 같은 활동을 제안했을 때 응답 분포는 …」 세 문장이 통째로 지워졌다 — 핵심 분석이
+// 전부 사라졌다. 영상의 프레임은 「프레임률」·「프레임 단위」로 잡히고, 그런 문장에는 영상·촬영·카메라가
+// 거의 늘 함께 있어 여전히 걸린다.
+const UNNAMED_TOOLS = /스마트폰|휴대폰|핸드폰|카메라|촬영|동영상|영상|프레임률|프레임 단위|마스킹테이프|삼각대|광센서|포토게이트|모션 센서|어플|앱으로|전용 프로그램|엑셀로|초고속/;
+// 조사가 붙은 꼴로 걸리면 원래 낱말로 견준다 — 안내문에 「영상」이 있는데 본문이 「영상으로」라고 쓰면
+// 학생이 말한 것인데도 지어낸 것으로 봤다(2026-09-27).
+const 조사떼기 = (word) => String(word).replace(/(으로|로|을|를|이|가|은|는|의|에서|에|와|과|도|만)$/, '');
 export function removeUnnamedTools(body, studentText) {
   const text = String(studentText || '');
   return filterSentences(body, (sentence) => {
     const found = String(sentence).match(new RegExp(UNNAMED_TOOLS, 'g')) || [];
-    return !found.length || found.every((word) => text.includes(word));
+    return !found.length || found.every((word) => text.includes(word) || text.includes(조사떼기(word)));
   });
 }
 
