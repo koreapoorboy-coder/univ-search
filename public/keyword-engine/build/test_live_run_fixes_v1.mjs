@@ -1,6 +1,6 @@
 // 실전 한 편(2026-09-27, 화학 「물질의 양과 화학 반응식」)을 통으로 돌려서 찾은 흠 네 개.
 // 하나도 화면에서는 안 보이던 것들이다 — 학생이 내는 글에서만 보인다.
-import { dropUnkeptPledges, isPlanSentence, removeUnsupportedNumbers } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
+import { allowedNumberSet, computeStats, normalizeStudentData, dropUnkeptPledges, isPlanSentence, removeUnsupportedNumbers } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
 import { readFileSync } from 'node:fs';
 import { summarise } from '../../../admission_worker_skeleton/student_portfolio_v1.mjs';
 
@@ -63,6 +63,26 @@ const ok = (name, got) => { if (got) pass += 1; else fails.push(name); };
   ok('축이 하나뿐이면 줄기가 아니다', noAxis.lines.length === 0);
   const withAxis = summarise([{ grade: '고1', subject: '통합과학1', axis }, { grade: '고2', subject: '화학', axis }]);
   ok('같은 축을 두 번 지나면 줄기다', withAxis.lines.length === 1 && withAxis.lines[0].count === 2);
+}
+
+// ⑥ 우리가 표로 넘겨준 값은 본문에 쓸 수 있어야 한다.
+//
+// 「직전조건과의차이」·「직전조건대비변화율」을 계산해 AI에게 주고, 시계열 과제에서는 그것으로 전환점을
+// 짚으라고 시켜 놓고, 쓸 수 있는 숫자 목록에는 안 넣었다. 그래서 그 분석을 쓴 문장이 전부 지워졌다 —
+// 조건이 셋 이상인 측정 과제는 모두 그랬다. 지워지자 이번에는 「약속만 하고 안 썼다」 장치가 방법 절의
+// 약속까지 뗐다. 두 장치가 서로 싸우고 있었다(2026-09-27 확인 실행).
+{
+  const raw = { measurementName: '풍선 둘레 길이', unit: 'cm', reason: '', observations: '', reflection: '', sources: [], sourceCards: [],
+    conditions: [{ label: '0 mL', values: ['12.0', '12.4', '12.8'] }, { label: '5 mL', values: ['19.0', '19.4', '19.8'] }, { label: '10 mL', values: ['26.0', '26.4', '26.8'] }] };
+  const data = normalizeStudentData(raw);
+  const stats = computeStats(data);
+  const allowed = allowedNumberSet(data, stats);
+  const prev = stats.rows[2].percent_from_prev;
+  ok('직전 조건 대비 변화율을 계산한다', prev === 36.1);
+  ok('그 값을 본문에 쓸 수 있다', allowed.has(String(prev)));
+  ok('직전 조건과의 차이도 쓸 수 있다', allowed.has(String(stats.rows[2].diff_from_prev)));
+  const sentence = '첫 조건 대비 변화율은 5 mL에서 56.5%, 10 mL에서 112.9%였고, 직전 조건 대비 변화율은 5→10 mL에서 36.1%였다.';
+  ok('그 분석을 쓴 문장이 안 지워진다', removeUnsupportedNumbers(sentence, allowed, { allowPlans: false }).removed === 0);
 }
 
 console.log(`실전 한 편에서 찾은 흠: ${pass}개 통과${fails.length ? ` · 실패 ${fails.length}` : ''}`);

@@ -505,6 +505,11 @@ export function numbersIn(text) {
 
 // Numbers the report may use: student values and their computed summaries (0–2 decimals, signed or not),
 // numbers the student or the approved draft wrote, and small counts such as step numbers.
+// **우리가 표로 넘겨주는 값은 돌려받을 수 있어야 한다.** 「직전조건과의차이」와 「직전조건대비변화율」을
+// 계산해 AI에게 주고, 시계열 과제에서는 그것으로 전환점을 짚으라고 시켜 놓고, 정작 쓸 수 있는 숫자
+// 목록에는 넣지 않았다. 그래서 그 분석을 쓴 문장이 전부 지워졌다 — 실전 확인(2026-09-27, 과산화수소
+// 풍선 둘레)에서 「직전 조건 대비 변화율은 36.1%였다」를 비롯해 일곱 문장이 사라졌고, 그러자 이번에는
+// 「약속만 하고 안 썼다」 장치가 방법 절의 약속까지 뗐다. 두 장치가 서로 싸우고 있었다.
 export function allowedNumberSet(data, stats) {
   const allowed = new Set();
   const addValue = (value) => {
@@ -515,7 +520,7 @@ export function allowedNumberSet(data, stats) {
     });
   };
   for (let count = 0; count <= 10; count += 1) allowed.add(String(count));
-  (stats?.rows || []).forEach((row) => [...row.values, row.mean, row.min, row.max, row.spread, row.diff_from_first, row.percent_from_first, row.diff_from_group_first, row.percent_from_group_first].forEach(addValue));
+  (stats?.rows || []).forEach((row) => [...row.values, row.mean, row.min, row.max, row.spread, row.diff_from_first, row.percent_from_first, row.diff_from_group_first, row.percent_from_group_first, row.diff_from_prev, row.percent_from_prev].forEach(addValue));
   (stats?.comparisons || []).forEach((comparison) => addValue(comparison.gap));
   (stats?.frequency || []).forEach((one) => [one.n, one.mean, one.variance, one.sd].forEach(addValue));
   (data.references || []).forEach((one) => addValue(toNumber(one.value)));
