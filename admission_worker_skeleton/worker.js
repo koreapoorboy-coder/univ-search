@@ -1293,7 +1293,11 @@ async function analyzeUploadWithModel(files, meta, env) {
       model,
       input: [{ role: "user", content }],
       ...(reasoningModel ? { reasoning: { effort: env.OPENAI_REASONING_EFFORT || "medium" } } : { temperature: 0.2 }),
-      max_output_tokens: reasoningModel ? 12000 : 6000,
+      // **생활기록부 한 해치는 12,000 으로 모자란다.** 2026-09-27 에 실제 1학년 생기부(사진 8장)로
+      // 확인했다: 12,000 에서는 교과 열아홉 개 가운데 일곱 개만 옮기고 멈췄고(앞 두 장이 통째로
+      // 빠졌다), 「빠짐없이 옮겨라」를 말하자 이번에는 status=incomplete 로 아예 실패했다.
+      // 쓴 만큼만 돈이 나가므로 천장을 올리는 것은 공짜다 — 모자라서 다시 올리는 쪽이 비싸다.
+      max_output_tokens: reasoningModel ? 24000 : 6000,
       text: {
         format: {
           type: "json_schema",

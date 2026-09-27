@@ -95,7 +95,7 @@ export function analysisSchema() {
         entries: {
           type: 'array',
           minItems: 0,
-          maxItems: 24,
+          maxItems: 40,
           items: {
             type: 'object',
             additionalProperties: false,
@@ -241,7 +241,9 @@ export function analysisPromptLines(input) {
     '- pastUnits에는 **이 학생이 이미 다룬 것**을 과목별로 적는다. subject는 학교 교과목 이름(통합과학·공통국어1·한국사처럼), topic은 그 과목에서 다룬 주제를 교과서 말로 짧게(예: 광합성과 세포 호흡, 음운 변동), grade는 몇 학년 때인지(고1·고2·고3)를 쓴다.',
     '- pastUnits는 지어내지 않는다. 세부능력특기사항에 적힌 것만 쓴다. 같은 주제가 여러 번 나오면 한 번만 쓴다. 동아리·자율활동처럼 교과가 아닌 것은 subject를 비운다.',
     '- entries에는 **세부능력특기사항 글을 과목별로 그대로** 옮긴다. grade는 학년(고1·고2·고3), subject는 교과목 이름, text는 그 과목에 적힌 글이다. 한 과목이 한 줄이다.',
-    '- entries의 text는 요약하지 않는다. 다만 500자를 넘으면 뒤를 자른다. 사람 이름·학교 이름·선생님 이름은 옮기지 않는다. 읽히지 않는 부분은 빼고 읽힌 것만 옮긴다.',
+    '- **사진에 보이는 교과를 빠짐없이** 한 줄씩 넣는다. 국어·수학·영어·한국사·통합사회·통합과학처럼 앞쪽에 있는 과목도 반드시 넣는다. 빠뜨리면 학생의 3년 기록에 구멍이 생긴다.',
+    '- entries의 text는 그 과목에서 **무엇을 다뤘는지** 알 수 있게 300자 안으로 적는다. 태도나 참여도 칭찬은 빼고 다룬 주제와 활동을 남긴다. 사람 이름·학교 이름·선생님 이름은 옮기지 않는다. 읽히지 않는 부분은 빼고 읽힌 것만 옮긴다.',
+    '- 사진이 여러 장이면 **모든 장**을 끝까지 읽는다. 뒤쪽 장만 읽고 끝내지 않는다.',
     '- entries에는 교과 세부능력특기사항만 넣는다. 창의적 체험활동(자율·동아리·진로)과 행동특성은 넣지 않는다 — 그건 activitySummary가 맡는다.',
     '',
     '[reportLines — 가장 중요한 항목]',
@@ -280,8 +282,8 @@ export function sanitizeAnalysis(parsed) {
       repeatedInterests: texts(parsed?.record?.repeatedInterests, 6, 40),
       strongSides: texts(parsed?.record?.strongSides, 5, 80),
       thinSides: texts(parsed?.record?.thinSides, 5, 80),
-      entries: (Array.isArray(parsed?.record?.entries) ? parsed.record.entries : []).slice(0, 24)
-        .map((one) => ({ grade: clip(one?.grade, 6), subject: text(one?.subject, 30), text: text(one?.text, 500) }))
+      entries: (Array.isArray(parsed?.record?.entries) ? parsed.record.entries : []).slice(0, 40)
+        .map((one) => ({ grade: clip(one?.grade, 6), subject: text(one?.subject, 30), text: text(one?.text, 300) }))
         .filter((one) => one.text.length >= 20),
       pastUnits: (Array.isArray(parsed?.record?.pastUnits) ? parsed.record.pastUnits : []).slice(0, 20)
         .map((one) => ({ subject: text(one?.subject, 30), topic: text(one?.topic, 60), grade: clip(one?.grade, 6) }))
