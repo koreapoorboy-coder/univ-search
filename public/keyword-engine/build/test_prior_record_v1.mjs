@@ -223,8 +223,7 @@ check(!judgeOnly.record.properties.entries && !judgeOnly.record.properties.pastU
   '판단할 때는 옮겨 적기 칸을 빼 준다 — 안 빼면 열세 줄을 다시 쓰며 자리를 다 쓴다');
 
 // 판단에 넣는 글은 짧게 자른다. 과목이 스물여덟 개가 되자 자르지 않은 글로는 판단이 실패했다.
-const many = judgePromptLines({}, { entries: Array.from({ length: 28 }, (_, i) => ({ grade: '고1', subject: `과목${i}`, text: '가'.repeat(300) })) }).join('
-');
+const many = judgePromptLines({}, { entries: Array.from({ length: 28 }, (_, i) => ({ grade: '고1', subject: `과목${i}`, text: '가'.repeat(300) })) }).join(String.fromCharCode(10));
 check(many.length < 6000, '판단 프롬프트가 짧게 유지된다 — 길면 모델이 생각만 하다 끝난다', String(many.length));
 check(!/가{200}/.test(many), '세특 전문을 다시 넣지 않는다 — 전문은 우리가 갖고 있다');
 
