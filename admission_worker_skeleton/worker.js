@@ -1,7 +1,7 @@
 import { acceptLiveInputCandidate, handleSimpleLiveIntakeRequest, parseStrictIJson } from './simple_live_intake_v1.mjs';
 import { messageForCode } from './live_input_message_v1.mjs';
 import { COLLECTION, STAGE, bookIsSubject, finalizeStageOutput, hasStudentMeasurements, normalizeStudentData, titleRules, resolveCollectionKind, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
-import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, matchAxes, priorWorkPromptLines, sanitizeAnalysis, sharesGround, expandMajorTerms } from './upload_analysis_v1.mjs';
+import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, judgePromptLines, matchAxes, mergePages, pagePromptLines, pageSchema, priorWorkPromptLines, sanitizeAnalysis, sharesGround, expandMajorTerms } from './upload_analysis_v1.mjs';
 import { pickReportShape, shapePromptLines } from './report_shape_v1.mjs';
 import { crossSubjectPromptLines, pickCrossSubject } from './cross_subject_v1.mjs';
 import { majorPathPromptLines, resolveMajorPath } from './major_path_v1.mjs';
@@ -1244,7 +1244,15 @@ async function handleAnalyzeUpload(request, env) {
       console.error("axis index unavailable:", error?.message || error);
     }
     meta.matchedAxes = matchAxes([meta?.selectedKeyword, meta?.keyword, meta?.selectedConcept, meta?.subject, meta?.career], axisIndex);
-    read = await analyzeUploadWithModel(files, meta, env);
+    // **생활기록부는 장수와 상관없이 「옮겨 적기 → 판단」 두 단계로 읽는다.**
+    // 한 번에 판단까지 시키면 모델이 옮겨 적기를 요약으로 대신한다 — 실제 3년치 PDF 한 장으로
+    // 확인했다(2026-09-27): 문서는 다 읽었는데(입력 19,065) 교과를 **넷만** 적어 왔다.
+    // 따로 떨어진 「옮겨 적기만 해라」 지시문을 받으면 같은 모델이 열세 과목을 다 적는다.
+    // 옮겨 적은 것이 하나도 없으면 생활기록부가 아니다 — 그때 예전 길(보고서 읽기)로 간다.
+    read = await analyzeRecordInBatches(files, meta, env);
+    if (!read?.analysis?.record?.entries?.length) {
+      read = await analyzeUploadWithModel(files, meta, env);
+    }
   } catch (error) {
     console.error("upload analysis failed:", error?.message || error);
     return json({ ok: false, error: "UPLOAD_ANALYSIS_FAILED", message: String(error?.message || error).slice(0, 300) }, 502);
@@ -1264,6 +1272,148 @@ async function handleAnalyzeUpload(request, env) {
     axes: (meta.matchedAxes || []).map((axis) => ({ title: axis.title, subject: axis.subject, next: axis.next })),
     usage: { ...read.usage, seconds: Math.round((Date.now() - started) / 1000), files: files.length },
   });
+}
+
+// OpenAI 를 한 번 부른다. 묶음 읽기·판단·한 번에 읽기가 모두 이 길을 쓴다.
+async function askOpenAI(env, { content, properties, name, budget, effort }) {
+  const model = env.OPENAI_MODEL || 'gpt-4.1-mini';
+  const reasoningModel = /^(gpt-5|o\d)/.test(model);
+  const res = await fetch('https://api.openai.com/v1/responses', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${env.OPENAI_API_KEY}` },
+    body: JSON.stringify({
+      model,
+      input: [{ role: 'user', content }],
+      // 옮겨 적기는 생각할 것이 없다. 실제 생기부 PDF 한 장으로 확인했다(2026-09-27):
+      // 출력 6,485 가운데 5,120 이 「생각」이었고 정작 옮겨 적은 것은 네 과목뿐이었다.
+      // 옮길 때는 생각을 낮추고, 판단할 때만 원래대로 둔다.
+      ...(reasoningModel ? { reasoning: { effort: effort || env.OPENAI_REASONING_EFFORT || 'medium' } }
+        : { temperature: 0.2 }),
+      max_output_tokens: reasoningModel ? budget : Math.min(budget, 6000),
+      text: { format: { type: 'json_schema', name, schema: { type: 'object', additionalProperties: false, required: Object.keys(properties), properties } } },
+    }),
+  });
+  const body = await res.json();
+  if (!res.ok) throw new Error(body?.error?.message || `OpenAI error ${res.status}`);
+  // 글자가 거의 없는 파일은 모델이 제자리를 돌다 자리가 떨어진다. 학생이 할 수 있는 말을 준다.
+  if (body?.status === 'incomplete') throw new Error('자료에서 읽을 내용을 찾지 못했어요. 글자가 선명하게 보이는 파일인지 확인하고 다시 올려 주세요.');
+  const message = (body?.output || []).find((item) => item?.type === 'message') || body?.output?.[0];
+  const text = message?.content?.find((part) => part?.type === 'output_text')?.text || message?.content?.[0]?.text || body?.output_text;
+  if (!text) throw new Error('자료를 읽지 못했어요. 잠시 뒤 다시 시도해 주세요.');
+  let parsed;
+  try {
+    parsed = JSON.parse(text);
+  } catch (error) {
+    throw new Error(`${error.message}; status=${body?.status || ''} ${body?.incomplete_details?.reason || ''}; tail=${text.slice(-120)}`);
+  }
+  return {
+    parsed,
+    usage: {
+      model: String(body?.model || model),
+      input_tokens: Number(body?.usage?.input_tokens || 0),
+      output_tokens: Number(body?.usage?.output_tokens || 0),
+      reasoning_tokens: Number(body?.usage?.output_tokens_details?.reasoning_tokens || 0),
+    },
+  };
+}
+
+// PDF 가 몇 쪽인지 센다. 라이브러리 없이 바이트를 훑는다 — /Type /Page 가 쪽마다 한 번 나온다.
+// 못 세면 0 이고, 그러면 나누지 않고 한 번에 읽는다(예전 그대로).
+async function countPdfPages(file) {
+  if (String(file?.type || '').toLowerCase() !== 'application/pdf') return 0;
+  try {
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    // 한 번에 글자로 바꾸면 큰 파일에서 메모리가 튄다. 조각으로 나눠 세고 경계는 조금 겹친다.
+    let count = 0;
+    const STEP = 1 << 20;
+    const decoder = new TextDecoder('latin1');
+    for (let at = 0; at < bytes.length; at += STEP) {
+      const text = decoder.decode(bytes.subarray(at, Math.min(at + STEP + 20, bytes.length)));
+      count += (text.match(/\/Type\s*\/Page[^s]/g) || []).length;
+    }
+    return count;
+  } catch (error) {
+    console.error('page count failed:', error?.message || error);
+    return 0;
+  }
+}
+
+// 파일 하나를 모델이 볼 수 있는 모양으로 바꾼다.
+async function fileForModel(file, env) {
+  const type = String(file.type || '').toLowerCase();
+  // 큰 파일은 그대로 Files API 로 보낸다. 여기서 base64 로 바꾸면 메모리가 3분의 1 더 드는데,
+  // 워커가 가진 것은 128MB 뿐이다.
+  if (file.size > UPLOAD_LIMITS.inlineBytes) {
+    const fileId = await uploadFileToOpenAI(file, env);
+    return type === 'application/pdf' ? { type: 'input_file', file_id: fileId } : { type: 'input_image', file_id: fileId };
+  }
+  const base64 = bytesToBase64(new Uint8Array(await file.arrayBuffer()));
+  return type === 'application/pdf'
+    ? { type: 'input_file', filename: file.name || 'upload.pdf', file_data: `data:application/pdf;base64,${base64}` }
+    : { type: 'input_image', image_url: `data:${type};base64,${base64}` };
+}
+
+// **여러 장이면 묶음으로 나눠 읽고 합친다.** 한 번에 다 읽으면 쓸 수 있는 글자 수 천장에
+// 부딪혀 교과를 빠뜨리거나 통째로 실패한다(2026-09-27, 실제 1학년 생기부 8장으로 확인).
+// 묶음은 **같이** 보낸다 — 다섯 묶음이 차례로 가면 8분인데 같이 가면 2분이다.
+// 한 묶음이 실패해도 나머지는 남는다. 학생에게 「몇 장을 못 읽었다」고 말해 줄 수 있다.
+async function analyzeRecordInBatches(files, meta, env) {
+  // 파일이 한 개면 장으로 못 나눈다. 그때는 **학년으로** 나눈다 — 같은 파일을 세 번 보내되
+  // 「고1 것만」·「고2 것만」·「고3 것만」이라고 말해 준다.
+  //
+  // **여기까지가 한계다(2026-09-27, 26쪽짜리 실제 3년치 PDF 로 재 봤다).** 한 번에 보내면
+  // 교과 넷, 쪽 번호로 나누면 다섯, 학년으로 나누면 아홉이었다. 입력 토큰이 19,065 에서 더
+  // 늘지 않는 것으로 보아 **한 번에 모델에 닿는 양 자체가 제한된다** — 지시문으로는 못 넘는다.
+  // 제대로 고치려면 PDF 를 **쪽마다 그림으로 쪼개서** 올려야 한다(사진 8장은 열세 과목을 다 읽었다).
+  // 쪽 수는 세어 두고, 많으면 학생에게 「사진으로 나눠 올리면 더 잘 읽는다」고 말해 준다.
+  const pages = files.length === 1 ? await countPdfPages(files[0]) : 0;
+  const byGrade = files.length === 1 && pages > 4 ? ["고1", "고2", "고3"] : null;
+  const size = UPLOAD_LIMITS.batchFiles;
+  const groups = [];
+  if (byGrade) for (const grade of byGrade) groups.push(files);
+  else for (let at = 0; at < files.length; at += size) groups.push(files.slice(at, at + size));
+  const properties = pageSchema();
+  const done = await Promise.all(groups.map(async (group, at) => {
+    try {
+      const content = [{ type: 'input_text', text: pagePromptLines(meta, byGrade ? byGrade[at] : '').join('\n') }];
+      for (const file of group) content.push(await fileForModel(file, env));
+      const out = await askOpenAI(env, { content, properties, name: 'student_record_pages', budget: 16000, effort: 'low' });
+      return { at, ok: true, parsed: out.parsed, usage: out.usage };
+    } catch (error) {
+      console.error(`batch ${at} failed:`, error?.message || error);
+      return { at, ok: false, error: String(error?.message || error).slice(0, 200) };
+    }
+  }));
+  const good = done.filter((one) => one.ok);
+  if (!good.length) throw new Error(done[0]?.error || '자료를 읽지 못했어요.');
+  const merged = mergePages(good.map((one) => one.parsed));
+
+  // 판단은 모아 놓고 한 번만 한다. 사진은 다시 안 보내므로 싸고 빠르다.
+  const judgeProps = analysisSchema();
+  let judged = null;
+  try {
+    judged = await askOpenAI(env, {
+      content: [{ type: 'input_text', text: judgePromptLines(meta, merged).join('\n') }],
+      properties: judgeProps, name: 'student_upload_analysis', budget: 16000,
+    });
+  } catch (error) {
+    // **판단이 실패해도 옮겨 적은 것은 버리지 않는다.** 그게 나눠 읽기의 요점이다 —
+    // 학생은 적어도 3년 기록을 얻고, 다음에 쓸 주제 제안만 비어 있다.
+    console.error('judge failed:', error?.message || error);
+  }
+  const parsed = { ...(judged?.parsed || {}), docType: DOC.RECORD,
+    record: { ...(judged?.parsed?.record || {}), entries: merged.entries, pastUnits: merged.pastUnits } };
+  const usage = [...good.map((one) => one.usage), ...(judged ? [judged.usage] : [])].reduce((sum, one) => ({
+    model: one.model,
+    input_tokens: sum.input_tokens + one.input_tokens,
+    output_tokens: sum.output_tokens + one.output_tokens,
+    reasoning_tokens: sum.reasoning_tokens + one.reasoning_tokens,
+  }), { model: '', input_tokens: 0, output_tokens: 0, reasoning_tokens: 0 });
+  const missed = done.filter((one) => !one.ok).map((one) => one.at);
+  // 쪽이 많은 PDF 한 개는 다 못 읽었을 수 있다. 숨기지 않고 학생에게 말해 준다.
+  return { analysis: sanitizeAnalysis(parsed),
+    usage: { ...usage, batches: groups.length, missedBatches: missed, judged: Boolean(judged), pdfPages: pages },
+    partial: pages > 4 ? `올리신 PDF 가 ${pages}쪽이라 일부만 읽혔을 수 있어요. 빠진 과목이 있으면 그 쪽을 사진으로 찍어 올려 주세요 — 사진은 빠짐없이 읽습니다.` : "" };
 }
 
 async function analyzeUploadWithModel(files, meta, env) {
@@ -1297,7 +1447,7 @@ async function analyzeUploadWithModel(files, meta, env) {
       // 확인했다: 12,000 에서는 교과 열아홉 개 가운데 일곱 개만 옮기고 멈췄고(앞 두 장이 통째로
       // 빠졌다), 「빠짐없이 옮겨라」를 말하자 이번에는 status=incomplete 로 아예 실패했다.
       // 쓴 만큼만 돈이 나가므로 천장을 올리는 것은 공짜다 — 모자라서 다시 올리는 쪽이 비싸다.
-      max_output_tokens: reasoningModel ? 24000 : 6000,
+      max_output_tokens: reasoningModel ? 32000 : 6000,
       text: {
         format: {
           type: "json_schema",

@@ -165,4 +165,36 @@ check(/fromRecord\.map\(renderRecordRow\)/.test(folioSrc), '학년 묶음 안에
 const sheet = readFileSync(`${SITE}/assets/student_screens.css`, 'utf8');
 check(/\.badge\.mine/.test(sheet), '출처 표 꾸밈은 공용 한 장에 있다');
 
+// ── ⑥ 여러 장이면 묶음으로 나눠 읽는가 ─────────────────────────────────────────
+const { UPLOAD_LIMITS, pageSchema, pagePromptLines, mergePages, judgePromptLines } = await import(`file:///${ROOT}/admission_worker_skeleton/upload_analysis_v1.mjs`);
+check(UPLOAD_LIMITS.batchFiles >= 2 && UPLOAD_LIMITS.batchFiles <= 8, '묶음 크기가 정해져 있다', String(UPLOAD_LIMITS.batchFiles));
+const page = pageSchema();
+check(Object.keys(page).join(',') === 'entries,pastUnits', '묶음을 읽을 때는 옮겨 적기만 한다 — 판단 칸은 없다', Object.keys(page).join(','));
+check(/빠짐없이/.test(pagePromptLines({}).join(' ')), '묶음 안의 교과를 빠짐없이 옮기라고 말한다');
+// 같은 과목이 두 묶음에서 나오면 더 긴 글을 남긴다 — 한 과목이 두 장에 걸쳐 찍히면 한쪽이 잘린다.
+const merged = mergePages([
+  { entries: [{ grade: '고1', subject: '통합과학', text: '짧게 잘린 글' }], pastUnits: [{ grade: '고1', subject: '통합과학', topic: '생명 시스템' }] },
+  { entries: [{ grade: '고1', subject: '통합과학', text: '광합성 색소를 분리하는 실험을 수행하고 흡수 스펙트럼을 해석함' },
+              { grade: '고1', subject: '한국사', text: '조선 후기 대동법을 사료로 살펴봄' }],
+    pastUnits: [{ grade: '고1', subject: '통합과학', topic: '생명 시스템' }, { grade: '고1', subject: '한국사', topic: '조선 후기' }] },
+]);
+check(merged.entries.length === 2, '같은 과목은 한 줄로 합친다', String(merged.entries.length));
+check(/광합성/.test(merged.entries[0].text), '잘린 쪽이 아니라 더 긴 쪽을 남긴다');
+check(merged.pastUnits.length === 2, '이미 한 것도 겹치면 한 번만 남긴다', String(merged.pastUnits.length));
+// 판단은 모아 놓고 한 번만 한다 — 사진을 다시 보내지 않는다.
+const judge = judgePromptLines({ targetLevel: '고3 수준' }, merged).join(' ');
+check(/광합성/.test(judge), '판단할 때 옮겨 적은 글을 넣어 준다');
+check(/entries와 pastUnits는 비워/.test(judge), '판단 단계에서는 옮겨 적기를 다시 시키지 않는다');
+check(/analyzeRecordInBatches/.test(workerSrc), '워커에 묶음으로 읽는 길이 있다');
+check(/read = await analyzeRecordInBatches\(files, meta, env\)/.test(workerSrc),
+  '생활기록부는 장수와 상관없이 옮겨 적기 → 판단 두 단계로 읽는다');
+check(/!read\?\.analysis\?\.record\?\.entries\?\.length/.test(workerSrc),
+  '옮겨 적은 것이 없으면 생기부가 아니다 — 그때만 예전 길로 간다');
+check(/async function countPdfPages\(/.test(workerSrc),
+  'PDF 쪽 수를 센다 — 라이브러리 없이 바이트를 훑는다');
+check(/const byGrade = files\.length === 1 && pages > 4/.test(workerSrc),
+  'PDF 한 개는 학년으로 나눠 세 번 읽는다 — 한 번에 보내면 앞쪽만 읽힌다');
+check(/Promise\.all\(groups\.map/.test(workerSrc), '묶음을 같이 보낸다 — 차례로 보내면 학생이 오래 기다린다');
+check(/missedBatches/.test(workerSrc), '못 읽은 묶음이 있으면 남겨서 학생에게 말할 수 있어야 한다');
+
 console.log(`\n전에 올린 생활기록부 이어받기: ${passed}/${passed} 통과`);

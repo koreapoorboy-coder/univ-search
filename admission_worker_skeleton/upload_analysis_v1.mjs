@@ -19,6 +19,11 @@ export const UPLOAD_LIMITS = Object.freeze({
   // 80MB base64 string, and the Worker only has 128MB of memory to work in.
   inlineBytes: 4 * 1024 * 1024,
   maxFiles: 30,
+  // **한 번에 다 읽지 않고 묶음으로 나눠 읽는다.** 2026-09-27 에 실제 1학년 생기부(사진 8장)로
+  // 확인했다: 한 번에 읽으면 쓸 수 있는 글자 수 천장에 부딪혀 교과 절반을 빠뜨리거나 통째로
+  // 실패한다. 2학년까지 올리면 사진이 두 배가 되므로 천장만 올려서는 곧 다시 부딪힌다.
+  // 묶음으로 나누면 몇 해치를 올리든 한 번에 읽는 양이 늘 작다. 비용은 같다 — 읽는 양이 같다.
+  batchFiles: 4,
   types: Object.freeze(['application/pdf', 'image/png', 'image/jpeg', 'image/webp', 'image/heic']),
 });
 
@@ -54,6 +59,94 @@ export function checkUpload(files) {
 const STRING = { type: 'string' };
 const STRINGS = { type: 'array', items: STRING };
 
+// **묶음 한 개를 읽을 때 쓰는 칸.** 판단은 하지 않는다 — 보이는 것을 옮겨 적기만 한다.
+// 판단(무엇이 반복되는 관심인가, 다음에 무엇을 쓰면 좋은가)은 묶음을 다 모은 뒤 한 번에 한다.
+// 묶음마다 판단하면 조각난 판단 다섯 개가 나오고, 합쳐도 말이 안 된다.
+export function pageSchema() {
+  const whole = analysisSchema();
+  const record = whole.record.properties;
+  return {
+    entries: record.entries,
+    pastUnits: record.pastUnits,
+  };
+}
+
+// onlyGrade 를 주면 그 학년만 옮긴다. **파일이 한 개일 때 쓴다** — 26쪽짜리 PDF 한 개를 한 번에
+// 보내면 모델에 앞쪽만 닿는다(2026-09-27: 26쪽인데 입력이 19,065 토큰뿐이었고 교과를 넷만 적었다).
+// 학년을 나눠 세 번 부르면 같은 파일을 세 번 보내게 되지만, 그 값은 싸다(입력 ₩33 남짓).
+// **PDF 한 개는 쪽 묶음으로 나눈다.** 26쪽짜리를 한 번에 보내면 앞쪽만 읽힌다(2026-09-27 실측:
+// 26쪽인데 입력이 19,065 토큰뿐이었고 교과를 넷만 적어 왔다). 학년으로 나눠 보니 뒷부분이
+// 읽히기는 했지만(넷 → 아홉) 이번에는 고1 이 빠졌다 — 학년은 문서 어디에 있는지 모르기 때문이다.
+// 쪽 번호는 문서가 스스로 아는 것이라 빠짐이 없다.
+export function pagePromptLines(input, span) {
+  return [
+    '[너의 일]',
+    '- 학생이 올린 생활기록부 사진 몇 장을 읽고, 거기 보이는 것을 **그대로 옮겨 적는다**. 판단하거나 요약하지 않는다.',
+    '',
+    '[반드시 지킬 것]',
+    '- 사람 이름, 학교 이름, 선생님 이름, 친구 이름은 어떤 항목에도 쓰지 않는다. 읽었더라도 옮기지 않는다.',
+    '- **이 묶음에 보이는 교과를 빠짐없이** 한 줄씩 넣는다. 한 장이라도 건너뛰지 않는다.',
+    ...(span ? [`- **이 문서의 ${span} 만 옮긴다.** 그 밖의 쪽은 건너뛴다. 그 쪽들을 보려면 문서를 끝까지 넘겨 보아야 한다.`] : []),
+    '- 파일에 적힌 내용만 쓴다. 없는 활동을 지어내지 않는다. 읽히지 않는 부분은 빼고 읽힌 것만 옮긴다.',
+    '- 모든 항목을 한국어로 쓴다. 교과 용어는 우리 교과서에서 쓰는 말로 바꾼다.',
+    '',
+    '[entries — 과목별로 한 줄]',
+    '- grade는 학년(고1·고2·고3), subject는 교과목 이름, text는 그 과목에서 **무엇을 다뤘는지**를 300자 안으로.',
+    '- 태도나 참여도 칭찬은 빼고 다룬 주제와 활동을 남긴다. 교과 세부능력특기사항만 넣는다 — 창의적 체험활동과 행동특성은 넣지 않는다.',
+    '',
+    '[pastUnits — 이미 다룬 주제]',
+    '- subject는 교과목 이름, topic은 교과서 말로 짧게(예: 광합성과 세포 호흡), grade는 학년.',
+    '- 같은 주제가 여러 번 나오면 한 번만 쓴다. 동아리·자율활동처럼 교과가 아닌 것은 subject를 비운다.',
+  ];
+}
+
+// 묶음들을 하나로 모은다. 같은 과목이 여러 묶음에서 나오면 **더 긴 글**을 남긴다 —
+// 사진이 겹쳐 찍혔거나 한 과목이 두 장에 걸쳐 있을 때 잘린 쪽을 버리기 위해서다.
+export function mergePages(parts) {
+  const entries = new Map();
+  const units = new Map();
+  for (const part of parts || []) {
+    for (const one of part?.entries || []) {
+      const key = `${clip(one?.grade, 6)}::${clip(one?.subject, 30)}`;
+      const now = entries.get(key);
+      if (!now || String(one?.text || '').length > String(now.text || '').length) entries.set(key, one);
+    }
+    for (const one of part?.pastUnits || []) {
+      const key = `${clip(one?.grade, 6)}::${clip(one?.subject, 30)}::${clip(one?.topic, 60)}`;
+      if (!units.has(key)) units.set(key, one);
+    }
+  }
+  return { entries: [...entries.values()], pastUnits: [...units.values()] };
+}
+
+// **모아 놓고 한 번에 판단한다.** 사진은 다시 안 보낸다 — 이미 옮겨 적은 글만 본다.
+// 그래서 이 호출은 싸고 빠르다.
+export function judgePromptLines(input, merged) {
+  const said = (merged?.entries || []).map((one) => `  [${clip(one?.grade, 6)}] ${clip(one?.subject, 30)}: ${clip(one?.text, 300)}`);
+  return [
+    '[너의 일]',
+    '- 아래는 한 학생의 생활기록부에서 과목별로 옮겨 적은 글이다. 이것만 보고 아래 형식으로 정리한다.',
+    '- docType은 record로 한다. report 항목은 비워 둔다.',
+    '',
+    '[학생이 적어 둔 것]',
+    ...said,
+    '',
+    '[반드시 지킬 것]',
+    '- 사람 이름, 학교 이름, 선생님 이름은 쓰지 않는다.',
+    '- 위에 적힌 것만 쓴다. 없는 활동을 지어내지 않는다.',
+    '- activitySummary는 학년이 올라가며 관심이 어떻게 움직였는지 한 문단으로 쓴다.',
+    '- repeatedInterests는 여러 과목에서 반복되는 주제 3~6개, strongSides는 이미 잘 해 둔 탐구 방식, thinSides는 아직 얇은 부분이다.',
+    '- entries와 pastUnits는 비워 둔다. 이미 우리가 갖고 있다.',
+    '',
+    '[reportLines — 가장 중요한 항목]',
+    '- 이 학생이 다음에 쓰면 좋을 보고서 주제를 2~4개 제안한다. 이미 한 것을 반복하지 않고 한 단계 올라가야 한다.',
+    '- title은 보고서 제목처럼 구체적으로, subject는 어느 과목에서 할지, why는 위의 무엇과 이어지는지, step은 이전보다 무엇이 더 깊어지는지를 쓴다.',
+    `- 목표 수준은 ${clip(input?.targetLevel, 40) || '고2~고3 심화 수준'}이다. 생각의 깊이는 그 수준으로 올리되, 하는 일은 고등학생이 학교나 집에서 실제로 할 수 있어야 한다.`,
+    '- 전문 장비나 전문 분석을 전제로 한 제안은 하지 않는다. 조건별로 값을 여러 번 재서 평균과 흔들림을 비교하는 것만으로 확인할 수 있어야 한다.',
+    '- 반복 횟수를 적을 때는 3~5회로 쓴다.',
+    ...axisPromptLines(input?.matchedAxes),
+  ];
+}
 export function analysisSchema() {
   return {
     docType: { type: 'string', enum: [DOC.REPORT, DOC.RECORD, DOC.OTHER] },
