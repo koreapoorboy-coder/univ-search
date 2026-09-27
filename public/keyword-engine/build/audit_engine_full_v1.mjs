@@ -340,6 +340,9 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
     // 2026-09-21에 손으로 이어 붙인 서울대 연구가 전부였고, 그중 뜻이 안 닿는 것을 빼면 그 단원은
     // 통째로 빈다. 흠으로 세는 것은 같지만, 「배선이 끊겼다」와 「자료가 없다」는 고치는 방법이 다르다.
     const 묶음없음 = !existsSync(`${SITE}/seed/paper-route/${String(subject).replace(/ /g, "_")}.v1.json`);
+    // 공공데이터는 여기서 셀 수 없다. 참고 자료의 통계표는 열려 있는 공공데이터 API 로 그때그때 받아
+    // 오는데, 이 감사는 바깥 호출을 막아 두었으므로 referenceDatasets 가 늘 비어 있다(2026-09-27 확인).
+    // 그래서 아래 판단은 「논문·대학 연구가 있나」까지만이다.
     if (!row.ingredients.papers && !row.ingredients.research) {
       flag(!(UNIT_SUBJECTS.has(subject) && r.reportConcept) ? "재료_없음(단원모름)"
         : 묶음없음 ? "재료_없음(논문묶음이_없는_과목)" : "재료_없음");
