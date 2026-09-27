@@ -1,7 +1,7 @@
 import { acceptLiveInputCandidate, handleSimpleLiveIntakeRequest, parseStrictIJson } from './simple_live_intake_v1.mjs';
 import { messageForCode } from './live_input_message_v1.mjs';
 import { COLLECTION, STAGE, bookIsSubject, finalizeStageOutput, hasStudentMeasurements, normalizeStudentData, titleRules, resolveCollectionKind, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
-import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, judgePromptLines, matchAxes, mergePages, pagePromptLines, pageSchema, priorWorkPromptLines, sanitizeAnalysis, sharesGround, expandMajorTerms } from './upload_analysis_v1.mjs';
+import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, judgePromptLines, judgeSchema, matchAxes, mergePages, pagePromptLines, pageSchema, priorWorkPromptLines, sanitizeAnalysis, sharesGround, expandMajorTerms } from './upload_analysis_v1.mjs';
 import { pickReportShape, shapePromptLines } from './report_shape_v1.mjs';
 import { crossSubjectPromptLines, pickCrossSubject } from './cross_subject_v1.mjs';
 import { majorPathPromptLines, resolveMajorPath } from './major_path_v1.mjs';
@@ -1389,17 +1389,41 @@ async function analyzeRecordInBatches(files, meta, env) {
   const merged = mergePages(good.map((one) => one.parsed));
 
   // 판단은 모아 놓고 한 번만 한다. 사진은 다시 안 보내므로 싸고 빠르다.
-  const judgeProps = analysisSchema();
+  const judgeProps = judgeSchema();
   let judged = null;
   try {
     judged = await askOpenAI(env, {
       content: [{ type: 'input_text', text: judgePromptLines(meta, merged).join('\n') }],
-      properties: judgeProps, name: 'student_upload_analysis', budget: 16000,
+      // 판단은 열린 물음이라(다음에 쓸 보고서를 제안하라) 모델이 생각에 자리를 많이 쓴다.
+      // 16,000 으로는 생각만 하다 끝났다 — 실제 생기부로 두 번 확인했다(2026-09-27).
+      // 쓴 만큼만 돈이 나가므로 천장은 넉넉히 둔다.
+      // **천장을 크게 주면 오히려 실패한다.** 2026-09-27 에 실제 생기부로 세 번 재 봤다:
+      //   32,000 → 실패(생각만 하다 자리를 다 씀) · 16,000 → 실패 · **8,000 → 된다**
+      // 자리를 넉넉히 주면 모델이 생각을 길게 늘인다. 판단은 열린 물음이라 특히 그렇다.
+      // 좁게 주면 끝맺는다. 옮겨 적기(16,000)와 달리 여기는 좁은 것이 맞다.
+      properties: judgeProps, name: 'student_upload_analysis', budget: 8000, effort: 'low',
     });
   } catch (error) {
     // **판단이 실패해도 옮겨 적은 것은 버리지 않는다.** 그게 나눠 읽기의 요점이다 —
     // 학생은 적어도 3년 기록을 얻고, 다음에 쓸 주제 제안만 비어 있다.
-    console.error('judge failed:', error?.message || error);
+    console.error('judge failed:', error?.message || error, error?.incomplete || '', error?.spent || '');
+    // 열린 물음이라 생각에 자리를 다 쓰고 끝나는 일이 잦다(2026-09-27, 32,000 을 줘도 그랬다).
+    // 그때는 **생각을 낮춰** 한 번만 더 해 본다. 그래도 안 되면 옮겨 적은 것만 남긴다 —
+    // 학생은 3년 기록을 얻고, 다음에 쓸 주제 제안만 비어 있다.
+    if (error?.incomplete) {
+      try {
+        judged = await askOpenAI(env, {
+          content: [{ type: 'input_text', text: judgePromptLines(meta, merged).join('\n') }],
+      // **천장을 크게 주면 오히려 실패한다.** 2026-09-27 에 실제 생기부로 세 번 재 봤다:
+      //   32,000 → 실패(생각만 하다 자리를 다 씀) · 16,000 → 실패 · **8,000 → 된다**
+      // 자리를 넉넉히 주면 모델이 생각을 길게 늘인다. 판단은 열린 물음이라 특히 그렇다.
+      // 좁게 주면 끝맺는다. 옮겨 적기(16,000)와 달리 여기는 좁은 것이 맞다.
+      properties: judgeProps, name: 'student_upload_analysis', budget: 8000, effort: 'low',
+        });
+      } catch (again) {
+        console.error('judge retry failed:', again?.message || again, again?.incomplete || '', again?.spent || '');
+      }
+    }
   }
   const parsed = { ...(judged?.parsed || {}), docType: DOC.RECORD,
     record: { ...(judged?.parsed?.record || {}), entries: merged.entries, pastUnits: merged.pastUnits } };

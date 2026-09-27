@@ -166,7 +166,7 @@ const sheet = readFileSync(`${SITE}/assets/student_screens.css`, 'utf8');
 check(/\.badge\.mine/.test(sheet), '출처 표 꾸밈은 공용 한 장에 있다');
 
 // ── ⑥ 여러 장이면 묶음으로 나눠 읽는가 ─────────────────────────────────────────
-const { UPLOAD_LIMITS, pageSchema, pagePromptLines, mergePages, judgePromptLines } = await import(`file:///${ROOT}/admission_worker_skeleton/upload_analysis_v1.mjs`);
+const { UPLOAD_LIMITS, pageSchema, pagePromptLines, mergePages, judgePromptLines, judgeSchema } = await import(`file:///${ROOT}/admission_worker_skeleton/upload_analysis_v1.mjs`);
 check(UPLOAD_LIMITS.batchFiles >= 2 && UPLOAD_LIMITS.batchFiles <= 8, '묶음 크기가 정해져 있다', String(UPLOAD_LIMITS.batchFiles));
 const page = pageSchema();
 check(Object.keys(page).join(',') === 'entries,pastUnits', '묶음을 읽을 때는 옮겨 적기만 한다 — 판단 칸은 없다', Object.keys(page).join(','));
@@ -184,7 +184,8 @@ check(merged.pastUnits.length === 2, '이미 한 것도 겹치면 한 번만 남
 // 판단은 모아 놓고 한 번만 한다 — 사진을 다시 보내지 않는다.
 const judge = judgePromptLines({ targetLevel: '고3 수준' }, merged).join(' ');
 check(/광합성/.test(judge), '판단할 때 옮겨 적은 글을 넣어 준다');
-check(/entries와 pastUnits는 비워/.test(judge), '판단 단계에서는 옮겨 적기를 다시 시키지 않는다');
+check(/과목별 글을 다시 옮겨 적지 않는다/.test(judge),
+  '판단 단계에서는 옮겨 적기를 다시 시키지 않는다');
 check(/analyzeRecordInBatches/.test(workerSrc), '워커에 묶음으로 읽는 길이 있다');
 check(/read = await analyzeRecordInBatches\(files, meta, env\)/.test(workerSrc),
   '생활기록부는 장수와 상관없이 옮겨 적기 → 판단 두 단계로 읽는다');
@@ -211,5 +212,14 @@ const graded = sanitizeAnalysis({ docType: 'record', record: { entries: [
   { grade: '', subject: '기하', text: '벡터의 내적과 평면의 방정식을 다루고 좌표기하 문제를 해결함' }] } });
 check(graded.record.entries[0].grade === '고3', '「3학년」을 「고3」으로 맞춘다 — 안 맞추면 포트폴리오에서 기타로 빠진다', graded.record.entries[0].grade);
 check(graded.record.entries[1].grade === '', '학년을 못 읽었으면 비워 둔다 — 짐작해 채우지 않는다', JSON.stringify(graded.record.entries[1].grade));
+
+// ── ⑧ 판단 호출의 자리 크기 — 넓게 주면 오히려 실패한다(2026-09-27 실측) ──────────
+check(/judgeProps, name: 'student_upload_analysis', budget: 8000/.test(workerSrc),
+  '판단은 좁게 준다 — 32,000·16,000 에서는 생각만 하다 끝났고 8,000 에서 됐다');
+check(/budget: 16000, effort: 'low'/.test(workerSrc),
+  '옮겨 적기는 넉넉히 준다 — 거기는 쓸 글이 많다');
+const judgeOnly = judgeSchema();
+check(!judgeOnly.record.properties.entries && !judgeOnly.record.properties.pastUnits,
+  '판단할 때는 옮겨 적기 칸을 빼 준다 — 안 빼면 열세 줄을 다시 쓰며 자리를 다 쓴다');
 
 console.log(`\n전에 올린 생활기록부 이어받기: ${passed}/${passed} 통과`);

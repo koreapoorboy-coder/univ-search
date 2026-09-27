@@ -78,6 +78,19 @@ export function pageSchema() {
 // 26쪽인데 입력이 19,065 토큰뿐이었고 교과를 넷만 적어 왔다). 학년으로 나눠 보니 뒷부분이
 // 읽히기는 했지만(넷 → 아홉) 이번에는 고1 이 빠졌다 — 학년은 문서 어디에 있는지 모르기 때문이다.
 // 쪽 번호는 문서가 스스로 아는 것이라 빠짐이 없다.
+// **판단할 때는 옮겨 적기 칸을 빼 준다.** 스키마가 entries 와 pastUnits 를 꼭 있어야 하는 칸으로
+// 잡고 있어서, 「비워 두라」고 말해도 모델이 열세 줄을 다시 써 내며 자리를 다 쓴다 —
+// 2026-09-27 에 실제 생기부로 확인했다(판단이 통째로 실패해 다음 보고서 제안이 0개가 됐다).
+// 옮겨 적은 것은 우리가 이미 갖고 있으니 다시 받을 까닭이 없다.
+export function judgeSchema() {
+  const whole = analysisSchema();
+  const { entries, pastUnits, ...rest } = whole.record.properties;
+  return {
+    ...whole,
+    record: { ...whole.record, required: whole.record.required.filter((one) => one !== 'entries' && one !== 'pastUnits'), properties: rest },
+  };
+}
+
 export function pagePromptLines(input, span) {
   return [
     '[너의 일]',
@@ -138,7 +151,7 @@ export function judgePromptLines(input, merged) {
     '- 위에 적힌 것만 쓴다. 없는 활동을 지어내지 않는다.',
     '- activitySummary는 학년이 올라가며 관심이 어떻게 움직였는지 한 문단으로 쓴다.',
     '- repeatedInterests는 여러 과목에서 반복되는 주제 3~6개, strongSides는 이미 잘 해 둔 탐구 방식, thinSides는 아직 얇은 부분이다.',
-    '- entries와 pastUnits는 비워 둔다. 이미 우리가 갖고 있다.',
+    '- 과목별 글을 다시 옮겨 적지 않는다. 그것은 이미 우리가 갖고 있다.',
     '',
     '[reportLines — 가장 중요한 항목]',
     '- 이 학생이 다음에 쓰면 좋을 보고서 주제를 2~4개 제안한다. 이미 한 것을 반복하지 않고 한 단계 올라가야 한다.',
