@@ -131,6 +131,26 @@ export function mergePages(parts) {
       if (!units.has(key)) units.set(key, one);
     }
   }
+  // **학년을 못 읽은 줄은 같은 과목의 학년 있는 줄에 합친다.** 안 그러면 「공통국어1」이 두 번 나온다 —
+  // 한 번은 고1, 한 번은 학년 빈칸으로(2026-09-27, 열두 번 올린 기록을 합치다가 보였다).
+  // 학년을 아는 쪽을 남기고, 글은 더 긴 쪽을 쓴다.
+  const named = new Map();
+  for (const [key, one] of entries) if (clip(one?.grade, 6)) named.set(clip(one?.subject, 30), key);
+  for (const [key, one] of [...entries]) {
+    if (clip(one?.grade, 6)) continue;
+    const mine = named.get(clip(one?.subject, 30));
+    if (!mine) continue;
+    const now = entries.get(mine);
+    if (String(one?.text || '').length > String(now?.text || '').length) entries.set(mine, { ...now, text: one.text });
+    entries.delete(key);
+  }
+  // 이미 한 것도 같은 방식으로 합친다.
+  const namedUnit = new Map();
+  for (const [key, one] of units) if (clip(one?.grade, 6)) namedUnit.set(`${clip(one?.subject, 30)}::${clip(one?.topic, 60)}`, key);
+  for (const [key, one] of [...units]) {
+    if (clip(one?.grade, 6)) continue;
+    if (namedUnit.has(`${clip(one?.subject, 30)}::${clip(one?.topic, 60)}`)) units.delete(key);
+  }
   return { entries: [...entries.values()], pastUnits: [...units.values()] };
 }
 

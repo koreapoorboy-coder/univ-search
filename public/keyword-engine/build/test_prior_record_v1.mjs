@@ -237,4 +237,13 @@ const stacked = sanitizeAnalysis({ docType: 'record', record: { entries: [
 check(stacked.record.entries[0].text.length === 800,
   '세특 글을 800자까지 남긴다 — 짧게 자르면 나중에 다시 뽑을 거리가 없다', String(stacked.record.entries[0].text.length));
 
+// 학년을 못 읽은 줄은 같은 과목의 학년 있는 줄에 합친다 — 안 그러면 한 과목이 두 번 보인다.
+const mixed = mergePages([
+  { entries: [{ grade: '고1', subject: '공통국어1', text: '짧은 글' }], pastUnits: [] },
+  { entries: [{ grade: '', subject: '공통국어1', text: '훨씬 더 긴 글이 여기 들어 있습니다' }], pastUnits: [] },
+]);
+check(mixed.entries.length === 1, '같은 과목이 학년 빈칸으로 또 생기지 않는다', String(mixed.entries.length));
+check(mixed.entries[0].grade === '고1', '학년을 아는 쪽을 남긴다', mixed.entries[0].grade);
+check(/훨씬/.test(mixed.entries[0].text), '글은 더 긴 쪽을 쓴다');
+
 console.log(`\n전에 올린 생활기록부 이어받기: ${passed}/${passed} 통과`);
