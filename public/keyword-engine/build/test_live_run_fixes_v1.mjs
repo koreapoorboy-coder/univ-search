@@ -140,5 +140,24 @@ const ok = (name, got) => { if (got) pass += 1; else fails.push(name); };
   ok('방법 절은 현재형도 막는다', removeUnnamedTools('스마트폰 카메라를 고정해 촬영한다.', '').removed === 1);
 }
 
+// ⑪ 제안 절의 숫자는 「지어낸 결과」가 아니다.
+//
+// 실전 보고서 한 편(2026-09-27, 물리 운동량 보존)의 후속 탐구에서 두 문장이 지워졌다 —
+// 「스마트폰 슬로모션(예: 240 fps)을 이용해 … t를 구한다」와, 그 뒤에 딸려 간 「각각 5회 이상 반복한다」.
+// 「구한다」가 계획 말버릇 목록에 없었을 뿐이다. 말버릇을 세는 방식으로는 끝이 없어서 뒤집었다:
+// 결과를 말하는 말(였다·나왔다·측정되었다…)이 없으면 그 숫자는 결과 주장이 아니다.
+{
+  const allowed = new Set(['0', '5', '0.82', '0.76', '0.7', '0.64', '0.04', '0.06']);
+  const 제안 = '스마트폰 슬로모션(예: 240 fps)을 이용해 구간 통과 장면을 촬영하고, 프레임 수를 세어 t를 구한다.';
+  const 반복 = '네 조건을 재구성해 각각 5회 이상 반복한다.';
+  const 지어냄 = '측정한 평균 속력은 1.37 m/s로 나타났다.';
+  const 되말함 = '평균 구간시간은 0.82 s에서 0.64 s로 줄었다.';
+  ok('제안 절의 장비 설정값은 안 지운다', removeUnsupportedNumbers(제안, allowed, { allowPlans: true }).removed === 0);
+  ok('제안 절의 반복 계획도 안 지운다', removeUnsupportedNumbers(반복, allowed, { allowPlans: true }).removed === 0);
+  ok('제안 절이어도 지어낸 결과는 막는다', removeUnsupportedNumbers(지어냄, allowed, { allowPlans: true }).removed === 1);
+  ok('결과 절에서는 그 설정값도 막는다', removeUnsupportedNumbers(제안, allowed, { allowPlans: false }).removed === 1);
+  ok('제안 절에서 있는 값을 되말하는 것은 그대로', removeUnsupportedNumbers(되말함, allowed, { allowPlans: true }).removed === 0);
+}
+
 console.log(`실전 한 편에서 찾은 흠: ${pass}개 통과${fails.length ? ` · 실패 ${fails.length}` : ''}`);
 if (fails.length) { for (const one of fails) console.error('  실패:', one); process.exit(1); }

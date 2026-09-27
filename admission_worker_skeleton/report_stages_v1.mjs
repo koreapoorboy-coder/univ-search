@@ -672,8 +672,19 @@ export function isPlanSentence(sentence) {
   return PLAN_SENTENCE.test(text) || (PLAN_PRESENT.test(text) && PLAN_NEXT.test(text));
 }
 
+// **제안 절에서는 「했다」가 아니면 숫자를 막지 않는다.**
+//
+// 「앞으로 할 일」로 알아보는 말버릇 목록을 두 번 늘렸는데도 계속 새는 것이 나왔다. 실전 보고서 한 편
+// (2026-09-27, 물리 운동량 보존)에서 후속 탐구의 이 문장이 지워졌다:
+//   「스마트폰 슬로모션(예: 240 fps)을 이용해 … 프레임 수를 세어 t를 구한다.」
+// 「240」이 학생이 잰 숫자가 아니라서 지워졌고, 다음 문장(「각각 5회 이상 반복한다」)이 딸려 갔다.
+// 「구한다」가 목록에 없었을 뿐이다. 말버릇을 세는 방식으로는 끝이 없다.
+//
+// 그래서 뒤집는다. 막아야 하는 것은 **재지 않은 값을 잰 것처럼 말하는 문장**이다. 그러니 결과를 말하는
+// 말(였다·나왔다·측정되었다·확인했다…)이 없으면 그 숫자는 결과 주장이 아니다 — 다음 실험의 조건이거나
+// 계획이다. 결론이 앞의 결과를 다시 말할 때는 그 말이 들어가므로 여전히 검사된다.
 export function removeUnsupportedNumbers(body, allowed, { allowPlans = false } = {}) {
-  return filterSentences(body, (sentence) => (allowPlans && isPlanSentence(sentence))
+  return filterSentences(body, (sentence) => (allowPlans && !RESULT_WORDS.test(String(sentence)))
     || numbersIn(sentence).every((number) => allowed.has(canonicalNumber(number))));
 }
 
@@ -1718,7 +1729,7 @@ export function finalizeStageOutput(stage, rawParsed, input) {
       // 지식 절은 교과 지식을 쓰는 자리다. 숫자를 막지 않고, 없는 근거를 대는 문장만 막는다.
       const cleanedNumbers = KNOWLEDGE_SECTION.test(title)
         ? removeUnsourcedClaims(tidied, sourceNames)
-        : removeUnsupportedNumbers(tidied, allowed, { allowPlans: /결론|제언|후속|느낀 점|고찰|확장|성찰/.test(title) });
+        : removeUnsupportedNumbers(tidied, allowed, { allowPlans: /결론|제언|후속|느낀 점|고찰|확장|성찰|개선|보완|활용 방안/.test(title) });
       // 반복 세 번의 범위로 통계를 말하는 문장의 **세기만 낮춘다**. 지우지 않는다 — 지우면 분석이 사라진다.
       // 읽지 않은 연구를 근거로 든 문장을 지운다. 학생이 적은 자료 제목은 예외다.
       const unread = removeUnreadAuthority(cleanedNumbers.body, (data.sourceCards || []).map((one) => one?.title));
