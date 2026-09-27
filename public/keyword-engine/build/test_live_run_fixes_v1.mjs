@@ -96,5 +96,20 @@ const ok = (name, got) => { if (got) pass += 1; else fails.push(name); };
   ok('예전 말투(인용하지 않았다)도 그대로 잡는다', removeNoSourceClaim('참고 자료는 따로 인용하지 않았다.', true).removed === 1);
 }
 
+// ⑧ 감사의 「살펴볼 것」을 사람이 훑고 뺀 것들은 다시 들어오지 않는다.
+//
+// 수학 7과목에는 논문 묶음이 아예 없어(seed/paper-route 에 파일이 없다) 2026-09-21에 서울대 연구를
+// 손으로 이어 붙였다. 그중 글자만 겹친 것들을 뺐다. univ_research_v1.mjs 는 바로 이 실패를 예고해
+// 두었다 — 「수열의 극한」과 「급수」를 이름까지 적어서.
+{
+  const index = JSON.parse(readFileSync('public/keyword-engine/seed/engine-index/snu_research_index.v1.json', 'utf8'));
+  const 빠졌나 = (unit, word) => !((index.concepts[unit] || []).some((one) => String(one.title || '').includes(word)));
+  ok('수학적 귀납법에 단백질 정렬이 없다', 빠졌나('대수::수학적 귀납법', 'FoldMason'));
+  ok('이차곡선에 양자기하학이 없다', 빠졌나('기하::이차곡선과 자취 해석', '양자기하학'));
+  ok('급수에 단백질 정렬이 없다', 빠졌나('미적분1::급수', 'FoldMason'));
+  ok('수열의 극한에 단백질 정렬이 없다', 빠졌나('미적분1::수열의 극한', 'FoldMason'));
+  ok('확률과 통계의 의학 코호트 연구는 그대로 있다', (index.concepts['확률과 통계::통계적 추정'] || []).length >= 5);
+}
+
 console.log(`실전 한 편에서 찾은 흠: ${pass}개 통과${fails.length ? ` · 실패 ${fails.length}` : ''}`);
 if (fails.length) { for (const one of fails) console.error('  실패:', one); process.exit(1); }

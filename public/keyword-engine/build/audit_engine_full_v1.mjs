@@ -335,7 +335,15 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
     if (d.calls <= 1) flag("설계서_검수_안돎");
     if (f !== d && f.calls <= 1) flag("최종_검수_안돎");
     if (f.reviewPrompt && /^ {2}[PR]\d\. /m.test(f.reviewPrompt)) flag("검수에_재료가_감");
-    if (!row.ingredients.papers && !row.ingredients.research) flag(UNIT_SUBJECTS.has(subject) && r.reportConcept ? "재료_없음" : "재료_없음(단원모름)");
+    // **재료가 없는 이유를 구분해 적는다.** 수학 7과목(공통수학1·2, 대수, 미적분1, 기하, 수학과 문화,
+    // 수학과제 탐구)에는 논문 묶음이 아예 없다 — seed/paper-route 에 파일이 없다. 그 과목의 재료는
+    // 2026-09-21에 손으로 이어 붙인 서울대 연구가 전부였고, 그중 뜻이 안 닿는 것을 빼면 그 단원은
+    // 통째로 빈다. 흠으로 세는 것은 같지만, 「배선이 끊겼다」와 「자료가 없다」는 고치는 방법이 다르다.
+    const 묶음없음 = !existsSync(`${SITE}/seed/paper-route/${String(subject).replace(/ /g, "_")}.v1.json`);
+    if (!row.ingredients.papers && !row.ingredients.research) {
+      flag(!(UNIT_SUBJECTS.has(subject) && r.reportConcept) ? "재료_없음(단원모름)"
+        : 묶음없음 ? "재료_없음(논문묶음이_없는_과목)" : "재료_없음");
+    }
     else if (f.data.ok && !row.inspiration.length) flag("재료를_썼는데_결과에_없음");
     row.final = { status: f.status, ok: f.data.ok, source: f.data.source };
     if (!f.data.ok) { flag("최종_실패", `${f.status} ${f.data.error || ""}`); rows.push(row); continue; }
