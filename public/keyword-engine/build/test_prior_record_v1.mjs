@@ -197,4 +197,19 @@ check(/const byGrade = files\.length === 1 && pages > 4/.test(workerSrc),
 check(/Promise\.all\(groups\.map/.test(workerSrc), '묶음을 같이 보낸다 — 차례로 보내면 학생이 오래 기다린다');
 check(/missedBatches/.test(workerSrc), '못 읽은 묶음이 있으면 남겨서 학생에게 말할 수 있어야 한다');
 
+// ── ⑦ PDF 를 쪽마다 사진으로 바꾸는가(화면 쪽) ──────────────────────────────────
+const pdfSrc = readFileSync(`${SITE}/assets/js/shared/pdf_pages_v1.js`, 'utf8');
+check(/export async function splitLongPdfs/.test(pdfSrc), 'PDF 를 쪽마다 사진으로 바꾸는 길이 있다');
+check(/minPages: 7/.test(pdfSrc), '짧은 PDF(보고서)는 그대로 보낸다 — 사진이 글자보다 비싸다');
+check(/new URL\('\.\.\/vendor\/', import\.meta\.url\)/.test(pdfSrc), 'pdf.js 는 우리 서버에 둔 것을 쓴다 — 바깥 CDN 이 아니다');
+check(/out\.length >= 28/.test(pdfSrc), '스물여덟 장을 넘기지 않는다 — 워커는 한 번에 서른 개까지 받는다');
+check(/toSend\.forEach\(file => form\.append/.test(bridgeSrc), '바꾼 사진을 올린다 — 원래 PDF 가 아니라');
+check(/assets\/js\/shared\/pdf_pages_v1\.js/.test(bridgeSrc), '화면이 그 조각을 불러 쓴다');
+// 학년은 쪽에서 읽고, 안 보이면 비운다. 짐작하면 3년이 뒤섞인다.
+const graded = sanitizeAnalysis({ docType: 'record', record: { entries: [
+  { grade: '3학년', subject: '독서', text: '정보글을 읽고 요약하며 비판적으로 평가하는 활동을 수행함' },
+  { grade: '', subject: '기하', text: '벡터의 내적과 평면의 방정식을 다루고 좌표기하 문제를 해결함' }] } });
+check(graded.record.entries[0].grade === '고3', '「3학년」을 「고3」으로 맞춘다 — 안 맞추면 포트폴리오에서 기타로 빠진다', graded.record.entries[0].grade);
+check(graded.record.entries[1].grade === '', '학년을 못 읽었으면 비워 둔다 — 짐작해 채우지 않는다', JSON.stringify(graded.record.entries[1].grade));
+
 console.log(`\n전에 올린 생활기록부 이어받기: ${passed}/${passed} 통과`);

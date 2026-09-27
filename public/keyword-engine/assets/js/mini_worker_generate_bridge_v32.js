@@ -1,4 +1,4 @@
-// SCREEN_VERSION: v309_blocked_notice
+// SCREEN_VERSION: v310_pdf_pages
 //
 // **화면 코드를 고치면 이 줄과 index.html 의 ?v= 를 같이 올려야 한다.**
 // 안 올리면 Cloudflare 가 옛 파일을 그대로 내보낸다. 실제로 겪었다 — 배포는 됐는데
@@ -13,7 +13,7 @@
 (function(global){
   "use strict";
 
-  const VERSION = "mini-worker-generate-bridge-v309-blocked-notice";
+  const VERSION = "mini-worker-generate-bridge-v310-pdf-pages";
   const RUNTIME_SELECTION_POLICY = "POLICY_A_BASELINE";
   const RUNTIME_SELECTION_MODEL = "H";
   const FALLBACK_SELECTION_MODEL = "LEGACY";
@@ -5066,6 +5066,23 @@ ${result}`;
       return false;
     }
     errorBox.hidden = true;
+    // **쪽이 많은 PDF 는 여기서 쪽마다 사진으로 바꾼다.** 학생은 아무것도 안 한다.
+    // PDF 한 개를 통째로 보내면 AI 에게 앞쪽 몇 쪽만 닿는다 — 26쪽 생기부로 재 보니 교과를
+    // 넷밖에 못 읽었고, 같은 생기부를 사진 8장으로 올렸더니 열세 개를 다 읽었다(2026-09-27).
+    let toSend = chosenUploads;
+    try{
+      const pdf = await import("./assets/js/shared/pdf_pages_v1.js?v=v1_pdf_pages");
+      if(chosenUploads.some(pdf.isPdf)){
+        if(button){ button.disabled = true; button.textContent = "PDF 를 쪽마다 읽는 중..."; }
+        const made = await pdf.splitLongPdfs(chosenUploads, undefined, {
+          onProgress(at, pages){ if(button) button.textContent = `PDF 를 쪽마다 읽는 중... (${at}/${pages})`; },
+        });
+        toSend = made.files;
+      }
+    }catch(error){
+      // 못 바꿔도 보내기는 한다. 그때는 예전처럼 PDF 그대로 가고, 일부만 읽힐 수 있다.
+      console.error("pdf split failed:", error);
+    }
     const form = new FormData();
     const req = buildWorkerRequest();
     // The upload may hold only 1학년 records, but the proposals are for the grade the student is in now.
@@ -5085,7 +5102,7 @@ ${result}`;
       selectedKeyword: req.selectedKeyword,
       selectedConcept: req.selectedConcept,
     }));
-    chosenUploads.forEach(file => form.append("files", file, file.name));
+    toSend.forEach(file => form.append("files", file, file.name));
     if(button){
       button.disabled = true;
       button.textContent = "읽는 중... (1~2분)";

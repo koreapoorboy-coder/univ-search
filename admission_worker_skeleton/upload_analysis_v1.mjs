@@ -91,7 +91,9 @@ export function pagePromptLines(input, span) {
     '- 모든 항목을 한국어로 쓴다. 교과 용어는 우리 교과서에서 쓰는 말로 바꾼다.',
     '',
     '[entries — 과목별로 한 줄]',
-    '- grade는 학년(고1·고2·고3), subject는 교과목 이름, text는 그 과목에서 **무엇을 다뤘는지**를 300자 안으로.',
+    '- subject는 교과목 이름, text는 그 과목에서 **무엇을 다뤘는지**를 300자 안으로.',
+    '- **grade는 그 쪽에 적힌 학년 칸을 그대로 읽어서 적는다.** 쪽 위쪽의 「1학년」·「2학년」 같은 표시나 표의 학년 칸을 본다.',
+    '- 학년이 그 쪽에 안 보이면 **비워 둔다.** 짐작해서 적지 않는다 — 틀린 학년이 적히면 3년 기록이 뒤섞인다. 빈 채로 두면 나중에 사람이 고칠 수 있다.',
     '- 태도나 참여도 칭찬은 빼고 다룬 주제와 활동을 남긴다. 교과 세부능력특기사항만 넣는다 — 창의적 체험활동과 행동특성은 넣지 않는다.',
     '',
     '[pastUnits — 이미 다룬 주제]',
@@ -351,6 +353,15 @@ export function analysisPromptLines(input) {
   ];
 }
 
+// 학년 표기를 우리 것으로 맞춘다. 생활기록부는 「3학년」이라고 적고 우리 화면은 「고3」으로 묶는다 —
+// 그대로 두면 포트폴리오에서 「기타」로 빠진다(2026-09-27 실측).
+// 못 읽은 학년은 빈 채로 둔다. 짐작해 채우면 3년 기록이 뒤섞인다.
+function gradeWord(value) {
+  const said = String(value ?? '').replace(/\s+/g, '');
+  const found = /([123])/.exec(said);
+  return found ? `고${found[1]}` : '';
+}
+
 export function sanitizeAnalysis(parsed) {
   const docType = [DOC.REPORT, DOC.RECORD, DOC.OTHER].includes(parsed?.docType) ? parsed.docType : DOC.OTHER;
   const text = (value, max) => scrubPersonal(clip(value, max));
@@ -376,10 +387,10 @@ export function sanitizeAnalysis(parsed) {
       strongSides: texts(parsed?.record?.strongSides, 5, 80),
       thinSides: texts(parsed?.record?.thinSides, 5, 80),
       entries: (Array.isArray(parsed?.record?.entries) ? parsed.record.entries : []).slice(0, 40)
-        .map((one) => ({ grade: clip(one?.grade, 6), subject: text(one?.subject, 30), text: text(one?.text, 300) }))
+        .map((one) => ({ grade: gradeWord(one?.grade), subject: text(one?.subject, 30), text: text(one?.text, 300) }))
         .filter((one) => one.text.length >= 20),
       pastUnits: (Array.isArray(parsed?.record?.pastUnits) ? parsed.record.pastUnits : []).slice(0, 20)
-        .map((one) => ({ subject: text(one?.subject, 30), topic: text(one?.topic, 60), grade: clip(one?.grade, 6) }))
+        .map((one) => ({ subject: text(one?.subject, 30), topic: text(one?.topic, 60), grade: gradeWord(one?.grade) }))
         .filter((one) => one.topic),
     } : null,
     reportLines: (Array.isArray(parsed?.reportLines) ? parsed.reportLines : []).slice(0, 4).map((line) => ({
