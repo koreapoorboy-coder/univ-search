@@ -1554,17 +1554,30 @@ async function ensureUploadTable(db) {
 // 이 학생이 전에 올린 생활기록부 분석. 없으면 null 이다.
 // **보고서를 쓸 때마다 다시 올리라고 하지 않으려는 것이다.** 1학년 세특을 한 번 넣으면 2·3학년
 // 보고서가 그것을 이어받는다 — 대학이 읽는 줄기는 「작년에 한 것에서 이어진다」이기 때문이다.
+// 이 학생이 **지금까지 올린 생활기록부를 모두 모아** 하나로 만든다.
+//
+// 전에는 가장 마지막 것 하나만 썼다. 그러면 2학년 때 2학년 생기부를 올리는 순간 1학년이
+// 안 쓰인다 — 표에는 남아 있는데 꺼내 쓰질 않는다(2026-09-27 사장님 지적).
+// 3년을 쌓으려면 올린 것을 다 합쳐야 한다. 같은 학년·같은 과목이 여러 번 나오면 **더 긴 글**을
+// 남긴다(다시 올릴수록 더 잘 읽히므로 나중 것이 대개 길다).
+// 판단(흐름·관심·얇은 것·제안)은 **가장 마지막 것**을 쓴다 — 그것이 가장 많은 것을 보고 내린 판단이다.
 async function loadPriorRecord(db, code) {
   const student = String(code || '').trim().toLowerCase();
   if (!student) return null;
   await ensureUploadTable(db);
-  const row = await db.prepare(`
+  const rows = await db.prepare(`
     SELECT analysis FROM student_uploads
     WHERE student_code = ? AND doc_type = 'record'
-    ORDER BY id DESC LIMIT 1
-  `).bind(student).first();
-  if (!row?.analysis) return null;
-  try { return JSON.parse(row.analysis); } catch { return null; }
+    ORDER BY id ASC
+  `).bind(student).all();
+  const kept = [];
+  for (const row of rows?.results || []) {
+    try { kept.push(JSON.parse(row.analysis)); } catch { /* 한 줄이 깨져도 나머지는 쓴다 */ }
+  }
+  if (!kept.length) return null;
+  const merged = mergePages(kept.map((one) => one.record || {}));
+  const last = [...kept].reverse().find((one) => (one.reportLines || []).length || one.record?.activitySummary) || kept[kept.length - 1];
+  return { ...last, record: { ...(last.record || {}), entries: merged.entries, pastUnits: merged.pastUnits } };
 }
 
 async function saveUploadAnalysis(db, meta, analysis, files) {

@@ -227,4 +227,14 @@ const many = judgePromptLines({}, { entries: Array.from({ length: 28 }, (_, i) =
 check(many.length < 6000, '판단 프롬프트가 짧게 유지된다 — 길면 모델이 생각만 하다 끝난다', String(many.length));
 check(!/가{200}/.test(many), '세특 전문을 다시 넣지 않는다 — 전문은 우리가 갖고 있다');
 
+// ── ⑨ 올린 것이 쌓이는가 ────────────────────────────────────────────────────────
+check(/SELECT analysis FROM student_uploads[^`]*ORDER BY id ASC/.test(workerSrc),
+  '올린 것을 **다 모아** 읽는다 — 마지막 것만 쓰면 2학년 때 1학년이 사라진다');
+check(/const merged = mergePages\(kept\.map/.test(workerSrc),
+  '여러 번 올린 것을 과목별로 합친다');
+const stacked = sanitizeAnalysis({ docType: 'record', record: { entries: [
+  { grade: '고1', subject: '통합과학', text: '가'.repeat(900) }] } });
+check(stacked.record.entries[0].text.length === 800,
+  '세특 글을 800자까지 남긴다 — 짧게 자르면 나중에 다시 뽑을 거리가 없다', String(stacked.record.entries[0].text.length));
+
 console.log(`\n전에 올린 생활기록부 이어받기: ${passed}/${passed} 통과`);
