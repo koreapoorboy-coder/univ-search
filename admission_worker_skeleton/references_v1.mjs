@@ -163,11 +163,17 @@ export function referencesBody({ cards = [], papers = [], web = [], datasets = [
   }
   // 맨 뒤에 제목을 달아 따로 적는다. 학생이 읽은 자료와 섞이면 안 된다.
   const tail = () => (readMore.length ? ['더 읽어 볼 자료 (아직 읽지 않았어요)', ...readMore] : []);
-  // 대학 연구 소개 글(웹 자료). 논문 뒤, 공개 자료 앞. 넣기 직전에 주소가 열리는 것을 확인했고
-  // 접속일이 붙어 있다(univ_web_v1.mjs).
+  // 대학 연구 소개 글(웹 자료)도 **학생이 읽은 것이 아니다.** 논문과 똑같다 — 우리가 단원에 맞추어
+  // 붙인 것이고, 학생은 열어 보지 않았다. 그런데 논문은 「더 읽어 볼 자료」로 내려보내면서 이것만
+  // 인용 목록에 올려 두었다.
+  //
+  // 실험 보고서 한 편(2026-09-27, 물리 운동량 보존)에서 이렇게 나왔다: 구슬 충돌 보고서의 참고 자료에
+  // 「새로운 다기능 허리 동작 보조 웨어러블 로봇 개발」과 「부드러운 몸체에서 강력한 힘 내는 소프트 로봇」이
+  // 접속일까지 붙어 인용돼 있었는데, **본문에는 한 줄도 없었다**(AI 가 쓸 자리를 못 찾아 하나도 안 썼다).
+  // 선생님이 보면 학생이 읽고 인용한 것으로 읽힌다. 왕겨 음극재 때와 같은 흠이다.
   for (const row of web) {
     const line = webLine(row);
-    if (line && !lines.includes(line)) lines.push(line);
+    if (line && !lines.includes(line) && !readMore.includes(line)) readMore.push(line);
   }
   // 개념에 맞는 공개 자료. 논문 뒤, 교과서 앞이다.
   for (const row of datasets) {

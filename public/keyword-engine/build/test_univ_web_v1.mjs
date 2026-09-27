@@ -65,7 +65,11 @@ const answer = (status) => async () => ({ status, body: { cancel: async () => {}
     "U3 「다음에 해 볼 것」 칸 모양으로 바뀐다");
 }
 
-// U4: 참고 자료 절에서의 자리 — 학생 자료 → 논문 → 대학 글 → 공개 자료 → 교과서.
+// U4: 참고 자료 절에서의 자리 — 학생 자료 → 공개 자료 → 교과서 → (가르는 줄) → 논문 · 대학 글.
+//
+// 2026-09-27: 대학 글도 「더 읽어 볼 자료 (아직 읽지 않았어요)」로 내려보낸다. 학생이 읽은 것이
+// 아니어서 논문과 같은 자리여야 한다. 실전 보고서(물리 운동량 보존)에서 구슬 충돌 보고서의 참고
+// 자료에 「웨어러블 로봇」이 접속일까지 붙어 인용돼 있었고, 본문에는 한 줄도 없었다.
 {
   const lines = referencesBody({
     cards: [{ title: "부엌의 화학자", type: "도서" }],
@@ -76,9 +80,13 @@ const answer = (status) => async () => ({ status, body: { cancel: async () => {}
   }).split("\n");
   // 2026-09-25: 논문이 「더 읽어 볼 자료」로 갈라져 맨 뒤로 가고, 가르는 줄이 하나 늘었다.
   check(lines.length === 6, "U4 여섯 줄", String(lines.length));
-  check(lines[1].includes("서울대학교 연구성과") && lines[2].includes("data.go.kr")
-    && lines.some((one) => /더 읽어 볼 자료/.test(one)) && lines[lines.length - 1].includes("학회지"),
-    "U4 대학 글 → 공개 자료 → (가르는 줄) → 논문 순서", lines.join(" | "));
+  const 가르는줄 = lines.findIndex((one) => /더 읽어 볼 자료/.test(one));
+  check(lines[1].includes("data.go.kr") && /교과서/.test(lines[2]) && 가르는줄 === 3
+    && lines.slice(가르는줄).some((one) => one.includes("학회지"))
+    && lines.slice(가르는줄).some((one) => one.includes("서울대학교 연구성과")),
+    "U4 공개 자료 → 교과서 → (가르는 줄) → 논문 · 대학 글 순서", lines.join(" | "));
+  check(가르는줄 > lines.findIndex((one) => one.includes("data.go.kr")),
+    "U4 학생이 읽지 않은 것은 모두 가르는 줄 뒤에 있다", lines.join(" | "));
   const built = finalizeStageOutput(STAGE.FINAL, { reportTitle: "t", figures: [], sections: [{ title: "결론", body: "비타민C 처리가 갈변을 가장 늦췄다." }] }, {
     studentData: normalizeStudentData({ measurementName: "m", unit: "점", conditions: [{ label: "A", values: [1, 2] }, { label: "B", values: [2, 3] }] }),
     taskDescription: "", subject: "통합과학2", referenceWeb: [{ ...post(), org: "서울대학교", accessed: "2026.09.18" }],

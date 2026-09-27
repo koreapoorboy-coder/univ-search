@@ -2,6 +2,7 @@
 // 하나도 화면에서는 안 보이던 것들이다 — 학생이 내는 글에서만 보인다.
 import { allowedNumberSet, computeStats, normalizeStudentData, dropUnkeptPledges, isPlanSentence, removeNoSourceClaim, removeUnnamedTools, removeUnsupportedNumbers } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
 import { readFileSync } from 'node:fs';
+import { referencesBody } from '../../../admission_worker_skeleton/references_v1.mjs';
 import { summarise } from '../../../admission_worker_skeleton/student_portfolio_v1.mjs';
 
 let pass = 0;
@@ -157,6 +158,31 @@ const ok = (name, got) => { if (got) pass += 1; else fails.push(name); };
   ok('제안 절이어도 지어낸 결과는 막는다', removeUnsupportedNumbers(지어냄, allowed, { allowPlans: true }).removed === 1);
   ok('결과 절에서는 그 설정값도 막는다', removeUnsupportedNumbers(제안, allowed, { allowPlans: false }).removed === 1);
   ok('제안 절에서 있는 값을 되말하는 것은 그대로', removeUnsupportedNumbers(되말함, allowed, { allowPlans: true }).removed === 0);
+}
+
+// ⑫ 대학 연구 글도 학생이 읽은 것이 아니다 — 인용 목록에 올리면 안 된다.
+//
+// 실전 보고서 한 편(2026-09-27, 물리 운동량 보존)의 참고 자료에 「허리 동작 보조 웨어러블 로봇」과
+// 「소프트 로봇」이 접속일까지 붙어 인용돼 있었다. 본문에는 한 줄도 없었다 — AI 가 쓸 자리를 못 찾아
+// 하나도 안 썼는데도 인용으로 남았다. 논문은 이미 「더 읽어 볼 자료 (아직 읽지 않았어요)」로
+// 내려보내고 있었는데, 대학 글만 인용 목록에 올라가 있었다.
+{
+  const body = referencesBody({
+    web: [{ title: '새로운 다기능 허리 동작 보조 웨어러블 로봇 개발', org: '서울대학교',
+      team: '기계공학부 박용래 교수 연구팀', date: '2024-01-01', url: 'https://www.snu.ac.kr/x', accessed: '2026.09.27' }],
+    textbook: '물리학Ⅰ 교과서 · 힘과 운동 단원',
+  });
+  const lines = body.split(String.fromCharCode(10));
+  const 제목자리 = lines.findIndex((l) => l.includes('아직 읽지 않았어요'));
+  const 로봇자리 = lines.findIndex((l) => l.includes('웨어러블 로봇'));
+  ok('「아직 읽지 않았어요」 제목이 붙는다', 제목자리 >= 0);
+  ok('대학 글이 그 제목 아래에 있다', 로봇자리 > 제목자리);
+  ok('교과서는 그대로 인용 자리에 있다', lines[0].includes('교과서'));
+  const 학생것 = referencesBody({
+    studentSources: ['공공데이터 포털 대기오염 월별 통계, 2026-09-23 조회'],
+    textbook: '통합과학2 교과서 · 생물과 환경 단원',
+  });
+  ok('학생이 적은 자료원은 여전히 맨 앞이다', 학생것.split(String.fromCharCode(10))[0].includes('공공데이터 포털'));
 }
 
 console.log(`실전 한 편에서 찾은 흠: ${pass}개 통과${fails.length ? ` · 실패 ${fails.length}` : ''}`);
