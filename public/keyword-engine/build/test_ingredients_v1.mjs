@@ -121,11 +121,11 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
   const finalRefs = final.parsed.sections.find((s) => s.title === "참고 자료")?.body || "";
   // 2026-09-27 사용자 결정: 읽지 않은 자료는 **보고서에 안 들어간다.** 제출하는 보고서와 제출하지 않는
   // 설명서를 각각 따로 준다. AI가 확장에 쓴 재료도 설명서 목록으로 간다 — 학생이 읽은 것이 아니다.
-  check(!finalRefs.includes("하천 수변 식생의 군집 분석") && !finalRefs.includes("낱말로 짝지은"),
-    "I5 최종 보고서에는 읽지 않은 논문이 없다", finalRefs);
+  check(finalRefs.includes("하천 수변 식생의 군집 분석") && finalRefs.includes("숲 토양 미생물") && !finalRefs.includes("낱말로 짝지은"),
+    "I5 보고서가 쓴 재료가 참고 자료 — 낱말로 짝지은 논문은 안 쓴다", finalRefs);
   const 안내 = JSON.stringify(final.extra?.reportGuide || {});
   check(안내.includes("하천 수변 식생의 군집 분석") && 안내.includes("숲 토양 미생물") && !안내.includes("낱말로 짝지은"),
-    "I5 설명서 목록은 AI가 확장에 쓴 재료만", 안내.slice(0, 500));
+    "I5 설명서에도 그 재료가 찾는 법과 함께 실린다", 안내.slice(0, 500));
   check(final.extra.inspiration.length === 2, "I5 최종 보고서 결과에 쓴 재료가 실린다(화면의 '교과 확장에 쓴 연구')");
   // 비교 시험(2026-09-18): 「(이윤미 외, 2024)」의 2024를 지어낸 숫자로 보고 문장을 지웠다 — 연구가 본문에서 사라졌다.
   const cited = finalizeStageOutput(STAGE.FINAL, { reportTitle: "t", figures: [], usedIngredients: ["P2"],
@@ -137,8 +137,8 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
   const oneWhole = finalizeStageOutput(STAGE.COMPLETE, { reportTitle: "t", usedIngredients: ["P1"], sections: [{ title: "결론", body: "가" }] },
     { ...input, referencePapers: [{ title: "낱말로 짝지은 논문", journal: "x", year: "2020" }] });
   const refs = oneWhole.parsed.sections.find((s) => s.title === "참고 자료")?.body || "";
-  check(!refs.includes("도시 녹지의 식물 군집") && !refs.includes("낱말로 짝지은"),
-    "I5 한 번에 끝나는 보고서에도 읽지 않은 논문이 없다", refs);
+  check(refs.includes("도시 녹지의 식물 군집") && !refs.includes("낱말로 짝지은"),
+    "I5 한 번에 끝나는 보고서도 쓴 재료가 참고 자료", refs);
   check(JSON.stringify(oneWhole.extra?.reportGuide || {}).includes("도시 녹지의 식물 군집"),
     "I5 그 재료는 설명서 목록으로 간다");
 }
@@ -151,8 +151,8 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
     textbook: "통합사회1 교과서 · 통합적 관점과 행복 단원",
     fallbackBody: "통합사회 교과서 관련 단원",
   });
-  check(!body.includes("통합사회 교과서의 행복 개념 분석") && body.includes("통합사회1 교과서 · 통합적 관점과 행복 단원") && !body.includes("관련 단원"),
-    "I7 뭉뚱그린 교과서 줄만 갈아 끼운다 — 읽지 않은 논문은 보고서에 없다", body);
+  check(body.includes("통합사회 교과서의 행복 개념 분석") && body.includes("통합사회1 교과서 · 통합적 관점과 행복 단원") && !body.includes("관련 단원"),
+    "I7 서지 줄은 남기고 뭉뚱그린 교과서 줄만 갈아 끼운다", body);
 }
 
 // I6: 워커와 사이트

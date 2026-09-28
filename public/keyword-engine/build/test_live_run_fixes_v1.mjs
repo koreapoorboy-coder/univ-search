@@ -2,7 +2,9 @@
 // 하나도 화면에서는 안 보이던 것들이다 — 학생이 내는 글에서만 보인다.
 import { allowedNumberSet, computeStats, normalizeStudentData, dropUnkeptPledges, isPlanSentence, removeNoSourceClaim, removeUnnamedTools, removeUnsupportedNumbers } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
 import { readFileSync } from 'node:fs';
-import { referencesBody, unreadSourceLines } from '../../../admission_worker_skeleton/references_v1.mjs';
+import { ingredientPromptLines } from '../../../admission_worker_skeleton/ingredients_v1.mjs';
+import { STAGE, finalizeStageOutput } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
+import { referencesBody, readingGuideLines } from '../../../admission_worker_skeleton/references_v1.mjs';
 import { summarise } from '../../../admission_worker_skeleton/student_portfolio_v1.mjs';
 
 let pass = 0;
@@ -168,30 +170,39 @@ const ok = (name, got) => { if (got) pass += 1; else fails.push(name); };
   ok('제안 절에서 있는 값을 되말하는 것은 그대로', removeUnsupportedNumbers(되말함, allowed, { allowPlans: true }).removed === 0);
 }
 
-// ⑫ 대학 연구 글도 학생이 읽은 것이 아니다 — 인용 목록에 올리면 안 된다.
+// ⑫ 기준은 「학생이 읽었나」가 아니라 「보고서가 썼나」다.
 //
-// 실전 보고서 한 편(2026-09-27, 물리 운동량 보존)의 참고 자료에 「허리 동작 보조 웨어러블 로봇」과
-// 「소프트 로봇」이 접속일까지 붙어 인용돼 있었다. 본문에는 한 줄도 없었다 — AI 가 쓸 자리를 못 찾아
-// 하나도 안 썼는데도 인용으로 남았다. 논문은 이미 「더 읽어 볼 자료 (아직 읽지 않았어요)」로
-// 내려보내고 있었는데, 대학 글만 인용 목록에 올라가 있었다.
+// 2026-09-27 저녁에 「읽지 않았으니 다 설명서로」 했더니, 보고서가 근거로 쓴 자료까지 참고문헌에서
+// 빠졌다(사용자 지적 2026-09-28). 보고서가 쓴 것은 참고문헌에 있어야 하고, 설명서에는 「어떻게 찾아
+// 읽는지」가 함께 있어야 한다. 반대로 **안 쓴 자료는 어디에도 없어야 한다** — 구슬 충돌 보고서의
+// 「웨어러블 로봇」이 그 경우다.
 {
-  const body = referencesBody({
-    web: [{ title: '새로운 다기능 허리 동작 보조 웨어러블 로봇 개발', org: '서울대학교',
-      team: '기계공학부 박용래 교수 연구팀', date: '2024-01-01', url: 'https://www.snu.ac.kr/x', accessed: '2026.09.27' }],
-    textbook: '물리학Ⅰ 교과서 · 힘과 운동 단원',
-  });
-  const lines = body.split(String.fromCharCode(10));
-  // 2026-09-27 사용자 결정: 아예 보고서에서 뺀다. 제출하는 보고서와 설명서를 각각 따로 준다.
-  ok('대학 글이 보고서에 없다', !lines.some((l) => l.includes('웨어러블 로봇')));
-  ok('그 글은 설명서 목록으로 간다', unreadSourceLines({ web: [{ title: '새로운 다기능 허리 동작 보조 웨어러블 로봇 개발',
-    org: '서울대학교', team: '기계공학부 박용래 교수 연구팀', date: '2024-01-01',
-    url: 'https://www.snu.ac.kr/x', accessed: '2026.09.27' }] }).some((l) => l.includes('웨어러블 로봇')));
-  ok('교과서는 그대로 인용 자리에 있다', lines[0].includes('교과서'));
-  const 학생것 = referencesBody({
-    studentSources: ['공공데이터 포털 대기오염 월별 통계, 2026-09-23 조회'],
-    textbook: '통합과학2 교과서 · 생물과 환경 단원',
-  });
-  ok('학생이 적은 자료원은 여전히 맨 앞이다', 학생것.split(String.fromCharCode(10))[0].includes('공공데이터 포털'));
+  const 재료 = { papers: [{ id: 'P1', title: '합 실마리 수지코 퍼즐에 관한 공통 숫자 망 알고리즘',
+    who: '이상운', year: '2024', journal: '한국인터넷방송통신학회 논문지', volume: '24', issue: '5', pages: '83-88' }], research: [] };
+  const 썼다 = finalizeStageOutput(STAGE.COMPLETE, { reportTitle: 't', usedIngredients: ['P1'], sections: [{ title: '결론', body: '가' }] },
+    { subject: '공통수학1', ingredients: 재료, textbookCitation: '공통수학1 교과서 · 경우의 수, 순열, 조합 단원' });
+  const 인용 = 썼다.parsed.sections.find((s) => /참고/.test(s.title)).body;
+  ok('보고서가 쓴 논문은 참고문헌에 들어간다', 인용.includes('수지코'));
+  ok('설명서에도 찾는 법과 함께 실린다', JSON.stringify(썼다.extra.reportGuide).includes('수지코')
+    && JSON.stringify(썼다.extra.reportGuide).includes('kci.go.kr'));
+
+  const 안썼다 = finalizeStageOutput(STAGE.COMPLETE, { reportTitle: 't', usedIngredients: [], sections: [{ title: '결론', body: '가' }] },
+    { subject: '물리', textbookCitation: '물리학Ⅰ 교과서 · 힘과 운동 단원',
+      ingredients: { papers: [{ id: 'P1', title: '허리 동작 보조 웨어러블 로봇 개발', who: '김', year: '2024', journal: '학회지' }], research: [] } });
+  const 인용2 = 안썼다.parsed.sections.find((s) => /참고/.test(s.title)).body;
+  ok('안 쓴 자료는 참고문헌에 없다', !인용2.includes('로봇') && 인용2.includes('교과서'));
+  ok('안 쓴 자료는 설명서에도 없다', !JSON.stringify(안썼다.extra.reportGuide).includes('로봇'));
+}
+
+// ⑬ 쓸 자리가 없어서 좋은 자료를 버리지 않는다.
+//
+// 「쓸 자리는 둘이다: 이론적 배경, 후속 탐구」로 못 박아 두었더니, 그 두 절이 없는 구조(매체 분석은
+// 8절)에서 좋은 자료도 통째로 버려졌다. 자료 탓이 아니라 우리 규칙 탓이었다(사용자 지적 2026-09-28).
+{
+  const 지시 = ingredientPromptLines({ papers: [{ id: 'P1', title: '가' }], research: [] }).join(String.fromCharCode(10));
+  ok('두 절이 없으면 개념 절에 녹이라고 말한다', /없는 구성/.test(지시) && /개념을 설명하는 절/.test(지시));
+  ok('그래도 새 절은 만들지 말라고 한다', /새 절은 만들지 않는다/.test(지시));
+  ok('분량은 여전히 한두 문장이다', /한두 문장/.test(지시));
 }
 
 console.log(`실전 한 편에서 찾은 흠: ${pass}개 통과${fails.length ? ` · 실패 ${fails.length}` : ''}`);

@@ -106,16 +106,13 @@ export function studentSourceLines(conditions) {
   return lines.slice(0, 2);
 }
 
-// **읽지 않은 자료는 보고서에 넣지 않는다. 설명서로 간다.**
+// **보고서가 쓴 자료를 「어떻게 찾아 읽는지」와 함께 설명서에 적는다.**
 //
-// 사용자 결정 2026-09-27: 학생에게 주는 것은 두 개다 — 그대로 낼 수 있는 보고서, 그리고 제출하지 않는
-// 설명서. 「더 읽어 볼 자료」를 보고서의 참고 자료 절 안에 붙여 두었더니, 제출물에 「아직 읽지 않았어요」
-// 라는 칸이 생겼다. 구슬 충돌 보고서에 쿼드로터 고도제어·캐스터 휠 동역학·엑소 슈트가 실려 있었다.
-// 선생님이 받는 종이에 있을 이유가 없다. 붙여 주지 말고 각각 따로 준다.
+// 참고문헌에는 서지 한 줄만 있다. 학생은 그것을 어디서 어떻게 읽는지 모른다. 선생님이 「이 논문 읽었니?」
+// 물으면 답을 못 한다. 그래서 같은 자료를 설명서에도 적고, 찾는 법을 붙인다(사용자 지적 2026-09-28).
 //
-// 이 칸을 만든 뜻(2026-09-24)은 그대로다 — 우리가 골라 준 논문이 통째로 사라져 학생이 읽을 거리가
-// 0이 되는 것을 막는 것. 뜻은 맞았고 **둘 자리만 틀렸다.**
-export function unreadSourceLines({ cards = [], papers = [], web = [] } = {}) {
+// 학생이 자료 카드에 이미 적은 것은 뺀다 — 그건 학생이 스스로 읽은 것이라 안내가 필요 없다.
+export function readingGuideLines({ cards = [], papers = [], web = [] } = {}) {
   const list = normalizeSourceCards(cards);
   const bare = (value) => String(value || '').replace(/[\s\p{P}\p{S}]/gu, '');
   const 학생것 = (row) => list.some((card) => {
@@ -184,8 +181,19 @@ export function referencesBody({ cards = [], papers = [], web = [], datasets = [
   // 10.4% → 8.7% 로 줄었는데 **좋은 것이 떨어지고 나쁜 것이 살아남았다**(「머신러닝 탐구」 ←
   // 「머신러닝 기반 오이 생육 예측」이 떨어지고 「프로그램 작성하기」 ← 「VR 신체활동 프로그램」이
   // 남았다). 그래서 고르는 규칙은 건드리지 않고, **무엇인지 그대로 적는다.**
-  // 읽지 않은 자료(우리가 붙인 논문·대학 글)는 **여기에 넣지 않는다.** 설명서로 간다 —
-  // unreadSourceLines 를 보라. 제출하는 종이에는 학생이 실제로 쓴 자료만 남는다.
+  // **보고서가 쓴 논문·대학 글은 인용 자리에 적는다**(사용자 지적 2026-09-28). 이 목록에 들어오는 것은
+  // 이미 「AI 가 실제로 쓴 것」으로 걸러져 있다(report_stages_v1 의 usedIngredients). 보고서가 근거로
+  // 삼았으니 참고문헌에 있어야 한다. 학생이 원문을 안 읽었어도, 그 자료가 이 글의 배경이 된 것은 사실이다.
+  // 학생이 카드에 이미 적은 논문은 위에서 한 줄로 합쳤으므로 여기서 건너뛴다.
+  for (const row of papers) {
+    if (used.has(row)) continue;
+    const line = row?.url ? paperLine(row) : indexPaperLine(row);
+    if (line && !lines.includes(line)) lines.push(line);
+  }
+  for (const row of web) {
+    const line = webLine(row);
+    if (line && !lines.includes(line)) lines.push(line);
+  }
   const tail = () => [];
   // 개념에 맞는 공개 자료. 논문 뒤, 교과서 앞이다.
   for (const row of datasets) {

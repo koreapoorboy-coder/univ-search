@@ -1,5 +1,5 @@
 import { ingredientSchema, inspirationCitations, inspirationOf, usedIngredients } from './ingredients_v1.mjs';
-import { normalizeSourceCards, referencesBody, studentSourceLines, unreadSourceLines } from './references_v1.mjs';
+import { normalizeSourceCards, referencesBody, studentSourceLines, readingGuideLines } from './references_v1.mjs';
 import { CALCULATION_SCHEMA, calculationPromptLines, tidyCalculatedNumbers, verifyCalculations } from './calc_check_v1.mjs';
 // Two-stage experiment report.
 // Stage 1 (experiment_draft): a design report plus a data template the student fills in after doing the experiment.
@@ -1685,16 +1685,20 @@ export function finalizeStageOutput(stage, rawParsed, input) {
     const stats = stage === STAGE.FINAL ? computeStats(data) : null;
     // 교과 확장 재료를 보냈으면(ingredients_v1) **AI가 실제로 쓴 재료**가 참고 자료의 논문·대학 글이다.
     const used = input.ingredients ? usedIngredients(parsed, input.ingredients) : null;
-    // **AI가 하나도 안 썼으면 우리가 고른 것을 그대로 보여 준다**(2026-09-26, 매체 의사소통 실제 보고서).
-    // 보고서 구조에 「교과 심화와 확장」 절이 없는 것이 있다(매체 분석 구조는 8절인데 확장 절이 없다).
-    // 그러면 AI 는 재료를 쓸 자리가 없어 하나도 안 쓰고, 골라 둔 논문 5편이 통째로 사라졌다 —
-    // 학생이 읽을 거리가 0이 된다. 「더 읽어 볼 자료 (아직 읽지 않았어요)」 칸은 바로 이런
-    // 자료를 정직하게 보여 주려고 만든 자리다(2026-09-24). 하나라도 썼으면 예전대로 쓴 것만 적는다.
-    const nothingUsed = used && !used.papers.length && !used.research.length;
-    const shown = nothingUsed ? input.ingredients : used;
-    const usedRefs = shown ? inspirationCitations(inspirationOf(shown)) : null;
+    // **기준은 「학생이 읽었나」가 아니라 「보고서가 썼나」다**(사용자 지적 2026-09-28).
+    //
+    // 어제는 「읽지 않았으니 다 설명서로」 했다. 그것이 틀렸다 — 보고서가 근거로 쓴 자료는 참고문헌에
+    // 있어야 한다. 학생이 원문을 안 읽었어도 그 자료가 이 글의 배경이 된 것은 사실이다. 대신 설명서에
+    // 「어떻게 찾아 읽는지」를 적어 학생이 말할 거리를 갖게 한다.
+    //
+    // 그리고 **안 쓴 재료는 아무 데도 안 넣는다.** 예전에는 AI가 하나도 안 썼으면 우리가 고른 것을
+    // 그대로 보여 주었다(2026-09-26, 매체 의사소통: 확장 절이 없는 구조여서 논문 5편이 통째로 사라졌다).
+    // 그러면 구슬 충돌 보고서에 「웨어러블 로봇」이 붙는다. 못 쓴 까닭이 둘인데 구분하지 못한 것이다 —
+    // **쓸 자리가 없어서**(우리 규칙 탓)와 **안 맞아서**(자료 탓). 자리 규칙은 ingredients_v1 에서
+    // 풀었으니 이제 안 썼다는 것은 안 맞는다는 뜻이다. 안 맞는 자료는 학생에게 보여 주지 않는다.
+    const usedRefs = used ? inspirationCitations(inspirationOf(used)) : null;
     const refPapers = usedRefs ? usedRefs.papers : (input.referencePapers || []);
-    const refWeb = shown ? shown.research : (input.referenceWeb || []);
+    const refWeb = used ? used.research : (input.referenceWeb || []);
     const allowed = allowedNumberSet(data, stats);
     numbersIn(input.taskDescription).forEach((number) => allowed.add(canonicalNumber(number)));
     // 교과 확장 재료의 서지 숫자(연도·권·호·쪽)는 지어낸 숫자가 아니다. 이것을 막았더니 「(이윤미 외, 2024)」가 든 문장이
@@ -1788,7 +1792,7 @@ export function finalizeStageOutput(stage, rawParsed, input) {
     // 학생용 설명서. 보고서 본문에는 안 들어간다 — 따로 준다(사용자 결정 2026-09-23).
     // 읽지 않은 자료는 보고서가 아니라 **설명서**로 간다(사용자 결정 2026-09-27).
     const reportGuide = buildReportGuide({ input, data, stats, sections: cleaned, title: parsed?.title,
-      readMore: unreadSourceLines({ cards: data.sourceCards, papers: refPapers, web: refWeb }) });
+      readMore: readingGuideLines({ cards: data.sourceCards, papers: refPapers, web: refWeb }) });
     return { parsed: { ...parsed, sections: cleaned }, extra: { ...extra, recordDraft, reportGuide, removedNumberSentences: removed, removedFeelingSentences: removedFeelings,
       ...(calculation.verified.length || calculation.rejected.length ? { calculations: calculation.verified, rejectedCalculations: calculation.rejected } : {}),
       ...(droppedSamples.length ? { removedNumberSamples: droppedSamples.slice(0, 8) } : {}),
@@ -1844,6 +1848,6 @@ export function finalizeStageOutput(stage, rawParsed, input) {
   if (oneShot.length && !oneShot.some((section) => REFERENCE_TITLE.test(String(section?.title || '')))) oneShot.push({ title: '참고 자료', body: closing });
   // 한 번에 끝나는 보고서도 같다 — 읽지 않은 자료는 설명서로 간다(사용자 결정 2026-09-27).
   const oneShotGuide = buildReportGuide({ input, data: normalizeStudentData(null), stats: null, sections: oneShot, title: parsed?.title,
-    readMore: unreadSourceLines({ papers: shownPapers, web: shownWeb }) });
+    readMore: readingGuideLines({ papers: shownPapers, web: shownWeb }) });
   return { parsed: { ...parsed, sections: oneShot }, extra: { reportGuide: oneShotGuide, removedFeelingSentences: removedPraise, ...(used ? { inspiration: inspirationOf(used) } : {}) } };
 }

@@ -404,15 +404,15 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
       const tb = lines.find((l) => /교과서/.test(l) && !/\(\d{4}\)\./.test(l));
       if (tb && !tb.includes(subject.replace(/\d$/, "").replace(/ .*/, "")) && !/통합|과학탐구|융합|과제/.test(subject)) flag("교과서줄_과목다름", tb);
       if (!lines.length) flag("참고자료_빈칸");
-      // **쓴 재료는 「설명서」에 있어야 한다.** 2026-09-27 사용자 결정으로, 학생이 읽지 않은 자료(우리가
-      // 붙인 논문·대학 글)는 제출하는 보고서에 넣지 않고 제출하지 않는 설명서에만 싣는다. 학생에게
-      // 주는 것이 두 개이고, 붙여서 주면 학생이 그대로 제출해 버린다.
+      // **쓴 재료는 보고서의 참고 자료에 있어야 하고, 설명서에도 찾는 법과 함께 있어야 한다.**
+      // 기준은 「학생이 읽었나」가 아니라 「보고서가 썼나」다(사용자 지적 2026-09-28). 보고서가 근거로
+      // 쓴 자료는 참고문헌에 있어야 하고, 학생은 그것을 어디서 어떻게 읽는지 설명서에서 알아야 한다.
       const 설명서 = JSON.stringify(f.data.result?.reportGuide || {});
       const usedTitles = row.inspiration;
       for (const title of usedTitles || []) {
         const 조각 = String(title).slice(0, 20);
-        if (lines.some((line) => line.includes(조각))) flag("쓴재료가_보고서에_실림", title);
-        else if (!설명서.includes(조각)) flag("쓴재료가_설명서에_없음", title);
+        if (!lines.some((line) => line.includes(조각))) flag("쓴재료가_참고자료에_없음", title);
+        if (!설명서.includes(조각)) flag("쓴재료가_설명서에_없음", title);
       }
     }
   } catch (error) {
