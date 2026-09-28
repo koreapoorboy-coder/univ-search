@@ -115,8 +115,3 @@ export async function findPublicData(input, terms, apiKey, { limit = 3, fetchImp
   return pickRows(rows, terms, limit);
 }
 
-// 화면에 뭐라고 쓸지. "이 자료를 쓰세요"가 아니라 "이런 자료가 있어요"다.
-export function publicDataNote(found) {
-  if (!found.length) return '';
-  return '공공기관이 공개한 자료예요. 열어 보고 쓸 만하면, 2단계에서 무엇을 얻었는지 적어 주세요.';
-}

@@ -455,8 +455,3 @@ export function matchBooks(books, input = {}, limit = 3, counts = null, conceptC
   return scored.slice(0, limit);
 }
 
-// 화면에 뭐라고 쓸지. "이 책으로 쓰세요"가 아니라 "이런 책이 있어요"다.
-export function bookNote(found) {
-  if (!found.length) return '';
-  return '읽어 두면 도움이 될 책이에요. 꼭 읽어야 하는 건 아니고, 실제로 읽은 책만 2단계에서 적어 주세요.';
-}

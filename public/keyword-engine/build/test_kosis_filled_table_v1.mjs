@@ -15,7 +15,10 @@ const concepts = Object.keys(unitMap.byConcept || {});
 let fail = 0;
 const bad = (why) => { console.log(`  ✗ ${why}`); fail += 1; };
 
-if (concepts.length < 44) bad(`이은 단원이 ${concepts.length}개뿐이다`);
+// 2026-09-28: 47개에서 43개로 줄었다. 축 색인에 없는 단원 이름 네 개(「함수의 극한과 연속」·「연소와
+// 우리 생활」·「기체의 성질」·「물의 순환과 수질」)를 지웠기 때문이다 — 한 번도 읽히지 않는 줄이었다.
+// 이 문턱은 실수로 통째로 지우는 것을 막으려고 둔 것이다(tools/audit_index_keys_v1.mjs 도 함께 본다).
+if (concepts.length < 43) bad(`이은 단원이 ${concepts.length}개뿐이다`);
 
 for (const concept of concepts) {
   const table = findTable(seed, unitMap, concept);

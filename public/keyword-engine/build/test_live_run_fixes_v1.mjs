@@ -1,6 +1,6 @@
 // 실전 한 편(2026-09-27, 화학 「물질의 양과 화학 반응식」)을 통으로 돌려서 찾은 흠 네 개.
 // 하나도 화면에서는 안 보이던 것들이다 — 학생이 내는 글에서만 보인다.
-import { allowedNumberSet, computeStats, normalizeStudentData, dropUnkeptPledges, isPlanSentence, removeNoSourceClaim, removeUnnamedTools, removeUnsupportedNumbers } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
+import { allowedNumberSet, computeStats, normalizeStudentData, dropUnkeptPledges, isPlanSentence, removeInventedFeelings, removeNoSourceClaim, removeSelfPraise, removeUnnamedTools, removeUnsupportedNumbers } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
 import { readFileSync } from 'node:fs';
 import { ingredientPromptLines } from '../../../admission_worker_skeleton/ingredients_v1.mjs';
 import { STAGE, finalizeStageOutput } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
@@ -203,6 +203,25 @@ const ok = (name, got) => { if (got) pass += 1; else fails.push(name); };
   ok('두 절이 없으면 개념 절에 녹이라고 말한다', /없는 구성/.test(지시) && /개념을 설명하는 절/.test(지시));
   ok('그래도 새 절은 만들지 말라고 한다', /새 절은 만들지 않는다/.test(지시));
   ok('분량은 여전히 한두 문장이다', /한두 문장/.test(지시));
+}
+
+// ⑭ 느낀 점을 손대는 두 장치에 검사가 없었다(2026-09-28, tools/audit_guard_tests_v1.mjs 가 찾았다).
+//
+// 느낀 점은 **선생님이 세특을 쓸 때 읽는 자리**다. 여기서 지우는 쪽으로 틀리면 학생이 정말 쓴 말이
+// 사라지고, 남기는 쪽으로 틀리면 학생이 하지 않은 말이 제출된다. 그런데 이틀 동안 흠 열넷이 전부
+// 검문소에서 나왔는데도, 이 둘만 검사가 없었다.
+{
+  // 지어낸 느낌 — 학생이 쓴 글에 없는 느낌말은 지운다.
+  const 학생글 = '측정 시점을 정하는 기준이 사람마다 달라 오차가 생겼다.';
+  ok('학생이 안 쓴 느낌말은 지운다', removeInventedFeelings('이 과정이 매우 뿌듯했다.', 학생글).removed === 1);
+  ok('학생이 쓴 느낌말은 남긴다', removeInventedFeelings('이 과정이 매우 뿌듯했다.', '정말 뿌듯했어요').removed === 0);
+  ok('느낌말이 없는 문장은 안 건드린다', removeInventedFeelings('평균은 12.4 cm였다.', 학생글).removed === 0);
+
+  // 자기 칭찬 — 학생을 칭찬하는 문장은 선생님이 쓸 말이다. 보고서가 스스로 쓰면 안 된다.
+  ok('자기 칭찬은 지운다', removeSelfPraise('나는 성실하게 실험에 참여했다.', 학생글).removed === 1);
+  ok('적극적·우수도 지운다', removeSelfPraise('적극적인 태도로 우수한 결과를 얻었다.', 학생글).removed === 1);
+  ok('학생이 직접 쓴 말이면 남긴다', removeSelfPraise('나는 성실하게 실험에 참여했다.', '나는 성실하게 실험에 참여했다.').removed === 0);
+  ok('칭찬이 아닌 문장은 안 건드린다', removeSelfPraise('세 조건의 평균을 비교했다.', 학생글).removed === 0);
 }
 
 console.log(`실전 한 편에서 찾은 흠: ${pass}개 통과${fails.length ? ` · 실패 ${fails.length}` : ''}`);

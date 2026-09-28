@@ -319,20 +319,6 @@ export function matchAxes(terms, index, limit = 4, subject = '') {
     .slice(0, limit);
 }
 
-// What the reading side of the analysis is told about those axes.
-// The same axes, said to the report instead of to the analysis: this one names where the work leads next.
-export function careerAxisPromptLines(matched) {
-  if (!matched?.length) return [];
-  const top = matched.slice(0, 2);
-  return [
-    '',
-    '[이 개념이 이어지는 탐구 축 — 우리 교육과정 지도에서 찾은 것]',
-    ...top.map((axis) => `- ${axis.title}: ${axis.subject}의 "${axis.concept}"에서 ${axis.next.join(", ")}로 이어진다. ${axis.why}`),
-    `- 결론 마지막 문단의 후속 탐구는 위 축을 근거로 쓴다. 그 축에서 나오는 산출물(${top[0].output})에 가까운 심화 탐구를 제안하되, 학과 이름이 아니라 이어지는 교과와 방법으로 쓴다.`,
-    '- 위 축이 이번 탐구 결과와 이어지지 않으면 억지로 쓰지 않고, 결과에서 자연스럽게 나오는 방향으로 쓴다.',
-  ];
-}
-
 export function axisPromptLines(matched) {
   if (!matched?.length) return [];
   return [

@@ -946,8 +946,16 @@ export default {
         // 이미 있는 길을 탄다: 자료 카드 → 프롬프트 → 이론적 배경과 참고 자료.
         //
         // 여기서도 AI에게는 안 간다. **학생이 고른 책만** 2단계에서 프롬프트에 들어간다.
+        // **한 번에 끝나는 보고서도 책을 받아야 한다**(2026-09-28 측정).
+        //
+        // 책은 설계서 단계에서만 골랐다. 그래서 한 단계로 끝나는 과제 **1,657건(전체의 절반)이 한 권도
+        // 받지 못하고 있었다.** 두 단계 과제만 챙기고 한 단계 과제를 빠뜨린 것이다 — 설명서를 안 주던
+        // 것과 같은 모양이다.
+        //
+        // 다만 화면의 **책 고르기(라디오 버튼)는 설계서에서만** 뜬다. 한 번에 끝난 보고서에서 책을 골라도
+        // 그 다음 단계가 없으므로 고르게 하지 않는다. 대신 아래에서 **설명서에 읽을거리로** 옮겨 적는다.
         let bookChoices = [];
-        if (input.reportStage === STAGE.DRAFT) {
+        if (input.reportStage === STAGE.DRAFT || input.reportStage === STAGE.COMPLETE) {
           try {
             const bookList = seedPack.bookMatchIndex?.books || [];
             bookChoices = matchBooks(bookList, {
@@ -963,6 +971,21 @@ export default {
             // 책을 못 고르면 설계서는 그대로 나간다. 책은 있으면 좋은 것이지 없으면 안 되는 것이 아니다.
             console.error('book choices failed:', error?.message || error);
           }
+        }
+        // 한 번에 끝나는 보고서: 고르게 하지 않고 **설명서에 읽을거리로** 적는다. 설명서는 제출하지 않는다.
+        if (input.reportStage === STAGE.COMPLETE && bookChoices.length && result?.reportGuide) {
+          result = { ...result, reportGuide: { ...result.reportGuide,
+            blocks: [...(result.reportGuide.blocks || []), {
+              head: '읽어 보면 좋은 책',
+              lines: ['이 단원과 이어지는 책이에요. 보고서에는 안 들어가요.',
+                '한 권을 읽고 「무엇을 알게 되었나」를 두 줄로 적어 두면, 다음 보고서의 자료가 돼요.',
+                ...bookChoices.slice(0, 4).map((one) => {
+                  const 짧게 = (value, max) => String(value || '').replace(/\s+/g, ' ').trim().slice(0, max);
+                  return [짧게(one.title, 80), 짧게(one.author, 40)].filter(Boolean).join(' · ')
+                    + (one.summary ? ` — ${짧게(one.summary, 90)}` : '');
+                })],
+            }] } };
+          bookChoices = [];   // 화면의 책 고르기는 띄우지 않는다
         }
 
         // 다음에 해 볼 것. **모델을 부른 뒤에** 만든다 — 프롬프트에 넣으면 보고서가 그쪽으로 휜다.

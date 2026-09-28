@@ -312,7 +312,12 @@ for (const [n, { at, task, subject }] of tasks.entries()) {
     if (r.reportStage === "experiment_draft" && /^ {2}[PR]\d\. /m.test(d.prompt)) flag("설계서에_재료가_감");
     const guide = d.data.paperGuide;
     row.papers = (guide?.papers || guide?.items || []).map((p) => p.title || p.line || JSON.stringify(p).slice(0, 120));
-    row.books = (d.data.bookChoices || []).map((b) => b.title);
+    // 한 번에 끝나는 보고서는 책 고르기를 띄우지 않고 **설명서에 읽을거리로** 적는다(2026-09-28).
+    // 그래서 bookChoices 만 보면 「책이 0권」으로 보인다 — 설명서 쪽도 같이 센다.
+    const 설명서책 = ((d.data.result?.reportGuide?.blocks || []).find((b) => /읽어 보면 좋은 책/.test(b.head))?.lines || [])
+      .filter((one) => !/보고서에는 안 들어가요|두 줄로 적어 두면/.test(one));
+    row.books = [...(d.data.bookChoices || []).map((b) => b.title), ...설명서책];
+    row.booksIn = (d.data.bookChoices || []).length ? '고르기' : (설명서책.length ? '설명서' : '없음');
 
     // 3. 최종 보고서
     let f = null;
