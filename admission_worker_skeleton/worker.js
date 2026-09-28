@@ -669,10 +669,23 @@ export default {
               { concept: reportConcept }, seedPack.publicDataTerms, env.PUBLIC_DATA_KEY,
               { limit: 8, timeoutMs: 12000 },
             );
-            // **엄격하게** 고른다(strict). 실제 보고서로 돌려 보니 「사과 갈변」 보고서의 참고 자료에 「대기오염
-            // 측정자료」·「먹는샘물 수질검사」가 붙었다 — 과제문 낱말이 하나도 안 맞으면 개념 사전 차례대로 셋을
-            // 붙이던 탓이다. 참고 자료는 보고서 내용을 받쳐야 한다. 안 맞으면 안 붙인다(논문·대학 글과 같다).
-            input.referenceDatasets = pickForTask(pool, contentWords(taskText(input), input.subject), 3, { skip: reportConcept, strict: true, need: 2 });
+            // **셋을 하나로 줄이고, 낱말로 거르는 것은 그만둔다**(2026-09-28 측정).
+            //
+            // 「사과 갈변」 보고서에 「대기오염 측정자료」·「먹는샘물 수질검사」가 붙은 일(2026-09-18) 때문에
+            // 과제문 낱말로 엄격하게 걸렀는데, 그랬더니 **한 번도 안 붙었다.** 재 보니 이렇다(낱말이 있는
+            // 단원 675건 기준):
+            //     또렷한 말 2개 필요(지금) →   0%
+            //     또렷한 말 1개 필요       →   5%, 그런데 「면역과 백신 ← 신·재생에너지 발전량」처럼 엉뚱하다
+            //     조건 없음               → 100%, 전 과목에 미세먼지·오존이 붙는다(사과 갈변 사태)
+            // 낱말을 조이든 풀든 답이 아니었다.
+            //
+            // 놓치고 있던 것: **가져온 목록은 이미 주제에 맞다.** 찾는 낱말(기온·기상관측·교통사고…)은 사람이
+            // 단원마다 손으로 달고 실제 API 로 하나씩 재 본 것이다(public_data_terms 의 note). 그것을 과제문
+            // 낱말로 한 번 더 거르는 것은 덤이 아니라 손실이었다.
+            //
+            // 그래서 사과 갈변의 진짜 원인만 막는다 — 그때 문제는 **0점짜리로 개수를 셋까지 채운 것**이었다.
+            // 하나만 준다. 과제문 낱말은 그 하나를 고르는 **순서**에만 쓴다.
+            input.referenceDatasets = pickForTask(pool, contentWords(taskText(input), input.subject), 1, { skip: reportConcept });
           } catch (error) {
             console.error('reference datasets failed:', error?.message || error);
           }

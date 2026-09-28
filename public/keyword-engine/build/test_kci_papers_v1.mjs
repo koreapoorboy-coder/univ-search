@@ -337,8 +337,11 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
     "L2 논문은 수행평가 틀로 — 받칠 근거가 없으면 안 붙인다");
   check(/research = pickForTask\(got, contentWords\(taskText\(input\), input\.subject\), 2, \{ skip: name \}\)/.test(worker),
     "L2 대학 연구는 느슨하게");
-  check(/referenceDatasets = pickForTask\(pool, contentWords\(taskText\(input\), input\.subject\), 3, \{ skip: reportConcept, strict: true, need: 2 \}\)/.test(worker),
-    "L2 공공데이터도 과제문으로, **엄격하게** 고른다 — 사과 갈변 보고서에 대기오염 자료가 붙었다");
+  // 2026-09-28: 엄격하게 걸렀더니 **한 번도 안 붙었다.** 낱말이 있는 단원 675건에서 0%였다. 찾는 낱말은
+  // 사람이 단원마다 실제 API 로 재 보고 달아 둔 것이라 가져온 목록이 이미 주제에 맞는다 — 한 번 더 거르는
+  // 것은 손실이었다. 사과 갈변의 진짜 원인(0점짜리로 셋까지 채운 것)만 막는다: 하나만 준다.
+  check(/referenceDatasets = pickForTask\(pool, contentWords\(taskText\(input\), input\.subject\), 1, \{ skip: reportConcept \}\)/.test(worker),
+    "L2 공공데이터는 하나만 — 0점짜리로 개수를 채우지 않는다(사과 갈변 보고서에 대기오염 자료가 붙은 까닭)");
   check(/findPublicData\([\s\S]{0,200}limit: 8/.test(worker),
     "L2 공공데이터도 넉넉히 받아 두고 고른다");
 }
