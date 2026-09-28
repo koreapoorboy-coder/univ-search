@@ -64,7 +64,9 @@ const check = (ok, label, detail = "") => { assert.equal(ok, true, `${label} -> 
     const axis = axisFor(concept);
     return matchBooks(books, {
       subject, concept, keyword: String(axis?.output || "").split(/[,、·]/)[0].trim(), axisTitle: axis?.title,
-    }, 3, counts, conceptCounts).map((b) => b.title);
+      // 2026-09-28: 셋만 받으면 **섞기** 때문에 「그 책이 들어 있나」를 물을 수 없다. 이 검사가 묻는 것은
+      // 점수 규칙이지 화면에 몇 권 뜨는지가 아니므로, 기준을 넘은 책을 다 받아 본다(limit 200).
+    }, 200, counts, conceptCounts).map((b) => b.title);
   };
 
   const 탐구 = conceptCounts.get("과학탐구실험")?.get("탐구") || 0;

@@ -19,7 +19,12 @@ const norm = (value) => clean(value, 40).replace(/\s+/g, '').replace(/\d+$/, '')
 const tightSubject = (value) => clean(value, 40).replace(/\s+/g, '');
 const words = (text) => String(text || '').split(/[^가-힣A-Za-z0-9]+/).filter((word) => word.length >= 2);
 
+import { aliasedConcepts } from './book_concept_alias_v1.mjs';
+
 const SUBJECT_POINT = 3;
+// **사람이 「이 책은 이 단원」이라고 적어 둔 것의 값.** 과목(3)과 합쳐 문턱(6)을 바로 넘는다 —
+// 그 한 줄만으로 책이 나온다. 낱말이 흔한지 따지지 않는다. 판단이지 낱말이 아니다.
+const STATED_CONCEPT_POINT = 3;
 // 과목만 맞은 책은 안 나온다. **드문** 낱말이 한 번은 걸려야 한다 — 재 보니 억지는 전부 흔한 낱말로
 // 걸린 것들이었다(화학 반응식에 「국화와 칼」이 "화학" 한 낱말로 붙었다).
 export const MIN_SCORE = SUBJECT_POINT + 3;
@@ -92,6 +97,11 @@ const NOT_TOPIC = new Set([
   // '과학사'는 개념 이름에 있을 때만 쓴다. '우리 선조들의 과학 기술 발전 사례 찾기'(전통 기술)에
   // 서양 과학사 책 세 권이 그 말로 붙었다. '과학사에서 동시 발견…' 단원에는 이름에 있으므로 남는다.
   '과학사',
+  // '통계'와 '데이터'도 개념 이름에 있을 때만 쓴다. 책 쪽에서 이 말은 **통계 교양서**를 뜻하는데,
+  // 수학 단원 쪽에서는 다른 것을 뜻한다 — 「경우의 수, 순열, 조합」에 「팩트풀니스」·「평균의 종말」이
+  // '통계'로, 「행렬과 행렬의 연산」에 같은 책들이 '데이터'로 붙었다(전수 검토 2026-09-28).
+  // 「자료와 통계로 읽는 과학」·「데이터 수집과 전처리」처럼 이름에 있는 단원에서는 그대로 쓰인다.
+  '통계', '데이터',
   // '분자'는 개념 이름에 있을 때만. 통합과학1 '자연 세계의 시간과 공간'(크기·측정 한계) 산출물에
   // "물 분자·수소 원자처럼"이 있어서 화학 교양서 네 권이 그 말로 붙었다.
   '분자',
@@ -236,6 +246,20 @@ export function scoreBook(book, { subject = '', terms = [], conceptCounts = null
   const mySpread = conceptCounts ? conceptCounts.get(norm(subject)) : null;
   const why = [];
   let score = SUBJECT_POINT;
+  // **사람이 「이 책은 이 단원」이라고 적어 두었으면 그것만으로 충분하다**(2026-09-28 측정).
+  //
+  // 지금까지는 개념 이름이 정확히 같아도 가산점이 없었다. 그 이름의 **낱말**만 다른 낱말과 똑같이
+  // 흔한지 드문지 따져 점수를 줬다. 그래서 인문·사회 책이 통째로 죽었다:
+  //   「1984」의 꼬리표는 사회·구조·권력, 단원 이름은 「사회 구조와 사회 변동」 — 말이 겹치는데
+  //   「사회」·「구조」가 248권 중 20권을 넘게 붙어 있어 0점이 되고, 3점(과목)에서 멈춰 떨어졌다.
+  //   그 단원에서 기준을 넘는 책이 **0권**이었다.
+  // 낱말이 흔한지 따지는 규칙은 맞다 — 「사회」로 고른 추천은 아무 말도 안 한다. 그런데 **사람이
+  // 단원 이름을 그대로 적어 둔 것은 낱말이 아니라 판단이다.** 흔한지 따질 일이 아니다.
+  //
+  // 이 한 줄이 인문·사회 책을 살린다. 억지가 늘지는 않는다 — 억지는 「흔한 낱말 하나로 걸린 것」이고
+  // (「화학 반응식」에 「국화와 칼」이 '화학'으로), 이것은 사람이 그 단원을 지목한 것이다.
+  const stated = mine && (book.connectable_concepts || []).some((one) => aliasedConcepts(one).some((name) => norm(name) === mine));
+  if (stated) { score += STATED_CONCEPT_POINT; why.push('단원 지목'); }
   const used = new Set();
   for (const term of terms) {
     // 옛 부름꼴도 받는다 — 시험과 도구가 문자열 배열을 그대로 넘긴다.
@@ -414,7 +438,7 @@ function sortPoints(points, terms) {
 }
 
 // 이 보고서에 권할 책. 없으면 빈 배열이 정상이다.
-export function matchBooks(books, input = {}, limit = 3, counts = null, conceptCounts = null, majorCounts = null) {
+export function matchBooks(books, input = {}, limit = 3, counts = null, conceptCounts = null, majorCounts = null, random = Math.random) {
   const subject = clean(input.subject, 40);
   if (!wantsBooks(subject)) return [];
   const list = Array.isArray(books) ? books : Object.values(books || {});
@@ -452,6 +476,26 @@ export function matchBooks(books, input = {}, limit = 3, counts = null, conceptC
   }
   // 점수가 같으면 **이 개념에 쓸 문장이 있는 책**이 앞이다. 학생이 위에서부터 고른다.
   scored.sort((a, b) => b.score - a.score || b.onConcept - a.onConcept || a.title.localeCompare(b.title, 'ko'));
-  return scored.slice(0, limit);
+  // **좋은 둘은 늘, 나머지는 통 안에서 섞는다.**
+  //
+  // 사람이 단원을 지목한 책이 들어오기 시작하자 후보가 갑자기 늘었다 — 「사회 구조와 사회 변동」에는
+  // 156권이 그 단원을 지목하고 있다. 점수순으로 자르기만 하면 **늘 같은 여섯 권**이 나온다(점수가 같아
+  // 제목 차례로 잘리므로 「1984」·「갈매기」처럼 앞 글자만 이긴다). 그러면 살려 놓고도 몇 권만 나간다.
+  //
+  // 섞어도 되는 까닭: 여기 남은 책은 모두 **절대 기준(MIN_SCORE)을 넘은 것**이다. 상대 순위로 자른 것이
+  // 아니므로 3등과 12등은 「덜 맞는 책」이 아니라 「같이 맞는 책」이다. 논문 재료가 이미 같은 방식을 쓴다.
+  return mixBooks(scored, limit, random);
+}
+
+// 좋은 keep 개는 늘, 나머지는 pool 안에서 무작위로. ingredients_v1 의 mix 와 같은 생각이다.
+function mixBooks(ranked, count, random = Math.random, { keep = 2, pool = 14 } = {}) {
+  if (ranked.length <= count) return ranked;
+  const head = ranked.slice(0, Math.min(keep, count));
+  const rest = ranked.slice(head.length, Math.max(count, pool));
+  for (let at = rest.length - 1; at > 0; at -= 1) {
+    const other = Math.floor(random() * (at + 1));
+    [rest[at], rest[other]] = [rest[other], rest[at]];
+  }
+  return [...head, ...rest.slice(0, Math.max(0, count - head.length))];
 }
 
