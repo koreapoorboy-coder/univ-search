@@ -13,6 +13,7 @@ import { applyReview, buildReviewPrompt, reviewSchema, usedSources } from '../..
 const here = (name) => new URL(name, import.meta.url);
 const worker = (await readFile(here('../../../admission_worker_skeleton/worker.js'), 'utf8')).replace(/\r\n/g, '\n');
 const toml = await readFile(here('../../../admission_worker_skeleton/wrangler.production-report-v2.toml'), 'utf8');
+const archive = await readFile(here('../../../admission_worker_skeleton/report_archive_v1.mjs'), 'utf8');
 
 let pass = 0;
 const fails = [];
@@ -84,6 +85,45 @@ const 보고서 = {
   ok('S7 검수가 켜지면 통계 후보를 셋까지 준다', /검수켜짐 \? 3 : 1/.test(worker));
   // 검수가 꺼져 있으면 고를 사람이 없으니 예전처럼 하나만 준다.
   ok('S7 꺼지면 하나만 준다', /const 검수켜짐 = String\(env\.REPORT_REVIEW \|\| 'on'\)\.toLowerCase\(\) !== 'off';/.test(worker));
+}
+
+// ⑧ **켜 놓고 일하는지 볼 수 있어야 한다.** 이 저장소에서 두 번 겪었다 — 만들어 두고 아무도
+//    부르지 않거나, 결과를 아무 데도 남기지 않아 조용히 안 돌아도 몰랐다.
+{
+  ok('S8 응답에 자료 고르기 결과를 실어 보낸다', worker.includes('reviewSources: reviewInfo ? {'));
+  ok('S8 판단이 왔는지·무엇을 지어냈는지 함께 보낸다',
+    worker.includes('judged: Boolean(reviewInfo.sources?.used)')
+    && worker.includes('faked: (reviewInfo.sources?.faked || [])'));
+  ok('S8 D1 에도 남긴다 — 나중에 되짚을 수 있어야 한다',
+    archive.includes('sourceJudged: Boolean(meta.review.sources?.used)')
+    && archive.includes('sourceFaked:'));
+}
+
+// ⑨ **판단할 것과 보여 줄 것이 같아야 한다.**
+//
+// 2026-09-30 운영 실행에서 잡았다. 검수에게는 referencePapers 만 보여 주었는데, 최종 보고서의
+// 참고문헌은 ingredients(교과 확장 재료)에서 온다. 그래서 검수는 정작 참고문헌에 들어갈 논문을
+// 한 번도 못 보고 판단했고, 「쓴 자료 없음」이라고 해도 논문이 그대로 남았다.
+{
+  const prompt = buildReviewPrompt(보고서, {
+    subject: '확률과 통계', selectedConcept: '모집단과 표본', taskDescription: '표본 추정 탐구',
+    ingredients: { papers: [{ title: '기계학습 모델을 활용한 재입원 예측' }], research: [{ title: '표본 설계 연구' }] },
+  });
+  ok('S9 검수가 ingredients 논문을 본다', prompt.includes('기계학습 모델을 활용한 재입원 예측'));
+  ok('S9 검수가 ingredients 대학 연구도 본다', prompt.includes('표본 설계 연구'));
+  ok('S9 워커가 ingredients 도 거른다',
+    worker.includes('papers: 남기기(input.ingredients.papers, (one) => one?.title)')
+    && worker.includes('research: 남기기(input.ingredients.research, (one) => one?.title)'));
+}
+
+// ⑩ **뺀 뒤에 「요구했는데 없는 것」을 다시 세야 한다.**
+//
+// 2026-09-30 운영 실행에서 잡았다. 통계를 요구한 과제에서 통계가 하나 붙어 있었고, 검수가 「안 썼다」며
+// 그것을 뺐다. 그런데 missingDemanded 는 모델을 부르기 **전에** 이미 셌으므로 「있음」으로 남아 있었다.
+// 학생은 통계 없는 보고서를 받고 아무 안내도 못 받았다. 세는 자리가 뺀 자리보다 앞에 있으면 안 된다.
+{
+  ok('S10 뺀 뒤에 다시 센다', worker.includes('if (뺀자료) {')
+    && /if \(뺀자료\) \{[\s\S]{0,400}input\.missingDemanded = missingDemanded\(/.test(worker));
 }
 
 console.log(`참고문헌 고르기: ${pass}개 통과${fails.length ? ` · 실패 ${fails.length}` : ''}`);

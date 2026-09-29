@@ -21,9 +21,9 @@ const won = (u) => Math.round((((u.input_tokens || 0) / 1e6) * 1.25 + ((u.output
 
 // 수학 수행평가의 흔한 모습으로 적었다 — 단원 이름이 안내문에 있고, 무엇을 낼지가 적혀 있다.
 const TASK = {
-  subject: '미적분1', subjectGroup: '수학', grade: '고2',
-  name: '급수의 수렴과 발산 탐구 보고서',
-  desc: '등비급수의 수렴 조건을 이해하고, 실생활 자료의 변화를 급수로 나타내어 수렴·발산을 판단한 과정을 보고서로 작성하기 / 평가방법: 보고서, 구술 / 반영비율 20%',
+  subject: '확률과 통계', subjectGroup: '수학', grade: '고2',
+  name: '표본 크기와 추정 정확도 비교 탐구',
+  desc: '통계 자료를 활용하여 표본을 뽑아 모집단의 특성을 추정하고, 표본의 크기가 추정에 미치는 영향을 분석하여 보고서로 작성하기 / 평가방법: 보고서 / 반영비율 20%',
 };
 
 const base = (extra) => ({
@@ -77,6 +77,7 @@ async function call(label, body) {
 const one = await call('01_설계서', base({ reportStage: 'experiment_draft' }));
 if (!one) process.exit(1);
 const draft = one.out.result || {};
+console.log('   검수 자료판단: '+JSON.stringify(one.out.reviewSources));
 console.log(`   책 추천 ${Array.isArray(one.out.bookChoices) ? one.out.bookChoices.length : 0}권`);
 for (const b of one.out.bookChoices || []) console.log(`      · 『${b.title}』 ${b.author || ''}  [${(b.why || []).join(', ')}]`);
 
@@ -105,6 +106,7 @@ const two = await call('03_최종보고서', base({
   priorDraft: draft.caseTag ? { caseTag: draft.caseTag } : undefined,
 }));
 
+if(two) console.log('   최종 검수 자료판단: '+JSON.stringify(two.out.reviewSources));
 const total = (one.cost || 0) + (two?.cost || 0);
 writeFileSync(`${OUT}/summary.json`, JSON.stringify({
   task: TASK, 설계서: { cost: one.cost, secs: one.secs, 책: one.out.bookChoices || [] },

@@ -918,7 +918,32 @@ export default {
                     input.referencePapers = 남기기(input.referencePapers, (one) => one?.title);
                     input.referenceWeb = 남기기(input.referenceWeb, (one) => one?.title);
                     input.referenceDatasets = 남기기(input.referenceDatasets, (one) => one?.title);
+                    // **참고문헌은 여기서 온다.** 처음에 이것을 빼먹어서 검수가 「안 썼다」고 해도 논문이
+                    // 그대로 남았다(2026-09-30 운영 실행에서 잡았다). 거를 곳과 보여 줄 곳이 같아야 한다.
+                    if (input.ingredients) {
+                      input.ingredients = {
+                        ...input.ingredients,
+                        papers: 남기기(input.ingredients.papers, (one) => one?.title),
+                        research: 남기기(input.ingredients.research, (one) => one?.title),
+                      };
+                    }
                     if (뺀자료) console.error('review dropped unused sources:', 뺀자료);
+                    // **뺀 뒤에 「요구했는데 없는 것」을 다시 센다**(2026-09-30 운영 실행에서 잡았다).
+                    //
+                    // missingDemanded 는 모델을 부르기 전에 한 번 셌다. 그때는 통계가 하나 있었고,
+                    // 검수가 「안 썼다」며 그것을 뺐다. 그래서 학생은 통계를 요구하는 과제를 받고
+                    // 통계 없는 보고서를 받았는데 **아무 안내도 못 받았다.** 세는 자리가 뺀 자리보다
+                    // 앞에 있으면 이런 일이 생긴다. 뺀 뒤의 사실로 다시 센다.
+                    if (뺀자료) {
+                      input.missingDemanded = missingDemanded(seedPack.unitMaterialPolicy,
+                        { subject: input.subject, concept: reportConcept, taskText: taskText(input) },
+                        {
+                          [MATERIAL.PAPER]: Boolean((input.ingredients?.papers || []).length || (input.referencePapers || []).length),
+                          [MATERIAL.RESEARCH]: Boolean((input.ingredients?.research || []).length || (input.referenceWeb || []).length),
+                          [MATERIAL.DATASET]: Boolean((input.referenceDatasets || []).length),
+                          [MATERIAL.BOOK]: true,
+                        });
+                    }
                   }
                   if (checked.review.applied.length || checked.dataTemplate || 뺀자료) {
                     // 고친 절로 **관문과 합치기를 원래 자리에서 다시 한 번** 돌린다.
@@ -1132,6 +1157,16 @@ export default {
           paperGuide,
           filledTable,
           nextStep,
+          // **검수가 자료를 골랐는지 한 줄로 실어 보낸다**(2026-09-30). 학생 화면은 이것을 쓰지 않는다 —
+          // 우리가 운영에서 한 번 돌려 보고 「켜 놓고 일하는지」를 확인하기 위한 것이다. 켜 놓고
+          // 볼 수 없으면 조용히 안 돌아도 모른다(이 저장소에서 두 번 겪었다).
+          reviewSources: reviewInfo ? {
+            judged: Boolean(reviewInfo.sources?.used),
+            used: [...(reviewInfo.sources?.used || [])].slice(0, 8),
+            faked: (reviewInfo.sources?.faked || []).slice(0, 8),
+            findings: (reviewInfo.findings || []).length,
+            failed: reviewInfo.failed || '',
+          } : null,
           resolved: input,
           phase1Lineage: liveAuthority.phase1Lineage,
           matchedCluster: seedMatch.matchedCluster,

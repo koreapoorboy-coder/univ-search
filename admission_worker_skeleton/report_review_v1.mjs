@@ -85,10 +85,19 @@ export function buildReviewPrompt(report, input = {}) {
   const figures = [`  · 표 1 (학생이 잰 값, 언제나 붙는다)`,
     ...(report?.figures || []).map((one, at) => `  · 그림 ${at + 1} ${clip(one?.title, 60)}`)];
 
+  // **참고문헌에 실제로 들어가는 목록을 보여 준다**(2026-09-30).
+  //
+  // 처음에는 referencePapers 만 보여 주었는데, 최종 보고서의 참고문헌은 **ingredients**(교과 확장 재료)에서
+  // 온다. 그래서 검수는 정작 참고문헌에 들어갈 논문을 한 번도 못 보고 판단했다 — 운영에서 한 번 돌려
+  // 보고 알았다(2026-09-30, 「쓴 자료 없음」이라고 했는데 논문이 그대로 남아 있었다).
+  // 검수가 못 본 자료는 뺄 수도 없다. 판단할 것과 보여 줄 것이 같아야 한다.
   const sources = [
     ...(data.sources || []).map((one) => clip(one, 120)),
     ...(input.referenceDatasets || []).map((one) => clip(`${one?.title || ''} — ${one?.org || one?.orgName || ''}`, 120)),
     ...(input.referencePapers || []).map((one) => clip(one?.title || '', 120)),
+    ...(input.ingredients?.papers || []).map((one) => clip(one?.title || '', 120)),
+    ...(input.ingredients?.research || []).map((one) => clip(one?.title || '', 120)),
+    ...(input.referenceWeb || []).map((one) => clip(one?.title || '', 120)),
   ].filter(Boolean);
 
   return [

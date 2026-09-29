@@ -160,6 +160,12 @@ export function archiveRow(input, result, meta = {}) {
       findings: (meta.review.findings || []).map((one) => ({ kind: one?.kind, section: clean(one?.section, 40), why: scrubForArchive(clean(one?.why, 200)) })),
       applied: meta.review.applied || [], skipped: meta.review.skipped || [],
       droppedCount: (meta.review.dropped || []).length,
+      // **자료 고르기 결과도 남긴다**(2026-09-30). 남기지 않아서 켜 놓고도 일하는지 볼 수 없었다 —
+      // 이 저장소에서 같은 실수를 한 적이 있다(guideBlock 이 import 만 되어 아무도 부르지 않았다).
+      //   sourceJudged: 판단이 왔나 · sourceUsed: 썼다고 한 것 · sourceFaked: 본문에 없는 대목을 댄 것
+      sourceJudged: Boolean(meta.review.sources?.used),
+      sourceUsed: [...(meta.review.sources?.used || [])].map((one) => clean(one, 80)),
+      sourceFaked: (meta.review.sources?.faked || []).map((one) => clean(one, 80)),
       ...(meta.review.failed ? { failed: clean(meta.review.failed, 200) } : {}),
     }) : null,
     record_draft: (result?.recordDraft || []).map((line) => scrubForArchive(clean(line, 200))).join('\n'),
