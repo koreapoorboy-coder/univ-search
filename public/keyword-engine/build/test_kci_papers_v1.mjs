@@ -203,7 +203,7 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
   // 참고 자료 줄로는 쓰지 않고 AI에게도 안 보낸다. 최종 보고서 쪽 규칙(재료가 없을 때만
   // 낱말 규칙으로 참고 논문을 고른다)은 그대로다.
   // 2026-09-25: 읽은 작품으로 찾은 논문이 있으면 이 묶음은 안 읽는다(literary_paper_v1.mjs).
-  check(/const shard = !workPapers\.length && \(\(finalStage && !input\.ingredients\) \|\| draftStage\)\s*\? await loadPaperShard/.test(worker),
+  check(/const shard = 논문허용 && !workPapers\.length && \(\(finalStage && !input\.ingredients\) \|\| draftStage\)\s*\? await loadPaperShard/.test(worker),
     "G8 낱말 규칙은 재료가 없을 때(INGREDIENTS=off)만 — 설계서는 화면 안내서용으로만 읽는다");
   check(/if \(draftStage\) paperGuide = guideBlock\(query, picked\);[\s]*else input\.referencePapers = picked\.map\(citationRow\);/.test(worker),
     "G8 설계서에서 고른 논문은 참고 자료 줄이 되지 않는다");

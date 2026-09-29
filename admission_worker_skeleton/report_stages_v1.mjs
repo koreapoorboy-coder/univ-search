@@ -1803,7 +1803,7 @@ export function finalizeStageOutput(stage, rawParsed, input) {
     // 학생용 설명서. 보고서 본문에는 안 들어간다 — 따로 준다(사용자 결정 2026-09-23).
     // 읽지 않은 자료는 보고서가 아니라 **설명서**로 간다(사용자 결정 2026-09-27).
     const reportGuide = buildReportGuide({ input, data, stats, sections: cleaned, title: parsed?.title,
-      readMore: readingGuideLines({ cards: data.sourceCards, papers: refPapers, web: refWeb }) });
+      readMore: readingGuideLines({ cards: data.sourceCards, papers: refPapers, web: refWeb }), missing: input.missingDemanded || [] });
     return { parsed: { ...parsed, sections: cleaned }, extra: { ...extra, recordDraft, reportGuide, removedNumberSentences: removed, removedFeelingSentences: removedFeelings,
       ...(calculation.verified.length || calculation.rejected.length ? { calculations: calculation.verified, rejectedCalculations: calculation.rejected } : {}),
       ...(droppedSamples.length ? { removedNumberSamples: droppedSamples.slice(0, 8) } : {}),
@@ -1859,6 +1859,6 @@ export function finalizeStageOutput(stage, rawParsed, input) {
   if (oneShot.length && !oneShot.some((section) => REFERENCE_TITLE.test(String(section?.title || '')))) oneShot.push({ title: '참고 자료', body: closing });
   // 한 번에 끝나는 보고서도 같다 — 읽지 않은 자료는 설명서로 간다(사용자 결정 2026-09-27).
   const oneShotGuide = buildReportGuide({ input, data: normalizeStudentData(null), stats: null, sections: oneShot, title: parsed?.title,
-    readMore: readingGuideLines({ papers: shownPapers, web: shownWeb }) });
+    readMore: readingGuideLines({ papers: shownPapers, web: shownWeb }), missing: input.missingDemanded || [] });
   return { parsed: { ...parsed, sections: oneShot }, extra: { reportGuide: oneShotGuide, removedFeelingSentences: removedPraise, ...(used ? { inspiration: inspirationOf(used) } : {}) } };
 }

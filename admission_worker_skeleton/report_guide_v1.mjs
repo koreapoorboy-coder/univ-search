@@ -21,7 +21,17 @@ const KIND_WORD = {
 
 const clip = (value, max) => String(value ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
 
-export function buildReportGuide({ input = {}, data = {}, stats = null, sections = [], title = '', reviewLines = [], readMore = [] } = {}) {
+// **안내문이 요구했는데 우리가 못 붙인 자료**를 학생에게 뭐라고 말하고, 어디서 찾으라고 할 것인가.
+// 「없어요」로 끝내면 학생은 할 일을 모른다. 찾는 곳을 이름까지 적어 준다.
+const MISSING_WORD = { 논문: '논문', 대학연구: '연구 사례', 통계: '통계 자료', 책: '책' };
+const MISSING_HOW = {
+  논문: '논문 · KCI(kci.go.kr)에서 단원 이름으로 검색하고, 초록만 읽어도 돼요. 제목·저자·연도·학술지를 참고문헌에 적으세요.',
+  대학연구: '연구 사례 · 대학 누리집의 「연구 성과」나 「연구 하이라이트」에서 단원과 이어지는 글을 하나 찾아 주소와 함께 적으세요.',
+  통계: '통계 자료 · KOSIS(kosis.kr)나 공공데이터포털(data.go.kr)에서 찾으세요. 표 이름과 받은 날짜를 참고문헌에 적으세요.',
+  책: '책 · 학교 도서관에서 단원과 이어지는 책을 한 권 찾아 읽고, 제목·지은이·읽은 쪽을 적으세요.',
+};
+
+export function buildReportGuide({ input = {}, data = {}, stats = null, sections = [], title = '', reviewLines = [], readMore = [], missing = [] } = {}) {
   const kind = input.collectionKind || COLLECTION.NONE;
   const rows = (stats?.rows || []).filter((one) => (one?.values || []).length);
   const filled = rows.reduce((sum, one) => sum + one.values.length, 0);
@@ -70,6 +80,19 @@ export function buildReportGuide({ input = {}, data = {}, stats = null, sections
       // 검수에서 고친 것을 학생에게 알려 준다. 조용히 고치면 학생이 자기 글로 읽을 수 없다.
       ...(reviewLines.length ? [{ head: '검수에서 고친 것', lines: reviewLines }] : []),
       { head: '내기 전에 볼 것', lines: check },
+      // **안내문이 요구했는데 우리가 못 붙인 자료를 학생에게 말한다**(사용자 결정 2026-09-30).
+      //
+      // 조용히 넘어가면 학생은 자기 보고서가 안내문을 못 지켰다는 것을 모른다. 실제 과제 3,342건 가운데
+      // 328건이 이 경우였다 — 「빅데이터를 분석하여 논술하기」라고 적힌 과제에 통계 한 줄 없이
+      // 교과서만 나갔다. 「없어요」로 끝내지 않고 어디서 어떻게 찾는지까지 적는다.
+      ...(missing.length ? [{
+        head: '이 과제가 요구한 자료 — 직접 찾아야 해요',
+        lines: [
+          `안내문이 ${missing.map((one) => MISSING_WORD[one] || one).join('·')}을 요구했는데, 우리가 이 단원에 붙일 자료를 갖고 있지 않아요.`,
+          '보고서는 교과서와 내가 적은 내용으로 만들었어요. 아래에서 하나만 찾아 넣으면 안내문을 지킬 수 있어요.',
+          ...missing.map((one) => MISSING_HOW[one]).filter(Boolean),
+        ],
+      }] : []),
       // **보고서가 쓴 자료를 「찾아 읽는 법」과 함께 적는다**(사용자 지적 2026-09-28). 참고문헌에는 서지
       // 한 줄만 있어서, 학생이 그것을 어디서 어떻게 읽는지 모른다. 설명서는 제출하지 않으므로 여기에 적는다.
       ...(readMore.length ? [{ head: '보고서가 참고한 연구 — 읽어 두면 좋아요',

@@ -1,5 +1,6 @@
 import { acceptLiveInputCandidate, handleSimpleLiveIntakeRequest, parseStrictIJson } from './simple_live_intake_v1.mjs';
 import { messageForCode } from './live_input_message_v1.mjs';
+import { MATERIAL, allowsMaterial, missingDemanded } from './unit_material_policy_v1.mjs';
 import { CLAIMED_DOING_SENTENCE, COLLECTION, STAGE, bookIsSubject, finalizeStageOutput, hasStudentMeasurements, normalizeStudentData, titleRules, resolveCollectionKind, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
 import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, judgePromptLines, judgeSchema, matchAxes, mergePages, pagePromptLines, pageSchema, priorWorkPromptLines, sanitizeAnalysis, sharesGround, expandMajorTerms } from './upload_analysis_v1.mjs';
 import { pickReportShape, shapePromptLines } from './report_shape_v1.mjs';
@@ -83,6 +84,9 @@ const SEED_FILES = {
   // Built by tools/build_snu_research_index.mjs: 서울대 연구성과를 GPT 가 뜻으로 읽어 개념에 이어 둔 것.
   // 참고 자료에 웹 자료로 붙는다(univ_web_v1.mjs). 달마다 tools/sync_snu_highlights.mjs 로 정리한다.
   snuResearchIndex: 'engine-index/snu_research_index.v1.json',
+  // **단원마다 어떤 자료를 쓰는 단원인가**(사용자 결정 2026-09-30). 안내문이 말하지 않은 자료는
+  // 이 표가 「준다」라고 한 것만 준다. 61KB, 371줄 — 사람이 읽고 고칠 수 있는 크기로 둔다.
+  unitMaterialPolicy: 'engine-index/unit_material_policy.v1.json',
   // 논문은 여기서 읽지 않는다. 과목 묶음(paper-route/<과목>.v1.json)을 그 과목 보고서일 때만 읽는다
   // — loadPaperShard. 묶음이 커서(최대 2.4MB) 모든 요청에 다 싣지 않는다.
 };
@@ -660,7 +664,10 @@ export default {
         // **한 번만 받아서 참고 자료와 '다음에 해 볼 것'이 나눠 쓴다.** 두 번 부르면 첫 호출이 느려
         // 6초를 넘길 때 참고 자료만 비는 일이 생긴다(실제로 그랬다). 처음 부르는 것이라 시간도 더 준다.
         input.referenceDatasets = [];
-        if (input.reportStage !== STAGE.DRAFT) {
+        // 안내문이 통계를 말하지 않았으면 단원표가 「준다」라고 한 단원에서만 준다(사용자 결정 2026-09-30).
+        const 통계허용 = allowsMaterial(seedPack.unitMaterialPolicy,
+          { subject: input.subject, concept: reportConcept, taskText: taskText(input), kind: MATERIAL.DATASET });
+        if (통계허용 && input.reportStage !== STAGE.DRAFT) {
           try {
             // 넉넉히 받아 두고 **고르는 일은 과제문이 한다.** 찾는 말은 개념으로 정할 수밖에 없다 —
             // 공공데이터는 행정 용어로 이름이 붙어 있어 손으로 만든 사전을 쓴다(public_data_terms).
@@ -712,10 +719,16 @@ export default {
         // 대학 글은 보내기 전에 주소를 열어 본다 — 쓰이면 인용이 되기 때문이다.
         // env.INGREDIENTS = 'off' 이면 재료 없이 예전처럼 쓴다 — 비교 시험용이자, 운영에서 문제가 생기면 다시 배포하지
         // 않고 끄는 스위치다.
-        if (input.reportStage !== STAGE.DRAFT && String(env.INGREDIENTS || '').toLowerCase() !== 'off') {
+        // 안내문이 논문·선행연구를 말하지 않았으면 단원표가 「준다」라고 한 단원에서만 준다
+        // (사용자 결정 2026-09-30). 논문과 대학 연구를 따로 본다 — 한쪽만 있는 단원이 많다.
+        const 재료허용 = (kind) => allowsMaterial(seedPack.unitMaterialPolicy,
+          { subject: input.subject, concept: reportConcept, taskText: taskText(input), kind });
+        const 논문허용 = 재료허용(MATERIAL.PAPER);
+        const 연구허용 = 재료허용(MATERIAL.RESEARCH);
+        if ((논문허용 || 연구허용) && input.reportStage !== STAGE.DRAFT && String(env.INGREDIENTS || '').toLowerCase() !== 'off') {
           try {
-            const shard = await loadPaperShard(env, input.subject);
-            const snuConcepts = seedPack.snuResearchIndex?.concepts || {};
+            const shard = 논문허용 ? await loadPaperShard(env, input.subject) : null;
+            const snuConcepts = 연구허용 ? (seedPack.snuResearchIndex?.concepts || {}) : {};
             input.ingredients = pickIngredients({
               rows: shard?.rows || [], table: shard?.units || [], units: reportUnits,
               taskText: taskText(input), subject: input.subject, snu: reportUnits.flatMap((key) => snuConcepts[key] || []),
@@ -751,8 +764,10 @@ export default {
           } catch (error) { console.error('literary papers failed:', error?.message || error); }
         }
         try {
-          const shard = !workPapers.length && ((finalStage && !input.ingredients) || draftStage)
+          // 여기도 같은 문을 단다 — 안내문이 논문을 말하지 않았으면 단원표를 따른다(2026-09-30).
+          const shard = 논문허용 && !workPapers.length && ((finalStage && !input.ingredients) || draftStage)
             ? await loadPaperShard(env, input.subject) : null;
+          void 연구허용;   // 위 ingredients 문에서 쓴다 — 여기서는 논문만 본다
           if (shard) {
             // 보고서의 단원. GPT 꼬리표가 붙은 논문은 이 단원과 같을 때만 붙는다(paper_route_v1.mjs).
             const units = [reportConcept, axisConceptName(seedPack, reportAxis)].filter(Boolean).map((name) => `${input.subject}::${name}`);
@@ -786,7 +801,7 @@ export default {
         let univWebPool = [];
         if (input.reportStage !== STAGE.DRAFT) {
           try {
-            const webIndex = seedPack.snuResearchIndex?.concepts || {};
+            const webIndex = 연구허용 ? (seedPack.snuResearchIndex?.concepts || {}) : {};
             for (const name of [reportConcept, axisConceptName(seedPack, reportAxis)].filter(Boolean)) {
               const list = webIndex[`${input.subject}::${name}`];
               if (!list || !list.length) continue;
@@ -824,6 +839,18 @@ export default {
           }
         }
     const seedMatch = matchSeed(input, seedPack);
+        // **안내문이 요구했는데 우리가 못 붙인 자료를 적어 둔다**(사용자 결정 2026-09-30).
+        // 설명서가 이것을 읽어 학생에게 「직접 찾아야 해요」와 찾는 법을 알려 준다. 조용히 넘어가면
+        // 학생은 자기 보고서가 안내문을 못 지켰다는 것을 모른다. 책은 아래 책 고르기 뒤에 따로 본다.
+        input.missingDemanded = missingDemanded(seedPack.unitMaterialPolicy,
+          { subject: input.subject, concept: reportConcept, taskText: taskText(input) },
+          {
+            [MATERIAL.PAPER]: Boolean((input.ingredients?.papers || []).length || (input.referencePapers || []).length),
+            [MATERIAL.RESEARCH]: Boolean((input.ingredients?.research || []).length || (input.referenceWeb || []).length),
+            [MATERIAL.DATASET]: Boolean((input.referenceDatasets || []).length),
+            // 책은 여기서 아직 모른다 — 요구했다면 아래에서 실제로 붙었는지 보고 그때 적는다.
+            [MATERIAL.BOOK]: true,
+          });
         const prompt = buildPrompt(input, seedMatch, env);
 
         let result;
@@ -955,7 +982,11 @@ export default {
         // 다만 화면의 **책 고르기(라디오 버튼)는 설계서에서만** 뜬다. 한 번에 끝난 보고서에서 책을 골라도
         // 그 다음 단계가 없으므로 고르게 하지 않는다. 대신 아래에서 **설명서에 읽을거리로** 옮겨 적는다.
         let bookChoices = [];
-        if (input.reportStage === STAGE.DRAFT || input.reportStage === STAGE.COMPLETE) {
+        // **안내문이 책을 말하지 않았으면 단원표가 「준다」라고 한 단원에서만 준다**(사용자 결정 2026-09-30).
+        // 이 문이 없으면 낱말 하나로 아무 책이나 들어온다 — 고려 단원에 『성호사설』이 '조선' 으로 붙었다.
+        const 책허용 = allowsMaterial(seedPack.unitMaterialPolicy,
+          { subject: input.subject, concept: reportConcept, taskText: taskText(input), kind: MATERIAL.BOOK });
+        if (책허용 && (input.reportStage === STAGE.DRAFT || input.reportStage === STAGE.COMPLETE)) {
           try {
             const bookList = seedPack.bookMatchIndex?.books || [];
             bookChoices = matchBooks(bookList, {
@@ -986,6 +1017,21 @@ export default {
                 })],
             }] } };
           bookChoices = [];   // 화면의 책 고르기는 띄우지 않는다
+        }
+        // **안내문이 책을 요구했는데 한 권도 못 붙였으면 학생에게 말한다**(사용자 결정 2026-09-30).
+        // 실제 과제에서 책·독서를 요구한 264건 중 87건이 이 경우였다.
+        if (result?.reportGuide && !bookChoices.length) {
+          const 책없음 = missingDemanded(seedPack.unitMaterialPolicy,
+            { subject: input.subject, concept: reportConcept, taskText: taskText(input) },
+            { [MATERIAL.PAPER]: true, [MATERIAL.RESEARCH]: true, [MATERIAL.DATASET]: true, [MATERIAL.BOOK]: false });
+          if (책없음.includes(MATERIAL.BOOK) && !(result.reportGuide.blocks || []).some((one) => /직접 찾아야 해요/.test(String(one?.head || '')))) {
+            result = { ...result, reportGuide: { ...result.reportGuide,
+              blocks: [...(result.reportGuide.blocks || []), {
+                head: '이 과제가 요구한 자료 — 직접 찾아야 해요',
+                lines: ['안내문이 책·독서를 요구했는데, 우리가 이 단원에 붙일 책을 갖고 있지 않아요.',
+                  '학교 도서관에서 단원과 이어지는 책을 한 권 찾아 읽고, 제목·지은이·읽은 쪽을 적으세요.'],
+              }] } };
+          }
         }
 
         // 다음에 해 볼 것. **모델을 부른 뒤에** 만든다 — 프롬프트에 넣으면 보고서가 그쪽으로 휜다.

@@ -157,7 +157,7 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
 
 // I6: 워커와 사이트
 {
-  check(worker.includes("input.ingredients = pickIngredients({") && worker.includes("if (input.reportStage !== STAGE.DRAFT && String(env.INGREDIENTS || '').toLowerCase() !== 'off') {"),
+  check(worker.includes("input.ingredients = pickIngredients({") && worker.includes("if ((논문허용 || 연구허용) && input.reportStage !== STAGE.DRAFT && String(env.INGREDIENTS || '').toLowerCase() !== 'off') {"),
     "I6 워커가 확장을 쓰는 단계(설계서 말고)에서 재료를 고른다, 끄는 스위치가 있다");
   check(worker.includes("input.ingredients.research = (await aliveOnly(input.ingredients.research, { limit: 2 }))"), "I6 대학 글 재료는 보내기 전에 주소를 열어 본다");
   check(!bridge.includes("studentData.inspiration"), "I6 설계서에서 재료를 넘겨받지 않는다 — 최종 보고서가 직접 고른다");
@@ -192,7 +192,7 @@ const units = ["생명과학::생태계의 물질 순환과 상호 작용"];
   check(/if \(draftStage\) paperGuide = guideBlock\(query, picked\);/.test(worker),
     "I9 설계서 단계에서 논문 안내서를 만든다");
   // 2026-09-25: 학생이 「읽은 작품」을 적어 그 작품 논문을 찾았으면 개념 논문은 건너뛴다.
-  check(/const shard = !workPapers\.length && \(\(finalStage && !input\.ingredients\) \|\| draftStage\)\s*\? await loadPaperShard/.test(worker),
+  check(/const shard = 논문허용 && !workPapers\.length && \(\(finalStage && !input\.ingredients\) \|\| draftStage\)\s*\? await loadPaperShard/.test(worker),
     "I9 그러려면 설계서에서도 논문 묶음을 읽는다");
   check(/else input\.referencePapers = picked\.map\(citationRow\);/.test(worker),
     "I9 설계서에서는 참고 자료 줄로 쓰지 않는다 — 화면 안내서뿐이다");

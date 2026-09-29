@@ -87,7 +87,7 @@ const read = (path) => readFileSync(path, 'utf8');
   ok(/paperGuide = literaryGuide\(input\.readWork/.test(worker), '설계서에 논문 길잡이로 내려야 한다');
   ok(/input\.referencePapers = workPapers\.map\(literaryCitation\)/.test(worker), '최종 보고서 참고 자료로 써야 한다');
   // **찾았으면 개념 논문을 쓰지 않는다.** 둘 다 붙으면 학생이 무엇을 읽어야 할지 모른다.
-  ok(/const shard = !workPapers\.length/.test(worker), '작품 논문을 찾았으면 개념 논문은 건너뛴다');
+  ok(/const shard = 논문허용 && !workPapers\.length/.test(worker), '작품 논문을 찾았으면 개념 논문은 건너뛴다');
   ok(/학생이 읽은 작품은 「\$\{input\.readWork\}」이다/.test(worker), '프롬프트가 그 작품을 못 박아야 한다');
   ok(/지어내지 않는다/.test(worker.slice(worker.indexOf('학생이 읽은 작품은'), worker.indexOf('학생이 읽은 작품은') + 900)), '줄거리·인용을 지어내지 말라고 해야 한다');
   const refs = read('admission_worker_skeleton/references_v1.mjs');
