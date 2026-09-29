@@ -8,6 +8,17 @@ import { CALCULATION_SCHEMA, calculationPromptLines, tidyCalculatedNumbers, veri
 // in a table or chart can be invented, and body sentences with numbers not found in the student data are removed.
 // If the student leaves the table empty, stage 2 becomes a literature report.
 
+// **모아 온 자료가 없는 보고서에서 「탐구를 해 봤다」고 말하는 문장.** worker.js 가 이것으로 뗀다.
+//
+// 2026-09-30 운영 실행(미적분1 · 수열의 극한, 모아 올 자료 없는 보고서)에서 결론에 이렇게 있었다:
+//   「탐구를 진행하며, "소리가 크다/작다"는 인상이 … 설명된다는 점을 알게 되었고, … 시각이 생겼다.」
+// 학생은 손뼉을 친 적도 녹음한 적도 없다. worker.js 의 경험 가드는 「나는 ~한 경험이 있다」만 보므로
+// 주어 없이 수행을 주장하는 이 꼴을 놓쳤다.
+//
+// **여기에 두는 이유**: worker.js 는 CommonJS 라 검사가 이름으로 가져올 수 없다. 검사 쪽에 베껴 두면
+// 한쪽만 고쳐진다. 그러니 규칙은 이 파일에 하나만 둔다.
+export const CLAIMED_DOING_SENTENCE = /[^.?!\n]*(?:탐구|실험|관찰|측정|조사)(?:를|을)?\s*(?:진행|수행|실시)(?:하며|하면서|한 결과|했|하였)[^.?!\n]*[.?!]/g;
+
 export const STAGE = Object.freeze({
   COMPLETE: 'complete',
   DRAFT: 'experiment_draft',

@@ -22,7 +22,12 @@ const checks = [
   [worker.includes("개인 경험, 관찰, 실험 수행을 입력에서 확인할 수 없으면"), "fabricated student experience guard is missing"],
   [worker.includes('"~에서 확인하였다", "~를 활용했다"처럼 실제로 한 것처럼 쓰지 않는다'), "references section still allows claimed source use"],
   [worker.includes('"나는 평소에 ~해 본 경험이 있다"처럼 학생 개인의 경험·습관을 쓰지 않는다'), "global invented-experience rule is missing"],
-  [worker.includes("removeInventedExperience(section?.body)"), "invented-experience sentences are not removed from model sections"],
+  [worker.includes("removeInventedExperience(section?.body, { claimedDoing })"), "invented-experience sentences are not removed from model sections"],
+  // 2026-09-30 운영 실행에서 찾았다. 모아 온 자료가 없는 보고서인데 결론이 「탐구를 진행하며 … 알게
+  // 되었고」라고 했다 — 학생은 손뼉을 친 적도 녹음한 적도 없다. 위의 경험 가드는 「나는 ~한 경험이
+  // 있다」만 보므로 주어 없이 수행을 주장하는 꼴을 놓친다.
+  [worker.includes("CLAIMED_DOING_SENTENCE, COLLECTION, STAGE"), "「탐구를 진행하며」처럼 수행을 주장하는 문장을 막는 가드가 없다"],
+  [worker.includes("claimedDoing: !모아온것"), "그 가드가 「모아 온 자료가 없을 때만」으로 묶여 있지 않다 — 표를 채운 학생에게는 사실이다"],
   [worker.includes("await callOpenAIWithRetry(prompt, env, input)"), "a failed model call is not retried once"],
   [worker.includes("connectedBook: input.useBookInReport ? input.selectedBookTitle : '사용하지 않음'"), "book opt-out is not bound to the prompt"],
   [bridge.includes("rawData?.result?.reportTitle"), "worker report title is not rendered"],

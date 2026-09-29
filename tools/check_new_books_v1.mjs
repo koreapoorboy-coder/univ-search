@@ -38,6 +38,15 @@ for (const b of source.books) {
     if (!(b.subjects || []).some((s) => 사는곳.has(s))) 말.push(`「${c}」는 적은 과목에 없다 (사는 곳: ${[...사는곳].slice(0, 3).join('·')})`);
   }
   for (const f of ['title', 'author', 'summary']) if (!String(b[f] || '').trim()) 말.push(`${f} 가 비었다`);
+  // **학생이 읽는 글에 우리 내부 메모가 들어가면 안 된다**(운영 실행 2026-09-30).
+  //
+  // 내가 한 줄 소개 끝에 「(지역내일 고등 수학 교과 연계 목록 · 미적분)」이라고 출처를 적어 두었더니,
+  // 그것이 설명서의 「읽어 보면 좋은 책」에 **그대로 학생 화면에 나왔다.** 학생에게 그 괄호는 아무 뜻이
+  // 없다. 출처는 source_note 칸에 적는다 — 그 칸은 화면에 안 나간다.
+  for (const f of ['summary', ...(b.points || []).map((_, i) => `points[${i}]`)]) {
+    const text = f.startsWith('points') ? b.points[Number(f.match(/\d+/)[0])] : b[f];
+    if (/(목록|추천 도서|지역내일|교보문고|권장도서)/.test(String(text || ''))) 말.push(`${f} 에 우리 내부 메모가 있다: ${String(text).slice(0, 60)}`);
+  }
   if (말.length) { 흠 += 1; console.log(`✗ 『${b.title}』`); for (const m of 말) console.log(`     ${m}`); }
 }
 console.log(`\n책 ${source.books.length}권 · 흠 있는 책 ${흠}권`);

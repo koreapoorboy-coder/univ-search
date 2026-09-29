@@ -1,6 +1,6 @@
 import { acceptLiveInputCandidate, handleSimpleLiveIntakeRequest, parseStrictIJson } from './simple_live_intake_v1.mjs';
 import { messageForCode } from './live_input_message_v1.mjs';
-import { COLLECTION, STAGE, bookIsSubject, finalizeStageOutput, hasStudentMeasurements, normalizeStudentData, titleRules, resolveCollectionKind, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
+import { CLAIMED_DOING_SENTENCE, COLLECTION, STAGE, bookIsSubject, finalizeStageOutput, hasStudentMeasurements, normalizeStudentData, titleRules, resolveCollectionKind, resolveReportStage, stageLengthRule, stageOutputKeys, stagePromptLines, stageSchemaProperties, stageSectionGuide, stageSections } from './report_stages_v1.mjs';
 import { DOC, UPLOAD_LIMITS, analysisPromptLines, analysisSchema, checkUpload, judgePromptLines, judgeSchema, matchAxes, mergePages, pagePromptLines, pageSchema, priorWorkPromptLines, sanitizeAnalysis, sharesGround, expandMajorTerms } from './upload_analysis_v1.mjs';
 import { pickReportShape, shapePromptLines } from './report_shape_v1.mjs';
 import { crossSubjectPromptLines, pickCrossSubject } from './cross_subject_v1.mjs';
@@ -1218,14 +1218,25 @@ function sectionWritingGuide(title) {
 // The input never carries the student's own experiences, so a first-person "I have experience of …" sentence is invented.
 const INVENTED_EXPERIENCE_SENTENCE = /[^.?!\n]*(?<![가-힣])(?:나는|저는|내가|제가)[^.?!\n]{0,120}(?:경험이 있|경험을 했|경험했|본 적이 있)[^.?!\n]*[.?!]/g;
 
-function removeInventedExperience(body) {
-  return String(body || '').replace(INVENTED_EXPERIENCE_SENTENCE, '').trim();
+// **모아 온 자료가 없는 보고서에서 「탐구를 해 봤다」고 말하는 문장을 뗀다**(운영 실행 2026-09-30).
+//
+// 미적분1 「수열의 극한」을 「모아 올 자료 없이 교과 개념으로 쓰는 보고서」로 받았는데, 결론에 이렇게 있었다:
+//   「탐구를 진행하며, "소리가 크다/작다"는 인상이 … 설명된다는 점을 알게 되었고, … 시각이 생겼다.」
+// 학생은 손뼉을 친 적도 녹음한 적도 없다. 위의 경험 가드는 「나는 ~한 경험이 있다」만 보므로
+// 주어 없이 수행을 주장하는 이 꼴을 놓쳤다.
+//
+// **모아 온 자료가 있으면 건드리지 않는다** — 표를 채운 학생에게 「탐구를 진행하며」는 사실이다.
+
+function removeInventedExperience(body, { claimedDoing = false } = {}) {
+  let text = String(body || '').replace(INVENTED_EXPERIENCE_SENTENCE, '');
+  if (claimedDoing) text = text.replace(CLAIMED_DOING_SENTENCE, '');
+  return text.replace(/\s{2,}/g, ' ').trim();
 }
 
-function assembleReport(result, { keepExperience = false } = {}) {
+function assembleReport(result, { keepExperience = false, claimedDoing = false } = {}) {
   if (Array.isArray(result?.sections) && result.sections.length) {
     const report = result.sections
-      .map((section, index) => `${index + 1}. ${String(section?.title || '').trim()}\n${keepExperience ? String(section?.body || '').trim() : removeInventedExperience(section?.body)}`)
+      .map((section, index) => `${index + 1}. ${String(section?.title || '').trim()}\n${keepExperience ? String(section?.body || '').trim() : removeInventedExperience(section?.body, { claimedDoing })}`)
       .join('\n\n');
     return { reportTitle: String(result.reportTitle || ''), report };
   }
@@ -1237,7 +1248,13 @@ function assembleReport(result, { keepExperience = false } = {}) {
 function buildStageResult(stage, parsed, input) {
   const { parsed: finalized, extra } = finalizeStageOutput(stage, parsed, input);
   const studentText = [input.studentData?.reason, input.studentData?.observations, input.studentData?.reflection].join(' ');
-  const assembled = assembleReport(finalized, { keepExperience: stage !== STAGE.DRAFT && /경험|본 적/.test(studentText) });
+  // 학생이 모아 온 것이 하나도 없으면 「탐구를 진행하며」는 거짓이다. 표 한 칸이든 자료 카드든 있으면 참이다.
+  const 모아온것 = hasStudentMeasurements(input.studentData || normalizeStudentData(null))
+    || Boolean((input.studentData || normalizeStudentData(null)).sourceCards.length);
+  const assembled = assembleReport(finalized, {
+    keepExperience: stage !== STAGE.DRAFT && /경험|본 적/.test(studentText),
+    claimedDoing: !모아온것,
+  });
   // 한 번에 끝나는 보고서도 **설명서를 함께 돌려준다.** 안 돌려주고 있었다 — 두 단계 보고서만 받았다.
   // 2026-09-27 사용자 결정으로 읽지 않은 자료가 보고서에서 설명서로 옮겨졌으니, 설명서를 안 주면
   // 그 자료가 학생에게 아예 안 간다. 한 번에 끝나는 과제가 1,591건이다.

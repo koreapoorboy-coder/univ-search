@@ -6,6 +6,8 @@ import { ingredientPromptLines } from '../../../admission_worker_skeleton/ingred
 import { STAGE, finalizeStageOutput } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
 import { referencesBody, readingGuideLines } from '../../../admission_worker_skeleton/references_v1.mjs';
 import { summarise } from '../../../admission_worker_skeleton/student_portfolio_v1.mjs';
+// 워커에서 그대로 가져온다 — 베껴 두면 한쪽만 고쳐진다(⑭).
+import { CLAIMED_DOING_SENTENCE } from '../../../admission_worker_skeleton/report_stages_v1.mjs';
 
 let pass = 0;
 const fails = [];
@@ -222,6 +224,31 @@ const ok = (name, got) => { if (got) pass += 1; else fails.push(name); };
   ok('적극적·우수도 지운다', removeSelfPraise('적극적인 태도로 우수한 결과를 얻었다.', 학생글).removed === 1);
   ok('학생이 직접 쓴 말이면 남긴다', removeSelfPraise('나는 성실하게 실험에 참여했다.', '나는 성실하게 실험에 참여했다.').removed === 0);
   ok('칭찬이 아닌 문장은 안 건드린다', removeSelfPraise('세 조건의 평균을 비교했다.', 학생글).removed === 0);
+}
+
+// ⑭ 「탐구를 진행하며 … 알게 되었다」 — 모아 온 자료가 없으면 뗀다.
+//
+// 2026-09-30 운영 실행(미적분1 · 수열의 극한, 모아 올 자료 없는 보고서)에서 결론에 이렇게 있었다:
+//   「탐구를 진행하며, "소리가 크다/작다"는 인상이 … 설명된다는 점을 알게 되었고, … 시각이 생겼다.」
+// 학생은 손뼉을 친 적도 녹음한 적도 없다. 글자만 검사하면 가드가 있는지는 알아도 **일하는지**는 모른다.
+// 정규식은 worker.js 의 CLAIMED_DOING_SENTENCE 와 같은 것이다. 한쪽을 고치면 여기서 걸린다.
+{
+  const RE = new RegExp(CLAIMED_DOING_SENTENCE.source, CLAIMED_DOING_SENTENCE.flags);
+  const 뗀다 = (body) => String(body).replace(RE, '').replace(/\s{2,}/g, ' ').trim();
+
+  const 실제문장 = '탐구를 진행하며, 부분합의 수렴 속도 차이로도 설명된다는 점을 알게 되었고, 시각이 생겼다.';
+  ok('⑭ 모아 온 자료가 없으면 「탐구를 진행하며 … 알게 되었다」를 뗀다',
+    뗀다(`앞 문장이다. ${실제문장} 뒤 문장이다.`) === '앞 문장이다. 뒤 문장이다.');
+  ok('⑭ 「실험을 수행한 결과」도 뗀다', 뗀다('실험을 수행한 결과 온도가 올라갔다.') === '');
+  ok('⑭ 「측정을 실시하였다」도 뗀다', 뗀다('측정을 실시하였다.') === '');
+
+  // **막으면 안 되는 것들.** 계획을 말하는 문장과, 탐구라는 말이 주제로 쓰인 문장은 그대로 둔다.
+  for (const one of [
+    '이번 탐구에서는 두 조건의 공비를 비교한다.',
+    '탐구 질문은 잔향이 등비수열을 이루는지이다.',
+    '자료를 모으는 절차를 아래에 적는다.',
+    '반사 조건을 달리하여 비교할 계획이다.',
+  ]) ok(`⑭ 계획·주제 문장은 그대로 둔다 — ${one.slice(0, 18)}…`, 뗀다(one) === one);
 }
 
 console.log(`실전 한 편에서 찾은 흠: ${pass}개 통과${fails.length ? ` · 실패 ${fails.length}` : ''}`);

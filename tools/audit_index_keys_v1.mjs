@@ -50,3 +50,24 @@ for (const [이름, file, pick, 과목포함] of 볼것) {
 }
 console.log(`\n읽히지 않는 자료 모두 ${합}건${합 ? ' — 이름을 고치거나 지워야 합니다.' : ' — 깨끗합니다.'}`);
 process.exitCode = 합 ? 1 : 0;
+
+// ── 표는 채워 주는데 참고문헌에는 못 가는 단원 ────────────────────────────
+//
+// 공공데이터 파일이 둘이고 역할이 다르다. 헷갈려서 한쪽만 채우면 학생은 이렇게 된다 —
+// 설계서에서 통계 표를 받아 채우는데, 최종 보고서 참고문헌에는 그 출처가 없다.
+//   · kosis_unit_map.v1.json   — 설계서의 **표를 미리 채울** KOSIS 표를 고른다(worker.js findTable)
+//   · public_data_terms.v1.json — **참고문헌에 붙는** 공공데이터를 찾을 낱말이다(findPublicData)
+// 2026-09-30 운영 실행에서 미적분1 「수열의 극한」이 이 경우였다. 표용은 있고 참고문헌용은 없었다.
+//
+// **낱말을 추측해 채우지 않는다.** public_data_terms 의 note 가 그 이유를 적어 두었다 —
+// 낱말 75개를 실제 API 로 하나씩 재 본 뒤 0건인 말과 엉뚱한 것을 물어 오는 말을 버렸다
+// (「화산」이 「영화산업현황」을 물어 왔다). 재지 않고 넣으면 그 손해를 되돌린다.
+// 그래서 여기서는 **빈 곳만 보여 준다.** 채우려면 PUBLIC_DATA_KEY 로 낱말을 실제로 재야 한다.
+{
+  const kos = (read("kosis_unit_map.v1.json").byConcept) || {};
+  const terms = (read("public_data_terms.v1.json").byConcept) || {};
+  const 빈곳 = Object.keys(kos).filter((k) => (kos[k] || []).length && !(terms[k] || []).length);
+  console.log(`\n[표는 채워 주는데 참고문헌용 낱말이 없는 단원] ${빈곳.length}개`);
+  for (const k of 빈곳) console.log(`  · ${k}  (표용: ${kos[k].join("·")})`);
+  if (빈곳.length) console.log('  → 낱말은 PUBLIC_DATA_KEY 로 실제 API 에 재 본 뒤에만 넣습니다. 추측 금지.');
+}
