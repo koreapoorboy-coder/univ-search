@@ -40,8 +40,13 @@ const fixed = [];
 for (const one of already) {
   const book = have.get(one.title);
   if (book.added_at !== ADDED_AT) continue;   // 원래 있던 210권과 다른 묶음은 건드리지 않는다
-  const before = JSON.stringify([book.connectable_concepts, book.core_keywords, book.fit_keywords, book.linked_subjects]);
-  const after = JSON.stringify([one.concepts, one.core, one.fit, one.subjects]);
+  // **한 줄 소개와 내용 줄도 함께 본다**(2026-09-30). 단원·낱말·과목만 비교하고 있어서, 한 줄 소개에서
+  // 내부 메모를 떼어 냈는데도 「고칠 것 없음」으로 건너뛰었다 — 고친 것이 학생 화면까지 가지 않았다.
+  // 운영 실행으로 확인했다: 「(지역내일 고등 수학 교과 연계 목록 · 미적분)」이 설명서에 그대로 남아 있었다.
+  const before = JSON.stringify([book.connectable_concepts, book.core_keywords, book.fit_keywords,
+    book.linked_subjects, book.summary_short, book.book_core_summary, book.book_content_points]);
+  const after = JSON.stringify([one.concepts, one.core, one.fit,
+    one.subjects, one.summary, one.summary, one.points]);
   if (before === after) continue;
   fixed.push(one.title);
   if (process.argv.includes("--write")) {
@@ -53,6 +58,9 @@ for (const one of already) {
     book.related_subjects_highschool = one.subjects;
     book.book_content_points = one.points;
     book.starter_questions = one.points;
+    // 학생이 읽는 한 줄이다. 새 책에만 쓰고 있었다 — 고쳐 쓰는 길에서 빠져 있었다.
+    book.summary_short = one.summary;
+    book.book_core_summary = one.summary;
   }
 }
 
