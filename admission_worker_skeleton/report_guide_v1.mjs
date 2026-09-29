@@ -24,6 +24,18 @@ const clip = (value, max) => String(value ?? '').replace(/\s+/g, ' ').trim().sli
 // **안내문이 요구했는데 우리가 못 붙인 자료**를 학생에게 뭐라고 말하고, 어디서 찾으라고 할 것인가.
 // 「없어요」로 끝내면 학생은 할 일을 모른다. 찾는 곳을 이름까지 적어 준다.
 const MISSING_WORD = { 논문: '논문', 대학연구: '연구 사례', 통계: '통계 자료', 책: '책' };
+
+// **받침에 따라 조사를 고른다.** 「통계 자료을 요구했는데」가 학생 화면에 나왔다(운영 실행 2026-09-30).
+// 자료 이름이 무엇이 될지 미리 알 수 없으므로 글자에서 받침을 본다.
+export function 조사(word, 받침있을때, 받침없을때) {
+  const text = String(word || '').trim();
+  const last = text.codePointAt(text.length - 1);
+  if (!last) return text;
+  // 한글 음절 영역이 아니면(숫자·로마자 등) 그냥 붙인다 — 우리 낱말은 모두 한글이다.
+  if (last < 0xac00 || last > 0xd7a3) return `${text}${받침없을때}`;
+  const 종성 = (last - 0xac00) % 28;
+  return `${text}${종성 ? 받침있을때 : 받침없을때}`;
+}
 const MISSING_HOW = {
   논문: '논문 · KCI(kci.go.kr)에서 단원 이름으로 검색하고, 초록만 읽어도 돼요. 제목·저자·연도·학술지를 참고문헌에 적으세요.',
   대학연구: '연구 사례 · 대학 누리집의 「연구 성과」나 「연구 하이라이트」에서 단원과 이어지는 글을 하나 찾아 주소와 함께 적으세요.',
@@ -88,7 +100,7 @@ export function buildReportGuide({ input = {}, data = {}, stats = null, sections
       ...(missing.length ? [{
         head: '이 과제가 요구한 자료 — 직접 찾아야 해요',
         lines: [
-          `안내문이 ${missing.map((one) => MISSING_WORD[one] || one).join('·')}을 요구했는데, 우리가 이 단원에 붙일 자료를 갖고 있지 않아요.`,
+          `안내문이 ${조사(missing.map((one) => MISSING_WORD[one] || one).join('·'), '을', '를')} 요구했는데, 우리가 이 단원에 붙일 자료를 갖고 있지 않아요.`,
           '보고서는 교과서와 내가 적은 내용으로 만들었어요. 아래에서 하나만 찾아 넣으면 안내문을 지킬 수 있어요.',
           ...missing.map((one) => MISSING_HOW[one]).filter(Boolean),
         ],

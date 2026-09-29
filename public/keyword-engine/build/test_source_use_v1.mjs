@@ -9,6 +9,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { applyReview, buildReviewPrompt, reviewSchema, usedSources } from '../../../admission_worker_skeleton/report_review_v1.mjs';
+import { 조사 } from '../../../admission_worker_skeleton/report_guide_v1.mjs';
 
 const here = (name) => new URL(name, import.meta.url);
 const worker = (await readFile(here('../../../admission_worker_skeleton/worker.js'), 'utf8')).replace(/\r\n/g, '\n');
@@ -124,6 +125,13 @@ const 보고서 = {
 {
   ok('S10 뺀 뒤에 다시 센다', worker.includes('if (뺀자료) {')
     && /if \(뺀자료\) \{[\s\S]{0,400}input\.missingDemanded = missingDemanded\(/.test(worker));
+}
+
+// ⑪ 학생이 읽는 글의 조사. 「통계 자료을 요구했는데」가 화면에 나왔다(운영 실행 2026-09-30).
+{
+  ok('S11 받침 없는 말 뒤에는 「를」', 조사('통계 자료', '을', '를') === '통계 자료를');
+  ok('S11 받침 있는 말 뒤에는 「을」', 조사('논문', '을', '를') === '논문을' && 조사('책', '을', '를') === '책을');
+  ok('S11 여러 개를 이어 붙인 뒤에도 마지막 글자를 본다', 조사('통계 자료·논문', '을', '를') === '통계 자료·논문을');
 }
 
 console.log(`참고문헌 고르기: ${pass}개 통과${fails.length ? ` · 실패 ${fails.length}` : ''}`);
