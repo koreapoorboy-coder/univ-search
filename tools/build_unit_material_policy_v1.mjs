@@ -183,7 +183,12 @@ if (process.argv.includes('--write')) {
       '안내문이 요구한 자료는 이 표와 무관하게 준다 — 없으면 학생에게 직접 찾으라고 말한다.',
       '초안은 자료가 있는지 세어서 만들었다. 사람이 읽고 「안준다」로 바꾼 칸은 memo 에 이유를 적는다.',
     ].join(' '),
-    policy: Object.fromEntries(units.map((u) => [u.key, { ...초안(u), tasks: u.tasks }])),
+    // memo 는 **표에도 옮긴다.** 손판단 파일에만 적어 두면 표를 읽는 사람이 왜 「안준다」인지 모른다.
+    policy: Object.fromEntries(units.map((u) => {
+      const row = { ...초안(u), tasks: u.tasks };
+      const memo = 손판단[u.key]?.memo;
+      return [u.key, memo ? { ...row, memo } : row];
+    })),
   };
   writeFileSync(new URL('engine-index/unit_material_policy.v1.json', SEED), `${JSON.stringify(out, null, 1)}\n`, 'utf8');
   console.log('\nseed/engine-index/unit_material_policy.v1.json 에 초안을 썼습니다.');

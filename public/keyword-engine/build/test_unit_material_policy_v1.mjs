@@ -75,7 +75,14 @@ const ok = (name, got) => { if (got) pass += 1; else fails.push(name); };
   ok('P5 표에 단원이 300줄 넘게 있다', keys.length >= 300);
   const 값 = new Set();
   for (const key of keys) for (const kind of Object.values(MATERIAL)) 값.add(rows[key][kind]);
-  ok('P5 칸에 들어가는 값은 「준다」·「없음」 둘뿐이다', [...값].every((one) => one === '준다' || one === '없음'));
+  // **값이 셋이다**(2026-09-30). 초안은 세어서 「준다」·「없음」만 쓰지만, 사람이 읽고
+  // 「안준다」로 바꾼 칸이 생긴다 — 자료가 **있는데도** 이 단원에는 맞지 않는 경우다.
+  // 「없음」과 「안준다」는 다르다: 없어서 못 주는 것과, 있는데 안 주기로 정한 것이다.
+  // allowsMaterial 은 「준다」가 아니면 모두 막으므로 동작은 같고, 구분은 사람이 읽기 위한 것이다.
+  ok('P5 칸에 들어가는 값은 「준다」·「없음」·「안준다」 셋뿐이다',
+    [...값].every((one) => one === '준다' || one === '없음' || one === '안준다'));
+  const 안준다 = keys.filter((key) => Object.values(MATERIAL).some((kind) => rows[key][kind] === '안준다'));
+  ok(`P5 「안준다」로 바꾼 칸에는 이유가 적혀 있다 (${안준다.length}단원)`, 안준다.every((key) => String(rows[key].memo || '').trim().length >= 20));
   // 단원 이름이 우리 체계와 같아야 한다 — 어긋나면 표가 아무것도 막지 못하고 조용히 통과시킨다.
   const axisIndex = JSON.parse(await readFile(here('../seed/engine-index/longitudinal_axis_index.v1.json'), 'utf8'));
   const 우리 = new Set();
