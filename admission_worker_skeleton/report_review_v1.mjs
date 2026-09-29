@@ -104,6 +104,11 @@ export function buildReviewPrompt(report, input = {}) {
     '6. 다시 쓴 글은 원래 글과 길이가 비슷해야 한다. 짧게 줄이면 학생이 낼 분량이 모자란다.',
     '7. 「이 부분은 자료에서 가져왔습니다」 같은 고백 문장을 넣지 않는다. 자료원은 방법 절 첫 문장과 참고 자료에만 적는다.',
     '8. 흠이 없으면 findings 와 sections 를 빈 배열로 둔다. 없는 흠을 만들지 않는다.',
+    '9. **아래 「우리가 준 자료」를 하나씩 보고, 이 보고서가 실제로 썼는지 sourceUse 에 적는다.**',
+    '   · used=true 는 **본문에 그 자료에서 온 내용이 있을 때만** 이다. 주제가 비슷한 것은 쓴 것이 아니다.',
+    '   · where 에 그 대목을 **보고서에서 그대로 옮겨 적는다**(한 문장). 옮겨 적을 대목이 없으면 used=false 다.',
+    '   · 안 쓴 자료는 참고문헌에서 빠진다. 그것이 맞다 — 읽지 않은 자료를 참고문헌에 적으면 거짓이다.',
+    '   · 자료를 더 쓰라고 보고서를 고치지는 않는다. 쓴 대로만 적는다.',
     '',
     '## 이 보고서에 붙는 그림',
     ...(figures.length ? figures : ['  (그림 없음 — 본문에서 그림을 가리키면 안 된다)']),
@@ -129,8 +134,28 @@ export function reviewSchema() {
   return {
     type: 'object',
     additionalProperties: false,
-    required: ['findings', 'sections'],
+    required: ['findings', 'sections', 'sourceUse'],
     properties: {
+      // **아홉째 일: 이 보고서가 실제로 쓴 자료만 고른다**(사용자 결정 2026-09-30).
+      //
+      // 그동안 「참고문헌에 무엇을 넣을까」는 낱말 점수가 정했다. 낱말로는 「이 보고서가 그 자료를
+      // 썼는가」를 알 수 없다. 그건 두 글을 읽고 견주는 일이고, 모델이 잘 하는 일이다.
+      // 우리가 가진 것 중 무엇이 가능한지는 단원표가 정하고(세는 일), 그중 무엇을 쓸지는 여기서 정한다.
+      sourceUse: {
+        type: 'array',
+        items: {
+          type: 'object',
+          additionalProperties: false,
+          required: ['source', 'used', 'where'],
+          properties: {
+            source: { type: 'string' },
+            used: { type: 'boolean' },
+            // 본문의 어느 대목이 그 자료에서 왔는지. **보고서에서 그대로 옮긴 글자**여야 한다 —
+            // 우리가 되짚어 확인하고, 없으면 used 를 믿지 않는다(quote 와 같은 규칙).
+            where: { type: 'string' },
+          },
+        },
+      },
       findings: {
         type: 'array',
         items: {
@@ -216,14 +241,39 @@ export function mergeSections(report, rewritten, titlesWithFindings) {
 // 관문은 AI 가 적은 계산을 코드가 검산해서 그 답만 허락하는데, 두 번째로 돌릴 때는
 // 그 검산 결과를 넘길 수 없어 정당한 숫자가 지어낸 숫자로 보인 것이다.
 // 그래서 합친 절만 돌려주고, 관문과 합치기는 워커가 원래 자리에서 한 번만 돌린다.
+// **「이 자료를 썼다」는 말을 그대로 믿지 않는다.**
+//
+// 검수가 지적한 대목이 보고서에 실제로 있는지 확인하는 것과 같은 규칙이다(keptFindings). 모델은
+// 읽은 척할 수 있고, 그 말을 믿고 참고문헌에 남기면 **학생이 안 쓴 자료를 썼다고 적어 내게 된다.**
+// where 에 옮겨 적은 대목이 보고서에 정말 있을 때만 「썼다」로 센다.
+//
+// 돌려주는 것: 쓴 자료의 이름 Set. 자료가 하나도 안 왔으면 null 을 돌려준다 —
+// 그때는 **아무것도 빼지 않는다.** 검수가 이 일을 못 했을 때 참고문헌이 통째로 비면 더 나쁘다.
+export function usedSources(report, sourceUse) {
+  const rows = Array.isArray(sourceUse) ? sourceUse.filter((one) => one && one.source) : [];
+  if (!rows.length) return { used: null, faked: [] };
+  const body = (report?.sections || []).map((one) => loose(one?.body)).join(' ');
+  const used = new Set();
+  const faked = [];
+  for (const one of rows) {
+    if (!one.used) continue;
+    const where = loose(one.where);
+    // 너무 짧은 조각은 어디에나 있어서 확인이 되지 않는다. 열 글자는 넘어야 한다.
+    if (where.length >= 10 && body.includes(where)) used.add(String(one.source).trim());
+    else faked.push(String(one.source).trim());
+  }
+  return { used, faked };
+}
+
 export function applyReview(report, review) {
   const { kept, dropped } = keptFindings(report, review?.findings);
-  const none = { sections: report?.sections || [], review: { findings: kept, dropped, applied: [], skipped: [] } };
+  const 자료 = usedSources(report, review?.sourceUse);
+  const none = { sections: report?.sections || [], review: { findings: kept, dropped, applied: [], skipped: [], sources: 자료 } };
   if (!kept.length) return { ...none, review: { ...none.review, findings: [] } };
   const titles = new Set(kept.map((one) => bareTitle(one?.section)).filter(Boolean));
   const { sections, applied, skipped } = mergeSections(report, review?.sections, titles);
   if (!applied.length) return { ...none, review: { findings: kept, dropped, applied: [], skipped } };
-  return { sections, review: { findings: kept, dropped, applied, skipped } };
+  return { sections, review: { findings: kept, dropped, applied, skipped, sources: 자료 } };
 }
 
 // 설계서 검수에게 넘길 말. **표 틀과 안내문을 같이 준다** — 그 둘이 맞는지가 핵심이다.

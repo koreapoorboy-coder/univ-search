@@ -340,8 +340,14 @@ const wrap = (inner) => `<?xml version="1.0" encoding="UTF-8"?>
   // 2026-09-28: 엄격하게 걸렀더니 **한 번도 안 붙었다.** 낱말이 있는 단원 675건에서 0%였다. 찾는 낱말은
   // 사람이 단원마다 실제 API 로 재 보고 달아 둔 것이라 가져온 목록이 이미 주제에 맞는다 — 한 번 더 거르는
   // 것은 손실이었다. 사과 갈변의 진짜 원인(0점짜리로 셋까지 채운 것)만 막는다: 하나만 준다.
-  check(/referenceDatasets = pickForTask\(pool, contentWords\(taskText\(input\), input\.subject\), 1, \{ skip: reportConcept \}\)/.test(worker),
-    "L2 공공데이터는 하나만 — 0점짜리로 개수를 채우지 않는다(사과 갈변 보고서에 대기오염 자료가 붙은 까닭)");
+  // 2026-09-30: 하나에서 셋으로 넓혔다. 그런데 **넓히는 조건이 「검수가 켜져 있을 때」로 묶여 있어야** 한다.
+  // 하나로 줄인 까닭은 고를 사람이 없어서 채우면 곧 억지였기 때문이다. 이제 검수가 보고서 본문을 읽고
+  // 안 쓴 것을 참고문헌에서 뺀다(sourceUse). 검수를 끄면 고를 사람이 다시 없으므로 하나로 돌아가야 한다.
+  // 이 검사가 지키는 것은 「셋」이라는 숫자가 아니라 **그 결합**이다.
+  check(/referenceDatasets = pickForTask\(pool, contentWords\(taskText\(input\), input\.subject\),\s*검수켜짐 \? 3 : 1, \{ skip: reportConcept \}\)/.test(worker),
+    "L2 공공데이터를 넓히는 것은 검수가 켜져 있을 때만 — 꺼지면 하나로 돌아간다(0점짜리로 개수를 채우지 않는다)");
+  check(/const 검수켜짐 = String\(env\.REPORT_REVIEW \|\| 'on'\)\.toLowerCase\(\) !== 'off';/.test(worker),
+    "L2 그 조건이 REPORT_REVIEW 를 본다");
   check(/findPublicData\([\s\S]{0,200}limit: 8/.test(worker),
     "L2 공공데이터도 넉넉히 받아 두고 고른다");
 }

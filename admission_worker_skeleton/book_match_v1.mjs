@@ -522,8 +522,30 @@ export function matchBooks(books, input = {}, limit = 3, counts = null, conceptC
 // 좋은 keep 개는 늘, 나머지는 pool 안에서 무작위로. ingredients_v1 의 mix 와 같은 생각이다.
 function mixBooks(ranked, count, random = Math.random, { keep = 2, pool = 14 } = {}) {
   if (ranked.length <= count) return ranked;
-  const head = ranked.slice(0, Math.min(keep, count));
-  const rest = ranked.slice(head.length, Math.max(count, pool));
+  // **점수가 같은 책끼리 먼저 섞는다**(2026-09-30 측정).
+  //
+  // 겹침을 재 보니 같은 단원 학생이 거의 같은 책을 받았다 — 으뜸 책이 그 단원 과제의 98% 에 나왔고,
+  // 「면역과 백신」은 책이 14종인데 104건 전원이 같은 책을 받았다. 까닭은 **점수가 같을 때 제목 차례로
+  // 잘랐기** 때문이다. 늘 같은 책이 1등이 된다.
+  // 점수가 같은 것은 「같이 맞는 책」이므로 그 안에서 섞는 것은 품질을 떨어뜨리지 않는다.
+  // 점수 순서는 그대로 지킨다 — 12점 책이 6점 책보다 뒤로 가지는 않는다.
+  const 띠 = new Map();
+  for (const one of ranked) {
+    const score = Number(one?.score) || 0;
+    if (!띠.has(score)) 띠.set(score, []);
+    띠.get(score).push(one);
+  }
+  const 섞음 = [];
+  for (const score of [...띠.keys()].sort((a, b) => b - a)) {
+    const group = 띠.get(score);
+    for (let at = group.length - 1; at > 0; at -= 1) {
+      const other = Math.floor(random() * (at + 1));
+      [group[at], group[other]] = [group[other], group[at]];
+    }
+    섞음.push(...group);
+  }
+  const head = 섞음.slice(0, Math.min(keep, count));
+  const rest = 섞음.slice(head.length, Math.max(count, pool));
   for (let at = rest.length - 1; at > 0; at -= 1) {
     const other = Math.floor(random() * (at + 1));
     [rest[at], rest[other]] = [rest[other], rest[at]];

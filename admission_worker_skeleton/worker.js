@@ -692,7 +692,15 @@ export default {
             //
             // 그래서 사과 갈변의 진짜 원인만 막는다 — 그때 문제는 **0점짜리로 개수를 셋까지 채운 것**이었다.
             // 하나만 준다. 과제문 낱말은 그 하나를 고르는 **순서**에만 쓴다.
-            input.referenceDatasets = pickForTask(pool, contentWords(taskText(input), input.subject), 1, { skip: reportConcept });
+            // **하나에서 셋으로 넓힌다 — 고르는 일은 검수가 한다**(사용자 결정 2026-09-30).
+            //
+            // 하나로 줄여 둔 까닭은 「0점짜리로 개수를 셋까지 채운 것」이었다(2026-09-28). 그때는 고를
+            // 사람이 없어서 채우면 곧 억지였다. 이제 검수가 **보고서 본문을 읽고** 실제로 쓴 것만 남긴다.
+            // 그래서 넓혀도 억지가 늘지 않는다 — 안 쓴 것은 참고문헌에서 빠진다.
+            // 검수가 꺼져 있으면(REPORT_REVIEW=off) 예전처럼 하나만 준다. 고를 사람이 없으니 맞다.
+            const 검수켜짐 = String(env.REPORT_REVIEW || 'on').toLowerCase() !== 'off';
+            input.referenceDatasets = pickForTask(pool, contentWords(taskText(input), input.subject),
+              검수켜짐 ? 3 : 1, { skip: reportConcept });
           } catch (error) {
             console.error('reference datasets failed:', error?.message || error);
           }
@@ -891,7 +899,28 @@ export default {
                 if (checked) {
                   reviewInfo = checked.review;
                   usage = mergeUsage(usage, checked.usage);
-                  if (checked.review.applied.length || checked.dataTemplate) {
+                  // **검수가 「안 썼다」고 한 자료를 참고문헌에서 뺀다**(사용자 결정 2026-09-30).
+                  //
+                  // 그동안 참고문헌에 무엇을 넣을지는 낱말 점수가 정했다. 낱말로는 「이 보고서가 그 자료를
+                  // 썼는가」를 알 수 없다. 이제 검수가 본문을 읽고 판단하고, 그 말이 맞는지 우리가 되짚는다
+                  // (usedSources — where 에 옮겨 적은 대목이 본문에 정말 있을 때만 「썼다」로 센다).
+                  // 자료 판단이 아예 안 왔으면 used 가 null 이고, 그때는 아무것도 빼지 않는다.
+                  const 쓴것 = checked.review?.sources?.used || null;
+                  let 뺀자료 = 0;
+                  if (쓴것) {
+                    const 남기기 = (list, 제목뽑기) => (list || []).filter((one) => {
+                      const name = String(제목뽑기(one) || '').trim();
+                      if (!name) return true;
+                      const keep = [...쓴것].some((used) => used.includes(name.slice(0, 20)) || name.includes(used.slice(0, 20)));
+                      if (!keep) 뺀자료 += 1;
+                      return keep;
+                    });
+                    input.referencePapers = 남기기(input.referencePapers, (one) => one?.title);
+                    input.referenceWeb = 남기기(input.referenceWeb, (one) => one?.title);
+                    input.referenceDatasets = 남기기(input.referenceDatasets, (one) => one?.title);
+                    if (뺀자료) console.error('review dropped unused sources:', 뺀자료);
+                  }
+                  if (checked.review.applied.length || checked.dataTemplate || 뺀자료) {
                     // 고친 절로 **관문과 합치기를 원래 자리에서 다시 한 번** 돌린다.
                     // 검수가 지어낸 숫자나 없는 자료를 댄 문장은 여기서 지워지고, 검산한 숫자는 살아남는다.
                     // 설계서의 표 틀도 여기서 sanitizeDataTemplate 관문을 지난다.
