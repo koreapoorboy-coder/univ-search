@@ -226,7 +226,18 @@ function wordPoint(word, counts) {
 
 // 한 권을 이 보고서에 대 본다. 왜 걸렸는지를 함께 돌려준다 — 이유를 못 대는 추천은 억지와 구별되지 않는다.
 export function scoreBook(book, { subject = '', terms = [], conceptCounts = null, major = '', majorCounts = null } = {}, counts) {
-  if (!bookSubjects(book).some((theirs) => subjectMatches(subject, theirs))) {
+  const mine = norm(terms.find((one) => one && one.topic)?.text || '');
+  // **책이 이 단원을 정확히 지목했으면 과목 문턱을 통과시킨다.**
+  //
+  // 단원 이름은 과목 이름보다 더 정확한 신호다 — 단원 이름 안에 과목이 이미 들어 있다.
+  // 그런데 지금까지는 과목 목록에 그 과목이 안 적혀 있으면 단원을 지목해도 버렸다. 그래서:
+  //   「시를 잊은 그대에게」는 공통국어1 「서정 갈래와 시적 표현」을 지목해 두었다.
+  //   문학 과목의 같은 갈래 단원은 「시 갈래와 서정적 표현」이다(이름만 다르다).
+  //   그런데 이 책의 과목 목록에 「문학」이 없어서, 문학 과제 9건이 통째로 0권이었다.
+  // 낱말이 겹친 것이 아니라 **이름이 정확히 같을 때만** 통과시키므로 억지가 늘지 않는다.
+  const statedHere = Boolean(mine) && (book?.connectable_concepts || [])
+    .some((one) => aliasedConcepts(one).some((name) => norm(name) === mine));
+  if (!statedHere && !bookSubjects(book).some((theirs) => subjectMatches(subject, theirs))) {
     return { score: 0, why: [], onSubject: false };
   }
   // 우리가 넣은 책의 **연결 개념 이름**은 그 개념에만 쓴다.
@@ -235,7 +246,6 @@ export function scoreBook(book, { subject = '', terms = [], conceptCounts = null
   // 「지구 이야기」에 적은 '지구 탄생과 시스템 진화'가 '진화' 한 낱말로 '별의 특성과 진화'까지
   // 끌고 갔다. 광물과 판의 책이 별의 일생 보고서에 붙는 것이다.
   // 옛 210권은 개념 체계가 달라(국어::서사와 인물 이해) 이 규칙을 적용하지 않는다.
-  const mine = norm(terms.find((one) => one && one.topic)?.text || '');
   const tags = book?.own
     ? [
       ...(book.connectable_concepts || []).filter((one) => norm(one) === mine),
@@ -258,8 +268,7 @@ export function scoreBook(book, { subject = '', terms = [], conceptCounts = null
   //
   // 이 한 줄이 인문·사회 책을 살린다. 억지가 늘지는 않는다 — 억지는 「흔한 낱말 하나로 걸린 것」이고
   // (「화학 반응식」에 「국화와 칼」이 '화학'으로), 이것은 사람이 그 단원을 지목한 것이다.
-  const stated = mine && (book.connectable_concepts || []).some((one) => aliasedConcepts(one).some((name) => norm(name) === mine));
-  if (stated) { score += STATED_CONCEPT_POINT; why.push('단원 지목'); }
+  if (statedHere) { score += STATED_CONCEPT_POINT; why.push('단원 지목'); }
   const used = new Set();
   for (const term of terms) {
     // 옛 부름꼴도 받는다 — 시험과 도구가 문자열 배열을 그대로 넘긴다.
@@ -440,7 +449,6 @@ function sortPoints(points, terms) {
 // 이 보고서에 권할 책. 없으면 빈 배열이 정상이다.
 export function matchBooks(books, input = {}, limit = 3, counts = null, conceptCounts = null, majorCounts = null, random = Math.random) {
   const subject = clean(input.subject, 40);
-  if (!wantsBooks(subject)) return [];
   const list = Array.isArray(books) ? books : Object.values(books || {});
   const table = counts || buildWordCounts(list);
   // 개념이 먼저다 — 이 보고서가 선 자리를 가장 좁게 가리킨다.
@@ -474,8 +482,20 @@ export function matchBooks(books, input = {}, limit = 3, counts = null, conceptC
       onConcept: pointsFor.onConcept,
     });
   }
+  // **수학 과목에서는 단원을 이름으로 지목한 책만 남긴다.**
+  //
+  // 전에는 수학 과목을 통째로 막았다(wantsBooks). 그 이유는 옳았다 — 계산 단원에는 주제가 없어서
+  // 책 태그의 주제어(그래프·데이터·변화)가 아무 데나 걸렸고, 「이차함수」에 「팩트풀니스」가 8점으로 붙었다.
+  //
+  // 그런데 그것은 **낱말로 걸린 책** 이야기다. 2026-09-30 에 미적분·확률과 통계 교양서를 넣으면서
+  // 그 책들이 「급수」·「수열의 극한」·「모집단과 표본」을 **이름으로 지목**했다. 이름을 지목한 것은
+  // 낱말이 겹친 것이 아니라 사람의 판단이다. 통째로 막아 두면 미적분1 「급수」 과제 36건이 교과서 한 줄만
+  // 들고 나간다 — 맞는 책을 넣어 두고도 못 준다.
+  // 그래서 막는 이유(낱말로 걸린 책)만 남기고, 지목한 책은 통과시킨다.
+  const onlyStated = !wantsBooks(subject);
+  const kept = onlyStated ? scored.filter((one) => (one.why || []).includes('단원 지목')) : scored;
   // 점수가 같으면 **이 개념에 쓸 문장이 있는 책**이 앞이다. 학생이 위에서부터 고른다.
-  scored.sort((a, b) => b.score - a.score || b.onConcept - a.onConcept || a.title.localeCompare(b.title, 'ko'));
+  kept.sort((a, b) => b.score - a.score || b.onConcept - a.onConcept || a.title.localeCompare(b.title, 'ko'));
   // **좋은 둘은 늘, 나머지는 통 안에서 섞는다.**
   //
   // 사람이 단원을 지목한 책이 들어오기 시작하자 후보가 갑자기 늘었다 — 「사회 구조와 사회 변동」에는
@@ -484,7 +504,7 @@ export function matchBooks(books, input = {}, limit = 3, counts = null, conceptC
   //
   // 섞어도 되는 까닭: 여기 남은 책은 모두 **절대 기준(MIN_SCORE)을 넘은 것**이다. 상대 순위로 자른 것이
   // 아니므로 3등과 12등은 「덜 맞는 책」이 아니라 「같이 맞는 책」이다. 논문 재료가 이미 같은 방식을 쓴다.
-  return mixBooks(scored, limit, random);
+  return mixBooks(kept, limit, random);
 }
 
 // 좋은 keep 개는 늘, 나머지는 pool 안에서 무작위로. ingredients_v1 의 mix 와 같은 생각이다.

@@ -31,15 +31,27 @@ const check = (ok, label, detail = "") => { assert.equal(ok, true, `${label} -> 
     "B2 화학 반응식에 「국화와 칼」이 다시 붙지 않는다 — 처음 잰 결과가 그것이었다", JSON.stringify(vague.map((b) => b.title)));
 }
 
-// B3: 수학 계산 단원에는 책을 안 붙인다. 이차함수에 「팩트풀니스」가 8점으로 붙었다.
+// B3: 수학 계산 단원에는 **낱말로 걸린 책**을 안 붙인다. 이차함수에 「팩트풀니스」가 8점으로 붙었다.
+//
+// 2026-09-30: 통째로 막던 것을 「단원을 지목한 책만 통과」로 바꿨다. 막는 이유는 낱말이 아무 데나
+// 걸리는 것이었고, 사람이 단원 이름을 그대로 적어 둔 책은 그 경우가 아니다. 그래서 이 검사는
+// **두 가지를 함께** 지킨다 — 낱말로는 여전히 못 걸리고, 지목한 책은 나간다.
 {
   for (const subject of ["공통수학1", "공통수학2", "미적분1", "기하", "확률과 통계"]) {
-    check(!wantsBooks(subject), `B3 ${subject} gets no books`);
+    check(!wantsBooks(subject), `B3 ${subject} 는 낱말로는 책을 못 받는다`);
     check(matchBooks(books, { subject, concept: "이차방정식과 이차함수", keyword: "그래프" }, 3, counts).length === 0,
-      `B3 and asking anyway returns nothing for ${subject}`);
+      `B3 그래도 물어보면 ${subject} 에서 아무것도 안 나온다`);
   }
-  check(wantsBooks("지구과학") && wantsBooks("통합사회1"), "B3 the subjects that do work are untouched");
-  check(!wantsBooks(""), "B3 no subject, no books");
+  check(wantsBooks("지구과학") && wantsBooks("통합사회1"), "B3 원래 되던 과목은 그대로다");
+  check(!wantsBooks(""), "B3 과목이 없으면 책도 없다");
+
+  // **지목한 책은 나간다.** 이것이 없으면 「급수」 과제 36건이 맞는 책을 넣어 두고도 교과서만 들고 나간다.
+  const 급수 = matchBooks(books, { subject: "미적분1", concept: "급수", keyword: "무한급수" }, 3, counts);
+  check(급수.length > 0, "B3 그런데 단원을 지목한 책은 수학에서도 나간다 — 미적분1 「급수」",
+    JSON.stringify(급수.map((b) => b.title)));
+  check(급수.every((b) => (b.why || []).includes("단원 지목")),
+    "B3 그리고 수학에서 나온 책은 모두 단원을 지목한 것이다 — 낱말로 들어온 것은 없다",
+    JSON.stringify(급수.map((b) => b.why)));
 }
 
 // B4: 왜 걸렸는지를 댈 수 있어야 한다. 이유를 못 대는 추천은 억지와 구별되지 않는다.
@@ -83,12 +95,22 @@ const check = (ok, label, detail = "") => { assert.equal(ok, true, `${label} -> 
     "B5 태풍은 지구과학 안에서 한 개념만 가리키므로 그대로 걸린다");
 
   // 이 규칙이 없으면 다시 붙는다.
-  const 내진 = axisFor("내진 설계와 구조 안정성 탐구");
-  const 규칙없이 = matchBooks(books, {
-    subject: "과학탐구실험2", concept: 내진.concept,
-    keyword: String(내진.output || "").split(/[,、·]/)[0].trim(), axisTitle: 내진.title,
-  }, 3, counts);
-  check(규칙없이.some((b) => b.title.includes("코스모스")), "B5 규칙을 빼면 「코스모스」가 되돌아온다 — 이 시험이 지키는 것");
+  //
+  // 2026-09-29: 자리를 옮겼다. 전에는 「내진 설계와 구조 안정성 탐구」에서 규칙을 빼면 「코스모스」가
+  // 돌아오는 것으로 규칙의 값을 보였는데, 책이 248권에서 288권으로 늘면서 코스모스가 **규칙과 무관하게**
+  // 5점(문턱 6)으로 떨어졌다. 낱말이 흔해진 것이다. 결과는 옳지만 그 예로는 규칙을 증명할 수 없다.
+  // 그래서 같은 과목에서 지금도 재현되는 단원으로 옮기고, **책 이름 대신 성질을 검사한다** —
+  // 규칙을 빼면 붙는 책이 늘어난다. 이름을 박아 두면 책이 늘 때마다 이 시험이 또 낡는다.
+  const 첨단 = axisFor("첨단 과학 기술의 사회 적용 탐구");
+  const 옵션 = {
+    subject: "과학탐구실험2", concept: 첨단.concept,
+    keyword: String(첨단.output || "").split(/[,、·]/)[0].trim(), axisTitle: 첨단.title,
+  };
+  const 규칙있이 = matchBooks(books, 옵션, 200, counts, conceptCounts);
+  const 규칙없이 = matchBooks(books, 옵션, 200, counts, null);
+  check(규칙없이.length > 규칙있이.length,
+    "B5 규칙을 빼면 붙는 책이 늘어난다 — 이 시험이 지키는 것",
+    `규칙 켬 ${규칙있이.length}권 · 끔 ${규칙없이.length}권`);
 }
 
 // B6: **무엇을 하는가**를 가리키는 말로는 못 걸린다.
@@ -104,9 +126,12 @@ const check = (ok, label, detail = "") => { assert.equal(ok, true, `${label} -> 
   const axisFor2 = (concept) => Object.values(axisIndex.axes).find((one) => one.concept === concept);
   const at = (subject, concept) => {
     const axis = axisFor2(concept);
+    // 2026-09-29: 6 → 200. 이 검사가 묻는 것은 **점수 규칙**이지 화면에 몇 권 뜨는지가 아니다.
+    // 책이 288권으로 늘자 「팩트풀니스」가 6점(문턱 6)을 그대로 받으면서도 45권 중 10번째로 밀려
+    // 상위 6권에서 빠졌다. 떨어진 것이 아니라 경쟁자가 늘어난 것이다. B5 의 at() 과 같은 이유다.
     return matchBooks(books, {
       subject, concept, keyword: String(axis?.output || "").split(/[,、·]/)[0].trim(), axisTitle: axis?.title,
-    }, 6, counts, conceptCounts).map((b) => b.title);
+    }, 200, counts, conceptCounts).map((b) => b.title);
   };
   check(!at("정보", "추상화와 문제 분해").includes("페르마의 마지막 정리"),
     "B6 '문제'는 개념 이름에 있어도 못 쓴다 — 수학책이 알고리즘 설계에 붙었다");

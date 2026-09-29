@@ -13,7 +13,20 @@
 import { readFile, writeFile } from "node:fs/promises";
 
 const here = (name) => new URL(name, import.meta.url);
-const source = JSON.parse(await readFile(here("new_books_2026_09.json"), "utf8"));
+// **어느 파일을 넣을지 고를 수 있다.** 두 번째 묶음(2026-09-29 빈 단원 메우기)을 넣으려고 열었다.
+// 파일마다 added_at 을 따로 두어, 어느 묶음이 우리가 넣은 것인지 나중에 구분할 수 있게 한다.
+const SOURCES = {
+  "new_books_2026_09.json": "2026-09-16",
+  "new_books_gap_2026_09_29.json": "2026-09-29",
+  "new_books_snu100_2026_09_30.json": "2026-09-30",
+};
+const sourceName = process.argv.find((one) => one.endsWith(".json"))?.split(/[\\/]/).pop() || "new_books_2026_09.json";
+if (!SOURCES[sourceName]) {
+  console.log(`모르는 파일: ${sourceName} · 아는 것: ${Object.keys(SOURCES).join(" · ")}`);
+  process.exit(1);
+}
+const ADDED_AT = SOURCES[sourceName];
+const source = JSON.parse(await readFile(here(sourceName), "utf8"));
 const bookPath = here("../public/keyword-engine/seed/book-engine/mini_book_engine_books_starter.json");
 const raw = JSON.parse(await readFile(bookPath, "utf8"));
 
@@ -26,7 +39,7 @@ const already = source.books.filter((one) => have.has(one.title));
 const fixed = [];
 for (const one of already) {
   const book = have.get(one.title);
-  if (book.added_at !== "2026-09-16") continue;   // 원래 있던 210권은 건드리지 않는다
+  if (book.added_at !== ADDED_AT) continue;   // 원래 있던 210권과 다른 묶음은 건드리지 않는다
   const before = JSON.stringify([book.connectable_concepts, book.core_keywords, book.fit_keywords, book.linked_subjects]);
   const after = JSON.stringify([one.concepts, one.core, one.fit, one.subjects]);
   if (before === after) continue;
@@ -72,7 +85,7 @@ const made = fresh.map((one) => {
     related_majors: one.majors,
     book_content_points: one.points,
     connectable_concepts: one.concepts,
-    added_at: "2026-09-16",
+    added_at: ADDED_AT,
     added_note: source.caveat,
   };
 });
