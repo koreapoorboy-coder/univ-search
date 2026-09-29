@@ -19,7 +19,7 @@ const norm = (value) => clean(value, 40).replace(/\s+/g, '').replace(/\d+$/, '')
 const tightSubject = (value) => clean(value, 40).replace(/\s+/g, '');
 const words = (text) => String(text || '').split(/[^가-힣A-Za-z0-9]+/).filter((word) => word.length >= 2);
 
-import { aliasedConcepts, allowedPair } from './book_concept_alias_v1.mjs';
+import { addedPair, aliasedConcepts, allowedPair } from './book_concept_alias_v1.mjs';
 
 const SUBJECT_POINT = 3;
 // **사람이 「이 책은 이 단원」이라고 적어 둔 것의 값.** 과목(3)과 합쳐 문턱(6)을 바로 넘는다 —
@@ -273,11 +273,12 @@ export function scoreBook(book, { subject = '', terms = [], conceptCounts = null
   //   그런데 이 책의 과목 목록에 「문학」이 없어서, 문학 과제 9건이 통째로 0권이었다.
   // **흔한 이름표로는 단원을 지목할 수 없다**(2026-09-30). labelCounts 를 안 넘기면 예전처럼 다 받는다 —
   // 검사와 도구가 그 꼴로 부른다. 넘기면 20권을 넘는 이름표는 지목으로 세지 않는다.
-  const statedHere = Boolean(mine) && (book?.connectable_concepts || [])
-    .some((one) => {
+  // 손으로 더한 짝은 이름표가 없어도 지목으로 본다(RIGHT_PAIRS).
+  const statedHere = Boolean(mine) && (addedPair(book?.title, topicName)
+    || (book?.connectable_concepts || []).some((one) => {
       if (labelCounts && (labelCounts.get(norm(one)) || 0) > COMMON_LABEL) return false;
       return aliasedConcepts(one).some((name) => norm(name) === mine);
-    });
+    }));
   // **문턱을 열어 주는 것은 우리가 넣은 책뿐이다**(2026-09-30 측정).
   //
   // 점수(아래 STATED_CONCEPT_POINT)는 모든 책에 준다 — 그것이 어제 인문·사회 책 156권을 살린 규칙이다.

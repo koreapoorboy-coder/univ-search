@@ -7,7 +7,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { COMMON_LABEL, buildConceptCounts, buildLabelCounts, buildWordCounts, matchBooks, scoreBook, MIN_SCORE } from '../../../admission_worker_skeleton/book_match_v1.mjs';
-import { WRONG_PAIRS, allowedPair } from '../../../admission_worker_skeleton/book_concept_alias_v1.mjs';
+import { BOOK_CONCEPT_ALIAS, RIGHT_PAIRS, WRONG_PAIRS, addedPair, allowedPair } from '../../../admission_worker_skeleton/book_concept_alias_v1.mjs';
 
 const here = (name) => new URL(name, import.meta.url);
 const books = JSON.parse(await readFile(here('../seed/engine-index/book_match_index.v1.json'), 'utf8')).books;
@@ -72,6 +72,28 @@ const at = (subject, concept, keyword) => matchBooks(books,
     !matchBooks(books, { subject: '사회와 문화', concept: '사회 구조와 사회 변동' }, 200, wc, cc)
       .map((one) => one.title).includes('겐지 이야기'));
   void MIN_SCORE;
+}
+
+// ── ⑤ 「자료와 모델링」은 옮기지 않는다 ────────────────────────────
+//
+// 43권이 그 이름을 달고 있는데 그 안에 『시학』·『이상한 나라의 앨리스』·『고리오 영감』이 있다.
+// 제목에 데이터·통계라는 말이 든 책은 43권 중 한 권뿐이었다. 그런데 나는 이것을 데이터 단원
+// 여섯 개로 펼쳤고, 43 × 6 = 258개 억지 짝이 그 한 줄에서 나왔다.
+{
+  ok('L5 「자료와 모델링」이 옮기는 표에 없다', !Object.prototype.hasOwnProperty.call(BOOK_CONCEPT_ALIAS, '자료와 모델링'));
+  const 전처리 = at('데이터 과학', '데이터 수집과 전처리', '데이터');
+  ok(`L5 「데이터 수집과 전처리」에 43권이 안 붙는다 (${전처리.length}권)`, 전처리.length < 10);
+  ok('L5 『고리오 영감』은 데이터 단원에 안 붙는다', !전처리.includes('고리오 영감'));
+}
+
+// ── ⑥ 그래도 진짜 데이터 책은 손으로 더해 살린다 ─────────────────────
+//
+// 이름표를 넓게 쓰면 42권이 따라오고, 좁게 쓰면 맞는 책이 죽는다. 그래서 짝으로 더한다.
+{
+  ok('L6 더한 짝이 적혀 있다', Object.keys(RIGHT_PAIRS).length >= 3);
+  ok('L6 이유 없이 더한 짝은 없다', Object.values(RIGHT_PAIRS).every((one) => String(one).trim().length >= 10));
+  ok('L6 addedPair 가 판단한다', addedPair('팩트풀니스', '자료와 정보의 분석') && !addedPair('고리오 영감', '자료와 정보의 분석'));
+  ok('L6 『팩트풀니스』가 「자료와 정보의 분석」에 남는다', at('정보', '자료와 정보의 분석', '자료').includes('팩트풀니스'));
 }
 
 console.log(`이름표 쏠림: ${pass}개 통과${fails.length ? ` · 실패 ${fails.length}` : ''}`);

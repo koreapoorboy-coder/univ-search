@@ -25,7 +25,7 @@
 //   node tools/build_unit_material_policy_v1.mjs --review   — 사람이 읽을 목록(338칸)을 낸다
 //   node tools/build_unit_material_policy_v1.mjs --write     — seed 에 초안을 쓴다
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { aliasedConcepts, allowedPair } from '../admission_worker_skeleton/book_concept_alias_v1.mjs';
+import { RIGHT_PAIRS, aliasedConcepts, allowedPair } from '../admission_worker_skeleton/book_concept_alias_v1.mjs';
 import { COMMON_LABEL, buildLabelCounts } from '../admission_worker_skeleton/book_match_v1.mjs';
 
 const here = (name) => new URL(name, import.meta.url);
@@ -77,6 +77,13 @@ for (const book of books) {
     if (!bookTitles.has(key)) bookTitles.set(key, new Set());
     bookTitles.get(key).add(title);
   }
+}
+// 손으로 더한 짝도 표에 보여야 한다 — 표와 실제가 같아야 한다.
+for (const key of Object.keys(RIGHT_PAIRS)) {
+  const [title, concept] = key.split('::');
+  const at = norm(concept);
+  if (!bookTitles.has(at)) bookTitles.set(at, new Set());
+  bookTitles.get(at).add(title);
 }
 
 // 그 단원 수행평가가 실제로 몇 건인지. 과제가 없는 단원은 사람이 읽을 필요가 없다.
