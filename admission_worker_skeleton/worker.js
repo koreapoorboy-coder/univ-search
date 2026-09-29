@@ -12,7 +12,7 @@ import { attachToStudent, saveReportOutput } from './report_archive_v1.mjs';
 import { chooseUnit, UNIT_SOURCE } from './unit_fallback_v1.mjs';
 import { adjustLicense, adjustStudent, checkEntitlement, claimSeat, emptyGrant, issueLicense, listLicenses, listStudents, loadLicense, releaseSeat, spendUse } from './license_v1.mjs';
 import { textbookCitation } from './references_v1.mjs';
-import { buildConceptCounts, buildMajorCounts, buildWordCounts, inferConcept, matchBooks } from './book_match_v1.mjs';
+import { buildConceptCounts, buildLabelCounts, buildMajorCounts, buildWordCounts, inferConcept, matchBooks } from './book_match_v1.mjs';
 import { datasetPromptLines, findPublicData } from './public_data_v1.mjs';
 import { buildFilledTable, findTable } from './kosis_fill_v1.mjs';
 import { applyDraftReview, applyReview, buildDraftReviewPrompt, buildReviewPrompt, draftReviewSchema, reviewNotes, reviewSchema } from './report_review_v1.mjs';
@@ -1051,7 +1051,10 @@ export default {
               // 셋은 너무 좁다 — 재 보니 기준을 넘는 책이 4권 넘는 개념이 25곳이고, 셋으로 자르면 57권을
               // 버리고 있었다. 여섯이면 버리는 것이 12권으로 준다. 한 줄 소개만 보이고 내용은 고를 때
               // 펼쳐지므로 여섯 줄이 화면을 덮지 않는다.
-            }, 6, buildWordCounts(bookList), buildConceptCounts(seedPack.axisIndex), buildMajorCounts(bookList));
+            }, 6, buildWordCounts(bookList), buildConceptCounts(seedPack.axisIndex), buildMajorCounts(bookList),
+            // **흔한 이름표는 지목으로 세지 않는다**(2026-09-30). 안 넘기면 matchBooks 가 스스로 세지만,
+            // 여기서 한 번 세어 넘기는 것이 낫다 — 책 목록을 두 번 훑지 않는다.
+            Math.random, buildLabelCounts(bookList));
           } catch (error) {
             // 책을 못 고르면 설계서는 그대로 나간다. 책은 있으면 좋은 것이지 없으면 안 되는 것이 아니다.
             console.error('book choices failed:', error?.message || error);

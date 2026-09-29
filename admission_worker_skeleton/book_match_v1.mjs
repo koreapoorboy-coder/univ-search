@@ -19,7 +19,7 @@ const norm = (value) => clean(value, 40).replace(/\s+/g, '').replace(/\d+$/, '')
 const tightSubject = (value) => clean(value, 40).replace(/\s+/g, '');
 const words = (text) => String(text || '').split(/[^가-힣A-Za-z0-9]+/).filter((word) => word.length >= 2);
 
-import { aliasedConcepts } from './book_concept_alias_v1.mjs';
+import { aliasedConcepts, allowedPair } from './book_concept_alias_v1.mjs';
 
 const SUBJECT_POINT = 3;
 // **사람이 「이 책은 이 단원」이라고 적어 둔 것의 값.** 과목(3)과 합쳐 문턱(6)을 바로 넘는다 —
@@ -29,7 +29,15 @@ const STATED_CONCEPT_POINT = 3;
 // 걸린 것들이었다(화학 반응식에 「국화와 칼」이 "화학" 한 낱말로 붙었다).
 export const MIN_SCORE = SUBJECT_POINT + 3;
 // 몇 권에 나오는 낱말까지 쳐 줄 것인가. 210권 중 20권을 넘으면 그 낱말은 아무것도 가리지 못한다.
-const COMMON = 20;
+export const COMMON = 20;
+// **이름표는 낱말보다 문턱이 느슨하다.** 낱말은 우연히 겹친 것이고, 이름표는 사람이 일부러 적은
+// 판단이다(거칠어도). 그래서 같은 잣대를 쓸 이유가 없다 — 재서 정했다(2026-09-30):
+//   문턱 20 → 「자료와 정보의 분석」에서 『팩트풀니스』가 죽는다. 그 책은 그 단원에 맞는 책이다.
+//   문턱 50 → 『팩트풀니스』는 살고, 『겐지 이야기』는 「사회 구조와 사회 변동」에 안 붙는다.
+//   문턱 100 → 「자연 세계의 시간과 공간」에 78권이 돌아온다(『겐지 이야기』가 거기 있다).
+// 50 이 두 쪽을 다 지키는 자리다. 막히는 이름표는 「사회 구조와 조직」(156권)과
+// 「자연 세계의 시간과 공간」(78권) 둘뿐이고, 둘 다 기본값처럼 붙은 이름이다.
+export const COMMON_LABEL = 50;
 const RARE = 5;
 // **책에 흔한 말**만 걸렀더니 **개념에 흔한 말**이 남았다. 「코스모스」가 '탐구' 하나로 내진 설계에,
 // 「의사와 수의사가 만나다」가 '비교' 하나로 기본량과 단위에 붙어 있었다.
@@ -206,6 +214,26 @@ export function buildWordCounts(books) {
   return counts;
 }
 
+// **이름표가 몇 권에 붙어 있는지 세어 둔다.** 낱말을 세는 것과 같은 이유다.
+//
+// 2026-09-30 측정: 이름표 213개 중 **6개가 20권을 넘는다.** 「사회 구조와 조직」은 **156권**(63%)에
+// 붙어 있고, 「자연 세계의 시간과 공간」 78권, 「자료와 모델링」 43권이다. 이런 이름표는 기본값처럼
+// 붙은 것이어서 아무것도 가리키지 못한다 — 『겐지 이야기』의 이름표가 「사회 구조와 조직 · 자연 세계의
+// 시간과 공간」이고, 『고리오 영감』(발자크)이 「사회 구조와 조직 · **자료와 모델링**」이다.
+//
+// 어제(2026-09-29) 나는 「156권이 이 이름을 달고 있다」를 근거로 옮기는 표를 만들었다. 그건 거꾸로였다 —
+// **그 숫자는 그 이름표가 쓸모없다는 증거였다.** 그래서 한 단원에 166권이 붙었다.
+// 낱말에는 이미 이 규칙이 있다(COMMON=20 을 넘으면 0점). 이름표에만 없었다. 같게 맞춘다.
+export function buildLabelCounts(books) {
+  const counts = new Map();
+  for (const book of Array.isArray(books) ? books : Object.values(books || {})) {
+    for (const label of new Set((book?.connectable_concepts || []).map(norm))) {
+      counts.set(label, (counts.get(label) || 0) + 1);
+    }
+  }
+  return counts;
+}
+
 // 과목마다, 낱말 하나가 그 과목의 개념 몇 곳에 나오는지 세어 둔다. 축 인덱스에서 그대로 나온다.
 export function buildConceptCounts(axisIndex) {
   const bySubject = new Map();
@@ -230,8 +258,12 @@ function wordPoint(word, counts) {
 }
 
 // 한 권을 이 보고서에 대 본다. 왜 걸렸는지를 함께 돌려준다 — 이유를 못 대는 추천은 억지와 구별되지 않는다.
-export function scoreBook(book, { subject = '', terms = [], conceptCounts = null, major = '', majorCounts = null } = {}, counts) {
+export function scoreBook(book, { subject = '', terms = [], conceptCounts = null, major = '', majorCounts = null, labelCounts = null } = {}, counts) {
   const mine = norm(terms.find((one) => one && one.topic)?.text || '');
+  // **손으로 뺀 짝은 아무 점수도 주지 않는다**(book_concept_alias_v1.mjs 의 WRONG_PAIRS).
+  // 옛 210권의 이름표에는 틀린 것이 있다 — 『페르마의 마지막 정리』가 「규칙성 발견과 주기율표」를 적었다.
+  const topicName = terms.find((one) => one && one.topic)?.text || '';
+  if (topicName && !allowedPair(book?.title, topicName)) return { score: 0, why: [], onSubject: false };
   // **책이 이 단원을 정확히 지목했으면 과목 문턱을 통과시킨다.**
   //
   // 단원 이름은 과목 이름보다 더 정확한 신호다 — 단원 이름 안에 과목이 이미 들어 있다.
@@ -239,8 +271,13 @@ export function scoreBook(book, { subject = '', terms = [], conceptCounts = null
   //   「시를 잊은 그대에게」는 공통국어1 「서정 갈래와 시적 표현」을 지목해 두었다.
   //   문학 과목의 같은 갈래 단원은 「시 갈래와 서정적 표현」이다(이름만 다르다).
   //   그런데 이 책의 과목 목록에 「문학」이 없어서, 문학 과제 9건이 통째로 0권이었다.
+  // **흔한 이름표로는 단원을 지목할 수 없다**(2026-09-30). labelCounts 를 안 넘기면 예전처럼 다 받는다 —
+  // 검사와 도구가 그 꼴로 부른다. 넘기면 20권을 넘는 이름표는 지목으로 세지 않는다.
   const statedHere = Boolean(mine) && (book?.connectable_concepts || [])
-    .some((one) => aliasedConcepts(one).some((name) => norm(name) === mine));
+    .some((one) => {
+      if (labelCounts && (labelCounts.get(norm(one)) || 0) > COMMON_LABEL) return false;
+      return aliasedConcepts(one).some((name) => norm(name) === mine);
+    });
   // **문턱을 열어 주는 것은 우리가 넣은 책뿐이다**(2026-09-30 측정).
   //
   // 점수(아래 STATED_CONCEPT_POINT)는 모든 책에 준다 — 그것이 어제 인문·사회 책 156권을 살린 규칙이다.
@@ -459,7 +496,7 @@ function sortPoints(points, terms) {
 }
 
 // 이 보고서에 권할 책. 없으면 빈 배열이 정상이다.
-export function matchBooks(books, input = {}, limit = 3, counts = null, conceptCounts = null, majorCounts = null, random = Math.random) {
+export function matchBooks(books, input = {}, limit = 3, counts = null, conceptCounts = null, majorCounts = null, random = Math.random, labelCounts = null) {
   const subject = clean(input.subject, 40);
   const list = Array.isArray(books) ? books : Object.values(books || {});
   const table = counts || buildWordCounts(list);
@@ -478,6 +515,8 @@ export function matchBooks(books, input = {}, limit = 3, counts = null, conceptC
     if (!clean(book?.title)) continue;
     const { score, why, forMajor } = scoreBook(book, {
       subject, terms, conceptCounts, major: clean(input.major, 40), majorCounts,
+      // 안 넘기면 여기서 센다 — 부르는 곳이 잊어도 규칙이 살아 있게.
+      labelCounts: labelCounts || buildLabelCounts(list),
     }, table);
     // 상대 순위가 아니라 절대 기준이다. 아무도 못 넘으면 아무도 안 나온다.
     if (score < MIN_SCORE) continue;

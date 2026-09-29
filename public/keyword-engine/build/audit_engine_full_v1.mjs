@@ -143,6 +143,22 @@ globalThis.fetch = async (input, init) => {
     const titles = sectionTitles(lastPrompt);
     if (titles.length) out.sections = titles.map((title) => ({ title, body: `${title} 검사용 본문입니다.` }));
     out.reportTitle = "전수 검사용 보고서 제목입니다";
+    // **자료 고르기는 흉내내지 못한다 — 그래서 「다 썼다」고 답한다**(2026-09-30).
+    //
+    // 검수의 sourceUse 는 「이 보고서가 이 자료를 실제로 썼나」를 **읽고** 판단하는 것이다. 틀에서
+    // 흉내낸 답은 전부 「안 썼다」가 되고, 그러면 참고 자료가 통째로 비어 감사 숫자가 거짓이 된다
+    // (처음 재 보니 책 0건 · 논문 단원 159개 → 25개였다. 실제 동작이 아니라 흉내의 결과였다).
+    // 그래서 여기서는 **검수가 없는 상태**를 재도록 다 썼다고 답한다. 자료 고르기가 잘 되는지는
+    // 유료로 한 편 돌려서만 알 수 있다 — 그것이 이 검사의 한계이고, 숨기지 않고 적어 둔다.
+    if ("sourceUse" in out) {
+      const given = (lastPrompt.match(/## 우리가 준 자료[\s\S]*?\n\n/) || [""])[0]
+        .split("\n").map((line) => (line.match(/^ {2}· (.+)$/) || [])[1]).filter(Boolean);
+      // **where 는 검수 프롬프트에 실린 보고서 본문에서 뽑는다.** out.sections 를 쓰면 안 된다 —
+      // 검수 호출에서는 그것이 채워지지 않아 엉뚱한 채움글이 되고, 그러면 usedSources 가 전부
+      // 「지어냄」으로 처리해 참고문헌의 논문이 1,720건 → 129건으로 무너진다(2026-09-30 실측).
+      const where = (lastPrompt.match(/^### .+\n(.+)$/m) || [])[1] || "";
+      out.sourceUse = where.length >= 10 ? given.map((source) => ({ source, used: true, where })) : [];
+    }
     const text = JSON.stringify(out);
     return new Response(JSON.stringify({ status: "completed", model: "gpt-5", output: [{ type: "message", content: [{ type: "output_text", text }] }], usage: { input_tokens: 0, output_tokens: 0 } }), { status: 200 });
   }

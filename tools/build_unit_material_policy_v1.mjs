@@ -25,7 +25,8 @@
 //   node tools/build_unit_material_policy_v1.mjs --review   — 사람이 읽을 목록(338칸)을 낸다
 //   node tools/build_unit_material_policy_v1.mjs --write     — seed 에 초안을 쓴다
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { aliasedConcepts } from '../admission_worker_skeleton/book_concept_alias_v1.mjs';
+import { aliasedConcepts, allowedPair } from '../admission_worker_skeleton/book_concept_alias_v1.mjs';
+import { COMMON_LABEL, buildLabelCounts } from '../admission_worker_skeleton/book_match_v1.mjs';
 
 const here = (name) => new URL(name, import.meta.url);
 const SEED = here('../public/keyword-engine/seed/');
@@ -61,11 +62,17 @@ for (const file of readdirSync(new URL('paper-route/', SEED)).filter((one) => on
 //
 // 한 책이 여러 이름을 적어 두고 그 이름들이 옮기는 표를 거쳐 같은 단원에 닿으면 같은 책이 여러 번
 // 세어진다 — 처음 뽑았을 때 「1984 · 1984 · 1984」, 「연암산문선 · 연암산문선」 이 나왔다. Set 으로 센다.
+// **흔한 이름표는 지목으로 세지 않는다** — scoreBook 과 같은 규칙이다(2026-09-30).
+// 이것을 빼먹어서 표에는 165권이라고 적히고 실제로는 다르게 걸렸다. 보여 줄 것과 실제가 갈라지면
+// 표를 읽고 판단하는 일이 헛일이 된다(이 저장소에서 같은 실수를 세 번 했다).
+const labelCounts = buildLabelCounts(books);
 const bookTitles = new Map();
 for (const book of books) {
   const title = String(book.title || '').trim();
   if (!title) continue;
-  const 닿는곳 = new Set((book.connectable_concepts || []).flatMap(aliasedConcepts).map(norm));
+  const 쓸수있는이름 = (book.connectable_concepts || []).filter((one) => (labelCounts.get(norm(one)) || 0) <= COMMON_LABEL);
+  // 손으로 뺀 짝도 여기서 빼야 표와 실제가 같다(scoreBook 과 같은 규칙).
+  const 닿는곳 = new Set(쓸수있는이름.flatMap(aliasedConcepts).filter((name) => allowedPair(title, name)).map(norm));
   for (const key of 닿는곳) {
     if (!bookTitles.has(key)) bookTitles.set(key, new Set());
     bookTitles.get(key).add(title);
@@ -104,14 +111,32 @@ for (const axis of Object.values(axisIndex.axes || {})) {
 }
 units.sort((a, b) => b.tasks - a.tasks || a.key.localeCompare(b.key, 'ko'));
 
-// 초안은 **세어서** 만든다. 자료가 있으면 '준다', 없으면 '없음'. 사람이 읽고 '안준다' 로 바꿀 수 있다.
+// **사람이 읽고 정한 것.** 표를 다시 만들 때 이것이 초안을 덮어쓴다.
+//
+// 이 파일이 없으면 내 판단은 다음 번 표 만들 때 지워진다. 초안은 「자료가 있으면 준다」라서
+// 판단이 안 들어가 있다 — 「통합적 관점과 행복」에 『경영학 콘서트』가 붙는 것은 자료가 있다는 뜻일 뿐
+// 맞다는 뜻이 아니다. 그 판단은 세어서 나오지 않으므로 손으로 적고, 적은 이유를 함께 남긴다.
+const 손판단 = JSON.parse(readFileSync(new URL('./unit_material_decisions.json', import.meta.url), 'utf8')).decisions;
+
+// 초안은 **세어서** 만든다. 자료가 있으면 '준다', 없으면 '없음'. 그다음 손판단이 덮어쓴다.
 // 「표용만」은 참고문헌에 붙는 낱말이 없다는 뜻이므로 '없음' 이다(설계서 표는 따로 채운다).
-const 초안 = (u) => ({
-  논문: u.논문 > 0 ? '준다' : '없음',
-  대학연구: u.대학연구 > 0 ? '준다' : '없음',
-  통계: u.통계 === '있음' ? '준다' : '없음',
-  책: u.책 > 0 ? '준다' : '없음',
-});
+const 초안 = (u) => {
+  const out = {
+    논문: u.논문 > 0 ? '준다' : '없음',
+    대학연구: u.대학연구 > 0 ? '준다' : '없음',
+    통계: u.통계 === '있음' ? '준다' : '없음',
+    책: u.책 > 0 ? '준다' : '없음',
+  };
+  const 정한것 = 손판단[u.key];
+  if (!정한것) return out;
+  for (const [kind, value] of Object.entries(정한것)) {
+    if (kind === 'memo') continue;
+    // **자료가 없는 칸을 「준다」로 되돌리지는 않는다.** 없는 것을 줄 수는 없다.
+    if (value === '준다' && out[kind] === '없음') continue;
+    out[kind] = value;
+  }
+  return out;
+};
 
 if (process.argv.includes('--review')) {
   // 사람이 읽어야 하는 것은 **자료가 있다고 적힌 칸**뿐이다. 없는 칸은 볼 것이 없다.
